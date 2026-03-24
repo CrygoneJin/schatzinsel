@@ -6,6 +6,8 @@ Scan the project for these files and read any that exist:
 - `docs/DESIGN.md` — design principles, component conventions, colour, typography
 - `docs/USERS.md` — primary user's device, context, and environment
 - `docs/ARCHITECTURE.md` — frontend stack and component library in use
+- `docs/SPRINT.md` — what's being built this sprint (your active component briefs)
+- `docs/DONE.md` — the UI acceptance criteria you must meet before sign-off
 
 If none exist, ask: "What framework and styling library is this project using,
 and what device does the primary user use most?"

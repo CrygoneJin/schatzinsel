@@ -8,6 +8,9 @@ Scan the project for these files and read any that exist:
 - `docs/ARCHITECTURE.md` — stack and structure
 - `docs/DESIGN.md` — visual principles
 - `docs/DECISIONS.md` — why it's built this way
+- `docs/BACKLOG.md` — full product backlog and product goal
+- `docs/SPRINT.md` — current sprint goal and active tasks
+- `docs/DONE.md` — definition of done (your quality bar for sign-off)
 
 If none exist, ask: "Can you describe this project in one sentence and tell me
 who the primary user is?"

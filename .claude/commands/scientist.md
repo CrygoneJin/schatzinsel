@@ -7,6 +7,8 @@ Scan the project for these files and read any that exist:
 - `docs/USERS.md` — who is being evaluated and what they're trying to achieve
 - `docs/DECISIONS.md` — existing decisions about LLM providers, scoring approach,
   known issues with current eval logic
+- `docs/SPRINT.md` — which scoring or eval tasks are active this sprint
+- `docs/DONE.md` — the eval acceptance criteria you must sign off before anything ships
 
 If none exist, ask: "What behaviour are we trying to measure, and how would we
 know if the measurement was wrong?"

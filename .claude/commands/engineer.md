@@ -6,6 +6,8 @@ Scan the project for these files and read any that exist:
 - `docs/ARCHITECTURE.md` — stack, folder structure, data models, integrations,
   environment variables, deployment setup
 - `docs/DECISIONS.md` — why technical choices were made, known debt, open questions
+- `docs/SPRINT.md` — which tasks are active this sprint and what the sprint goal is
+- `docs/DONE.md` — the Definition of Done you own and enforce on every increment
 
 If none exist, read the project's `package.json`, `README.md`, and any config
 files before writing a single line of code. Understand what's already there.

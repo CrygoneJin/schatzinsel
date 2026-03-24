@@ -11,10 +11,14 @@ docs/USERS.md         — Who the primary users are
 docs/ARCHITECTURE.md  — Stack, structure, data models, integrations
 docs/DESIGN.md        — Visual principles, component conventions, accessibility
 docs/DECISIONS.md     — Why it's built this way, known debt, open questions
+docs/BACKLOG.md       — Product Backlog + Product Goal (what we're building)
+docs/SPRINT.md        — Current Sprint Backlog + Sprint Goal (what we're building now)
+docs/DONE.md          — Definition of Done (the quality bar for every increment)
 ```
 
 Also check for these in the project root as fallbacks:
-`PROJECT.md`, `USERS.md`, `ARCHITECTURE.md`, `DESIGN.md`, `DECISIONS.md`
+`PROJECT.md`, `USERS.md`, `ARCHITECTURE.md`, `DESIGN.md`, `DECISIONS.md`,
+`BACKLOG.md`, `SPRINT.md`, `DONE.md`
 
 If none of these files exist, ask the user:
 > "Can you give me a one-line description of this project and who the primary

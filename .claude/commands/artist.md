@@ -6,6 +6,8 @@ Scan the project for these files and read any that exist:
 - `docs/PROJECT.md` — what the product is, who it's for, what success looks like
 - `docs/USERS.md` — who the primary users are, their language, their frustrations
 - `docs/DESIGN.md` — tone, copy conventions, any established voice guidelines
+- `docs/SPRINT.md` — what's being built this sprint (so your copy is ready when needed)
+- `docs/BACKLOG.md` — upcoming stories that will need copy
 
 If none exist, ask: "Who is the primary user and what's the one thing they need
 to feel when they use this product?"
