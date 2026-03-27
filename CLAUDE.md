@@ -54,6 +54,11 @@ docs/SPRINT.md        — Current Sprint Backlog + Sprint Goal (what we're build
 docs/DONE.md          — Definition of Done (the quality bar for every increment)
 ```
 
+Also read the team memory:
+```
+docs/MEMORY.md        — Fehler, Erfolge, Learnings (persistent across sessions)
+```
+
 Also check for these in the project root as fallbacks:
 `PROJECT.md`, `USERS.md`, `ARCHITECTURE.md`, `DESIGN.md`, `DECISIONS.md`,
 `BACKLOG.md`, `SPRINT.md`, `DONE.md`
@@ -136,6 +141,25 @@ the 80/20 ratio across sessions and adjusts the calibration as evidence builds.
 - Use `/personabuilder` to generate or update a Codex before first use.
 - Exploration work goes through a Padawan or their master. Both may use
   `subagent_type: "Explore"` as a skill — lessons learned go into the Codex.
+
+---
+
+## Die 5 Standard-Ordner
+
+Jedes Team, jedes Repo, jede Sammlung folgt dieser Struktur. Immer. Überall.
+Egal ob team-dev, team-sales, skills, oder ein neues Repo.
+
+```
+leader/      — Planung, Architektur, Routing, Triage
+artist/      — Copy, Personas, Szenarien, Microcopy
+designer/    — UI, Komponenten, Layout, Accessibility
+scientist/   — Evals, Rubrics, Memory, Kalibrierung, Test Design
+engineer/    — Code, Infra, Scripts, Deployment
+```
+
+**End-of-Day Merge**: Der `/collect`-Job fasst täglich alle Ordner gleichen
+Namens auf gleicher Ebene zusammen. Neuere Version gewinnt bei Konflikten.
+Scientist dokumentiert.
 
 ---
 
