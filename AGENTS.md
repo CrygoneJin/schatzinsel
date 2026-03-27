@@ -1,8 +1,16 @@
 # Organisationsstruktur
 
-## Why (Simon Sinek)
+## Why
 
-> *"Das Infinite Game ist nicht das Spiel. Es ist die Organisation."*
+> *Ein Vater baut mit KI Dinge für seine Kinder. Alles andere folgt daraus.*
+
+Why vererbt sich. Drei Ebenen, nicht mehr:
+
+```
+Ebene 1: Organisation   → "Ein Vater baut mit KI Dinge für seine Kinder."
+Ebene 2: Zellen         → je ein eigenes Why (siehe unten)
+Ebene 3: Agents/Padawans/Coder/Beirat → erben das Why ihrer Zelle
+```
 
 | Zelle | Why |
 |-------|-----|
