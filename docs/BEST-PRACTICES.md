@@ -347,6 +347,23 @@ ist das 10% seiner Session. Weg. Für nichts.
 
 ---
 
+## Regel 12: Claude Code Web Sessions
+
+In **Claude Code Web** (claude.ai/code) gilt:
+- **Write-Tool ist IMMER erlaubt** — keine Permission nötig
+- Read, Glob, Grep: auch immer erlaubt
+- Bash: fragt nach Permission (außer allow-listed)
+- Edit: immer erlaubt
+
+Das heißt: Web Sessions sind ideal für schnelles Prototyping.
+Datei schreiben, committen, fertig. Kein Permission-Dialog.
+
+Aber: Web Sessions haben **kein persistentes Filesystem**. Alles
+was nicht in Git gepusht wird, ist nach Session-Ende weg.
+→ Push vor Session-Ende. Immer.
+
+---
+
 ## Zusammenfassung
 
 ```
