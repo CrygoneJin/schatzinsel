@@ -14,15 +14,47 @@ mkdir -p "$OUTPUT_DIR/team-sales"
 mkdir -p "$OUTPUT_DIR/raw"
 mkdir -p "$SKILLS_DIR/raw"
 
-REPOS=(
-    "CrygoneJin/sally-sales"
-    "CrygoneJin/justine-form"
-    "CrygoneJin/shakerchallenge"
-    "CrygoneJin/tina-teilechecker"
-    "CrygoneJin/claude-agent-template"
-    "CrygoneJin/plant-care-game"
-    "CrygoneJin/sharepoint-page"
+## Repos werden dynamisch gesucht — Tippfehler egal
+SEARCH_TERMS=(
+    "sally"
+    "justine"
+    "shaker"
+    "tina"
+    "claude-agent"
+    "plant-care"
+    "sharepoint"
 )
+
+echo "=== Suche Repos bei CrygoneJin ==="
+echo ""
+
+# Alle Repos vom User holen
+ALL_REPOS=$(curl -sf "https://api.github.com/users/CrygoneJin/repos?per_page=100" \
+    | python3 -c "import sys,json; [print(r['full_name']) for r in json.load(sys.stdin)]" 2>/dev/null)
+
+if [ -z "$ALL_REPOS" ]; then
+    echo "FEHLER: Konnte Repos nicht laden. Fallback auf statische Liste."
+    ALL_REPOS="CrygoneJin/sally-sales
+CrygoneJin/justine-form
+CrygoneJin/shakerchallenge
+CrygoneJin/tina-teilechecker
+CrygoneJin/claude-agent-template
+CrygoneJin/plant-care-game
+CrygoneJin/sharepoint-page"
+fi
+
+# Fuzzy-Match: jeder Suchbegriff gegen alle Repo-Namen
+REPOS=()
+for term in "${SEARCH_TERMS[@]}"; do
+    MATCH=$(echo "$ALL_REPOS" | grep -i "$term" | head -1)
+    if [ -n "$MATCH" ]; then
+        REPOS+=("$MATCH")
+        echo "  '$term' → $MATCH"
+    else
+        echo "  '$term' → NICHT GEFUNDEN"
+    fi
+done
+echo ""
 
 TEMP_DIR=$(mktemp -d)
 
