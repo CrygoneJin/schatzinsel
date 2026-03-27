@@ -267,6 +267,54 @@ Wenn [Frau sagt "ist das nötig?"]
 
 ---
 
+## Regel 11: Das Babel-Problem
+
+Papa codet bilingual. Deutsch mit den Kindern, Englisch im Code,
+Denglisch mit Claude. Die Spracherkennung auf dem iPhone macht
+daraus regelmäßig Comedy-Gold.
+
+### Der KI-Zoo im Haushalt
+
+| Gerät | KI | Qualität |
+|-------|----|----------|
+| Papas iPhone | Gemini | Transkribiert "Architekt" als "Are she tackled" |
+| Mamas iPhone | ChatGPT | Antwortet auf "Was gibt's zum Abendessen?" mit einem Essay über Ernährungsphilosophie |
+| Papas Mac Mini | Claude Code | Versteht Denglisch. Meistens. |
+
+### Was passiert wenn KIs miteinander reden
+
+Schlechtere Copy kann nicht mal Mario Barth schreiben.
+Und von Gags brauchen wir noch nicht mal zu träumen.
+
+Wenn Papa per Spracheingabe diktiert und Claude das interpretiert,
+entstehen Sätze wie:
+
+> "Ich bin Oskar und mag Häuser weil ich weil ich später Architekt
+> werden will Du sagst immer warum warum warum"
+
+Das ist kein Bug. Das ist ein 8-Jähriger der ins Mikro spricht.
+
+### Implikationen für das Projekt
+
+1. **Input ist chaotisch**: Spracherkennung + Kinder + Denglisch =
+   Claude muss mit fragmentiertem Input umgehen können
+2. **Kontext ist alles**: Ohne CLAUDE.md und die Story-Bibel versteht
+   keine KI was hier passiert
+3. **Humor entsteht aus den Fehlern**: Die Familie lacht über die
+   Transkriptionsfehler. Das ist gut. Das Spiel darf auch so sein --
+   unperfekt, lustig, menschlich.
+4. **Perfektion ist nicht das Ziel**: Wenn drei verschiedene KIs im
+   Haushalt alle verschiedenen Unsinn produzieren, dann ist "gut genug"
+   das neue "perfekt".
+
+### Die Mario-Barth-Regel
+
+> Wenn deine KI-generierte Copy schlechter ist als ein Mario Barth
+> Programm, hast du ein Problem. Aber wenn deine Familie darüber lacht,
+> hast du ein Feature.
+
+---
+
 ## Zusammenfassung
 
 ```

@@ -50,6 +50,18 @@ Siehe `docs/SCHNIPSEL.md` für das vollständige Profil.
 | MacBook Pro 13" (2013) | 2560x1600 | Schnipsel, Testgerät | macOS Monterey (gepatcht), älterer Browser, Trackpad |
 | iPhone SE | 4.7" (750x1334) | Tochter | Winziger Bildschirm! Touch only. |
 
+### KI-Ökosystem im Haushalt
+
+| Gerät | KI | Nutzer |
+|-------|----|--------|
+| Papas iPhone | Gemini (Spracheingabe) | Papa diktiert Denglisch |
+| Mamas iPhone | ChatGPT | Mama fragt praktische Dinge |
+| Mac Mini | Claude Code CLI | Papa codet |
+
+**Wichtig**: Input kommt oft per Spracheingabe -- Transkriptionsfehler,
+Kindersprache, Denglisch und Hintergrundlärm sind normal. Claude Code
+muss mit fragmentiertem, bilingualem Input klarkommen.
+
 ### Design-Implikationen der Spielgeräte
 
 - **4K 27"**: Canvas muss scharf skalieren, kein Pixel-Matsch
