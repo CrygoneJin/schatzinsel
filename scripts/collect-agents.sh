@@ -21,6 +21,7 @@ REPOS=(
     "CrygoneJin/tina-teilechecker"
     "CrygoneJin/claude-agent-template"
     "CrygoneJin/plant-care-game"
+    "CrygoneJin/sharepoint-page"
 )
 
 TEMP_DIR=$(mktemp -d)
