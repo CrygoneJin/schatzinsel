@@ -307,6 +307,38 @@ Das ist kein Bug. Das ist ein 8-Jähriger der ins Mikro spricht.
    Haushalt alle verschiedenen Unsinn produzieren, dann ist "gut genug"
    das neue "perfekt".
 
+### Der Drei-Anlauf-Bug (aka "Spricht Claude Deutsch?")
+
+Was passiert wenn die Config auf `en` steht aber der User Deutsch spricht:
+
+```
+Anlauf 1: User redet Deutsch
+           → Claude antwortet Englisch
+           → User verwirrt: "Kannst du kein Deutsch?"
+
+Anlauf 2: Claude versucht Deutsch zu parsen, transkribiert Müll
+           → Fängt mit englischem Satz an
+           → User noch verwirrter
+
+Anlauf 3: Claude redet endlich Deutsch
+           → 3 Antworten, dann... Stille.
+           → User wartet. Nix passiert.
+           → User enttäuscht. Legt auf.
+           → Kein Feedback was passiert ist.
+```
+
+**Das sind 3 verlorene Minuten von einem 30-Minuten-Fenster.**
+Bei einem Vater der zwischen Gartenarbeit und Kindern codet
+ist das 10% seiner Session. Weg. Für nichts.
+
+### Die Fix-Checkliste
+
+1. **CLAUDE.md Zeile 1**: Sprache festlegen
+2. **Alle Docs**: Auf Deutsch (wir reden Deutsch, wir coden Denglisch)
+3. **Keine Annahmen**: Claude soll Deutsch antworten. Immer. Punkt.
+4. **Stall-Feedback**: Wenn Claude stockt, muss der User das sehen.
+   Keine stille Leere. Lieber "Ich denke nach..." als Nichts.
+
 ### Die Mario-Barth-Regel
 
 > Wenn deine KI-generierte Copy schlechter ist als ein Mario Barth

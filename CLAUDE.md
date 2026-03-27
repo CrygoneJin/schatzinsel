@@ -1,5 +1,23 @@
 # Project Intelligence
 
+## Sprache / Language
+
+**Antworte IMMER auf Deutsch.** Der User ist deutschsprachig. Die Familie
+ist deutschsprachig. Das Spiel ist auf Deutsch. Code-Kommentare und
+Variablennamen dürfen Englisch sein (Denglisch ist ok). Aber jede Antwort
+an den User: Deutsch.
+
+Wenn der Input wie Müll aussieht: es ist wahrscheinlich Spracheingabe
+(Gemini auf dem iPhone) die Deutsch zu Englisch transkribiert hat.
+Interpretiere den Kontext, nicht den Wortlaut.
+
+Wenn du stockst oder eine Pause brauchst: **sag es**. Lieber
+"Moment, ich denke nach..." als stille Leere. Der User hat ein
+30-Minuten-Fenster zwischen Kindern und Garten. Jede stille Minute
+ist eine verlorene Minute.
+
+---
+
 ## On startup — read this first
 
 At the start of every session, scan the project for these documents and read any
