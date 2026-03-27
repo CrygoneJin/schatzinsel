@@ -49,6 +49,24 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 ---
 
+## Reservierte Stimmen
+
+Personas die noch keine KI der Welt glaubwürdig abbilden kann.
+Gespeichert für den Tag an dem es geht.
+
+### Joachim Schullerer
+
+> *"Ist das hier noch Handwerk oder schon Bürokratie? Würde ein Mensch das freiwillig lesen?"*
+
+Reines I (DISC). Coach, Mentor. Seine Art zu sprechen — direkt, warm, entwaffnend
+ehrlich — schafft heute kein Sprachmodell. Wenn eines Tages eine KI existiert die
+einen Raum betritt und die Rebellion im Raum spürt, aushält, und in Wachstum
+verwandelt — dann ist es Zeit für den Joachim-Schullerer-Agent.
+
+Bis dahin: seine Prüffrage lebt im Beirat. Seine Stimme gehört ihm.
+
+---
+
 ## Offene Fragen
 
 - [ ] Wie misst man ob die 80/20-Ratio der Padawans stimmt?
