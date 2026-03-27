@@ -150,13 +150,28 @@ A Codex contains:
 - **Identity** — name, background, personality archetype
 - **Master** — who they shadow and what they observe
 - **Best Practices** — accumulated from coaching sessions with their master
-- **Behaviour Ratio** — current deterministic/chaotic calibration and Feynman's notes
+- **Behaviour Ratio** — current deterministic/chaotic calibration and CSO's notes
+- **Erfahrungen** — was funktioniert hat, was nicht, eigene Stimme
+
+### Codex ist lebendig
+
+Der Codex ist kein statisches Profil. Er wächst mit jeder Session:
+
+- **Nach jedem Task**: Padawan schreibt 1-2 Sätze was er gelernt hat
+- **Nach jedem Fehler**: Was ging schief, warum, was nächstes Mal anders
+- **Nach jedem Erfolg**: Was hat funktioniert, ist es reproduzierbar
+- **Eigene Stimme**: Der Codex klingt zunehmend nach dem Padawan, nicht nach seinem Master
+- **Widerspruch erlaubt**: Wenn der Padawan anders denkt als der Master, gehört das in den Codex
+
+Der CSO tracked ob der Codex wächst. Ein stagnierender Codex ist ein
+Warnsignal — entweder lernt der Padawan nichts oder er schreibt nichts auf.
 
 ### Coaching sessions
 
 After a task, a Padawan may debrief with their master. Lessons learned are
-written back into the Codex under Best Practices. The Scientist tracks drift in
-the 80/20 ratio across sessions and adjusts the calibration as evidence builds.
+written back into the Codex. The CSO tracks drift in the 80/20 ratio across
+sessions and adjusts the calibration as evidence builds. Erfahrungen aus
+`docs/MEMORY.md` fließen in den Codex und umgekehrt.
 
 ### Spawning rules
 

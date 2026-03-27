@@ -138,7 +138,10 @@ Engineer (Sonnet)
               └──────────────────┘
 ```
 
-Jede Kante ist bidirektional. Keine Zelle ist "Mitte" oder "Rand".
+Jede Kante ist bidirektional. org-support und team-dev bilden den Kern.
+**team-sales operiert an der Peripherie** — dort ist der Kontakt zur Außenwelt,
+dort spielt die Musik. Peripherie heißt nicht unwichtig. Es heißt: dort
+passieren die Dinge die man nicht vorhersagen kann.
 
 ---
 
