@@ -14,9 +14,10 @@ Das Spiel ist ein Produkt — es wird fertig. Die Art wie diese Familie
 mit KI zusammenarbeitet, entwickelt sich weiter. Die Organisation ist
 für das Unendliche Spiel gebaut, nicht für das aktuelle Produkt.
 
-## Beirat
+## Beirat (nur auf Bedarf)
 
-Keine Agents. Keine Rollen. Denk-Werkzeuge die jede Entscheidung prüfen.
+Keine Agents. Keine Rollen. Keine ständige Präsenz.
+Denk-Werkzeuge die bei Bedarf als Prüffrage herangezogen werden.
 
 | Beirat | Perspektive | Prüffrage |
 |--------|-------------|-----------|
