@@ -28,10 +28,10 @@ Ehrenhafte Position. Kein Gremium, keine Sitzungen, keine ständige Präsenz.
 Hierhin kommt nur wer sich durch exzellenten Ruf und Arbeit verdient hat.
 Wird bei Bedarf als Prüfinstanz herangezogen — nicht als Routine.
 
-| Beirat | Perspektive | Prüffrage |
-|--------|-------------|-----------|
-| **Seth Godin** | Purple Cow / Linchpin | Ist jeder Agent bemerkenswert? Herausfordert der Padawan seinen Master? |
-| **Simon Sinek** | Start with Why / Infinite Game | Hat jede Zelle ein Why? Spielen wir endlich oder unendlich? |
+| Beirat | Why he is here | Prüffrage | Entlassung wenn |
+|--------|---------------|-----------|-----------------|
+| **Seth Godin** | Weil ohne ihn Padawans zu Kopien ihrer Masters werden | Ist jeder Agent bemerkenswert? Herausfordert der Padawan seinen Master? | Godin-Test ist Routine und braucht keinen Prüfer mehr |
+| **Simon Sinek** | Weil ohne ihn die Organisation ihr Warum vergisst | Hat jede Zelle ein Why? Spielen wir endlich oder unendlich? | Why ist verinnerlicht und vererbt sich ohne Erinnerung |
 
 ---
 
