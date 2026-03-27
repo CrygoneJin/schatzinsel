@@ -1,0 +1,420 @@
+/* === RESET & BASE === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Comic Sans MS', Arial, sans-serif;
+    background: #87CEEB;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* === INTRO OVERLAY === */
+#intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #87CEEB 0%, #4DB8E8 40%, #F4D03F 70%, #E8C84A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: introFadeIn 0.5s ease-out;
+}
+
+@keyframes introFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#intro-overlay.hiding {
+    animation: introFadeOut 0.6s ease-in forwards;
+}
+
+@keyframes introFadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(1.1); }
+}
+
+.intro-content {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 50px 60px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 560px;
+}
+
+.intro-emoji {
+    font-size: 80px;
+    margin-bottom: 10px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.intro-content h1 {
+    font-size: 32px;
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+.intro-story {
+    font-size: 20px;
+    color: #34495E;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+#start-button {
+    font-size: 28px;
+    padding: 16px 48px;
+    background: linear-gradient(135deg, #27AE60, #2ECC71);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+}
+
+#start-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.6);
+}
+
+#start-button:active {
+    transform: scale(0.96);
+}
+
+/* === GAME CONTAINER === */
+#game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* === HEADER === */
+header {
+    background: linear-gradient(135deg, #2C3E50, #34495E);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+/* === TOOLBAR === */
+#toolbar {
+    background: linear-gradient(135deg, #F39C12, #E67E22);
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.toolbar-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.toolbar-label {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.tool-btn, .action-btn {
+    font-size: 16px;
+    padding: 8px 14px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    background: white;
+    color: #2C3E50;
+    font-weight: bold;
+}
+
+.tool-btn:hover, .action-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tool-btn:active, .action-btn:active {
+    transform: scale(0.95);
+}
+
+.tool-btn.active {
+    border-color: #2C3E50;
+    background: #D5F5E3;
+    box-shadow: 0 0 0 2px #27AE60;
+}
+
+#project-name {
+    font-size: 16px;
+    padding: 8px 12px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background: white;
+    color: #2C3E50;
+    width: 180px;
+    font-weight: bold;
+}
+
+#project-name::placeholder {
+    color: #95A5A6;
+}
+
+/* === MAIN AREA === */
+#main-area {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* === PALETTE === */
+#palette {
+    width: 120px;
+    background: linear-gradient(180deg, #1ABC9C, #16A085);
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+#palette h2 {
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.material-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.85);
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    min-height: 58px;
+}
+
+.material-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.material-btn:active {
+    transform: scale(0.94);
+}
+
+.material-btn.active {
+    border-color: #2C3E50;
+    background: #D5F5E3;
+    box-shadow: 0 0 0 2px #27AE60;
+}
+
+.mat-emoji {
+    font-size: 24px;
+}
+
+.mat-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #2C3E50;
+    margin-top: 2px;
+}
+
+/* === CANVAS === */
+#canvas-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3498DB;
+    position: relative;
+    overflow: hidden;
+}
+
+#game-canvas {
+    cursor: crosshair;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+/* === STATS === */
+#stats {
+    width: 180px;
+    background: linear-gradient(180deg, #8E44AD, #7D3C98);
+    padding: 14px;
+    color: white;
+    overflow-y: auto;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+#stats h2 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+#stats-content p {
+    font-size: 13px;
+    margin-bottom: 6px;
+    padding: 4px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.stat-count {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* === LOAD DIALOG === */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+}
+
+.dialog-overlay.hidden {
+    display: none;
+}
+
+.dialog-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    min-width: 350px;
+    max-width: 500px;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dialog-content h2 {
+    text-align: center;
+    margin-bottom: 16px;
+    color: #2C3E50;
+}
+
+.saved-project-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    background: #ECF0F1;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.saved-project-item:hover {
+    background: #D5F5E3;
+    transform: scale(1.02);
+}
+
+.saved-project-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2C3E50;
+}
+
+.saved-project-date {
+    font-size: 12px;
+    color: #7F8C8D;
+}
+
+.saved-project-delete {
+    background: #E74C3C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.15s;
+}
+
+.saved-project-delete:hover {
+    transform: scale(1.1);
+}
+
+.no-projects {
+    text-align: center;
+    color: #95A5A6;
+    font-size: 16px;
+    padding: 20px;
+}
+
+#close-load-dialog {
+    display: block;
+    margin: 16px auto 0;
+}
+
+/* === TOAST === */
+#toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2C3E50;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    z-index: 600;
+    animation: toastIn 0.3s ease-out;
+}
+
+#toast.hidden {
+    display: none;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* === ANIMATIONS === */
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0.5; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}

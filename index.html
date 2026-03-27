@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oskars Insel-Architekt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Intro-Overlay -->
+    <div id="intro-overlay">
+        <div class="intro-content">
+            <div class="intro-emoji">🏝️</div>
+            <h1>Oskars Insel-Architekt</h1>
+            <p class="intro-story">
+                Du bist auf einer geheimnisvollen Insel gestrandet!
+                Keine Häuser, keine Stadt &ndash; nur Bäume, Steine und jede Menge Platz.
+            </p>
+            <p class="intro-story">
+                Zeit, als Architekt deine eigene Inselstadt zu bauen! 🏗️
+            </p>
+            <button id="start-button">🚀 Los geht's!</button>
+        </div>
+    </div>
+
+    <!-- Hauptspiel -->
+    <div id="game-container">
+
+        <!-- Header -->
+        <header>
+            <h1>🏝️ Oskars Insel-Architekt 🏗️</h1>
+        </header>
+
+        <!-- Toolbar -->
+        <div id="toolbar">
+            <div class="toolbar-section">
+                <span class="toolbar-label">Werkzeuge:</span>
+                <button class="tool-btn active" data-tool="build" title="Bauen">🖌️ Bauen</button>
+                <button class="tool-btn" data-tool="demolish" title="Abreißen">🗑️ Abreißen</button>
+                <button class="tool-btn" data-tool="fill" title="Füllen">🪣 Füllen</button>
+            </div>
+            <div class="toolbar-section">
+                <span class="toolbar-label">Projekt:</span>
+                <input type="text" id="project-name" placeholder="Mein Bauwerk" maxlength="30">
+                <button class="action-btn" id="save-btn" title="Speichern">💾 Speichern</button>
+                <button class="action-btn" id="load-btn" title="Laden">📂 Laden</button>
+                <button class="action-btn" id="new-btn" title="Neu">🆕 Neu</button>
+            </div>
+        </div>
+
+        <!-- Hauptbereich -->
+        <div id="main-area">
+
+            <!-- Material-Palette -->
+            <div id="palette">
+                <h2>Materialien</h2>
+                <button class="material-btn active" data-material="wood">
+                    <span class="mat-emoji">🪵</span>
+                    <span class="mat-label">Holz</span>
+                </button>
+                <button class="material-btn" data-material="stone">
+                    <span class="mat-emoji">🧱</span>
+                    <span class="mat-label">Stein</span>
+                </button>
+                <button class="material-btn" data-material="glass">
+                    <span class="mat-emoji">🪟</span>
+                    <span class="mat-label">Glas</span>
+                </button>
+                <button class="material-btn" data-material="plant">
+                    <span class="mat-emoji">🌿</span>
+                    <span class="mat-label">Pflanze</span>
+                </button>
+                <button class="material-btn" data-material="tree">
+                    <span class="mat-emoji">🌳</span>
+                    <span class="mat-label">Baum</span>
+                </button>
+                <button class="material-btn" data-material="flower">
+                    <span class="mat-emoji">🌸</span>
+                    <span class="mat-label">Blume</span>
+                </button>
+                <button class="material-btn" data-material="door">
+                    <span class="mat-emoji">🚪</span>
+                    <span class="mat-label">Tür</span>
+                </button>
+                <button class="material-btn" data-material="roof">
+                    <span class="mat-emoji">🏠</span>
+                    <span class="mat-label">Dach</span>
+                </button>
+                <button class="material-btn" data-material="lamp">
+                    <span class="mat-emoji">💡</span>
+                    <span class="mat-label">Lampe</span>
+                </button>
+                <button class="material-btn" data-material="sand">
+                    <span class="mat-emoji">⬜</span>
+                    <span class="mat-label">Sand</span>
+                </button>
+                <button class="material-btn" data-material="water">
+                    <span class="mat-emoji">🌊</span>
+                    <span class="mat-label">Wasser</span>
+                </button>
+                <button class="material-btn" data-material="path">
+                    <span class="mat-emoji">🟫</span>
+                    <span class="mat-label">Weg</span>
+                </button>
+            </div>
+
+            <!-- Canvas -->
+            <div id="canvas-wrapper">
+                <canvas id="game-canvas"></canvas>
+            </div>
+
+            <!-- Statistiken -->
+            <div id="stats">
+                <h2>Insel-Info</h2>
+                <div id="stats-content">
+                    <p>Noch nichts gebaut!</p>
+                    <p>Fang einfach an! 🏗️</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Lade-Dialog -->
+        <div id="load-dialog" class="dialog-overlay hidden">
+            <div class="dialog-content">
+                <h2>📂 Projekt laden</h2>
+                <div id="saved-projects-list"></div>
+                <button class="action-btn" id="close-load-dialog">❌ Schließen</button>
+            </div>
+        </div>
+
+        <!-- Toast-Nachricht -->
+        <div id="toast" class="hidden"></div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
