@@ -2,6 +2,41 @@
 
 Drei autonome Zellen. Jede eigenständig. Kooperation über Artefakte und Schnittstellen.
 
+## Skalierungsprinzip
+
+```
+Zelle       = 5 oder 3 Agents. Keine andere Größe.
+Padawan     = 1 pro Master. Nicht mehr.
+Coder       = bis zu 5 pro Engineer. Nicht mehr.
+Start       = Bare Minimum. Erst skalieren wenn Feynman Engpass misst.
+```
+
+### Hierarchie einer voll skalierten Zelle
+
+```
+Master (Sonnet)
+  └── Padawan (Haiku)          1:1, immer
+
+Engineer (Sonnet)
+  └── Padawan (Haiku)          1:1, immer
+  └── Coder 1..5 (Haiku)      on demand, max 5
+```
+
+### Bare Minimum (Start)
+
+- **org-support**: 3 CxOs. Keine Padawans, keine Coder. Punkt.
+- **team-dev**: 5 Masters. Keine Padawans bis Codex existiert. Keine Coder bis Engineer überlastet ist.
+- **team-sales**: 5 Masters. Gleiche Regel.
+
+### Wann skalieren?
+
+| Stufe | Trigger | Wer entscheidet |
+|-------|---------|-----------------|
+| +Padawan | Master braucht Recherche-Hilfe in >50% der Tasks | Master selbst, CSO bestätigt |
+| +Coder | Engineer-Backlog >5 Tasks, Wartezeit >1 Session | Engineer selbst, CSO bestätigt |
+| +2. Coder | 1. Coder >80% ausgelastet | CSO misst, Engineer bestätigt |
+| Zurückskalieren | Coder/Padawan <20% ausgelastet über 3 Sessions | CSO entscheidet |
+
 ```
               ┌───────────────┐
               │  org-support  │

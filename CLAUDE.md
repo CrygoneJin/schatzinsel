@@ -105,10 +105,20 @@ added capability justifies the cost, and makes the call. No agent self-elevates.
 
 ---
 
+## Skalierungsprinzip
+
+```
+Zelle   = 5 oder 3. Keine andere Größe.
+Padawan = 1 pro Master (Haiku). Nicht mehr.
+Coder   = bis zu 5 pro Engineer (Haiku). Nicht mehr.
+Start   = Bare Minimum. Erst skalieren wenn CSO Engpass misst.
+```
+
+Vollständige Skalierungsregeln in `AGENTS.md`.
+
 ## Padawan System
 
-Each core agent has one Padawan — a junior counterpart who handles light tasks
-(file searches, code reads, research queries) and learns from their master.
+1 Padawan pro Master. Haiku. 80/20 Ratio. Kein Padawan ohne Codex.
 
 | Padawan of  | Command             | Model | Behaviour baseline |
 |-------------|---------------------|-------|--------------------|
@@ -120,7 +130,7 @@ Each core agent has one Padawan — a junior counterpart who handles light tasks
 
 **80/20 behaviour baseline**: 80% deterministic — follows established patterns,
 repeatable outputs, consistent style. 20% chaotic — explores alternatives,
-questions assumptions, surprises the master occasionally. The Scientist owns the
+questions assumptions, surprises the master occasionally. The CSO owns the
 measurement and calibration of this ratio.
 
 ### Persona profiles
