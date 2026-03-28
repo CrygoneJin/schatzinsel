@@ -722,58 +722,40 @@ header h1 {
         display: none;
     }
 
+    /* Stats: auf Mobile versteckt — Canvas ist King */
+    #stats {
+        display: none;
+    }
+
+    /* Header: minimal */
+    header {
+        padding: 4px 8px;
+    }
+
+    header h1 {
+        font-size: 14px;
+    }
+
+    /* Palette: kompakter */
     .material-btn {
-        flex-direction: column;
-        min-height: 52px;
-        min-width: 52px;
-        padding: 6px 8px;
-        gap: 2px;
-        flex-shrink: 0;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 4px;
     }
 
     .mat-emoji {
-        font-size: 28px;
+        font-size: 24px;
     }
 
-    .mat-name {
-        font-size: 10px;
-    }
-
-    .mat-label {
-        font-size: 11px;
-    }
-
-    /* Canvas: volle Breite */
+    /* Canvas: maximale Fläche */
     #canvas-wrapper {
         min-height: 0;
-        padding: 4px;
+        padding: 2px;
     }
 
     #game-canvas {
         width: 100% !important;
         height: auto !important;
-    }
-
-    /* Stats: horizontal unter dem Canvas */
-    #stats {
-        width: 100%;
-        padding: 8px;
-    }
-
-    #stats h2 {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-
-    #stats-content {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-
-    #stats-content p {
-        font-size: 12px;
-        margin-bottom: 0;
     }
 
     /* Toast: oben statt unten, blockiert nicht das Baufeld */
