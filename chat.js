@@ -277,6 +277,104 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     // config.js: { proxy: 'https://insel.workers.dev', models: { bernd: 'gpt-4o' } }
     const CFG = window.INSEL_CONFIG || {};
 
+    // === KI-BAUKOMMENTAR-PUFFER ===
+    // Hält 5 vorproduzierte KI-Kommentare. Wird im Hintergrund aufgefüllt.
+    // game.js ruft window.requestAiComment() auf — bekommt sync einen String zurück.
+    // Kein Warten, kein Spinner. Puffer leer = Template-Fallback in game.js.
+    const AI_COMMENT_BUFFER = [];
+    const AI_COMMENT_BUFFER_MAX = 5;
+    let aiCommentFilling = false; // Verhindert parallele Fill-Requests
+
+    // Kontext-Templates für den KI-Prompt (kurz = wenig Tokens)
+    function buildCommentPrompt(material, npcId, gridStats) {
+        const voices = {
+            spongebob: 'SpongeBob (überschwänglich, alles ist TOLL)',
+            maus:      'Maus (süß, piepst, haiku-artig)',
+            elefant:   'Elefant (bedächtig, sagt Törööö)',
+            neinhorn:  'Neinhorn (sagt zuerst NEIN, stimmt dann zu)',
+            krabs:     'Mr. Krabs (alles ist Geld und Gewinn)',
+            tommy:     'Tommy Krapweis (aufgedreht, sagt Klick-Klack)',
+            bernd:     'Bernd das Brot (genervt, resigniert)',
+        };
+        const matLabels = {
+            wood: 'Holz', stone: 'Stein', glass: 'Glas', plant: 'Pflanze',
+            tree: 'Baum', flower: 'Blume', water: 'Wasser', fence: 'Zaun',
+            boat: 'Boot', fish: 'Fisch', bridge: 'Brücke', flag: 'Flagge',
+            fountain: 'Brunnen', mushroom: 'Pilz', door: 'Tür', roof: 'Dach',
+            lamp: 'Lampe', sand: 'Sand', path: 'Weg', cactus: 'Kaktus',
+            fire: 'Feuer', metal: 'Metall', earth: 'Erde',
+        };
+        const npcDesc = voices[npcId] || 'ein NPC';
+        const matLabel = matLabels[material] || material;
+        const statsInfo = gridStats
+            ? `Die Insel ist ${gridStats.percent}% bebaut (${gridStats.total} Blöcke).`
+            : '';
+        return `Du bist ${npcDesc} auf der Insel-Architekt-Insel. Ein Kind hat gerade einen Block "${matLabel}" platziert. ${statsInfo} Gib einen kurzen, lustigen Kommentar (max 12 Wörter, auf Deutsch, in deiner Stimme). Kein Anführungszeichen, kein NPC-Name davor.`;
+    }
+
+    async function fillAiCommentBuffer(material, npcId, gridStats) {
+        if (aiCommentFilling) return;
+        if (AI_COMMENT_BUFFER.length >= AI_COMMENT_BUFFER_MAX) return;
+        // Kein API-Zugang → kein Fill
+        const key = getApiKey();
+        if (!key && !hasProxy()) return;
+
+        aiCommentFilling = true;
+        const toFill = AI_COMMENT_BUFFER_MAX - AI_COMMENT_BUFFER.length;
+
+        try {
+            for (let i = 0; i < toFill; i++) {
+                const prompt = buildCommentPrompt(material, npcId, gridStats);
+                const providerId = getProvider();
+                const provider = PROVIDERS[providerId] || PROVIDERS.langdock;
+                const apiUrl = getApiUrl() || provider.url;
+                const model = provider.model || 'gpt-4o-mini';
+
+                // Proxy normalisiert das Format serverseitig — wir senden immer OpenAI-kompatibel.
+                // Für Direct-API-Keys gilt dasselbe da Langdock/OpenAI-kompatibel sind.
+                const headers = {
+                    'Content-Type': 'application/json',
+                    ...(hasProxy() ? {} : provider.authHeader(key)),
+                };
+                const body = JSON.stringify({
+                    model,
+                    max_tokens: 30,
+                    messages: [{ role: 'user', content: prompt }],
+                });
+
+                const resp = await fetch(apiUrl, { method: 'POST', headers, body });
+                if (!resp.ok) break; // Fehler → abbrechen, kein Retry
+
+                const data = await resp.json();
+                let text = '';
+                if (provider.format === 'anthropic') {
+                    text = data.content?.[0]?.text?.trim() || '';
+                } else {
+                    text = data.choices?.[0]?.message?.content?.trim() || '';
+                }
+                if (text && text.length < 100 && AI_COMMENT_BUFFER.length < AI_COMMENT_BUFFER_MAX) {
+                    AI_COMMENT_BUFFER.push(text);
+                }
+            }
+        } catch (_) {
+            // Funkloch / Timeout — kein Problem, Buffer bleibt leer, Fallback greift
+        } finally {
+            aiCommentFilling = false;
+        }
+    }
+
+    // Gibt synchron einen String oder null zurück (null = Fallback auf Template in game.js).
+    // Triggert nebenbei das Auffüllen des Puffers für den nächsten Aufruf.
+    window.requestAiComment = function(material, npcId, gridStats) {
+        // Puffer im Hintergrund auffüllen (für nächsten Aufruf)
+        fillAiCommentBuffer(material, npcId, gridStats);
+        // Sofort aus Puffer bedienen wenn vorhanden
+        if (AI_COMMENT_BUFFER.length > 0) {
+            return AI_COMMENT_BUFFER.shift();
+        }
+        return null; // Fallback auf Template in game.js
+    };
+
     function hasProxy() {
         return !!(CFG.proxy);
     }
@@ -600,6 +698,10 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
                 } else {
                     initChat();
                 }
+            }
+            // Puffer vorwärmen — erste Materialien sind meistens Holz oder Stein
+            if ((hasProxy() || getApiKey()) && AI_COMMENT_BUFFER.length < 3) {
+                fillAiCommentBuffer('wood', 'spongebob', null);
             }
         }
     }
