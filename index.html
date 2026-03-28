@@ -103,6 +103,38 @@
                     <span class="mat-emoji">🟫</span>
                     <span class="mat-label">Weg</span>
                 </button>
+                <button class="material-btn" data-material="fence">
+                    <span class="mat-emoji">🏗️</span>
+                    <span class="mat-label">Zaun</span>
+                </button>
+                <button class="material-btn" data-material="boat">
+                    <span class="mat-emoji">⛵</span>
+                    <span class="mat-label">Boot</span>
+                </button>
+                <button class="material-btn" data-material="fish">
+                    <span class="mat-emoji">🐟</span>
+                    <span class="mat-label">Fisch</span>
+                </button>
+                <button class="material-btn" data-material="fountain">
+                    <span class="mat-emoji">⛲</span>
+                    <span class="mat-label">Brunnen</span>
+                </button>
+                <button class="material-btn" data-material="flag">
+                    <span class="mat-emoji">🚩</span>
+                    <span class="mat-label">Flagge</span>
+                </button>
+                <button class="material-btn" data-material="bridge">
+                    <span class="mat-emoji">🌉</span>
+                    <span class="mat-label">Brücke</span>
+                </button>
+                <button class="material-btn" data-material="cactus">
+                    <span class="mat-emoji">🌵</span>
+                    <span class="mat-label">Kaktus</span>
+                </button>
+                <button class="material-btn" data-material="mushroom">
+                    <span class="mat-emoji">🍄</span>
+                    <span class="mat-label">Pilz</span>
+                </button>
             </div>
 
             <!-- Canvas -->
@@ -110,13 +142,21 @@
                 <canvas id="game-canvas"></canvas>
             </div>
 
-            <!-- Statistiken -->
+            <!-- Statistiken + Quests + Achievements -->
             <div id="stats">
                 <h2>Insel-Info</h2>
                 <div id="stats-content">
                     <p>Noch nichts gebaut!</p>
                     <p>Fang einfach an! 🏗️</p>
                 </div>
+
+                <h2 class="stats-section-title">📜 Quests</h2>
+                <div id="quest-list">
+                    <p class="no-quests">Rede mit den Inselbewohnern! 💬</p>
+                </div>
+
+                <h2 class="stats-section-title">🏆 Erfolge</h2>
+                <div id="achievement-list"></div>
             </div>
 
         </div>
@@ -148,6 +188,7 @@
                 <button id="chat-settings-btn" title="API-Key">⚙️</button>
                 <button id="chat-close-btn" title="Schließen">✕</button>
             </div>
+            <div id="token-budget-display" class="token-display">💰 2000/2000 Tokens</div>
             <div id="chat-messages"></div>
             <div id="chat-input-area">
                 <input type="text" id="chat-input" placeholder="Sag was zu deinem Inselbewohner..." maxlength="200">

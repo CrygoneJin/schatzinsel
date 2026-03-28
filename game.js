@@ -36,19 +36,264 @@
 
     // --- Materialien ---
     const MATERIALS = {
-        wood:   { emoji: '🪵', label: 'Holz',    color: '#8B5E3C', border: '#6B3F1F' },
-        stone:  { emoji: '🧱', label: 'Stein',   color: '#95A5A6', border: '#7F8C8D' },
-        glass:  { emoji: '🪟', label: 'Glas',    color: '#AED6F1', border: '#85C1E9' },
-        plant:  { emoji: '🌿', label: 'Pflanze', color: '#52BE80', border: '#27AE60' },
-        tree:   { emoji: '🌳', label: 'Baum',    color: '#1E8449', border: '#196F3D' },
-        flower: { emoji: '🌸', label: 'Blume',   color: '#F1948A', border: '#E74C3C' },
-        door:   { emoji: '🚪', label: 'Tür',     color: '#6E3B1A', border: '#4A2510' },
-        roof:   { emoji: '🏠', label: 'Dach',    color: '#E74C3C', border: '#C0392B' },
-        lamp:   { emoji: '💡', label: 'Lampe',   color: '#F9E79F', border: '#F1C40F' },
-        sand:   { emoji: '⬜', label: 'Sand',    color: '#F5DEB3', border: '#DCC89E' },
-        water:  { emoji: '🌊', label: 'Wasser',  color: '#3498DB', border: '#2980B9' },
-        path:   { emoji: '🟫', label: 'Weg',     color: '#A0522D', border: '#8B4513' },
+        wood:     { emoji: '🪵', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F' },
+        stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
+        glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
+        plant:    { emoji: '🌿', label: 'Pflanze',  color: '#52BE80', border: '#27AE60' },
+        tree:     { emoji: '🌳', label: 'Baum',     color: '#1E8449', border: '#196F3D' },
+        flower:   { emoji: '🌸', label: 'Blume',    color: '#F1948A', border: '#E74C3C' },
+        door:     { emoji: '🚪', label: 'Tür',      color: '#6E3B1A', border: '#4A2510' },
+        roof:     { emoji: '🏠', label: 'Dach',     color: '#E74C3C', border: '#C0392B' },
+        lamp:     { emoji: '💡', label: 'Lampe',    color: '#F9E79F', border: '#F1C40F' },
+        sand:     { emoji: '⬜', label: 'Sand',     color: '#F5DEB3', border: '#DCC89E' },
+        water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
+        path:     { emoji: '🟫', label: 'Weg',      color: '#A0522D', border: '#8B4513' },
+        fence:    { emoji: '🏗️', label: 'Zaun',     color: '#C4A265', border: '#A08040' },
+        boat:     { emoji: '⛵', label: 'Boot',     color: '#5DADE2', border: '#2E86C1' },
+        fish:     { emoji: '🐟', label: 'Fisch',    color: '#48C9B0', border: '#1ABC9C' },
+        fountain: { emoji: '⛲', label: 'Brunnen',  color: '#7FB3D8', border: '#5499C7' },
+        flag:     { emoji: '🚩', label: 'Flagge',   color: '#E74C3C', border: '#B03A2E' },
+        bridge:   { emoji: '🌉', label: 'Brücke',   color: '#B7950B', border: '#9A7D0A' },
+        cactus:   { emoji: '🌵', label: 'Kaktus',   color: '#28B463', border: '#1D8348' },
+        mushroom: { emoji: '🍄', label: 'Pilz',     color: '#E59866', border: '#CA6F1E' },
     };
+
+    // --- Sound-System (Web Audio API) ---
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function ensureAudio() {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        return audioCtx;
+    }
+
+    function playTone(freq, duration, type, vol) {
+        try {
+            const ctx = ensureAudio();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = type || 'sine';
+            osc.frequency.value = freq;
+            gain.gain.value = vol || 0.15;
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + duration);
+        } catch (e) { /* Audio nicht verfügbar — kein Problem */ }
+    }
+
+    function soundBuild() { playTone(440, 0.08, 'square', 0.1); }
+    function soundDemolish() { playTone(220, 0.15, 'sawtooth', 0.08); }
+    function soundAchievement() {
+        playTone(523, 0.1, 'sine', 0.15);
+        setTimeout(() => playTone(659, 0.1, 'sine', 0.15), 100);
+        setTimeout(() => playTone(784, 0.2, 'sine', 0.15), 200);
+    }
+    function soundQuestComplete() {
+        playTone(392, 0.1, 'sine', 0.2);
+        setTimeout(() => playTone(523, 0.1, 'sine', 0.2), 120);
+        setTimeout(() => playTone(659, 0.1, 'sine', 0.2), 240);
+        setTimeout(() => playTone(784, 0.3, 'sine', 0.2), 360);
+    }
+
+    // --- Achievement-System ---
+    const ACHIEVEMENTS = {
+        firstBlock:    { emoji: '⭐', title: 'Erster Block!', desc: 'Platziere deinen ersten Block', check: (s) => s.total >= 1 },
+        builder10:     { emoji: '🏗️', title: 'Kleiner Baumeister', desc: '10 Blöcke gebaut', check: (s) => s.total >= 10 },
+        builder50:     { emoji: '🏘️', title: 'Siedlungsbauer', desc: '50 Blöcke gebaut', check: (s) => s.total >= 50 },
+        builder100:    { emoji: '🏙️', title: 'Stadtplaner', desc: '100 Blöcke gebaut', check: (s) => s.total >= 100 },
+        halfIsland:    { emoji: '🌍', title: 'Halbe Insel!', desc: '50% der Insel bebaut', check: (s) => s.percent >= 50 },
+        fullIsland:    { emoji: '🌟', title: 'Insel-Meister!', desc: '100% der Insel bebaut', check: (s) => s.percent >= 100 },
+        allMaterials:  { emoji: '🎨', title: 'Materialkenner', desc: 'Alle Original-Materialien benutzt', check: (s) => s.uniqueMats >= 12 },
+        gardenLover:   { emoji: '🌺', title: 'Gärtner', desc: '10 Pflanzen, Bäume oder Blumen', check: (s) => (s.counts.plant || 0) + (s.counts.tree || 0) + (s.counts.flower || 0) >= 10 },
+        waterWorld:    { emoji: '🏊', title: 'Wasserwelt', desc: '15 Wasserblöcke', check: (s) => (s.counts.water || 0) >= 15 },
+        architect:     { emoji: '👷', title: 'Architekt', desc: 'Haus gebaut (Holz+Tür+Dach+Glas)', check: (s) => (s.counts.wood || 0) >= 4 && (s.counts.door || 0) >= 1 && (s.counts.roof || 0) >= 2 && (s.counts.glass || 0) >= 1 },
+        fisherman:     { emoji: '🎣', title: 'Fischer', desc: '5 Fische im Wasser', check: (s) => (s.counts.fish || 0) >= 5 },
+        explorer:      { emoji: '🧭', title: 'Entdecker', desc: '15 verschiedene Materialien benutzt', check: (s) => s.uniqueMats >= 15 },
+    };
+
+    let unlockedAchievements = JSON.parse(localStorage.getItem('insel-achievements') || '[]');
+
+    function checkAchievements() {
+        const stats = getGridStats();
+        let newUnlocks = [];
+        for (const [id, ach] of Object.entries(ACHIEVEMENTS)) {
+            if (!unlockedAchievements.includes(id) && ach.check(stats)) {
+                unlockedAchievements.push(id);
+                newUnlocks.push(ach);
+            }
+        }
+        if (newUnlocks.length > 0) {
+            localStorage.setItem('insel-achievements', JSON.stringify(unlockedAchievements));
+            updateAchievementDisplay();
+            newUnlocks.forEach((ach, i) => {
+                setTimeout(() => {
+                    showAchievementPopup(ach);
+                    soundAchievement();
+                }, i * 1500);
+            });
+        }
+    }
+
+    function showAchievementPopup(ach) {
+        const popup = document.createElement('div');
+        popup.className = 'achievement-popup';
+        popup.innerHTML = `<span class="ach-emoji">${ach.emoji}</span><div><strong>${ach.title}</strong><br><small>${ach.desc}</small></div>`;
+        document.body.appendChild(popup);
+        setTimeout(() => popup.classList.add('show'), 10);
+        setTimeout(() => {
+            popup.classList.remove('show');
+            setTimeout(() => popup.remove(), 500);
+        }, 3000);
+    }
+
+    function getGridStats() {
+        const counts = {};
+        let total = 0;
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (grid[r][c]) {
+                    counts[grid[r][c]] = (counts[grid[r][c]] || 0) + 1;
+                    total++;
+                }
+            }
+        }
+        return {
+            counts,
+            total,
+            percent: Math.round((total / (ROWS * COLS)) * 100),
+            uniqueMats: Object.keys(counts).length
+        };
+    }
+
+    // --- Quest-System ---
+    const QUEST_TEMPLATES = [
+        { npc: 'spongebob', title: 'Burger-Stand', desc: 'ICH BIN BEREIT einen Burger-Stand zu bauen! Der Professor will wiederkommen!', needs: { wood: 4, roof: 2, door: 1 }, reward: '⭐⭐' },
+        { npc: 'spongebob', title: 'Krabbenburger-Küche', desc: 'Die Küche muss GLÄNZEN! Glas für die Fenster damit man die Burger sieht!', needs: { stone: 6, lamp: 2, glass: 2 }, reward: '⭐⭐⭐' },
+        { npc: 'krabs', title: 'Handelshafen', desc: 'Boote = Kunden = GELD! Darwin sagt: wer keinen Hafen hat, stirbt aus!', needs: { wood: 6, water: 4, boat: 2 }, reward: '💰💰' },
+        { npc: 'krabs', title: 'Schatzkammer', desc: 'Meine Tokens brauchen ein ZUHAUSE! Stein! Dick! Sicher!', needs: { stone: 8, door: 2, lamp: 1 }, reward: '💰💰💰' },
+        { npc: 'elefant', title: 'Musik-Garten', desc: 'Törööö! Blumen die man hört! Also... die man SIEHT. Aber ich höre sie trotzdem!', needs: { flower: 5, tree: 3, path: 4 }, reward: '🎵🎵' },
+        { npc: 'elefant', title: 'Musik-Turm', desc: 'Ein Turm so hoch dass mein Törööö die ganze Insel erreicht! Der Weber hätte Baupläne gemacht. Ich mach einfach!', needs: { stone: 8, glass: 4, lamp: 3 }, reward: '🎵🎵🎵' },
+        { npc: 'tommy', title: 'Boot-Parkplatz', desc: 'Klick-klack! DREI Boote! MINDESTENS! Das ist WISSENSCHAFT! Der lockige Mann hat gesagt!', needs: { water: 6, boat: 3, bridge: 1 }, reward: '⚓⚓' },
+        { npc: 'neinhorn', title: 'Geheimversteck', desc: 'NEIN ich will kein Versteck! ...ok doch. Aber mit Pilzen! Die sind gruselig-schön!', needs: { fence: 4, tree: 4, mushroom: 2 }, reward: '🌈🌈' },
+        { npc: 'neinhorn', title: 'Regenbogen-Turm', desc: 'NEIN kein Turm! ...gut EINEN Turm. Aber mit Flaggen! Der Nein-Sager-Chef wäre neidisch!', needs: { glass: 6, flower: 4, flag: 2, lamp: 2 }, reward: '🌈🌈🌈' },
+        { npc: 'maus', title: 'Blumen-Wiese', desc: '*pieps* Die Maus will Blumen! *quak* Die Ente will einen Brunnen! Weniger ist mehr! Das hat DIE ENTE erfunden!', needs: { flower: 8, plant: 4, fountain: 1 }, reward: '🌻🌻' },
+        { npc: 'maus', title: 'Enten-Teich', desc: '*quak quak!* WASSER! FISCHE! *pieps* Und eine Brücke damit die Maus trockene Füße behält!', needs: { water: 8, fish: 3, bridge: 1, plant: 3 }, reward: '🦆🦆🦆' },
+    ];
+
+    let activeQuests = JSON.parse(localStorage.getItem('insel-quests') || '[]');
+    let completedQuests = JSON.parse(localStorage.getItem('insel-quests-done') || '[]');
+
+    function getAvailableQuest(npcId) {
+        return QUEST_TEMPLATES.find(q =>
+            q.npc === npcId &&
+            !completedQuests.includes(q.title) &&
+            !activeQuests.some(a => a.title === q.title)
+        );
+    }
+
+    function acceptQuest(quest) {
+        activeQuests.push({ ...quest, accepted: Date.now() });
+        localStorage.setItem('insel-quests', JSON.stringify(activeQuests));
+        showToast(`📜 Quest: ${quest.title}`);
+        updateQuestDisplay();
+    }
+
+    function checkQuests() {
+        const stats = getGridStats();
+        let completed = [];
+        activeQuests = activeQuests.filter(quest => {
+            const done = Object.entries(quest.needs).every(([mat, count]) =>
+                (stats.counts[mat] || 0) >= count
+            );
+            if (done) {
+                completed.push(quest);
+                completedQuests.push(quest.title);
+                return false;
+            }
+            return true;
+        });
+        if (completed.length > 0) {
+            localStorage.setItem('insel-quests', JSON.stringify(activeQuests));
+            localStorage.setItem('insel-quests-done', JSON.stringify(completedQuests));
+            completed.forEach((q, i) => {
+                setTimeout(() => {
+                    // Feynman-kalibriert: degressive Belohnung
+                    // System 1: kleine Quests (< 10 Blöcke) = sofort spürbar
+                    // System 2: große Quests (10+ Blöcke) = mehr Belohnung, aber nicht linear
+                    const blockCount = Object.values(q.needs).reduce((a, b) => a + b, 0);
+                    const baseReward = blockCount * 40;
+                    // Degression: sqrt-Kurve statt linear, max 500 pro Quest
+                    const tokenReward = Math.min(500, Math.round(baseReward * Math.sqrt(blockCount) / blockCount));
+                    // Ethik-Deckel: max 2000 Bonus-Tokens total (= 1x Basis-Budget)
+                    const currentBonus = window.getTokenBonus ? window.getTokenBonus(q.npc) : 0;
+                    const cappedReward = Math.min(tokenReward, 2000 - currentBonus);
+
+                    if (cappedReward > 0) {
+                        showToast(`🎉 Quest fertig: ${q.title} ${q.reward} (+${cappedReward} Tokens!)`);
+                    } else {
+                        showToast(`🎉 Quest fertig: ${q.title} ${q.reward} (Token-Maximum erreicht)`);
+                    }
+                    soundQuestComplete();
+                    if (window.addTokenBudget && cappedReward > 0) {
+                        window.addTokenBudget(q.npc, cappedReward);
+                    }
+                }, i * 2000);
+            });
+            updateQuestDisplay();
+        }
+    }
+
+    function updateQuestDisplay() {
+        const questPanel = document.getElementById('quest-list');
+        if (!questPanel) return;
+        if (activeQuests.length === 0) {
+            questPanel.innerHTML = '<p class="no-quests">Rede mit den Inselbewohnern für Quests! 💬</p>';
+            return;
+        }
+        const stats = getGridStats();
+        questPanel.innerHTML = activeQuests.map(q => {
+            const items = Object.entries(q.needs).map(([mat, need]) => {
+                const have = stats.counts[mat] || 0;
+                const done = have >= need;
+                const m = MATERIALS[mat];
+                return `<span class="${done ? 'quest-done' : 'quest-todo'}">${m ? m.emoji : mat} ${have}/${need}</span>`;
+            }).join(' ');
+            return `<div class="quest-item"><strong>${q.title}</strong><br><small>${items}</small></div>`;
+        }).join('');
+    }
+
+    // Quest-System für Chat exportieren
+    window.questSystem = {
+        getAvailable: getAvailableQuest,
+        accept: acceptQuest,
+        getActive: () => activeQuests,
+        getCompleted: () => completedQuests
+    };
+
+    // --- Day/Night Cycle ---
+    let dayTime = 0; // 0-1, 0=Morgen, 0.5=Tag, 1=Nacht
+    let dayDirection = 1;
+    const DAY_SPEED = 0.00008; // langsamer Zyklus
+
+    function updateDayNight() {
+        dayTime += DAY_SPEED * dayDirection;
+        if (dayTime >= 1) { dayTime = 1; dayDirection = -1; }
+        if (dayTime <= 0) { dayTime = 0; dayDirection = 1; }
+    }
+
+    function getDayNightOverlay() {
+        // 0-0.3: Morgen (warm), 0.3-0.7: Tag (hell), 0.7-1: Nacht (blau)
+        if (dayTime < 0.3) {
+            const t = dayTime / 0.3;
+            return `rgba(255, 200, 100, ${0.15 * (1 - t)})`;
+        } else if (dayTime > 0.7) {
+            const t = (dayTime - 0.7) / 0.3;
+            return `rgba(20, 20, 80, ${0.3 * t})`;
+        }
+        return null;
+    }
 
     // --- Zustand ---
     let grid = [];
@@ -202,6 +447,29 @@
         // Animationen zeichnen
         drawAnimations();
 
+        // Day/Night Overlay
+        updateDayNight();
+        const overlay = getDayNightOverlay();
+        if (overlay) {
+            ctx.fillStyle = overlay;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Sterne bei Nacht
+        if (dayTime > 0.8) {
+            const starAlpha = (dayTime - 0.8) / 0.2;
+            ctx.fillStyle = `rgba(255, 255, 200, ${starAlpha * 0.8})`;
+            const seed = 42;
+            for (let i = 0; i < 20; i++) {
+                const sx = ((seed * (i + 1) * 7) % canvas.width);
+                const sy = ((seed * (i + 1) * 13) % (canvas.height * 0.4));
+                const twinkle = Math.sin(Date.now() / 500 + i) * 0.5 + 0.5;
+                ctx.globalAlpha = starAlpha * twinkle;
+                ctx.fillRect(sx, sy, 2, 2);
+            }
+            ctx.globalAlpha = 1;
+        }
+
         requestAnimationFrame(draw);
     }
 
@@ -268,16 +536,21 @@
             if (grid[r][c] !== currentMaterial) {
                 grid[r][c] = currentMaterial;
                 addPlaceAnimation(r, c);
+                soundBuild();
             }
         } else if (currentTool === 'demolish') {
             if (grid[r][c] !== null) {
                 grid[r][c] = null;
                 addPlaceAnimation(r, c);
+                soundDemolish();
             }
         } else if (currentTool === 'fill') {
             floodFill(r, c, grid[r][c], currentMaterial);
+            soundBuild();
         }
         updateStats();
+        checkAchievements();
+        checkQuests();
     }
 
     // --- Flood Fill ---
@@ -592,9 +865,21 @@
         if (btn) btn.classList.add('active');
     }
 
+    // --- Achievement-Liste rendern ---
+    function updateAchievementDisplay() {
+        const achList = document.getElementById('achievement-list');
+        if (!achList) return;
+        achList.innerHTML = Object.entries(ACHIEVEMENTS).map(([id, ach]) => {
+            const unlocked = unlockedAchievements.includes(id);
+            return `<span class="ach-badge ${unlocked ? '' : 'ach-locked'}" title="${ach.title}: ${ach.desc}">${ach.emoji}</span>`;
+        }).join('');
+    }
+
     // === START ===
     initGrid();
     draw();
+    updateAchievementDisplay();
+    updateQuestDisplay();
 
     // Grid für Chat-Integration exportieren
     window.grid = grid;
