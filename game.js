@@ -408,10 +408,17 @@
         ],
         fence: [
             '🐦 Ein schneller Vogel fliegt über den Zaun! "Ich bin Swift!" Zack, schon weg.',
+            '🧮 Am Zaun lehnt ein Mann mit Brille und zählt Latten: "1, 10, 11, 100..." — "Robert, das ist Binär!" — "Ich bin R! Ich zähle wie ich WILL!"',
+            '🧮 R zählt die Zaunpfähle in Tertiär: "1, 2, 10, 11, 12, 20..." Seine Frau ruft: "ROBERT! Hör auf zu zählen und hilf mir beim EINLOGGEN!"',
+            '🌍 Geo die Geologin klopft auf den Zaun: "Interessantes Gestein! Schicht 1, Schicht 2..." R seufzt: "Sie loggt sich ÜBERALL ein."',
         ],
         fish: [
             '🦈 Ein Fisch flüstert: "Psst! Pass auf Makro auf! Der große Hai macht alles RIESIG!"',
             '🐟 Der Fisch schwimmt Kreise: "Ich bin eine Schleife! while(schwimmen) { schwimm(); }"',
+        ],
+        path: [
+            '🧮 R sitzt am Wegrand und zählt Wanderer in Quartär: "1, 2, 3, 10, 11..." Geo zieht ihn weiter: "Robert, komm, die Gesteinsschichten warten!"',
+            '🌍 Geo die Geologin kniet am Weg: "Sediment! Tertiär! QUARTÄR!" R daneben: "Ich hab 47 Kieselsteine gezählt. In Binär: 101111."',
         ],
         bridge: [
             '🎲 Unter der Brücke spielen zwei Krabben ein Brettspiel. "Das heißt Go!"',
