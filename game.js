@@ -1247,6 +1247,12 @@
                     ctx.textBaseline = 'middle';
                     ctx.fillText('⛏️', hx + CELL_SIZE / 2, hy + CELL_SIZE / 2);
                 }
+            } else if (currentTool === 'fill') {
+                ctx.strokeStyle = '#F39C12';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([4, 4]);
+                ctx.strokeRect(hx + 2, hy + 2, CELL_SIZE - 4, CELL_SIZE - 4);
+                ctx.setLineDash([]);
             }
         }
 
@@ -1399,6 +1405,10 @@
                 if (info) showToast(`⛏️ ${yield_.count}x ${info.emoji} ${info.label} geerntet!`);
                 trackEvent('harvest', { source: cell, result: yield_.material, count: yield_.count });
             }
+        } else if (currentTool === 'fill') {
+            pushUndo();
+            floodFill(r, c, grid[r][c], currentMaterial);
+            soundBuild();
         }
         // Teure Checks nur alle 200ms (nicht bei jedem Pixel beim Drag)
         requestStatsUpdate();
@@ -1787,7 +1797,7 @@
 
     canvas.addEventListener('mousemove', (e) => {
         hoverCell = getGridCell(e);
-        if (isMouseDown && hoverCell) {
+        if (isMouseDown && hoverCell && currentTool !== 'fill') {
             applyTool(hoverCell.r, hoverCell.c);
         }
     });
@@ -1817,7 +1827,7 @@
         e.preventDefault();
         const touch = e.touches[0];
         hoverCell = getGridCell(touch);
-        if (isMouseDown && hoverCell) {
+        if (isMouseDown && hoverCell && currentTool !== 'fill') {
             applyTool(hoverCell.r, hoverCell.c);
         }
     });
@@ -1903,11 +1913,13 @@
             undo();
             return;
         }
-        // Werkzeug-Shortcuts: B=Bauen, E=Ernten
+        // Werkzeug-Shortcuts: B=Bauen, E=Ernten, F=Füllen
         if (e.key === 'b' || e.key === 'B') {
             selectTool('build');
         } else if (e.key === 'e' || e.key === 'E') {
             selectTool('harvest');
+        } else if (e.key === 'f' || e.key === 'F') {
+            selectTool('fill');
         }
     });
 
@@ -1944,6 +1956,7 @@
             case '9': selectMaterial('lamp'); break;
             case 'b': selectTool('build'); break;
             case 'e': selectTool('harvest'); break;
+            case 'f': selectTool('fill'); break;
             case 's':
                 if (e.ctrlKey || e.metaKey) {
                     e.preventDefault();
