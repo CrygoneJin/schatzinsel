@@ -1274,6 +1274,12 @@
         loadDialog.classList.add('hidden');
     });
 
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !loadDialog.classList.contains('hidden')) {
+            loadDialog.classList.add('hidden');
+        }
+    });
+
     savedProjectsList.addEventListener('click', (e) => {
         const deleteBtn = e.target.closest('.saved-project-delete');
         if (deleteBtn) {

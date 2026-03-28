@@ -183,9 +183,9 @@
         </div>
 
         <!-- Lade-Dialog -->
-        <div id="load-dialog" class="dialog-overlay hidden">
+        <div id="load-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="load-dialog-title">
             <div class="dialog-content">
-                <h2>📂 Projekt laden</h2>
+                <h2 id="load-dialog-title">📂 Projekt laden</h2>
                 <div id="saved-projects-list"></div>
                 <button class="action-btn" id="close-load-dialog">❌ Schließen</button>
             </div>
@@ -219,9 +219,9 @@
         </div>
 
         <!-- BYOK Dialog — Bring Your Own Key -->
-        <div id="api-key-dialog" class="dialog-overlay hidden">
+        <div id="api-key-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="api-dialog-title">
             <div class="dialog-content" style="max-width: 420px;">
-                <h2>🔑 Dein Schlüssel zur Insel</h2>
+                <h2 id="api-dialog-title">🔑 Dein Schlüssel zur Insel</h2>
                 <p style="font-size: 13px; color: #555; margin-bottom: 8px;">
                     Die Inselbewohner sprechen mit echten KI-Modellen.<br>
                     Dafür brauchen sie einen <strong>API-Key</strong> — wie ein Passwort für die KI.

@@ -119,7 +119,7 @@
         if (!next) return null; // Alle freigeschaltet
 
         const completedCount = JSON.parse(localStorage.getItem('insel-quests-done') || '[]').length;
-        const threshold = STARTER_CHARS.length + unlockedChars.length - STARTER_CHARS.length; // Min. Quests
+        const threshold = unlockedChars.length - STARTER_CHARS.length; // Min. Quests = Anzahl Extras
 
         // 20% fest: Mindestens so viele Quests wie schon freigeschaltete Extras
         if (completedCount < threshold) return null;
@@ -403,11 +403,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
         const apiUrl = getApiUrl() || provider.url;
         // Hirn-Transplantation: config.js models > char.model > provider.model
         // Nerds können pro Charakter ein anderes Modell setzen
-        const configModel = CFG.models && CFG.models[charId];
-        const model = configModel
-            || ((providerId === 'langdock' || providerId === 'custom')
-                ? (char.model || provider.model)
-                : provider.model);
+        const model = getActiveModel(charId);
         const questInfo = charId === 'bernd' ? '' : getQuestContext(charId);
         const totalBudget = TOKEN_BUDGET_PER_CHARACTER + (tokenBonuses[charId] || 0);
         const energyPercent = Math.round(((totalBudget - tokenUsage[charId]) / totalBudget) * 100);
@@ -726,6 +722,17 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
 
     apiKeyClose.addEventListener('click', () => {
         apiKeyDialog.classList.add('hidden');
+    });
+
+    // Escape schließt offene Dialoge
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (!apiKeyDialog.classList.contains('hidden')) {
+                apiKeyDialog.classList.add('hidden');
+            } else if (!panel.classList.contains('hidden')) {
+                panel.classList.add('hidden');
+            }
+        }
     });
 
 })();
