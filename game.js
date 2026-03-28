@@ -245,6 +245,13 @@
                     if (window.addTokenBudget && cappedReward > 0) {
                         window.addTokenBudget(q.npc, cappedReward);
                     }
+                    // Hirn-Transplantation: Neuen Charakter freischalten?
+                    if (window.tryCharacterUnlock) {
+                        const unlocked = window.tryCharacterUnlock();
+                        if (unlocked && window.onCharacterUnlock) {
+                            setTimeout(() => window.onCharacterUnlock(unlocked), 1500);
+                        }
+                    }
                 }, i * 2000);
             });
             updateQuestDisplay();
@@ -1026,6 +1033,7 @@
         toastQueue.push({ message, duration: duration || 2500 });
         if (!toastBusy) processToastQueue();
     }
+    window.showToast = showToast;
 
     function processToastQueue() {
         if (toastQueue.length === 0) {

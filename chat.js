@@ -93,6 +93,64 @@
         }
     }
 
+    // --- Charakter-Freischaltung ---
+    // Starter: SpongeBob, Maus, Bernd. Rest wird freigespielt.
+    // Wann? 20% fester Schwellenwert, 80% Zufall bei Quest-Abschluss.
+    const STARTER_CHARS = ['spongebob', 'maus', 'bernd'];
+    const UNLOCK_ORDER = ['tommy', 'neinhorn', 'krabs', 'elefant']; // Reihenfolge der Freischaltung
+
+    let unlockedChars = JSON.parse(localStorage.getItem('insel-unlocked') || 'null') || [...STARTER_CHARS];
+
+    function saveUnlocks() {
+        localStorage.setItem('insel-unlocked', JSON.stringify(unlockedChars));
+    }
+
+    function isUnlocked(charId) {
+        return unlockedChars.includes(charId);
+    }
+
+    function getNextUnlock() {
+        return UNLOCK_ORDER.find(id => !unlockedChars.includes(id));
+    }
+
+    // 20% fest: Ab Schwelle wird geprüft. 80% Zufall: Würfeln ob es passiert.
+    function tryUnlock() {
+        const next = getNextUnlock();
+        if (!next) return null; // Alle freigeschaltet
+
+        const completedCount = JSON.parse(localStorage.getItem('insel-quests-done') || '[]').length;
+        const threshold = STARTER_CHARS.length + unlockedChars.length - STARTER_CHARS.length; // Min. Quests
+
+        // 20% fest: Mindestens so viele Quests wie schon freigeschaltete Extras
+        if (completedCount < threshold) return null;
+
+        // 80% Zufall: Bei jedem Quest-Abschluss 25% Chance
+        if (Math.random() > 0.25) return null;
+
+        // Freigeschaltet!
+        unlockedChars.push(next);
+        saveUnlocks();
+        return next;
+    }
+
+    // Exportieren damit game.js nach Quest-Abschluss den Unlock triggern kann
+    window.tryCharacterUnlock = tryUnlock;
+
+    function updateCharSelect() {
+        const select = document.getElementById('chat-character');
+        if (!select) return;
+        Array.from(select.options).forEach(opt => {
+            const id = opt.value;
+            if (STARTER_CHARS.includes(id) || isUnlocked(id)) {
+                opt.disabled = false;
+                opt.textContent = opt.textContent.replace(' 🔒', '');
+            } else {
+                opt.disabled = true;
+                if (!opt.textContent.includes('🔒')) opt.textContent += ' 🔒';
+            }
+        });
+    }
+
     // --- Charakter-Prompts ---
     const CHARACTERS = {
         spongebob: {
@@ -479,6 +537,21 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
             }
         }
     }
+
+    // Initiales Dropdown-Update: gesperrte Charaktere markieren
+    updateCharSelect();
+
+    // Unlock-Handler: Neuer Charakter freigeschaltet!
+    window.onCharacterUnlock = function (charId) {
+        const char = CHARACTERS[charId];
+        if (!char) return;
+        updateCharSelect();
+        showToast(`🔓 ${char.emoji} ${char.name} ist auf der Insel aufgetaucht!`);
+        addMessage(`🔓 Neuer Bewohner! ${char.emoji} ${char.name} ist jetzt auf der Insel! Wähle ${char.name} oben im Dropdown.`, 'system');
+    };
+
+    // Hilfsfunktion: showToast nutzen falls verfügbar (game.js), sonst noop
+    function showToast(msg) { if (window.showToast) window.showToast(msg); }
 
     bubble.addEventListener('click', toggleChat);
     bubble.addEventListener('keydown', (e) => {
