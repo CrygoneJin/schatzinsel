@@ -58,7 +58,9 @@
         mushroom: { emoji: '🍄', label: 'Pilz',     color: '#E59866', border: '#CA6F1E' },
     };
 
-    // --- Sound-System (Web Audio API) ---
+    // ============================================================
+    // === SOUND === (→ sound.js bei Zellteilung)
+    // ============================================================
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let audioCtx = null;
 
@@ -97,7 +99,9 @@
         setTimeout(() => playTone(784, 0.3, 'sine', 0.2), 360);
     }
 
-    // --- Achievement-System ---
+    // ============================================================
+    // === ACHIEVEMENTS === (→ achievements.js bei Zellteilung)
+    // ============================================================
     const ACHIEVEMENTS = {
         firstBlock:    { emoji: '⭐', title: 'Erster Block!', desc: 'Platziere deinen ersten Block', check: (s) => s.total >= 1 },
         builder10:     { emoji: '🏗️', title: 'Kleiner Baumeister', desc: '10 Blöcke gebaut', check: (s) => s.total >= 10 },
@@ -167,7 +171,9 @@
         };
     }
 
-    // --- Quest-System ---
+    // ============================================================
+    // === QUESTS === (→ quests.js bei Zellteilung)
+    // ============================================================
     const QUEST_TEMPLATES = [
         { npc: 'spongebob', title: 'Burger-Stand', desc: 'ICH BIN BEREIT einen Burger-Stand zu bauen! Der Professor will wiederkommen!', needs: { wood: 4, roof: 2, door: 1 }, reward: '⭐⭐' },
         { npc: 'spongebob', title: 'Krabbenburger-Küche', desc: 'Die Küche muss GLÄNZEN! Glas für die Fenster damit man die Burger sieht!', needs: { stone: 6, lamp: 2, glass: 2 }, reward: '⭐⭐⭐' },
@@ -272,7 +278,9 @@
         getCompleted: () => completedQuests
     };
 
-    // --- Day/Night Cycle (echte Uhrzeit!) ---
+    // ============================================================
+    // === WEATHER + DAY/NIGHT === (→ effects.js bei Zellteilung)
+    // ============================================================
     let dayTime = 0; // 0-1
 
     function updateDayNight() {
@@ -382,7 +390,9 @@
 
     initRaindrops();
 
-    // --- Programmiersprachen-Easter-Eggs auf der Insel Java ---
+    // ============================================================
+    // === EASTER EGGS + HÖRSPIELE === (→ stories.js bei Zellteilung)
+    // ============================================================
     // Kinder entdecken sie beim Bauen — lernen die Namen spielerisch
     const CODE_EASTER_EGGS = {
         stone: [
@@ -1297,7 +1307,9 @@
         });
     }
 
-    // --- Analytics (localStorage, DSGVO-konform, keine externen Dienste) ---
+    // ============================================================
+    // === ANALYTICS === (→ analytics.js bei Zellteilung)
+    // ============================================================
     function getAnalytics() {
         return JSON.parse(localStorage.getItem('insel-analytics') || '{}');
     }
