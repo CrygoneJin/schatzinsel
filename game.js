@@ -231,9 +231,9 @@
                     const cappedReward = Math.min(tokenReward, 2000 - currentBonus);
 
                     if (cappedReward > 0) {
-                        showToast(`🎉 Quest fertig: ${q.title} ${q.reward} (+${cappedReward} Tokens!)`);
+                        showToast(`🎉 Quest geschafft: ${q.title} ${q.reward} +⚡ Energie!`);
                     } else {
-                        showToast(`🎉 Quest fertig: ${q.title} ${q.reward} (Token-Maximum erreicht)`);
+                        showToast(`🎉 Quest geschafft: ${q.title} ${q.reward}`);
                     }
                     soundQuestComplete();
                     if (window.addTokenBudget && cappedReward > 0) {

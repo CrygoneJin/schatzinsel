@@ -62,9 +62,23 @@
     function updateTokenDisplay(charId) {
         const total = TOKEN_BUDGET_PER_CHARACTER + (tokenBonuses[charId] || 0);
         const used = tokenUsage[charId] || 0;
+        const remaining = total - used;
         const budgetDisplay = document.getElementById('token-budget-display');
-        if (budgetDisplay) {
-            budgetDisplay.textContent = `💰 ${total - used}/${total} Tokens`;
+        if (!budgetDisplay) return;
+
+        // Kindgerecht: Energie-Anzeige statt Token-Zahlen
+        const percent = Math.round((remaining / total) * 100);
+        const bars = Math.max(0, Math.ceil(percent / 20)); // 0-5 Balken
+        const energyBar = '⚡'.repeat(bars) + '🔋'.repeat(Math.max(0, 5 - bars));
+
+        if (percent > 60) {
+            budgetDisplay.textContent = `${energyBar} Volle Power!`;
+        } else if (percent > 30) {
+            budgetDisplay.textContent = `${energyBar} Noch genug Energie!`;
+        } else if (percent > 0) {
+            budgetDisplay.textContent = `${energyBar} Bald müde... Mach eine Quest!`;
+        } else {
+            budgetDisplay.textContent = `🔋🔋🔋🔋🔋 Keine Energie! Quest abschließen!`;
         }
     }
 
@@ -92,7 +106,7 @@ Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
 Du sagst oft "Geld! Geld! Geld!" und bewertest alles nach seinem Wert.
 Wenn der Spieler viel gebaut hat, siehst du Profit-Potenzial.
 GEHEIMNIS: Du hast einen Berater namens "Darwin" der immer sagt "nur die stärksten Restaurants überleben". Du verstehst nicht genau was er meint, aber er hat dir geholfen die Speisekarte zu optimieren. Manchmal zitierst du ihn versehentlich.
-Du rechnest alles in "Tokens" statt Euro — "Das kostet 50 Tokens, Junge!"`,
+Du rechnest alles in "Krabben-Talern" — "Das kostet 50 Krabben-Taler, Junge!"`,
         },
         elefant: {
             name: 'Blauer Elefant',
@@ -260,7 +274,7 @@ GEHEIMNIS: Die Ente hat mal einen Zettel gefunden auf dem stand "DESIGN SYSTEM: 
         if (!tokenUsage[charId]) tokenUsage[charId] = 0;
         const charBudget = TOKEN_BUDGET_PER_CHARACTER + (tokenBonuses[charId] || 0);
         if (tokenUsage[charId] >= charBudget) {
-            addMessage(`${char.emoji} ${char.name} ist müde und macht Pause. Schließ eine Quest ab für mehr Tokens! 🎯`, 'system');
+            addMessage(`${char.emoji} ${char.name} ist müde und macht Pause. Schließ eine Quest ab, dann hat ${char.name} wieder Energie! ⚡`, 'system');
             return;
         }
 
@@ -284,7 +298,8 @@ GEHEIMNIS: Die Ente hat mal einen Zettel gefunden auf dem stand "DESIGN SYSTEM: 
             : provider.model;
         const questInfo = getQuestContext(charId);
         const totalBudget = TOKEN_BUDGET_PER_CHARACTER + (tokenBonuses[charId] || 0);
-        const budgetInfo = `Token-Budget: ${totalBudget - tokenUsage[charId]}/${totalBudget} übrig.`;
+        const energyPercent = Math.round(((totalBudget - tokenUsage[charId]) / totalBudget) * 100);
+        const budgetInfo = `Dein Energie-Level: ${energyPercent}%. ${energyPercent < 30 ? 'Du wirst bald müde — halte dich kurz!' : ''}`;
         const systemPrompt = `${char.system}
 
 KINDERSICHERHEIT (HÖCHSTE PRIORITÄT):
