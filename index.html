@@ -48,12 +48,7 @@
                 <button class="tool-btn" id="code-view-btn" title="Code-Ansicht: So sieht ein Programmierer die Insel!">&lt;/&gt;</button>
             </div>
             <div class="toolbar-section">
-                <span class="toolbar-label">Projekt:</span>
-                <input type="text" id="project-name" placeholder="Mein Bauwerk" maxlength="30">
-                <button class="action-btn" id="save-btn" title="Speichern">💾 Speichern</button>
-                <button class="action-btn" id="load-btn" title="Laden">📂 Laden</button>
-                <button class="action-btn" id="new-btn" title="Neu">🆕 Neu</button>
-                <button class="action-btn" id="postcard-btn" title="Postkarte von Java">📸 Postkarte</button>
+                <button class="action-btn" id="postcard-btn" title="Postkarte schreiben — dein Abenteuer auf Schatzinsel">📸 Postkarte</button>
                 <button class="action-btn" id="testdata-btn" title="Testdaten kopieren" style="display:none">📊 Daten</button>
             </div>
         </div>
@@ -198,15 +193,6 @@
 
         </div>
 
-        <!-- Lade-Dialog -->
-        <div id="load-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="load-dialog-title">
-            <div class="dialog-content">
-                <h2 id="load-dialog-title">📂 Projekt laden</h2>
-                <div id="saved-projects-list"></div>
-                <button class="action-btn" id="close-load-dialog">❌ Schließen</button>
-            </div>
-        </div>
-
         <!-- Crafting Dialog -->
         <div id="crafting-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="crafting-dialog-title">
             <div class="dialog-content crafting-content">
@@ -251,7 +237,6 @@
         <div id="toast" class="hidden"></div>
 
         <!-- NPC Chat -->
-        <div id="chat-bubble" title="Mit Inselbewohnern reden" role="button" aria-label="Chat mit Inselbewohnern öffnen" tabindex="0">💬</div>
         <div id="chat-panel" class="hidden">
             <div id="chat-header">
                 <select id="chat-character">

@@ -255,7 +255,6 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     };
 
     // --- DOM ---
-    const bubble = document.getElementById('chat-bubble');
     const panel = document.getElementById('chat-panel');
     const charSelect = document.getElementById('chat-character');
     const messages = document.getElementById('chat-messages');
@@ -267,6 +266,14 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     const apiKeyInput = document.getElementById('api-key-input');
     const apiKeySave = document.getElementById('api-key-save');
     const apiKeyClose = document.getElementById('api-key-close');
+
+    // --- Öffnen von außen (game.js ruft das auf wenn man einen NPC-Block antippt) ---
+    window.openChat = function(npcId) {
+        if (!npcId || !CHARACTERS[npcId]) return;
+        charSelect.value = npcId;
+        panel.classList.remove('hidden');
+        input.focus();
+    };
 
     // --- State ---
     let chatHistory = [];

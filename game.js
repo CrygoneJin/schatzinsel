@@ -1127,6 +1127,17 @@
     let currentMaterial = 'metal';
     let currentTool = 'build';
 
+    // NPC-Discovery: Tippe einen Block im Build-Modus an → öffnet Chat mit passendem NPC
+    const MATERIAL_NPC = {
+        boat: 'krabs', fish: 'krabs', water: 'krabs',
+        door: 'spongebob', roof: 'spongebob', lamp: 'spongebob',
+        flower: 'maus', plant: 'maus', fountain: 'maus',
+        fence: 'neinhorn', mushroom: 'neinhorn',
+        tree: 'elefant', stone: 'elefant', path: 'elefant',
+        bridge: 'tommy', sand: 'tommy',
+        wood: 'bernd', fire: 'bernd',
+    };
+
     // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
     const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
 
@@ -1210,9 +1221,6 @@
     const introOverlay = document.getElementById('intro-overlay');
     const startButton = document.getElementById('start-button');
     const statsContent = document.getElementById('stats-content');
-    const projectNameInput = document.getElementById('project-name');
-    const loadDialog = document.getElementById('load-dialog');
-    const savedProjectsList = document.getElementById('saved-projects-list');
     const toast = document.getElementById('toast');
 
     // --- Canvas Größe ---
@@ -1457,6 +1465,16 @@
     let undoPushedThisStroke = false;
 
     function applyTool(r, c) {
+        // Im Build-Modus: Tippe existierenden Block an → öffne Chat mit zugehörigem NPC
+        if (currentTool === 'build' && grid[r][c] !== null) {
+            const material = grid[r][c];
+            const npcId = MATERIAL_NPC[material];
+            if (npcId && window.openChat) {
+                window.openChat(npcId);
+                return;
+            }
+        }
+
         if (currentTool === 'build') {
             if (grid[r][c] !== currentMaterial) {
                 if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
@@ -1604,138 +1622,6 @@
         statsContent.innerHTML = html;
     }
 
-    // --- Speichern ---
-    function saveProject() {
-        const name = projectNameInput.value.trim() || 'Mein Bauwerk';
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-
-        projects[name] = {
-            grid: grid,
-            date: new Date().toLocaleDateString('de-DE'),
-            treeGrowth: treeGrowth,
-            inventory: inventory,
-            unlocked: [...unlockedMaterials],
-        };
-
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        saveInventory();
-        saveUnlocked();
-        showToast(`💾 "${name}" gespeichert!`);
-    }
-
-    // --- Auto-Save: alle 30s still im Hintergrund ---
-    const AUTOSAVE_KEY = '~autosave~';
-    let lastSaveHash = '';
-    function autoSave() {
-        if (!grid || !grid.length) return;
-        const hasContent = grid.some(row => row.some(cell => cell !== null));
-        if (!hasContent) return;
-        // Nur speichern wenn sich was geändert hat
-        const hash = JSON.stringify(grid);
-        if (hash === lastSaveHash) return;
-        lastSaveHash = hash;
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        projects[AUTOSAVE_KEY] = {
-            grid: grid,
-            date: new Date().toLocaleDateString('de-DE'),
-            auto: true,
-            treeGrowth: treeGrowth,
-            inventory: inventory,
-            unlocked: [...unlockedMaterials],
-        };
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        // Subtiler Indikator: Save-Button blinkt kurz
-        const saveBtn = document.getElementById('save-btn');
-        if (saveBtn) {
-            saveBtn.style.transition = 'opacity 0.3s';
-            saveBtn.style.opacity = '0.5';
-            setTimeout(() => { saveBtn.style.opacity = '1'; }, 600);
-        }
-    }
-    setInterval(autoSave, 30000);
-    window.addEventListener('beforeunload', autoSave);
-
-    // --- Laden-Dialog ---
-    function showLoadDialog() {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        const names = Object.keys(projects);
-
-        if (names.length === 0) {
-            savedProjectsList.innerHTML = '<p class="no-projects">Keine Projekte gespeichert!</p>';
-        } else {
-            savedProjectsList.innerHTML = names.map(name => {
-                const proj = projects[name];
-                const displayName = name === AUTOSAVE_KEY ? '🔄 Letzte Session (Auto)' : escapeHtml(name);
-                return `
-                    <div class="saved-project-item" data-name="${escapeHtml(name)}">
-                        <div>
-                            <div class="saved-project-name">${displayName}</div>
-                            <div class="saved-project-date">${proj.date}</div>
-                        </div>
-                        <button class="saved-project-delete" data-delete="${escapeHtml(name)}" title="Löschen">🗑️</button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        loadDialog.classList.remove('hidden');
-    }
-
-    function isValidGrid(g) {
-        return Array.isArray(g) && g.length === ROWS && g[0]?.length === COLS;
-    }
-
-    function loadProject(name) {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        if (projects[name]) {
-            const saved = projects[name].grid;
-            if (isValidGrid(saved)) {
-                grid = saved;
-            } else {
-                initGrid(); // Fallback bei kaputtem Grid
-            }
-            treeGrowth = projects[name].treeGrowth || {};
-            inventory = projects[name].inventory || {};
-            if (projects[name].unlocked) {
-                unlockedMaterials = new Set(projects[name].unlocked);
-                saveUnlocked();
-            } else {
-                unlockedMaterials = new Set();
-            }
-            window.grid = grid;
-            migrateUnlocked();
-            projectNameInput.value = name === AUTOSAVE_KEY ? '' : name;
-            updateStats();
-            updateInventoryDisplay();
-            updatePaletteVisibility();
-            draw();
-            loadDialog.classList.add('hidden');
-            showToast(`📂 "${name}" geladen!`);
-        }
-    }
-
-    function deleteProject(name) {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        delete projects[name];
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        showLoadDialog(); // Dialog aktualisieren
-        showToast(`🗑️ "${name}" gelöscht!`);
-    }
-
-    function newProject() {
-        initGrid();
-        treeGrowth = {};
-        inventory = {};
-        unlockedMaterials = new Set();
-        saveInventory();
-        saveUnlocked();
-        projectNameInput.value = '';
-        updateStats();
-        updateInventoryDisplay();
-        updatePaletteVisibility();
-        draw();
-        showToast('🆕 Neue Insel!');
-    }
 
     // --- Toast-Queue (Weber: "Ein Toast nach dem anderen. Ordnung muss sein.") ---
     const toastQueue = [];
@@ -1923,73 +1809,99 @@
         hoverCell = null;
     });
 
-    // Aktions-Buttons
-    document.getElementById('save-btn').addEventListener('click', saveProject);
-    document.getElementById('load-btn').addEventListener('click', showLoadDialog);
-    document.getElementById('new-btn').addEventListener('click', () => {
-        if (confirm('Wirklich eine neue Insel anfangen? Nicht gespeicherte Änderungen gehen verloren!')) {
-            newProject();
-        }
-    });
 
     // --- Postkarte von Java (Godin: "Ein Share-Moment fehlt") ---
+    // Postkarten-Texte: Wie ein stolzer 8-Jähriger der eine magische Insel entdeckt hat
+    // Die Insel verschwindet wenn man wegschaut — nur die Postkarte bleibt
+    const POSTCARD_LINES = [
+        'Ich war auf einer Insel die es eigentlich nicht gibt.',
+        'Die Insel ist weg. Aber ich war dort.',
+        'Niemand glaubt mir. Aber ich habe Beweise.',
+        'Wenn man wegschaut, verschwindet sie. Ich habe schnell fotografiert.',
+        'Schatzinsel: nur sichtbar wenn man daran glaubt.',
+        'Ich hab alles selbst gebaut. Dann war es weg.',
+        'Vielleicht träum ich. Aber die Postkarte ist echt.',
+    ];
+
+    const POSTCARD_SENDERS = [
+        'Dein Entdecker 🗺️',
+        'Der einzige Zeuge 🏴‍☠️',
+        'Schnipsel, Architekt 🏗️',
+        'Ich war hier. Ich schwör\'s. 🌴',
+    ];
+
     const postcardBtn = document.getElementById('postcard-btn');
     if (postcardBtn) {
         postcardBtn.addEventListener('click', () => {
             const stats = getGridStats();
-            const name = projectNameInput.value.trim() || 'Meine Insel';
+            const discoveries = discoveredEggs.length;
 
-            // Temporäres Canvas für Postkarte
+            // Zufällige Postkarten-Botschaft
+            const line = POSTCARD_LINES[Math.floor(Math.random() * POSTCARD_LINES.length)];
+            const sender = POSTCARD_SENDERS[Math.floor(Math.random() * POSTCARD_SENDERS.length)];
+
+            // Temporäres Canvas für Postkarte — extra Platz für den Brief unten
+            const BANNER_H = 120;
             const pc = document.createElement('canvas');
             const pcCtx = pc.getContext('2d');
             pc.width = canvas.width;
-            pc.height = canvas.height + 80;
+            pc.height = canvas.height + BANNER_H;
 
-            // Insel kopieren
+            // Insel einkopieren
             pcCtx.drawImage(canvas, 0, 0);
 
-            // Postkarten-Banner unten
-            pcCtx.fillStyle = 'rgba(0, 0, 0, 0.75)';
-            pcCtx.fillRect(0, canvas.height, pc.width, 80);
+            // Pergament-Banner: warmes Beige statt hartem Schwarz
+            const bannerGrad = pcCtx.createLinearGradient(0, canvas.height, 0, pc.height);
+            bannerGrad.addColorStop(0, 'rgba(62, 39, 12, 0.92)');
+            bannerGrad.addColorStop(1, 'rgba(30, 15, 5, 0.97)');
+            pcCtx.fillStyle = bannerGrad;
+            pcCtx.fillRect(0, canvas.height, pc.width, BANNER_H);
 
+            // Dekorative Linie
+            pcCtx.strokeStyle = 'rgba(241, 196, 15, 0.4)';
+            pcCtx.lineWidth = 1;
+            pcCtx.beginPath();
+            pcCtx.moveTo(20, canvas.height + 8);
+            pcCtx.lineTo(pc.width - 20, canvas.height + 8);
+            pcCtx.stroke();
+
+            // Haupttext: die magische Botschaft
             pcCtx.fillStyle = '#F9E79F';
-            pcCtx.font = 'bold 18px Fredoka, sans-serif';
+            pcCtx.font = 'bold 15px "Comic Neue", "Comic Sans MS", cursive';
             pcCtx.textAlign = 'center';
-            pcCtx.fillText(`📸 Grüße von der Insel Java!`, pc.width / 2, canvas.height + 28);
+            pcCtx.fillText(`"${line}"`, pc.width / 2, canvas.height + 34);
 
-            pcCtx.fillStyle = '#FFFFFF';
-            pcCtx.font = '14px Comic Neue, sans-serif';
-            const discoveries = discoveredEggs.length;
+            // Absender
+            pcCtx.fillStyle = 'rgba(255,255,255,0.75)';
+            pcCtx.font = '12px "Comic Neue", "Comic Sans MS", cursive';
+            pcCtx.fillText(`— ${sender}`, pc.width / 2, canvas.height + 56);
+
+            // Entdeckungs-Zeile: klein, dezent, Fakten
+            pcCtx.fillStyle = 'rgba(255,255,255,0.45)';
+            pcCtx.font = '11px "Fredoka", sans-serif';
             pcCtx.fillText(
-                `🏗️ ${stats.total} Blöcke · 🎨 ${stats.uniqueMats} Materialien · 🔍 ${discoveries} Bewohner entdeckt · 🏆 ${unlockedAchievements.length} Erfolge`,
-                pc.width / 2, canvas.height + 52
+                `🏗️ ${stats.total} Blöcke · 🎨 ${stats.uniqueMats} Arten · 🔍 ${discoveries} entdeckt · 🏆 ${unlockedAchievements.length} Erfolge`,
+                pc.width / 2, canvas.height + 78
             );
 
-            pcCtx.font = '11px Comic Neue, sans-serif';
-            pcCtx.fillStyle = '#AAA';
-            pcCtx.fillText('Außer Text nix gehext. 🏝️', pc.width / 2, canvas.height + 72);
+            // Signatur
+            pcCtx.fillStyle = 'rgba(241, 196, 15, 0.35)';
+            pcCtx.font = '10px "Fredoka", sans-serif';
+            pcCtx.fillText('✦ Schatzinsel — sie verschwindet wenn du wegschaust ✦', pc.width / 2, canvas.height + 106);
 
-            // Download
+            // Download — Dateiname mit Zeitstempel (die Insel hat keine Namen mehr)
+            const ts = new Date().toISOString().slice(0, 10);
             const link = document.createElement('a');
-            link.download = `postkarte-von-java-${name.replace(/\s+/g, '-')}.png`;
+            link.download = `schatzinsel-${ts}.png`;
             link.href = pc.toDataURL('image/png');
             link.click();
 
-            showToast('📸 Postkarte gespeichert! Zeig sie deinen Freunden!');
+            showToast('📸 Postkarte von der Schatzinsel! Die einzige Erinnerung.');
             trackEvent('postcard', { blocks: stats.total, discoveries });
         });
     }
 
-    // Lade-Dialog Events
-    document.getElementById('close-load-dialog').addEventListener('click', () => {
-        loadDialog.classList.add('hidden');
-    });
-
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !loadDialog.classList.contains('hidden')) {
-            loadDialog.classList.add('hidden');
-            return;
-        }
         // Nicht triggern wenn Input/Textarea fokussiert
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
@@ -2006,23 +1918,6 @@
             selectTool('harvest');
         } else if (e.key === 'f' || e.key === 'F') {
             selectTool('fill');
-        }
-    });
-
-    savedProjectsList.addEventListener('click', (e) => {
-        const deleteBtn = e.target.closest('.saved-project-delete');
-        if (deleteBtn) {
-            e.stopPropagation();
-            const name = deleteBtn.dataset.delete;
-            if (confirm(`"${name}" wirklich löschen?`)) {
-                deleteProject(name);
-            }
-            return;
-        }
-
-        const item = e.target.closest('.saved-project-item');
-        if (item) {
-            loadProject(item.dataset.name);
         }
     });
 
@@ -2275,6 +2170,7 @@
 
     window.toggleCodeView = function () {
         codeViewActive = !codeViewActive;
+        document.body.classList.toggle('code-view-active', codeViewActive);
         showToast(codeViewActive ? '👨‍💻 Code-Ansicht AN — so sieht ein Programmierer die Insel!' : '🎨 Normal-Ansicht');
         if (codeViewActive) {
             recordMilestone('firstCodeView');
