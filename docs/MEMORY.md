@@ -182,6 +182,33 @@ Kinder lachen weil SpongeBob lustig ist. Eltern lachen weil Bernd über sein
 Haiku-Budget motzt und der Elefant sich für sein Törööö entschuldigt.
 Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
+### Chomskys Bibliothek: Worte sind Zahlen
+
+> "Außer Text nix gehext" ist nicht nur ein Spielmotto. Es ist die
+> älteste Erkenntnis der Menschheit, neu verpackt.
+
+**Die Kette:**
+```
+Pythagoras (Α=1, Β=2 ... Ω=800) → Isopsephie: Worte = Zahlen
+    → Hebräisch: Gematria (Buchstaben = Zahlenwerte)
+        → al-Khwarizmi (9. Jhdt): "Algorithmus" = Regeln für Zahlen
+            → ASCII (A=65, B=66): Buchstaben als Bytes
+                → LLMs: Worte → Tokens → Vektoren → Mathe → neue Worte
+```
+
+**Für das Spiel:**
+- Pythagoras' Pentatonik ist schon in den Element-Tönen (五音 = C D E G A)
+- Code-View zeigt: hinter jedem Emoji steht ein Wort (`wood`, `fire`)
+- Code-Zauber: Kind tippt `baue 5 bäume` → es passiert
+- Alles ist Text. Text ist Zahlen. Zahlen sind Magie.
+
+**Prüffrage für jedes Feature:** *Bringt es das Kind näher an die Erkenntnis
+dass Worte und Zahlen dasselbe sind?*
+
+Das ist kein Easter Egg. Das ist das Curriculum.
+
+---
+
 ### Session 2026-03-28 (Abend): Wu Xing + Harvest + Crafting-Loop
 
 **Was gebaut wurde:**
