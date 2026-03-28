@@ -36,25 +36,26 @@
 
         <!-- Toolbar -->
         <div id="toolbar" role="toolbar" aria-label="Werkzeuge und Aktionen">
-            <div class="toolbar-section">
-                <span class="toolbar-label">Werkzeuge:</span>
+            <div class="toolbar-group" id="tools-group">
                 <button class="tool-btn active" data-tool="build" title="Bauen (B)">🖌️</button>
                 <button class="tool-btn" data-tool="harvest" title="Aufnehmen (E)">⛏️</button>
                 <button class="tool-btn" data-tool="fill" title="Füllen (F)">🪣</button>
             </div>
-            <div class="toolbar-section">
+            <div class="toolbar-group" id="view-group">
                 <button class="tool-btn" id="weather-btn" title="Wetter ändern">☀️</button>
                 <button class="tool-btn" id="theme-btn" title="Theme wechseln">🎨</button>
-                <button class="tool-btn" id="code-view-btn" title="Code-Ansicht: So sieht ein Programmierer die Insel!">&lt;/&gt;</button>
+                <button class="tool-btn" id="code-view-btn" title="Code-Ansicht">&lt;/&gt;</button>
             </div>
-            <div class="toolbar-section">
-                <span class="toolbar-label">Projekt:</span>
+            <div class="toolbar-group" id="project-group">
                 <input type="text" id="project-name" placeholder="Mein Bauwerk" maxlength="30">
-                <button class="action-btn" id="save-btn" title="Speichern">💾 Speichern</button>
-                <button class="action-btn" id="load-btn" title="Laden">📂 Laden</button>
-                <button class="action-btn" id="new-btn" title="Neu">🆕 Neu</button>
-                <button class="action-btn" id="postcard-btn" title="Postkarte von Java">📸 Postkarte</button>
-                <button class="action-btn" id="testdata-btn" title="Testdaten kopieren" style="display:none">📊 Daten</button>
+                <button class="tool-btn" id="save-btn" title="Speichern">💾</button>
+                <button class="tool-btn" id="load-btn" title="Laden">📂</button>
+                <button class="tool-btn" id="new-btn" title="Neu">🆕</button>
+                <button class="tool-btn" id="postcard-btn" title="Postkarte">📸</button>
+                <button class="tool-btn" id="testdata-btn" title="Testdaten" style="display:none">📊</button>
+            </div>
+            <div class="toolbar-group" id="craft-group">
+                <button class="tool-btn craft-open-btn" id="craft-btn" title="Werkbank">⚒️</button>
             </div>
         </div>
 
@@ -190,7 +191,7 @@
                 <div id="inventory-content">
                     <p class="inv-empty">Noch nichts gesammelt!</p>
                 </div>
-                <button class="action-btn craft-open-btn" id="craft-btn" title="Werkbank öffnen">⚒️ Werkbank</button>
+                <button class="tool-btn craft-open-btn" id="craft-btn-sidebar" title="Werkbank">⚒️</button>
 
                 <h2 class="stats-section-title">🏆 Erfolge</h2>
                 <div id="achievement-list"></div>
