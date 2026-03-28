@@ -608,11 +608,17 @@
             '📿 Im Blumenbeet liegt eine Perlenkette! "PERL" steht auf dem Verschluss. Hübsch!',
             '📿 "Meine PERLenkette!" ruft eine alte Schildkröte. "Die hab ich 1987 hier verloren!"',
             '👧 Zwischen den Blumen sitzt Lisa Lispel und sortiert Klammern. "((((Hallo!))))" — "Warum so viele Klammern?" — "Ich bin LISP! Ohne Klammern bin ich NICHTS!" (seit 1958)',
-            '👧 Lisa Lispel lispelt: "(setq freunde (+ freunde 1)) — Ich hab gerade einen Freund dazugerechnet! Dich!" Sie lächelt. Die Klammern auch.',
+            '���� Lisa Lispel lispelt: "(setq freunde (+ freunde 1)) — Ich hab gerade einen Freund dazugerechnet! Dich!" Sie lächelt. Die Klammern auch.',
+            '🌱 Zwischen den Blumen pflanzt jemand Chia-Samen. "Proof of Space!" murmelt er. Lisa Lispel fragt: "Ist das eine Klammer?" — "Nein, das ist eine BLOCKCHAIN!" — "Klingt wie eine Klammer mit extra Schritten."',
         ],
         boat: [
             '⚓ Am Boot hängt ein rostiger Anker. Jemand hat "Rust" draufgeritzt. "Ich war mal neu!"',
             '🦀 Unter dem Boot sitzt ein kleiner Krebs mit einem Zahnrad. "Ich bin Rust!"',
+            '🌊 Am Boot steht ein Typ und murmelt: "To rent... to rent..." — "Was willst du vermieten?" — "Nicht vermieten! TORRENT! Ich teile Daten!" Er lispelt ein bisschen. "Ich bin Bram. Ich hab das Internet schneller gemacht."',
+            '🌊 Bram sitzt am Boot und pflanzt Chia-Samen ins Wasser. "Die sind nicht nur für die Verdauung!" Gene gibt die Hoffnung nicht auf. Das Gigahorse macht schlapp, aber die Fury Road wartet.',
+            '🌊 "POST ist besser als GET!" ruft Bram vom Boot. Keiner versteht ihn. Er lispelt. Aber er hat recht — er hat IMMER recht. Nur versteht ihn halt keiner.',
+            '🌊 Das Boot fährt weit und byte. Am Horizont blinkt ein Licht: 01110111 01100101 01101100 01110100. "Was heißt das?" — "WELT. In Binär."',
+            '🌊 Madmax fährt mit dem Boot die Fury Road entlang. "Mein Gigahorse macht schlapp!" Bram ruft: "Nimm den Bladebit!" Madmax: "ICH BIN EIN BOOT, KEIN COMPUTER!"',
         ],
         fence: [
             '🐦 Ein schneller Vogel fliegt über den Zaun! "Ich bin Swift!" Zack, schon weg.',
