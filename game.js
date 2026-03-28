@@ -916,7 +916,30 @@
         updateStats();
         checkAchievements();
         checkQuests();
+        maybeQuestHint(currentMaterial);
         maybeHoerspiel(getGridStats());
+    }
+
+    // Dusch-Prinzip: "Wärmer/Kälter" bei Quest-Fortschritt
+    let lastQuestHintTime = 0;
+    function maybeQuestHint(material) {
+        if (Date.now() - lastQuestHintTime < 5000) return; // Max alle 5s
+        const stats = getGridStats();
+        for (const quest of activeQuests) {
+            if (!quest.needs[material]) continue;
+            const have = stats.counts[material] || 0;
+            const need = quest.needs[material];
+            if (have >= need) continue; // Schon erfüllt
+            const percent = Math.round((have / need) * 100);
+            if (percent >= 80) {
+                showToast(`🔥 Fast! Noch ${need - have}x ${material} für "${quest.title}"!`);
+                lastQuestHintTime = Date.now();
+            } else if (percent >= 50 && have === Math.ceil(need / 2)) {
+                showToast(`👀 Halbzeit! ${have}/${need} ${material} für "${quest.title}"`);
+                lastQuestHintTime = Date.now();
+            }
+            break;
+        }
     }
 
     // --- Flood Fill ---
