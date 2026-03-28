@@ -619,6 +619,9 @@
             '🌊 "POST ist besser als GET!" ruft Bram vom Boot. Keiner versteht ihn. Er lispelt. Aber er hat recht — er hat IMMER recht. Nur versteht ihn halt keiner.',
             '🌊 Das Boot fährt weit und byte. Am Horizont blinkt ein Licht: 01110111 01100101 01101100 01110100. "Was heißt das?" — "WELT. In Binär."',
             '🌊 Madmax fährt mit dem Boot die Fury Road entlang. "Mein Gigahorse macht schlapp!" Bram ruft: "Nimm den Bladebit!" Madmax: "ICH BIN EIN BOOT, KEIN COMPUTER!"',
+            '🍴 Am Boot liegt eine Gabel. "Das ist ein FORK!" ruft C. "Wie bei Git?" — "Nein, wie bei Bitcoin! Forks over knives! Messer brauchst du nicht wenn du eine Blockchain hast!"',
+            '🍺 "Bitte ein Bit!" ruft jemand vom Boot. Alle lachen. Fortran krächzt: "Das sind 8 Bit! Ein ganzes BYTE!" Die Ente quakt: "Ich nehm zwei Byte. Ich hab Hunger. *quak*"',
+            '🪙 "Zahlen Sie mit Coins?" fragt Mr. Krabs am Boot. "KRABBEN-COINS! Auf der Blockchain! Dezentral!" Bram flüstert: "Proof of Krabben-Taler..."',
         ],
         fence: [
             '🐦 Ein schneller Vogel fliegt über den Zaun! "Ich bin Swift!" Zack, schon weg.',
