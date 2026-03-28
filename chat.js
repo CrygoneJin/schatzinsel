@@ -213,8 +213,15 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     let chatHistory = [];
 
     // --- Settings ---
+    // --- Config: config.js > localStorage > Dialog ---
+    const CFG = window.INSEL_CONFIG || {};
+
     function getApiKey() {
-        return localStorage.getItem('langdock-api-key') || '';
+        return localStorage.getItem('langdock-api-key') || CFG.apiKey || '';
+    }
+
+    function getProvider() {
+        return localStorage.getItem('api-provider') || CFG.provider || 'langdock';
     }
 
     function setApiKey(key) {
@@ -224,7 +231,8 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     function getApiUrl() {
         const stored = localStorage.getItem('langdock-api-url');
         if (stored) return stored;
-        const providerId = localStorage.getItem('api-provider') || 'langdock';
+        if (CFG.endpoint) return CFG.endpoint;
+        const providerId = getProvider();
         const provider = PROVIDERS[providerId] || PROVIDERS.langdock;
         return provider.url;
     }
@@ -330,7 +338,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
         const loadingDiv = addMessage(`${char.emoji} denkt nach...`, 'loading');
         sendBtn.disabled = true;
 
-        const providerId = localStorage.getItem('api-provider') || 'langdock';
+        const providerId = getProvider();
         const provider = PROVIDERS[providerId] || PROVIDERS.langdock;
         const apiUrl = getApiUrl() || provider.url;
         // Charakter-Modell nutzen wenn Langdock (routet alle Modelle),
@@ -545,7 +553,7 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
 
     function updateApiStatus() {
         const hasKey = !!getApiKey();
-        const pId = localStorage.getItem('api-provider') || 'langdock';
+        const pId = getProvider();
         const pName = providerSelect.options[providerSelect.selectedIndex]?.text || pId;
         if (hasKey) {
             apiStatus.textContent = `✅ ${pName} — Key gespeichert`;
@@ -567,7 +575,7 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
     settingsBtn.addEventListener('click', () => {
         apiKeyInput.value = getApiKey();
         apiUrlInput.value = getApiUrl();
-        providerSelect.value = localStorage.getItem('api-provider') || 'langdock';
+        providerSelect.value = getProvider();
         apiKeyInput.type = 'password';
         apiKeyToggle.textContent = '👁';
         updateApiStatus();
