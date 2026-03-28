@@ -1937,7 +1937,7 @@
             case 's':
                 if (e.ctrlKey || e.metaKey) {
                     e.preventDefault();
-                    saveProject();
+                    // Save gelöscht — jede Session ist ephemär
                 }
                 break;
         }
@@ -2311,21 +2311,7 @@
     loadInventory();
     loadUnlocked();
 
-    // Auto-Save wiederherstellen wenn vorhanden
-    const savedProjects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-    if (savedProjects[AUTOSAVE_KEY] && isValidGrid(savedProjects[AUTOSAVE_KEY].grid)) {
-        grid = savedProjects[AUTOSAVE_KEY].grid;
-        treeGrowth = savedProjects[AUTOSAVE_KEY].treeGrowth || {};
-        inventory = savedProjects[AUTOSAVE_KEY].inventory || inventory;
-        if (savedProjects[AUTOSAVE_KEY].unlocked) {
-            unlockedMaterials = new Set(savedProjects[AUTOSAVE_KEY].unlocked);
-        } else {
-            unlockedMaterials = new Set();
-        }
-        window.grid = grid;
-        migrateUnlocked();
-        showToast('🔄 Letzte Insel wiederhergestellt');
-    }
+    // Jede Session beginnt frisch — die Insel verschwindet wenn man wegschaut
 
     draw();
     updateAchievementDisplay();
