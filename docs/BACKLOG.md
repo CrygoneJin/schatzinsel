@@ -92,6 +92,15 @@
 | ✅ | Keyboard-Shortcuts (B/D/F) | 30faac3 |
 | ✅ | NPC-Stimmen geschärft (Elefant/Krabs/Tommy) | 899cb9d |
 | ✅ | Bug-Fixes: Unlock-Threshold, Model-Selection | f017d5a |
+| ✅ | 五行 Wu Xing: 5 Elemente (Metall/Holz/Feuer/Wasser/Erde) | 0cc40e7 |
+| ✅ | Harvest-System: Ernten ersetzt Axt+Abreißen | 789fd1a |
+| ✅ | Palette-Unlock: Crafting schaltet Artefakte frei | 789fd1a |
+| ✅ | 五音 Element-Töne (pythagoräische Pentatonik) | f7f17d0 |
+| ✅ | Palette als Klavier (Kind-Feature-Request) | 6b53fd3 |
+| ✅ | Regenbogen als Hintergrund-Effekt | 61dda7a |
+| ✅ | 20 Crafting-Rezepte, alle Quests lösbar | e743185 |
+| ✅ | Save-Migration (alte Saves ohne unlocked) | be08f18 |
+| ✅ | Easter Egg Fix: C war nicht Erster | 38a711b |
 
 ---
 
