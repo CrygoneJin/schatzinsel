@@ -568,6 +568,19 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
         }
     }
 
+    const PROVIDER_HINTS = {
+        langdock: 'DSGVO-konform, Daten bleiben in der EU. Key: app.langdock.com → API Keys',
+        anthropic: 'Claude direkt von Anthropic. Key: console.anthropic.com → API Keys',
+        openai: 'GPT-Modelle von OpenAI. Key: platform.openai.com → API Keys',
+        gemini: 'Google Gemini. Key: aistudio.google.com → API Keys',
+        custom: 'Eigener Server (LiteLLM, Ollama, vLLM…). Trag URL + Key ein.'
+    };
+    const providerHint = document.getElementById('api-provider-hint');
+
+    function updateProviderHint() {
+        providerHint.textContent = PROVIDER_HINTS[providerSelect.value] || '';
+    }
+
     function updateUrlRowVisibility() {
         apiUrlRow.style.display = providerSelect.value === 'custom' ? 'block' : 'none';
     }
@@ -580,6 +593,7 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
         apiKeyToggle.textContent = '👁';
         updateApiStatus();
         updateUrlRowVisibility();
+        updateProviderHint();
         apiKeyDialog.classList.remove('hidden');
     });
 
@@ -587,6 +601,7 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
         const p = PROVIDERS[providerSelect.value];
         if (p && p.url) apiUrlInput.value = p.url;
         updateUrlRowVisibility();
+        updateProviderHint();
     });
 
     apiKeyToggle.addEventListener('click', () => {

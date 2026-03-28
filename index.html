@@ -218,20 +218,25 @@
             </div>
         </div>
 
-        <!-- API Settings Dialog -->
+        <!-- BYOK Dialog — Bring Your Own Key -->
         <div id="api-key-dialog" class="dialog-overlay hidden">
             <div class="dialog-content" style="max-width: 420px;">
-                <h2>🔑 KI-Einstellungen</h2>
+                <h2>🔑 Dein Schlüssel zur Insel</h2>
+                <p style="font-size: 13px; color: #555; margin-bottom: 8px;">
+                    Die Inselbewohner sprechen mit echten KI-Modellen.<br>
+                    Dafür brauchen sie einen <strong>API-Key</strong> — wie ein Passwort für die KI.
+                </p>
                 <div id="api-status" style="font-size: 13px; padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; text-align: center;"></div>
 
-                <label style="font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px;">Anbieter:</label>
-                <select id="api-provider" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px;">
-                    <option value="langdock">Langdock (EU)</option>
-                    <option value="anthropic">Anthropic (direkt)</option>
-                    <option value="openai">OpenAI</option>
+                <label style="font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px;">Welche KI soll sprechen?</label>
+                <select id="api-provider" style="width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 4px;">
+                    <option value="langdock">Langdock (EU, DSGVO)</option>
+                    <option value="anthropic">Anthropic (Claude direkt)</option>
+                    <option value="openai">OpenAI (GPT)</option>
                     <option value="gemini">Google Gemini</option>
-                    <option value="custom">Eigener Endpoint (LiteLLM etc.)</option>
+                    <option value="custom">Eigener Endpoint</option>
                 </select>
+                <p id="api-provider-hint" style="font-size: 11px; color: #888; margin: 0 0 12px 0;"></p>
 
                 <label style="font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px;">API-Key:</label>
                 <div style="position: relative;">
@@ -244,7 +249,10 @@
                     <input type="text" id="api-url-input" placeholder="https://..." style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 13px; margin-bottom: 12px; box-sizing: border-box;">
                 </div>
 
-                <p style="font-size: 12px; color: #999; margin-bottom: 12px;">Einmal eingeben — bleibt gespeichert. 🔒</p>
+                <p style="font-size: 11px; color: #999; margin-bottom: 12px;">
+                    Einmal eingeben — bleibt in deinem Browser gespeichert. 🔒<br>
+                    Dein Key verlässt nie dieses Gerät. Kein Server, kein Tracking.
+                </p>
 
                 <div style="display: flex; gap: 8px; justify-content: center;">
                     <button class="action-btn" id="api-key-save">💾 Speichern</button>
