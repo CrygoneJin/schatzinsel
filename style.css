@@ -414,10 +414,7 @@ header h1 {
 }
 
 .mat-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: #2C3E50;
-    margin-top: 2px;
+    display: none;
 }
 
 /* === CANVAS === */
