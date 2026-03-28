@@ -29,7 +29,7 @@ export default {
 
       // Sanitize am Edge (Defense in Depth — n8n validiert auch nochmal)
       const sanitized = {
-        model: body.model || 'claude-haiku-4-5-20251001',
+        model: body.model || 'gpt-4o',
         max_tokens: Math.min(body.max_tokens || 150, 300),
         charId: body.charId || 'maus',
         messages: body.messages.slice(-10).map(m => ({
