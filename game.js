@@ -651,17 +651,120 @@
     }
 
     // --- NPC-Kommentare beim Bauen ---
-    const NPC_BUILD_COMMENTS = {
-        boat:     ['⛵ Tommy: Klick-klack! BOOTE! JA!', '🦀 Krabs: Ein Boot? Das bringt Kunden!'],
-        flower:   ['🐭 Maus: *pieps* BLUMEN!', '🐘 Elefant: Schön! Törööö!'],
-        fish:     ['🦀 Tommy: Fische! Die zähle ich! Eins... zwei... JA!', '🐭 Ente: *quak* Fisch-Freunde!'],
-        mushroom: ['🦄 Neinhorn: NEIN! ...ok, Pilze sind cool.', '🐘 Elefant: Oh, geheimnisvoll!'],
-        tree:     ['🐘 Elefant: Bäume sind die besten Nachbarn.', '🦄 Neinhorn: Nein! ...ok, Bäume gehen.'],
-        water:    ['🐭 Ente: *QUAK QUAK QUAK!* WASSER!', '🦀 Krabs: Wasser = Hafen = GELD!'],
-        bridge:   ['🦀 Tommy: Brücken! Klick-klack drüber!', '🐘 Elefant: Der Weber hätte die Brücke zuerst geplant...'],
-        flag:     ['🧽 SpongeBob: ICH BIN BEREIT eine Flagge zu haben!', '🦄 Neinhorn: NEIN ich will keine Flagge! ...die ist hübsch.'],
-        fountain: ['🐭 Maus: *pieps* Springbrunnen! *quak* SPRITZ!', '🐘 Elefant: Wasser-Musik! Törööö!'],
+    // === GENERATIVE NPC-KOMMENTARE ===
+    // Baustein-System: Satzteile werden live gemischt = unendliche Kombinationen
+    // Kein API-Call, kein Data-Leak, rein clientseitig.
+    const NPC_VOICES = {
+        spongebob: { emoji: '🧽', prefix: 'SpongeBob:', ticks: ['ICH BIN BEREIT', 'Das ist der BESTE Tag!', 'Hihihi!'], style: 'caps' },
+        maus:      { emoji: '🐭', prefix: 'Maus:', ticks: ['*pieps*', '*quak*'], style: 'cute' },
+        elefant:   { emoji: '🐘', prefix: 'Elefant:', ticks: ['Törööö!', 'Hmm, ich möchte sicherstellen...'], style: 'careful' },
+        neinhorn:  { emoji: '🦄', prefix: 'Neinhorn:', ticks: ['NEIN!', '...ok,', 'Mon Dieu!'], style: 'nein' },
+        krabs:     { emoji: '🦀', prefix: 'Krabs:', ticks: ['💰', 'Taler!', 'Geld!'], style: 'money' },
+        tommy:     { emoji: '🎬', prefix: 'Tommy:', ticks: ['Klick-klack!', 'JA!', 'CUT!'], style: 'chaos' },
+        bernd:     { emoji: '🍞', prefix: 'Bernd:', ticks: ['*seufz*', 'Mist.', 'Toll.'], style: 'grumpy' },
     };
+
+    const MAT_ADJECTIVES = {
+        wood: ['rustikales', 'solides', 'gemütliches', 'warmes', 'klassisches'],
+        stone: ['robuster', 'starker', 'massiver', 'ewiger', 'grauer'],
+        glass: ['durchsichtiges', 'glänzendes', 'funkelndes', 'modernes', 'schickes'],
+        plant: ['grüne', 'lebendige', 'frische', 'wilde', 'wuchernde'],
+        tree: ['großer', 'schattenspendender', 'alter', 'stolzer', 'knorriger'],
+        flower: ['bunte', 'duftende', 'leuchtende', 'zarte', 'wilde'],
+        water: ['blaues', 'plätscherndes', 'kühles', 'tiefes', 'glitzerndes'],
+        fence: ['ordentlicher', 'stabiler', 'gerader', 'praktischer'],
+        boat: ['schnelles', 'kleines', 'mutiges', 'abenteuerlustiges'],
+        fish: ['glitschiger', 'flinker', 'neugieriger', 'bunter'],
+        bridge: ['verbindende', 'elegante', 'starke', 'kühne'],
+        flag: ['wehende', 'stolze', 'bunte', 'mutige'],
+        fountain: ['sprudelnder', 'fröhlicher', 'magischer', 'singender'],
+        mushroom: ['geheimnisvoller', 'leuchtender', 'seltsamer', 'kuscheliger'],
+        door: ['einladende', 'mysteriöse', 'offene', 'knarrende'],
+        roof: ['schützendes', 'rotes', 'stabiles', 'gemütliches'],
+        lamp: ['helle', 'warme', 'leuchtende', 'einladende'],
+        sand: ['goldener', 'weicher', 'warmer', 'endloser'],
+        path: ['verschlungener', 'einladender', 'spannender', 'neuer'],
+        cactus: ['stacheliger', 'zäher', 'trotziger', 'cooler'],
+    };
+
+    const REACTIONS = {
+        caps:    ['Das ist FANTASTISCH!', 'MEHR DAVON!', 'Der beste Block ALLER ZEITEN!', 'SO toll!', 'WOW!'],
+        cute:    ['*freu*', '*hüpf*', '*kicher*', '*staun*', 'Oh!', 'Schööön!'],
+        careful: ['Sehr schön gemacht.', 'Ganz sorgfältig, ja.', 'Das passt gut hierhin.', 'Ich bin zufrieden.'],
+        nein:    ['...ist eigentlich gut.', '...naja. Geht so. OK es ist toll.', '...NEIN! Doch. Ja.', '...pfff. Hübsch.'],
+        money:   ['Das bringt Kunden!', 'Wertsteigerung!', 'Cha-ching!', 'Investment!', 'Rendite!'],
+        chaos:   ['SCHNITT! Nochmal! BESSER!', 'Das wird im Film GEIL!', 'KAMERA LÄUFT!', 'Action!'],
+        grumpy:  ['Na toll.', 'Muss das sein?', 'Kann man machen.', 'Hab ich auch mal probiert. War schlecht.'],
+    };
+
+    const TEMPLATES = [
+        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${npc.ticks[0]} ${adj} ${mat}! ${react}`,
+        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${react} ${adj} ${mat}!`,
+        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} Oh! ${adj} ${mat}. ${npc.ticks[Math.min(1, npc.ticks.length-1)]}`,
+        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${adj} ${mat}? ${react}`,
+        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${npc.ticks[0]} Noch mehr ${mat}! ${react}`,
+    ];
+
+    // Combo-Tracker: besondere Kommentare bei Serien
+    let lastMaterial = null;
+    let materialStreak = 0;
+
+    const STREAK_COMMENTS = [
+        (npc, mat, n) => `${npc.emoji} ${npc.prefix} ${n}x ${mat} am Stück? ${npc.ticks[0]}`,
+        (npc, mat, n) => `${npc.emoji} ${npc.prefix} Noch mehr ${mat}?! Das wird ja eine ${mat}-Stadt!`,
+        (npc, mat, n) => `${npc.emoji} ${npc.prefix} ${n} ${mat}! Jemand hat einen Plan!`,
+    ];
+
+    // Context-Kommentare basierend auf Grid-Zustand
+    function getContextComment(npc, stats) {
+        if (stats.total === 0) return null;
+        if (stats.percent > 80) return `${npc.emoji} ${npc.prefix} Die Insel ist fast voll! ${npc.ticks[0]}`;
+        if (stats.total % 25 === 0) return `${npc.emoji} ${npc.prefix} ${stats.total} Blöcke! ${REACTIONS[npc.style][Math.floor(Math.random() * REACTIONS[npc.style].length)]}`;
+        // Proportions-Kommentar
+        const entries = Object.entries(stats.counts).filter(([,v]) => v > 0);
+        if (entries.length >= 2) {
+            const sorted = entries.sort((a,b) => b[1] - a[1]);
+            if (sorted[0][1] > stats.total * 0.6) {
+                return `${npc.emoji} ${npc.prefix} Sehr viel ${sorted[0][0]}! Wie wärs mit ${sorted[1][0]}?`;
+            }
+        }
+        return null;
+    }
+
+    function generateNpcComment(material) {
+        const npcKeys = Object.keys(NPC_VOICES);
+        const npc = NPC_VOICES[npcKeys[Math.floor(Math.random() * npcKeys.length)]];
+        const matLabel = MATERIALS[material]?.label || material;
+
+        // Streak-Check
+        if (material === lastMaterial) {
+            materialStreak++;
+            if (materialStreak >= 5 && Math.random() < 0.5) {
+                const tmpl = STREAK_COMMENTS[Math.floor(Math.random() * STREAK_COMMENTS.length)];
+                return tmpl(npc, matLabel, materialStreak);
+            }
+        } else {
+            lastMaterial = material;
+            materialStreak = 1;
+        }
+
+        // Context-Kommentar (10% Chance)
+        if (Math.random() < 0.1) {
+            const stats = typeof getGridStats === 'function' ? getGridStats() : null;
+            if (stats) {
+                const ctx = getContextComment(npc, stats);
+                if (ctx) return ctx;
+            }
+        }
+
+        // Generativer Kommentar aus Bausteinen
+        const adjs = MAT_ADJECTIVES[material] || ['tolles'];
+        const adj = adjs[Math.floor(Math.random() * adjs.length)];
+        const reactions = REACTIONS[npc.style];
+        const react = reactions[Math.floor(Math.random() * reactions.length)];
+        const tmpl = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
+        return tmpl(npc, adj, matLabel, react);
+    }
 
     // --- Spontan-Hörspiele: Mini-Szenen bei besonderen Anlässen ---
     // "Mensch, Maschine, KI" — wie im ZKM Karlsruhe
@@ -755,15 +858,13 @@
 
     function maybeNpcComment(material) {
         const now = Date.now();
-        if (now - lastCommentTime < 8000) return; // Max alle 8 Sekunden
-        if (Math.random() > 0.25) return; // 25% Chance
-
-        const comments = NPC_BUILD_COMMENTS[material];
-        if (!comments) return;
+        if (now - lastCommentTime < 10000) return; // Max alle 10 Sekunden
+        if (Math.random() > 0.20) return; // 20% Chance (weniger spam)
 
         lastCommentTime = now;
-        const comment = comments[Math.floor(Math.random() * comments.length)];
-        showToast(comment, 3500);
+        const comment = generateNpcComment(material);
+        // Kurzer Toast (2s) — verschwindet sofort bei nächstem Klick
+        showToast(comment, 2000);
     }
 
     // --- Zustand ---
@@ -1323,10 +1424,20 @@
         toast.classList.remove('hidden');
         clearTimeout(toast._timeout);
         toast._timeout = setTimeout(() => {
-            toast.classList.add('hidden');
-            setTimeout(processToastQueue, 300); // Kurze Pause zwischen Toasts
+            dismissToast();
         }, duration);
     }
+
+    function dismissToast() {
+        clearTimeout(toast._timeout);
+        toast.classList.add('hidden');
+        toastQueue.length = 0; // Queue leeren — nicht nachladen beim Bauen
+        toastBusy = false;
+    }
+
+    // Toast verschwindet sofort bei Canvas-Interaktion
+    canvas.addEventListener('mousedown', dismissToast);
+    canvas.addEventListener('touchstart', dismissToast);
 
     // --- Hilfsfunktionen ---
     function escapeHtml(str) {
