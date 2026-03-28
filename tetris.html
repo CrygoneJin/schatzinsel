@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🟦 Tetris — Schatzinsel</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a1628; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; min-height: 100vh; }
+h1 { font-size: 1.3rem; color: #4fc3f7; margin-bottom: 4px; }
+.sub { font-size: 0.8rem; color: #78909c; margin-bottom: 16px; }
+.info { display: flex; gap: 20px; margin-bottom: 12px; font-size: 0.9rem; }
+canvas { border: 2px solid #2a3f60; border-radius: 8px; background: #0e1e30; }
+.msg { font-size: 1.2rem; margin-top: 16px; min-height: 30px; }
+.controls { display: flex; gap: 8px; margin-top: 12px; }
+button { background: #132033; border: 1px solid #2a3f60; color: #90caf9; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1.2rem; }
+button:hover { background: #1e3050; border-color: #4fc3f7; }
+.credit { font-size: 0.7rem; color: #37474f; margin-top: 20px; }
+</style>
+</head>
+<body>
+<h1>🟦 Tetris</h1>
+<div class="sub">Alexei Paschitnow, Moskau, 1984</div>
+<div class="info">
+  <span>⭐ <span id="score">0</span></span>
+  <span>📊 <span id="lines">0</span> Reihen</span>
+</div>
+<canvas id="c" width="250" height="500"></canvas>
+<div class="msg" id="msg"></div>
+<div class="controls">
+  <button onclick="move(-1,0)">⬅️</button>
+  <button onclick="rotate()">🔄</button>
+  <button onclick="move(1,0)">➡️</button>
+  <button onclick="drop()">⬇️</button>
+</div>
+<button onclick="newGame()" style="margin-top:12px">🔄 Nochmal</button>
+<div class="credit">Erfunden von Alexei Paschitnow am 6. Juni 1984 in Moskau. Auf einem Elektronika 60.</div>
+
+<script>
+const W = 10, H = 20, S = 25;
+const COLORS = ['#4fc3f7','#66bb6a','#ef5350','#fdd835','#ff7043','#ab47bc','#26c6da'];
+const SHAPES = [
+  [[1,1,1,1]],           // I
+  [[1,1],[1,1]],          // O
+  [[0,1,0],[1,1,1]],     // T
+  [[1,0,0],[1,1,1]],     // L
+  [[0,0,1],[1,1,1]],     // J
+  [[0,1,1],[1,1,0]],     // S
+  [[1,1,0],[0,1,1]],     // Z
+];
+
+const ctx = document.getElementById('c').getContext('2d');
+let board, piece, px, py, pc, score, lines, gameOver, interval;
+
+function newGame() {
+  board = Array.from({length:H}, () => Array(W).fill(0));
+  score = 0; lines = 0; gameOver = false;
+  document.getElementById('msg').textContent = '';
+  document.getElementById('score').textContent = '0';
+  document.getElementById('lines').textContent = '0';
+  clearInterval(interval);
+  spawn();
+  interval = setInterval(tick, 500);
+}
+
+function spawn() {
+  const i = Math.floor(Math.random() * SHAPES.length);
+  piece = SHAPES[i].map(r => [...r]);
+  pc = COLORS[i];
+  px = Math.floor((W - piece[0].length) / 2);
+  py = 0;
+  if (collides(px, py, piece)) { gameOver = true; clearInterval(interval); document.getElementById('msg').textContent = '💀 GAME OVER'; }
+}
+
+function collides(x, y, p) {
+  for (let r = 0; r < p.length; r++) for (let c = 0; c < p[r].length; c++) {
+    if (!p[r][c]) continue;
+    const nx = x+c, ny = y+r;
+    if (nx < 0 || nx >= W || ny >= H) return true;
+    if (ny >= 0 && board[ny][nx]) return true;
+  }
+  return false;
+}
+
+function lock() {
+  for (let r = 0; r < piece.length; r++) for (let c = 0; c < piece[r].length; c++) {
+    if (piece[r][c] && py+r >= 0) board[py+r][px+c] = pc;
+  }
+  // Clear lines
+  let cleared = 0;
+  for (let r = H-1; r >= 0; r--) {
+    if (board[r].every(c => c)) { board.splice(r, 1); board.unshift(Array(W).fill(0)); cleared++; r++; }
+  }
+  if (cleared) { lines += cleared; score += [0,100,300,500,800][cleared]; document.getElementById('score').textContent = score; document.getElementById('lines').textContent = lines; }
+  spawn();
+}
+
+function tick() { if (gameOver) return; if (collides(px, py+1, piece)) lock(); else py++; draw(); }
+
+function move(dx, dy) { if (gameOver) return; if (!collides(px+dx, py+dy, piece)) { px += dx; py += dy; } draw(); }
+
+function rotate() {
+  if (gameOver) return;
+  const rotated = piece[0].map((_, i) => piece.map(r => r[i]).reverse());
+  if (!collides(px, py, rotated)) piece = rotated;
+  draw();
+}
+
+function drop() { if (gameOver) return; while (!collides(px, py+1, piece)) py++; lock(); draw(); }
+
+function draw() {
+  ctx.fillStyle = '#0e1e30';
+  ctx.fillRect(0, 0, W*S, H*S);
+  // Grid
+  ctx.strokeStyle = '#1a2940';
+  for (let r = 0; r < H; r++) for (let c = 0; c < W; c++) ctx.strokeRect(c*S, r*S, S, S);
+  // Board
+  for (let r = 0; r < H; r++) for (let c = 0; c < W; c++) {
+    if (board[r][c]) { ctx.fillStyle = board[r][c]; ctx.fillRect(c*S+1, r*S+1, S-2, S-2); }
+  }
+  // Piece
+  if (!gameOver) {
+    ctx.fillStyle = pc;
+    for (let r = 0; r < piece.length; r++) for (let c = 0; c < piece[r].length; c++) {
+      if (piece[r][c]) ctx.fillRect((px+c)*S+1, (py+r)*S+1, S-2, S-2);
+    }
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') move(-1,0);
+  else if (e.key === 'ArrowRight') move(1,0);
+  else if (e.key === 'ArrowDown') move(0,1);
+  else if (e.key === 'ArrowUp') rotate();
+  else if (e.key === ' ') drop();
+});
+
+newGame();
+</script>
+</body>
+</html>

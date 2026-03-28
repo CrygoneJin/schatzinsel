@@ -107,6 +107,8 @@
         tornado:  { emoji: '🌪️', label: 'Tornado', color: '#AEB6BF', border: '#85929E' },
         wave:     { emoji: '🌊', label: 'Tsunami',  color: '#2980B9', border: '#1F618D' },
         phoenix:  { emoji: '🔥', label: 'Phönix',   color: '#F39C12', border: '#E67E22' },
+        bomb:     { emoji: '💣', label: 'Bombe',    color: '#2C3E50', border: '#1C2833' },
+        tetris:   { emoji: '🟦', label: 'Tetris',   color: '#3498DB', border: '#2980B9' },
     };
 
     // ============================================================
@@ -1091,6 +1093,8 @@
         { name: 'Roboter',     result: 'robot',     resultCount: 1, ingredients: { metal: 3, lightning: 1 },desc: '3 Metall + Blitz = Roboter' },
         { name: 'Musik',       result: 'music',     resultCount: 1, ingredients: { wood: 1, metal: 1, wind: 1 }, desc: 'Holz + Metall + Wind = Musik' },
         { name: 'Herz',        result: 'heart',     resultCount: 1, ingredients: { fire: 1, water: 1, flower: 1 }, desc: 'Feuer + Wasser + Blume = Herz' },
+        // === GEHEIME MINIGAMES ===
+        { name: 'Bombe',       result: 'bomb',      resultCount: 1, ingredients: { metal: 1, fire: 2, earth: 1 }, desc: 'Metall + 2 Feuer + Erde = 💣' },
     ];
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
@@ -1154,6 +1158,16 @@
             showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
         }
         trackEvent('craft', { recipe: recipe.name, result: recipe.result });
+
+        // Minigame-Trigger
+        if (recipe.result === 'bomb' && !window._minesweeperUnlocked) {
+            window._minesweeperUnlocked = true;
+            localStorage.setItem('insel-minesweeper', 'unlocked');
+            setTimeout(() => {
+                showToast('💣 MINESWEEPER FREIGESCHALTET! Klick auf 💣 in der Palette!');
+            }, 1500);
+        }
+
         updateCraftingDisplay();
     }
 
@@ -2435,6 +2449,17 @@
             soundAchievement();
             updateStats();
             result = { type: 'party' };
+        }
+
+        // "tetris" / "paschitnow" / "pajitnov" — Tetris freischalten
+        if (cmd.match(/pasch|pajit|tetris.*erfind|wer.*tetris/i)) {
+            if (!window._tetrisUnlocked) {
+                window._tetrisUnlocked = true;
+                localStorage.setItem('insel-tetris', 'unlocked');
+                showToast('🟦 TETRIS FREIGESCHALTET! Alexei Paschitnow, 1984, Moskau!');
+                soundAchievement();
+            }
+            result = { type: 'tetris_unlock' };
         }
 
         // "zeig code" / "quellcode" — toggle Code-View
