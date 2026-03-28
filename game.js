@@ -544,10 +544,14 @@
             '🪨 BASIC sitzt auf dem Stein und zählt: "10... 20... 30..." — "Was machst du?" — "Ich bin die einfachste Sprache der Insel! Jeder fängt mit mir an!"',
             '🪨 Am Stein lehnt eine alte Tafel: "Pythagoras war hier. 2500 Jahre vor euch ALLEN." C schweigt. Fortran schweigt. Sogar BASIC schweigt.',
             '🪨 Pascal sitzt auf dem Stein und rechnet. "Blaise Pascal! 1642! MEIN Rechner war der ERSTE!" C murmelt: "Ja, aber konntest du Schleifen?" Pascal: "Ich konnte ADDIEREN. Das reicht."',
+            '🪨 Auf der Rückseite des Steins steht spiegelverkehrt: "nehets gnubreW erhI etnnök reiH" — Wer einen Spiegel hat, kann es lesen.',
         ],
         wood: [
             '🪵 Im Holz sind Jahresringe. "Jeder Ring ist ein Jahr", sagt Ada. "Und jede Zeile Code ist ein Gedanke. Beides erzählt eine Geschichte."',
             '🪵 Auf dem Holz liegt ein Abakus. "Der ERSTE Computer!", ruft BASIC. "Kugeln statt Pixel!" Fortran krächzt: "Endlich was aus MEINER Zeit!"',
+            '🎬 Vim Wenders sitzt auf dem Holz und schaut aufs Meer. "Die Schönheit liegt im Einfachen." Er tippt :wq und ist weg. Keiner weiß wie man ihn zurückholt.',
+            '🎬 "Ich kann nicht aufhören!" ruft jemand hinter dem Holzstapel. "Drück ESC!" — "WAS IST ESC?!" — Vim Wenders lächelt: "Das lernt man. Oder man lernt es nie."',
+            '🍌 Hinter dem Holz liegt eine winzige Banane. "Nano Banano!" steht drauf. Der kleinste Editor der Insel. Kann nicht viel, aber jeder versteht ihn.',
         ],
         tree: [
             '🐍 Hinter dem Baum raschelt es! Eine freundliche Schlange: "Hallo, ich bin Python!"',
@@ -559,6 +563,8 @@
             '💎 Zwischen den Blumen glitzert etwas Rotes! Ein Edelstein: "Ruby"!',
             '📿 Im Blumenbeet liegt eine Perlenkette! "PERL" steht auf dem Verschluss. Hübsch!',
             '📿 "Meine PERLenkette!" ruft eine alte Schildkröte. "Die hab ich 1987 hier verloren!"',
+            '👧 Zwischen den Blumen sitzt Lisa Lispel und sortiert Klammern. "((((Hallo!))))" — "Warum so viele Klammern?" — "Ich bin LISP! Ohne Klammern bin ich NICHTS!" (seit 1958)',
+            '👧 Lisa Lispel lispelt: "(setq freunde (+ freunde 1)) — Ich hab gerade einen Freund dazugerechnet! Dich!" Sie lächelt. Die Klammern auch.',
         ],
         boat: [
             '⚓ Am Boot hängt ein rostiger Anker. Jemand hat "Rust" draufgeritzt. "Ich war mal neu!"',
