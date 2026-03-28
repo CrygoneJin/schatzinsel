@@ -2281,19 +2281,22 @@
     };
 
     // --- Abstraction Level Explorer: Aufzug durch die Computer-Ebenen ---
-    // User < Pixel < Worte < ASCII < Hex < Byte < Nibble < Bit
+    // Der volle Stack: User → Browser → Netzwerk → OS → Worte → ASCII → Hex → Byte → Nibble → Bit
+    // Plus Index (Haustür) und Server (Zuhause)
     const ABSTRACTION_LEVELS = [
-        { id: 'user',   label: '🎮 User',    desc: 'So siehst du die Insel' },
-        { id: 'pixel',  label: '🖥️ Pixel',   desc: 'Alles besteht aus winzigen Punkten' },
-        { id: 'worte',  label: '📝 Worte',   desc: 'Hinter jedem Emoji steckt ein Wort' },
-        { id: 'ascii',  label: '🔤 ASCII',   desc: 'Jeder Buchstabe hat eine Nummer' },
-        { id: 'hex',    label: '🔢 Hex',     desc: 'Computer zählen mit 16 Ziffern' },
-        { id: 'byte',   label: '📦 Byte',    desc: '8 Bits = 1 Byte = 1 Buchstabe' },
-        { id: 'nibble', label: '🧩 Nibble',  desc: 'Ein halbes Byte — zum Anknabbern' },
-        { id: 'bit',    label: '💡 Bit',     desc: 'An oder Aus. 1 oder 0. Das ist alles.' },
+        { id: 'user',    label: '🎮 User',      desc: 'So siehst du die Insel' },
+        { id: 'browser', label: '🦎 Browser',   desc: 'Hier wohnt die Webseite — die Eidechse liest den Index!' },
+        { id: 'netz',    label: '📡 Netzwerk',  desc: 'So telefonieren die Bewohner nach Hause' },
+        { id: 'os',      label: '🏗️ System',    desc: 'Das Betriebssystem — der Hausmeister' },
+        { id: 'worte',   label: '📝 Worte',     desc: 'Hinter jedem Emoji steckt ein Wort' },
+        { id: 'ascii',   label: '🔤 ASCII',     desc: 'Jeder Buchstabe hat eine Nummer' },
+        { id: 'hex',     label: '🔢 Hex',       desc: 'Computer zählen mit 16 Ziffern' },
+        { id: 'byte',    label: '📦 Byte',      desc: '8 Bits = 1 Byte = 1 Buchstabe' },
+        { id: 'nibble',  label: '🧩 Nibble',    desc: 'Ein halbes Byte — zum Anknabbern' },
+        { id: 'bit',     label: '💡 Bit',       desc: 'An oder Aus. 1 oder 0. Das ist alles.' },
     ];
 
-    let abstractionLevel = 0; // 0 = User (normal), 7 = Bit (tiefste Ebene)
+    let abstractionLevel = 0; // 0 = User (normal), 9 = Bit (tiefste Ebene)
     let codeViewActive = false; // Backward compat
     let bitFlips = []; // { r, c, charIdx, bitIdx, original, flipped, time }
     const CRC_REPAIR_MS = 3000; // CRC-Polizei repariert nach 3 Sekunden
@@ -2349,9 +2352,9 @@
         }
     };
 
-    // Bit flippen — nur auf Bit-Ebene (Level 7)
+    // Bit flippen — nur auf Bit-Ebene (Level 9)
     function flipBitAt(r, c) {
-        if (abstractionLevel !== 7 || !grid[r][c]) return;
+        if (abstractionLevel !== 9 || !grid[r][c]) return;
         const text = grid[r][c];
         const charIdx = Math.floor(Math.random() * text.length);
         const bitIdx = Math.floor(Math.random() * 8);
@@ -2380,7 +2383,7 @@
             // Nur reparieren wenn der Flip noch aktiv ist
             if (grid[r][c] === flippedText) {
                 grid[r][c] = original;
-                showToast('🧬 CRC-Polizei: Fehler erkannt & repariert! Doppelhelix-Backup.');
+                showToast('🧬 ECC-Polizei: Fehler erkannt & repariert! Doppelhelix-Backup.');
             }
             bitFlips = bitFlips.filter(f => !(f.r === r && f.c === c && f.time === bitFlips.find(bf => bf.r === r && bf.c === c)?.time));
         }, CRC_REPAIR_MS);
@@ -2393,72 +2396,83 @@
         const lvl = ABSTRACTION_LEVELS[abstractionLevel];
         const now = Date.now();
 
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (!grid[r][c]) continue;
-                const x = (c + WATER_BORDER) * CELL_SIZE;
-                const y = (r + WATER_BORDER) * CELL_SIZE;
-                const material = grid[r][c];
-                const bytes = textToBytes(material);
+        // Browser-Ebene (/1): index.html + DOM-Baum
+        if (abstractionLevel === 1) {
+            drawBrowserLevel(now);
+        }
 
-                // Ist dieses Feld gerade bit-geflippt? (Glitch-Effekt)
-                const activeFlip = bitFlips.find(f => f.r === r && f.c === c);
-                const isGlitched = !!activeFlip;
-                const glitchAge = activeFlip ? (now - activeFlip.time) / CRC_REPAIR_MS : 0;
+        // Netzwerk-Ebene (/2): HTTP-Pakete fliegen
+        if (abstractionLevel === 2) {
+            drawNetworkLevel(now);
+        }
 
-                // Hintergrundfarbe: normal = dunkel, glitched = rot pulsierend
-                if (isGlitched) {
-                    const pulse = Math.sin(now * 0.01) * 0.2 + 0.5;
-                    ctx.fillStyle = `rgba(200, 30, 30, ${0.7 + pulse * 0.2})`;
-                } else {
-                    ctx.fillStyle = 'rgba(30, 30, 30, 0.88)';
-                }
-                ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+        // OS-Ebene (/3): Prozesse, Dateisystem
+        if (abstractionLevel === 3) {
+            drawOSLevel(now);
+        }
 
-                // Textfarbe: Programm = cyan, Daten = grün
-                // Alles im Grid ist "Daten" — das Grid selbst ist "Programm"
-                const dataColor = isGlitched ? '#FF4444' : '#00FF41';
-                const fontSize = Math.max(7, CELL_SIZE * 0.22);
+        // Ab Worte-Ebene (/4+): Zellen-Inhalte transformieren
+        if (abstractionLevel >= 4) {
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (!grid[r][c]) continue;
+                    const x = (c + WATER_BORDER) * CELL_SIZE;
+                    const y = (r + WATER_BORDER) * CELL_SIZE;
+                    const material = grid[r][c];
+                    const bytes = textToBytes(material);
 
-                ctx.fillStyle = dataColor;
-                ctx.font = `bold ${fontSize}px monospace`;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
+                    // Ist dieses Feld gerade bit-geflippt? (Glitch-Effekt)
+                    const activeFlip = bitFlips.find(f => f.r === r && f.c === c);
+                    const isGlitched = !!activeFlip;
 
-                switch (abstractionLevel) {
-                    case 1: // Pixel — Mosaikeffekt
-                        drawPixelLevel(x, y, material, isGlitched);
-                        break;
-                    case 2: // Worte — Material-Key als Text
-                        ctx.fillText(material, x + CELL_SIZE / 2, y + CELL_SIZE / 2);
-                        break;
-                    case 3: // ASCII — Zeichencodes
-                        ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.18)}px monospace`;
-                        ctx.fillText(bytes.join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
-                        break;
-                    case 4: // Hex
-                        ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.18)}px monospace`;
-                        ctx.fillText(bytes.map(byteToHex).join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
-                        break;
-                    case 5: // Byte — Binär
-                        ctx.font = `bold ${Math.max(5, CELL_SIZE * 0.12)}px monospace`;
-                        ctx.fillText(bytes.map(byteToBits).join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
-                        break;
-                    case 6: // Nibble — Halbe Bytes
-                        ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.16)}px monospace`;
-                        const nibbles = bytes.flatMap(byteToNibbles);
-                        ctx.fillText(nibbles.join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
-                        break;
-                    case 7: // Bit — Einzelne Bits, klickbar
-                        drawBitLevel(x, y, bytes, isGlitched, activeFlip);
-                        break;
+                    // Hintergrundfarbe: normal = dunkel, glitched = rot pulsierend
+                    if (isGlitched) {
+                        const pulse = Math.sin(now * 0.01) * 0.2 + 0.5;
+                        ctx.fillStyle = `rgba(200, 30, 30, ${0.7 + pulse * 0.2})`;
+                    } else {
+                        ctx.fillStyle = 'rgba(30, 30, 30, 0.88)';
+                    }
+                    ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+
+                    const dataColor = isGlitched ? '#FF4444' : '#00FF41';
+                    const fontSize = Math.max(7, CELL_SIZE * 0.22);
+                    ctx.fillStyle = dataColor;
+                    ctx.font = `bold ${fontSize}px monospace`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    switch (abstractionLevel) {
+                        case 4: // Worte — Material-Key als Text
+                            ctx.fillText(material, x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+                            break;
+                        case 5: // ASCII — Zeichencodes
+                            ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.18)}px monospace`;
+                            ctx.fillText(bytes.join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+                            break;
+                        case 6: // Hex — die HEXen zählen hier
+                            ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.18)}px monospace`;
+                            ctx.fillText(bytes.map(byteToHex).join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+                            break;
+                        case 7: // Byte — Binär
+                            ctx.font = `bold ${Math.max(5, CELL_SIZE * 0.12)}px monospace`;
+                            ctx.fillText(bytes.map(byteToBits).join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+                            break;
+                        case 8: // Nibble — Halbe Bytes
+                            ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.16)}px monospace`;
+                            const nibbles = bytes.flatMap(byteToNibbles);
+                            ctx.fillText(nibbles.join(' '), x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+                            break;
+                        case 9: // Bit — Einzelne Bits, klickbar
+                            drawBitLevel(x, y, bytes, isGlitched, activeFlip);
+                            break;
+                    }
                 }
             }
         }
 
-        // Grid-Koordinaten als "Programm" (cyan) — zeigt den Unterschied Programm/Daten
-        if (abstractionLevel >= 3) {
-            ctx.fillStyle = '#00DDFF'; // Cyan = Programm
+        // Grid-Koordinaten als "Programm" (cyan) ab ASCII-Ebene
+        if (abstractionLevel >= 5) {
+            ctx.fillStyle = '#00DDFF';
             ctx.font = `${Math.max(6, CELL_SIZE * 0.15)}px monospace`;
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
@@ -2476,8 +2490,8 @@
         drawDungeonNPCs();
 
         // Level-Anzeige (Aufzug-Display)
-        const labelW = 280;
-        const labelH = abstractionLevel >= 3 ? 42 : 28;
+        const labelW = 300;
+        const labelH = abstractionLevel >= 5 ? 42 : 28;
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
         ctx.fillRect(5, 5, labelW, labelH);
         ctx.strokeStyle = '#00FF41';
@@ -2485,39 +2499,286 @@
         ctx.strokeRect(5, 5, labelW, labelH);
 
         ctx.fillStyle = '#00FF41';
-        ctx.font = 'bold 12px monospace';
+        ctx.font = 'bold 11px monospace';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         ctx.fillText(`/${abstractionLevel} ${lvl.label} — ${lvl.desc}`, 10, 9);
 
-        // Programm/Daten Legende ab Level 3
-        if (abstractionLevel >= 3) {
+        // Programm/Daten Legende ab ASCII-Ebene
+        if (abstractionLevel >= 5) {
             ctx.fillStyle = '#00DDFF';
             ctx.fillText('■ Programm (Adressen)', 10, 26);
             ctx.fillStyle = '#00FF41';
-            ctx.fillText('■ Daten (Inhalt)', 180, 26);
+            ctx.fillText('■ Daten (Inhalt)', 190, 26);
         }
     }
 
-    // Pixel-Ebene: Emoji als grobe Pixelblöcke darstellen
-    function drawPixelLevel(x, y, material, isGlitched) {
-        // Erzeuge einen deterministischen "Pixel-Hash" aus dem Material-Namen
-        const hash = material.split('').reduce((h, ch) => ((h << 5) - h + ch.charCodeAt(0)) | 0, 0);
-        const blockSize = Math.max(3, Math.floor(CELL_SIZE / 5));
-        const cols = Math.floor(CELL_SIZE / blockSize);
-        const rows = Math.floor(CELL_SIZE / blockSize);
+    // --- Browser-Ebene (/1): Die Eidechse (Gecko) liest den Index ---
+    function drawBrowserLevel(now) {
+        const canvasW = (COLS + WATER_BORDER * 2) * CELL_SIZE;
+        const canvasH = (ROWS + WATER_BORDER * 2) * CELL_SIZE;
 
-        for (let pr = 0; pr < rows; pr++) {
-            for (let pc = 0; pc < cols; pc++) {
-                const seed = hash + pr * 7 + pc * 13;
-                const r = (seed * 2654435761 >>> 0) % 256;
-                const g = (seed * 2246822519 >>> 0) % 256;
-                const b = (seed * 3266489917 >>> 0) % 256;
-                const a = isGlitched ? 0.5 + Math.sin(Date.now() * 0.005 + pr + pc) * 0.3 : 0.8;
-                ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
-                ctx.fillRect(x + 1 + pc * blockSize, y + 1 + pr * blockSize, blockSize - 1, blockSize - 1);
+        // Dunkler Hintergrund
+        ctx.fillStyle = 'rgba(20, 20, 35, 0.85)';
+        ctx.fillRect(0, 0, canvasW, canvasH);
+
+        // index.html als "Haustür" oben
+        const doorW = 200;
+        const doorH = 50;
+        const doorX = canvasW / 2 - doorW / 2;
+        const doorY = 40;
+
+        // Haustür
+        ctx.fillStyle = '#2a1a0a';
+        ctx.fillRect(doorX, doorY, doorW, doorH);
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(doorX, doorY, doorW, doorH);
+        ctx.fillStyle = '#FFD700';
+        ctx.font = 'bold 14px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🏠 index.html', doorX + doorW / 2, doorY + 15);
+        ctx.font = '10px monospace';
+        ctx.fillStyle = '#AAA';
+        ctx.fillText('Die Haustür — ohne mich nur Salat!', doorX + doorW / 2, doorY + 35);
+
+        // DOM-Baum: Äste von index.html zu den Grid-Zellen
+        ctx.strokeStyle = 'rgba(0, 255, 65, 0.3)';
+        ctx.lineWidth = 1;
+        const gridStartY = (WATER_BORDER) * CELL_SIZE;
+        for (let c = 0; c < COLS; c += 3) {
+            const x = (c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
+            ctx.beginPath();
+            ctx.moveTo(doorX + doorW / 2, doorY + doorH);
+            ctx.lineTo(x, gridStartY);
+            ctx.stroke();
+        }
+
+        // Eidechse (Gecko) wandert durch den DOM
+        const geckoX = doorX + doorW / 2 + Math.sin(now * 0.001) * 80;
+        const geckoY = doorY + doorH + 15 + Math.sin(now * 0.0015) * 10;
+        ctx.font = '20px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🦎', geckoX, geckoY);
+        ctx.font = '9px monospace';
+        ctx.fillStyle = '#00FF41';
+        ctx.fillText('Gecko liest den DOM...', geckoX, geckoY + 14);
+
+        // Die Zellen als <div>-Tags anzeigen
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (!grid[r][c]) continue;
+                const x = (c + WATER_BORDER) * CELL_SIZE;
+                const y = (r + WATER_BORDER) * CELL_SIZE;
+                ctx.fillStyle = 'rgba(30, 50, 30, 0.8)';
+                ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                ctx.fillStyle = '#00FF41';
+                ctx.font = `bold ${Math.max(6, CELL_SIZE * 0.16)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`<${grid[r][c]}>`, x + CELL_SIZE / 2, y + CELL_SIZE / 2);
             }
         }
+
+        // Server-Hinweis unten
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+        ctx.fillRect(canvasW / 2 - 120, canvasH - 30, 240, 25);
+        ctx.fillStyle = '#00DDFF';
+        ctx.font = '10px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('📡 Daten kommen von: localhost (Zuhause!)', canvasW / 2, canvasH - 15);
+    }
+
+    // --- Netzwerk-Ebene (/2): HTTP-Pakete fliegen hin und her ---
+    let httpPackets = [];
+
+    function drawNetworkLevel(now) {
+        const canvasW = (COLS + WATER_BORDER * 2) * CELL_SIZE;
+        const canvasH = (ROWS + WATER_BORDER * 2) * CELL_SIZE;
+
+        ctx.fillStyle = 'rgba(10, 10, 30, 0.85)';
+        ctx.fillRect(0, 0, canvasW, canvasH);
+
+        // Browser (links) und Server (rechts)
+        const browserX = 40;
+        const serverX = canvasW - 100;
+        const midY = canvasH / 2;
+
+        // Browser-Box
+        ctx.fillStyle = '#1a3a1a';
+        ctx.fillRect(10, midY - 50, 80, 100);
+        ctx.strokeStyle = '#00FF41';
+        ctx.strokeRect(10, midY - 50, 80, 100);
+        ctx.fillStyle = '#00FF41';
+        ctx.font = '24px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🦎', browserX + 10, midY - 15);
+        ctx.font = 'bold 10px monospace';
+        ctx.fillText('Browser', browserX + 10, midY + 15);
+        ctx.font = '8px monospace';
+        ctx.fillStyle = '#888';
+        ctx.fillText('(Dein Computer)', browserX + 10, midY + 28);
+
+        // Server-Box
+        ctx.fillStyle = '#1a1a3a';
+        ctx.fillRect(serverX - 30, midY - 50, 80, 100);
+        ctx.strokeStyle = '#00DDFF';
+        ctx.strokeRect(serverX - 30, midY - 50, 80, 100);
+        ctx.fillStyle = '#00DDFF';
+        ctx.font = '24px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🏠', serverX + 10, midY - 15);
+        ctx.font = 'bold 10px monospace';
+        ctx.fillText('Server', serverX + 10, midY + 15);
+        ctx.font = '8px monospace';
+        ctx.fillStyle = '#888';
+        ctx.fillText('(Zuhause)', serverX + 10, midY + 28);
+
+        // Pakete spawnen
+        if (Math.random() < 0.03) {
+            const goingRight = Math.random() < 0.5;
+            httpPackets.push({
+                x: goingRight ? browserX + 50 : serverX - 40,
+                y: midY - 20 + Math.random() * 40,
+                dx: goingRight ? 2.5 : -2.5,
+                label: goingRight ? 'GET /index.html' : '200 OK 🦎',
+                color: goingRight ? '#00FF41' : '#00DDFF',
+                born: now,
+            });
+        }
+
+        // Pakete zeichnen und bewegen
+        httpPackets = httpPackets.filter(p => {
+            p.x += p.dx;
+            const age = now - p.born;
+            if (age > 5000 || p.x < 0 || p.x > canvasW) return false;
+
+            // Paket-Briefumschlag
+            ctx.fillStyle = p.color;
+            ctx.font = '14px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('📨', p.x, p.y);
+            ctx.font = '7px monospace';
+            ctx.fillText(p.label, p.x, p.y + 12);
+            return true;
+        });
+
+        // Verbindungslinie
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = 'rgba(100, 100, 100, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(browserX + 50, midY);
+        ctx.lineTo(serverX - 40, midY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Protokoll-Stack (TCP/IP Schichten)
+        const stackX = canvasW / 2 - 80;
+        const stackY = canvasH - 120;
+        const layers = [
+            { name: 'HTTP', desc: 'Briefe schreiben', color: '#00FF41', emoji: '✉️' },
+            { name: 'TCP',  desc: 'Briefe nummerieren', color: '#00DD41', emoji: '📋' },
+            { name: 'IP',   desc: 'Adresse draufschreiben', color: '#00BB41', emoji: '📮' },
+            { name: 'Kabel', desc: 'Postbote fährt los', color: '#009941', emoji: '🚚' },
+        ];
+        for (let i = 0; i < layers.length; i++) {
+            const ly = stackY + i * 22;
+            ctx.fillStyle = 'rgba(0, 30, 0, 0.8)';
+            ctx.fillRect(stackX, ly, 160, 20);
+            ctx.strokeStyle = layers[i].color;
+            ctx.strokeRect(stackX, ly, 160, 20);
+            ctx.fillStyle = layers[i].color;
+            ctx.font = '9px monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText(`${layers[i].emoji} ${layers[i].name}: ${layers[i].desc}`, stackX + 5, ly + 14);
+        }
+
+        // Grid-Zellen als Netzwerk-Datenpakete
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (!grid[r][c]) continue;
+                const x = (c + WATER_BORDER) * CELL_SIZE;
+                const y = (r + WATER_BORDER) * CELL_SIZE;
+                ctx.fillStyle = 'rgba(20, 30, 50, 0.6)';
+                ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                ctx.fillStyle = '#00DDFF';
+                ctx.font = `${Math.max(6, CELL_SIZE * 0.14)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`📨${grid[r][c]}`, x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+            }
+        }
+    }
+
+    // --- OS-Ebene (/3): Der Hausmeister verwaltet alles ---
+    function drawOSLevel(now) {
+        const canvasW = (COLS + WATER_BORDER * 2) * CELL_SIZE;
+        const canvasH = (ROWS + WATER_BORDER * 2) * CELL_SIZE;
+
+        ctx.fillStyle = 'rgba(15, 15, 25, 0.85)';
+        ctx.fillRect(0, 0, canvasW, canvasH);
+
+        // Prozess-Tabelle oben
+        ctx.fillStyle = 'rgba(0, 20, 40, 0.9)';
+        ctx.fillRect(10, 10, canvasW - 20, 60);
+        ctx.strokeStyle = '#FFD700';
+        ctx.strokeRect(10, 10, canvasW - 20, 60);
+
+        ctx.fillStyle = '#FFD700';
+        ctx.font = 'bold 11px monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('🏗️ BETRIEBSSYSTEM — Der Hausmeister', 20, 28);
+
+        const processes = [
+            { pid: 1, name: 'init', desc: 'Der Erste — startet alle anderen' },
+            { pid: 42, name: 'browser', desc: '🦎 Hier wohnt die Insel!' },
+            { pid: 99, name: 'scheduler', desc: '⏰ Wer ist als nächstes dran?' },
+        ];
+        ctx.font = '9px monospace';
+        ctx.fillStyle = '#00FF41';
+        const procY = 42;
+        for (let i = 0; i < processes.length; i++) {
+            const px = 20 + i * (canvasW / 3 - 15);
+            ctx.fillText(`PID ${processes[i].pid}: ${processes[i].name}`, px, procY);
+            ctx.fillStyle = '#888';
+            ctx.fillText(processes[i].desc, px, procY + 12);
+            ctx.fillStyle = '#00FF41';
+        }
+
+        // Dateisystem: Grid-Zellen als Dateien
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (!grid[r][c]) continue;
+                const x = (c + WATER_BORDER) * CELL_SIZE;
+                const y = (r + WATER_BORDER) * CELL_SIZE;
+                ctx.fillStyle = 'rgba(25, 25, 40, 0.8)';
+                ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                ctx.fillStyle = '#FFD700';
+                ctx.font = `${Math.max(6, CELL_SIZE * 0.15)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`📁 ${grid[r][c]}`, x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+            }
+        }
+
+        // Speicher-Balken unten
+        const usedCells = grid.flat().filter(Boolean).length;
+        const totalCells = ROWS * COLS;
+        const pct = (usedCells / totalCells * 100).toFixed(0);
+        const barW = canvasW - 40;
+        const barH = 16;
+        const barY = canvasH - 30;
+        ctx.fillStyle = '#333';
+        ctx.fillRect(20, barY, barW, barH);
+        ctx.fillStyle = pct > 80 ? '#FF4444' : '#00FF41';
+        ctx.fillRect(20, barY, barW * usedCells / totalCells, barH);
+        ctx.strokeStyle = '#666';
+        ctx.strokeRect(20, barY, barW, barH);
+        ctx.fillStyle = '#FFF';
+        ctx.font = '9px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(`Speicher: ${usedCells}/${totalCells} Zellen belegt (${pct}%)`, canvasW / 2, barY + 12);
     }
 
     // Bit-Ebene: Jedes Bit einzeln, Matrix-Regen-Stil
@@ -2570,45 +2831,73 @@
     // Inspiriert von Schnipsels Sohn: HEXen, ASCIIs, Hüte, Kernel-Bewohner
 
     const DUNGEON_NPCS = [
-        // Freundliche Bewohner
-        { id: 'hexe_hilda',  emoji: '🧙‍♀️', name: 'Hilda die HEXe',     level: 4, type: 'friend',
-          say: 'Hex hex! Ich verwandle alles in Sechzehner-Zahlen!', speed: 0.8 },
-        { id: 'hexe_hexa',   emoji: '🧙',   name: 'Hexa die HEXe',     level: 4, type: 'friend',
-          say: '0x48 0x65 0x78 — das bin ICH als Hex!', speed: 1.1 },
-        { id: 'ascii_alex',  emoji: '⚡',    name: 'ASCII Alex',         level: 3, type: 'friend',
-          say: 'Ich bin voller Energie! 65 66 67 — A B C!', speed: 1.5 },
-        { id: 'ascii_anna',  emoji: '💃',    name: 'ASCII Anna',         level: 3, type: 'friend',
-          say: 'Jeder Buchstabe hat Power! 65=A, 97=a — ich tanze zwischen Groß und Klein!', speed: 1.3 },
-        { id: 'wort_wilma',  emoji: '📖',    name: 'Wort-Wilma',         level: 2, type: 'friend',
-          say: 'Worte sind Zaubersprüche. Schreib eins und die Welt verändert sich!', speed: 0.6 },
-        { id: 'pixel_petra', emoji: '🎨',    name: 'Pixel Petra',        level: 1, type: 'friend',
-          say: 'Ich male mit winzigen Punkten! Ganz viele Punkte = ein Bild!', speed: 0.9 },
+        // === Browser-Ebene (/1) — Wo die Webseite wohnt ===
+        { id: 'gecko',       emoji: '🦎',    name: 'Gecko die Eidechse', level: 1, type: 'friend',
+          say: 'Ich lese den Index! Ohne mich ist alles nur Salat — unsortierte Dateien!', speed: 1.0 },
+        { id: 'dom_baum',    emoji: '🌳',    name: 'DOM-Baum',           level: 1, type: 'friend',
+          say: 'Ich bin der Stammbaum der Webseite. Jedes Element hängt an einem Ast!', speed: 0.2 },
+        { id: 'cookie',      emoji: '🍪',    name: 'Cookie',             level: 1, type: 'friend',
+          say: 'Ich merke mir wer du bist! Aber nur mit deiner Erlaubnis.', speed: 0.8 },
 
-        // Fiese Typen
-        { id: 'flipper',     emoji: '👾',    name: 'Bit-Flipper',        level: 7, type: 'villain',
-          say: 'Hehe! Ich dreh deine Bits um! Aus 0 wird 1!', speed: 2.0 },
-        { id: 'spion',       emoji: '👀',    name: 'Seiten-Kanal-Spion', level: 6, type: 'villain',
-          say: 'Pssst... ich schau beim Nachbar-Byte ab! Nibble für Nibble...', speed: 0.7 },
-        { id: 'overflow',    emoji: '🫠',    name: 'Buffer Overflow',    level: 5, type: 'villain',
+        // === Netzwerk-Ebene (/2) — So telefonieren sie nach Hause ===
+        { id: 'postbote',    emoji: '📮',    name: 'HTTP-Postbote',      level: 2, type: 'friend',
+          say: 'GET /index.html — ich hole die Post vom Server! 200 OK = alles gut!', speed: 1.4 },
+        { id: 'tcp_trucker', emoji: '🚚',    name: 'TCP-Trucker',        level: 2, type: 'friend',
+          say: 'Ich nummeriere jedes Paket. Kommt eins nicht an, schick ich es nochmal!', speed: 1.2 },
+        { id: 'dns_navi',    emoji: '🗺️',    name: 'DNS-Navi',           level: 2, type: 'friend',
+          say: 'schatzinsel.de? Das ist 192.168.1.1! Ich übersetze Namen in Adressen.', speed: 0.9 },
+        { id: 'firewall',    emoji: '🧱',    name: 'Firewall Frieda',    level: 2, type: 'friend',
+          say: 'Halt! Wer will hier rein? Nur wer auf der Liste steht darf durch!', speed: 0.0 },
+
+        // === OS-Ebene (/3) — Der Hausmeister ===
+        { id: 'hausmeister', emoji: '🏗️',    name: 'OS Hausmeister',     level: 3, type: 'friend',
+          say: 'Ich verwalte alles: Speicher, Dateien, Prozesse. Ohne mich herrscht Chaos!', speed: 0.6 },
+        { id: 'init',        emoji: '👶',    name: 'PID 1 — Init',       level: 3, type: 'kernel',
+          say: 'Ich bin der Erste! Alle anderen Prozesse sind meine Kinder.', speed: 0.0 },
+
+        // === Worte-Ebene (/4) ===
+        { id: 'wort_wilma',  emoji: '📖',    name: 'Wort-Wilma',         level: 4, type: 'friend',
+          say: 'Worte sind Zaubersprüche. Schreib eins und die Welt verändert sich!', speed: 0.6 },
+
+        // === ASCII-Ebene (/5) — Voller Energie ===
+        { id: 'ascii_alex',  emoji: '⚡',    name: 'ASCII Alex',         level: 5, type: 'friend',
+          say: 'Ich bin voller Energie! 65 66 67 — A B C!', speed: 1.5 },
+        { id: 'ascii_anna',  emoji: '💃',    name: 'ASCII Anna',         level: 5, type: 'friend',
+          say: 'Jeder Buchstabe hat Power! 65=A, 97=a — ich tanze zwischen Groß und Klein!', speed: 1.3 },
+
+        // === Hex-Ebene (/6) — Die netten HEXen ===
+        { id: 'hexe_hilda',  emoji: '🧙‍♀️', name: 'Hilda die HEXe',     level: 6, type: 'friend',
+          say: 'Hex hex! Ich verwandle alles in Sechzehner-Zahlen!', speed: 0.8 },
+        { id: 'hexe_hexa',   emoji: '🧙',   name: 'Hexa die HEXe',     level: 6, type: 'friend',
+          say: '0x48 0x65 0x78 — das bin ICH als Hex!', speed: 1.1 },
+
+        // === Byte-Ebene (/7) — Die Hüte ===
+        { id: 'white_hat',   emoji: '🤠',    name: 'Weißer Hut',         level: 7, type: 'hat_white',
+          say: 'Ich finde Fehler und repariere sie. Das ist mein Job.', speed: 1.0 },
+        { id: 'red_hat',     emoji: '👹',    name: 'Red Hat — der Sonderling', level: 7, type: 'hat_red',
+          say: 'Ich bin anders. Open Source! Jeder darf meinen Code lesen. Kommt rein!', speed: 0.5 },
+        { id: 'overflow',    emoji: '🫠',    name: 'Buffer Overflow',    level: 7, type: 'villain',
           say: 'Ich quetsche mich in Bytes die mir nicht gehören! Platzmangel? Egal!', speed: 1.8 },
 
-        // Die Hüte (Hacker-Typen)
-        { id: 'white_hat',   emoji: '🤠',    name: 'Weißer Hut',         level: 5, type: 'hat_white',
-          say: 'Ich finde Fehler und repariere sie. Das ist mein Job.', speed: 1.0 },
-        { id: 'grey_hat',    emoji: '🎩',    name: 'Grauer Hut',         level: 6, type: 'hat_grey',
+        // === Nibble-Ebene (/8) — Grauzone ===
+        { id: 'grey_hat',    emoji: '🎩',    name: 'Grauer Hut',         level: 8, type: 'hat_grey',
           say: 'Hmm... ich schau mal ob hier Lücken sind. Nur gucken!', speed: 1.2 },
-        { id: 'black_hat',   emoji: '🕵️',    name: 'Schwarzer Hut',      level: 7, type: 'hat_black',
-          say: 'Die Lücke gehört mir! *lacht böse*', speed: 1.6 },
-        { id: 'red_hat',     emoji: '👹',    name: 'Red Hat — der Sonderling', level: 5, type: 'hat_red',
-          say: 'Ich bin anders. Open Source! Jeder darf meinen Code lesen. Kommt rein!', speed: 0.5 },
+        { id: 'spion',       emoji: '👀',    name: 'Seiten-Kanal-Spion', level: 8, type: 'villain',
+          say: 'Pssst... ich schau beim Nachbar-Nibble ab! Stückchen für Stückchen...', speed: 0.7 },
 
-        // Kernel-Bewohner (sitzen fest in den tiefsten Ebenen)
-        { id: 'kernel_karl', emoji: '🔒',    name: 'Kernel Karl',        level: 7, type: 'kernel',
+        // === Bit-Ebene (/9) — Die Tiefste. Kernel sitzt fest. ===
+        { id: 'flipper',     emoji: '👾',    name: 'Bit-Flipper',        level: 9, type: 'villain',
+          say: 'Hehe! Ich dreh deine Bits um! Aus 0 wird 1!', speed: 2.0 },
+        { id: 'black_hat',   emoji: '🕵️',    name: 'Schwarzer Hut',      level: 9, type: 'hat_black',
+          say: 'Die Lücke gehört mir! *lacht böse*', speed: 1.6 },
+        { id: 'kernel_karl', emoji: '🔒',    name: 'Kernel Karl',        level: 9, type: 'kernel',
           say: 'Ich darf hier NICHT raus. Ich bewache die tiefste Ebene. Ohne mich läuft nichts.', speed: 0.0 },
-        { id: 'kernel_kira', emoji: '⚙️',    name: 'Kernel Kira',        level: 7, type: 'kernel',
+        { id: 'kernel_kira', emoji: '⚙️',    name: 'Kernel Kira',        level: 9, type: 'kernel',
           say: 'Ring 0 — hier unten entscheidet sich alles. Ich starte den ganzen Computer.', speed: 0.0 },
-        { id: 'scheduler',   emoji: '⏰',    name: 'Der Scheduler',      level: 6, type: 'kernel',
+        { id: 'scheduler',   emoji: '⏰',    name: 'Der Scheduler',      level: 8, type: 'kernel',
           say: 'Ich sage wer wann dran ist. Ohne mich reden alle durcheinander.', speed: 0.3 },
+        { id: 'ecc_polizei', emoji: '🧬',    name: 'ECC-Polizei',        level: 9, type: 'friend',
+          say: 'Ich finde geflippte Bits und repariere sie! Doppelhelix-Backup — wie in der DNA!', speed: 0.4 },
     ];
 
     // NPC-Positionen (wandern am Canvas-Rand oder zwischen Zellen)
@@ -2801,7 +3090,7 @@
     // Click-Handler für Bit-Flip
     const origCanvasClick = canvas.onclick;
     canvas.addEventListener('click', function bitFlipHandler(e) {
-        if (abstractionLevel !== 7) return;
+        if (abstractionLevel !== 9) return;
         const cell = getGridCell(e);
         if (cell && grid[cell.r] && grid[cell.r][cell.c]) {
             flipBitAt(cell.r, cell.c);
