@@ -1794,12 +1794,14 @@
         });
     });
 
-    // Material-Buttons
+    // Material-Buttons — Klick = Ton spielen (Palette als Klavier)
     document.querySelectorAll('.material-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentMaterial = btn.dataset.material;
+            // Ton spielen!
+            soundBuild(currentMaterial);
             // Automatisch auf "Bauen" wechseln
             currentTool = 'build';
             document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
