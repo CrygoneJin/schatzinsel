@@ -623,6 +623,10 @@
             '🍺 "Bitte ein Bit!" ruft jemand vom Boot. Alle lachen. Fortran krächzt: "Das sind 8 Bit! Ein ganzes BYTE!" Die Ente quakt: "Ich nehm zwei Byte. Ich hab Hunger. *quak*"',
             '🪙 "Zahlen Sie mit Coins?" fragt Mr. Krabs am Boot. "KRABBEN-COINS! Auf der Blockchain! Dezentral!" Bram flüstert: "Proof of Krabben-Taler..."',
             '🥷 Am Boot steht Token Takamoto. Keiner weiß woher er kommt. Er verteilt kleine Münzen an alle. "Was sind die wert?" — "Das entscheidet ihr." Dann verschwindet er. Wie Satoshi.',
+            '🪄 "API cadAPI!" ruft der Zauberer vom Boot. PUFF! Ein Datenpaket erscheint. "Was war DAS?" — "Ein API-Call! Ich sage das Zauberwort und die Maschine antwortet!" Fortran krächzt: "Früher hieß das SUBROUTINE!"',
+            '🔑 "The KEY to everything, Harry!" flüstert das Boot. Harry schaut auf seinen API-Key. "Du bist kein Zauberstab!" — "Doch. Ich öffne JEDE Tür. Jede API. Jede Maschine. Verlier mich nur nicht."',
+            '👑 "Ich bin der SHA von Persien!" ruft eine Stimme. "SHA-256! Ich verwandle ALLES in einen Hash! Egal wie groß — am Ende sind es 64 Zeichen!" Mr. Krabs: "Kann man damit ZAHLEN?" SHA: "Man kann damit BEWEISEN."',
+            '💰 "Hash ma ne Mark?" fragt Krabs den SHA. "Klar: 5d41402abc4b2a76b9719d911017c592." — "Das sind keine TALER!" — "Das IST deine Mark. Nur sicherer. Unwiderruflich. Ewig." Krabs schweigt. Zum ersten Mal.',
         ],
         fence: [
             '🐦 Ein schneller Vogel fliegt über den Zaun! "Ich bin Swift!" Zack, schon weg.',
