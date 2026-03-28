@@ -371,8 +371,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     async function sendToApi(userMessage) {
         const key = getApiKey();
         if (!key) {
-            addMessage('Bitte erst API-Key eingeben (⚙️ oben)', 'system');
-            apiKeyDialog.classList.remove('hidden');
+            addMessage('🔑 Die Inselbewohner brauchen einen Schlüssel um zu sprechen. Klick oben auf ⚙️ und gib deinen API-Key ein.', 'system');
             return;
         }
 
@@ -530,7 +529,11 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
             if (window.recordMilestone) window.recordMilestone('firstChat');
             if (messages.children.length === 0) {
                 const char = CHARACTERS[charSelect.value];
-                addMessage(`${char.emoji} ${char.name} ist da! Sag hallo!`, 'system');
+                const brain = shortModel(getActiveModel(charSelect.value));
+                addMessage(`${char.emoji} ${char.name} ist da! [${brain}]`, 'system');
+                if (!getApiKey()) {
+                    addMessage('🔑 Klick auf ⚙️ oben und gib deinen API-Key ein — dann können wir reden!', 'system');
+                }
             }
         }
     }
