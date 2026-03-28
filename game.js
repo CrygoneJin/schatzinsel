@@ -272,15 +272,21 @@
         getCompleted: () => completedQuests
     };
 
-    // --- Day/Night Cycle ---
-    let dayTime = 0; // 0-1, 0=Morgen, 0.5=Tag, 1=Nacht
-    let dayDirection = 1;
-    const DAY_SPEED = 0.00008; // langsamer Zyklus
+    // --- Day/Night Cycle (echte Uhrzeit!) ---
+    let dayTime = 0; // 0-1
 
     function updateDayNight() {
-        dayTime += DAY_SPEED * dayDirection;
-        if (dayTime >= 1) { dayTime = 1; dayDirection = -1; }
-        if (dayTime <= 0) { dayTime = 0; dayDirection = 1; }
+        const hour = new Date().getHours();
+        const minute = new Date().getMinutes();
+        const decimal = hour + minute / 60;
+        // 6:00 = Morgen (0), 12:00 = Mittag (0.5), 18:00 = Abend (0.7), 22:00 = Nacht (0.9)
+        if (decimal >= 6 && decimal < 12) {
+            dayTime = (decimal - 6) / 12; // 0 → 0.5
+        } else if (decimal >= 12 && decimal < 20) {
+            dayTime = 0.5 + (decimal - 12) / 16; // 0.5 → 1.0
+        } else {
+            dayTime = 0.9 + Math.min(0.1, (decimal >= 20 ? decimal - 20 : decimal + 4) / 40);
+        }
     }
 
     function getDayNightOverlay() {
@@ -401,7 +407,7 @@
 
         lastCommentTime = now;
         const comment = comments[Math.floor(Math.random() * comments.length)];
-        showToast(comment);
+        showToast(comment, 3500);
     }
 
     // --- Zustand ---
@@ -811,13 +817,13 @@
     }
 
     // --- Toast ---
-    function showToast(message) {
+    function showToast(message, duration) {
         toast.textContent = message;
         toast.classList.remove('hidden');
         clearTimeout(toast._timeout);
         toast._timeout = setTimeout(() => {
             toast.classList.add('hidden');
-        }, 2000);
+        }, duration || 2500);
     }
 
     // --- Hilfsfunktionen ---

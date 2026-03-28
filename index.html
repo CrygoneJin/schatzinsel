@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="tropical">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,9 +21,17 @@
                 Keine Häuser, keine Stadt &ndash; nur Bäume, Steine und jede Menge Platz.
             </p>
             <p class="intro-story">
-                Zeit, als Architekt deine eigene Inselstadt zu bauen! 🏗️
+                Deine Freunde warten schon auf dich:
             </p>
-            <button id="start-button">🚀 Los geht's!</button>
+            <div class="intro-characters">
+                <span title="SpongeBob">🧽</span>
+                <span title="Mr. Krabs">🦀</span>
+                <span title="Blauer Elefant">🐘</span>
+                <span title="Tommy Krab">🦀</span>
+                <span title="Neinhorn">🦄</span>
+                <span title="Maus & Ente">🐭</span>
+            </div>
+            <button id="start-button">🚀 Los geht's, bauen!</button>
         </div>
     </div>
 
@@ -181,7 +189,7 @@
         <div id="toast" class="hidden"></div>
 
         <!-- NPC Chat -->
-        <div id="chat-bubble" title="Mit Inselbewohnern reden">💬</div>
+        <div id="chat-bubble" title="Mit Inselbewohnern reden" role="button" aria-label="Chat mit Inselbewohnern öffnen" tabindex="0">💬</div>
         <div id="chat-panel" class="hidden">
             <div id="chat-header">
                 <select id="chat-character">

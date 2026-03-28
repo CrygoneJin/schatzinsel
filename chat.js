@@ -412,7 +412,7 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
     }
 
     // --- Events ---
-    bubble.addEventListener('click', () => {
+    function toggleChat() {
         panel.classList.toggle('hidden');
         if (!panel.classList.contains('hidden')) {
             input.focus();
@@ -421,6 +421,11 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
                 addMessage(`${char.emoji} ${char.name} ist da! Sag hallo!`, 'system');
             }
         }
+    }
+
+    bubble.addEventListener('click', toggleChat);
+    bubble.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleChat(); }
     });
 
     closeBtn.addEventListener('click', () => {
