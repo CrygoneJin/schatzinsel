@@ -609,6 +609,10 @@
             '☕ Kate bringt allen Editoren Kaffee. "Ich bin Kate. Von KDE." Gedit murmelt: "Ich bin von GNOME." Kate: "Wir sind wie Schwestern." Gedit: "Schwestern die sich nie besuchen." Kate: "Verschiedene Desktops. Kennst du das." Beide seufzen gleichzeitig.',
             '⚔️ "Ich bin JED. I." sagt ein Ritter mit leuchtendem Cursor. "Wie JEDI?" — "JED. Ohne I. Aber mit der MACHT des Textens." Willy: "JED-I RITTER! Der EDITOR schlägt zurück! Die KLAMMER-KRIEGE!" Vim Wenders: "Ich bin dein :w"',
             '✨ "Mein Text ist SUBLIME!" ruft Willy und verbeugt sich. "SUB-LIME! Unter der Limette! UNTER-TEXT! ÜBER-DRÜBER-TEXT!" Wigald: "Technisch ist Sublime lateinisch für erhaben." Willy: "ERHOBEN! Wie meine WORTSPIELE!" Krappweis: "Kann Sublime Toastbrot editieren?"',
+            '🏳️‍🌈 "BSD oder CSD?" fragt Wigald. Willy: "BEIDES! Das ganze Jahr! Berkeley Software DISTRIBUTION und Christopher Street DAY!" Linus: "BSD ist ein Betriebssystem." Willy: "Und CSD ist ein BETRIEBS-FEST!" Krappweis: "Bernd wäre auf beiden. Genervt, aber da."',
+            '📺 "Nett FLIX, aber HIER!" ruft Willy und zeigt aufs Holz. "Auf der Schatzinsel läuft der beste STREAM! Und zwar ein DATEN-Stream!" Wigald: "Netflix nutzt übrigens Open Source." Krappweis: "Bernd wäre ne gute Serie. Genervtes Brot. 12 Staffeln. Keine Handlung."',
+            '🐍 "HATTE MATTE MALL!" ruft Python. "Hat er Mathe gemacht?" — "Nein, er hat MATLAB benutzt! MATrix LABoratory!" Willy: "HATTE-MATTE-MALL! MATHE-MATTE! YOGA-MATTE!" Wigald: "Eigentlich ist MATLAB für Ingenieure." Willy: "INGENI-ÖR! GENI-AL! MATTE-MATISCH!"',
+            '🧟 "LAZARUS steht von den Toten auf!" Wigald erschrickt. "Der EDITOR?" — "Die IDE! Free Pascal! Object Pascal!" Krappweis: "Hoffentlich bleibt er TOT." Lazarus: "Ich bin Open Source. Ich sterbe NIE." Bernd: "*seufz* Willkommen im Club."',
         ],
         tree: [
             '🐍 Hinter dem Baum raschelt es! Eine freundliche Schlange: "Hallo, ich bin Python!"',
