@@ -333,6 +333,37 @@ Danach: "Jetzt ist wieder Minecraft dran." → Ehrlichster Benchmark der Welt.
 
 ---
 
+## Experiment 2: Auto-Touchscreen (2026-03-28)
+
+### Setup
+- **Gerät:** Fahrzeug-Infotainment-System (großer Touchscreen)
+- **URL:** crygonejin.github.io/plant-care-game/
+- **Wetter:** Regen/bewölkt draußen, Auto steht
+- **Projekt:** "huilllis Insel" (Auto-Tastatur-Tippfehler)
+
+### Beobachtungen
+- Spiel läuft im Auto-Browser ohne Anpassung
+- Grid, Werkzeuge, Speichern/Laden — alles funktioniert
+- Stats-Sidebar passt auf großen Screen (kein Verstecken nötig)
+- Name-Eingabe über Bildschirmtastatur = Friction ("huilllis")
+- Postkarten-Button sichtbar und zugänglich
+
+### Erkenntnisse
+| # | Erkenntnis | Bewertung |
+|---|------------|-----------|
+| 1 | **Vanilla JS = universelle Plattform.** Kein Framework → läuft überall wo ein Browser ist. | Bestätigt durch n=2 auf komplett unerwarteter Plattform |
+| 2 | **Auto-Tastaturen sind schlecht für Text.** Name-Eingabe erzeugt Müll. | Bestätigt Intro-Vereinfachung (Name raus) |
+| 3 | **Große Touchscreens brauchen keine Mobile-Reduktion.** Stats-Sidebar passt. | Rams' "verstecken" gilt nur für kleine Screens |
+| 4 | **"Läuft im Auto" ist ein Verkaufsargument.** | Unerwarteter Product-Market-Fit: Wartezeit im Auto |
+
+### Neues Nutzersegment: Wartezeit
+- Eltern warten im Auto (Regen, Parkplatz, Ladestation)
+- Kinder auf dem Rücksitz mit Tablet
+- Auto-Touchscreen als Gaming-Device
+- Keine Installation, kein App Store, nur eine URL
+
+---
+
 ## Offene Fragen
 
 - [ ] Wie misst man ob die 80/20-Ratio der Padawans stimmt?
