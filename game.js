@@ -36,7 +36,13 @@
 
     // --- Materialien ---
     const MATERIALS = {
+        // === DIE 5 ELEMENTE (五行 Wu Xing) ===
+        metal:    { emoji: '⚙️', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
         wood:     { emoji: '🪵', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F' },
+        fire:     { emoji: '🔥', label: 'Feuer',    color: '#E67E22', border: '#D35400' },
+        water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
+        earth:    { emoji: '🟫', label: 'Erde',     color: '#8B6914', border: '#6B4F0A' },
+        // === ABGELEITETE MATERIALIEN ===
         stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
         glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
         plant:    { emoji: '🌿', label: 'Pflanze',  color: '#52BE80', border: '#27AE60' },
@@ -47,9 +53,7 @@
         door:     { emoji: '🚪', label: 'Tür',      color: '#6E3B1A', border: '#4A2510' },
         roof:     { emoji: '🏠', label: 'Dach',     color: '#E74C3C', border: '#C0392B' },
         lamp:     { emoji: '💡', label: 'Lampe',    color: '#F9E79F', border: '#F1C40F' },
-        fire:     { emoji: '🔥', label: 'Feuer',    color: '#E67E22', border: '#D35400' },
         sand:     { emoji: '⬜', label: 'Sand',     color: '#F5DEB3', border: '#DCC89E' },
-        water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
         path:     { emoji: '🟫', label: 'Weg',      color: '#A0522D', border: '#8B4513' },
         fence:    { emoji: '🏗️', label: 'Zaun',     color: '#C4A265', border: '#A08040' },
         boat:     { emoji: '⛵', label: 'Boot',     color: '#5DADE2', border: '#2E86C1' },
@@ -141,9 +145,32 @@
     let lastBuildNote = -1;
     let buildNoteDir = 1;
 
-    function soundBuild() {
+    // === 五音 (Wǔ Yīn) — Die 5 Töne der chinesischen Pentatonik ===
+    // Jedes Element hat seinen Ton: 宫商角徵羽 (Gōng Shāng Jué Zhǐ Yǔ)
+    // Pythagoräische Stimmung aus reinen Quinten: C D E G A
+    const ELEMENT_TONES = {
+        // 土 Erde = 宫 Gōng (C) — Grundton, Fundament, Mitte
+        earth:  { freq: C4,         wave: 'triangle', dur: 0.14, vol: 0.10 },
+        // 金 Metall = 商 Shāng (D) — klar, schneidend, rein
+        metal:  { freq: C4 * 9/8,   wave: 'square',   dur: 0.10, vol: 0.07 },
+        // 木 Holz = 角 Jué (E) — warm, organisch, wachsend
+        wood:   { freq: C4 * 81/64, wave: 'triangle', dur: 0.14, vol: 0.08 },
+        // 火 Feuer = 徵 Zhǐ (G) — hell, energisch, aufsteigend
+        fire:   { freq: C4 * 3/2,   wave: 'sawtooth', dur: 0.06, vol: 0.06 },
+        // 水 Wasser = 羽 Yǔ (A) — fließend, weich, tief
+        water:  { freq: C4 * 27/16, wave: 'sine',     dur: 0.18, vol: 0.08 },
+    };
+
+    function soundBuild(material) {
         if (!canPlaySound()) return;
-        // Alle ~30 Klicks: neuer Modus = neue Stimmung
+        const tone = ELEMENT_TONES[material];
+        if (tone) {
+            // Element-Ton + leichte Variation
+            const freq = tone.freq * (1 + (Math.random() - 0.5) * 0.02);
+            playRichTone(freq, tone.dur + Math.random() * 0.04, tone.wave, tone.vol);
+            return;
+        }
+        // Nicht-Basis-Materialien: melodische Skala wie bisher
         scaleChangeCounter++;
         if (scaleChangeCounter > 25 + Math.floor(Math.random() * 15)) {
             scaleChangeCounter = 0;
@@ -465,21 +492,18 @@
                 ctx.fillRect(0, -5, canvas.width * 1.5, 10 + i * 3);
                 ctx.restore();
             }
-        } else if (weather === 'rainbow') {
-            // Regenbogen über der Insel!
-            const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
-            const cx = canvas.width / 2;
-            const cy = canvas.height * 0.8;
-            const radius = canvas.width * 0.35;
-            ctx.globalAlpha = 0.25;
-            colors.forEach((color, i) => {
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 4;
-                ctx.beginPath();
-                ctx.arc(cx, cy, radius - i * 5, Math.PI, 0);
-                ctx.stroke();
-            });
-            ctx.globalAlpha = 1;
+        }
+
+        // Regenbogen als Hintergrund-Effekt (nicht auf Canvas)
+        const rainbowBg = document.getElementById('rainbow-bg');
+        if (rainbowBg) {
+            if (weather === 'rainbow') {
+                rainbowBg.classList.add('rainbow-visible');
+                rainbowBg.classList.remove('rainbow-hidden');
+            } else {
+                rainbowBg.classList.remove('rainbow-visible');
+                rainbowBg.classList.add('rainbow-hidden');
+            }
         }
     }
 
@@ -502,10 +526,12 @@
     // Kinder entdecken sie beim Bauen — lernen die Namen spielerisch
     const CODE_EASTER_EGGS = {
         stone: [
-            '🪨 Du findest eine Inschrift im Stein: "C war hier. Erster!" Wer ist C?',
+            '🪨 Du findest eine Inschrift im Stein: "C war hier. Erster!" Daneben hat jemand gekritzelt: "LÜGNER! — Fortran, seit 1957"',
             '🪨 Autsch! Jemand ist hier gegen den Stein gelaufen. Daneben steht "C++" geritzt.',
-            '🪨 In den Stein ist geritzt: "10 PRINT HALLO 20 GOTO 10" — "Das ist BASIC!" ruft C. "Mit dem hab ich angefangen!"',
+            '🪨 In den Stein ist geritzt: "10 PRINT HALLO 20 GOTO 10" — "Das ist BASIC!" ruft C. "Mit dem hab ich angefangen!" Fortran krächzt: "ICH war 15 Jahre vor dir da!"',
             '🪨 BASIC sitzt auf dem Stein und zählt: "10... 20... 30..." — "Was machst du?" — "Ich bin die einfachste Sprache der Insel! Jeder fängt mit mir an!"',
+            '🪨 Am Stein lehnt eine alte Tafel: "Pythagoras war hier. 2500 Jahre vor euch ALLEN." C schweigt. Fortran schweigt. Sogar BASIC schweigt.',
+            '🪨 Pascal sitzt auf dem Stein und rechnet. "Blaise Pascal! 1642! MEIN Rechner war der ERSTE!" C murmelt: "Ja, aber konntest du Schleifen?" Pascal: "Ich konnte ADDIEREN. Das reicht."',
         ],
         tree: [
             '🐍 Hinter dem Baum raschelt es! Eine freundliche Schlange: "Hallo, ich bin Python!"',
@@ -841,6 +867,7 @@
                 grid[r][c] = 'tree';
                 delete treeGrowth[key];
                 addPlaceAnimation(r, c);
+                unlockMaterial('tree');
                 changed = true;
             } else if (cell !== 'sapling' && cell !== 'small_tree') {
                 delete treeGrowth[key];
@@ -921,15 +948,27 @@
     // === CRAFTING === 3x3 Werkbank
     // ============================================================
     const CRAFTING_RECIPES = [
-        { name: 'Glas',    result: 'glass',      resultCount: 1, ingredients: { sand: 1, fire: 1 },  desc: 'Sand + Feuer = Glas' },
-        { name: 'Fenster', result: 'window_pane', resultCount: 1, ingredients: { glass: 1, wood: 1 }, desc: 'Glas + Holz = Fenster' },
-        { name: 'Bretter', result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
-        { name: 'Lampe',   result: 'lamp',       resultCount: 1, ingredients: { glass: 1, fire: 1 },  desc: 'Glas + Feuer = Lampe' },
-        { name: 'Brunnen', result: 'fountain',   resultCount: 1, ingredients: { stone: 3, water: 1 }, desc: '3 Stein + Wasser = Brunnen' },
-        { name: 'Brücke',  result: 'bridge',     resultCount: 1, ingredients: { planks: 2, stone: 1 },desc: '2 Bretter + Stein = Brücke' },
-        { name: 'Zaun',    result: 'fence',      resultCount: 2, ingredients: { planks: 1, wood: 1 }, desc: 'Bretter + Holz = 2 Zäune' },
-        { name: 'Tür',     result: 'door',       resultCount: 1, ingredients: { planks: 2 },          desc: '2 Bretter = Tür' },
-        { name: 'Feuer',   result: 'fire',       resultCount: 2, ingredients: { wood: 1 },            desc: 'Holz = 2 Feuer' },
+        // Stufe 1: Aus den 5 Elementen (五行)
+        { name: 'Stein',    result: 'stone',      resultCount: 2, ingredients: { earth: 2, fire: 1 },  desc: '2 Erde + Feuer = 2 Stein' },
+        { name: 'Sand',     result: 'sand',       resultCount: 2, ingredients: { earth: 1, water: 1 }, desc: 'Erde + Wasser = 2 Sand' },
+        { name: 'Bretter',  result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
+        { name: 'Setzling', result: 'sapling',    resultCount: 1, ingredients: { wood: 1, water: 1 },  desc: 'Holz + Wasser = Setzling' },
+        { name: 'Pflanze',  result: 'plant',      resultCount: 2, ingredients: { earth: 1, wood: 1 },  desc: 'Erde + Holz = 2 Pflanzen' },
+        { name: 'Blume',    result: 'flower',     resultCount: 2, ingredients: { plant: 1, fire: 1 },  desc: 'Pflanze + Feuer = 2 Blumen' },
+        { name: 'Pilz',     result: 'mushroom',   resultCount: 2, ingredients: { earth: 1, water: 1, wood: 1 }, desc: 'Erde + Wasser + Holz = 2 Pilze' },
+        // Stufe 2: Aus Stufe-1-Artefakten
+        { name: 'Glas',     result: 'glass',      resultCount: 1, ingredients: { sand: 1, fire: 1 },   desc: 'Sand + Feuer = Glas' },
+        { name: 'Lampe',    result: 'lamp',       resultCount: 1, ingredients: { glass: 1, fire: 1 },  desc: 'Glas + Feuer = Lampe' },
+        { name: 'Fenster',  result: 'window_pane', resultCount: 1, ingredients: { glass: 1, wood: 1 }, desc: 'Glas + Holz = Fenster' },
+        { name: 'Tür',      result: 'door',       resultCount: 1, ingredients: { planks: 2 },          desc: '2 Bretter = Tür' },
+        { name: 'Zaun',     result: 'fence',      resultCount: 2, ingredients: { planks: 1, wood: 1 }, desc: 'Bretter + Holz = 2 Zäune' },
+        { name: 'Weg',      result: 'path',       resultCount: 3, ingredients: { sand: 1, stone: 1 },  desc: 'Sand + Stein = 3 Wege' },
+        { name: 'Dach',     result: 'roof',       resultCount: 2, ingredients: { planks: 1, stone: 1 },desc: 'Bretter + Stein = 2 Dächer' },
+        { name: 'Flagge',   result: 'flag',       resultCount: 1, ingredients: { wood: 1, fire: 1 },   desc: 'Holz + Feuer = Flagge' },
+        { name: 'Boot',     result: 'boat',       resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Boot' },
+        { name: 'Fisch',    result: 'fish',       resultCount: 2, ingredients: { water: 2, wood: 1 },  desc: '2 Wasser + Holz = 2 Fische' },
+        { name: 'Brunnen',  result: 'fountain',   resultCount: 1, ingredients: { stone: 3, water: 1 }, desc: '3 Stein + Wasser = Brunnen' },
+        { name: 'Brücke',   result: 'bridge',     resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Brücke' },
     ];
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
@@ -1061,21 +1100,21 @@
 
     // --- Zustand ---
     let grid = [];
-    let currentMaterial = 'tree';
+    let currentMaterial = 'metal';
     let currentTool = 'build';
 
-    // Basis-Elemente sind immer in der Palette sichtbar
-    const BASE_MATERIALS = ['tree', 'stone', 'sand', 'water', 'fire'];
+    // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
+    const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
 
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
 
     function saveUnlocked() {
-        localStorage.setItem('insel-unlocked', JSON.stringify([...unlockedMaterials]));
+        localStorage.setItem('insel-unlocked-materials', JSON.stringify([...unlockedMaterials]));
     }
 
     function loadUnlocked() {
-        const saved = JSON.parse(localStorage.getItem('insel-unlocked') || '[]');
+        const saved = JSON.parse(localStorage.getItem('insel-unlocked-materials') || '[]');
         unlockedMaterials = new Set(saved);
     }
 
@@ -1090,7 +1129,7 @@
             btn.classList.add('craft-unlocked');
         }
         const info = MATERIALS[mat];
-        if (info) showToast(`✨ Neues Element: ${info.emoji} ${info.label}!`);
+        if (info) showToast(`✨ Neues Artefakt: ${info.emoji} ${info.label}!`);
     }
 
     function updatePaletteVisibility() {
@@ -1105,6 +1144,30 @@
                 btn.classList.remove('craft-unlocked');
             }
         });
+    }
+
+    // Save-Migration: alte Saves ohne unlocked → Grid + Inventar scannen
+    function migrateUnlocked() {
+        if (unlockedMaterials.size > 0) return; // Schon migriert
+        // Grid scannen: alle vorhandenen Materialien freischalten
+        for (let r = 0; r < grid.length; r++) {
+            for (let c = 0; c < grid[r].length; c++) {
+                const cell = grid[r]?.[c];
+                if (cell && !BASE_MATERIALS.includes(cell) && MATERIALS[cell]) {
+                    unlockedMaterials.add(cell);
+                }
+            }
+        }
+        // Inventar scannen
+        for (const mat of Object.keys(inventory)) {
+            if (inventory[mat] > 0 && !BASE_MATERIALS.includes(mat) && MATERIALS[mat]) {
+                unlockedMaterials.add(mat);
+            }
+        }
+        if (unlockedMaterials.size > 0) {
+            saveUnlocked();
+            updatePaletteVisibility();
+        }
     }
 
     // Was gibt Ernten? Bäume → Holz, alles andere → sich selbst
@@ -1247,6 +1310,12 @@
                     ctx.textBaseline = 'middle';
                     ctx.fillText('⛏️', hx + CELL_SIZE / 2, hy + CELL_SIZE / 2);
                 }
+            } else if (currentTool === 'fill') {
+                ctx.strokeStyle = '#F39C12';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([4, 4]);
+                ctx.strokeRect(hx + 2, hy + 2, CELL_SIZE - 4, CELL_SIZE - 4);
+                ctx.setLineDash([]);
             }
         }
 
@@ -1367,19 +1436,13 @@
         if (currentTool === 'build') {
             if (grid[r][c] !== currentMaterial) {
                 if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
-                // Wenn man einen Baum pflanzt, startet er als Setzling
-                if (currentMaterial === 'tree' && grid[r][c] === null) {
-                    grid[r][c] = 'sapling';
+                grid[r][c] = currentMaterial;
+                // Setzling platzieren startet Baumwachstum
+                if (currentMaterial === 'sapling') {
                     treeGrowth[r + ',' + c] = Date.now();
-                } else {
-                    grid[r][c] = currentMaterial;
-                    // Setzling direkt platzieren startet auch Wachstum
-                    if (currentMaterial === 'sapling') {
-                        treeGrowth[r + ',' + c] = Date.now();
-                    }
                 }
                 addPlaceAnimation(r, c);
-                soundBuild();
+                soundBuild(currentMaterial);
                 maybeNpcComment(currentMaterial);
                 maybeCodeEasterEgg(currentMaterial);
                 recordMilestone('firstBlock');
@@ -1399,6 +1462,10 @@
                 if (info) showToast(`⛏️ ${yield_.count}x ${info.emoji} ${info.label} geerntet!`);
                 trackEvent('harvest', { source: cell, result: yield_.material, count: yield_.count });
             }
+        } else if (currentTool === 'fill') {
+            pushUndo();
+            floodFill(r, c, grid[r][c], currentMaterial);
+            soundBuild(currentMaterial);
         }
         // Teure Checks nur alle 200ms (nicht bei jedem Pixel beim Drag)
         requestStatsUpdate();
@@ -1608,8 +1675,11 @@
             if (projects[name].unlocked) {
                 unlockedMaterials = new Set(projects[name].unlocked);
                 saveUnlocked();
+            } else {
+                unlockedMaterials = new Set();
             }
             window.grid = grid;
+            migrateUnlocked();
             projectNameInput.value = name === AUTOSAVE_KEY ? '' : name;
             updateStats();
             updateInventoryDisplay();
@@ -1762,12 +1832,14 @@
         });
     });
 
-    // Material-Buttons
+    // Material-Buttons — Klick = Ton spielen (Palette als Klavier)
     document.querySelectorAll('.material-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentMaterial = btn.dataset.material;
+            // Ton spielen!
+            soundBuild(currentMaterial);
             // Automatisch auf "Bauen" wechseln
             currentTool = 'build';
             document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
@@ -1787,7 +1859,7 @@
 
     canvas.addEventListener('mousemove', (e) => {
         hoverCell = getGridCell(e);
-        if (isMouseDown && hoverCell) {
+        if (isMouseDown && hoverCell && currentTool !== 'fill') {
             applyTool(hoverCell.r, hoverCell.c);
         }
     });
@@ -1817,7 +1889,7 @@
         e.preventDefault();
         const touch = e.touches[0];
         hoverCell = getGridCell(touch);
-        if (isMouseDown && hoverCell) {
+        if (isMouseDown && hoverCell && currentTool !== 'fill') {
             applyTool(hoverCell.r, hoverCell.c);
         }
     });
@@ -1903,11 +1975,13 @@
             undo();
             return;
         }
-        // Werkzeug-Shortcuts: B=Bauen, E=Ernten
+        // Werkzeug-Shortcuts: B=Bauen, E=Ernten, F=Füllen
         if (e.key === 'b' || e.key === 'B') {
             selectTool('build');
         } else if (e.key === 'e' || e.key === 'E') {
             selectTool('harvest');
+        } else if (e.key === 'f' || e.key === 'F') {
+            selectTool('fill');
         }
     });
 
@@ -1933,17 +2007,14 @@
         if (e.target.tagName === 'INPUT') return;
 
         switch (e.key) {
-            case '1': selectMaterial('wood'); break;
-            case '2': selectMaterial('stone'); break;
-            case '3': selectMaterial('glass'); break;
-            case '4': selectMaterial('plant'); break;
-            case '5': selectMaterial('tree'); break;
-            case '6': selectMaterial('flower'); break;
-            case '7': selectMaterial('door'); break;
-            case '8': selectMaterial('roof'); break;
-            case '9': selectMaterial('lamp'); break;
+            case '1': selectMaterial('metal'); break;
+            case '2': selectMaterial('wood'); break;
+            case '3': selectMaterial('fire'); break;
+            case '4': selectMaterial('water'); break;
+            case '5': selectMaterial('earth'); break;
             case 'b': selectTool('build'); break;
             case 'e': selectTool('harvest'); break;
+            case 'f': selectTool('fill'); break;
             case 's':
                 if (e.ctrlKey || e.metaKey) {
                     e.preventDefault();
@@ -2124,7 +2195,7 @@
                         placed++;
                     }
                 }
-                soundBuild();
+                soundBuild(matKey[0]);
                 updateStats();
                 checkAchievements();
                 checkQuests();
@@ -2328,8 +2399,11 @@
         inventory = savedProjects[AUTOSAVE_KEY].inventory || inventory;
         if (savedProjects[AUTOSAVE_KEY].unlocked) {
             unlockedMaterials = new Set(savedProjects[AUTOSAVE_KEY].unlocked);
+        } else {
+            unlockedMaterials = new Set();
         }
         window.grid = grid;
+        migrateUnlocked();
         showToast('🔄 Letzte Insel wiederhergestellt');
     }
 

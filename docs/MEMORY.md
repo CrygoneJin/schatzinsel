@@ -182,6 +182,36 @@ Kinder lachen weil SpongeBob lustig ist. Eltern lachen weil Bernd über sein
 Haiku-Budget motzt und der Elefant sich für sein Törööö entschuldigt.
 Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
+### Session 2026-03-28 (Abend): Wu Xing + Harvest + Crafting-Loop
+
+**Was gebaut wurde:**
+| Datum | Was |
+|-------|-----|
+| 2026-03-28 | 五行 Wu Xing: 5 Elemente (Metall/Holz/Feuer/Wasser/Erde) als einzige Basis |
+| 2026-03-28 | Harvest-System: Ernten-Tool ersetzt Axt+Abreißen, alles geht ins Inventar |
+| 2026-03-28 | Palette-Unlock: 5 Basis → Crafting schaltet neue Artefakte frei (Pop-Animation) |
+| 2026-03-28 | 五音 Pentatonik: Element-Töne nach chinesischer Musiktheorie (宫商角徵羽 = C D E G A) |
+| 2026-03-28 | Palette als Klavier: Klick auf Element = Ton spielen ("can i create a song dad?") |
+| 2026-03-28 | Regenbogen vom Canvas in den Seitenhintergrund verschoben |
+| 2026-03-28 | C war nicht Erster: Fortran, Pascal, Pythagoras korrigieren ihn |
+| 2026-03-28 | 20 Crafting-Rezepte auf Wu-Xing-Basis, alle 20 Quests lösbar |
+| 2026-03-28 | Save-Migration: alte Saves ohne unlocked → Grid+Inventar scannen |
+| 2026-03-28 | Hau-den-Lukas: Pumpen-Check HTML (Standalone) |
+
+**Fehler:**
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-03-28 | Füllen-Tool entfernt → Kind enttäuscht | "Mehr nicht" heißt nicht "weniger als nötig". Kind-Feedback > Papa-Minimalismus |
+| 2026-03-28 | "C war hier. Erster!" historisch falsch | Kinder merken Unstimmigkeiten. Fakten prüfen, auch bei Easter Eggs. |
+
+**Learnings:**
+- **Kind sagt "Artefakt passt zu Schatzsuche"**: Wortauswahl ist Game Design. Artefakt > Element > Material.
+- **"can i create a song like on a piano dad?"**: Die Element-Töne haben spontan ein neues Feature geboren. Sound = Spielzeug, nicht nur Feedback.
+- **Wu Xing war das Kind**: "metall, holz, feuer, wasser, erde waren die elemente, strikt einhalten" — 8-Jähriger kennt die 5 Elemente besser als der Entwickler.
+- **Pythagoräische Stimmung + chinesische Musiktheorie = gleiche Pentatonik**: Zwei Kulturen, gleiche Erkenntnis. Das ist Mathe, nicht Zufall.
+- **Crafting-Loop als Progression**: Start einfach (5), Werkbank erweitert. Jedes neue Artefakt ist Belohnung + neues Baumaterial. Flywheel.
+- **Füllen-Tool zurückbringen**: Entfernen ist leicht, Zurückbringen kostet nur 1 Commit. Lieber zu viel shipped und 1 Sache reverten als zu wenig.
+
 ### Nächste Session
 - Voice-Pipeline: Cartesia + vapi.ai (API-Keys vorhanden)
 - Padawans spawnen + Codex-Dateien anlegen
