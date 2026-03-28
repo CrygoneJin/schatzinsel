@@ -525,6 +525,18 @@
     // ============================================================
     // Kinder entdecken sie beim Bauen — lernen die Namen spielerisch
     const CODE_EASTER_EGGS = {
+        metal: [
+            '⚙️ Im Metall ist eine Gravur: "Ada Lovelace, 1843. Das erste Programm der Welt." Sogar C verbeugt sich.',
+            '⚙️ Ada sitzt an einer dampfenden Maschine und schreibt. "Was machst du?" — "Ich schreibe Anweisungen für eine Maschine die es noch nicht gibt." — "Das ist verrückt!" — "Das ist Programmieren."',
+            '⚙️ "Wusstest du", flüstert Ada, "dass Maschinen eines Tages Musik komponieren könnten? Ich hab das 1843 aufgeschrieben." Python staunt: "180 Jahre vor Spotify?!"',
+            '⚙️ Im Metall steckt ein altes Zahnrad. "al-Khwarizmi" steht drauf. "Ohne mich gäbe es das Wort ALGORITHMUS nicht!" — 9. Jahrhundert. Älter als alle Programmiersprachen zusammen.',
+        ],
+        earth: [
+            '🟫 In der Erde steckt eine Tontafel. "Babylonische Mathematik, 2000 v. Chr." Darauf: Quadratzahlen. Die ersten Tabellen der Welt.',
+            '🟫 Tief in der Erde liegt eine Steintafel: "Α=1, Β=2, Γ=3..." — Pythagoras hat Buchstaben gezählt. ALLE Buchstaben. Das war der erste Code.',
+            '🟫 "Worte SIND Zahlen", murmelt jemand aus der Erde. "A=65, B=66, C=67..." — "Wer bist du?" — "ASCII. Ich bin überall. In jedem Computer. In jedem Buchstaben den du liest."',
+            '🟫 Ein alter Mann sitzt in der Erde und zählt Sandkörner. "Ich bin Euklid. Mein Algorithmus hat 2300 Jahre überlebt. Deiner?"',
+        ],
         stone: [
             '🪨 Du findest eine Inschrift im Stein: "C war hier. Erster!" Daneben hat jemand gekritzelt: "LÜGNER! — Fortran, seit 1957"',
             '🪨 Autsch! Jemand ist hier gegen den Stein gelaufen. Daneben steht "C++" geritzt.',
@@ -532,6 +544,10 @@
             '🪨 BASIC sitzt auf dem Stein und zählt: "10... 20... 30..." — "Was machst du?" — "Ich bin die einfachste Sprache der Insel! Jeder fängt mit mir an!"',
             '🪨 Am Stein lehnt eine alte Tafel: "Pythagoras war hier. 2500 Jahre vor euch ALLEN." C schweigt. Fortran schweigt. Sogar BASIC schweigt.',
             '🪨 Pascal sitzt auf dem Stein und rechnet. "Blaise Pascal! 1642! MEIN Rechner war der ERSTE!" C murmelt: "Ja, aber konntest du Schleifen?" Pascal: "Ich konnte ADDIEREN. Das reicht."',
+        ],
+        wood: [
+            '🪵 Im Holz sind Jahresringe. "Jeder Ring ist ein Jahr", sagt Ada. "Und jede Zeile Code ist ein Gedanke. Beides erzählt eine Geschichte."',
+            '🪵 Auf dem Holz liegt ein Abakus. "Der ERSTE Computer!", ruft BASIC. "Kugeln statt Pixel!" Fortran krächzt: "Endlich was aus MEINER Zeit!"',
         ],
         tree: [
             '🐍 Hinter dem Baum raschelt es! Eine freundliche Schlange: "Hallo, ich bin Python!"',
@@ -566,6 +582,11 @@
             '🎲 Unter der Brücke spielen zwei Krabben ein Brettspiel. "Das heißt Go!"',
             '🌉 Auf der Brücke stehen zwei Figuren. Der Große sagt: "Ich baue die Brücke die du nicht sehen kannst." Der Kleine: "Und ICH baue die Brücke die du SEHEN kannst!" Beide lachen.',
             '🌉 "Es gibt zwei Arten von Architekten", sagt C. "Die einen bauen Häuser. Die anderen bauen die Sprache, in der man Häuser beschreibt."',
+        ],
+        fire: [
+            '🔥 Im Feuer tanzen Zahlen! "0 und 1", flüstert eine Stimme. "Mehr braucht kein Computer." — Leibniz, 1679.',
+            '🔥 "Ich bin die Boolesche Logik!" ruft das Feuer. "WAHR oder FALSCH! AN oder AUS! Einfach, oder?" George Boole nickt zufrieden.',
+            '🔥 Das Feuer formt Buchstaben: "01001000 01001001" — "Was heißt das?" — "HI. In Binär."',
         ],
         water: [
             '☕ Das Wasser dampft! "Auf der Insel Java wird viel Kaffee getrunken", murmelt C.',
