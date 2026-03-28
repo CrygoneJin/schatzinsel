@@ -1980,6 +1980,31 @@
             // Insel kopieren
             pcCtx.drawImage(canvas, 0, 0);
 
+            // NPC-Grüße am oberen Rand
+            const NPC_GREETINGS = [
+                '🧽 "ICH BIN BEREIT!"',
+                '🦀 "Das ist 1000 Taler wert!"',
+                '🐘 "Törööö!"',
+                '🦄 "NEIN! ...ok, schön."',
+                '🐭 "*pieps!*"',
+                '🍞 "*seufz* Nett hier."',
+                '🦘 "Wird verstaatlicht!"',
+                '📖 "Ich schreib das auf."',
+                '🎸 "STEIN-reich!"',
+                '🐍 "Hallo, ich bin Python!"',
+                '🦜 "Fort-ran der Gruß!"',
+            ];
+            // 3 zufällige NPCs auswählen
+            const shuffled = NPC_GREETINGS.sort(() => Math.random() - 0.5);
+            const greetings = shuffled.slice(0, 3).join('  ');
+
+            pcCtx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+            pcCtx.fillRect(0, 0, pc.width, 28);
+            pcCtx.fillStyle = '#FFFFFF';
+            pcCtx.font = '12px Comic Neue, sans-serif';
+            pcCtx.textAlign = 'center';
+            pcCtx.fillText(greetings, pc.width / 2, 19);
+
             // Postkarten-Banner unten
             pcCtx.fillStyle = 'rgba(0, 0, 0, 0.75)';
             pcCtx.fillRect(0, canvas.height, pc.width, 80);
