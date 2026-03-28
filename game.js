@@ -141,9 +141,32 @@
     let lastBuildNote = -1;
     let buildNoteDir = 1;
 
-    function soundBuild() {
+    // === DIE 5 HÄMMER DES PYTHAGORAS ===
+    // Pentatonik aus reinen Quinten: C D E G A
+    // Jedes Element hat seinen Grundton, Wellenform und Charakter
+    const ELEMENT_TONES = {
+        // Stein = Grundton (1:1) — tief, fest, Fundament
+        stone:  { freq: C4,        wave: 'triangle', dur: 0.12, vol: 0.10 },
+        // Sand = Große Sekunde (9:8) — rieselnd, leicht
+        sand:   { freq: C4 * 9/8,  wave: 'sine',     dur: 0.08, vol: 0.07 },
+        // Wasser = Große Terz (81:64) — fließend, weich
+        water:  { freq: C4 * 81/64, wave: 'sine',    dur: 0.15, vol: 0.08 },
+        // Baum = Quinte (3:2) — wachsend, lebendig
+        tree:   { freq: C4 * 3/2,  wave: 'triangle', dur: 0.14, vol: 0.08 },
+        // Feuer = Große Sexte (27:16) — hell, energisch
+        fire:   { freq: C4 * 27/16, wave: 'sawtooth', dur: 0.06, vol: 0.06 },
+    };
+
+    function soundBuild(material) {
         if (!canPlaySound()) return;
-        // Alle ~30 Klicks: neuer Modus = neue Stimmung
+        const tone = ELEMENT_TONES[material];
+        if (tone) {
+            // Element-Ton + leichte Variation
+            const freq = tone.freq * (1 + (Math.random() - 0.5) * 0.02);
+            playRichTone(freq, tone.dur + Math.random() * 0.04, tone.wave, tone.vol);
+            return;
+        }
+        // Nicht-Basis-Materialien: melodische Skala wie bisher
         scaleChangeCounter++;
         if (scaleChangeCounter > 25 + Math.floor(Math.random() * 15)) {
             scaleChangeCounter = 0;
@@ -1384,7 +1407,7 @@
                     }
                 }
                 addPlaceAnimation(r, c);
-                soundBuild();
+                soundBuild(currentMaterial);
                 maybeNpcComment(currentMaterial);
                 maybeCodeEasterEgg(currentMaterial);
                 recordMilestone('firstBlock');
@@ -1407,7 +1430,7 @@
         } else if (currentTool === 'fill') {
             pushUndo();
             floodFill(r, c, grid[r][c], currentMaterial);
-            soundBuild();
+            soundBuild(currentMaterial);
         }
         // Teure Checks nur alle 200ms (nicht bei jedem Pixel beim Drag)
         requestStatsUpdate();
@@ -2136,7 +2159,7 @@
                         placed++;
                     }
                 }
-                soundBuild();
+                soundBuild(matKey[0]);
                 updateStats();
                 checkAchievements();
                 checkQuests();
