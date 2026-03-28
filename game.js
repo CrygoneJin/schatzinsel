@@ -90,9 +90,20 @@
         return { r: bestR, c: bestC };
     }
 
-    // --- Materialien ---
+    // === WUXING — Fünf Elemente, alles ist Kombination ===
+    // 木 Holz · 火 Feuer · 土 Erde · 金 Metall · 水 Wasser
+    // "Start with only five symbols that combine to everything."
+
+    const ELEMENTS = ['wood', 'fire', 'earth', 'metal', 'water'];
+
     const MATERIALS = {
-        wood:     { emoji: '🪵', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F' },
+        // --- Die 5 Elemente (immer verfügbar) ---
+        wood:     { emoji: '🪵', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F', element: true },
+        fire:     { emoji: '🔥', label: 'Feuer',    color: '#E74C3C', border: '#C0392B', element: true },
+        earth:    { emoji: '🌍', label: 'Erde',     color: '#A0522D', border: '#8B4513', element: true },
+        metal:    { emoji: '⚙️', label: 'Metall',   color: '#95A5A6', border: '#7F8C8D', element: true },
+        water:    { emoji: '💧', label: 'Wasser',   color: '#3498DB', border: '#2980B9', element: true },
+        // --- Kombinationen (müssen entdeckt werden) ---
         stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
         glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
         plant:    { emoji: '🌿', label: 'Pflanze',  color: '#52BE80', border: '#27AE60' },
@@ -102,7 +113,6 @@
         roof:     { emoji: '🏠', label: 'Dach',     color: '#E74C3C', border: '#C0392B' },
         lamp:     { emoji: '💡', label: 'Lampe',    color: '#F9E79F', border: '#F1C40F' },
         sand:     { emoji: '⬜', label: 'Sand',     color: '#F5DEB3', border: '#DCC89E' },
-        water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
         path:     { emoji: '🟫', label: 'Weg',      color: '#A0522D', border: '#8B4513' },
         fence:    { emoji: '🏗️', label: 'Zaun',     color: '#C4A265', border: '#A08040' },
         boat:     { emoji: '⛵', label: 'Boot',     color: '#5DADE2', border: '#2E86C1' },
@@ -113,6 +123,104 @@
         cactus:   { emoji: '🌵', label: 'Kaktus',   color: '#28B463', border: '#1D8348' },
         mushroom: { emoji: '🍄', label: 'Pilz',     color: '#E59866', border: '#CA6F1E' },
     };
+
+    // === KOMBINATIONSREZEPTE ===
+    // Wuxing-Zyklen: Holz nährt Feuer, Feuer erzeugt Erde (Asche),
+    // Erde birgt Metall, Metall sammelt Wasser, Wasser nährt Holz.
+    // Manche Kombinationen haben 2 mögliche Ergebnisse → Zufall = mehr Entdeckung
+
+    function recipeKey(a, b) {
+        return [a, b].sort().join('+');
+    }
+
+    const RECIPE_MAP = {};  // key → [result1, result2, ...]
+    function addRecipe(a, b, result) {
+        const key = recipeKey(a, b);
+        if (!RECIPE_MAP[key]) RECIPE_MAP[key] = [];
+        RECIPE_MAP[key].push(result);
+    }
+
+    // Grundkombinationen (Wu Xing Erzeugungszyklus)
+    addRecipe('fire', 'earth', 'stone');      // Gebrannter Ton → Stein
+    addRecipe('fire', 'metal', 'glass');      // Geschmolzen → Glas
+    addRecipe('water', 'wood', 'plant');      // Bewässert → Pflanze
+    addRecipe('earth', 'wood', 'tree');       // Verwurzelt → Baum
+    addRecipe('earth', 'water', 'flower');    // Garten → Blume
+    addRecipe('metal', 'wood', 'door');       // Geschreinert → Tür
+    addRecipe('fire', 'wood', 'roof');        // Behausung → Dach
+    addRecipe('fire', 'water', 'lamp');       // Dampf → Licht
+    addRecipe('earth', 'earth', 'sand');      // Zerrieben → Sand
+    addRecipe('earth', 'metal', 'path');      // Befestigt → Weg
+    addRecipe('metal', 'metal', 'fence');     // Geschmiedet → Zaun
+    addRecipe('water', 'water', 'boat');      // Gewässer → Boot
+    addRecipe('metal', 'water', 'fish');      // Angel → Fisch
+    addRecipe('fire', 'fire', 'flag');        // Signal → Flagge
+    addRecipe('wood', 'wood', 'bridge');      // Verbunden → Brücke
+    // Doppel-Ergebnisse (gleiche Elemente, anderes Resultat)
+    addRecipe('fire', 'water', 'fountain');   // Geysir → Brunnen
+    addRecipe('earth', 'water', 'cactus');    // Trocken → Kaktus
+    addRecipe('earth', 'wood', 'mushroom');   // Dunkel → Pilz
+
+    // === ENTDECKUNGSSYSTEM ===
+    let discoveries = JSON.parse(localStorage.getItem('insel-discoveries') || '[]');
+
+    function isDiscovered(matId) {
+        return MATERIALS[matId]?.element || discoveries.includes(matId);
+    }
+
+    function discover(matId) {
+        if (discoveries.includes(matId)) return false;
+        discoveries.push(matId);
+        localStorage.setItem('insel-discoveries', JSON.stringify(discoveries));
+        return true;
+    }
+
+    // Versuche Kombination wenn Element neben Element platziert wird
+    function tryCombine(r, c) {
+        const placed = grid[r][c];
+        if (!MATERIALS[placed]?.element) return; // Nur Elemente kombinieren
+
+        // Prüfe alle Nachbarn (Hex: 6)
+        const neighbors = typeof hexNeighbors === 'function' ? hexNeighbors(r, c) : [
+            {r: r-1, c}, {r: r+1, c}, {r, c: c-1}, {r, c: c+1}
+        ];
+
+        for (const nb of neighbors) {
+            if (nb.r < 0 || nb.r >= ROWS || nb.c < 0 || nb.c >= COLS) continue;
+            const neighbor = grid[nb.r][nb.c];
+            if (!neighbor || !MATERIALS[neighbor]?.element) continue;
+
+            const key = recipeKey(placed, neighbor);
+            const results = RECIPE_MAP[key];
+            if (!results || !results.length) continue;
+
+            // Bevorzuge unentdeckte Ergebnisse, sonst zufällig
+            const undiscovered = results.filter(r => !discoveries.includes(r));
+            const result = undiscovered.length > 0
+                ? undiscovered[Math.floor(Math.random() * undiscovered.length)]
+                : results[Math.floor(Math.random() * results.length)];
+
+            // Kombination gefunden! Beide Elemente → Ergebnis
+            grid[r][c] = result;
+            grid[nb.r][nb.c] = result;
+
+            const mat = MATERIALS[result];
+            const isNew = discover(result);
+
+            if (isNew) {
+                // Neue Entdeckung!
+                soundAchievement();
+                showToast(`✨ Entdeckt: ${mat.emoji} ${mat.label}! (${MATERIALS[placed].emoji}+${MATERIALS[neighbor].emoji})`, 3000);
+                updatePalette();
+            } else {
+                showToast(`${mat.emoji} ${mat.label}!`, 1500);
+            }
+
+            addPlaceAnimation(r, c);
+            addPlaceAnimation(nb.r, nb.c);
+            return; // Nur eine Kombination pro Platzierung
+        }
+    }
 
     // ============================================================
     // === SOUND === (→ sound.js bei Zellteilung)
@@ -1148,6 +1256,7 @@
                 grid[r][c] = currentMaterial;
                 addPlaceAnimation(r, c);
                 soundBuild();
+                tryCombine(r, c); // Wuxing: Element + Nachbar = Entdeckung
                 maybeNpcComment(currentMaterial);
                 maybeCodeEasterEgg(currentMaterial);
                 recordMilestone('firstBlock');
@@ -1522,76 +1631,54 @@
         });
     });
 
-    // Material-Buttons
-    document.querySelectorAll('.material-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentMaterial = btn.dataset.material;
-            // Automatisch auf "Bauen" wechseln
-            currentTool = 'build';
-            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('[data-tool="build"]').classList.add('active');
-        });
-    });
+    // === DYNAMISCHE PALETTE (Wuxing) ===
+    // Start: nur 5 Elemente. Kombinationen erscheinen bei Entdeckung.
+    const palette = document.getElementById('palette');
 
-    // === LABEL-RÄTSEL (A/B-Test als Feature) ===
-    // 80%: Labels komplett weg — Emojis sprechen für sich
-    // 20%: Labels im falschen Feld + Sprachmix — Zuordnungsrätsel
-    (function shuffleLabels() {
-        const btns = [...document.querySelectorAll('.material-btn')];
-        const labels = btns.map(b => b.querySelector('.mat-label')).filter(Boolean);
-        if (!labels.length) return;
+    function updatePalette() {
+        // Alle material-btn entfernen (h2 behalten)
+        palette.querySelectorAll('.material-btn').forEach(b => b.remove());
 
-        const isRiddleMode = Math.random() < 0.2;
+        // Verfügbare Materialien: Elemente + Entdeckungen
+        const available = Object.entries(MATERIALS).filter(([id, mat]) =>
+            mat.element || discoveries.includes(id)
+        );
 
-        if (!isRiddleMode) {
-            // 80%: Labels weg
-            labels.forEach(l => l.remove());
-        } else {
-            // 20%: Labels shufflen + in zufällige Sprachen übersetzen
-            const TRANSLATIONS = {
-                wood:     ['Bois', 'Madera', 'Legno', '木', 'Drevo', 'Puu', 'Ahşap'],
-                stone:    ['Pierre', 'Piedra', 'Pietra', '石', 'Kamen', 'Kivi', 'Taş'],
-                glass:    ['Verre', 'Vidrio', 'Vetro', '硝子', 'Steklo', 'Lasi', 'Cam'],
-                plant:    ['Plante', 'Planta', 'Pianta', '草', 'Rastenie', 'Kasvi', 'Bitki'],
-                tree:     ['Arbre', 'Árbol', 'Albero', '木', 'Derevo', 'Puu', 'Ağaç'],
-                flower:   ['Fleur', 'Flor', 'Fiore', '花', 'Tsvetok', 'Kukka', 'Çiçek'],
-                door:     ['Porte', 'Puerta', 'Porta', '扉', 'Dver', 'Ovi', 'Kapı'],
-                roof:     ['Toit', 'Techo', 'Tetto', '屋根', 'Krysha', 'Katto', 'Çatı'],
-                lamp:     ['Lampe', 'Lámpara', 'Lampada', 'ランプ', 'Lampa', 'Lamppu', 'Lamba'],
-                sand:     ['Sable', 'Arena', 'Sabbia', '砂', 'Pesok', 'Hiekka', 'Kum'],
-                water:    ['Eau', 'Agua', 'Acqua', '水', 'Voda', 'Vesi', 'Su'],
-                path:     ['Chemin', 'Camino', 'Sentiero', '道', 'Tropinka', 'Polku', 'Yol'],
-                fence:    ['Clôture', 'Valla', 'Recinzione', '柵', 'Zabor', 'Aita', 'Çit'],
-                boat:     ['Bateau', 'Barco', 'Barca', '船', 'Lodka', 'Vene', 'Tekne'],
-                fish:     ['Poisson', 'Pez', 'Pesce', '魚', 'Ryba', 'Kala', 'Balık'],
-                fountain: ['Fontaine', 'Fuente', 'Fontana', '噴水', 'Fontan', 'Suihkulähde', 'Çeşme'],
-                flag:     ['Drapeau', 'Bandera', 'Bandiera', '旗', 'Flag', 'Lippu', 'Bayrak'],
-                bridge:   ['Pont', 'Puente', 'Ponte', '橋', 'Most', 'Silta', 'Köprü'],
-                cactus:   ['Cactus', 'Cacto', 'Cactus', 'サボテン', 'Kaktus', 'Kaktus', 'Kaktüs'],
-                mushroom: ['Champignon', 'Hongo', 'Fungo', 'キノコ', 'Grib', 'Sieni', 'Mantar'],
-            };
-
-            // Labels einsammeln, shufflen, in fremder Sprache ins nächste Feld
-            const labelTexts = btns.map(b => {
-                const matId = b.dataset.material;
-                const pool = TRANSLATIONS[matId];
-                if (!pool) return b.querySelector('.mat-label')?.textContent || '';
-                return pool[Math.floor(Math.random() * pool.length)];
+        available.forEach(([id, mat]) => {
+            const btn = document.createElement('button');
+            btn.className = 'material-btn' + (id === currentMaterial ? ' active' : '');
+            btn.dataset.material = id;
+            btn.innerHTML = `<span class="mat-emoji">${mat.emoji}</span><span class="mat-label">${mat.label}</span>`;
+            btn.addEventListener('click', () => {
+                palette.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMaterial = id;
+                currentTool = 'build';
+                document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('[data-tool="build"]').classList.add('active');
             });
+            palette.appendChild(btn);
+        });
 
-            // Verschiebe jedes Label um 1-3 Positionen
-            const shifted = [...labelTexts];
-            const shift = 1 + Math.floor(Math.random() * 2);
-            for (let i = 0; i < shifted.length; i++) {
-                const target = (i + shift) % shifted.length;
-                labels[target].textContent = labelTexts[i];
-                labels[target].style.opacity = '0.6';
-                labels[target].style.fontStyle = 'italic';
-            }
+        // Entdeckungszähler
+        const total = Object.keys(MATERIALS).length;
+        const found = ELEMENTS.length + discoveries.length;
+        let counter = palette.querySelector('.discovery-counter');
+        if (!counter) {
+            counter = document.createElement('div');
+            counter.className = 'discovery-counter';
+            counter.style.cssText = 'text-align:center;font-size:11px;opacity:0.6;padding:4px;';
+            palette.appendChild(counter);
         }
-    })();
+        counter.textContent = `${found}/${total}`;
+
+        // 80%: Labels weg (Emojis reichen), 20%: Labels sichtbar
+        if (Math.random() > 0.2) {
+            palette.querySelectorAll('.mat-label').forEach(l => l.remove());
+        }
+    }
+
+    updatePalette();
 
     // Canvas Maus-Events
     canvas.addEventListener('mousedown', (e) => {
