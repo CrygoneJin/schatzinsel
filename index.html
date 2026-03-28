@@ -62,45 +62,49 @@
         <div id="main-area">
 
             <!-- Material-Palette -->
-            <div id="palette" role="toolbar" aria-label="Materialien zum Bauen">
-                <h2>Artefakte</h2>
-                <!-- 5 Basis-Elemente: immer sichtbar -->
-                <button class="material-btn active" data-material="tree" data-base="true">
-                    <span class="mat-emoji">🌱</span>
-                    <span class="mat-label">Baum</span>
+            <div id="palette" role="toolbar" aria-label="Die 5 Elemente">
+                <h2>五行 Elemente</h2>
+                <!-- 五行 Wu Xing — Die 5 Elemente. Vor 5 ist nix. -->
+                <button class="material-btn active" data-material="metal" data-base="true">
+                    <span class="mat-emoji">⚙️</span>
+                    <span class="mat-label">Metall</span>
                 </button>
-                <button class="material-btn" data-material="stone" data-base="true">
-                    <span class="mat-emoji">🧱</span>
-                    <span class="mat-label">Stein</span>
-                </button>
-                <button class="material-btn" data-material="sand" data-base="true">
-                    <span class="mat-emoji">⬜</span>
-                    <span class="mat-label">Sand</span>
-                </button>
-                <button class="material-btn" data-material="water" data-base="true">
-                    <span class="mat-emoji">🌊</span>
-                    <span class="mat-label">Wasser</span>
+                <button class="material-btn" data-material="wood" data-base="true">
+                    <span class="mat-emoji">🪵</span>
+                    <span class="mat-label">Holz</span>
                 </button>
                 <button class="material-btn" data-material="fire" data-base="true">
                     <span class="mat-emoji">🔥</span>
                     <span class="mat-label">Feuer</span>
                 </button>
-                <!-- Craftbare Elemente: erscheinen erst nach Herstellung -->
-                <button class="material-btn craft-locked" data-material="wood">
-                    <span class="mat-emoji">🪵</span>
-                    <span class="mat-label">Holz</span>
+                <button class="material-btn" data-material="water" data-base="true">
+                    <span class="mat-emoji">🌊</span>
+                    <span class="mat-label">Wasser</span>
                 </button>
-                <button class="material-btn craft-locked" data-material="planks">
-                    <span class="mat-emoji">🪵</span>
-                    <span class="mat-label">Bretter</span>
+                <button class="material-btn" data-material="earth" data-base="true">
+                    <span class="mat-emoji">🟫</span>
+                    <span class="mat-label">Erde</span>
+                </button>
+                <!-- Artefakte: erscheinen erst durch Crafting -->
+                <button class="material-btn craft-locked" data-material="stone">
+                    <span class="mat-emoji">🧱</span>
+                    <span class="mat-label">Stein</span>
+                </button>
+                <button class="material-btn craft-locked" data-material="sand">
+                    <span class="mat-emoji">⬜</span>
+                    <span class="mat-label">Sand</span>
                 </button>
                 <button class="material-btn craft-locked" data-material="glass">
                     <span class="mat-emoji">🪟</span>
                     <span class="mat-label">Glas</span>
                 </button>
-                <button class="material-btn craft-locked" data-material="window_pane">
-                    <span class="mat-emoji">🪟</span>
-                    <span class="mat-label">Fenster</span>
+                <button class="material-btn craft-locked" data-material="planks">
+                    <span class="mat-emoji">🪵</span>
+                    <span class="mat-label">Bretter</span>
+                </button>
+                <button class="material-btn craft-locked" data-material="sapling">
+                    <span class="mat-emoji">🌱</span>
+                    <span class="mat-label">Setzling</span>
                 </button>
                 <button class="material-btn craft-locked" data-material="lamp">
                     <span class="mat-emoji">💡</span>
@@ -113,6 +117,10 @@
                 <button class="material-btn craft-locked" data-material="fence">
                     <span class="mat-emoji">🏗️</span>
                     <span class="mat-label">Zaun</span>
+                </button>
+                <button class="material-btn craft-locked" data-material="window_pane">
+                    <span class="mat-emoji">🪟</span>
+                    <span class="mat-label">Fenster</span>
                 </button>
                 <button class="material-btn craft-locked" data-material="fountain">
                     <span class="mat-emoji">⛲</span>

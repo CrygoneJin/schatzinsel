@@ -36,7 +36,13 @@
 
     // --- Materialien ---
     const MATERIALS = {
+        // === DIE 5 ELEMENTE (五行 Wu Xing) ===
+        metal:    { emoji: '⚙️', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
         wood:     { emoji: '🪵', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F' },
+        fire:     { emoji: '🔥', label: 'Feuer',    color: '#E67E22', border: '#D35400' },
+        water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
+        earth:    { emoji: '🟫', label: 'Erde',     color: '#8B6914', border: '#6B4F0A' },
+        // === ABGELEITETE MATERIALIEN ===
         stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
         glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
         plant:    { emoji: '🌿', label: 'Pflanze',  color: '#52BE80', border: '#27AE60' },
@@ -47,9 +53,7 @@
         door:     { emoji: '🚪', label: 'Tür',      color: '#6E3B1A', border: '#4A2510' },
         roof:     { emoji: '🏠', label: 'Dach',     color: '#E74C3C', border: '#C0392B' },
         lamp:     { emoji: '💡', label: 'Lampe',    color: '#F9E79F', border: '#F1C40F' },
-        fire:     { emoji: '🔥', label: 'Feuer',    color: '#E67E22', border: '#D35400' },
         sand:     { emoji: '⬜', label: 'Sand',     color: '#F5DEB3', border: '#DCC89E' },
-        water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
         path:     { emoji: '🟫', label: 'Weg',      color: '#A0522D', border: '#8B4513' },
         fence:    { emoji: '🏗️', label: 'Zaun',     color: '#C4A265', border: '#A08040' },
         boat:     { emoji: '⛵', label: 'Boot',     color: '#5DADE2', border: '#2E86C1' },
@@ -141,20 +145,20 @@
     let lastBuildNote = -1;
     let buildNoteDir = 1;
 
-    // === DIE 5 HÄMMER DES PYTHAGORAS ===
-    // Pentatonik aus reinen Quinten: C D E G A
-    // Jedes Element hat seinen Grundton, Wellenform und Charakter
+    // === 五音 (Wǔ Yīn) — Die 5 Töne der chinesischen Pentatonik ===
+    // Jedes Element hat seinen Ton: 宫商角徵羽 (Gōng Shāng Jué Zhǐ Yǔ)
+    // Pythagoräische Stimmung aus reinen Quinten: C D E G A
     const ELEMENT_TONES = {
-        // Stein = Grundton (1:1) — tief, fest, Fundament
-        stone:  { freq: C4,        wave: 'triangle', dur: 0.12, vol: 0.10 },
-        // Sand = Große Sekunde (9:8) — rieselnd, leicht
-        sand:   { freq: C4 * 9/8,  wave: 'sine',     dur: 0.08, vol: 0.07 },
-        // Wasser = Große Terz (81:64) — fließend, weich
-        water:  { freq: C4 * 81/64, wave: 'sine',    dur: 0.15, vol: 0.08 },
-        // Baum = Quinte (3:2) — wachsend, lebendig
-        tree:   { freq: C4 * 3/2,  wave: 'triangle', dur: 0.14, vol: 0.08 },
-        // Feuer = Große Sexte (27:16) — hell, energisch
-        fire:   { freq: C4 * 27/16, wave: 'sawtooth', dur: 0.06, vol: 0.06 },
+        // 土 Erde = 宫 Gōng (C) — Grundton, Fundament, Mitte
+        earth:  { freq: C4,         wave: 'triangle', dur: 0.14, vol: 0.10 },
+        // 金 Metall = 商 Shāng (D) — klar, schneidend, rein
+        metal:  { freq: C4 * 9/8,   wave: 'square',   dur: 0.10, vol: 0.07 },
+        // 木 Holz = 角 Jué (E) — warm, organisch, wachsend
+        wood:   { freq: C4 * 81/64, wave: 'triangle', dur: 0.14, vol: 0.08 },
+        // 火 Feuer = 徵 Zhǐ (G) — hell, energisch, aufsteigend
+        fire:   { freq: C4 * 3/2,   wave: 'sawtooth', dur: 0.06, vol: 0.06 },
+        // 水 Wasser = 羽 Yǔ (A) — fließend, weich, tief
+        water:  { freq: C4 * 27/16, wave: 'sine',     dur: 0.18, vol: 0.08 },
     };
 
     function soundBuild(material) {
@@ -943,15 +947,19 @@
     // === CRAFTING === 3x3 Werkbank
     // ============================================================
     const CRAFTING_RECIPES = [
-        { name: 'Glas',    result: 'glass',      resultCount: 1, ingredients: { sand: 1, fire: 1 },  desc: 'Sand + Feuer = Glas' },
-        { name: 'Fenster', result: 'window_pane', resultCount: 1, ingredients: { glass: 1, wood: 1 }, desc: 'Glas + Holz = Fenster' },
+        // Stufe 1: Aus den 5 Elementen
+        { name: 'Stein',   result: 'stone',      resultCount: 2, ingredients: { earth: 2, fire: 1 },  desc: '2 Erde + Feuer = 2 Stein' },
+        { name: 'Sand',    result: 'sand',       resultCount: 2, ingredients: { earth: 1, water: 1 }, desc: 'Erde + Wasser = 2 Sand' },
         { name: 'Bretter', result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
+        { name: 'Setzling',result: 'sapling',    resultCount: 1, ingredients: { wood: 1, water: 1 },  desc: 'Holz + Wasser = Setzling' },
+        // Stufe 2: Aus Stufe-1-Artefakten
+        { name: 'Glas',    result: 'glass',      resultCount: 1, ingredients: { sand: 1, fire: 1 },   desc: 'Sand + Feuer = Glas' },
         { name: 'Lampe',   result: 'lamp',       resultCount: 1, ingredients: { glass: 1, fire: 1 },  desc: 'Glas + Feuer = Lampe' },
-        { name: 'Brunnen', result: 'fountain',   resultCount: 1, ingredients: { stone: 3, water: 1 }, desc: '3 Stein + Wasser = Brunnen' },
-        { name: 'Brücke',  result: 'bridge',     resultCount: 1, ingredients: { planks: 2, stone: 1 },desc: '2 Bretter + Stein = Brücke' },
-        { name: 'Zaun',    result: 'fence',      resultCount: 2, ingredients: { planks: 1, wood: 1 }, desc: 'Bretter + Holz = 2 Zäune' },
+        { name: 'Fenster', result: 'window_pane', resultCount: 1, ingredients: { glass: 1, wood: 1 }, desc: 'Glas + Holz = Fenster' },
         { name: 'Tür',     result: 'door',       resultCount: 1, ingredients: { planks: 2 },          desc: '2 Bretter = Tür' },
-        { name: 'Feuer',   result: 'fire',       resultCount: 2, ingredients: { wood: 1 },            desc: 'Holz = 2 Feuer' },
+        { name: 'Zaun',    result: 'fence',      resultCount: 2, ingredients: { planks: 1, wood: 1 }, desc: 'Bretter + Holz = 2 Zäune' },
+        { name: 'Brunnen', result: 'fountain',   resultCount: 1, ingredients: { stone: 3, water: 1 }, desc: '3 Stein + Wasser = Brunnen' },
+        { name: 'Brücke',  result: 'bridge',     resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Brücke' },
     ];
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
@@ -1083,11 +1091,11 @@
 
     // --- Zustand ---
     let grid = [];
-    let currentMaterial = 'tree';
+    let currentMaterial = 'metal';
     let currentTool = 'build';
 
-    // Basis-Elemente sind immer in der Palette sichtbar
-    const BASE_MATERIALS = ['tree', 'stone', 'sand', 'water', 'fire'];
+    // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
+    const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
 
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
@@ -1395,16 +1403,10 @@
         if (currentTool === 'build') {
             if (grid[r][c] !== currentMaterial) {
                 if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
-                // Wenn man einen Baum pflanzt, startet er als Setzling
-                if (currentMaterial === 'tree' && grid[r][c] === null) {
-                    grid[r][c] = 'sapling';
+                grid[r][c] = currentMaterial;
+                // Setzling platzieren startet Baumwachstum
+                if (currentMaterial === 'sapling') {
                     treeGrowth[r + ',' + c] = Date.now();
-                } else {
-                    grid[r][c] = currentMaterial;
-                    // Setzling direkt platzieren startet auch Wachstum
-                    if (currentMaterial === 'sapling') {
-                        treeGrowth[r + ',' + c] = Date.now();
-                    }
                 }
                 addPlaceAnimation(r, c);
                 soundBuild(currentMaterial);
@@ -1969,15 +1971,11 @@
         if (e.target.tagName === 'INPUT') return;
 
         switch (e.key) {
-            case '1': selectMaterial('wood'); break;
-            case '2': selectMaterial('stone'); break;
-            case '3': selectMaterial('glass'); break;
-            case '4': selectMaterial('plant'); break;
-            case '5': selectMaterial('tree'); break;
-            case '6': selectMaterial('flower'); break;
-            case '7': selectMaterial('door'); break;
-            case '8': selectMaterial('roof'); break;
-            case '9': selectMaterial('lamp'); break;
+            case '1': selectMaterial('metal'); break;
+            case '2': selectMaterial('wood'); break;
+            case '3': selectMaterial('fire'); break;
+            case '4': selectMaterial('water'); break;
+            case '5': selectMaterial('earth'); break;
             case 'b': selectTool('build'); break;
             case 'e': selectTool('harvest'); break;
             case 'f': selectTool('fill'); break;
