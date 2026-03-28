@@ -973,6 +973,13 @@
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
 
+    // Entdeckte Rezepte — Spieler sieht nur was er schon gefunden hat
+    let discoveredRecipes = new Set(JSON.parse(localStorage.getItem('insel-discovered-recipes') || '[]'));
+
+    function saveDiscoveredRecipes() {
+        localStorage.setItem('insel-discovered-recipes', JSON.stringify([...discoveredRecipes]));
+    }
+
     function getCraftingIngredients() {
         const counts = {};
         for (const slot of craftingGrid) {
@@ -1010,13 +1017,20 @@
         // Remove items from crafting grid
         craftingGrid = Array(9).fill(null);
 
-        // Add result to inventory + unlock in palette
+        // Add result to inventory + unlock in palette + discover recipe
         addToInventory(recipe.result, recipe.resultCount);
         unlockMaterial(recipe.result);
+        const isNew = !discoveredRecipes.has(recipe.name);
+        discoveredRecipes.add(recipe.name);
+        saveDiscoveredRecipes();
         soundCraft();
 
         const info = MATERIALS[recipe.result];
-        showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
+        if (isNew) {
+            showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);
+        } else {
+            showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
+        }
         trackEvent('craft', { recipe: recipe.name, result: recipe.result });
         updateCraftingDisplay();
     }
@@ -1088,13 +1102,18 @@
             }).join('') || '<p class="inv-empty">Inventar leer!</p>';
         }
 
-        // Update recipe book
+        // Update recipe book — nur entdeckte Rezepte zeigen
         const recipeBook = document.getElementById('recipe-book');
         if (recipeBook) {
-            recipeBook.innerHTML = CRAFTING_RECIPES.map(r => {
-                const info = MATERIALS[r.result];
-                return `<div class="recipe-entry">${info.emoji} ${r.desc}</div>`;
-            }).join('');
+            const discovered = CRAFTING_RECIPES.filter(r => discoveredRecipes.has(r.name));
+            if (discovered.length === 0) {
+                recipeBook.innerHTML = '<p class="craft-discover-hint">Mische die Elemente und finde heraus was entsteht!</p>';
+            } else {
+                recipeBook.innerHTML = discovered.map(r => {
+                    const info = MATERIALS[r.result];
+                    return `<div class="recipe-entry">${info.emoji} ${r.desc}</div>`;
+                }).join('') + `<p class="craft-discover-hint">${discovered.length}/${CRAFTING_RECIPES.length} entdeckt</p>`;
+            }
         }
     }
 
@@ -1591,6 +1610,7 @@
             treeGrowth: treeGrowth,
             inventory: inventory,
             unlocked: [...unlockedMaterials],
+            discovered: [...discoveredRecipes],
         };
 
         localStorage.setItem('insel-projekte', JSON.stringify(projects));
@@ -1618,6 +1638,7 @@
             treeGrowth: treeGrowth,
             inventory: inventory,
             unlocked: [...unlockedMaterials],
+            discovered: [...discoveredRecipes],
         };
         localStorage.setItem('insel-projekte', JSON.stringify(projects));
         // Subtiler Indikator: Save-Button blinkt kurz
@@ -1678,6 +1699,10 @@
             } else {
                 unlockedMaterials = new Set();
             }
+            if (projects[name].discovered) {
+                discoveredRecipes = new Set(projects[name].discovered);
+                saveDiscoveredRecipes();
+            }
             window.grid = grid;
             migrateUnlocked();
             projectNameInput.value = name === AUTOSAVE_KEY ? '' : name;
@@ -1703,8 +1728,10 @@
         treeGrowth = {};
         inventory = {};
         unlockedMaterials = new Set();
+        discoveredRecipes = new Set();
         saveInventory();
         saveUnlocked();
+        saveDiscoveredRecipes();
         projectNameInput.value = '';
         updateStats();
         updateInventoryDisplay();
@@ -2401,6 +2428,9 @@
             unlockedMaterials = new Set(savedProjects[AUTOSAVE_KEY].unlocked);
         } else {
             unlockedMaterials = new Set();
+        }
+        if (savedProjects[AUTOSAVE_KEY].discovered) {
+            discoveredRecipes = new Set(savedProjects[AUTOSAVE_KEY].discovered);
         }
         window.grid = grid;
         migrateUnlocked();
