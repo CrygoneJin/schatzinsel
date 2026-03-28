@@ -330,29 +330,17 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
                 const apiUrl = getApiUrl() || provider.url;
                 const model = provider.model || 'gpt-4o-mini';
 
-                let body, headers;
-                if (hasProxy()) {
-                    headers = { 'Content-Type': 'application/json' };
-                    body = JSON.stringify({
-                        model,
-                        max_tokens: 30,
-                        messages: [{ role: 'user', content: prompt }],
-                    });
-                } else if (provider.format === 'anthropic') {
-                    headers = { 'Content-Type': 'application/json', ...provider.authHeader(key) };
-                    body = JSON.stringify({
-                        model,
-                        max_tokens: 30,
-                        messages: [{ role: 'user', content: prompt }],
-                    });
-                } else {
-                    headers = { 'Content-Type': 'application/json', ...provider.authHeader(key) };
-                    body = JSON.stringify({
-                        model,
-                        max_tokens: 30,
-                        messages: [{ role: 'user', content: prompt }],
-                    });
-                }
+                // Proxy normalisiert das Format serverseitig — wir senden immer OpenAI-kompatibel.
+                // Für Direct-API-Keys gilt dasselbe da Langdock/OpenAI-kompatibel sind.
+                const headers = {
+                    'Content-Type': 'application/json',
+                    ...(hasProxy() ? {} : provider.authHeader(key)),
+                };
+                const body = JSON.stringify({
+                    model,
+                    max_tokens: 30,
+                    messages: [{ role: 'user', content: prompt }],
+                });
 
                 const resp = await fetch(apiUrl, { method: 'POST', headers, body });
                 if (!resp.ok) break; // Fehler → abbrechen, kein Retry
@@ -364,7 +352,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
                 } else {
                     text = data.choices?.[0]?.message?.content?.trim() || '';
                 }
-                if (text && text.length < 100) {
+                if (text && text.length < 100 && AI_COMMENT_BUFFER.length < AI_COMMENT_BUFFER_MAX) {
                     AI_COMMENT_BUFFER.push(text);
                 }
             }
@@ -375,8 +363,8 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
         }
     }
 
-    // Exponiert für game.js — gibt sofort einen String zurück (nie null)
-    // Wenn Puffer leer: gibt null zurück → game.js nutzt eigenes Template
+    // Gibt synchron einen String oder null zurück (null = Fallback auf Template in game.js).
+    // Triggert nebenbei das Auffüllen des Puffers für den nächsten Aufruf.
     window.requestAiComment = function(material, npcId, gridStats) {
         // Puffer im Hintergrund auffüllen (für nächsten Aufruf)
         fillAiCommentBuffer(material, npcId, gridStats);
