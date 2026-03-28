@@ -295,6 +295,115 @@
         return null;
     }
 
+    // --- Wetter-System ---
+    let weather = 'sun'; // 'sun', 'rain', 'rainbow'
+    let raindrops = [];
+    let weatherTimer = 0;
+    const WEATHER_CHANGE_INTERVAL = 60000; // Alle 60 Sekunden prüfen
+
+    function initRaindrops() {
+        raindrops = [];
+        for (let i = 0; i < 80; i++) {
+            raindrops.push({
+                x: Math.random() * 1000,
+                y: Math.random() * 800,
+                speed: 3 + Math.random() * 4,
+                length: 6 + Math.random() * 10,
+            });
+        }
+    }
+
+    function drawWeather() {
+        if (weather === 'rain') {
+            ctx.strokeStyle = 'rgba(100, 150, 255, 0.4)';
+            ctx.lineWidth = 1;
+            for (const drop of raindrops) {
+                drop.y += drop.speed;
+                drop.x += drop.speed * 0.2;
+                if (drop.y > canvas.height) {
+                    drop.y = -drop.length;
+                    drop.x = Math.random() * canvas.width;
+                }
+                ctx.beginPath();
+                ctx.moveTo(drop.x, drop.y);
+                ctx.lineTo(drop.x + drop.speed * 0.3, drop.y + drop.length);
+                ctx.stroke();
+            }
+            // Dunkles Overlay für Regen
+            ctx.fillStyle = 'rgba(30, 40, 60, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else if (weather === 'sun') {
+            // Sonnenstrahlen aus der Ecke
+            const time = Date.now() / 2000;
+            const rayAlpha = 0.05 + Math.sin(time) * 0.02;
+            ctx.fillStyle = `rgba(255, 240, 150, ${rayAlpha})`;
+            for (let i = 0; i < 5; i++) {
+                const angle = -0.3 + i * 0.15 + Math.sin(time + i) * 0.05;
+                ctx.save();
+                ctx.translate(0, 0);
+                ctx.rotate(angle);
+                ctx.fillRect(0, -5, canvas.width * 1.5, 10 + i * 3);
+                ctx.restore();
+            }
+        } else if (weather === 'rainbow') {
+            // Regenbogen über der Insel!
+            const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
+            const cx = canvas.width / 2;
+            const cy = canvas.height * 0.8;
+            const radius = canvas.width * 0.35;
+            ctx.globalAlpha = 0.25;
+            colors.forEach((color, i) => {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius - i * 5, Math.PI, 0);
+                ctx.stroke();
+            });
+            ctx.globalAlpha = 1;
+        }
+    }
+
+    function updateWeather() {
+        weatherTimer += 16; // ~60fps
+        if (weatherTimer > WEATHER_CHANGE_INTERVAL) {
+            weatherTimer = 0;
+            const roll = Math.random();
+            if (roll < 0.5) weather = 'sun';
+            else if (roll < 0.85) weather = 'rain';
+            else weather = 'rainbow'; // 15% Chance auf Regenbogen!
+        }
+    }
+
+    initRaindrops();
+
+    // --- NPC-Kommentare beim Bauen ---
+    const NPC_BUILD_COMMENTS = {
+        boat:     ['⛵ Tommy: Klick-klack! BOOTE! JA!', '🦀 Krabs: Ein Boot? Das bringt Kunden!'],
+        flower:   ['🐭 Maus: *pieps* BLUMEN!', '🐘 Elefant: Schön! Törööö!'],
+        fish:     ['🦀 Tommy: Fische! Die zähle ich! Eins... zwei... JA!', '🐭 Ente: *quak* Fisch-Freunde!'],
+        mushroom: ['🦄 Neinhorn: NEIN! ...ok, Pilze sind cool.', '🐘 Elefant: Oh, geheimnisvoll!'],
+        tree:     ['🐘 Elefant: Bäume sind die besten Nachbarn.', '🦄 Neinhorn: Nein! ...ok, Bäume gehen.'],
+        water:    ['🐭 Ente: *QUAK QUAK QUAK!* WASSER!', '🦀 Krabs: Wasser = Hafen = GELD!'],
+        bridge:   ['🦀 Tommy: Brücken! Klick-klack drüber!', '🐘 Elefant: Der Weber hätte die Brücke zuerst geplant...'],
+        flag:     ['🧽 SpongeBob: ICH BIN BEREIT eine Flagge zu haben!', '🦄 Neinhorn: NEIN ich will keine Flagge! ...die ist hübsch.'],
+        fountain: ['🐭 Maus: *pieps* Springbrunnen! *quak* SPRITZ!', '🐘 Elefant: Wasser-Musik! Törööö!'],
+    };
+
+    let lastCommentTime = 0;
+
+    function maybeNpcComment(material) {
+        const now = Date.now();
+        if (now - lastCommentTime < 8000) return; // Max alle 8 Sekunden
+        if (Math.random() > 0.25) return; // 25% Chance
+
+        const comments = NPC_BUILD_COMMENTS[material];
+        if (!comments) return;
+
+        lastCommentTime = now;
+        const comment = comments[Math.floor(Math.random() * comments.length)];
+        showToast(comment);
+    }
+
     // --- Zustand ---
     let grid = [];
     let currentMaterial = 'wood';
@@ -455,6 +564,10 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
+        // Wetter
+        updateWeather();
+        drawWeather();
+
         // Sterne bei Nacht
         if (dayTime > 0.8) {
             const starAlpha = (dayTime - 0.8) / 0.2;
@@ -537,16 +650,21 @@
                 grid[r][c] = currentMaterial;
                 addPlaceAnimation(r, c);
                 soundBuild();
+                maybeNpcComment(currentMaterial);
+                trackEvent('build', { material: currentMaterial });
             }
         } else if (currentTool === 'demolish') {
             if (grid[r][c] !== null) {
+                const removed = grid[r][c];
                 grid[r][c] = null;
                 addPlaceAnimation(r, c);
                 soundDemolish();
+                trackEvent('demolish', { material: removed });
             }
         } else if (currentTool === 'fill') {
             floodFill(r, c, grid[r][c], currentMaterial);
             soundBuild();
+            trackEvent('fill', { material: currentMaterial });
         }
         updateStats();
         checkAchievements();
@@ -875,11 +993,127 @@
         }).join('');
     }
 
+    // --- Theme-Switcher ---
+    const THEMES = ['tropical', 'night', 'candy', 'ocean', 'retro'];
+    const THEME_NAMES = ['🏝️ Tropeninsel', '🌙 Nachtmodus', '🍭 Candy Pop', '🌊 Ozean', '🕹️ Retro'];
+    let currentTheme = localStorage.getItem('insel-theme') || 'tropical';
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        currentTheme = theme;
+        localStorage.setItem('insel-theme', theme);
+        // Analytics
+        trackEvent('theme_change', { theme });
+    }
+
+    const themeBtn = document.getElementById('theme-btn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const idx = (THEMES.indexOf(currentTheme) + 1) % THEMES.length;
+            applyTheme(THEMES[idx]);
+            showToast(`${THEME_NAMES[idx]} aktiviert!`);
+        });
+    }
+
+    // --- Wetter-Button ---
+    const weatherBtn = document.getElementById('weather-btn');
+    const WEATHER_TYPES = ['sun', 'rain', 'rainbow'];
+    const WEATHER_EMOJIS = ['☀️', '🌧️', '🌈'];
+    if (weatherBtn) {
+        weatherBtn.addEventListener('click', () => {
+            const idx = (WEATHER_TYPES.indexOf(weather) + 1) % WEATHER_TYPES.length;
+            weather = WEATHER_TYPES[idx];
+            weatherTimer = 0; // Reset auto-change
+            weatherBtn.textContent = WEATHER_EMOJIS[idx];
+            showToast(`Wetter: ${WEATHER_EMOJIS[idx]}`);
+        });
+    }
+
+    // --- Analytics (localStorage, DSGVO-konform, keine externen Dienste) ---
+    function getAnalytics() {
+        return JSON.parse(localStorage.getItem('insel-analytics') || '{}');
+    }
+
+    function trackEvent(event, data) {
+        const analytics = getAnalytics();
+        if (!analytics.events) analytics.events = [];
+        analytics.events.push({
+            e: event,
+            d: data || {},
+            t: Date.now(),
+        });
+        // Max 500 Events speichern
+        if (analytics.events.length > 500) {
+            analytics.events = analytics.events.slice(-500);
+        }
+        localStorage.setItem('insel-analytics', JSON.stringify(analytics));
+    }
+
+    function trackSession() {
+        const analytics = getAnalytics();
+        analytics.sessions = (analytics.sessions || 0) + 1;
+        analytics.lastVisit = Date.now();
+        analytics.theme = currentTheme;
+        if (!analytics.firstVisit) analytics.firstVisit = Date.now();
+        localStorage.setItem('insel-analytics', JSON.stringify(analytics));
+    }
+
+    // A/B-Test: Neuen Usern zufälliges Theme zuweisen
+    function assignABTest() {
+        const analytics = getAnalytics();
+        if (!analytics.abGroup) {
+            const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
+            analytics.abGroup = randomTheme;
+            localStorage.setItem('insel-analytics', JSON.stringify(analytics));
+            applyTheme(randomTheme);
+            return randomTheme;
+        }
+        return analytics.abGroup;
+    }
+
+    // Kennzahlen exportieren (für Feynman)
+    window.getMetrics = function () {
+        const analytics = getAnalytics();
+        const stats = getGridStats();
+        return {
+            sessions: analytics.sessions || 0,
+            firstVisit: analytics.firstVisit ? new Date(analytics.firstVisit).toLocaleDateString('de-DE') : 'nie',
+            lastVisit: analytics.lastVisit ? new Date(analytics.lastVisit).toLocaleDateString('de-DE') : 'nie',
+            abGroup: analytics.abGroup || 'keiner',
+            theme: currentTheme,
+            blocksPlaced: stats.total,
+            uniqueMaterials: stats.uniqueMats,
+            achievements: unlockedAchievements.length + '/' + Object.keys(ACHIEVEMENTS).length,
+            questsCompleted: completedQuests.length,
+            questsActive: activeQuests.length,
+            events: (analytics.events || []).length,
+            // Engagement-Score (0-100)
+            engagement: Math.min(100, Math.round(
+                (stats.total * 0.3) +
+                (unlockedAchievements.length * 5) +
+                (completedQuests.length * 10) +
+                (stats.uniqueMats * 2)
+            )),
+        };
+    };
+
+    // --- Block-Tracking ---
+    const originalApplyTool = applyTool;
+
     // === START ===
     initGrid();
     draw();
     updateAchievementDisplay();
     updateQuestDisplay();
+
+    // Theme anwenden (gespeichertes oder A/B-Test)
+    if (!localStorage.getItem('insel-theme')) {
+        assignABTest();
+    } else {
+        applyTheme(currentTheme);
+    }
+    trackSession();
+    trackEvent('session_start', { theme: currentTheme });
 
     // Grid für Chat-Integration exportieren
     window.grid = grid;

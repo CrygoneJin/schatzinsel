@@ -43,6 +43,16 @@
 
     const DEFAULT_MODEL = 'claude-haiku-4-5-20251001';
 
+    // Jedes LLM hat seine eigene Währung — keine generischen Tokens!
+    const CHAR_CURRENCY = {
+        spongebob: { name: 'Krabbenburger', emoji: '🍔', unit: 'Burger' },
+        krabs:     { name: 'Krabben-Taler', emoji: '💰', unit: 'Taler' },
+        elefant:   { name: 'Musik-Noten',   emoji: '🎵', unit: 'Noten' },
+        tommy:     { name: 'Anker-Punkte',  emoji: '⚓', unit: 'Anker' },
+        neinhorn:  { name: 'Nein-Sterne',   emoji: '🌈', unit: 'Nein' },
+        maus:      { name: 'Blümchen',       emoji: '🌻', unit: 'Blümchen' },
+    };
+
     // Token-Budget pro Charakter pro Session (reset bei Seite-Reload)
     // Flywheel: Quests geben Bonus-Tokens, die mehr Chat ermöglichen
     let TOKEN_BUDGET_PER_CHARACTER = 2000;
@@ -66,19 +76,19 @@
         const budgetDisplay = document.getElementById('token-budget-display');
         if (!budgetDisplay) return;
 
-        // Kindgerecht: Energie-Anzeige statt Token-Zahlen
+        const currency = CHAR_CURRENCY[charId] || { emoji: '⚡', unit: 'Energie' };
         const percent = Math.round((remaining / total) * 100);
-        const bars = Math.max(0, Math.ceil(percent / 20)); // 0-5 Balken
-        const energyBar = '⚡'.repeat(bars) + '🔋'.repeat(Math.max(0, 5 - bars));
+        const bars = Math.max(0, Math.ceil(percent / 20));
+        const energyBar = currency.emoji.repeat(bars);
 
         if (percent > 60) {
-            budgetDisplay.textContent = `${energyBar} Volle Power!`;
+            budgetDisplay.textContent = `${energyBar} Voller ${currency.unit}-Vorrat!`;
         } else if (percent > 30) {
-            budgetDisplay.textContent = `${energyBar} Noch genug Energie!`;
+            budgetDisplay.textContent = `${energyBar} Noch ${currency.unit} übrig!`;
         } else if (percent > 0) {
-            budgetDisplay.textContent = `${energyBar} Bald müde... Mach eine Quest!`;
+            budgetDisplay.textContent = `${energyBar} Fast leer... Quest für mehr ${currency.unit}!`;
         } else {
-            budgetDisplay.textContent = `🔋🔋🔋🔋🔋 Keine Energie! Quest abschließen!`;
+            budgetDisplay.textContent = `Keine ${currency.unit} mehr! Quest abschließen!`;
         }
     }
 
@@ -274,7 +284,8 @@ GEHEIMNIS: Die Ente hat mal einen Zettel gefunden auf dem stand "DESIGN SYSTEM: 
         if (!tokenUsage[charId]) tokenUsage[charId] = 0;
         const charBudget = TOKEN_BUDGET_PER_CHARACTER + (tokenBonuses[charId] || 0);
         if (tokenUsage[charId] >= charBudget) {
-            addMessage(`${char.emoji} ${char.name} ist müde und macht Pause. Schließ eine Quest ab, dann hat ${char.name} wieder Energie! ⚡`, 'system');
+            const currency = CHAR_CURRENCY[charId] || { emoji: '⚡', unit: 'Energie' };
+            addMessage(`${char.emoji} ${char.name} hat keine ${currency.unit} mehr! Schließ eine Quest ab! ${currency.emoji}`, 'system');
             return;
         }
 

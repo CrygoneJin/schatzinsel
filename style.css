@@ -1,3 +1,82 @@
+/* === THEMES — 5 Varianten, jede bemerkenswert === */
+
+/* 1. Tropeninsel (Default) — warm, einladend, Sommer */
+:root, [data-theme="tropical"] {
+    --bg: #87CEEB;
+    --header-bg: linear-gradient(135deg, #2C3E50, #34495E);
+    --toolbar-bg: linear-gradient(135deg, #F39C12, #E67E22);
+    --palette-bg: linear-gradient(180deg, #1ABC9C, #16A085);
+    --stats-bg: linear-gradient(180deg, #8E44AD, #7D3C98);
+    --canvas-bg: #3498DB;
+    --accent: #27AE60;
+    --accent-light: #D5F5E3;
+    --text: #2C3E50;
+    --text-light: white;
+    --btn-bg: white;
+    --font-heading: 'Fredoka', 'Comic Sans MS', cursive;
+    --font-body: 'Comic Neue', 'Segoe UI', sans-serif;
+}
+
+/* 2. Nachtmodus — das Neinhorn liebt es */
+[data-theme="night"] {
+    --bg: #1a1a2e;
+    --header-bg: linear-gradient(135deg, #16213e, #0f3460);
+    --toolbar-bg: linear-gradient(135deg, #533483, #3d1d72);
+    --palette-bg: linear-gradient(180deg, #1a1a2e, #16213e);
+    --stats-bg: linear-gradient(180deg, #0f3460, #1a1a2e);
+    --canvas-bg: #16213e;
+    --accent: #e94560;
+    --accent-light: #2d1f3d;
+    --text: #eee;
+    --text-light: #e0e0e0;
+    --btn-bg: #2d1f3d;
+}
+
+/* 3. Candy Pop — neon, wild, Tommy-approved */
+[data-theme="candy"] {
+    --bg: #ff6b9d;
+    --header-bg: linear-gradient(135deg, #c44dff, #ff6b9d);
+    --toolbar-bg: linear-gradient(135deg, #ffd93d, #ff6b6b);
+    --palette-bg: linear-gradient(180deg, #6bcb77, #4ec5c1);
+    --stats-bg: linear-gradient(180deg, #c44dff, #ff6b9d);
+    --canvas-bg: #ffd93d;
+    --accent: #6bcb77;
+    --accent-light: #e8f8e8;
+    --text: #2d1f3d;
+    --text-light: white;
+    --btn-bg: white;
+}
+
+/* 4. Ozean — ruhig, Elefant-approved */
+[data-theme="ocean"] {
+    --bg: #0077b6;
+    --header-bg: linear-gradient(135deg, #023e8a, #0077b6);
+    --toolbar-bg: linear-gradient(135deg, #00b4d8, #0096c7);
+    --palette-bg: linear-gradient(180deg, #023e8a, #0077b6);
+    --stats-bg: linear-gradient(180deg, #03045e, #023e8a);
+    --canvas-bg: #0096c7;
+    --accent: #00b4d8;
+    --accent-light: #caf0f8;
+    --text: #03045e;
+    --text-light: #caf0f8;
+    --btn-bg: #caf0f8;
+}
+
+/* 5. Retro Pixel — 8-bit Vibes, SpongeBob-Edition */
+[data-theme="retro"] {
+    --bg: #306230;
+    --header-bg: linear-gradient(135deg, #0f380f, #306230);
+    --toolbar-bg: linear-gradient(135deg, #8bac0f, #9bbc0f);
+    --palette-bg: linear-gradient(180deg, #0f380f, #306230);
+    --stats-bg: linear-gradient(180deg, #0f380f, #306230);
+    --canvas-bg: #9bbc0f;
+    --accent: #8bac0f;
+    --accent-light: #e0f8d0;
+    --text: #0f380f;
+    --text-light: #e0f8d0;
+    --btn-bg: #e0f8d0;
+}
+
 /* === RESET & BASE === */
 * {
     margin: 0;
@@ -6,8 +85,8 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Comic Sans MS', Arial, sans-serif;
-    background: #87CEEB;
+    font-family: var(--font-body, 'Comic Neue', 'Segoe UI', sans-serif);
+    background: var(--bg);
     overflow: hidden;
     height: 100vh;
 }
@@ -105,21 +184,22 @@ body {
 
 /* === HEADER === */
 header {
-    background: linear-gradient(135deg, #2C3E50, #34495E);
-    color: white;
+    background: var(--header-bg);
+    color: var(--text-light);
     text-align: center;
     padding: 10px 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 header h1 {
+    font-family: var(--font-heading, 'Fredoka', cursive);
     font-size: 24px;
     letter-spacing: 1px;
 }
 
 /* === TOOLBAR === */
 #toolbar {
-    background: linear-gradient(135deg, #F39C12, #E67E22);
+    background: var(--toolbar-bg);
     padding: 10px 16px;
     display: flex;
     flex-wrap: wrap;
@@ -142,14 +222,15 @@ header h1 {
 }
 
 .tool-btn, .action-btn {
+    font-family: var(--font-body);
     font-size: 16px;
     padding: 8px 14px;
     border: 2px solid transparent;
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-    background: white;
-    color: #2C3E50;
+    background: var(--btn-bg);
+    color: var(--text);
     font-weight: bold;
 }
 
@@ -163,9 +244,9 @@ header h1 {
 }
 
 .tool-btn.active {
-    border-color: #2C3E50;
-    background: #D5F5E3;
-    box-shadow: 0 0 0 2px #27AE60;
+    border-color: var(--text);
+    background: var(--accent-light);
+    box-shadow: 0 0 0 2px var(--accent);
 }
 
 #project-name {
@@ -193,7 +274,7 @@ header h1 {
 /* === PALETTE === */
 #palette {
     width: 120px;
-    background: linear-gradient(180deg, #1ABC9C, #16A085);
+    background: var(--palette-bg);
     padding: 12px 8px;
     display: flex;
     flex-direction: column;
@@ -232,9 +313,9 @@ header h1 {
 }
 
 .material-btn.active {
-    border-color: #2C3E50;
-    background: #D5F5E3;
-    box-shadow: 0 0 0 2px #27AE60;
+    border-color: var(--text);
+    background: var(--accent-light);
+    box-shadow: 0 0 0 2px var(--accent);
 }
 
 .mat-emoji {
@@ -254,7 +335,7 @@ header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #3498DB;
+    background: var(--canvas-bg);
     position: relative;
     overflow: hidden;
 }
@@ -268,7 +349,7 @@ header h1 {
 /* === STATS === */
 #stats {
     width: 180px;
-    background: linear-gradient(180deg, #8E44AD, #7D3C98);
+    background: var(--stats-bg);
     padding: 14px;
     color: white;
     overflow-y: auto;
