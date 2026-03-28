@@ -8,17 +8,17 @@
 
 | # | Item | Owner | Status |
 |---|------|-------|--------|
-| 1 | **Auto-Save** — localStorage speichert Grid alle 30s automatisch | Engineer | 🔲 Offen |
-| 2 | **Accessibility Audit** — Screenreader-Test, Tab-Navigation, Kontraste | Designer + Hick | 🔲 Offen |
-| 3 | **Mobile Palette** — klappbar oder horizontal scrollbar auf iPad | Designer | 🔲 Offen |
-| 4 | **Toolbar-Overflow auf Mobile** — 7 Buttons brechen auf kleinen Screens | Designer | 🔲 Offen |
+| 1 | **Auto-Save** — localStorage speichert Grid alle 30s automatisch | Engineer | ✅ Done |
+| 2 | **Accessibility Audit** — Screenreader-Test, Tab-Navigation, Kontraste | Designer + Hick | ✅ Done (ARIA, Escape, Dialoge) |
+| 3 | **Mobile Palette** — klappbar oder horizontal scrollbar auf iPad | Designer | ✅ Done |
+| 4 | **Toolbar-Overflow auf Mobile** — 7 Buttons brechen auf kleinen Screens | Designer | ✅ Done |
 | 5 | **Google Sheet Webhook einrichten** — Testdaten automatisch einsammeln | Engineer | 🔲 Offen |
 
 ## 🟡 P1 — Vor Spielplatz-Phase (10 User)
 
 | # | Item | Owner | Status |
 |---|------|-------|--------|
-| 6 | **NPC-Stimmen schärfen** — Ogilvy: Jeder NPC braucht typographisches Tick | Artist | 🔲 Offen |
+| 6 | **NPC-Stimmen schärfen** — Ogilvy: Jeder NPC braucht typographisches Tick | Artist | ✅ Done (Elefant/Krabs/Tommy) |
 | 7 | **QR-Code auf Postkarte** — Godin/Welch: Scannen → direkt zum Spiel | Engineer | 🔲 Offen |
 | 8 | **Offline-Manifest** — Service Worker für Spielen ohne Internet | Engineer | 🔲 Offen |
 | 9 | **Mehr Quests** — 11 Templates sind zu wenig, mindestens 20 | Artist + Leader | 🔲 Offen |
@@ -80,6 +80,18 @@
 | ✅ | Feynman-Messpunkte (Session-Uhr + Milestones) | 63d09be |
 | ✅ | Anonyme Testdaten-Sammlung (Clipboard + Webhook) | 94f612c |
 | ✅ | Favicon + Meta + Schnittmarkierungen | 5144a9b |
+| ✅ | BYOK Dialog (Bring Your Own Key) | d0c011a |
+| ✅ | config.js Zero-Setup (Key einmal, nie wieder) | e5cfb5b |
+| ✅ | Hirn-Transplantation (pro Charakter anderes Modell) | 141eb7d |
+| ✅ | Charakter-Freischaltung (Starter + Unlock durch Quests) | 3e1f7b2 |
+| ✅ | Auto-Save (30s + beforeunload + Restore) | 7f4ce66 |
+| ✅ | Mobile Toolbar + Palette (horizontal scroll) | 5a5fa51 |
+| ✅ | Accessibility (ARIA Dialoge, Escape-Key) | f017d5a |
+| ✅ | Spielername + Intro-Polish | a12bed1 |
+| ✅ | Undo (Strg+Z, 50 Schritte) | 30faac3 |
+| ✅ | Keyboard-Shortcuts (B/D/F) | 30faac3 |
+| ✅ | NPC-Stimmen geschärft (Elefant/Krabs/Tommy) | 899cb9d |
+| ✅ | Bug-Fixes: Unlock-Threshold, Model-Selection | f017d5a |
 
 ---
 
