@@ -1167,13 +1167,15 @@
 
     // Intro — Name speichern + Session-Uhr starten
     const playerNameInput = document.getElementById('player-name');
-    // Gespeicherten Namen wiederherstellen
     if (playerNameInput) {
         const savedName = localStorage.getItem('insel-player-name') || '';
         if (savedName) playerNameInput.value = savedName;
+        playerNameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') startButton.click();
+        });
     }
 
-    startButton.addEventListener('click', () => {
+    function startGame() {
         const name = (playerNameInput && playerNameInput.value.trim()) || 'Architekt';
         localStorage.setItem('insel-player-name', name);
         projectNameInput.value = name + 's Insel';
@@ -1182,7 +1184,9 @@
             introOverlay.style.display = 'none';
         }, 600);
         window.startSessionClock();
-    });
+    }
+
+    startButton.addEventListener('click', startGame);
 
     // Werkzeug-Buttons
     document.querySelectorAll('.tool-btn').forEach(btn => {
