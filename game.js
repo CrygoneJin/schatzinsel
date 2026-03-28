@@ -2380,6 +2380,8 @@
     // --- Crafting Dialog Events ---
     const craftBtn = document.getElementById('craft-btn');
     if (craftBtn) craftBtn.addEventListener('click', openCraftingDialog);
+    const craftBtnSidebar = document.getElementById('craft-btn-sidebar');
+    if (craftBtnSidebar) craftBtnSidebar.addEventListener('click', openCraftingDialog);
 
     const craftCloseBtn = document.getElementById('close-crafting-dialog');
     if (craftCloseBtn) craftCloseBtn.addEventListener('click', closeCraftingDialog);
