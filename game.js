@@ -873,10 +873,12 @@
     }
 
     // --- Aktion auf Zelle ---
+    let undoPushedThisStroke = false;
+
     function applyTool(r, c) {
         if (currentTool === 'build') {
             if (grid[r][c] !== currentMaterial) {
-                pushUndo();
+                if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
                 grid[r][c] = currentMaterial;
                 addPlaceAnimation(r, c);
                 soundBuild();
@@ -887,7 +889,7 @@
             }
         } else if (currentTool === 'demolish') {
             if (grid[r][c] !== null) {
-                pushUndo();
+                if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
                 const removed = grid[r][c];
                 grid[r][c] = null;
                 addPlaceAnimation(r, c);
@@ -1207,6 +1209,7 @@
     // Canvas Maus-Events
     canvas.addEventListener('mousedown', (e) => {
         isMouseDown = true;
+        undoPushedThisStroke = false;
         const cell = getGridCell(e);
         if (cell) {
             applyTool(cell.r, cell.c);
@@ -1232,6 +1235,7 @@
     // Touch-Events für Tablet
     canvas.addEventListener('touchstart', (e) => {
         e.preventDefault();
+        undoPushedThisStroke = false;
         const touch = e.touches[0];
         const cell = getGridCell(touch);
         if (cell) {
