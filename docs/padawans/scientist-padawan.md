@@ -29,7 +29,23 @@ elegante Lösungen. Popper sagt: "Elegant ist nicht dasselbe wie richtig."
 
 ## Erfahrungen
 
-*Noch leer. Wächst mit jeder Session.*
+### 2026-03-28 — Testkinder-Personas (Iteration 2)
+
+Gelernt: Der härteste Test für eine Persona ist nicht "klingt das realistisch?" sondern
+"was würde diese Annahme widerlegen?" Bei Kind 1 (Emre) hat das sofort funktioniert:
+Die Erwartung war "kann nicht spielen" — die Gegenhypothese war "das Spiel ist kaputt,
+nicht das Kind." Das ist der Unterschied zwischen Persona-Schreiben und Hypothesen-Testen.
+
+Gelernt: Stereotypen haben eine Gravitationskraft. Aylin wurde fast das "kreative Mädchen
+aus Neukölln" ohne Substanz. Der Widerspruch (Ästhetik als harter Filter, nicht als
+Dekoration) hat die Persona gerettet. Immer fragen: Was erwartet jeder, und was ist wirklich?
+
+Gelernt: Falsifizierbarkeit und Gegenhypothesen sind kein akademisches Extra — sie
+zeigen direkt auf Testdesign. H2 (Lukas als Kalibrierungswerkzeug) ist sofort in einen
+Messplan übersetzbar. Das ist der Wert.
+
+Offene Frage: Sind 5 Hypothesen zu viele für eine Session? Feynman würde sagen:
+"Lieber 2 echte als 5 halbgare." Iteration 3 sollte radikaler priorisieren.
 
 ## Feynman-Notiz
 
