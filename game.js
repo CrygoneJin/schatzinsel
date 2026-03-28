@@ -594,4 +594,7 @@
     initGrid();
     draw();
 
+    // Grid für Chat-Integration exportieren
+    window.grid = grid;
+
 })();
