@@ -855,10 +855,28 @@
         return null;
     }
 
+    // --- Undo: Strg+Z / Cmd+Z ---
+    const undoStack = [];
+    const MAX_UNDO = 50;
+
+    function pushUndo() {
+        undoStack.push(JSON.stringify(grid));
+        if (undoStack.length > MAX_UNDO) undoStack.shift();
+    }
+
+    function undo() {
+        if (undoStack.length === 0) return;
+        grid = JSON.parse(undoStack.pop());
+        window.grid = grid;
+        updateStats();
+        draw();
+    }
+
     // --- Aktion auf Zelle ---
     function applyTool(r, c) {
         if (currentTool === 'build') {
             if (grid[r][c] !== currentMaterial) {
+                pushUndo();
                 grid[r][c] = currentMaterial;
                 addPlaceAnimation(r, c);
                 soundBuild();
@@ -869,6 +887,7 @@
             }
         } else if (currentTool === 'demolish') {
             if (grid[r][c] !== null) {
+                pushUndo();
                 const removed = grid[r][c];
                 grid[r][c] = null;
                 addPlaceAnimation(r, c);
@@ -876,6 +895,7 @@
                 trackEvent('demolish', { material: removed });
             }
         } else if (currentTool === 'fill') {
+            pushUndo();
             floodFill(r, c, grid[r][c], currentMaterial);
             soundBuild();
             trackEvent('fill', { material: currentMaterial });
@@ -1299,6 +1319,30 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !loadDialog.classList.contains('hidden')) {
             loadDialog.classList.add('hidden');
+            return;
+        }
+        // Nicht triggern wenn Input/Textarea fokussiert
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        // Strg+Z / Cmd+Z = Undo
+        if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+            e.preventDefault();
+            undo();
+            return;
+        }
+        // Werkzeug-Shortcuts: B=Bauen, D=Abreißen, F=Füllen
+        if (e.key === 'b' || e.key === 'B') {
+            currentTool = 'build';
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tool="build"]')?.classList.add('active');
+        } else if (e.key === 'd' || e.key === 'D') {
+            currentTool = 'demolish';
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tool="demolish"]')?.classList.add('active');
+        } else if (e.key === 'f' || e.key === 'F') {
+            currentTool = 'fill';
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tool="fill"]')?.classList.add('active');
         }
     });
 
