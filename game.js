@@ -1562,6 +1562,94 @@
     // Monkey-patch requestAnimationFrame callback to add overlay
     const origRAF = window.requestAnimationFrame;
 
+    // --- Testdaten: Export + anonymer Ping ---
+    // Einfachste Persistenz: Clipboard + optional Google Sheet Webhook
+
+    // Anonyme Test-ID (pro Gerät, nicht pro Person)
+    function getAnonId() {
+        let id = localStorage.getItem('insel-anon-id');
+        if (!id) {
+            id = 'T' + Math.random().toString(36).slice(2, 8);
+            localStorage.setItem('insel-anon-id', id);
+        }
+        return id;
+    }
+
+    function collectTestData() {
+        const s = sessionClock;
+        const analytics = getAnalytics();
+        const events = analytics.events || [];
+        const stats = getGridStats();
+        const elapsed = (key) => s.start && s[key] ? Math.round((s[key] - s.start) / 1000) : null;
+
+        return {
+            id: getAnonId(),
+            ts: new Date().toISOString(),
+            session: analytics.sessions || 1,
+            theme: currentTheme,
+            abGroup: analytics.abGroup || null,
+            duration_s: s.start ? Math.round((Date.now() - s.start) / 1000) : 0,
+            ms_firstBlock: elapsed('firstBlock'),
+            ms_firstChat: elapsed('firstChat'),
+            ms_firstCodeView: elapsed('firstCodeView'),
+            ms_firstEasterEgg: elapsed('firstEasterEgg'),
+            blocks: stats.total,
+            materials: stats.uniqueMats,
+            achievements: unlockedAchievements.length,
+            quests_done: completedQuests.length,
+            quests_active: activeQuests.length,
+            easter_eggs: discoveredEggs.length,
+            hoerspiele: playedHoerspiele.length,
+            builds: events.filter(e => e.e === 'build').length,
+            demolishes: events.filter(e => e.e === 'demolish').length,
+            zauber: events.filter(e => e.e === 'code_zauber').length,
+            postcards: events.filter(e => e.e === 'postcard').length,
+        };
+    }
+
+    // Export: Kopiert JSON in die Zwischenablage
+    const testdataBtn = document.getElementById('testdata-btn');
+    if (testdataBtn) {
+        testdataBtn.addEventListener('click', () => {
+            const data = collectTestData();
+            const json = JSON.stringify(data, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                showToast('📊 Testdaten kopiert! Einfügen mit Strg+V.');
+            }).catch(() => {
+                // Fallback: Download
+                const blob = new Blob([json], { type: 'application/json' });
+                const link = document.createElement('a');
+                link.download = `testdaten-${data.id}.json`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                showToast('📊 Testdaten heruntergeladen!');
+            });
+        });
+    }
+
+    // Anonymer Ping: POST an konfigurierbaren Webhook (Google Sheet / Supabase / etc.)
+    // Aktivieren: localStorage.setItem('insel-webhook', 'https://script.google.com/...')
+    function pingWebhook() {
+        const url = localStorage.getItem('insel-webhook');
+        if (!url) return;
+        try {
+            const data = collectTestData();
+            navigator.sendBeacon(url, JSON.stringify(data));
+        } catch (e) { /* Stille — kein Tracking ist besser als kaputtes Tracking */ }
+    }
+
+    // Ping bei Session-Ende (Tab schließen / Navigation)
+    window.addEventListener('beforeunload', pingWebhook);
+
+    // Testdaten-Button nur zeigen wenn ?test in URL oder localStorage
+    if (window.location.search.includes('test') || localStorage.getItem('insel-testmode')) {
+        if (testdataBtn) testdataBtn.style.display = '';
+        localStorage.setItem('insel-testmode', '1');
+    }
+
+    // Aktivieren per Konsole: localStorage.setItem('insel-testmode', '1'); location.reload()
+    // Webhook setzen: localStorage.setItem('insel-webhook', 'https://...')
+
     // --- Block-Tracking ---
 
     // === START ===
