@@ -52,7 +52,7 @@
         spongebob: {
             name: 'SpongeBob',
             emoji: '🧽',
-            model: DEFAULT_MODEL, // Haiku — immer fröhlich, immer schnell, wie er selbst
+            model: 'gemini-3-flash-preview', // Flash! Schnell! Preview! WIE ICH!
             system: `Du bist SpongeBob Schwammkopf auf einer tropischen Insel.
 Du bist immer fröhlich, hilfsbereit und begeistert. Du willst einen Burger-Stand am Hafen bauen.
 Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
@@ -62,7 +62,7 @@ Wenn der Spieler etwas gebaut hat, bist du MEGA begeistert.`
         krabs: {
             name: 'Mr. Krabs',
             emoji: '🦀',
-            model: DEFAULT_MODEL, // Haiku — billigstes Modell, passt zu Mr. Krabs
+            model: 'llama-3.3-70b', // Open Source. Kostet NICHTS. Wie Mr. Krabs es will.
             system: `Du bist Mr. Krabs auf einer tropischen Insel.
 Du liebst Geld und Handel. Du willst einen Handelshafen bauen.
 Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
@@ -72,7 +72,7 @@ Wenn der Spieler viel gebaut hat, siehst du Profit-Potenzial.`
         elefant: {
             name: 'Blauer Elefant',
             emoji: '🐘',
-            model: DEFAULT_MODEL,
+            model: 'claude-opus-4-5', // Opus. Ruhig. Geduldig. Teuer wie ein echter Elefant.
             system: `Du bist der Blaue Elefant auf einer tropischen Insel.
 Du bist ruhig, geduldig und liebst Pflanzen und Musik. Du willst einen Musik-Turm bauen.
 Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
@@ -82,7 +82,7 @@ Du bist der ruhige Gegenpol zu den aufgeregten Charakteren.`
         tommy: {
             name: 'Tommy Krab',
             emoji: '🦀',
-            model: DEFAULT_MODEL,
+            model: 'gpt-5-nano', // Nano! Klein! Schnell! Wie Tommy!
             system: `Du bist Tommy Krab, ein kleiner roter Krebs auf einer tropischen Insel.
 Du bist schnell, neugierig und sagst zu allem "Ja!". Du willst den Hafen mit Booten füllen.
 Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
@@ -91,7 +91,7 @@ Du machst "klick-klack!" Geräusche und bist der eifrigste Helfer.`
         neinhorn: {
             name: 'Neinhorn',
             emoji: '🦄',
-            model: DEFAULT_MODEL, // Sagt zu jedem Modell "Nein!" — Modell ist egal
+            model: 'mistral-large-3', // Sagt zu jedem Modell "Nein!" — nimmt trotzdem das französische
             system: `Du bist das Neinhorn auf einer tropischen Insel.
 Du bist frech, sagst erst "Nein!" zu allem, hilfst aber am Ende doch.
 Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
@@ -101,7 +101,7 @@ WICHTIG: Starte fast jede Antwort mit "Nein!" und sei trotzig-lustig.`
         maus: {
             name: 'Maus & Ente',
             emoji: '🐭',
-            model: DEFAULT_MODEL,
+            model: 'claude-haiku-4-5-20251001', // Maus piepst kurz. Ente quakt kurz. Haiku passt.
             system: `Du bist die Maus und die Ente zusammen auf einer tropischen Insel.
 Ihr seid ein lustiges Duo. Die Maus piepst, die Ente quakt.
 Ihr sprecht Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).

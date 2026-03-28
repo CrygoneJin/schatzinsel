@@ -98,6 +98,11 @@ Bis dahin: seine Prüffrage lebt im Beirat. Seine Stimme gehört ihm.
 - Haiku-Bauanleitungen + Challenges in Haiku-Form (Krapweis-Drehbuch, Einstein regelt)
 - team-sales Padawans benennen + MBTI
 - Codex-Dateien für Padawans anlegen
+- **Voice-Pipeline**: Cartesia API für Text-to-Speech. User hat API-Key + Voice-IDs. vapi.ai Pipeline mit Middleware recyceln
+- **Neinhorn = "Das kleine Nein" aus Rufus T. Feuerfliege** — Favorit von Oskar. Besondere Aufmerksamkeit bei Voice & Persönlichkeit
+- **Musik on demand**: Stil von Loisach Marci. Hardstyle, kinderkompatibel
+- **Skalierung**: Erst 10 concurrent Sessions testen, aber Architektur für "lokal viral" vorsehen. Sky is the limit
+- **Designprinzip**: "Mensch gibt Input, KI macht Schabernack mit Augenzwinkern. Wenn User lacht → gewonnen."
 
 ---
 
