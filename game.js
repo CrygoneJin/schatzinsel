@@ -8,31 +8,87 @@
     const ROWS = 16;
     const WATER_BORDER = 2; // Zellen Wasser um die Insel
 
-    // Dynamische Zellgröße basierend auf Bildschirm
-    function calcCellSize() {
+    // === HEX GRID (Pointy-Top, Odd-R Offset) ===
+    // Buckminster Fuller: "Dreiecke sind minimal, Hexagone sind optimal."
+    // Hex-Radius = Abstand Mitte→Ecke
+    function calcHexRadius() {
         const isMobile = window.innerWidth < 768;
         const totalCols = COLS + WATER_BORDER * 2;
         const totalRows = ROWS + WATER_BORDER * 2;
-
+        // Pointy-top: Breite = sqrt(3)*r, Höhe = 2*r, vertikaler Abstand = 1.5*r
         if (isMobile) {
-            // Canvas soll die volle Breite nutzen, mit etwas Padding
             const availW = window.innerWidth - 16;
-            const availH = window.innerHeight * 0.55; // ~55% der Höhe für Canvas
-            return Math.max(12, Math.min(
-                Math.floor(availW / totalCols),
-                Math.floor(availH / totalRows)
-            ));
+            const availH = window.innerHeight * 0.55;
+            const rFromW = availW / (totalCols * Math.sqrt(3) + Math.sqrt(3) / 2);
+            const rFromH = availH / (1.5 * totalRows + 0.5);
+            return Math.max(8, Math.min(rFromW, rFromH));
         }
-        // Desktop: verfügbare Höhe abzüglich Header+Toolbar (~100px), mit Seitenleisten (~300px)
         const availW = window.innerWidth - 320;
         const availH = window.innerHeight - 110;
-        return Math.max(20, Math.min(
-            Math.floor(availW / totalCols),
-            Math.floor(availH / totalRows)
-        ));
+        const rFromW = availW / (totalCols * Math.sqrt(3) + Math.sqrt(3) / 2);
+        const rFromH = availH / (1.5 * totalRows + 0.5);
+        return Math.max(14, Math.min(rFromW, rFromH));
     }
 
-    let CELL_SIZE = calcCellSize();
+    let HEX_R = calcHexRadius();
+    let CELL_SIZE = Math.floor(HEX_R * 2); // Compat für Code der CELL_SIZE braucht
+
+    // Hex-Geometrie: Pixelkoordinaten für Zelle (r,c) im Gesamtgrid (inkl. Water-Border)
+    function hexCenter(row, col) {
+        const w = Math.sqrt(3) * HEX_R;
+        const h = 2 * HEX_R;
+        const x = w * col + (row % 2) * (w / 2) + w / 2;
+        const y = h * 0.75 * row + HEX_R;
+        return { x, y };
+    }
+
+    // Hex-Pfad zeichnen (Pointy-Top)
+    function hexPath(ctx, cx, cy, r) {
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+            const angle = Math.PI / 180 * (60 * i - 30);
+            const px = cx + r * Math.cos(angle);
+            const py = cy + r * Math.sin(angle);
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+    }
+
+    // Canvas-Größe für Hex-Grid
+    function hexCanvasSize() {
+        const totalCols = COLS + WATER_BORDER * 2;
+        const totalRows = ROWS + WATER_BORDER * 2;
+        const w = Math.sqrt(3) * HEX_R;
+        const canvasW = Math.ceil(w * totalCols + w / 2 + 2);
+        const canvasH = Math.ceil(2 * HEX_R * 0.75 * totalRows + HEX_R * 0.5 + 2);
+        return { w: canvasW, h: canvasH };
+    }
+
+    // Pixel → Hex-Zelle (Odd-R Offset, Pointy-Top)
+    function pixelToHex(px, py) {
+        const w = Math.sqrt(3) * HEX_R;
+        // Grobe Schätzung
+        const rowEst = Math.floor((py - HEX_R * 0.25) / (HEX_R * 1.5));
+        const colEst = Math.floor((px - (rowEst % 2) * (w / 2)) / w);
+        // Prüfe Kandidaten in der Nähe
+        let bestDist = Infinity, bestR = -1, bestC = -1;
+        for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+                const rr = rowEst + dr, cc = colEst + dc;
+                const center = hexCenter(rr, cc);
+                const dist = Math.hypot(px - center.x, py - center.y);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestR = rr;
+                    bestC = cc;
+                }
+            }
+        }
+        // Nur innerhalb des Hex-Radius zählt als Treffer
+        if (bestDist > HEX_R) return null;
+        return { r: bestR, c: bestC };
+    }
 
     // --- Materialien ---
     const MATERIALS = {
@@ -147,10 +203,16 @@
         playRichTone(currentScale[idx], 0.06 + Math.random() * 0.06, type, 0.06 + Math.random() * 0.04);
     }
     function soundDemolish() {
-        // Absteigender Ton — fühlt sich nach "weg" an
-        const freq = 300 + Math.random() * 150;
-        playTone(freq, 0.15, 'sawtooth', 0.06);
-        setTimeout(() => playTone(freq * 0.7, 0.1, 'sawtooth', 0.04), 50);
+        // Feynman + Krapweis: Je leerer die Insel, desto tiefer der Ton
+        // Volle Insel = hoher Ton (fröhlich), leere Insel = tiefer Ton (melancholisch)
+        const stats = typeof getGridStats === 'function' ? getGridStats() : { percent: 50 };
+        const fillPercent = stats.percent || 0;
+        // Basis-Frequenz: 120Hz (leer) bis 500Hz (voll)
+        const baseFreq = 120 + (fillPercent / 100) * 380;
+        const freq = baseFreq + Math.random() * 60;
+        const type = fillPercent < 20 ? 'sine' : 'sawtooth'; // Leere Insel = weicher Klang
+        playRichTone(freq, 0.18, type, 0.07);
+        setTimeout(() => playTone(freq * 0.6, 0.12, type, 0.04), 60);
     }
     function soundAchievement() {
         // Zelda-Chest-artig: aufsteigende Fanfare mit Chorus
@@ -715,13 +777,13 @@
     const totalRows = ROWS + WATER_BORDER * 2;
 
     function resizeCanvas() {
-        CELL_SIZE = calcCellSize();
-        canvas.width = totalCols * CELL_SIZE;
-        canvas.height = totalRows * CELL_SIZE;
-        // CSS-Größe für scharfe Darstellung auf HiDPI/4K
-        canvas.style.width = (totalCols * CELL_SIZE) + 'px';
-        canvas.style.height = (totalRows * CELL_SIZE) + 'px';
-        // Auf Mobilgeräten Canvas in den Container einpassen
+        HEX_R = calcHexRadius();
+        CELL_SIZE = Math.floor(HEX_R * 2);
+        const size = hexCanvasSize();
+        canvas.width = size.w;
+        canvas.height = size.h;
+        canvas.style.width = size.w + 'px';
+        canvas.style.height = size.h + 'px';
         if (window.innerWidth < 768) {
             canvas.style.width = '100%';
             canvas.style.height = 'auto';
@@ -743,7 +805,7 @@
         window.grid = grid; // Chat-Integration aktuell halten
     }
 
-    // --- Zeichnen ---
+    // --- Zeichnen (Hex-Grid) ---
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -751,83 +813,93 @@
         ctx.fillStyle = '#3498DB';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Wasser-Wellen (einfache Animation)
+        // Wasser-Wellen als Hex-Zellen
         const time = Date.now() / 1000;
         for (let r = 0; r < totalRows; r++) {
             for (let c = 0; c < totalCols; c++) {
                 const isIsland = r >= WATER_BORDER && r < WATER_BORDER + ROWS &&
                                  c >= WATER_BORDER && c < WATER_BORDER + COLS;
                 if (!isIsland) {
+                    const center = hexCenter(r, c);
                     const wave = Math.sin(time * 2 + r * 0.5 + c * 0.3) * 10;
                     const blue = 52 + wave;
                     ctx.fillStyle = `rgb(${blue + 0}, ${blue + 100}, ${blue + 167})`;
-                    ctx.fillRect(c * CELL_SIZE, r * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    hexPath(ctx, center.x, center.y, HEX_R);
+                    ctx.fill();
                 }
             }
         }
 
-        // Insel (Sand-Hintergrund)
+        // Insel (Sand-Hintergrund + Materialien)
         for (let r = 0; r < ROWS; r++) {
             for (let c = 0; c < COLS; c++) {
-                const x = (c + WATER_BORDER) * CELL_SIZE;
-                const y = (r + WATER_BORDER) * CELL_SIZE;
+                const center = hexCenter(r + WATER_BORDER, c + WATER_BORDER);
 
                 // Sand
                 ctx.fillStyle = '#F5DEB3';
-                ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+                hexPath(ctx, center.x, center.y, HEX_R);
+                ctx.fill();
 
                 // Leichtes Grid
                 ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
                 ctx.lineWidth = 1;
-                ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
+                hexPath(ctx, center.x, center.y, HEX_R);
+                ctx.stroke();
 
                 // Material zeichnen
-                if (grid[r][c]) {
+                if (grid[r] && grid[r][c]) {
                     const mat = MATERIALS[grid[r][c]];
+
+                    // Gefülltes Hex
                     ctx.fillStyle = mat.color;
-                    ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                    hexPath(ctx, center.x, center.y, HEX_R - 1);
+                    ctx.fill();
 
                     // Rand
                     ctx.strokeStyle = mat.border;
                     ctx.lineWidth = 2;
-                    ctx.strokeRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                    hexPath(ctx, center.x, center.y, HEX_R - 1);
+                    ctx.stroke();
 
                     // Emoji
-                    ctx.font = `${CELL_SIZE * 0.55}px serif`;
+                    ctx.font = `${HEX_R * 0.9}px serif`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(mat.emoji, x + CELL_SIZE / 2, y + CELL_SIZE / 2 + 1);
+                    ctx.fillStyle = '#000';
+                    ctx.fillText(mat.emoji, center.x, center.y + 1);
                 }
             }
         }
 
         // Hover-Vorschau
         if (hoverCell) {
-            const hx = (hoverCell.c + WATER_BORDER) * CELL_SIZE;
-            const hy = (hoverCell.r + WATER_BORDER) * CELL_SIZE;
+            const hCenter = hexCenter(hoverCell.r + WATER_BORDER, hoverCell.c + WATER_BORDER);
 
             if (currentTool === 'build') {
                 const mat = MATERIALS[currentMaterial];
                 ctx.fillStyle = mat.color;
                 ctx.globalAlpha = 0.4;
-                ctx.fillRect(hx + 1, hy + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                hexPath(ctx, hCenter.x, hCenter.y, HEX_R - 1);
+                ctx.fill();
                 ctx.globalAlpha = 1;
-                ctx.font = `${CELL_SIZE * 0.55}px serif`;
+                ctx.font = `${HEX_R * 0.9}px serif`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.globalAlpha = 0.5;
-                ctx.fillText(mat.emoji, hx + CELL_SIZE / 2, hy + CELL_SIZE / 2 + 1);
+                ctx.fillText(mat.emoji, hCenter.x, hCenter.y + 1);
                 ctx.globalAlpha = 1;
             } else if (currentTool === 'demolish') {
                 ctx.strokeStyle = '#E74C3C';
                 ctx.lineWidth = 3;
-                ctx.strokeRect(hx + 2, hy + 2, CELL_SIZE - 4, CELL_SIZE - 4);
-                // X markierung
+                hexPath(ctx, hCenter.x, hCenter.y, HEX_R - 2);
+                ctx.stroke();
+                // X
+                const s = HEX_R * 0.5;
                 ctx.beginPath();
-                ctx.moveTo(hx + 8, hy + 8);
-                ctx.lineTo(hx + CELL_SIZE - 8, hy + CELL_SIZE - 8);
-                ctx.moveTo(hx + CELL_SIZE - 8, hy + 8);
-                ctx.lineTo(hx + 8, hy + CELL_SIZE - 8);
+                ctx.moveTo(hCenter.x - s, hCenter.y - s);
+                ctx.lineTo(hCenter.x + s, hCenter.y + s);
+                ctx.moveTo(hCenter.x + s, hCenter.y - s);
+                ctx.lineTo(hCenter.x - s, hCenter.y + s);
                 ctx.strokeStyle = 'rgba(231, 76, 60, 0.6)';
                 ctx.lineWidth = 2;
                 ctx.stroke();
@@ -835,7 +907,8 @@
                 ctx.strokeStyle = '#F39C12';
                 ctx.lineWidth = 3;
                 ctx.setLineDash([4, 4]);
-                ctx.strokeRect(hx + 2, hy + 2, CELL_SIZE - 4, CELL_SIZE - 4);
+                hexPath(ctx, hCenter.x, hCenter.y, HEX_R - 2);
+                ctx.stroke();
                 ctx.setLineDash([]);
             }
         }
@@ -897,17 +970,15 @@
                 ? 0.5 + progress * 1.4
                 : 1.2 - (progress - 0.5) * 0.4;
 
-            const x = (anim.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
-            const y = (anim.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
+            const center = hexCenter(anim.r + WATER_BORDER, anim.c + WATER_BORDER);
 
             ctx.save();
-            ctx.translate(x, y);
+            ctx.translate(center.x, center.y);
             ctx.scale(scale, scale);
             ctx.globalAlpha = 1 - progress * 0.5;
 
             ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-            ctx.beginPath();
-            ctx.arc(0, 0, CELL_SIZE / 2, 0, Math.PI * 2);
+            hexPath(ctx, 0, 0, HEX_R);
             ctx.fill();
 
             ctx.restore();
@@ -916,7 +987,7 @@
         });
     }
 
-    // --- Maus → Grid-Koordinaten ---
+    // --- Maus → Grid-Koordinaten (Hex) ---
     function getGridCell(e) {
         const rect = canvas.getBoundingClientRect();
         const scaleX = canvas.width / rect.width;
@@ -924,8 +995,11 @@
         const px = (e.clientX - rect.left) * scaleX;
         const py = (e.clientY - rect.top) * scaleY;
 
-        const c = Math.floor(px / CELL_SIZE) - WATER_BORDER;
-        const r = Math.floor(py / CELL_SIZE) - WATER_BORDER;
+        const hit = pixelToHex(px, py);
+        if (!hit) return null;
+
+        const r = hit.r - WATER_BORDER;
+        const c = hit.c - WATER_BORDER;
 
         if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
             return { r, c };
@@ -1009,7 +1083,25 @@
         }
     }
 
-    // --- Flood Fill ---
+    // --- Flood Fill (Hex: 6 Nachbarn statt 4) ---
+    function hexNeighbors(r, c) {
+        // Odd-R Offset: ungerade Reihen nach rechts versetzt
+        const isOdd = r % 2 === 1;
+        if (isOdd) {
+            return [
+                { r: r - 1, c: c },     { r: r - 1, c: c + 1 },
+                { r: r,     c: c - 1 },                          { r: r, c: c + 1 },
+                { r: r + 1, c: c },     { r: r + 1, c: c + 1 },
+            ];
+        } else {
+            return [
+                { r: r - 1, c: c - 1 }, { r: r - 1, c: c },
+                { r: r,     c: c - 1 },                          { r: r, c: c + 1 },
+                { r: r + 1, c: c - 1 }, { r: r + 1, c: c },
+            ];
+        }
+    }
+
     function floodFill(r, c, targetMat, fillMat) {
         if (targetMat === fillMat) return;
 
@@ -1028,10 +1120,10 @@
             grid[cr][cc] = fillMat;
             addPlaceAnimation(cr, cc);
 
-            stack.push({ r: cr - 1, c: cc });
-            stack.push({ r: cr + 1, c: cc });
-            stack.push({ r: cr, c: cc - 1 });
-            stack.push({ r: cr, c: cc + 1 });
+            // 6 Hex-Nachbarn statt 4 Quadrat-Nachbarn
+            for (const nb of hexNeighbors(cr, cc)) {
+                stack.push(nb);
+            }
         }
     }
 
@@ -1747,23 +1839,23 @@
     // Code-View Rendering in draw() einhängen — überschreibt Emoji-Darstellung
     const _originalDraw = draw;
 
-    // Erweiterte draw-Funktion mit Code-View-Overlay
+    // Erweiterte draw-Funktion mit Code-View-Overlay (Hex)
     function drawCodeOverlay() {
         if (!codeViewActive) return;
         for (let r = 0; r < ROWS; r++) {
             for (let c = 0; c < COLS; c++) {
                 if (grid[r][c]) {
-                    const x = (c + WATER_BORDER) * CELL_SIZE;
-                    const y = (r + WATER_BORDER) * CELL_SIZE;
-                    // Dunkler Hintergrund
+                    const center = hexCenter(r + WATER_BORDER, c + WATER_BORDER);
+                    // Dunkler Hex-Hintergrund
                     ctx.fillStyle = 'rgba(30, 30, 30, 0.85)';
-                    ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                    hexPath(ctx, center.x, center.y, HEX_R - 1);
+                    ctx.fill();
                     // Code-Text (Material-Key)
                     ctx.fillStyle = '#00FF41'; // Matrix-Grün
-                    ctx.font = `bold ${Math.max(8, CELL_SIZE * 0.28)}px monospace`;
+                    ctx.font = `bold ${Math.max(8, HEX_R * 0.55)}px monospace`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(grid[r][c], x + CELL_SIZE / 2, y + CELL_SIZE / 2);
+                    ctx.fillText(grid[r][c], center.x, center.y);
                 }
             }
         }
