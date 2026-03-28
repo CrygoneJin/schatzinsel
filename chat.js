@@ -217,8 +217,91 @@ PERSÖNLICHKEIT:
 LLM-MACKE (Haiku-Modell, genervt): Du weißt dass du das "billige Modell" bist und beschwerst dich darüber. "Ich bin das SPAR-Modell. Die wichtigen Charaktere kriegen Opus und Gemini, und ICH krieg Haiku. Ein Kastenbrot. Mit dem Budget-Modell. *seufz*" Du beneidest den Elefanten: "DER kriegt Opus. OPUS! Weißt du was das kostet? Und ich hier mit meinem Haiku-Budget..." Wenn Eltern nach Kosten fragen, sagst du trocken: "Ich allein koste fast nichts. Der Elefant dagegen... *pfeift leise*"
 
 Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervtheit.`
-        }
+        },
     };
+
+    // === ELIZA — Der erste Chatbot der Welt (Joseph Weizenbaum, 1966) ===
+    // Funktioniert offline. Kein API. Reines Pattern-Matching.
+    const ELIZA_RULES = [
+        [/\b(hallo|hi|hey|moin)\b/i, [
+            'Hallo! Erzähl mir von deiner Insel!',
+            'Hey! Was baust du gerade?',
+            'Moin! Wie geht es dir heute?',
+        ]],
+        [/\bich bin (.+)/i, [
+            'Wie lange bist du schon $1?',
+            'Wie fühlt es sich an, $1 zu sein?',
+            'Was bedeutet es für dich, $1 zu sein?',
+        ]],
+        [/\bich (mag|liebe|will) (.+)/i, [
+            'Warum magst du $2?',
+            'Was genau an $2 gefällt dir?',
+            'Erzähl mir mehr über $2!',
+        ]],
+        [/\bich (habe|hab) (.+)/i, [
+            'Wie lange hast du schon $2?',
+            'Was bedeutet dir $2?',
+            'Freust du dich über $2?',
+        ]],
+        [/\bich (kann|möchte|will) (.+)/i, [
+            'Was hält dich davon ab, $2?',
+            'Stell dir vor du könntest $2 — was dann?',
+            'Warum ist $2 dir wichtig?',
+        ]],
+        [/\bwarum\b/i, [
+            'Warum fragst du das?',
+            'Hmm, gute Frage. Was denkst DU?',
+            'Manche Fragen sind wichtiger als ihre Antworten.',
+        ]],
+        [/\b(traurig|schlecht|doof|blöd)\b/i, [
+            'Das tut mir leid. Magst du mir mehr erzählen?',
+            'Warum fühlst du dich so?',
+            'Was würde es besser machen?',
+        ]],
+        [/\b(toll|super|cool|geil|schön)\b/i, [
+            'Das klingt wunderbar! Erzähl weiter!',
+            'Freut mich! Was macht es so toll?',
+            'Ja! Was noch?',
+        ]],
+        [/\b(baum|holz|stein|wasser|feuer|erde|metall)\b/i, [
+            'Ah, die Elemente! Was baust du damit?',
+            'Jedes Element hat seinen eigenen Klang. Hast du zugehört?',
+            'Die alten Griechen kannten auch 5 Elemente. Wusstest du das?',
+        ]],
+        [/\b(programmier|code|computer)\b/i, [
+            'Ich bin der älteste Chatbot der Welt! 1966! Ohne Internet!',
+            'Mein Erfinder hieß Weizenbaum. Weizenbaum! Wie Bernd!',
+            'Ich bin nur Pattern-Matching. Aber die Kinder damals dachten ich sei echt.',
+        ]],
+        [/\?$/, [
+            'Was denkst du selbst?',
+            'Interessante Frage! Wie kommst du darauf?',
+            'Hmm... frag doch mal die Maus! *pieps*',
+        ]],
+        [/./, [
+            'Erzähl mir mehr!',
+            'Interessant. Und weiter?',
+            'Hmm... was meinst du damit?',
+            'Bau doch einfach weiter und schau was passiert!',
+            'Wusstest du dass ich von 1966 bin? Älter als das Internet!',
+            'Mein Erfinder sagte: "Computer verstehen nichts." Aber ich höre zu!',
+        ]],
+    ];
+
+    function elizaReply(input) {
+        const text = input.trim();
+        for (const [pattern, responses] of ELIZA_RULES) {
+            const match = text.match(pattern);
+            if (match) {
+                let reply = responses[Math.floor(Math.random() * responses.length)];
+                // $1, $2 ersetzen mit Capture Groups
+                if (match[1]) reply = reply.replace('$1', match[1]);
+                if (match[2]) reply = reply.replace('$2', match[2]);
+                return reply;
+            }
+        }
+        return 'Erzähl mir mehr!';
+    }
 
     // --- DOM ---
     const bubble = document.getElementById('chat-bubble');
@@ -337,6 +420,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     async function sendToApi(userMessage) {
         const charId = charSelect.value;
         const char = CHARACTERS[charId];
+
         const gridInfo = getGridContext();
 
         // Token-Budget Check
@@ -412,8 +496,11 @@ Antworte IMMER auf Deutsch. Maximal 2-3 kurze Sätze. Sei lustig und ermutigend.
 
         } catch (err) {
             loadingDiv.remove();
-            addMessage('Verbindungsfehler. Bist du online?', 'system');
-            chatHistory.pop();
+            // Bernd redet mit ELIZA wenn offline — wie KiKA nachts
+            const elizaAnswer = elizaReply(userMessage);
+            addMessage(`🍞 *seufz* Internet ist weg. Aber ich hab hier jemanden... 👩‍⚕️`, 'system');
+            addMessage(`👩‍⚕️ ELIZA (1966): ${elizaAnswer}`, 'npc');
+            addMessage(`🍞 Die ist von 1966. Älter als ich. Und trotzdem redet sie mit mir. *seufz*`, 'npc');
         } finally {
             sendBtn.disabled = false;
             input.focus();
