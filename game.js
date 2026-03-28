@@ -975,9 +975,14 @@
 
     // --- Auto-Save: alle 30s still im Hintergrund ---
     const AUTOSAVE_KEY = '~autosave~';
+    let lastSaveHash = '';
     function autoSave() {
         const hasContent = grid.some(row => row.some(cell => cell !== null));
         if (!hasContent) return;
+        // Nur speichern wenn sich was geändert hat
+        const hash = JSON.stringify(grid);
+        if (hash === lastSaveHash) return;
+        lastSaveHash = hash;
         const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
         projects[AUTOSAVE_KEY] = {
             grid: grid,
@@ -985,6 +990,13 @@
             auto: true
         };
         localStorage.setItem('insel-projekte', JSON.stringify(projects));
+        // Subtiler Indikator: Save-Button blinkt kurz
+        const saveBtn = document.getElementById('save-btn');
+        if (saveBtn) {
+            saveBtn.style.transition = 'opacity 0.3s';
+            saveBtn.style.opacity = '0.5';
+            setTimeout(() => { saveBtn.style.opacity = '1'; }, 600);
+        }
     }
     setInterval(autoSave, 30000);
     window.addEventListener('beforeunload', autoSave);
@@ -1131,8 +1143,18 @@
 
     // === EVENT LISTENERS ===
 
-    // Intro — Startet die Session-Uhr!
+    // Intro — Name speichern + Session-Uhr starten
+    const playerNameInput = document.getElementById('player-name');
+    // Gespeicherten Namen wiederherstellen
+    if (playerNameInput) {
+        const savedName = localStorage.getItem('insel-player-name') || '';
+        if (savedName) playerNameInput.value = savedName;
+    }
+
     startButton.addEventListener('click', () => {
+        const name = (playerNameInput && playerNameInput.value.trim()) || 'Architekt';
+        localStorage.setItem('insel-player-name', name);
+        projectNameInput.value = name + 's Insel';
         introOverlay.classList.add('hiding');
         setTimeout(() => {
             introOverlay.style.display = 'none';
