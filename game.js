@@ -1006,14 +1006,29 @@
         showToast('🆕 Neue Insel!');
     }
 
-    // --- Toast ---
+    // --- Toast-Queue (Weber: "Ein Toast nach dem anderen. Ordnung muss sein.") ---
+    const toastQueue = [];
+    let toastBusy = false;
+
     function showToast(message, duration) {
+        toastQueue.push({ message, duration: duration || 2500 });
+        if (!toastBusy) processToastQueue();
+    }
+
+    function processToastQueue() {
+        if (toastQueue.length === 0) {
+            toastBusy = false;
+            return;
+        }
+        toastBusy = true;
+        const { message, duration } = toastQueue.shift();
         toast.textContent = message;
         toast.classList.remove('hidden');
         clearTimeout(toast._timeout);
         toast._timeout = setTimeout(() => {
             toast.classList.add('hidden');
-        }, duration || 2500);
+            setTimeout(processToastQueue, 300); // Kurze Pause zwischen Toasts
+        }, duration);
     }
 
     // --- Hilfsfunktionen ---
