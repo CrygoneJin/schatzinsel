@@ -66,6 +66,8 @@
 
     function ensureAudio() {
         if (!audioCtx) audioCtx = new AudioCtx();
+        // iOS Safari: AudioContext startet als "suspended", muss bei User-Gesture resumed werden
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         return audioCtx;
     }
 
