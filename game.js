@@ -438,6 +438,9 @@
         lamp: [
             '💡 Die Lampe flackert. In der Birne steht winzig: "Powered by JavaScript".',
             '💡 "Wusstest du: JavaScript wurde in 10 Tagen erfunden? Auf einer Insel!" — C++',
+            '💡 Unter der Lampe sitzt ein Typ und tippt. "Ich bin TypeScript! Ich lerne Drehbuch bei Tommy!" Tommy: "Klick-klack! Er schreibt alles DOPPELT auf!"',
+            '💡 TypeScript korrigiert JavaScript: "Du hast einen TYPO! Da fehlt ein Typ!" JavaScript: "Lass mich, ich funktioniere AUCH SO!" TypeScript: *seufz*',
+            '💡 Tommy zeigt TypeScript sein Drehbuch: "Szene 1: Boot. Szene 2: MEHR Boote!" TypeScript: "Das braucht ein Interface... Boot { segel: boolean; flaggen: number }"',
         ],
         cactus: [
             '🦜 Auf dem Kaktus sitzt ein alter Papagei: "Ich bin FORTRAN! Fort-ran ich, und kam nie zurück!"',
