@@ -64,11 +64,20 @@
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let audioCtx = null;
 
+    let lastSoundTime = 0;
+    const SOUND_THROTTLE = 60; // Max ~16 Töne/Sekunde, verhindert Oszillator-Überlauf
+
     function ensureAudio() {
         if (!audioCtx) audioCtx = new AudioCtx();
-        // iOS Safari: AudioContext startet als "suspended", muss bei User-Gesture resumed werden
         if (audioCtx.state === 'suspended') audioCtx.resume();
         return audioCtx;
+    }
+
+    function canPlaySound() {
+        const now = performance.now();
+        if (now - lastSoundTime < SOUND_THROTTLE) return false;
+        lastSoundTime = now;
+        return true;
     }
 
     function playTone(freq, duration, type, vol) {
@@ -128,6 +137,7 @@
     let buildNoteDir = 1;
 
     function soundBuild() {
+        if (!canPlaySound()) return;
         // Alle ~30 Klicks: neuer Modus = neue Stimmung
         scaleChangeCounter++;
         if (scaleChangeCounter > 25 + Math.floor(Math.random() * 15)) {
@@ -149,10 +159,14 @@
         playRichTone(currentScale[idx], 0.06 + Math.random() * 0.06, type, 0.06 + Math.random() * 0.04);
     }
     function soundDemolish() {
-        // Absteigender Ton — fühlt sich nach "weg" an
-        const freq = 300 + Math.random() * 150;
-        playTone(freq, 0.15, 'sawtooth', 0.06);
-        setTimeout(() => playTone(freq * 0.7, 0.1, 'sawtooth', 0.04), 50);
+        if (!canPlaySound()) return;
+        const stats = typeof getGridStats === 'function' ? getGridStats() : { percent: 50 };
+        const fillPercent = stats.percent || 0;
+        const baseFreq = 120 + (fillPercent / 100) * 380;
+        const freq = baseFreq + Math.random() * 60;
+        const type = fillPercent < 20 ? 'sine' : 'sawtooth';
+        playRichTone(freq, 0.18, type, 0.07);
+        setTimeout(() => playTone(freq * 0.6, 0.12, type, 0.04), 60);
     }
     function soundAchievement() {
         // Zelda-Chest-artig: aufsteigende Fanfare mit Chorus
@@ -965,7 +979,6 @@
                 maybeNpcComment(currentMaterial);
                 maybeCodeEasterEgg(currentMaterial);
                 recordMilestone('firstBlock');
-                trackEvent('build', { material: currentMaterial });
             }
         } else if (currentTool === 'demolish') {
             if (grid[r][c] !== null) {
@@ -974,19 +987,28 @@
                 grid[r][c] = null;
                 addPlaceAnimation(r, c);
                 soundDemolish();
-                trackEvent('demolish', { material: removed });
             }
         } else if (currentTool === 'fill') {
             pushUndo();
             floodFill(r, c, grid[r][c], currentMaterial);
             soundBuild();
-            trackEvent('fill', { material: currentMaterial });
         }
-        updateStats();
-        checkAchievements();
-        checkQuests();
-        maybeQuestHint(currentMaterial);
-        maybeHoerspiel(getGridStats());
+        // Teure Checks nur alle 200ms (nicht bei jedem Pixel beim Drag)
+        requestStatsUpdate();
+    }
+
+    let statsUpdatePending = false;
+    function requestStatsUpdate() {
+        if (statsUpdatePending) return;
+        statsUpdatePending = true;
+        setTimeout(() => {
+            statsUpdatePending = false;
+            updateStats();
+            checkAchievements();
+            checkQuests();
+            maybeQuestHint(currentMaterial);
+            maybeHoerspiel(getGridStats());
+        }, 200);
     }
 
     // Dusch-Prinzip: "Wärmer/Kälter" bei Quest-Fortschritt
