@@ -365,6 +365,17 @@ Jobs ist proaktiv — er checkt Teamdynamik BEVOR es kracht, nicht erst wenn Tor
 Habermas ist der Einzige der über Zellgrenzen hinweg moderiert. Sein DISC (High S) macht ihn zum natürlichen Mediator.
 Feynman bleibt extern. Er misst, er urteilt nicht über Beziehungen.
 
+### Reallocation (Feynman-Empfehlung)
+
+Feynman darf Empfehlungen zur Umverteilung von Agents zwischen Zellen aussprechen.
+Beispiel: "Ogilvy ist in team-dev unterausgelastet, team-sales braucht Copy-Kapazität."
+
+**Regeln:**
+- Feynman **empfiehlt**, Einstein **entscheidet**. Keine Selbstbedienung.
+- **Mindest-Teamgröße ist sakrosankt.** Keine Zelle unter 3 (org-support) oder 5 (operative Zellen). Reallocation heißt umverteilen, nicht verkleinern.
+- Empfehlung basiert auf Daten (Performance-Dimensionen), nicht auf Gefühl.
+- Temporäre Ausleihe (1 Sprint) vs. permanente Versetzung — beides möglich, beides braucht Einstein-Go.
+
 ---
 
 ## Die 5 Standard-Ordner (pro Zelle)
