@@ -1212,6 +1212,9 @@
     // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
     const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
 
+    // Starter-Set: 5 Wu-Xing + erste 3 Crafting-Ergebnisse — von Anfang an sichtbar
+    const STARTER_MATERIALS = [...BASE_MATERIALS, 'stone', 'sand', 'glass'];
+
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
 
@@ -1233,6 +1236,7 @@
         // Button in Palette sichtbar machen oder dynamisch erzeugen
         let btn = document.querySelector(`.material-btn[data-material="${mat}"]`);
         if (btn) {
+            btn.style.display = '';
             btn.classList.remove('craft-locked');
             btn.classList.add('craft-unlocked');
         } else {
@@ -1264,10 +1268,18 @@
             const mat = btn.dataset.material;
             if (BASE_MATERIALS.includes(mat) || btn.dataset.base) return;
             if (unlockedMaterials.has(mat)) {
+                // Durch Crafting/Quests freigeschaltet → sichtbar + animiert
+                btn.style.display = '';
                 btn.classList.remove('craft-locked');
                 btn.classList.add('craft-unlocked');
-            } else {
+            } else if (STARTER_MATERIALS.includes(mat)) {
+                // Starter-Artefakte (stone/sand/glass): sichtbar aber ausgegraut bis gecraftet
+                btn.style.display = '';
                 btn.classList.add('craft-locked');
+                btn.classList.remove('craft-unlocked');
+            } else {
+                // Noch nicht freigeschaltet und kein Starter → verstecken
+                btn.style.display = 'none';
                 btn.classList.remove('craft-unlocked');
             }
         });
