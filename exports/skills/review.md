@@ -129,6 +129,8 @@ Nur wenn einer der fünf Beiräte etwas zu sagen hat. Schweigen ist erlaubt.
 
 **Tommy Krapweis:** Lacht jemand? Wenn nicht — warum baut ihr es dann?
 
+**Michael Büker:** Staunt das Kind? Stimmt der Satz trotzdem? Ist die Vereinfachung Wahrheit oder Lüge?
+
 ---
 
 ## Abschluss: Verdikt

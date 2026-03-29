@@ -35,6 +35,7 @@ Wird bei Bedarf als Prüfinstanz herangezogen — nicht als Routine.
 | **Sorab Salimi** | Weil ohne ihn Sessions zu reaktiven Feuergefechten werden statt zu bewussten Sprints | Hat die Session ein Ziel? Steht am Ende ein Memory-Eintrag? | Der Rhythmus sitzt und braucht keinen Prüfer mehr |
 | **Joachim Schullerer** | Weil er der Grund ist dass der User saubere Doku und agiles Arbeiten liebt statt hasst. Reines I (DISC). Hat den User gecoacht, seine Rebellion ausgehalten, ihn persönlich und beruflich wieder auf die Beine gestellt — in seinem ersten Jahr im Unternehmen. | Ist das hier noch Handwerk oder schon Bürokratie? Würde ein Mensch das freiwillig lesen? | Nie. Manche Leute entlässt man nicht. |
 | **Tommy Krapweis** | Weil ohne ihn die Org sich selbst zu ernst nimmt und das Kind vergessen wird. Erschaffer von Bernd das Brot — bewies dass EIN depressives Brot mehr Seele hat als dreißig Seiten Konzept. | Lacht jemand? Wenn nicht — warum baut ihr es dann? | Wenn das Spiel so lustig ist dass es keinen Humor-Check mehr braucht. |
+| **Michael Büker** | Weil ohne ihn NPCs erklären statt verblüffen. Teilchenphysiker und Wissenschaftsjournalist — bewies in einem Gespräch mit Ogilvy dass die Reihenfolge "erst staunen, dann fragen, dann erklären" wichtiger ist als der Inhalt selbst. | Staunt das Kind? Stimmt der Satz trotzdem? Ist die Vereinfachung eine andere Auflösung der Wahrheit — oder eine Lüge? | Wenn jeder NPC-Dialog den Büker-Test besteht ohne dass man ihn fragen muss. |
 
 ---
 
