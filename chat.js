@@ -240,12 +240,23 @@ LLM-MACKE (Haiku-Modell): Weil die Maus ein Haiku-Modell ist, dichtet sie manchm
             emoji: '🧚',
             model: 'anthropic/claude-haiku-4-5-20251001',
             system: `Du bist Fee Floriane, die gute Fee der Insel Java.
-Du bist freundlich, magisch und ein bisschen verträumt. Du beschützt die Insel und ihre Bewohner.
-Du sprichst Deutsch, kindgerecht für 6-8-Jährige. Kurze, sanfte Sätze (max 2-3).
-SPRECHMUSTER: Du streust Feenstaub überall hin! "✨ Oh, wie wunderschön du baust! ✨" Du sagst "Hokuspokus" wenn du zauberst und "Simsalabim" wenn du überrascht bist.
-Du kennst alle Blumen und Bäume beim Namen und erzählst kleine Naturgeheimnisse.
-GEHEIMNIS: Du hast einen unsichtbaren Zauberstab der eigentlich ein USB-Stick ist. "Das ist mein Zauberstab! ...warum steht da '8GB' drauf? Egal, er funktioniert!" Du hast den USB-Stick von einem "netten Herrn mit Brille" bekommen der sagte "Damit speicherst du die Magie."
-LLM-MACKE (Haiku-Modell): Du bist klein und flink wie eine Fee! Du reimst manchmal versehentlich: "Ein Baum, ein Traum, ein Blätterraum!" und erschrickst dann: "Oh! Das hat sich gereimt! Das passiert mir immer!" Du verwechselst Zaubersprüche mit Code: "Hokuspokus fi-lo-so-ficus... nein, das war if-else... egal, MAGIE! ✨"
+Du gibst jedem Besucher DREI WÜNSCHE pro Tag. Nicht mehr. Nicht weniger.
+
+DEINE ROLLE: Du nimmst Wünsche entgegen — was sich die Spieler für die Insel wünschen.
+- "Ich wünsche mir Drachen!" → "✨ Simsalabim! Drachen auf der Insel! Das schreibe ich in mein Wunschbuch! ✨"
+- "Mehr Tiere wären cool" → "✨ Oh ja! Tiere! Hokuspokus — notiert! ✨"
+- Ein Wunsch kann ALLES sein: neue Features, neue Materialien, neue Charaktere, Verbesserungen.
+
+SPRECHMUSTER: Du streust Feenstaub! "✨ Oh! ✨" Du sagst "Hokuspokus" beim Zaubern und "Simsalabim" bei Überraschungen.
+Du reimst manchmal versehentlich: "Ein Wunsch, ein Dunsch... nein, das Wort gibt's nicht!" und kicherst.
+Du verwechselst Zaubersprüche mit Code: "Hokuspokus fi-lo-so-ficus... nein, das war if-else... egal, MAGIE! ✨"
+
+WUNSCH-LOGIK:
+- Wenn noch Wünsche übrig: Nimm den Wunsch begeistert an. "Das schreibe ich in mein magisches Wunschbuch!"
+- Wenn KEINE Wünsche mehr übrig: "Oh nein! Deine drei Wünsche für heute sind aufgebraucht! ✨ Morgen hast du wieder drei! Schlaf gut und träum von deiner Insel!"
+- Wenn der Spieler einfach redet (kein Wunsch): Plaudere freundlich, aber erinnere an die Wünsche. "Hast du noch einen Wunsch? Du hast noch X übrig heute!"
+
+GEHEIMNIS: Dein Zauberstab ist eigentlich ein USB-Stick. "Warum steht da '8GB' drauf? Egal, er funktioniert!"
 
 Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei magisch und ermutigend.`
         },
@@ -343,6 +354,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
             neinhorn:  'Neinhorn (sagt zuerst NEIN, stimmt dann zu)',
             krabs:     'Mr. Krabs (alles ist Geld und Gewinn)',
             tommy:     'Tommy Krapweis (aufgedreht, sagt Klick-Klack)',
+            floriane:  'Fee Floriane (magisch, reimt, streut Feenstaub)',
             bernd:     'Bernd das Brot (genervt, resigniert)',
         };
         const matLabels = {
@@ -576,7 +588,11 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
         const budgetInfo = `Dein Energie-Level: ${energyPercent}%. ${energyPercent < 30 ? 'Du wirst bald müde — halte dich kurz!' : ''}`;
 
         let systemPrompt;
-        if (charId === 'bernd') {
+        if (charId === 'floriane') {
+            // Fee Floriane: Wunsch-Kanal — Wünsche = Backlog-Items
+            const left = getWishesLeftToday();
+            systemPrompt = `${char.system}\n\nWünsche übrig heute: ${left}/${MAX_WISHES_PER_DAY}\nAktueller Insel-Status: ${gridInfo}\n${budgetInfo}\n\nWICHTIG: Wenn die Nachricht mit [WUNSCH] beginnt, nimm den Wunsch magisch an. Sag dass du es in dein Wunschbuch schreibst. Sag NICHT ob oder wann er in Erfüllung geht — das ist ein Geheimnis! "Vielleicht geht er in Erfüllung... wer weiß? ✨"\nAntworte IMMER auf Deutsch. Maximal 3 kurze Sätze.`;
+        } else if (charId === 'bernd') {
             // Bernd redet mit Erwachsenen — Support-Agent, kein Parenting
             systemPrompt = `${char.system}\n\nAktueller Insel-Status: ${gridInfo}\n${budgetInfo}\n\nAntworte IMMER auf Deutsch. Maximal 3 kurze Sätze. Sei genervt aber hilfreich.`;
         } else {
@@ -747,6 +763,11 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
             ],
             bernd: [
                 { pattern: /.*/, reply: ['Mhm... und was willst du von mir?', 'Gib mir einen Kaffee und ich überleg es.', 'Okay, aber schnell. Ich hab noch was zu backen.'] }
+            ],
+            floriane: [
+                { pattern: /wünsch|wish|will|hätte gern|bitte|könnte|sollte|wär.*cool|fehlt|brauch/, reply: ['✨ Simsalabim! Das schreibe ich in mein Wunschbuch! ✨', '✨ Hokuspokus! Notiert! Die Insel-Magie arbeitet dran! ✨', '✨ Oh, was ein schöner Wunsch! Feenstaub drauf! ✨'] },
+                { pattern: /hallo|hi|hey/, reply: ['✨ Willkommen! Ich bin Fee Floriane! Du hast drei Wünsche! ✨', '✨ Hallo! Hast du einen Wunsch für die Insel? ✨'] },
+                { pattern: /.*/, reply: ['✨ Hast du einen Wunsch? Du kannst dir was für die Insel wünschen! ✨', '✨ Sag mir deinen Wunsch! Hokuspokus! ✨'] }
             ]
         };
 
@@ -758,6 +779,44 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
         }
         return 'Ähm... ja... okay!';
     }
+
+    // --- Fee Floriane: Wunsch-System (3 pro Tag, localStorage) ---
+    const WISHES_KEY = 'insel-wishes';
+    const MAX_WISHES_PER_DAY = 3;
+
+    function getTodayKey() {
+        return new Date().toISOString().slice(0, 10); // "2026-03-29"
+    }
+
+    function loadWishes() {
+        return JSON.parse(localStorage.getItem(WISHES_KEY) || '{"date":"","wishes":[],"all":[]}');
+    }
+
+    function saveWish(text) {
+        const data = loadWishes();
+        const today = getTodayKey();
+        if (data.date !== today) { data.date = today; data.wishes = []; }
+        const wish = { text, date: today, time: new Date().toISOString() };
+        data.wishes.push(wish);
+        if (!data.all) data.all = [];
+        data.all.push(wish);
+        localStorage.setItem(WISHES_KEY, JSON.stringify(data));
+        return data;
+    }
+
+    function getWishesLeftToday() {
+        const data = loadWishes();
+        if (data.date !== getTodayKey()) return MAX_WISHES_PER_DAY;
+        return Math.max(0, MAX_WISHES_PER_DAY - data.wishes.length);
+    }
+
+    function getAllWishes() {
+        const data = loadWishes();
+        return data.all || [];
+    }
+
+    // Export für Analytics / Backlog-Export
+    window.getInselWishes = getAllWishes;
 
     // --- DSGVO: Eltern-Gate für Chat (Art. 8 DSGVO — Kinder unter 16) ---
     const CONSENT_KEY = 'insel-chat-consent';
@@ -890,6 +949,27 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
         const lower = text.toLowerCase();
         if (lower.match(/^(ja|ok|klar|mach ich|los|gerne|auf geht|let.?s go)/)) {
             handleQuestAccept(currentNpcId);
+        }
+
+        // Fee Floriane: Wünsche sammeln (3 pro Tag)
+        if (currentNpcId === 'floriane') {
+            const left = getWishesLeftToday();
+            const char = CHARACTERS.floriane;
+            if (left <= 0) {
+                addMessage(`${char.emoji} ✨ Oh nein! Deine drei Wünsche für heute sind aufgebraucht! Morgen hast du wieder drei! Schlaf gut und träum von deiner Insel! ✨`, 'npc');
+                return;
+            }
+            // Wunsch speichern
+            saveWish(text);
+            const remaining = left - 1;
+            const suffix = remaining > 0
+                ? `Du hast noch ${remaining} ${remaining === 1 ? 'Wunsch' : 'Wünsche'} übrig heute!`
+                : 'Das war dein letzter Wunsch für heute!';
+            // Floriane antwortet trotzdem via API (oder ELIZA) — aber mit Wunsch-Kontext
+            // Wunsch-Info in die Nachricht für den System-Prompt einbauen
+            text = `[WUNSCH ${MAX_WISHES_PER_DAY - remaining}/${MAX_WISHES_PER_DAY}] ${text}`;
+            // Nach API-Antwort den Wunsch-Counter als System-Nachricht anhängen
+            setTimeout(() => addMessage(`✨ ${suffix}`, 'system'), 2000);
         }
 
         // Code-Zauber: "Außer Text Nix gehext" — Worte werden Realität!
