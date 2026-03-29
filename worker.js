@@ -29,6 +29,12 @@ export default {
             return new Response(null, { headers: corsHeaders() });
         }
 
+        // URL-basiertes Routing (vor POST-Guard, da /discoveries auch GET erlaubt)
+        const { pathname } = new URL(request.url);
+        if (pathname === '/discoveries') {
+            return handleDiscoveries(env);
+        }
+
         // Nur POST
         if (request.method !== 'POST') {
             return json({ error: 'POST only' }, 405);
@@ -43,6 +49,10 @@ export default {
                 return json({ error: 'Zu viele Anfragen. Versuch es in einer Stunde nochmal.' }, 429);
             }
             await env.RATE_LIMIT_KV.put(key, String(count + 1), { expirationTtl: RATE_WINDOW });
+        }
+
+        if (pathname === '/craft') {
+            return handleCraft(request, env);
         }
 
         const apiKey = env['schatzinsel-requesty'] || env.API_KEY;
@@ -94,6 +104,150 @@ export default {
         }
     },
 };
+
+// --- Craft Endpoint ---
+
+async function handleCraft(request, env) {
+    let body;
+    try {
+        body = await request.json();
+    } catch (e) {
+        return json({ error: 'Ungültiger Request-Body' }, 400);
+    }
+
+    const { a, b, discoverer } = body;
+    if (!a || !b) {
+        return json({ error: 'a und b sind erforderlich' }, 400);
+    }
+
+    // Fix 1: Prompt Injection — Materialbezeichnungen validieren
+    const MAX_MAT_LEN = 40;
+    const SAFE_MAT = /^[\p{L}\p{N}\s\-_]+$/u;
+    if (!SAFE_MAT.test(a) || !SAFE_MAT.test(b) || a.length > MAX_MAT_LEN || b.length > MAX_MAT_LEN) {
+        return json({ error: 'Ungültige Materialbezeichnung' }, 400);
+    }
+
+    const apiKey = env['schatzinsel-requesty'] || env.API_KEY;
+    if (!apiKey) {
+        return json({ error: 'Server nicht konfiguriert (kein API Key)' }, 500);
+    }
+
+    // Fix 4: Discoverer validieren
+    const safeDiscoverer = typeof discoverer === 'string' ? discoverer.trim().slice(0, 30) : 'Anonym';
+
+    // Fix 3: Cache-Keys normalisieren (trim + lowercase)
+    const na = a.trim().toLowerCase();
+    const nb = b.trim().toLowerCase();
+    const pair = [na, nb].sort().join('+');
+    const cacheKey = `craft:${pair}`;
+
+    // Cache-Check (KV optional)
+    if (env.CRAFT_KV) {
+        const cached = await env.CRAFT_KV.get(cacheKey, 'json');
+        if (cached) {
+            return json({ ...cached, fromCache: true });
+        }
+    }
+
+    // LLM-Aufruf via Requesty
+    const prompt = `Crafting-System für ein Kinderspiel. Ein Kind kombiniert "${na}" + "${nb}".
+Was entsteht? Antworte NUR mit diesem JSON, kein anderer Text:
+{"emoji": "...", "name": "...", "color": "#hex", "border": "#hex"}
+
+Regeln:
+- name: EIN deutsches Wort, max 12 Buchstaben. Kein Doppelwort, keine Wiederholung der Zutaten.
+- emoji: GENAU EIN einzelnes Emoji-Zeichen. Kein Paar, keine Kombination. Muss zum Ergebnis passen, NICHT zu einer Zutat.
+- color: Die Hauptfarbe des Ergebnisses als Hex.
+- border: Etwas dunkler als color.
+- Kindgerecht. Kein Grusel, keine Gewalt, nichts Trauriges.
+- Kreativ aber logisch: Feuer+Wasser=Dampf, nicht Feuerwasser.
+
+Beispiele:
+fire+water → {"emoji":"💨","name":"Dampf","color":"#D5D8DC","border":"#AEB6BF"}
+earth+fire → {"emoji":"🧱","name":"Stein","color":"#95A5A6","border":"#7F8C8D"}
+dragon+ice → {"emoji":"🐲","name":"Eisdrache","color":"#87CEEB","border":"#5DADE2"}`;
+
+    let result;
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model: 'anthropic/claude-haiku-4-5-20251001',
+                max_tokens: 100,
+                temperature: 0.3,
+                stream: false,
+                messages: [{ role: 'user', content: prompt }],
+            }),
+        });
+
+        // Fix 5: LLM response.ok prüfen
+        if (!response.ok) {
+            return json({ error: 'LLM nicht erreichbar' }, 502);
+        }
+        const data = await response.json();
+        const content = data?.choices?.[0]?.message?.content || '';
+        const match = content.match(/{[\s\S]*}/);
+        if (!match) {
+            return json({ error: 'LLM hat kein gültiges JSON zurückgegeben', raw: content }, 502);
+        }
+        result = JSON.parse(match[0]);
+    } catch (e) {
+        // Fix 6: Keine Error-Details an den Client
+        return json({ error: 'Craft-Fehler' }, 500);
+    }
+
+    // In KV speichern
+    const entry = {
+        emoji:      [...(result.emoji || '✨')][0],
+        name:       result.name       || 'Unbekannt',
+        color:      result.color      || '#cccccc',
+        border:     result.border     || '#999999',
+        a,
+        b,
+        discoverer: safeDiscoverer,
+        created:    new Date().toISOString(),
+    };
+
+    if (env.CRAFT_KV) {
+        await env.CRAFT_KV.put(cacheKey, JSON.stringify(entry));
+    }
+
+    return json({ ...entry, fromCache: false });
+}
+
+// --- Discoveries Endpoint ---
+
+async function handleDiscoveries(env) {
+    if (!env.CRAFT_KV) return json({ error: 'KV nicht konfiguriert' }, 500);
+
+    const list = await env.CRAFT_KV.list({ prefix: 'craft:' });
+    const discoveries = [];
+
+    for (const key of list.keys) {
+        const val = await env.CRAFT_KV.get(key.name, 'json');
+        if (val) discoveries.push(val);
+    }
+
+    // Neueste zuerst
+    discoveries.sort((a, b) => (b.created || '').localeCompare(a.created || ''));
+
+    // Entdecker-Ranking
+    const ranking = {};
+    for (const d of discoveries) {
+        const name = d.discoverer || 'Anonym';
+        ranking[name] = (ranking[name] || 0) + 1;
+    }
+
+    return json({
+        total: discoveries.length,
+        ranking,
+        recent: discoveries.slice(0, 20),
+    });
+}
 
 // --- Logging ---
 

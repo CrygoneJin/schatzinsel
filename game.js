@@ -109,6 +109,29 @@
         phoenix:  { emoji: '🔥', label: 'Phönix',   color: '#F39C12', border: '#E67E22' },
     };
 
+    // --- Infinite Craft: Worker-URL ---
+    const CRAFT_URL = (window.INSEL_CONFIG?.proxy || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev') + '/craft';
+
+    // --- LLM-Materialien aus localStorage laden/speichern ---
+    function loadLlmMaterials() {
+        try {
+            const stored = JSON.parse(localStorage.getItem('insel-llm-materials') || '{}');
+            for (const [id, mat] of Object.entries(stored)) {
+                if (!MATERIALS[id]) MATERIALS[id] = mat;
+            }
+        } catch (e) { /* ignore corrupt data */ }
+    }
+
+    function saveLlmMaterials() {
+        const llm = {};
+        for (const [id, mat] of Object.entries(MATERIALS)) {
+            if (id.startsWith('llm_')) llm[id] = mat;
+        }
+        localStorage.setItem('insel-llm-materials', JSON.stringify(llm));
+    }
+
+    loadLlmMaterials();
+
     // ============================================================
     // === SOUND === (aus sound.js, Fallback-Stubs wenn nicht geladen)
     // ============================================================
@@ -945,32 +968,114 @@
         return null;
     }
 
-    function doCraft() {
+    function applyLlmCraft(result) {
+        // Material-ID aus Name erzeugen
+        const safeName = result.name
+            .toLowerCase()
+            .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+            .replace(/[^a-z0-9]+/g, '_')
+            .replace(/^_+|_+$/g, '');
+        const matId = 'llm_' + safeName;
+
+        const isNew = !MATERIALS[matId];
+        if (isNew) {
+            MATERIALS[matId] = {
+                emoji: result.emoji,
+                label: result.name,
+                color: result.color || '#D2B4DE',
+                border: result.border || '#BB8FCE',
+            };
+            saveLlmMaterials();
+        }
+
+        addToInventory(matId, 1);
+        unlockMaterial(matId);
+        soundCraft();
+
+        if (result.fromCache === false && isNew) {
+            showToast(`🏆 WELTPREMIERE! ${result.emoji} ${result.name} — Entdecker: ${result.discoverer}!`);
+        } else if (isNew) {
+            showToast(`🔮 Neues Rezept: ${result.emoji} ${result.name}!`);
+        } else {
+            showToast(`⚒️ ${result.emoji} 1x ${result.name} hergestellt!`);
+        }
+
+        trackEvent('llm-craft', { name: result.name, fromCache: result.fromCache });
+        updateCraftingDisplay();
+        return matId;
+    }
+
+    async function doCraft() {
         const recipe = findMatchingRecipe();
-        if (!recipe) {
+        if (recipe) {
+            // Festes Rezept gefunden — normaler Crafting-Ablauf
+            craftingGrid = Array(9).fill(null);
+            addToInventory(recipe.result, recipe.resultCount);
+            unlockMaterial(recipe.result);
+            const isNew = !discoveredRecipes.has(recipe.name);
+            discoveredRecipes.add(recipe.name);
+            saveDiscoveredRecipes();
+            soundCraft();
+            const info = MATERIALS[recipe.result];
+            if (isNew) {
+                showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);
+            } else {
+                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
+            }
+            trackEvent('craft', { recipe: recipe.name, result: recipe.result });
+            updateCraftingDisplay();
+            return;
+        }
+
+        // Kein festes Rezept — LLM-Fallback
+        const placed = getCraftingIngredients();
+        const placedKeys = Object.keys(placed).sort();
+        if (placedKeys.length < 2) {
             showToast('🤔 Kein Rezept gefunden!');
             return;
         }
 
-        // Remove items from crafting grid
-        craftingGrid = Array(9).fill(null);
+        const a = placedKeys[0];
+        const b = placedKeys[1];
+        const pairKey = 'llm-craft:' + a + '+' + b;
+        const cached = localStorage.getItem(pairKey);
 
-        // Add result to inventory + unlock in palette + discover recipe
-        addToInventory(recipe.result, recipe.resultCount);
-        unlockMaterial(recipe.result);
-        const isNew = !discoveredRecipes.has(recipe.name);
-        discoveredRecipes.add(recipe.name);
-        saveDiscoveredRecipes();
-        soundCraft();
-
-        const info = MATERIALS[recipe.result];
-        if (isNew) {
-            showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);
-        } else {
-            showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
+        if (cached) {
+            try {
+                const result = JSON.parse(cached);
+                craftingGrid = Array(9).fill(null);
+                applyLlmCraft(result);
+            } catch (e) {
+                localStorage.removeItem(pairKey);
+                showToast('🤔 Cache-Fehler, bitte nochmal versuchen!');
+            }
+            return;
         }
-        trackEvent('craft', { recipe: recipe.name, result: recipe.result });
-        updateCraftingDisplay();
+
+        // Worker anfragen
+        const craftBtn = document.getElementById('craft-btn');
+        if (craftBtn) craftBtn.disabled = true;
+        showToast('🔮 Die Insel denkt nach...');
+
+        try {
+            const discoverer = localStorage.getItem('insel-player-name') || 'Unbekannt';
+            const response = await fetch(CRAFT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ a, b, discoverer }),
+            });
+
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+
+            const result = await response.json();
+            localStorage.setItem(pairKey, JSON.stringify(result));
+            craftingGrid = Array(9).fill(null);
+            applyLlmCraft(result);
+        } catch (err) {
+            showToast('🤔 Kein Rezept gefunden!');
+        } finally {
+            if (craftBtn) craftBtn.disabled = false;
+        }
     }
 
     function openCraftingDialog() {
