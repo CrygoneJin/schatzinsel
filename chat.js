@@ -728,11 +728,6 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
     // Hilfsfunktion: showToast nutzen falls verfügbar (game.js), sonst noop
     function showToast(msg) { if (window.showToast) window.showToast(msg); }
 
-    bubble.addEventListener('click', toggleChat);
-    bubble.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleChat(); }
-    });
-
     closeBtn.addEventListener('click', () => {
         panel.classList.add('hidden');
     });
