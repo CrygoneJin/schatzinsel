@@ -74,13 +74,17 @@ export default {
 
         // Direkt → Langdock (kritischer Pfad)
         try {
+            // _feynman nicht an Langdock weiterschicken
+            const langdockBody = { ...body };
+            delete langdockBody._feynman;
+
             const response = await fetch(LANGDOCK_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${apiKey}`,
                 },
-                body: JSON.stringify(body),
+                body: JSON.stringify(langdockBody),
             });
 
             const data = await response.json();
