@@ -6,15 +6,22 @@
 
 | # | Task | Owner | Done | Est. |
 |---|------|-------|------|------|
-| 1 | `exports/` komplett löschen (Kopie-Friedhof, 23 Dateien) | Torvalds | [ ] | 2m |
-| 2 | `docs/padawans/` löschen (eingefroren, nie gespawnt) | Torvalds | [ ] | 1m |
-| 3 | Tote docs: STORY.md, HOSTING.md, BEST-PRACTICES.md, CHANGELOG.md, FEYNMAN-QUOTES.md | Torvalds | [ ] | 2m |
-| 4 | Root: AGENTS.md → docs/, hau-den-lukas.html löschen | Torvalds | [ ] | 3m |
-| 5 | ARCHITECTURE.md + BACKLOG.md updaten, commit + push + MEMORY.md | Feynman | [ ] | 5m |
+| 1 | `exports/` komplett löschen (Kopie-Friedhof, 23 Dateien) | Torvalds | [x] | 2m |
+| 2 | Tote docs destillieren + löschen (STORY→DESIGN, HOSTING→ARCH, BEST-PRACTICES→USERS, SCHNIPSEL→USERS, FEYNMAN-QUOTES→MEMORY) | Torvalds + Ranganathan | [x] | 10m |
+| 3 | CHARACTERS.md: Tim → Oscar | Torvalds | [x] | 1m |
+| 4 | Root: AGENTS.md → docs/, hau-den-lukas.html + CHANGELOG.md löschen, CLAUDE.md Pfade fixen | Torvalds | [x] | 3m |
+| 5 | Ranganathan in Beirat, BACKLOG #5 schließen, Commit + Push + MEMORY.md | Feynman | [x] | 5m |
 
-**Reihenfolge:** 1 ∥ 2 ∥ 3 (parallel), dann 4, dann 5
+**Reihenfolge:** 1 ∥ 2 (parallel), dann 3+4, dann 5
+
+**Ergebnis:**
+- 32 Dateien gelöscht, 0 Wissen verloren
+- 4 Docs angereichert (DESIGN, ARCHITECTURE, USERS, MEMORY)
+- Ranganathan (8. Beirat): "Wer liest das? Findet er es? Spart es ihm Zeit?"
+- Padawan-Konzept als Evolutions-These beibehalten
 
 **Nicht in diesem Sprint:**
 - game.js Split (eigener Sprint, ~2h)
 - Höhlen im Adventure-Grid (#27)
 - Floriane die Wunschfee (#29)
+- MEMORY.md Archivierung (alte Sessions → archive/)

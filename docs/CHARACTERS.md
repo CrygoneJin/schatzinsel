@@ -5,19 +5,20 @@ Claude Code nutzt diese Profile für Dialoge, Quests und NPC-Verhalten.
 
 ---
 
-## 1. Tim (der Spieler)
+## 1. Oscar / Schnipsel (der Spieler)
 
 | Feld            | Wert                                              |
 |-----------------|----------------------------------------------------|
 | Rolle           | Spieler-Charakter                                  |
 | Alter           | 8 Jahre                                            |
 | Aussehen        | Normaler Junge mit Rucksack                        |
-| Persönlichkeit  | Mutig, aber erst schüchtern. Wird selbstbewusst.   |
-| Fähigkeit       | Baut alles -- Häuser, Wege, Türme                  |
-| Entwicklung     | Lernt Freunde kennen → wird zum Chefarchitekten    |
+| Persönlichkeit  | Mutig, neugierig, will sofort loslegen              |
+| Fähigkeit       | Baut alles — Häuser, Wege, Türme                   |
+| Traumberuf      | Architekt                                          |
 
-**Für Code**: Tim ist der Avatar des Spielers. Er spricht nicht selbst --
-der Spieler handelt durch ihn. Dialoge anderer Figuren richten sich an Tim.
+**Für Code**: Oscar ist der Avatar des Spielers. Er spricht nicht selbst —
+der Spieler handelt durch ihn. Dialoge anderer Figuren richten sich an Oscar.
+Siehe `docs/USERS.md` für das vollständige Profil.
 
 ---
 
@@ -36,7 +37,7 @@ der Spieler handelt durch ihn. Dialoge anderer Figuren richten sich an Tim.
 - "Lass uns einen Krabbenburger-Stand bauen!"
 - "Das wird der BESTE Hafen der Welt!"
 
-**Für Code**: SpongeBob ist der erste Freund, den Tim trifft. Er motiviert
+**Für Code**: SpongeBob ist der erste Freund, den Oscar trifft. Er motiviert
 zum Bauen und liefert Quests rund um Essen und den Hafen.
 
 ---
@@ -148,7 +149,7 @@ erst "Nein" und hilft dann doch. Perfekt für überraschende Momente.
 ## Charakter-Beziehungen
 
 ```
-                Tim (Spieler)
+              Oscar (Spieler)
                /    |    \
         Wasser-Team  |  Wald-Team
         /        \   |   /       \

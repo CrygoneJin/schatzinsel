@@ -12,7 +12,7 @@
 | 2 | **Accessibility Audit** — Screenreader-Test, Tab-Navigation, Kontraste | Designer + Hick | ✅ Done (ARIA, Escape, Dialoge) |
 | 3 | **Mobile Palette** — klappbar oder horizontal scrollbar auf iPad | Designer | ✅ Done |
 | 4 | **Toolbar-Overflow auf Mobile** — 7 Buttons brechen auf kleinen Screens | Designer | ✅ Done |
-| 5 | **Google Sheet Webhook einrichten** — Testdaten automatisch einsammeln | Engineer | 🔲 Offen |
+| 5 | **Google Sheet Webhook einrichten** — Ersetzt durch Agent-Tracking-Tabelle in MEMORY.md | Engineer | ✅ Ersetzt |
 
 ## 🟡 P1 — Vor Spielplatz-Phase (10 User)
 

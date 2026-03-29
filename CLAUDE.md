@@ -85,7 +85,7 @@ Definition of Done: siehe `docs/DONE.md` — drei Punkte, binär.
 ## Drei Zellen
 
 Die Organisation besteht aus drei autonomen Zellen. Vollständige Beschreibung
-in `AGENTS.md`. Hier die Kurzreferenz:
+in `docs/AGENTS.md`. Hier die Kurzreferenz:
 
 ### team-dev (baut Dinge)
 
@@ -110,7 +110,7 @@ Messfunktion liegt bei Richard Feynman (team-dev) als externer Auditor. Gewalten
 ### team-sales (verkauft Dinge)
 
 Peter Drucker, Jack Welch, Jürgen Habermas, Noam Chomsky, Nelson Mandela.
-Details in `AGENTS.md`.
+Details in `docs/AGENTS.md`.
 
 ### Opus elevation
 
@@ -129,7 +129,7 @@ Coder   = bis zu 5 pro Engineer (Haiku). Nicht mehr.
 Start   = Bare Minimum. Erst skalieren wenn Feynman Engpass misst.
 ```
 
-Vollständige Skalierungsregeln in `AGENTS.md`.
+Vollständige Skalierungsregeln in `docs/AGENTS.md`.
 
 ## Padawan System
 

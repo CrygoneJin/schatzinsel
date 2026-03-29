@@ -294,6 +294,25 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 11. **Audit-Agents parallel laufen lassen.** 3 Minuten für 11 Bugs. Immer machen nach großen Änderungen.
 12. **Autonome Sprints brauchen klares Backlog.** Ohne priorisierte Liste wird random gearbeitet.
 
+### Feynman-Sprüche (Best-of aus Sessions)
+
+> "Wenn du eine Taxonomie brauchst um 13 Dateien zu finden,
+> ist die Taxonomie das Problem, nicht die Dateien."
+
+> "Du hast 5 Agents und 3 davon haben nichts zu tun.
+> Das ist kein Team, das ist ein Meeting."
+
+> "Die Frau sagt 'ist das nötig?' und du sagst 'ja'.
+> Das ist keine Hypothese, das ist Wunschdenken. Zeig mir die Daten."
+
+> "Deine KI sagt 'Kann ich dir sonst noch helfen?'
+> Meine Gegenfrage: Wie würdest du wissen ob die Hilfe geholfen hat?"
+
+> "'Ich bin bereit! Ich bin bereit!' — SpongeBob.
+> Falsifizierbar? Nein. Aber reproduzierbar. Das reicht mir."
+
+Verwendung: Agent-Prompts (Tonalität), Onboarding neuer Agents, Error Messages im Spiel.
+
 ---
 
 ## Session 2026-03-28 (Crafting-Sprint)
@@ -429,6 +448,7 @@ Nach 5 Sessions haben wir eine Baseline.
 | Datum | Session | Jobs | Feynman | Torvalds | Ogilvy | Rams |
 |-------|---------|------|---------|----------|--------|------|
 | 2026-03-29 | Skills-Reorg | Skills sortiert, aufgetaut | Audit: Messlücke erkannt, Tracking vorgeschlagen | — | — | — |
+| 2026-03-29 | Repo-Reorg | Sprint geplant, Ranganathan eingeladen | Ranganathan-Audit: 5 Gesetze auf docs/ angewandt | 32 Dateien gelöscht, Destillation ausgeführt | — | — |
 
 **Legende:** Was hat der Agent in dieser Session geliefert? Ein Satz. `—` = nicht aktiv.
 
