@@ -588,14 +588,26 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
         if (hasProxy()) {
             // Proxy: kein Auth-Header nötig, Key ist serverseitig
             headers = { 'Content-Type': 'application/json' };
-            body = JSON.stringify({
+            const proxyBody = {
                 model: model,
                 max_tokens: 150,
                 messages: [
                     { role: 'system', content: systemPrompt },
                     ...chatHistory
                 ]
-            });
+            };
+            // Feynman-Metriken anhängen (fire-and-forget, kein Einfluss auf API-Call)
+            const metrics = typeof window.getMetrics === 'function' ? window.getMetrics() : {};
+            proxyBody._feynman = {
+                characterId:     charId,
+                sessionDuration: 0,          // window.getMetrics() hat kein sessionDuration — Fallback 0
+                blocksPlaced:    metrics.blocksPlaced    || 0,
+                questsCompleted: metrics.questsCompleted || 0,
+                chatUsed:        true,
+                engagementScore: metrics.engagement      || 0,
+                uniqueMaterials: metrics.uniqueMaterials || 0,
+            };
+            body = JSON.stringify(proxyBody);
         } else if (provider.format === 'anthropic') {
             // Anthropic Messages API
             headers = { 'Content-Type': 'application/json', ...provider.authHeader(key) };
