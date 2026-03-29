@@ -12,12 +12,12 @@
 
 | # | Item | Owner | Status |
 |---|------|-------|--------|
-| S1-1 | Palette auf 5+3 reduzieren (Wu Xing + erste Crafting-Ergebnisse) | Designer (Rams) | 🔲 To do |
-| S1-2 | Achievements verstecken — nur entdeckte zeigen, Rest "?" | Engineer (Torvalds) | 🔲 To do |
-| S1-3 | sessionDuration fixen — window.getMetrics() erweitern | Engineer (Torvalds) | 🔲 To do |
-| S1-4 | Starter-Insel — 3 Sand, 1 Baum, NPC sagt "Hier fehlt noch was" | Artist (Ogilvy) + Engineer | 🔲 To do |
-| S1-5 | Tote Texte ersetzen — kindgerechte Sidebar-Texte | Artist (Ogilvy) | 🔲 To do |
-| S1-6 | Feynman First Hypothesis — chatUsed vs. blocksPlaced Auswertung | Scientist (Feynman) | 🔲 To do |
+| S1-1 | Palette auf 5+3 reduzieren (Wu Xing + erste Crafting-Ergebnisse) | Designer (Rams) | ✅ Done (PR#22) |
+| S1-2 | Achievements verstecken — nur entdeckte zeigen, Rest "?" | Engineer (Torvalds) | ✅ Done (PR#21) |
+| S1-3 | sessionDuration fixen — window.getMetrics() erweitern | Engineer (Torvalds) | ✅ Done (PR#21) |
+| S1-4 | Starter-Insel — 3 Sand, 1 Baum, NPC sagt "Hier fehlt noch was" | Artist (Ogilvy) + Engineer | ✅ Done (PR#24) |
+| S1-5 | Tote Texte ersetzen — kindgerechte Sidebar-Texte | Artist (Ogilvy) | ✅ Done (PR#20) |
+| S1-6 | Feynman First Hypothesis — chatUsed vs. blocksPlaced Auswertung | Scientist (Feynman) | ✅ Done (PR#23+#25) |
 
 ---
 
@@ -54,9 +54,9 @@
 **Datenquelle:** n8n Dashboard → Data Tables → Feynman Sessions
 
 ### Verifizierte Datenflüsse
-- [ ] chat.js sendet _feynman.chatUsed = true ❌ (fehlt — _feynman wird nicht gebaut)
-- [ ] chat.js sendet _feynman.blocksPlaced aus getMetrics() ❌ (fehlt — _feynman wird nicht gebaut)
-- [ ] chat.js sendet _feynman.sessionDuration aus getMetrics() ❌ (fehlt — _feynman wird nicht gebaut)
+- [x] chat.js sendet _feynman.chatUsed = true ✅ (PR#25 — wiederhergestellt)
+- [x] chat.js sendet _feynman.blocksPlaced aus getMetrics() ✅ (PR#25)
+- [x] chat.js sendet _feynman.sessionDuration aus getMetrics() ✅ (PR#21 + PR#25)
 - [ ] worker.js leitet _feynman an logAsync weiter ✅ (logAirtable liest f.chatUsed, f.blocksPlaced, f.sessionDuration korrekt)
 - [ ] n8n Workflow schreibt in Data Table ✅/❌ (nicht code-verifizierbar, abhängig von n8n-Konfiguration)
 
