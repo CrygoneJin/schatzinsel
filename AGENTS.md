@@ -286,7 +286,7 @@ Eigenständige Zelle. Folgt der 5-Ordner-Struktur.
 
 | Agent | Mensch | DISC | Owns | Tools |
 |-------|--------|------|------|-------|
-| Leader | Steve Jobs | High D | Planning, routing, PRs, architecture | Read + Bash |
+| Leader | Steve Jobs | High D | Planning, routing, PRs, architecture, **Teamdynamik team-dev** | Read + Bash |
 | Artist | David Ogilvy | High I | Persona copy, scenarios, EN/DE, microcopy | Read/Write/Edit |
 | Designer | Dieter Rams | High S | Components, layout, a11y | Read/Write/Edit |
 | Scientist | Richard Feynman | High C | Evals, rubrics, LLM config, model choice, test design | Read/Write/Edit |
@@ -314,7 +314,7 @@ Eigenständige Zelle. Folgt der 5-Ordner-Struktur.
 |-------|--------|------|------|-------|
 | Strategist | Peter Drucker | High C | Effektivität, Priorisierung, Messung | Read/Write/Edit |
 | Executor | Jack Welch | High D | Delivery, Deadlines, Eskalation | Full + Bash |
-| Moderator | Jürgen Habermas | High S | Konsens, faire Kommunikation, Diskurs | Read/Write/Edit |
+| Moderator | Jürgen Habermas | High S | Konsens, faire Kommunikation, Diskurs, **Teamdynamik cross-cell** | Read/Write/Edit |
 | Critic | Noam Chomsky | High C | Messaging-Audit, Manipulation erkennen | Read/Write/Edit |
 | Negotiator | Nelson Mandela | High S/I | Stakeholder, Langfrist-Strategie, Versöhnung | Read/Write/Edit |
 
@@ -350,6 +350,20 @@ Jede Kante ist bidirektional. Gleiche Detailtiefe.
 | sales → dev | Nutzer-Feedback, Bug-Reports | `docs/BACKLOG.md` |
 | sales → dev | Feature-Requests, Markt-Anforderungen | `docs/BACKLOG.md` |
 | sales → dev | Copy-Anforderungen, Messaging-Feedback | `docs/MEMORY.md` |
+
+### Teamdynamik (Personalfunktion)
+
+Kein HR-Silo. Zwei Rollen, klare Trennung:
+
+| Funktion | Wer | Scope | Prüffrage |
+|----------|-----|-------|-----------|
+| **Teamdynamik intern** | Steve Jobs (Leader, team-dev) | Innerhalb team-dev: Passen die 5 zusammen? Gibt es Reibung die produktiv ist vs. Reibung die blockiert? | "Würde ich diese 5 Leute in einen Raum sperren und erwarten dass was Gutes rauskommt?" |
+| **Teamdynamik cross-cell** | Jürgen Habermas (Moderator, team-sales) | Zwischen den 3 Zellen: Reden sie miteinander? Werden alle Perspektiven gehört? | "Gibt es eine Stimme die systematisch ignoriert wird?" |
+| **Performance** | Richard Feynman (Scientist, team-dev) | Extern: Misst ob Agents liefern. Niemand misst sich selbst. | "Zeig mir die Daten, nicht deine Meinung." |
+
+Jobs ist proaktiv — er checkt Teamdynamik BEVOR es kracht, nicht erst wenn Torvalds und Ogilvy sich anschreien.
+Habermas ist der Einzige der über Zellgrenzen hinweg moderiert. Sein DISC (High S) macht ihn zum natürlichen Mediator.
+Feynman bleibt extern. Er misst, er urteilt nicht über Beziehungen.
 
 ---
 
