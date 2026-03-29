@@ -322,6 +322,30 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
 ---
 
+## Session 2026-03-29 (Nacht-Fix / Morgen-Verifikation)
+
+### Fehler
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-03-29 | `bubble` Event-Listener in chat.js überlebt das HTML-Entfernen | Wenn ein DOM-Element aus HTML entfernt wird: alle JS-Referenzen UND alle Event-Listener auf das Element suchen und entfernen. Grep auf den ID-String reicht nicht — auch auf die Variable suchen. |
+| 2026-03-29 | Playwright-Browser cached kompilierte Scripts | fetch() mit `cache: 'no-store'` zeigt was live ist. Browser-Memory-Cache täuscht — für Verifikation immer direkt fetchen statt aus dem DOM lesen. |
+
+### Erfolge
+| Datum | Was |
+|-------|-----|
+| 2026-03-29 | Game-First Chat Discovery: Block bauen, Block antippen → Chat öffnet sich (NPC abhängig vom Material) |
+| 2026-03-29 | BYOK Settings: nur sichtbar wenn `body.code-view-active` — verifiziert per Playwright |
+| 2026-03-29 | Save/Load entfernt: jede Session startet frisch — Inventar aus localStorage, Grid ephemerisch |
+| 2026-03-29 | Postcard magisch: Narnia-Ton, Pergament-Banner, 7 zufällige Entdecker-Zeilen |
+| 2026-03-29 | Alle Tests grün: NPC-Chat öffnet (chatVisible: true), Settings toggle (beforeCodeView: false → afterCodeView: true) |
+
+### Learnings
+- **DOM-Entfernung ist nicht vollständig ohne JS-Cleanup**: `bubble` im HTML weg, aber 4 Zeilen JS (addEventListener) übrig → Crash. Immer komplett: HTML raus, Variable raus, alle Event-Listener raus.
+- **`fetch(..., { cache: 'no-store' })` als Verifikationswerkzeug**: Playwright cached Scripts in Memory. Direkt fetchen zeigt ob GitHub Pages den neuen Stand hat.
+- **Ephemerische Sessions als Feature**: "Die Insel verschwindet wenn du wegschaust" — kein Speichern ist keine Regression, es ist ein Designprinzip. Inventar und Achievements bleiben (localStorage), Grid nicht.
+
+---
+
 ## Offene Fragen
 
 - [ ] Wie misst man ob die 80/20-Ratio der Padawans stimmt?
