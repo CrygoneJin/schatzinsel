@@ -38,7 +38,7 @@
     const MATERIALS = {
         // === DIE 5 ELEMENTE (五行 Wu Xing) ===
         metal:    { emoji: '⚙️', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
-        wood:     { emoji: '🪵', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F' },
+        wood:     { emoji: '🌱', label: 'Holz',     color: '#8B5E3C', border: '#6B3F1F' },
         fire:     { emoji: '🔥', label: 'Feuer',    color: '#E67E22', border: '#D35400' },
         water:    { emoji: '🌊', label: 'Wasser',   color: '#3498DB', border: '#2980B9' },
         earth:    { emoji: '🟫', label: 'Erde',     color: '#8B6914', border: '#6B4F0A' },
