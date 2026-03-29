@@ -679,13 +679,13 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
                 { pattern: /hallo|hi|hey/, reply: ['Hallo! Bist du bereit zu BAUEN?! 😄', 'Hi! Lass uns etwas TOLLES machen!'] },
                 { pattern: /wasser|meer|ozean/, reply: ['Das Wasser ist mein Zuhause! 🌊', 'Ich liebe das Meer so sehr!'] },
                 { pattern: /essen|burger|krabbenburger/, reply: ['Die beste Krabbenburger überhaupt! 🍔', 'Mmm, Krabbenburger... träum...'] },
-                { pattern: //./, reply: ['Das klingt toll! 😄', 'Ich bin so glücklich! 🧽', 'Lass uns bauen!'] }
+                { pattern: /.+/, reply: ['Das klingt toll! 😄', 'Ich bin so glücklich! 🧽', 'Lass uns bauen!'] }
             ],
             krabs: [
                 { pattern: /hallo|hi|hey/, reply: ['Ahoy! Geschäft?', 'Willkommen! Kostet dich nix. Dieses Mal.'] },
                 { pattern: /geld|geld|taler|reich/, reply: ['Geld! Das beste Wort der Welt! 💰', 'Mit Geld kann ich alles haben!'] },
                 { pattern: /boot|schiff|hafen/, reply: ['Boote! Jedes Boot bringt mir Gewinn! 💰', 'Ein Boot = ein Taler! Baue mir welche!'] },
-                { pattern: //./, reply: ['Und was bringt mir das ein?', 'Ist das profitabel?', 'Ar ar ar ar!'] }
+                { pattern: /.+/, reply: ['Und was bringt mir das ein?', 'Ist das profitabel?', 'Ar ar ar ar!'] }
             ],
             neinhorn: [
                 { pattern: /.*/, reply: ['Nein! Aber... okay, vielleicht. 🦄', 'Nein! Warte... vielleicht doch ja?', 'Nein nein nein... gut. Lass machen.'] }
@@ -693,14 +693,14 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
             elefant: [
                 { pattern: /musik|lied|singen/, reply: ['Musik macht das Leben lebendig! 🎵', 'Töröööö! Ein schönes Lied! 🐘'] },
                 { pattern: /hallo|hi/, reply: ['Guten Tag! Schön dich zu treffen.', 'Hallo zusammen! 🐘'] },
-                { pattern: //./, reply: ['Bedacht gesprochen... interessant.', 'Hmm, lässt mich überlegen...', 'Töröö! Das gefällt mir!'] }
+                { pattern: /.+/, reply: ['Bedacht gesprochen... interessant.', 'Hmm, lässt mich überlegen...', 'Töröö! Das gefällt mir!'] }
             ],
             tommy: [
                 { pattern: /.*/, reply: ['Klick-klack! JA! 🦞', 'Das ist — klick-klack! — die BESTE Idee!', 'Schnell, schnell, klick-klack!'] }
             ],
             maus: [
                 { pattern: /hallo|hi/, reply: ['*pieps* Hallo! 🐭', 'Hiii! *quietsch*'] },
-                { pattern: //./, reply: ['*pieps pieps*', 'Ente sagt ja! 🦆', '*süßes Quietschen*'] }
+                { pattern: /.+/, reply: ['*pieps pieps*', 'Ente sagt ja! 🦆', '*süßes Quietschen*'] }
             ],
             bernd: [
                 { pattern: /.*/, reply: ['Mhm... und was willst du von mir?', 'Gib mir einen Kaffee und ich überleg es.', 'Okay, aber schnell. Ich hab noch was zu backen.'] }
