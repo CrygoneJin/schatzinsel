@@ -1000,7 +1000,7 @@
             showToast(`⚒️ ${result.emoji} 1x ${result.name} hergestellt!`);
         }
 
-        trackEvent('llm_craft', { name: result.name, fromCache: result.fromCache });
+        trackEvent('llm-craft', { name: result.name, fromCache: result.fromCache });
         updateCraftingDisplay();
         return matId;
     }
@@ -1072,7 +1072,7 @@
             craftingGrid = Array(9).fill(null);
             applyLlmCraft(result);
         } catch (err) {
-            showToast('❌ Verbindungsfehler: ' + err.message);
+            showToast('🤔 Kein Rezept gefunden!');
         } finally {
             if (craftBtn) craftBtn.disabled = false;
         }
