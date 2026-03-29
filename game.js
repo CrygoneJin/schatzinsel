@@ -2171,6 +2171,24 @@
         btn.addEventListener('click', () => {
             selectMaterial(btn.dataset.material);
         });
+
+        // Palette als Drop-Target: Inventar-Item auf Palette-Element droppen = Craft
+        btn.addEventListener('dragover', e => {
+            e.preventDefault();
+            btn.classList.add('drop-target-palette');
+        });
+        btn.addEventListener('dragleave', () => {
+            btn.classList.remove('drop-target-palette');
+        });
+        btn.addEventListener('drop', async e => {
+            e.preventDefault();
+            btn.classList.remove('drop-target-palette');
+            const a = e.dataTransfer.getData('text/plain');
+            const b = btn.dataset.material;
+            if (a && b && a !== b) {
+                await quickCraft(a, b);
+            }
+        });
     });
 
     // Beim Start die Leiste füllen

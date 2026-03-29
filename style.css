@@ -1250,7 +1250,8 @@ body.code-view-active #chat-settings-btn {
 }
 
 .inv-item.drop-target,
-.inv-item.tap-selected {
+.inv-item.tap-selected,
+.material-btn.drop-target-palette {
     box-shadow: 0 0 0 3px #F1C40F, 0 0 12px rgba(241, 196, 15, 0.5);
     transform: scale(1.1);
 }
