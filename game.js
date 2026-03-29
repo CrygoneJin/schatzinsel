@@ -36,12 +36,12 @@
 
     // --- Materialien (aus materials.js, Fallback inline) ---
     const MATERIALS = window.INSEL_MATERIALS || {
-        // === DIE 5 ELEMENTE (五行 Wu Xing) ===
+        // === DIE 5 ELEMENTE (五行 Wu Xing) — sortiert nach Tonhöhe (宫商角徵羽) ===
+        earth:    { emoji: '🟨', label: 'Erde',     color: '#F5C800', border: '#C8A300' },
         metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
         wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },
         fire:     { emoji: '🟥', label: 'Feuer',    color: '#D32F2F', border: '#B71C1C' },
         water:    { emoji: '⬛', label: 'Wasser',   color: '#1A1A2E', border: '#0D0D1A' },
-        earth:    { emoji: '🟨', label: 'Erde',     color: '#F5C800', border: '#C8A300' },
         // === ABGELEITETE MATERIALIEN ===
         stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
         glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
@@ -1308,11 +1308,11 @@
 
     // --- Zustand ---
     let grid = [];
-    let currentMaterial = 'metal';
+    let currentMaterial = 'earth';
     let currentTool = 'build';
 
     // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
-    const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
+    const BASE_MATERIALS = ['earth', 'metal', 'wood', 'fire', 'water'];
 
     // Starter-Set: 5 Wu-Xing + erste 3 Crafting-Ergebnisse — von Anfang an sichtbar
     const STARTER_MATERIALS = [...BASE_MATERIALS, 'stone', 'sand', 'glass'];
