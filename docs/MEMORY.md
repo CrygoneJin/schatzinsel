@@ -354,6 +354,38 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
 ---
 
+## Session 2026-03-29 (Feynman-Daten + Branch-Protection)
+
+### Erfolge
+| Datum | Was |
+|-------|-----|
+| 2026-03-29 | Pinecone aus worker.js entfernt — Schuhknecht hatte recht: keine Hypothese, kein Vektorraum |
+| 2026-03-29 | `_feynman`-Payload: chat.js sendet Metriken (characterId, sessionDuration, blocksPlaced, questsCompleted, chatUsed, engagementScore, uniqueMaterials) bei jedem NPC-Chat |
+| 2026-03-29 | n8n Workflow erweitert: Webhook → parallel Langdock + Feynman Log (n8n Data Table) |
+| 2026-03-29 | n8n Data Table "Feynman Sessions" angelegt — kein Airtable-Account nötig |
+| 2026-03-29 | Branch-Protection auf main: force-push verboten, PR Pflicht, 0 Reviews nötig (kein Deadlock) |
+| 2026-03-29 | config.js zeigte: Client spricht schon direkt mit n8n-Webhook — kein Cloudflare Worker nötig |
+
+### Fehler
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-03-29 | `n8n-nodes-base.n8nDataStore` existiert nicht — falscher Node-Typ | Immer `search_nodes` MCP-Tool nutzen bevor Node-Typ hardcoden |
+| 2026-03-29 | `gh api --field` mit JSON-Objekt schlägt fehl | JSON-Body immer via `--input -` als stdin übergeben, nie als --field |
+
+### Learnings
+- **Kein MCP für Airtable vorhanden** — n8n Data Tables sind der bessere Weg: kein externer Account, direkt im Dashboard sichtbar
+- **Cloudflare Worker umbenennen**: Dashboard → Worker → Settings → Rename. NICHT `wrangler deploy --name` — das erstellt einen zweiten Worker
+- **Branch-Protection per API**: `required_approving_review_count: 0` = PR Pflicht ohne Reviewer-Deadlock. Der sweet spot für Solo-Entwickler
+- **Feynman-Prinzip bestätigt**: Pinecone war Cargo Cult. Keine Hypothese → kein Tool. Airtable/n8n reicht für 7 KPIs
+- **`window.getMetrics()` hat kein sessionDuration** — das liegt in `getFeynmanStats()`. Für nächste Session: beide zusammenführen oder `sessionDuration` in `getMetrics()` ergänzen
+
+### Nächste Session
+- `window.getMetrics()` um `sessionDuration` erweitern (liegt aktuell nur in `getFeynmanStats()`)
+- Ersten echten Test-Chat machen und Feynman Sessions Tabelle in n8n prüfen
+- Cloudflare Worker umbenennen falls gewünscht (Dashboard, nicht CLI)
+
+---
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)
