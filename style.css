@@ -77,6 +77,11 @@
     --btn-bg: #e0f8d0;
 }
 
+/* === ABENTEUER-MODUS === */
+.adventure-hidden {
+    display: none !important;
+}
+
 /* === RESET & BASE === */
 * {
     margin: 0;

@@ -4,26 +4,35 @@
     'use strict';
 
     // --- Konfiguration ---
-    const COLS = 24;
-    const ROWS = 16;
+    // Bau-Modus: 24x16, Abenteuer-Modus: 64x64
+    let gameMode = localStorage.getItem('insel-game-mode') || 'build'; // 'build' | 'adventure'
+    const BUILD_COLS = 24;
+    const BUILD_ROWS = 16;
+    const ADV_COLS = 64;
+    const ADV_ROWS = 64;
+    let COLS = gameMode === 'adventure' ? ADV_COLS : BUILD_COLS;
+    let ROWS = gameMode === 'adventure' ? ADV_ROWS : BUILD_ROWS;
     const WATER_BORDER = 2; // Zellen Wasser um die Insel
 
     // Dynamische Zellgröße basierend auf Bildschirm
+    // Im Abenteuer-Modus: Viewport zeigt einen Ausschnitt, Zellgröße bleibt lesbar
     function calcCellSize() {
         const isMobile = window.innerWidth < 768;
+        if (gameMode === 'adventure') {
+            // Feste Zellgröße, Viewport scrollt
+            if (isMobile) return 24;
+            return Math.max(24, Math.min(40, Math.floor(window.innerHeight / 20)));
+        }
         const totalCols = COLS + WATER_BORDER * 2;
         const totalRows = ROWS + WATER_BORDER * 2;
-
         if (isMobile) {
-            // Canvas soll die volle Breite nutzen, mit etwas Padding
             const availW = window.innerWidth - 16;
-            const availH = window.innerHeight * 0.55; // ~55% der Höhe für Canvas
+            const availH = window.innerHeight * 0.55;
             return Math.max(12, Math.min(
                 Math.floor(availW / totalCols),
                 Math.floor(availH / totalRows)
             ));
         }
-        // Desktop: verfügbare Höhe abzüglich Header+Toolbar (~100px), mit Seitenleisten (~300px)
         const availW = window.innerWidth - 320;
         const availH = window.innerHeight - 110;
         return Math.max(20, Math.min(
@@ -1303,14 +1312,29 @@
     const toast = document.getElementById('toast');
 
     // --- Canvas Größe ---
-    const totalCols = COLS + WATER_BORDER * 2;
-    const totalRows = ROWS + WATER_BORDER * 2;
+    function getTotalCols() { return COLS + WATER_BORDER * 2; }
+    function getTotalRows() { return ROWS + WATER_BORDER * 2; }
+    // Backward compat (wird in draw() etc. genutzt)
+    let totalCols = getTotalCols();
+    let totalRows = getTotalRows();
 
     function resizeCanvas() {
         CELL_SIZE = calcCellSize();
+        totalCols = getTotalCols();
+        totalRows = getTotalRows();
+
+        if (gameMode === 'adventure') {
+            // Viewport: Canvas = Bildschirmgröße, nicht Welt-Größe
+            const isMobile = window.innerWidth < 768;
+            canvas.width = isMobile ? window.innerWidth - 16 : window.innerWidth - 320;
+            canvas.height = isMobile ? window.innerHeight * 0.7 : window.innerHeight - 110;
+            canvas.style.width = canvas.width + 'px';
+            canvas.style.height = canvas.height + 'px';
+            return;
+        }
+
         canvas.width = totalCols * CELL_SIZE;
         canvas.height = totalRows * CELL_SIZE;
-        // CSS-Größe für scharfe Darstellung auf HiDPI/4K
         canvas.style.width = (totalCols * CELL_SIZE) + 'px';
         canvas.style.height = (totalRows * CELL_SIZE) + 'px';
         // Auf Mobilgeräten Canvas in den Container einpassen
@@ -1463,7 +1487,7 @@
         // Code-View Overlay (zeigt Quellcode statt Emojis)
         drawCodeOverlay();
 
-        requestAnimationFrame(draw);
+        if (gameMode !== 'adventure') requestAnimationFrame(draw);
     }
 
     // --- Animationen ---
@@ -2249,6 +2273,24 @@
                 if (abstractionLevel < -1) abstractionLevel = ABSTRACTION_LEVELS.length - 2;
                 window.toggleCodeView();
                 codeViewBtn.classList.toggle('active', codeViewActive);
+            }
+        });
+    }
+
+    // --- Abenteuer-Button ---
+    const adventureBtn = document.getElementById('adventure-btn');
+    if (adventureBtn) {
+        adventureBtn.addEventListener('click', () => {
+            if (gameMode === 'build') {
+                window.switchGameMode('adventure');
+                adventureBtn.classList.add('active');
+                adventureBtn.textContent = '🖌️';
+                adventureBtn.title = 'Zurück zum Bau-Modus';
+            } else {
+                window.switchGameMode('build');
+                adventureBtn.classList.remove('active');
+                adventureBtn.textContent = '🏝️';
+                adventureBtn.title = 'Abenteuer-Modus: Erlebe die Insel als Oskar!';
             }
         });
     }
@@ -3236,6 +3278,390 @@
 
     const origRAF = window.requestAnimationFrame;
 
+    // ============================================================
+    // === ABENTEUER-MODUS: Oskar als Held auf der Insel ===
+    // ============================================================
+
+    // Oskar — der Spieler-Charakter
+    const oskar = {
+        r: 10, c: 10,       // Position auf dem Grid
+        emoji: '🧒',        // Oskars Sprite
+        name: 'Oskar',
+        dir: 'down',         // Blickrichtung
+        moving: false,
+        lastMove: 0,
+    };
+
+    // Kamera — Viewport-Offset (in Zellen)
+    const camera = { r: 0, c: 0 };
+
+    // Viewport: wie viele Zellen passen auf den Bildschirm
+    function getViewport() {
+        const vCols = Math.floor(canvas.width / CELL_SIZE);
+        const vRows = Math.floor(canvas.height / CELL_SIZE);
+        return { vCols, vRows };
+    }
+
+    // Kamera auf Oskar zentrieren
+    function updateCamera() {
+        const { vCols, vRows } = getViewport();
+        const totalC = COLS + WATER_BORDER * 2;
+        const totalR = ROWS + WATER_BORDER * 2;
+        // Oskar in der Mitte, Kamera clamped
+        camera.c = Math.max(0, Math.min(totalC - vCols, (oskar.c + WATER_BORDER) - Math.floor(vCols / 2)));
+        camera.r = Math.max(0, Math.min(totalR - vRows, (oskar.r + WATER_BORDER) - Math.floor(vRows / 2)));
+    }
+
+    // Abenteuer-Welt generieren (64x64 mit Biomen)
+    function generateAdventureWorld() {
+        grid = [];
+        for (let r = 0; r < ROWS; r++) {
+            grid[r] = [];
+            for (let c = 0; c < COLS; c++) {
+                grid[r][c] = null;
+            }
+        }
+
+        // Simplex-artige Landschaft mit Seed
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                const n = Math.sin(r * 0.15 + c * 0.1) * 0.5 +
+                          Math.cos(r * 0.08 - c * 0.12) * 0.3 +
+                          Math.sin((r + c) * 0.05) * 0.2;
+
+                // Ränder = Wasser (kein Material, das Wasser ist der WATER_BORDER)
+                const distEdge = Math.min(r, c, ROWS - 1 - r, COLS - 1 - c);
+                if (distEdge < 3) {
+                    grid[r][c] = n > 0.2 ? 'sand' : null;
+                    continue;
+                }
+
+                // Biome
+                if (n > 0.6) grid[r][c] = 'tree';
+                else if (n > 0.4) grid[r][c] = 'plant';
+                else if (n > 0.2) grid[r][c] = 'flower';
+                else if (n > 0.0) grid[r][c] = null; // Wiese (leer, begehbar)
+                else if (n > -0.2) grid[r][c] = 'sand';
+                else if (n > -0.4) grid[r][c] = 'stone';
+                else grid[r][c] = 'earth';
+
+                // Zufällige Details
+                if (Math.random() < 0.01) grid[r][c] = 'mushroom';
+                if (Math.random() < 0.005) grid[r][c] = 'cactus';
+            }
+        }
+
+        // Oskars Startposition: freie Zelle in der Mitte finden
+        oskar.r = Math.floor(ROWS / 2);
+        oskar.c = Math.floor(COLS / 2);
+        // Platz für Oskar freimachen
+        for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+                const rr = oskar.r + dr;
+                const cc = oskar.c + dc;
+                if (rr >= 0 && rr < ROWS && cc >= 0 && cc < COLS) {
+                    grid[rr][cc] = null;
+                }
+            }
+        }
+
+        window.grid = grid;
+    }
+
+    // Oskar bewegen
+    function moveOskar(dr, dc) {
+        if (gameMode !== 'adventure') return;
+        const now = Date.now();
+        if (now - oskar.lastMove < 120) return; // Bewegungslimit
+        oskar.lastMove = now;
+
+        // Blickrichtung setzen
+        if (dr < 0) oskar.dir = 'up';
+        if (dr > 0) oskar.dir = 'down';
+        if (dc < 0) oskar.dir = 'left';
+        if (dc > 0) oskar.dir = 'right';
+
+        const newR = oskar.r + dr;
+        const newC = oskar.c + dc;
+
+        // Grenzen prüfen
+        if (newR < 0 || newR >= ROWS || newC < 0 || newC >= COLS) return;
+
+        // Kollision: Bäume, Steine, Gebäude blockieren
+        const target = grid[newR][newC];
+        const blocking = ['tree', 'small_tree', 'stone', 'fence', 'door', 'roof', 'fountain', 'bridge'];
+        if (target && blocking.includes(target)) {
+            // Gegen etwas gelaufen — Sound oder Feedback
+            return;
+        }
+
+        oskar.r = newR;
+        oskar.c = newC;
+
+        // Items aufheben (Blumen, Pilze, etc.)
+        const pickable = ['flower', 'mushroom', 'fish', 'flag'];
+        if (target && pickable.includes(target)) {
+            if (addToInventory(target, 1) !== false) {
+                grid[newR][newC] = null;
+                showToast(`${MATERIALS[target]?.emoji || ''} ${MATERIALS[target]?.label || target} eingesammelt!`);
+            }
+        }
+
+        updateCamera();
+
+        // NPC in der Nähe? → Automatisch ansprechen
+        checkNPCProximity();
+    }
+
+    // NPCs im Abenteuer-Modus: feste Positionen auf der Karte
+    const adventureNPCs = [
+        { id: 'elder',    emoji: '🧓', name: 'Der Älteste',     r: 8,  c: 12,
+          lines: ['Willkommen auf der Insel, Oskar!', 'Hier gibt es viele Geheimnisse...', 'Schau dich um. Die Insel spricht zu denen die zuhören.'] },
+        { id: 'fox',      emoji: '🦊', name: 'Roter Fuchs',     r: 20, c: 30,
+          lines: ['*schnüffelt* Du riechst nach Abenteuer!', 'Im Wald verstecken sich Dinge die man nur findet wenn man nicht sucht.', 'Folge den Pilzen. Aber nicht allen.'] },
+        { id: 'crab',     emoji: '🦀', name: 'Krabbe Karl',     r: 5,  c: 50,
+          lines: ['Am Strand findest du Schätze!', 'Das Meer bringt jeden Tag etwas Neues.', 'Pass auf die Wellen auf — sie nehmen auch Dinge mit.'] },
+        { id: 'owl',      emoji: '🦉', name: 'Eule Elma',       r: 40, c: 15,
+          lines: ['Wer nachts wach ist sieht mehr als andere.', 'Ich beobachte alles. ALLES.', 'Die Sterne erzählen Geschichten. Hör hin.'] },
+        { id: 'cat',      emoji: '🐱', name: 'Katze Mimi',      r: 30, c: 45,
+          lines: ['*gähnt* Ich war gerade so schön am Schlafen...', 'Bau mir ein Haus und ich verrate dir ein Geheimnis.', 'In der Höhle im Osten war ich noch nie. Zu dunkel.'] },
+        { id: 'turtle',   emoji: '🐢', name: 'Schildkröte Opa', r: 55, c: 55,
+          lines: ['Langsam, langsam. Die besten Sachen brauchen Zeit.', 'Ich bin seit 100 Jahren auf dieser Insel.', 'Früher war hier alles Wasser. Dann kam das Land. Dann kamst du.'] },
+    ];
+
+    // Prüfe ob ein NPC neben Oskar steht
+    function checkNPCProximity() {
+        for (const npc of adventureNPCs) {
+            const dist = Math.abs(npc.r - oskar.r) + Math.abs(npc.c - oskar.c);
+            if (dist <= 2) {
+                // Zufällige Zeile
+                const line = npc.lines[Math.floor(Math.random() * npc.lines.length)];
+                showToast(`${npc.emoji} ${npc.name}: "${line}"`);
+                trackEvent('adventure_npc_talk', { npc: npc.id });
+                return;
+            }
+        }
+    }
+
+    // Adventure-Modus zeichnen (überschreibt den normalen draw für den Viewport)
+    function drawAdventure() {
+        if (gameMode !== 'adventure') return;
+
+        updateCamera();
+        const { vCols, vRows } = getViewport();
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Wasser-Hintergrund
+        ctx.fillStyle = '#2980B9';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const time = Date.now() / 1000;
+
+        // Nur sichtbare Zellen zeichnen (Viewport)
+        for (let vr = 0; vr < vRows + 1; vr++) {
+            for (let vc = 0; vc < vCols + 1; vc++) {
+                const worldR = camera.r + vr;
+                const worldC = camera.c + vc;
+                const screenX = (vc - (camera.c % 1)) * CELL_SIZE;
+                const screenY = (vr - (camera.r % 1)) * CELL_SIZE;
+
+                const isIsland = worldR >= WATER_BORDER && worldR < WATER_BORDER + ROWS &&
+                                 worldC >= WATER_BORDER && worldC < WATER_BORDER + COLS;
+
+                if (!isIsland) {
+                    // Wasser-Animation
+                    const wave = Math.sin(time * 2 + worldR * 0.5 + worldC * 0.3) * 10;
+                    const blue = 52 + wave;
+                    ctx.fillStyle = `rgb(${blue}, ${blue + 100}, ${blue + 167})`;
+                    ctx.fillRect(screenX, screenY, CELL_SIZE, CELL_SIZE);
+                    continue;
+                }
+
+                const gridR = worldR - WATER_BORDER;
+                const gridC = worldC - WATER_BORDER;
+
+                // Sand-Grund
+                ctx.fillStyle = '#F5DEB3';
+                ctx.fillRect(screenX, screenY, CELL_SIZE, CELL_SIZE);
+
+                // Material
+                if (gridR >= 0 && gridR < ROWS && gridC >= 0 && gridC < COLS && grid[gridR]?.[gridC]) {
+                    const mat = MATERIALS[grid[gridR][gridC]];
+                    if (mat) {
+                        ctx.fillStyle = mat.color;
+                        ctx.fillRect(screenX + 1, screenY + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+                        ctx.font = `${CELL_SIZE * 0.6}px serif`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(mat.emoji, screenX + CELL_SIZE / 2, screenY + CELL_SIZE / 2 + 1);
+                    }
+                }
+            }
+        }
+
+        // NPCs zeichnen
+        for (const npc of adventureNPCs) {
+            const screenX = (npc.c + WATER_BORDER - camera.c) * CELL_SIZE;
+            const screenY = (npc.r + WATER_BORDER - camera.r) * CELL_SIZE;
+            if (screenX < -CELL_SIZE || screenX > canvas.width + CELL_SIZE) continue;
+            if (screenY < -CELL_SIZE || screenY > canvas.height + CELL_SIZE) continue;
+
+            ctx.font = `${CELL_SIZE * 0.7}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(npc.emoji, screenX + CELL_SIZE / 2, screenY + CELL_SIZE / 2);
+
+            // Name (klein)
+            ctx.font = `bold ${Math.max(8, CELL_SIZE * 0.25)}px sans-serif`;
+            ctx.fillStyle = '#FFF';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.strokeText(npc.name, screenX + CELL_SIZE / 2, screenY + CELL_SIZE + 10);
+            ctx.fillText(npc.name, screenX + CELL_SIZE / 2, screenY + CELL_SIZE + 10);
+        }
+
+        // Oskar zeichnen (immer sichtbar, zentriert)
+        const oskarScreenX = (oskar.c + WATER_BORDER - camera.c) * CELL_SIZE;
+        const oskarScreenY = (oskar.r + WATER_BORDER - camera.r) * CELL_SIZE;
+        ctx.font = `${CELL_SIZE * 0.8}px serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(oskar.emoji, oskarScreenX + CELL_SIZE / 2, oskarScreenY + CELL_SIZE / 2);
+
+        // Richtungs-Indikator (kleiner Pfeil)
+        const arrows = { up: '△', down: '▽', left: '◁', right: '▷' };
+        ctx.font = `${CELL_SIZE * 0.3}px sans-serif`;
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText(arrows[oskar.dir] || '', oskarScreenX + CELL_SIZE / 2, oskarScreenY - 4);
+
+        // Minimap (rechts oben)
+        drawMinimap();
+
+        requestAnimationFrame(drawAdventure);
+    }
+
+    // Minimap — zeigt die ganze Insel, Oskar als Punkt
+    function drawMinimap() {
+        const mmW = 120;
+        const mmH = 120;
+        const mmX = canvas.width - mmW - 10;
+        const mmY = 10;
+        const cellW = mmW / COLS;
+        const cellH = mmH / ROWS;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+        ctx.fillRect(mmX - 2, mmY - 2, mmW + 4, mmH + 4);
+
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                const mat = grid[r]?.[c];
+                if (mat && MATERIALS[mat]) {
+                    ctx.fillStyle = MATERIALS[mat].color;
+                } else {
+                    ctx.fillStyle = '#F5DEB3'; // Sand
+                }
+                ctx.fillRect(mmX + c * cellW, mmY + r * cellH, cellW, cellH);
+            }
+        }
+
+        // NPCs als farbige Punkte
+        for (const npc of adventureNPCs) {
+            ctx.fillStyle = '#FF0';
+            ctx.fillRect(mmX + npc.c * cellW - 1, mmY + npc.r * cellH - 1, 3, 3);
+        }
+
+        // Oskar als roter Punkt
+        ctx.fillStyle = '#FF0000';
+        ctx.fillRect(mmX + oskar.c * cellW - 2, mmY + oskar.r * cellH - 2, 4, 4);
+
+        // Viewport-Rahmen
+        const { vCols, vRows } = getViewport();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(
+            mmX + (camera.c - WATER_BORDER) * cellW,
+            mmY + (camera.r - WATER_BORDER) * cellH,
+            vCols * cellW,
+            vRows * cellH
+        );
+    }
+
+    // Tastatursteuerung für Oskar
+    document.addEventListener('keydown', (e) => {
+        if (gameMode !== 'adventure') return;
+        // Nicht abfangen wenn Textfeld fokussiert
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        switch (e.key) {
+            case 'ArrowUp':    case 'w': case 'W': moveOskar(-1, 0); e.preventDefault(); break;
+            case 'ArrowDown':  case 's': case 'S': moveOskar(1, 0);  e.preventDefault(); break;
+            case 'ArrowLeft':  case 'a': case 'A': moveOskar(0, -1); e.preventDefault(); break;
+            case 'ArrowRight': case 'd': case 'D': moveOskar(0, 1);  e.preventDefault(); break;
+            case ' ': case 'e': case 'E': // Interaktion
+                checkNPCProximity();
+                e.preventDefault();
+                break;
+        }
+    });
+
+    // Touch-Steuerung: Swipe-Richtung
+    let touchStartX = 0, touchStartY = 0;
+    canvas.addEventListener('touchstart', (e) => {
+        if (gameMode !== 'adventure') return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    });
+    canvas.addEventListener('touchend', (e) => {
+        if (gameMode !== 'adventure') return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        const absDx = Math.abs(dx);
+        const absDy = Math.abs(dy);
+        if (Math.max(absDx, absDy) < 20) {
+            // Tap = Interaktion
+            checkNPCProximity();
+            return;
+        }
+        if (absDx > absDy) {
+            moveOskar(0, dx > 0 ? 1 : -1);
+        } else {
+            moveOskar(dy > 0 ? 1 : -1, 0);
+        }
+    });
+
+    // Modus wechseln
+    window.switchGameMode = function(mode) {
+        gameMode = mode;
+        localStorage.setItem('insel-game-mode', mode);
+
+        if (mode === 'adventure') {
+            COLS = ADV_COLS;
+            ROWS = ADV_ROWS;
+            CELL_SIZE = calcCellSize();
+            resizeCanvas();
+            generateAdventureWorld();
+            updateCamera();
+            // UI umschalten: Bau-UI ausblenden
+            document.getElementById('palette')?.classList.add('adventure-hidden');
+            document.querySelector('.toolbar')?.classList.add('adventure-hidden');
+            document.getElementById('stats')?.classList.add('adventure-hidden');
+            showToast('🏝️ Abenteuer-Modus! WASD zum Laufen, Leertaste zum Reden.');
+            requestAnimationFrame(drawAdventure);
+        } else {
+            COLS = BUILD_COLS;
+            ROWS = BUILD_ROWS;
+            CELL_SIZE = calcCellSize();
+            resizeCanvas();
+            initGrid();
+            // UI zurück
+            document.getElementById('palette')?.classList.remove('adventure-hidden');
+            document.querySelector('.toolbar')?.classList.remove('adventure-hidden');
+            document.getElementById('stats')?.classList.remove('adventure-hidden');
+            showToast('🖌️ Bau-Modus!');
+        }
+    };
+
     // --- Testdaten: Export + anonymer Ping ---
     // Einfachste Persistenz: Clipboard + optional Google Sheet Webhook
 
@@ -3349,7 +3775,12 @@
         showToast('🔄 Letzte Insel wiederhergestellt');
     }
 
-    draw();
+    // Start: Richtigen Modus initialisieren
+    if (gameMode === 'adventure') {
+        window.switchGameMode('adventure');
+    } else {
+        draw();
+    }
     updateAchievementDisplay();
     updateQuestDisplay();
     updateInventoryDisplay();
