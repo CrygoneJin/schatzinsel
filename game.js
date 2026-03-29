@@ -430,7 +430,7 @@
         const questPanel = document.getElementById('quest-list');
         if (!questPanel) return;
         if (activeQuests.length === 0) {
-            questPanel.innerHTML = '<p class="no-quests">Rede mit den Inselbewohnern für Quests! 💬</p>';
+            questPanel.innerHTML = '<p class="no-quests">Bau was — die Bewohner melden sich! 💬</p>';
             return;
         }
         const stats = getGridStats();
@@ -973,7 +973,7 @@
         if (!container) return;
         const items = Object.entries(inventory).filter(([, count]) => count > 0);
         if (items.length === 0) {
-            container.innerHTML = '<p class="inv-empty">Noch nichts gesammelt!</p>';
+            container.innerHTML = '<p class="inv-empty">Ernte Bäume für Holz! ⛏️</p>';
             return;
         }
         container.innerHTML = items.map(([mat, count]) => {
@@ -1212,6 +1212,9 @@
     // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
     const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
 
+    // Starter-Set: 5 Wu-Xing + erste 3 Crafting-Ergebnisse — von Anfang an sichtbar
+    const STARTER_MATERIALS = [...BASE_MATERIALS, 'stone', 'sand', 'glass'];
+
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
 
@@ -1233,6 +1236,7 @@
         // Button in Palette sichtbar machen oder dynamisch erzeugen
         let btn = document.querySelector(`.material-btn[data-material="${mat}"]`);
         if (btn) {
+            btn.style.display = '';
             btn.classList.remove('craft-locked');
             btn.classList.add('craft-unlocked');
         } else {
@@ -1677,7 +1681,7 @@
         }
 
         if (total === 0) {
-            statsContent.innerHTML = '<p>Noch nichts gebaut!</p><p>Fang einfach an! 🏗️</p>';
+            statsContent.innerHTML = '<p>Deine Insel wartet! 🏝️</p><p>Klick links, bau los!</p>';
             return;
         }
 
@@ -2230,10 +2234,21 @@
     function updateAchievementDisplay() {
         const achList = document.getElementById('achievement-list');
         if (!achList) return;
-        achList.innerHTML = Object.entries(ACHIEVEMENTS).map(([id, ach]) => {
+        achList.innerHTML = '';
+        Object.entries(ACHIEVEMENTS).forEach(([id, ach]) => {
             const unlocked = unlockedAchievements.includes(id);
-            return `<span class="ach-badge ${unlocked ? '' : 'ach-locked'}" title="${ach.title}: ${ach.desc}">${ach.emoji}</span>`;
-        }).join('');
+            const span = document.createElement('span');
+            span.className = 'ach-badge' + (unlocked ? '' : ' ach-locked');
+            if (unlocked) {
+                span.title = ach.title + ': ' + ach.desc;
+                span.textContent = ach.emoji;
+            } else {
+                span.title = '???';
+                span.textContent = '❓';
+                span.style.opacity = '0.4';
+            }
+            achList.appendChild(span);
+        });
     }
 
     // --- Theme-Switcher ---
@@ -2344,6 +2359,7 @@
             questsCompleted: completedQuests.length,
             questsActive: activeQuests.length,
             events: (analytics.events || []).length,
+            sessionDuration: sessionClock.start ? Math.round((Date.now() - sessionClock.start) / 1000) : 0,
             // Engagement-Score (0-100)
             engagement: Math.min(100, Math.round(
                 (stats.total * 0.3) +
