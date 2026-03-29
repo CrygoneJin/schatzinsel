@@ -1,8 +1,6 @@
-# /review — Full Review Board
+# /review — Review Board
 
-Alle Personas am Tisch. Jeder prüft den aktuellen Stand des Spiels aus seiner
-Perspektive. Kein Meeting — ein Review. Ergebnis: eine ehrliche Bestandsaufnahme,
-konkrete Findings, klare Entscheidungen.
+Ehrliche Bestandsaufnahme. Konkrete Findings. Klare Entscheidungen.
 
 ---
 
@@ -33,46 +31,16 @@ Only then start the review. You need the full picture.
 
 ---
 
-## The Board
+## Das Board
 
-15 Personas. 3 Zellen. Jeder spricht EINMAL. Kurz. Kein Gelaber.
+5 aktive Stimmen + Beirat. Jeder spricht EINMAL. Kurz. Kein Gelaber.
 
-### Runde 1: org-support (Strategie)
-
-**Albert Einstein (CEO):**
-> Ist das noch das richtige Spiel für das richtige Kind?
-> Stimmt die Richtung? Was sollten wir NICHT mehr tun?
-> Einfachheit-Check: Was ist unnötig komplex geworden?
-
-**Charles Darwin (CTO):**
-> Welcher Code überlebt, welcher stirbt?
-> Technische Schulden die jetzt bezahlt werden müssen vs. die warten können?
-> Architektur-Fitness: Passt die Struktur noch zur Richtung?
-
-**Max Weber (COO):**
-> Liefern wir? Was blockiert Delivery?
-> Prozess-Overhead vs. Nutzen — sind wir noch schlank?
-> Doku-Stand: Was fehlt, was ist veraltet?
-
----
-
-### Runde 2: team-dev (Handwerk)
+### Runde 1: team-dev Kern (die Macher)
 
 **Steve Jobs (Leader):**
 > Was würde Schnipsel dazu sagen? Und Oscar?
 > Feature-Inventur: Was ist da, was fehlt, was muss weg?
 > Priorität: Was ist das EINE Ding das wir als nächstes bauen sollten?
-
-**David Ogilvy (Artist):**
-> Spricht das Spiel die Sprache eines 8-Jährigen?
-> Wo ist die Copy peinlich, langweilig, oder unverständlich?
-> Ton-Check: Klingt es nach Abenteuer oder nach Software?
-
-**Dieter Rams (Designer):**
-> Ist es einfach zu bedienen? Für ALLE drei Geräte?
-> Was kann weg ohne dass jemand es vermisst?
-> Visueller Zustand: Was sieht gut aus, was ist Flickwerk?
-> "Weniger, aber besser" — Wo verstoßen wir dagegen?
 
 **Richard Feynman (Scientist):**
 > Welche Annahmen haben wir nicht getestet?
@@ -88,36 +56,19 @@ Only then start the review. You need the full picture.
 
 ---
 
-### Runde 3: team-sales (Außenperspektive)
+### Runde 2: team-dev auf Abruf (wenn relevant)
 
-**Peter Drucker (Strategist):**
-> Ist das ein Produkt oder ein Hobby-Projekt? Beides ist ok — aber wissen wir es?
-> Wer außer der Familie würde das spielen? Sollte uns das interessieren?
+Nur wenn das Review ihren Bereich betrifft. Schweigen ist erlaubt.
 
-**Jack Welch (Executor):**
-> Was wird seit 3+ Sessions nicht geliefert? Warum?
-> Blocker-Liste: Was steht im Weg und wer räumt es weg?
+**David Ogilvy (Artist):** Spricht das Spiel die Sprache eines 8-Jährigen? Klingt es nach Abenteuer oder Software?
 
-**Jürgen Habermas (Moderator):**
-> Stimmt die Kommunikation zwischen den Agenten?
-> Gibt es unausgesprochene Konflikte (z.B. Bau-Modus vs. Abenteuer-Modus)?
-> Werden alle Perspektiven gehört — auch die des Kindes?
-
-**Noam Chomsky (Critic):**
-> Wo manipulieren wir den User (auch unbeabsichtigt)?
-> Dark Patterns, Sucht-Mechaniken, unfaire Belohnungssysteme?
-> Ist das Spiel ehrlich zu einem 8-Jährigen?
-
-**Nelson Mandela (Negotiator):**
-> Wo gibt es Spannungen die gelöst werden müssen?
-> Langfrist-Perspektive: Wird Oscar das in 6 Monaten noch spielen?
-> Familien-Check: Macht das Spiel die Familie glücklicher oder gestresster?
+**Dieter Rams (Designer):** Was kann weg? Ist es einfach zu bedienen? "Weniger, aber besser" — wo verstoßen wir?
 
 ---
 
-### Runde 4: Beirat (nur wenn relevant)
+### Runde 3: Beirat (Prüffragen)
 
-Nur wenn einer der fünf Beiräte etwas zu sagen hat. Schweigen ist erlaubt.
+Jeder Beirat spricht nur wenn er etwas zu sagen hat.
 
 **Seth Godin:** Ist irgendwas hier bemerkenswert? Würde jemand es vermissen wenn es weg wäre?
 
@@ -132,6 +83,22 @@ Nur wenn einer der fünf Beiräte etwas zu sagen hat. Schweigen ist erlaubt.
 **Michael Büker:** Staunt das Kind? Stimmt der Satz trotzdem? Ist die Vereinfachung Wahrheit oder Lüge?
 
 **Jens Schröder:** Würde das einen Code-Review überleben? Ist "pragmatisch" eine Ausrede oder eine Entscheidung?
+
+---
+
+### ❄️ Eingefrorene Stimmen (nur auf expliziten Abruf)
+
+Diese Personas sind eingefroren (Darwin-Reorg 2026-03-29). Sie sprechen NUR
+wenn du sie explizit auftaust (`/review` mit ihrem Namen, z.B. `/review darwin`).
+
+- **Albert Einstein (CEO):** Ist das die richtige Frage?
+- **Charles Darwin (CTO):** Was überlebt, was stirbt?
+- **Max Weber (COO):** Liefern wir?
+- **Peter Drucker:** Produkt oder Hobby?
+- **Jack Welch:** Was blockiert?
+- **Jürgen Habermas:** Werden alle gehört?
+- **Noam Chomsky:** Ist das Spiel ehrlich?
+- **Nelson Mandela:** Macht es die Familie glücklicher?
 
 ---
 

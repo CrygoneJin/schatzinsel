@@ -110,4 +110,4 @@
 
 ## Priorisierungs-Regel
 
-**Einstein entscheidet.** Bei Gleichstand: Mandela-Bedingung gewinnt (Zugänglichkeit vor Features). Feynman misst ob es sich gelohnt hat.
+**Jobs entscheidet.** (Einstein eingefroren seit 2026-03-29.) Bei Gleichstand: Zugänglichkeit vor Features. Feynman misst ob es sich gelohnt hat.
