@@ -986,73 +986,94 @@
     // ============================================================
     // === CRAFTING === 3x3 Werkbank
     // ============================================================
+    // === GENERATIONEN-SYSTEM ===
+    // Gen 1: Die 5 Elemente (gegeben)
+    // Gen N: Braucht mindestens N Slots in der Werkbank
+    // Generation = max(Zutaten-Generationen) + 1
+    const _genCache = {};
+    function getMaterialGeneration(matId) {
+        if (_genCache[matId] !== undefined) return _genCache[matId];
+        if (BASE_MATERIALS.includes(matId)) { _genCache[matId] = 1; return 1; }
+        const recipe = CRAFTING_RECIPES.find(r => r.result === matId);
+        if (!recipe) { _genCache[matId] = 1; return 1; }
+        let maxGen = 0;
+        for (const ing of Object.keys(recipe.ingredients)) {
+            maxGen = Math.max(maxGen, getMaterialGeneration(ing));
+        }
+        _genCache[matId] = maxGen + 1;
+        return maxGen + 1;
+    }
+
     const CRAFTING_RECIPES = window.INSEL_CRAFTING_RECIPES || [
-        // Stufe 1: Aus den 5 Elementen (五行)
-        { name: 'Stein',    result: 'stone',      resultCount: 2, ingredients: { earth: 2, fire: 1 },  desc: '2 Erde + Feuer = 2 Stein' },
-        { name: 'Sand',     result: 'sand',       resultCount: 2, ingredients: { earth: 1, water: 1 }, desc: 'Erde + Wasser = 2 Sand' },
-        { name: 'Bretter',  result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
-        { name: 'Setzling', result: 'sapling',    resultCount: 1, ingredients: { wood: 1, water: 1 },  desc: 'Holz + Wasser = Setzling' },
-        { name: 'Pflanze',  result: 'plant',      resultCount: 2, ingredients: { earth: 1, wood: 1 },  desc: 'Erde + Holz = 2 Pflanzen' },
-        { name: 'Blume',    result: 'flower',     resultCount: 2, ingredients: { plant: 1, fire: 1 },  desc: 'Pflanze + Feuer = 2 Blumen' },
-        { name: 'Pilz',     result: 'mushroom',   resultCount: 2, ingredients: { earth: 1, water: 1, wood: 1 }, desc: 'Erde + Wasser + Holz = 2 Pilze' },
-        // Stufe 2: Aus Stufe-1-Artefakten
-        { name: 'Glas',     result: 'glass',      resultCount: 1, ingredients: { sand: 1, fire: 1 },   desc: 'Sand + Feuer = Glas' },
-        { name: 'Lampe',    result: 'lamp',       resultCount: 1, ingredients: { glass: 1, fire: 1 },  desc: 'Glas + Feuer = Lampe' },
-        { name: 'Fenster',  result: 'window_pane', resultCount: 1, ingredients: { glass: 1, wood: 1 }, desc: 'Glas + Holz = Fenster' },
-        { name: 'Tür',      result: 'door',       resultCount: 1, ingredients: { planks: 2 },          desc: '2 Bretter = Tür' },
-        { name: 'Zaun',     result: 'fence',      resultCount: 2, ingredients: { planks: 1, wood: 1 }, desc: 'Bretter + Holz = 2 Zäune' },
-        { name: 'Weg',      result: 'path',       resultCount: 3, ingredients: { sand: 1, stone: 1 },  desc: 'Sand + Stein = 3 Wege' },
-        { name: 'Dach',     result: 'roof',       resultCount: 2, ingredients: { planks: 1, stone: 1 },desc: 'Bretter + Stein = 2 Dächer' },
-        { name: 'Flagge',   result: 'flag',       resultCount: 1, ingredients: { wood: 1, fire: 1 },   desc: 'Holz + Feuer = Flagge' },
-        { name: 'Boot',     result: 'boat',       resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Boot' },
-        { name: 'Fisch',    result: 'fish',       resultCount: 2, ingredients: { water: 2, wood: 1 },  desc: '2 Wasser + Holz = 2 Fische' },
-        { name: 'Brunnen',  result: 'fountain',   resultCount: 1, ingredients: { stone: 3, water: 1 }, desc: '3 Stein + Wasser = Brunnen' },
-        { name: 'Brücke',   result: 'bridge',     resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Brücke' },
-        // === NATUR & WETTER (Feynman-approved) ===
-        { name: 'Dampf',       result: 'steam',     resultCount: 1, ingredients: { water: 1, fire: 1 },    desc: 'Wasser + Feuer = Dampf' },
-        { name: 'Eis',         result: 'ice',       resultCount: 1, ingredients: { water: 2, metal: 1 },   desc: '2 Wasser + Metall = Eis' },
-        { name: 'Schnee',      result: 'snow',      resultCount: 1, ingredients: { ice: 1, cloud: 1 },     desc: 'Eis + Wolke = Schnee' },
-        { name: 'Wolke',       result: 'cloud',     resultCount: 1, ingredients: { steam: 2 },             desc: '2 Dampf = Wolke' },
-        { name: 'Regen',       result: 'rain',      resultCount: 1, ingredients: { cloud: 1, water: 1 },   desc: 'Wolke + Wasser = Regen' },
-        { name: 'Regenbogen',  result: 'rainbow',   resultCount: 1, ingredients: { rain: 1, fire: 1 },     desc: 'Regen + Feuer = Regenbogen' },
-        { name: 'Blitz',       result: 'lightning',  resultCount: 1, ingredients: { cloud: 1, metal: 1 },  desc: 'Wolke + Metall = Blitz' },
-        { name: 'Tornado',     result: 'tornado',   resultCount: 1, ingredients: { cloud: 2, fire: 1 },    desc: '2 Wolken + Feuer = Tornado' },
-        { name: 'Vulkan',      result: 'volcano',   resultCount: 1, ingredients: { mountain: 1, fire: 2 }, desc: 'Berg + 2 Feuer = Vulkan' },
-        { name: 'Berg',        result: 'mountain',  resultCount: 1, ingredients: { stone: 3, earth: 2 },   desc: '3 Stein + 2 Erde = Berg' },
-        { name: 'Sonne',       result: 'sun',       resultCount: 1, ingredients: { fire: 3 },              desc: '3 Feuer = Sonne' },
-        { name: 'Mond',        result: 'moon',      resultCount: 1, ingredients: { stone: 2, fire: 1 },    desc: '2 Stein + Feuer = Mond' },
-        { name: 'Stern',       result: 'star',      resultCount: 1, ingredients: { sun: 1, metal: 1 },     desc: 'Sonne + Metall = Stern' },
-        // === LEBEN (absurd aber logisch) ===
-        { name: 'Ei',          result: 'egg',       resultCount: 1, ingredients: { earth: 1, fire: 1, water: 1 }, desc: 'Erde + Feuer + Wasser = Ei' },
-        { name: 'Nest',        result: 'nest',      resultCount: 1, ingredients: { wood: 2, plant: 1 },    desc: '2 Holz + Pflanze = Nest' },
-        { name: 'Schmetterling', result: 'butterfly', resultCount: 1, ingredients: { flower: 1, cloud: 1 },desc: 'Blume + Wolke = Schmetterling' },
-        { name: 'Biene',       result: 'bee',       resultCount: 1, ingredients: { flower: 2, sun: 1 },    desc: '2 Blumen + Sonne = Biene' },
-        { name: 'Honig',       result: 'honey',     resultCount: 1, ingredients: { bee: 1, flower: 1 },    desc: 'Biene + Blume = Honig' },
-        { name: 'Apfel',       result: 'apple',     resultCount: 2, ingredients: { tree: 1, sun: 1 },      desc: 'Baum + Sonne = 2 Äpfel' },
-        { name: 'Kuchen',      result: 'cake',      resultCount: 1, ingredients: { apple: 1, honey: 1, fire: 1 }, desc: 'Apfel + Honig + Feuer = Kuchen' },
-        // === MAGIE (absurd und wunderbar) ===
-        { name: 'Trank',       result: 'potion',    resultCount: 1, ingredients: { mushroom: 1, water: 1, fire: 1 }, desc: 'Pilz + Wasser + Feuer = Trank' },
-        { name: 'Kristall',    result: 'crystal',   resultCount: 1, ingredients: { diamond: 1, potion: 1 },desc: 'Diamant + Trank = Kristall' },
-        { name: 'Diamant',     result: 'diamond',   resultCount: 1, ingredients: { stone: 3, fire: 3 },    desc: '3 Stein + 3 Feuer = Diamant' },
-        { name: 'Drache',      result: 'dragon',    resultCount: 1, ingredients: { fire: 3, egg: 1 },      desc: '3 Feuer + Ei = Drache' },
-        { name: 'Einhorn',     result: 'unicorn',   resultCount: 1, ingredients: { rainbow: 1, potion: 1 },desc: 'Regenbogen + Trank = Einhorn' },
-        { name: 'Phönix',      result: 'phoenix',   resultCount: 1, ingredients: { fire: 2, egg: 1, star: 1 }, desc: '2 Feuer + Ei + Stern = Phönix' },
-        // === DINGE & ABENTEUER ===
-        { name: 'Schwert',     result: 'sword',     resultCount: 1, ingredients: { metal: 2, fire: 1 },    desc: '2 Metall + Feuer = Schwert' },
-        { name: 'Schild',      result: 'shield',    resultCount: 1, ingredients: { metal: 2, wood: 1 },    desc: '2 Metall + Holz = Schild' },
-        { name: 'Krone',       result: 'crown',     resultCount: 1, ingredients: { metal: 1, diamond: 1 }, desc: 'Metall + Diamant = Krone' },
-        { name: 'Schlüssel',   result: 'key',       resultCount: 1, ingredients: { metal: 1, fire: 1 },    desc: 'Metall + Feuer = Schlüssel' },
-        { name: 'Schatz',      result: 'treasure',  resultCount: 1, ingredients: { key: 1, earth: 2 },     desc: 'Schlüssel + 2 Erde = Schatz' },
-        // === ABSURD (💩🚀👻👽🤖) ===
-        { name: 'Geist',       result: 'ghost',     resultCount: 1, ingredients: { cloud: 1, moon: 1 },    desc: 'Wolke + Mond = Geist' },
-        { name: 'Skelett',     result: 'skull',     resultCount: 1, ingredients: { stone: 2, lightning: 1 },desc: '2 Stein + Blitz = Skelett' },
-        { name: 'Haufen',      result: 'poop',      resultCount: 1, ingredients: { earth: 2, water: 2 },   desc: '2 Erde + 2 Wasser = ...du weißt schon' },
-        { name: 'Rakete',      result: 'rocket',    resultCount: 1, ingredients: { metal: 2, fire: 2 },    desc: '2 Metall + 2 Feuer = Rakete' },
-        { name: 'UFO',         result: 'ufo',       resultCount: 1, ingredients: { rocket: 1, star: 1 },   desc: 'Rakete + Stern = UFO' },
-        { name: 'Alien',       result: 'alien',     resultCount: 1, ingredients: { ufo: 1, egg: 1 },       desc: 'UFO + Ei = Alien' },
-        { name: 'Roboter',     result: 'robot',     resultCount: 1, ingredients: { metal: 3, lightning: 1 },desc: '3 Metall + Blitz = Roboter' },
-        { name: 'Musik',       result: 'music',     resultCount: 1, ingredients: { wood: 1, metal: 1, wind: 1 }, desc: 'Holz + Metall + Wind = Musik' },
-        { name: 'Herz',        result: 'heart',     resultCount: 1, ingredients: { fire: 1, water: 1, flower: 1 }, desc: 'Feuer + Wasser + Blume = Herz' },
+        // ═══ GEN 2: Aus den 5 Elementen (2+ Slots) ═══
+        { name: 'Sand',        result: 'sand',      resultCount: 2, ingredients: { earth: 1, water: 1 },           desc: 'Erde + Wasser = 2 Sand' },
+        { name: 'Bretter',     result: 'planks',    resultCount: 3, ingredients: { wood: 2 },                      desc: '2 Holz = 3 Bretter' },
+        { name: 'Setzling',    result: 'sapling',   resultCount: 1, ingredients: { wood: 1, water: 1 },            desc: 'Holz + Wasser = Setzling' },
+        { name: 'Pflanze',     result: 'plant',     resultCount: 2, ingredients: { earth: 1, wood: 1 },            desc: 'Erde + Holz = 2 Pflanzen' },
+        { name: 'Dampf',       result: 'steam',     resultCount: 1, ingredients: { water: 1, fire: 1 },            desc: 'Wasser + Feuer = Dampf' },
+        { name: 'Flagge',      result: 'flag',      resultCount: 1, ingredients: { wood: 1, fire: 1 },             desc: 'Holz + Feuer = Flagge' },
+        { name: 'Schlüssel',   result: 'key',       resultCount: 1, ingredients: { metal: 1, fire: 1 },            desc: 'Metall + Feuer = Schlüssel' },
+        { name: 'Stein',       result: 'stone',     resultCount: 2, ingredients: { earth: 2, fire: 1 },            desc: '2 Erde + Feuer = 2 Stein' },
+        { name: 'Ei',          result: 'egg',       resultCount: 1, ingredients: { earth: 1, fire: 1, water: 1 },  desc: 'Erde + Feuer + Wasser = Ei' },
+        { name: 'Sonne',       result: 'sun',       resultCount: 1, ingredients: { fire: 3 },                      desc: '3 Feuer = Sonne' },
+        { name: 'Eis',         result: 'ice',       resultCount: 1, ingredients: { water: 2, metal: 1 },           desc: '2 Wasser + Metall = Eis' },
+        { name: 'Schwert',     result: 'sword',     resultCount: 1, ingredients: { metal: 2, fire: 1 },            desc: '2 Metall + Feuer = Schwert' },
+        { name: 'Schild',      result: 'shield',    resultCount: 1, ingredients: { metal: 2, wood: 1 },            desc: '2 Metall + Holz = Schild' },
+        { name: 'Pilz',        result: 'mushroom',  resultCount: 2, ingredients: { earth: 1, water: 1, wood: 1 },  desc: 'Erde + Wasser + Holz = 2 Pilze' },
+        { name: 'Fisch',       result: 'fish',      resultCount: 2, ingredients: { water: 2, wood: 1 },            desc: '2 Wasser + Holz = 2 Fische' },
+        { name: 'Haufen',      result: 'poop',      resultCount: 1, ingredients: { earth: 2, water: 2 },           desc: '2 Erde + 2 Wasser = ...du weißt schon' },
+        { name: 'Rakete',      result: 'rocket',    resultCount: 1, ingredients: { metal: 2, fire: 2 },            desc: '2 Metall + 2 Feuer = Rakete' },
+
+        // ═══ GEN 3: Mind. 3 Slots (mind. 1 Gen-2-Zutat) ═══
+        { name: 'Glas',        result: 'glass',       resultCount: 1, ingredients: { sand: 2, fire: 1 },              desc: '2 Sand + Feuer = Glas' },
+        { name: 'Blume',       result: 'flower',      resultCount: 2, ingredients: { plant: 1, fire: 1, water: 1 },   desc: 'Pflanze + Feuer + Wasser = 2 Blumen' },
+        { name: 'Wolke',       result: 'cloud',       resultCount: 1, ingredients: { steam: 2, water: 1 },            desc: '2 Dampf + Wasser = Wolke' },
+        { name: 'Tür',         result: 'door',        resultCount: 1, ingredients: { planks: 3 },                     desc: '3 Bretter = Tür' },
+        { name: 'Zaun',        result: 'fence',       resultCount: 2, ingredients: { planks: 1, wood: 2 },            desc: 'Bretter + 2 Holz = 2 Zäune' },
+        { name: 'Weg',         result: 'path',        resultCount: 3, ingredients: { sand: 2, stone: 1 },             desc: '2 Sand + Stein = 3 Wege' },
+        { name: 'Dach',        result: 'roof',        resultCount: 2, ingredients: { planks: 1, stone: 1, earth: 1 }, desc: 'Bretter + Stein + Erde = 2 Dächer' },
+        { name: 'Boot',        result: 'boat',        resultCount: 1, ingredients: { planks: 2, metal: 1 },           desc: '2 Bretter + Metall = Boot' },
+        { name: 'Brücke',      result: 'bridge',      resultCount: 1, ingredients: { planks: 2, stone: 1 },           desc: '2 Bretter + Stein = Brücke' },
+        { name: 'Brunnen',     result: 'fountain',    resultCount: 1, ingredients: { stone: 2, water: 1 },            desc: '2 Stein + Wasser = Brunnen' },
+        { name: 'Trank',       result: 'potion',      resultCount: 1, ingredients: { mushroom: 1, water: 1, fire: 1 },desc: 'Pilz + Wasser + Feuer = Trank' },
+        { name: 'Mond',        result: 'moon',        resultCount: 1, ingredients: { stone: 2, fire: 1 },             desc: '2 Stein + Feuer = Mond' },
+        { name: 'Stern',       result: 'star',        resultCount: 1, ingredients: { sun: 1, metal: 2 },              desc: 'Sonne + 2 Metall = Stern' },
+        { name: 'Berg',        result: 'mountain',    resultCount: 1, ingredients: { stone: 3, earth: 2 },            desc: '3 Stein + 2 Erde = Berg' },
+        { name: 'Nest',        result: 'nest',        resultCount: 1, ingredients: { wood: 2, plant: 1 },             desc: '2 Holz + Pflanze = Nest' },
+        { name: 'Schatz',      result: 'treasure',    resultCount: 1, ingredients: { key: 1, earth: 2 },              desc: 'Schlüssel + 2 Erde = Schatz' },
+        { name: 'Diamant',     result: 'diamond',     resultCount: 1, ingredients: { stone: 3, fire: 3 },             desc: '3 Stein + 3 Feuer = Diamant' },
+        { name: 'Drache',      result: 'dragon',      resultCount: 1, ingredients: { fire: 3, egg: 1 },               desc: '3 Feuer + Ei = Drache' },
+        { name: 'Kl. Baum',    result: 'small_tree',  resultCount: 1, ingredients: { sapling: 1, water: 1, earth: 1 },desc: 'Setzling + Wasser + Erde = Kl. Baum' },
+
+        // ═══ GEN 4: Mind. 4 Slots (mind. 1 Gen-3-Zutat) ═══
+        { name: 'Lampe',        result: 'lamp',        resultCount: 1, ingredients: { glass: 1, fire: 2, metal: 1 },       desc: 'Glas + 2 Feuer + Metall = Lampe' },
+        { name: 'Fenster',      result: 'window_pane', resultCount: 1, ingredients: { glass: 2, wood: 2 },                 desc: '2 Glas + 2 Holz = Fenster' },
+        { name: 'Regen',        result: 'rain',        resultCount: 1, ingredients: { cloud: 2, water: 2 },                desc: '2 Wolken + 2 Wasser = Regen' },
+        { name: 'Blitz',        result: 'lightning',   resultCount: 1, ingredients: { cloud: 1, metal: 3 },                desc: 'Wolke + 3 Metall = Blitz' },
+        { name: 'Tornado',      result: 'tornado',     resultCount: 1, ingredients: { cloud: 2, fire: 2 },                 desc: '2 Wolken + 2 Feuer = Tornado' },
+        { name: 'Schnee',       result: 'snow',        resultCount: 1, ingredients: { ice: 2, cloud: 1, water: 1 },        desc: '2 Eis + Wolke + Wasser = Schnee' },
+        { name: 'Vulkan',       result: 'volcano',     resultCount: 1, ingredients: { mountain: 1, fire: 3 },              desc: 'Berg + 3 Feuer = Vulkan' },
+        { name: 'Schmetterling',result: 'butterfly',   resultCount: 1, ingredients: { flower: 2, cloud: 1, water: 1 },     desc: '2 Blumen + Wolke + Wasser = Schmetterling' },
+        { name: 'Biene',        result: 'bee',         resultCount: 1, ingredients: { flower: 2, sun: 1, plant: 1 },       desc: '2 Blumen + Sonne + Pflanze = Biene' },
+        { name: 'Geist',        result: 'ghost',       resultCount: 1, ingredients: { cloud: 1, moon: 1, water: 2 },       desc: 'Wolke + Mond + 2 Wasser = Geist' },
+        { name: 'Herz',         result: 'heart',       resultCount: 1, ingredients: { fire: 1, water: 1, flower: 2 },      desc: 'Feuer + Wasser + 2 Blumen = Herz' },
+        { name: 'Phönix',       result: 'phoenix',     resultCount: 1, ingredients: { fire: 2, egg: 1, star: 1 },          desc: '2 Feuer + Ei + Stern = Phönix' },
+        { name: 'Kristall',     result: 'crystal',     resultCount: 1, ingredients: { diamond: 1, potion: 1, fire: 1, water: 1 }, desc: 'Diamant + Trank + Feuer + Wasser = Kristall' },
+        { name: 'Krone',        result: 'crown',       resultCount: 1, ingredients: { metal: 2, diamond: 1, fire: 1 },     desc: '2 Metall + Diamant + Feuer = Krone' },
+        { name: 'UFO',          result: 'ufo',         resultCount: 1, ingredients: { rocket: 1, star: 1, metal: 2 },      desc: 'Rakete + Stern + 2 Metall = UFO' },
+        { name: 'Baum',         result: 'tree',        resultCount: 1, ingredients: { small_tree: 1, water: 1, earth: 1, wood: 1 }, desc: 'Kl. Baum + Wasser + Erde + Holz = Baum' },
+
+        // ═══ GEN 5: Mind. 5 Slots (mind. 1 Gen-4-Zutat) ═══
+        { name: 'Regenbogen',   result: 'rainbow',    resultCount: 1, ingredients: { rain: 1, fire: 2, water: 2 },          desc: 'Regen + 2 Feuer + 2 Wasser = Regenbogen' },
+        { name: 'Apfel',        result: 'apple',      resultCount: 2, ingredients: { tree: 1, sun: 1, water: 2, earth: 1 }, desc: 'Baum + Sonne + 2 Wasser + Erde = 2 Äpfel' },
+        { name: 'Honig',        result: 'honey',      resultCount: 1, ingredients: { bee: 1, flower: 2, sun: 1, plant: 1 }, desc: 'Biene + 2 Blumen + Sonne + Pflanze = Honig' },
+        { name: 'Skelett',      result: 'skull',      resultCount: 1, ingredients: { stone: 2, lightning: 1, earth: 2 },    desc: '2 Stein + Blitz + 2 Erde = Skelett' },
+        { name: 'Roboter',      result: 'robot',      resultCount: 1, ingredients: { metal: 3, lightning: 1, fire: 1 },     desc: '3 Metall + Blitz + Feuer = Roboter' },
+        { name: 'Alien',        result: 'alien',      resultCount: 1, ingredients: { ufo: 1, egg: 1, fire: 1, earth: 1, water: 1 }, desc: 'UFO + Ei + Feuer + Erde + Wasser = Alien' },
+
+        // ═══ GEN 6: Mind. 6 Slots (mind. 1 Gen-5-Zutat) ═══
+        { name: 'Kuchen',       result: 'cake',       resultCount: 1, ingredients: { apple: 2, honey: 1, fire: 2, earth: 1 },       desc: '2 Äpfel + Honig + 2 Feuer + Erde = Kuchen' },
+        { name: 'Einhorn',      result: 'unicorn',    resultCount: 1, ingredients: { rainbow: 1, potion: 1, flower: 2, star: 1, water: 1 }, desc: 'Regenbogen + Trank + 2 Blumen + Stern + Wasser = Einhorn' },
     ];
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
@@ -1238,16 +1259,18 @@
             }
         }
 
-        // Update recipe preview
+        // Update recipe preview + Slot-Counter
         const recipe = findMatchingRecipe();
         const preview = document.getElementById('craft-result');
+        const filledSlots = craftingGrid.filter(s => s !== null).length;
         if (preview) {
             if (recipe) {
                 const info = MATERIALS[recipe.result];
-                preview.innerHTML = `<span class="craft-emoji">${info.emoji}</span><span class="craft-result-count">${recipe.resultCount > 1 ? recipe.resultCount + 'x' : ''}</span>`;
-                preview.title = recipe.name;
+                const gen = getMaterialGeneration(recipe.result);
+                preview.innerHTML = `<span class="craft-emoji">${info.emoji}</span><span class="craft-result-count">${recipe.resultCount > 1 ? recipe.resultCount + 'x' : ''}<br>Gen ${gen}</span>`;
+                preview.title = `${recipe.name} (Gen ${gen})`;
             } else {
-                preview.innerHTML = '<span class="craft-question">?</span>';
+                preview.innerHTML = `<span class="craft-question">?</span>${filledSlots > 0 ? `<span class="craft-result-count">${filledSlots}/9</span>` : ''}`;
                 preview.title = '';
             }
         }
@@ -1276,7 +1299,8 @@
             } else {
                 recipeBook.innerHTML = discovered.map(r => {
                     const info = MATERIALS[r.result];
-                    return `<div class="recipe-entry">${info.emoji} ${r.desc}</div>`;
+                    const gen = getMaterialGeneration(r.result);
+                    return `<div class="recipe-entry"><span class="gen-badge">G${gen}</span> ${info.emoji} ${r.desc}</div>`;
                 }).join('') + `<p class="craft-discover-hint">${discovered.length}/${CRAFTING_RECIPES.length} entdeckt</p>`;
             }
         }
@@ -1315,7 +1339,7 @@
     const BASE_MATERIALS = ['earth', 'metal', 'wood', 'fire', 'water'];
 
     // Starter-Set: 5 Wu-Xing + erste 3 Crafting-Ergebnisse — von Anfang an sichtbar
-    const STARTER_MATERIALS = [...BASE_MATERIALS, 'stone', 'sand', 'glass'];
+    const STARTER_MATERIALS = [...BASE_MATERIALS];
 
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
