@@ -1268,10 +1268,18 @@
             const mat = btn.dataset.material;
             if (BASE_MATERIALS.includes(mat) || btn.dataset.base) return;
             if (unlockedMaterials.has(mat)) {
+                // Durch Crafting/Quests freigeschaltet → sichtbar + animiert
+                btn.style.display = '';
                 btn.classList.remove('craft-locked');
                 btn.classList.add('craft-unlocked');
-            } else {
+            } else if (STARTER_MATERIALS.includes(mat)) {
+                // Starter-Artefakte (stone/sand/glass): sichtbar aber ausgegraut bis gecraftet
+                btn.style.display = '';
                 btn.classList.add('craft-locked');
+                btn.classList.remove('craft-unlocked');
+            } else {
+                // Noch nicht freigeschaltet und kein Starter → verstecken
+                btn.style.display = 'none';
                 btn.classList.remove('craft-unlocked');
             }
         });
