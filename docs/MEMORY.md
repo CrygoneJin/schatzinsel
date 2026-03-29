@@ -322,6 +322,47 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
 ---
 
+## Session 2026-03-29 (LiteLLM Proxy Fix)
+
+### Erfolge
+| Datum | Was |
+|-------|-----|
+| 2026-03-29 | LiteLLM Proxy auf Port 4000 stabil mit Python 3.12 via pipx |
+| 2026-03-29 | launchd-Service gefixt: Python-Pfad 3.9→3.12, auto-restart funktioniert |
+| 2026-03-29 | LiteLLM-Config aufgeräumt: nur noch Langdock-OpenAI-Modelle (Anthropic+gpt-4.x entfernt) |
+| 2026-03-29 | chat.js: lokaler Proxy-Support (auto-append /v1/chat/completions, proxyKey, CORS) |
+| 2026-03-29 | Worker.js: Langdock EU-Endpoint für DSGVO |
+| 2026-03-29 | Alle 7 Charakter-Modelle auf verfügbare Langdock-Modelle gemappt |
+| 2026-03-29 | config.example.js: Variante 3 (LiteLLM lokal) + Variante 4 (Nerd-Mode) dokumentiert |
+
+### Fehler
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-03-29 | LiteLLM ignorierte --port Flag komplett | War alter Python-3.9-Service via launchd der Zufallsports vergab. Immer launchd-plist prüfen. |
+| 2026-03-29 | Python 3.14 zu neu für LiteLLM (uvloop crash) | Python 3.12 ist der Sweet Spot für LiteLLM. Nicht bleeding edge. |
+| 2026-03-29 | Python 3.9 zu alt für LiteLLM (TypedDict union syntax) | type\|None ist Python 3.10+ Syntax. |
+| 2026-03-29 | ANTHROPIC_BASE_URL in Shell-Env routete Claude Code CLI über LiteLLM | Shell-Env > settings.json > alles. Immer `echo $ANTHROPIC_BASE_URL` prüfen. |
+| 2026-03-29 | Langdock-API-Key im Klartext in plist + Chat-Log gelandet | Keys NIEMALS in plist hardcoden. Env-Var oder Keychain. Key muss rotiert werden. |
+| 2026-03-29 | update-litellm-config.py crashte mit 401 (Anthropic API fetch) | Modell-Listen statisch halten statt API-Fetch. Ändert sich selten. |
+| 2026-03-29 | claude -p im falschen Verzeichnis gestartet | Immer `cd` ins Repo bevor CLI non-interaktiv starten. |
+
+### Learnings
+- **launchd ist die Wurzel allen Übels**: Wenn LiteLLM komisch macht, erst `launchctl list | grep litellm` prüfen
+- **pipx > pip für CLI-Tools**: Isolierte Umgebung, kein externally-managed-environment Fehler
+- **Shell-Env-Vars prüfen**: `echo $ANTHROPIC_BASE_URL` bevor man debuggt warum Claude Code nicht geht
+- **Langdock ändert Modell-Angebot ohne Warnung**: gpt-4o, gpt-4.1, Anthropic-Modelle plötzlich weg
+- **Health-Check ist unzuverlässig**: max_tokens=1 triggert Fehler bei Reasoning-Modellen. Echter curl-Test > /health
+- **pbcopy < datei > cat datei**: Schneller, weniger Copy-Fehler, voller Kontext. Standard-Workflow.
+
+### Nächste Session
+- [ ] Langdock-Key rotieren (steht im Klartext in Chat-Log + alter plist)
+- [ ] ANTHROPIC_BASE_URL aus ~/.zshrc oder ~/.zprofile entfernen (dauerhaft)
+- [ ] Playwright-Tests richtig aufsetzen (cd ins Repo, lokaler Server)
+- [ ] Routing-Schedule (07-22=direct, 22-07=proxy) automatisieren
+- [ ] update-litellm-config.py mit gefixtem Script ersetzen (kein API-Fetch)
+
+---
+
 ## Offene Fragen
 
 - [ ] Wie misst man ob die 80/20-Ratio der Padawans stimmt?
