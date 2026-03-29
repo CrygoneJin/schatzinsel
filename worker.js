@@ -34,6 +34,12 @@ export default {
             return json({ error: 'POST only' }, 405);
         }
 
+        // URL-basiertes Routing
+        const { pathname } = new URL(request.url);
+        if (pathname === '/craft') {
+            return handleCraft(request, env);
+        }
+
         // Rate Limit (Cloudflare KV optional, sonst skip)
         if (env.RATE_LIMIT_KV) {
             const ip = request.headers.get('cf-connecting-ip') || 'unknown';
@@ -94,6 +100,88 @@ export default {
         }
     },
 };
+
+// --- Craft Endpoint ---
+
+async function handleCraft(request, env) {
+    let body;
+    try {
+        body = await request.json();
+    } catch (e) {
+        return json({ error: 'Ungültiger Request-Body' }, 400);
+    }
+
+    const { a, b, discoverer } = body;
+    if (!a || !b) {
+        return json({ error: 'a und b sind erforderlich' }, 400);
+    }
+
+    const apiKey = env['schatzinsel-requesty'] || env.API_KEY;
+    if (!apiKey) {
+        return json({ error: 'Server nicht konfiguriert (kein API Key)' }, 500);
+    }
+
+    // Kanonischer Cache-Key: alphabetisch sortiert
+    const [first, second] = [a, b].sort();
+    const cacheKey = `craft:${first}+${second}`;
+
+    // Cache-Check (KV optional)
+    if (env.CRAFT_KV) {
+        const cached = await env.CRAFT_KV.get(cacheKey, 'json');
+        if (cached) {
+            return json({ ...cached, fromCache: true });
+        }
+    }
+
+    // LLM-Aufruf via Requesty
+    const prompt = `Du bist ein Crafting-System für ein Kinderspiel auf einer Insel.\nEin Kind kombiniert "${a}" und "${b}".\nWas entsteht? Antworte NUR mit einem JSON-Objekt, kein anderer Text:\n{"emoji": "passendes einzelnes Emoji", "name": "deutsches Wort", "color": "#hexfarbe", "border": "#dunklere hexfarbe"}\nRegeln: Kindgerecht. Kein Grusel, keine Gewalt, nichts Trauriges. Das Ergebnis muss auf eine tropische Insel passen. Maximal 1 Wort als Name.`;
+
+    let result;
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model: 'anthropic/claude-haiku-4-5-20251001',
+                max_tokens: 100,
+                temperature: 0.3,
+                stream: false,
+                messages: [{ role: 'user', content: prompt }],
+            }),
+        });
+
+        const data = await response.json();
+        const content = data?.choices?.[0]?.message?.content || '';
+        const match = content.match(/{[\s\S]*}/);
+        if (!match) {
+            return json({ error: 'LLM hat kein gültiges JSON zurückgegeben', raw: content }, 502);
+        }
+        result = JSON.parse(match[0]);
+    } catch (e) {
+        return json({ error: 'Craft-Fehler: ' + e.message }, 500);
+    }
+
+    // In KV speichern
+    const entry = {
+        emoji:      result.emoji      || '✨',
+        name:       result.name       || 'Unbekannt',
+        color:      result.color      || '#cccccc',
+        border:     result.border     || '#999999',
+        a,
+        b,
+        discoverer: discoverer        || null,
+        created:    new Date().toISOString(),
+    };
+
+    if (env.CRAFT_KV) {
+        await env.CRAFT_KV.put(cacheKey, JSON.stringify(entry));
+    }
+
+    return json({ ...entry, fromCache: false });
+}
 
 // --- Logging ---
 
