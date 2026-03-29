@@ -24,4 +24,7 @@ window.INSEL_QUEST_TEMPLATES = [
     { npc: 'spongebob', title: 'Insel-Fest', desc: 'PARTY! Suchergebnis: Noch keine Party gefunden! Flaggen, Lampen, ALLES!', needs: { flag: 4, lamp: 6, flower: 4, path: 4 }, reward: '🎉🎉🎉' },
     { npc: 'tommy', title: 'Hafen-Erweiterung', desc: 'Klick-klack! FÜNF Boote! Der lockige Mann hat — klick-klack! — gesagt mehr ist besser!', needs: { boat: 5, water: 8, bridge: 2, wood: 4 }, reward: '⚓⚓⚓⚓' },
     { npc: 'krabs', title: 'Luxus-Resort', desc: 'Glasdächer! Springbrunnen! Das kostet... [RECHNET LAUT] ...2000 Krabben-Taler Bau, 10000 Taler Gewinn!', needs: { glass: 8, fountain: 2, flower: 6, lamp: 4, door: 3 }, reward: '💎💎💎' },
+    // Runde 4: Internet-Nostalgie (90er)
+    { npc: 'krabs', title: 'Internetcafé', desc: 'Bin ich schon drin?! WOW! Ich BIN drin! Das Bobele sagt: JEDE Minute online kostet 3 Krabben-Taler! DAS ist ein Geschäftsmodell!', needs: { modem: 2, aol: 1, lamp: 3, door: 1 }, reward: '💿💿💿' },
+    { npc: 'spongebob', title: 'Uh-Oh-Station', desc: 'Suchergebnis: 0 Freunde online! Das muss sich ändern! ICQ installieren! SOFORT! *Uh-Oh!*', needs: { icq: 2, modem: 1, flower: 3 }, reward: '🌻🌻🌻' },
 ];

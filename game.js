@@ -107,6 +107,10 @@
         tornado:  { emoji: '🌪️', label: 'Tornado', color: '#AEB6BF', border: '#85929E' },
         wave:     { emoji: '🌊', label: 'Tsunami',  color: '#2980B9', border: '#1F618D' },
         phoenix:  { emoji: '🔥', label: 'Phönix',   color: '#F39C12', border: '#E67E22' },
+        // === INTERNET-NOSTALGIE (90er) ===
+        modem:    { emoji: '📠', label: 'Modem',    color: '#C8BFA9', border: '#A89F8C' },
+        icq:      { emoji: '🌻', label: 'ICQ',      color: '#4BAF4F', border: '#388E3C' },
+        aol:      { emoji: '💿', label: 'AOL',      color: '#0055A4', border: '#003D7A' },
     };
 
     // --- Infinite Craft: Worker-URL ---
@@ -142,6 +146,8 @@
     function soundQuestComplete()    { if (_snd.soundQuestComplete) _snd.soundQuestComplete(); }
     function soundChop()             { if (_snd.soundChop)        _snd.soundChop(); }
     function soundCraft()            { if (_snd.soundCraft)       _snd.soundCraft(); }
+    function soundModem()            { if (_snd.soundModem)       _snd.soundModem(); }
+    const MODEM_MATERIALS = new Set(['modem', 'icq', 'aol']);
 
     // ============================================================
     // === ACHIEVEMENTS === (aus achievements.js, Fallback inline)
@@ -241,6 +247,9 @@
         { npc: 'spongebob', title: 'Insel-Fest', desc: 'PARTY! Suchergebnis: Noch keine Party gefunden! Flaggen, Lampen, ALLES!', needs: { flag: 4, lamp: 6, flower: 4, path: 4 }, reward: '🎉🎉🎉' },
         { npc: 'tommy', title: 'Hafen-Erweiterung', desc: 'Klick-klack! FÜNF Boote! Der lockige Mann hat — klick-klack! — gesagt mehr ist besser!', needs: { boat: 5, water: 8, bridge: 2, wood: 4 }, reward: '⚓⚓⚓⚓' },
         { npc: 'krabs', title: 'Luxus-Resort', desc: 'Glasdächer! Springbrunnen! Das kostet... [RECHNET LAUT] ...2000 Krabben-Taler Bau, 10000 Taler Gewinn!', needs: { glass: 8, fountain: 2, flower: 6, lamp: 4, door: 3 }, reward: '💎💎💎' },
+        // Runde 4: Internet-Nostalgie (90er)
+        { npc: 'krabs', title: 'Internetcafé', desc: 'Bin ich schon drin?! WOW! Ich BIN drin! Das Bobele sagt: JEDE Minute online kostet 3 Krabben-Taler! DAS ist ein Geschäftsmodell!', needs: { modem: 2, aol: 1, lamp: 3, door: 1 }, reward: '💿💿💿' },
+        { npc: 'spongebob', title: 'Uh-Oh-Station', desc: 'Suchergebnis: 0 Freunde online! Das muss sich ändern! ICQ installieren! SOFORT! *Uh-Oh!*', needs: { icq: 2, modem: 1, flower: 3 }, reward: '🌻🌻🌻' },
     ];
 
     let activeQuests = JSON.parse(localStorage.getItem('insel-quests') || '[]');
@@ -934,7 +943,7 @@
             discoveredRecipes.add(recipe.name);
             saveDiscoveredRecipes();
             saveInventory();
-            soundCraft();
+            MODEM_MATERIALS.has(recipe.result) ? soundModem() : soundCraft();
             const info = MATERIALS[recipe.result];
             if (isNew) {
                 showToast(`🔮 ${info.emoji} ${recipe.desc}!`);
@@ -1053,6 +1062,10 @@
         { name: 'Roboter',     result: 'robot',     resultCount: 1, ingredients: { metal: 3, lightning: 1 },desc: '3 Metall + Blitz = Roboter' },
         { name: 'Musik',       result: 'music',     resultCount: 1, ingredients: { wood: 1, metal: 1, wind: 1 }, desc: 'Holz + Metall + Wind = Musik' },
         { name: 'Herz',        result: 'heart',     resultCount: 1, ingredients: { fire: 1, water: 1, flower: 1 }, desc: 'Feuer + Wasser + Blume = Herz' },
+        // === INTERNET-NOSTALGIE (Stufe 5: 90er — Bin ich schon drin?) ===
+        { name: 'Modem',       result: 'modem',     resultCount: 1, ingredients: { metal: 2, lightning: 1 }, desc: '2 Metall + Blitz = Modem — KRRRSCHHHH!' },
+        { name: 'ICQ',         result: 'icq',       resultCount: 1, ingredients: { modem: 1, flower: 1 },   desc: 'Modem + Blume = ICQ — Uh-Oh!' },
+        { name: 'AOL',         result: 'aol',       resultCount: 1, ingredients: { modem: 1, key: 1 },      desc: 'Modem + Schlüssel = AOL — Bin ich schon drin?' },
     ];
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
@@ -1113,7 +1126,7 @@
 
         addToInventory(matId, 1);
         unlockMaterial(matId);
-        soundCraft();
+        MODEM_MATERIALS.has(matId) ? soundModem() : soundCraft();
 
         if (result.fromCache === false && isNew) {
             showToast(`🏆 WELTPREMIERE! ${result.emoji} ${result.name} — Entdecker: ${result.discoverer}!`);
@@ -1138,7 +1151,7 @@
             const isNew = !discoveredRecipes.has(recipe.name);
             discoveredRecipes.add(recipe.name);
             saveDiscoveredRecipes();
-            soundCraft();
+            MODEM_MATERIALS.has(recipe.result) ? soundModem() : soundCraft();
             const info = MATERIALS[recipe.result];
             if (isNew) {
                 showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);

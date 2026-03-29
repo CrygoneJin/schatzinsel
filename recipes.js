@@ -68,4 +68,8 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Roboter',     result: 'robot',     resultCount: 1, ingredients: { metal: 3, lightning: 1 },desc: '3 Metall + Blitz = Roboter' },
     { name: 'Musik',       result: 'music',     resultCount: 1, ingredients: { wood: 1, metal: 1, wind: 1 }, desc: 'Holz + Metall + Wind = Musik' },
     { name: 'Herz',        result: 'heart',     resultCount: 1, ingredients: { fire: 1, water: 1, flower: 1 }, desc: 'Feuer + Wasser + Blume = Herz' },
+    // === INTERNET-NOSTALGIE (Stufe 5: 90er — Bin ich schon drin?) ===
+    { name: 'Modem',       result: 'modem',     resultCount: 1, ingredients: { metal: 2, lightning: 1 }, desc: '2 Metall + Blitz = Modem — KRRRSCHHHH!' },
+    { name: 'ICQ',         result: 'icq',       resultCount: 1, ingredients: { modem: 1, flower: 1 },   desc: 'Modem + Blume = ICQ — Uh-Oh!' },
+    { name: 'AOL',         result: 'aol',       resultCount: 1, ingredients: { modem: 1, key: 1 },      desc: 'Modem + Schlüssel = AOL — Bin ich schon drin?' },
 ];

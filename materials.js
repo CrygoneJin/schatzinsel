@@ -73,4 +73,8 @@ window.INSEL_MATERIALS = {
     tornado:  { emoji: '🌪️', label: 'Tornado', color: '#AEB6BF', border: '#85929E' },
     wave:     { emoji: '🌊', label: 'Tsunami',  color: '#2980B9', border: '#1F618D' },
     phoenix:  { emoji: '🔥', label: 'Phönix',   color: '#F39C12', border: '#E67E22' },
+    // === INTERNET-NOSTALGIE (90er) ===
+    modem:    { emoji: '📠', label: 'Modem',    color: '#C8BFA9', border: '#A89F8C' },
+    icq:      { emoji: '🌻', label: 'ICQ',      color: '#4BAF4F', border: '#388E3C' },
+    aol:      { emoji: '💿', label: 'AOL',      color: '#0055A4', border: '#003D7A' },
 };
