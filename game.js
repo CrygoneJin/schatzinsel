@@ -135,19 +135,19 @@
         } catch (e) {}
     }
 
-    // Modi — Kirchentonarten, Pythagoräische Stimmverhältnisse ab C4
-    // Grundton × Intervall = reine Frequenz (Pythagoras + Bach)
+    // Modi — A-Moll-verwandte Skalen, harmonisch zum Ambient-Piano
+    // Alle Skalen nutzen nur Töne aus A-natürlich-Moll (weiße Tasten)
     const C4 = 261.63;
     const SCALES = {
-        // Dorisch (D-Modus): 1 9/8 32/27 4/3 3/2 27/16 16/9 2
-        dorian:     [C4, C4*9/8, C4*32/27, C4*4/3, C4*3/2, C4*27/16, C4*16/9, C4*2, C4*9/4, C4*32/13.5, C4*8/3, C4*3],
-        // Lydisch (F-Modus): 1 9/8 81/64 729/512 3/2 27/16 243/128 2
-        lydian:     [C4, C4*9/8, C4*81/64, C4*729/512, C4*3/2, C4*27/16, C4*243/128, C4*2, C4*9/4, C4*81/32, C4*729/256, C4*3],
-        // Mixolydisch (G-Modus): 1 9/8 81/64 4/3 3/2 27/16 16/9 2
-        mixolydian: [C4, C4*9/8, C4*81/64, C4*4/3, C4*3/2, C4*27/16, C4*16/9, C4*2, C4*9/4, C4*81/32, C4*8/3, C4*3],
+        // A-Äolisch (natürlich Moll): A B C D E F G — Grundskala des Ambient
+        aeolian:    [220, 246.94, 261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25, 587.33, 659.25],
+        // C-Ionisch (Dur-Parallele): C D E F G A B — gleiche Töne, anderer Startpunkt
+        ionian:     [261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99],
+        // D-Dorisch: D E F G A B C — jazzige Moll-Variante, gleiche Töne
+        dorian:     [293.66, 329.63, 349.23, 392, 440, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99, 880],
     };
     const SCALE_NAMES = Object.keys(SCALES);
-    let currentScale = SCALES[SCALE_NAMES[Math.floor(Math.random() * SCALE_NAMES.length)]];
+    let currentScale = SCALES.aeolian;
     let scaleChangeCounter = 0;
 
     const BUILD_WAVES = ['sine', 'triangle', 'square'];
@@ -157,17 +157,19 @@
     // === 五音 (Wǔ Yīn) — Die 5 Töne der chinesischen Pentatonik ===
     // Jedes Element hat seinen Ton: 宫商角徵羽 (Gōng Shāng Jué Zhǐ Yǔ)
     // Pythagoräische Stimmung aus reinen Quinten: C D E G A
+    // 五音 Töne exakt auf gleichstufige Stimmung der AMELIE_SCALE abgestimmt
+    // (vermeidet Schwebungen zwischen Bau-Sounds und Ambient-Piano)
     const ELEMENT_TONES = {
-        // 土 Erde = 宫 Gōng (C) — Grundton, Fundament, Mitte
-        earth:  { freq: C4,         wave: 'triangle', dur: 0.14, vol: 0.10 },
-        // 金 Metall = 商 Shāng (D) — klar, schneidend, rein
-        metal:  { freq: C4 * 9/8,   wave: 'square',   dur: 0.10, vol: 0.07 },
-        // 木 Holz = 角 Jué (E) — warm, organisch, wachsend
-        wood:   { freq: C4 * 81/64, wave: 'triangle', dur: 0.14, vol: 0.08 },
-        // 火 Feuer = 徵 Zhǐ (G) — hell, energisch, aufsteigend
-        fire:   { freq: C4 * 3/2,   wave: 'sawtooth', dur: 0.06, vol: 0.06 },
-        // 水 Wasser = 羽 Yǔ (A) — fließend, weich, tief
-        water:  { freq: C4 * 27/16, wave: 'sine',     dur: 0.18, vol: 0.08 },
+        // 土 Erde = 宫 Gōng (C4) — Grundton, Fundament, Mitte
+        earth:  { freq: 261.63,  wave: 'triangle', dur: 0.14, vol: 0.10 },
+        // 金 Metall = 商 Shāng (D4) — klar, schneidend, rein
+        metal:  { freq: 293.66,  wave: 'square',   dur: 0.10, vol: 0.07 },
+        // 木 Holz = 角 Jué (E4) — warm, organisch, wachsend
+        wood:   { freq: 329.63,  wave: 'triangle', dur: 0.14, vol: 0.08 },
+        // 火 Feuer = 徵 Zhǐ (G4) — hell, energisch, aufsteigend
+        fire:   { freq: 392.00,  wave: 'sawtooth', dur: 0.06, vol: 0.06 },
+        // 水 Wasser = 羽 Yǔ (A4) — fließend, weich, tief
+        water:  { freq: 440.00,  wave: 'sine',     dur: 0.18, vol: 0.08 },
     };
 
     function soundBuild(material) {
@@ -199,15 +201,23 @@
         const type = BUILD_WAVES[Math.floor(Math.random() * BUILD_WAVES.length)];
         playRichTone(currentScale[idx], 0.06 + Math.random() * 0.06, type, 0.06 + Math.random() * 0.04);
     }
+    // A-Moll Töne für Abriss: tief → hoch je nach Füllgrad
+    const DEMOLISH_SCALE = [
+        110, 130.81, 146.83, 164.81, 174.61, 196, 220,
+        246.94, 261.63, 293.66, 329.63, 349.23, 392, 440,
+    ]; // A2 bis A4, nur A-Moll Töne
     function soundDemolish() {
         if (!canPlaySound()) return;
         const stats = typeof getGridStats === 'function' ? getGridStats() : { percent: 50 };
         const fillPercent = stats.percent || 0;
-        const baseFreq = 120 + (fillPercent / 100) * 380;
-        const freq = baseFreq + Math.random() * 60;
+        // Füllgrad bestimmt Position in der Skala
+        const idx = Math.floor((fillPercent / 100) * (DEMOLISH_SCALE.length - 1));
+        const freq = DEMOLISH_SCALE[Math.min(idx, DEMOLISH_SCALE.length - 1)];
         const type = fillPercent < 20 ? 'sine' : 'sawtooth';
         playRichTone(freq, 0.18, type, 0.07);
-        setTimeout(() => playTone(freq * 0.6, 0.12, type, 0.04), 60);
+        // Zweiter Ton eine Terz tiefer (auch in Skala)
+        const idx2 = Math.max(0, idx - 2);
+        setTimeout(() => playTone(DEMOLISH_SCALE[idx2], 0.12, type, 0.04), 60);
     }
     function soundAchievement() {
         // Zelda-Chest-artig: aufsteigende Fanfare mit Chorus
@@ -1085,15 +1095,17 @@
 
     function soundChop() {
         if (!canPlaySound()) return;
-        playRichTone(180, 0.15, 'sawtooth', 0.1);
-        setTimeout(() => playTone(120, 0.2, 'square', 0.08), 80);
+        // E3 (164.81) + A2 (110) — perkussiv aber in A-Moll
+        playRichTone(164.81, 0.15, 'sawtooth', 0.1);
+        setTimeout(() => playTone(110, 0.2, 'square', 0.08), 80);
     }
 
     function soundCraft() {
         if (!canPlaySound()) return;
+        // A4 → C5 → E5: A-Moll Dreiklang (statt A-Dur mit C#)
         playRichTone(440, 0.1, 'sine', 0.1);
-        setTimeout(() => playRichTone(554, 0.1, 'sine', 0.1), 100);
-        setTimeout(() => playRichTone(659, 0.2, 'triangle', 0.12), 200);
+        setTimeout(() => playRichTone(523.25, 0.1, 'sine', 0.1), 100);
+        setTimeout(() => playRichTone(659.25, 0.2, 'triangle', 0.12), 200);
     }
 
     // ============================================================
