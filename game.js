@@ -1349,7 +1349,7 @@
                 btn.className = 'material-btn craft-unlocked';
                 btn.dataset.material = mat;
                 btn.title = info.label;
-                btn.innerHTML = `<span class="mat-emoji">${info.emoji}</span><span class="mat-label">${info.label}</span>`;
+                btn.innerHTML = `<span class="mat-emoji">${info.emoji}</span>`;
                 palette.appendChild(btn);
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
@@ -1363,6 +1363,7 @@
             }
         }
         showToast(`✨ Neues Artefakt: ${info.emoji} ${info.label}!`);
+        updateDiscoveryCounter();
     }
 
     function updatePaletteVisibility() {
@@ -2152,6 +2153,14 @@
                 selectMaterial(btn.dataset.material);
             });
         });
+    }
+
+    function updateDiscoveryCounter() {
+        const el = document.getElementById('discovery-counter');
+        if (!el) return;
+        const total = Object.keys(MATERIALS).length;
+        const discovered = unlockedMaterials.size + BASE_MATERIALS.length;
+        el.textContent = `🔬 ${discovered} / ${total} entdeckt`;
     }
 
     function selectMaterial(mat) {
