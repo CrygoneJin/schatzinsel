@@ -296,13 +296,13 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
     // --- Settings ---
     // --- Config: Proxy > config.js > localStorage > Dialog ---
     // Proxy = zero setup. Key bleibt serverseitig. User merkt nichts.
-    // config.js: { proxy: 'https://my-worker.hoffmeyer-zlotnik.workers.dev', models: { bernd: 'gpt-4o' } }
+    // config.js: { proxy: 'https://dein-worker.workers.dev', models: { bernd: 'gpt-4o' } }
     // Lokal: { proxy: 'http://localhost:4000', proxyKey: 'sk-proxy' }
     const CFG = window.INSEL_CONFIG || {};
 
     // Default Proxy für alle (kein API-Key nötig)
     if (!CFG.proxy) {
-        CFG.proxy = 'https://my-worker.hoffmeyer-zlotnik.workers.dev';
+        CFG.proxy = 'https://insel-proxy.workers.dev';
     }
 
     // === KI-BAUKOMMENTAR-PUFFER ===
