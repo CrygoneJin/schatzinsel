@@ -1,28 +1,33 @@
 // Cloudflare Worker — API-Proxy für Insel-Architekt
-// Key bleibt serverseitig. User braucht keinen eigenen.
+// Direkt → Langdock (kritischer Pfad)
+// Fire & forget → Logging (n8n oder direkt, per Schalter)
 //
 // Setup:
 // 1. https://dash.cloudflare.com → Workers & Pages → Create
 // 2. Code reinkopieren
-// 3. Environment Variable setzen: LANGDOCK_API_KEY = sk-...
+// 3. Environment Variables setzen:
+//    LANGDOCK_API_KEY    = sk-...
+//    LOGGING_MODE        = direct      (oder: n8n)
+//    N8N_WEBHOOK_URL     = https://...  (nur bei LOGGING_MODE=n8n)
+//    AIRTABLE_TOKEN      = pat...       (nur bei LOGGING_MODE=direct)
+//    AIRTABLE_BASE_ID    = app...       (nur bei LOGGING_MODE=direct)
+//    AIRTABLE_TABLE_NAME = Feynman Sessions
 // 4. Deploy
-// 5. In chat.js PROXY_URL auf die Worker-URL setzen
+// 5. In config.js PROXY auf die Worker-URL setzen
 //
 // Free Tier: 100k Requests/Tag. Reicht für Demos.
 
-const LANGDOCK_URL = 'https://api.langdock.com/openai/v1/chat/completions';
+const LANGDOCK_URL = 'https://api.langdock.com/openai/eu/v1/chat/completions';
 
 // Rate Limit: max Requests pro IP pro Stunde
 const RATE_LIMIT = 60;
-const RATE_WINDOW = 3600; // Sekunden
+const RATE_WINDOW = 3600;
 
 export default {
     async fetch(request, env) {
         // CORS Preflight
         if (request.method === 'OPTIONS') {
-            return new Response(null, {
-                headers: corsHeaders(),
-            });
+            return new Response(null, { headers: corsHeaders() });
         }
 
         // Nur POST
@@ -41,19 +46,34 @@ export default {
             await env.RATE_LIMIT_KV.put(key, String(count + 1), { expirationTtl: RATE_WINDOW });
         }
 
-        // API Key aus Environment
         const apiKey = env.LANGDOCK_API_KEY;
         if (!apiKey) {
             return json({ error: 'Server nicht konfiguriert (kein API Key)' }, 500);
         }
 
+        let body;
         try {
-            const body = await request.json();
+            body = await request.json();
+        } catch (e) {
+            return json({ error: 'Ungültiger Request-Body' }, 400);
+        }
 
-            // Sicherheit: nur erlaubte Modelle, max Tokens begrenzen
-            body.max_tokens = Math.min(body.max_tokens || 300, 500);
-            body.stream = false; // Kein Streaming im Proxy
+        // Sicherheit: max Tokens begrenzen, kein Streaming
+        body.max_tokens = Math.min(body.max_tokens || 300, 500);
+        body.stream = false;
 
+        // Meta-Kontext für Logging
+        const meta = {
+            ip:      request.headers.get('cf-connecting-ip') || 'unknown',
+            country: request.headers.get('cf-ipcountry') || 'unknown',
+            ts:      new Date().toISOString(),
+        };
+
+        // Fire & forget — Logging läuft parallel, blockiert nichts
+        logAsync(body, meta, env).catch(() => {});
+
+        // Direkt → Langdock (kritischer Pfad)
+        try {
             const response = await fetch(LANGDOCK_URL, {
                 method: 'POST',
                 headers: {
@@ -64,13 +84,55 @@ export default {
             });
 
             const data = await response.json();
-
             return json(data, response.status);
+
         } catch (e) {
             return json({ error: 'Proxy-Fehler: ' + e.message }, 500);
         }
     },
 };
+
+// --- Logging ---
+
+async function logAsync(body, meta, env) {
+    const mode = env.LOGGING_MODE || 'n8n';
+
+    if (mode === 'n8n' && env.N8N_WEBHOOK_URL) {
+        await fetch(env.N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...body, _meta: meta }),
+        });
+        return;
+    }
+
+    if (mode === 'direct') {
+        await logAirtable(body, meta, env);
+    }
+}
+
+async function logAirtable(message, meta, env) {
+    if (!env.AIRTABLE_TOKEN || !env.AIRTABLE_BASE_ID) return;
+
+    const table = encodeURIComponent(env.AIRTABLE_TABLE_NAME || 'Chat Logs');
+    await fetch(`https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${table}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${env.AIRTABLE_TOKEN}`,
+        },
+        body: JSON.stringify({
+            fields: {
+                Message:   message,
+                IP:        meta.ip,
+                Country:   meta.country,
+                Timestamp: meta.ts,
+            },
+        }),
+    });
+}
+
+// --- Helpers ---
 
 function corsHeaders() {
     return {
