@@ -1,20 +1,20 @@
-# Sprint 2026-03-29 (Ceremonies)
+# Sprint 2026-03-29 (Repo-Reorg)
 
-**Ziel:** Alle Scrum-Ceremonies existieren als Skills — der Vater hat ein vollständiges Toolkit.
+**Ziel:** Das Repo hat keine toten Dateien mehr — Root zeigt Spiel-Code, docs/ zeigt aktive Doku, sonst nichts.
 
 **Timebox:** 30 Minuten
 
 | # | Task | Owner | Done | Est. |
 |---|------|-------|------|------|
-| 1 | `/retro` Skill — Was lief gut, was schlecht, was ändern wir | Engineer | [x] | 7m |
-| 2 | `/daily` Skill — 2-Minuten Standup für Solo-Dev | Engineer | [x] | 5m |
-| 3 | `/demo` Skill — Oscar/Familie zeigt was gebaut wurde | Engineer | [x] | 5m |
-| 4 | `/meeting` updaten — Jobs entscheidet wer kommt statt automatisch alle 5 | Engineer | [x] | 5m |
-| 5 | Commit + Push + MEMORY.md | — | [x] | 3m |
+| 1 | `exports/` komplett löschen (Kopie-Friedhof, 23 Dateien) | Torvalds | [ ] | 2m |
+| 2 | `docs/padawans/` löschen (eingefroren, nie gespawnt) | Torvalds | [ ] | 1m |
+| 3 | Tote docs: STORY.md, HOSTING.md, BEST-PRACTICES.md, CHANGELOG.md, FEYNMAN-QUOTES.md | Torvalds | [ ] | 2m |
+| 4 | Root: AGENTS.md → docs/, hau-den-lukas.html löschen | Torvalds | [ ] | 3m |
+| 5 | ARCHITECTURE.md + BACKLOG.md updaten, commit + push + MEMORY.md | Feynman | [ ] | 5m |
 
-**Reihenfolge:** 1 ∥ 2 ∥ 3, dann 4, dann 5
+**Reihenfolge:** 1 ∥ 2 ∥ 3 (parallel), dann 4, dann 5
 
 **Nicht in diesem Sprint:**
-- game.js Split (eigener Sprint)
-- Höhlen im Adventure-Grid (eigener Sprint)
-- Floriane die Wunschfee (eigener Sprint)
+- game.js Split (eigener Sprint, ~2h)
+- Höhlen im Adventure-Grid (#27)
+- Floriane die Wunschfee (#29)
