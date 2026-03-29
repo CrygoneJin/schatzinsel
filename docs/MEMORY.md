@@ -421,6 +421,19 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
 ---
 
+## Agent-Tracking (Feynman-Baseline)
+
+Eine Zeile pro Session. Wer hat was geliefert. Kein Framework, kein Dashboard.
+Nach 5 Sessions haben wir eine Baseline.
+
+| Datum | Session | Jobs | Feynman | Torvalds | Ogilvy | Rams |
+|-------|---------|------|---------|----------|--------|------|
+| 2026-03-29 | Skills-Reorg | Skills sortiert, aufgetaut | Audit: Messlücke erkannt, Tracking vorgeschlagen | — | — | — |
+
+**Legende:** Was hat der Agent in dieser Session geliefert? Ein Satz. `—` = nicht aktiv.
+
+---
+
 ## Offene Fragen
 
 - [ ] Wann lohnt sich Opus-Elevation wirklich? (Feynman entscheidet)
