@@ -6,10 +6,10 @@
 
 | # | Task | Owner | Done | Est. |
 |---|------|-------|------|------|
-| 1 | `playAmbientNote()` Build-Modus Crash fixen — getMoodFromOskarPosition() darf im Build-Modus nicht auf oskar/adventure-grid zugreifen | Engineer | [ ] | 5m |
-| 2 | Doppelte Emojis fixen: Setzling (🌱→🪴), Fenster (🪟→🔲), Weg (🟫→🟤) | Designer | [ ] | 3m |
-| 3 | Schatzsuche-Quest: Ein NPC gibt Auftrag → Schatz auf Map versteckt → Hinlaufen + Einsammeln = Toast "Schatz gefunden!" | Engineer + Artist | [ ] | 15m |
-| 4 | Commit + Push + MEMORY.md | — | [ ] | 2m |
+| 1 | `playAmbientNote()` Build-Modus Crash fixen — getMoodFromOskarPosition() darf im Build-Modus nicht auf oskar/adventure-grid zugreifen | Engineer | [x] | 5m |
+| 2 | Doppelte Emojis fixen: Setzling (🌱→🪴), Fenster (🪟→🔲), Weg (🟫→🟤) | Designer | [x] | 3m |
+| 3 | Schatzsuche-Quest: Ein NPC gibt Auftrag → Schatz auf Map versteckt → Hinlaufen + Einsammeln = Toast "Schatz gefunden!" | Engineer + Artist | [x] | 15m |
+| 4 | Commit + Push + MEMORY.md | — | [x] | 2m |
 
 **Reihenfolge:** 1 → 3, 2 ∥ 3, 4 nach allem
 

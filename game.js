@@ -4075,6 +4075,10 @@
         ROWS = ADV_ROWS;
         CELL_SIZE = calcCellSize();
         resizeCanvas();
+        // Quest-State resetten
+        treasureQuestActive = false;
+        treasureQuestComplete = false;
+        treasurePos = null;
         generateAdventureWorld();
         updateCamera();
         document.getElementById('palette')?.classList.add('adventure-hidden');

@@ -358,14 +358,37 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 - **Mandela-Warnung**: Papa baut, statt mit Oscar zu spielen. Nächste Session: Oscar spielt, Papa schaut zu.
 - **Die EINE Sache**: Oscar braucht ein Quest. "Finde den Schatz." Nicht 20. Eines.
 
+### Sprint 2026-03-29 abgeschlossen ✅
+
+**Ziel: Oscar hat einen Grund auf der Insel zu sein — ein Schatz wartet.**
+
+| Task | Status |
+|------|--------|
+| Ambient-Crash-Fix (playAmbientNote im Build-Modus) | ✅ |
+| Doppelte Emojis (Setzling 🪴, Fenster 🔲, Weg 🟤) | ✅ |
+| Schatzsuche-Quest (NPC → Schatz → Pickup → Abgabe) | ✅ |
+| Commit + Push + Memory | ✅ |
+
+**Was gebaut wurde:**
+- Erster NPC ("Der Älteste") gibt Quest: "Mein Schatz ist verloren!"
+- Schatz (💎) per seeded PRNG platziert, min. 15 Felder vom Spawn
+- Biom-Text im Dialog (Sandwüste, Blumenwiese, etc.)
+- Pickup bei Betreten, Quest-Abgabe beim NPC, soundQuestComplete()
+- Schatz pulsiert auf dem Grid, blinkt auf der Minimap (goldener Punkt)
+- 3 Quest-Zustände: geben → Hinweis wiederholen → Abgabe
+
+**Parallel erledigt:**
+- /review Skill (15 Personas + 5 Beiräte)
+- /sprint Skill (Einstein/Torvalds/Feynman)
+- Personalfunktion: Jobs = Teamdynamik intern, Habermas = cross-cell
+- Feynman-Reallocation-Regeln (Mindestgröße sakrosankt)
+- Sound-Harmonisierung (alle Tonsysteme auf A-Moll)
+
 ### Nächste Session
-- **P0**: Adventure-Quest ("Finde den Schatz") — ein Ziel für Oscar
-- **P0**: `playAmbientNote()` Build-Modus Crash fixen
-- **P1**: game.js Split (core/sound/adventure/craft)
-- **P1**: Doppelte Emojis in Palette fixen
-- **P1**: SPRINT.md anlegen
+- **P1**: game.js Split (core/sound/adventure/craft) — jetzt 4400+ Zeilen
+- **P1**: Play-Test mit Oscar (beobachten, nicht coden)
 - vapi.ai Voice-Integration (Pipeline steht bereit)
-- Play-Test mit Oscar (beobachten, nicht coden)
+- Michael Büker: Wissenschaftsjournalismus für Kinder (Gespräch mit Darwin)
 
 ---
 
