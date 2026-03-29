@@ -224,6 +224,177 @@
     }
 
     // ============================================================
+    // === ABENTEUER-SOUNDTRACK === Generativ, Tiersen/Einaudi/Nyman
+    // Amélie-Prinzip: Papa arrangiert im Hintergrund, Kind erlebt.
+    // Zarte Klaviermelodien, minimalistische Arpeggien, aufbauend.
+    // ============================================================
+
+    let ambientPlaying = false;
+    let ambientTimer = null;
+
+    // Klavier-ähnlicher Ton: schneller Attack, langes Sustain, sanfter Decay
+    function playPianoNote(freq, duration, vol) {
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+
+            // Grundton + Obertöne für Klavier-Timbre
+            const harmonics = [
+                { ratio: 1,   amp: 1.0 },
+                { ratio: 2,   amp: 0.4 },
+                { ratio: 3,   amp: 0.15 },
+                { ratio: 4,   amp: 0.08 },
+            ];
+
+            for (const h of harmonics) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                const filter = ctx.createBiquadFilter();
+
+                osc.type = 'sine';
+                osc.frequency.value = freq * h.ratio;
+
+                // Sanfter Lowpass für Wärme
+                filter.type = 'lowpass';
+                filter.frequency.value = 2000;
+                filter.Q.value = 0.5;
+
+                // Piano-Envelope: schneller Attack, exponentieller Decay
+                const noteVol = (vol || 0.06) * h.amp;
+                gain.gain.setValueAtTime(0, t);
+                gain.gain.linearRampToValueAtTime(noteVol, t + 0.01);
+                gain.gain.exponentialRampToValueAtTime(noteVol * 0.5, t + duration * 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + duration + 0.1);
+            }
+        } catch (e) {}
+    }
+
+    // Molltonleiter (natürlich) — Amélie/Einaudi-Feeling
+    // A-Moll: A B C D E F G (+ Oktave darüber)
+    const AMELIE_SCALE = [
+        220.00,  // A3
+        246.94,  // B3
+        261.63,  // C4
+        293.66,  // D4
+        329.63,  // E4
+        349.23,  // F4
+        392.00,  // G4
+        440.00,  // A4
+        493.88,  // B4
+        523.25,  // C5
+        587.33,  // D5
+        659.25,  // E5
+    ];
+
+    // Arpeggio-Muster (à la Tiersen "Comptine d'un autre été")
+    const ARPEGGIO_PATTERNS = [
+        [0, 2, 4, 7, 4, 2],           // i - III - v - i' (aufsteigend/absteigend)
+        [0, 4, 7, 4, 0, -3],          // Nyman "Heart Asks Pleasure First"
+        [0, 2, 4, 2, 5, 4, 2, 0],     // Einaudi-Welle
+        [7, 4, 2, 0, 2, 4],           // Absteigend → aufsteigend (Tiersen)
+        [0, 3, 5, 7, 5, 3, 0, -2],    // Weite Bögen (Einaudi "Nuvole Bianche")
+    ];
+
+    // Stimmungszustände — ändern sich je nachdem wo Oskar ist
+    const MOODS = {
+        strand:  { tempo: 280, vol: 0.04, pattern: 0 },  // Ruhig, fließend
+        wald:    { tempo: 220, vol: 0.05, pattern: 3 },  // Mysteriös, tiefer
+        wiese:   { tempo: 250, vol: 0.045, pattern: 2 }, // Leicht, Einaudi-Welle
+        fels:    { tempo: 200, vol: 0.035, pattern: 1 }, // Dramatisch, Nyman
+        wasser:  { tempo: 320, vol: 0.03, pattern: 4 },  // Weit, langsam
+    };
+
+    function getMoodFromOskarPosition() {
+        if (gameMode !== 'adventure') return MOODS.wiese;
+        const cell = grid[oskar.r]?.[oskar.c];
+        const nearby = [];
+        for (let dr = -3; dr <= 3; dr++) {
+            for (let dc = -3; dc <= 3; dc++) {
+                const m = grid[oskar.r + dr]?.[oskar.c + dc];
+                if (m) nearby.push(m);
+            }
+        }
+        const trees = nearby.filter(m => m === 'tree' || m === 'plant' || m === 'small_tree').length;
+        const sand = nearby.filter(m => m === 'sand').length;
+        const rocks = nearby.filter(m => m === 'stone' || m === 'earth').length;
+        const water = oskar.r < 3 || oskar.c < 3 || oskar.r > ROWS - 4 || oskar.c > COLS - 4;
+
+        if (water) return MOODS.wasser;
+        if (sand > 5) return MOODS.strand;
+        if (trees > 8) return MOODS.wald;
+        if (rocks > 5) return MOODS.fels;
+        return MOODS.wiese;
+    }
+
+    let ambientPatternIdx = 0;
+    let ambientBaseNote = 0;  // Index in AMELIE_SCALE
+    let ambientPhrase = 0;    // Zähler für Phrasenwechsel
+
+    function playAmbientNote() {
+        if (!ambientPlaying || gameMode !== 'adventure') {
+            ambientPlaying = false;
+            return;
+        }
+
+        const mood = getMoodFromOskarPosition();
+        const pattern = ARPEGGIO_PATTERNS[mood.pattern];
+        const interval = pattern[ambientPatternIdx % pattern.length];
+        const noteIdx = ambientBaseNote + interval;
+
+        // Note aus der Skala holen (mit Oktav-Wrapping)
+        const octave = Math.floor(noteIdx / AMELIE_SCALE.length);
+        const scaleIdx = ((noteIdx % AMELIE_SCALE.length) + AMELIE_SCALE.length) % AMELIE_SCALE.length;
+        const freq = AMELIE_SCALE[scaleIdx] * Math.pow(2, octave);
+
+        // Leichte humanisierende Variation
+        const humanize = 1 + (Math.random() - 0.5) * 0.008;
+        const durVariation = 0.9 + Math.random() * 0.2;
+
+        playPianoNote(freq * humanize, (mood.tempo / 1000) * 3 * durVariation, mood.vol);
+
+        ambientPatternIdx++;
+
+        // Phrasenwechsel: alle 2 Durchläufe Grundton verschieben
+        if (ambientPatternIdx >= pattern.length) {
+            ambientPatternIdx = 0;
+            ambientPhrase++;
+            if (ambientPhrase % 2 === 0) {
+                // Grundton bewegen (kleine Schritte, Molltonleiter-treu)
+                const shift = [-2, -1, 0, 1, 2, 3][Math.floor(Math.random() * 6)];
+                ambientBaseNote = Math.max(0, Math.min(6, ambientBaseNote + shift));
+            }
+        }
+
+        // Gelegentliche Pause (Atmung, wie in Einaudi-Stücken)
+        const pause = Math.random() < 0.08 ? mood.tempo * 2 : 0;
+
+        ambientTimer = setTimeout(playAmbientNote, mood.tempo + pause);
+    }
+
+    function startAmbientMusic() {
+        if (ambientPlaying) return;
+        ambientPlaying = true;
+        ambientPatternIdx = 0;
+        ambientBaseNote = Math.floor(Math.random() * 5);
+        ambientPhrase = 0;
+        playAmbientNote();
+    }
+
+    function stopAmbientMusic() {
+        ambientPlaying = false;
+        if (ambientTimer) {
+            clearTimeout(ambientTimer);
+            ambientTimer = null;
+        }
+    }
+
+    // ============================================================
     // === ACHIEVEMENTS === (→ achievements.js bei Zellteilung)
     // ============================================================
     const ACHIEVEMENTS = {
@@ -3313,7 +3484,32 @@
     }
 
     // Abenteuer-Welt generieren (64x64 mit Biomen)
+    // Seed kommt von Mama — sie gibt das Wort, die Welt entsteht daraus
+    function hashSeed(str) {
+        let h = 0;
+        for (let i = 0; i < str.length; i++) {
+            h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+        }
+        return h;
+    }
+
+    // Seeded Pseudo-Random (Mulberry32)
+    function mulberry32(seed) {
+        return function() {
+            seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+            let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+            t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+            return ((t ^ t >>> 14) >>> 0) / 4294967296;
+        };
+    }
+
     function generateAdventureWorld() {
+        // Seed: Heldenname (vom Kind) + Mama-Seed (optional)
+        const mamaSeed = localStorage.getItem('insel-mama-seed') || 'mama';
+        const seedStr = oskar.name + ':' + mamaSeed;
+        const seed = hashSeed(seedStr);
+        const rng = mulberry32(seed);
+
         grid = [];
         for (let r = 0; r < ROWS; r++) {
             grid[r] = [];
@@ -3322,12 +3518,12 @@
             }
         }
 
-        // Simplex-artige Landschaft mit Seed
+        // Seeded Landschaft — gleicher Seed = gleiche Welt
         for (let r = 0; r < ROWS; r++) {
             for (let c = 0; c < COLS; c++) {
-                const n = Math.sin(r * 0.15 + c * 0.1) * 0.5 +
-                          Math.cos(r * 0.08 - c * 0.12) * 0.3 +
-                          Math.sin((r + c) * 0.05) * 0.2;
+                const n = Math.sin(r * 0.15 + c * 0.1 + seed * 0.001) * 0.5 +
+                          Math.cos(r * 0.08 - c * 0.12 + seed * 0.002) * 0.3 +
+                          Math.sin((r + c) * 0.05 + seed * 0.003) * 0.2;
 
                 // Ränder = Wasser (kein Material, das Wasser ist der WATER_BORDER)
                 const distEdge = Math.min(r, c, ROWS - 1 - r, COLS - 1 - c);
@@ -3346,8 +3542,8 @@
                 else grid[r][c] = 'earth';
 
                 // Zufällige Details
-                if (Math.random() < 0.01) grid[r][c] = 'mushroom';
-                if (Math.random() < 0.005) grid[r][c] = 'cactus';
+                if (rng() < 0.01) grid[r][c] = 'mushroom';
+                if (rng() < 0.005) grid[r][c] = 'cactus';
             }
         }
 
@@ -3366,6 +3562,115 @@
         }
 
         window.grid = grid;
+    }
+
+    // --- Oscars Ambient: Vivaldi-Arpeggios + Hardstyle-Drops ---
+    let oscarAmbientPlaying = false;
+    let oscarAmbientTimer = null;
+
+    // Vivaldi "Vier Jahreszeiten" Arpeggios — A-Moll, E-Moll, D-Moll
+    const VIVALDI_ARPS = [
+        [440, 523, 659, 784, 659, 523],       // Am aufsteigend/absteigend
+        [330, 392, 494, 587, 494, 392],        // Em
+        [294, 349, 440, 523, 440, 349],        // Dm
+        [523, 659, 784, 880, 784, 659],        // Am hoch
+        [440, 554, 659, 880, 659, 554],        // Am mit Terz
+    ];
+
+    function playOscarAmbientNote() {
+        if (!oscarAmbientPlaying || !canPlaySound()) return;
+
+        // Gelegentlicher Hardstyle-Drop (ca. 8% Chance)
+        if (Math.random() < 0.08) {
+            try {
+                const ctx = ensureAudio();
+                const t = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(120, t);
+                osc.frequency.exponentialRampToValueAtTime(35, t + 0.2);
+                gain.gain.setValueAtTime(0.08, t);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(t);
+                osc.stop(t + 0.35);
+            } catch (e) {}
+            oscarAmbientTimer = setTimeout(playOscarAmbientNote, 800);
+            return;
+        }
+
+        // Vivaldi-Arpeggio: schnelle Sechzehntel-Kette
+        const arp = VIVALDI_ARPS[Math.floor(Math.random() * VIVALDI_ARPS.length)];
+        const tempo = 100 + Math.random() * 60; // 100-160ms pro Note
+        arp.forEach((freq, i) => {
+            setTimeout(() => {
+                if (!oscarAmbientPlaying) return;
+                playRichTone(freq, 0.12, 'triangle', 0.04);
+            }, i * tempo);
+        });
+
+        // Atempause zwischen Phrasen
+        const phraseLen = arp.length * tempo;
+        const pause = 600 + Math.random() * 1200;
+        oscarAmbientTimer = setTimeout(playOscarAmbientNote, phraseLen + pause);
+    }
+
+    function startOscarAmbient() {
+        if (oscarAmbientPlaying) return;
+        oscarAmbientPlaying = true;
+        playOscarAmbientNote();
+    }
+
+    function stopOscarAmbient() {
+        oscarAmbientPlaying = false;
+        if (oscarAmbientTimer) {
+            clearTimeout(oscarAmbientTimer);
+            oscarAmbientTimer = null;
+        }
+    }
+
+    // --- Oscars Sounds: Hardstyle-Kick + Vivaldi-Schritte ---
+    let walkNoteIdx = 0;
+    // Vivaldi "Sommer" Presto — absteigende Tonleiter, schnell
+    const VIVALDI_WALK = [659, 622, 587, 554, 523, 494, 466, 440, 466, 494, 523, 554, 587, 622, 659, 698];
+
+    function soundOskarStep() {
+        if (!canPlaySound()) return;
+        // Vivaldi-artiger Schritt: schnelle Sechzehntel, Geigen-ähnlich
+        const freq = VIVALDI_WALK[walkNoteIdx % VIVALDI_WALK.length];
+        walkNoteIdx++;
+        playRichTone(freq, 0.08, 'triangle', 0.04);
+    }
+
+    function soundOskarPickup() {
+        // Hardstyle-Kick: tiefer Sinus-Drop + Distortion
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(150, t);
+            osc.frequency.exponentialRampToValueAtTime(40, t + 0.15);
+            gain.gain.setValueAtTime(0.15, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.25);
+            // Hi-hat dazu
+            setTimeout(() => playTone(8000 + Math.random() * 4000, 0.03, 'square', 0.03), 50);
+        } catch (e) {}
+    }
+
+    function soundOskarNPCTalk() {
+        // Sanfte Harfe (Vivaldi langsamer Satz)
+        const notes = [523, 659, 784, 880];
+        notes.forEach((f, i) => {
+            setTimeout(() => playPianoNote(f, 0.4, 0.05), i * 120);
+        });
     }
 
     // Oskar bewegen
@@ -3397,12 +3702,14 @@
 
         oskar.r = newR;
         oskar.c = newC;
+        soundOskarStep();
 
         // Items aufheben (Blumen, Pilze, etc.)
         const pickable = ['flower', 'mushroom', 'fish', 'flag'];
         if (target && pickable.includes(target)) {
             if (addToInventory(target, 1) !== false) {
                 grid[newR][newC] = null;
+                soundOskarPickup();
                 showToast(`${MATERIALS[target]?.emoji || ''} ${MATERIALS[target]?.label || target} eingesammelt!`);
             }
         }
@@ -3440,6 +3747,7 @@
                 if (line.startsWith('dynamic:')) {
                     line = line.replace('dynamic:', '').replace('{name}', oskar.name);
                 }
+                soundOskarNPCTalk();
                 showToast(`${npc.emoji} ${npc.name}: "${line}"`);
                 trackEvent('adventure_npc_talk', { npc: npc.id });
                 return;
@@ -3659,6 +3967,8 @@
             document.getElementById('palette')?.classList.remove('adventure-hidden');
             document.querySelector('.toolbar')?.classList.remove('adventure-hidden');
             document.getElementById('stats')?.classList.remove('adventure-hidden');
+            stopOscarAmbient();
+            startAmbientMusic(); // Papa-Style: Tiersen/Einaudi Piano
             showToast('🖌️ Bau-Modus!');
         }
     };
@@ -3674,6 +3984,8 @@
         document.querySelector('.toolbar')?.classList.add('adventure-hidden');
         document.getElementById('stats')?.classList.add('adventure-hidden');
         showToast(`🏝️ ${oskar.name} erwacht auf der Insel... WASD zum Laufen, Leertaste zum Reden.`);
+        stopAmbientMusic(); // Papa-Musik aus — hier spielt Oscars Style
+        startOscarAmbient();
         requestAnimationFrame(drawAdventure);
     }
 
@@ -3739,7 +4051,7 @@
                     `).join('')}
                 </div>
 
-                <div style="margin-bottom: 20px;">
+                <div style="margin-bottom: 16px;">
                     <p style="color: #aaa; font-size: 12px; margin-bottom: 6px;">Dein Heldenname</p>
                     <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
                         <span id="hero-name-display" style="font-size: 22px; font-weight: bold; color: #FFD700;">
@@ -3748,6 +4060,16 @@
                         <button id="reroll-name" style="font-size: 18px; background: none; border: none;
                                 cursor: pointer; padding: 4px;" title="Neuer Name">🎲</button>
                     </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <p style="color: #aaa; font-size: 12px; margin-bottom: 6px;">Mamas Zauberwort (bestimmt die Welt)</p>
+                    <input id="mama-seed-input" type="text" placeholder="Ein Wort von Mama..."
+                           value="${localStorage.getItem('insel-mama-seed') || ''}"
+                           style="background: rgba(255,255,255,0.1); border: 1px solid #555;
+                                  border-radius: 8px; padding: 8px 12px; color: #FFD700;
+                                  font-family: inherit; font-size: 16px; text-align: center; width: 200px;">
+                    <p style="color: #666; font-size: 10px; margin-top: 4px;">Gleiches Wort = gleiche Insel</p>
                 </div>
 
                 <button id="hero-go" style="font-size: 20px; padding: 12px 40px; border: none;
@@ -3781,6 +4103,9 @@
             oskar.emoji = selectedEmoji;
             oskar.name = heroName;
             localStorage.setItem('insel-hero', JSON.stringify({ emoji: selectedEmoji, name: heroName }));
+            // Mama-Seed speichern
+            const mamaSeedVal = overlay.querySelector('#mama-seed-input')?.value?.trim() || 'mama';
+            localStorage.setItem('insel-mama-seed', mamaSeedVal);
             overlay.remove();
             callback();
         });
