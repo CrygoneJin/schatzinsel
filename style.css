@@ -417,7 +417,7 @@ header h1 {
 }
 
 /* Wu Xing — 5 Grundelemente mit traditionellen Farben */
-.material-btn[data-material="wood"]  { background: #2E8B22; color: #fff; }
+.material-btn[data-material="wood"]  { background: #1A7A4A; color: #fff; } /* 青 Qing — Grün+Blau */
 .material-btn[data-material="fire"]  { background: #CC2222; color: #fff; }
 .material-btn[data-material="earth"] { background: #F5C800; color: #222; }
 .material-btn[data-material="metal"] { background: #D0D0D0; color: #222; border-color: #aaa; }
