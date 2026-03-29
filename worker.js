@@ -150,7 +150,22 @@ async function handleCraft(request, env) {
     }
 
     // LLM-Aufruf via Requesty
-    const prompt = `Du bist ein Crafting-System für ein Kinderspiel auf einer Insel.\nEin Kind kombiniert "${a}" und "${b}".\nWas entsteht? Antworte NUR mit einem JSON-Objekt, kein anderer Text:\n{"emoji": "passendes einzelnes Emoji", "name": "deutsches Wort", "color": "#hexfarbe", "border": "#dunklere hexfarbe"}\nRegeln: Kindgerecht. Kein Grusel, keine Gewalt, nichts Trauriges. Das Ergebnis muss auf eine tropische Insel passen. Maximal 1 Wort als Name.`;
+    const prompt = `Crafting-System für ein Kinderspiel. Ein Kind kombiniert "${na}" + "${nb}".
+Was entsteht? Antworte NUR mit diesem JSON, kein anderer Text:
+{"emoji": "...", "name": "...", "color": "#hex", "border": "#hex"}
+
+Regeln:
+- name: EIN deutsches Wort, max 12 Buchstaben. Kein Doppelwort, keine Wiederholung der Zutaten.
+- emoji: GENAU EIN einzelnes Emoji-Zeichen. Kein Paar, keine Kombination. Muss zum Ergebnis passen, NICHT zu einer Zutat.
+- color: Die Hauptfarbe des Ergebnisses als Hex.
+- border: Etwas dunkler als color.
+- Kindgerecht. Kein Grusel, keine Gewalt, nichts Trauriges.
+- Kreativ aber logisch: Feuer+Wasser=Dampf, nicht Feuerwasser.
+
+Beispiele:
+fire+water → {"emoji":"💨","name":"Dampf","color":"#D5D8DC","border":"#AEB6BF"}
+earth+fire → {"emoji":"🧱","name":"Stein","color":"#95A5A6","border":"#7F8C8D"}
+dragon+ice → {"emoji":"🐲","name":"Eisdrache","color":"#87CEEB","border":"#5DADE2"}`;
 
     let result;
     try {
@@ -187,7 +202,7 @@ async function handleCraft(request, env) {
 
     // In KV speichern
     const entry = {
-        emoji:      result.emoji      || '✨',
+        emoji:      [...(result.emoji || '✨')][0],
         name:       result.name       || 'Unbekannt',
         color:      result.color      || '#cccccc',
         border:     result.border     || '#999999',
