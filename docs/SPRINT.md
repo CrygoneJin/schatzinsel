@@ -24,6 +24,7 @@
 - Sprint 6: Polish + Content.
 
 ### 2026-03-29 (Sprint 6 Review — alle Items Done)
-- S6-1: Entdeckungszähler dynamisch (updateDiscoveryCounter, commit 556aaf0).
-- S6-2: 12 neue Quest-Templates (Drachen, Einhorn, Roboter, Phönix, Raumfahrt etc.) — jetzt 32 gesamt.
-- S6-3: Alle mat-label Spans entfernt, title-Attribute auf Palette-Buttons, CSS-Toten-Code gelöscht.
+- S6-1: updateDiscoveryCounter() beim Start aufgerufen + dynamisch (kein hardcoded "68" mehr).
+- S6-2: 18 neue Quest-Templates (Runden 4-6, alle neuen Materialien: dragon, unicorn, phoenix, cloud, ice, snow, rain, butterfly, bee, apple, cake, potion usw.) — 38 Quests gesamt.
+- S6-3: mat-label Spans entfernt, title-Attribute auf alle Palette-Buttons, auch beim JS-Unlock.
+- Oscar sieht: Tooltips auf Palette, viel mehr Quests, korrekter Zähler.

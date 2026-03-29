@@ -1342,6 +1342,7 @@
             btn.style.display = '';
             btn.classList.remove('craft-locked');
             btn.classList.add('craft-unlocked');
+            if (!btn.title) btn.title = info.label;
         } else {
             // Dynamisch neuen Palette-Button erzeugen
             const palette = document.getElementById('palette');
@@ -2782,6 +2783,7 @@
     updateQuestDisplay();
     updateInventoryDisplay();
     updatePaletteVisibility();
+    updateDiscoveryCounter();
 
     // --- Sidebar Tabs ---
     document.querySelectorAll('.sidebar-tab').forEach(tab => {

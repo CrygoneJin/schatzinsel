@@ -33,10 +33,17 @@ window.INSEL_QUEST_TEMPLATES = [
     { npc: 'spongebob', title: 'Sternwarte', desc: 'Suchergebnis: SONNE! MOND! STERNE! Alles davon! Eine Sternwarte bitte! Sofort! Suchergebnis: kein Warten!', needs: { sun: 1, moon: 1, star: 2, glass: 4, stone: 6 }, reward: '⭐⭐⭐⭐⭐' },
     { npc: 'krabs', title: 'Regenbogen-Brücke', desc: 'Darwin hat bewiesen: Regenbogen-Brücken bringen MEHR Kunden! Das ist Evolution UND Geschäft!', needs: { rainbow: 2, bridge: 2, crystal: 1, glass: 3 }, reward: '💰💰💰💰💰' },
     { npc: 'tommy', title: 'Vulkan-Observatorium', desc: 'Klick-klack! VULKAN! Der lockige Mann — klick-klack! — sagt Vulkane sind — klick-klack! — COOL! BEOBACHTEN!', needs: { volcano: 1, mountain: 2, stone: 8, glass: 3 }, reward: '⚓⚓⚓⚓' },
+    { npc: 'tommy', title: 'Wetterstation', desc: 'Klick-klack! Der lockige Mann sagt — klick-klack! — Blitz macht STROM! Ich brauche eine Messstation!', needs: { cloud: 3, lightning: 2, glass: 4, lamp: 2 }, reward: '⚓⚓⚓⚓⚓' },
+    { npc: 'neinhorn', title: 'Eishöhle', desc: 'NEIN kein Winter! ...ok aber EINE Eishöhle. Nur eine. Und ein Kristall darin. Bitte.', needs: { ice: 4, snow: 3, crystal: 1 }, reward: '🌈🌈🌈' },
+    { npc: 'spongebob', title: 'Regenwald', desc: 'Suchergebnis: Kein Regenwald gefunden! Das ist INAKZEPTABEL! Regen + Bäume = REGENWALD!', needs: { rain: 2, tree: 5, mushroom: 4, plant: 6 }, reward: '⭐⭐⭐⭐' },
+    { npc: 'maus', title: 'Schmetterlingswiese', desc: '*pieps* Schmetterlinge! *quak* Bienen! *pieps* Und HONIG! *quak* WENIGER HONIG! *pieps* Mehr Honig bitte!', needs: { butterfly: 3, flower: 6, bee: 2, honey: 2 }, reward: '🌻🌻🌻🌻' },
     // Runde 6: Absurdes Endgame
     { npc: 'neinhorn', title: 'Geisterhaus', desc: 'NEIN ich fürchte keine Geister! ...ich fürchte ALLE Geister. Bau eins damit sie DRINBLEIBEN!', needs: { ghost: 2, skull: 1, moon: 1, fence: 6 }, reward: '🌈🌈🌈🌈' },
     { npc: 'elefant', title: 'Roboter-Kapelle', desc: 'Törööö! Der Roboter hat geweint als er Musik hörte! Ein Roboter mit Gefühlen braucht eine Kapelle!', needs: { robot: 1, music: 2, lamp: 4, stone: 4 }, reward: '🎵🎵🎵🎵' },
     { npc: 'spongebob', title: 'Raumfahrt-Zentrum', desc: 'SUCHERGEBNIS: Rakete! UFO! ALIEN! Diese Insel braucht SOFORT ein Raumfahrt-Zentrum! JETZT!', needs: { rocket: 1, ufo: 1, alien: 1, metal: 6 }, reward: '⭐⭐⭐⭐⭐⭐' },
     { npc: 'maus', title: 'Phönix-Tempel', desc: '*pieps* Der Phönix ist aus Feuer geboren! *quak* Er braucht einen TEMPEL! *pieps* Und Honig! *quak* WARUM AUCH NICHT!', needs: { phoenix: 1, fire: 4, honey: 2, stone: 6 }, reward: '🌻🌻🌻🌻🌻' },
     { npc: 'krabs', title: 'Herz-Monument', desc: 'Ein HERZ-Monument! Darwin sagt Liebe ist evolutionär! Und Kunden kommen FÜR LIEBE! Krabben-Taler für Romantik!', needs: { heart: 3, flower: 6, crystal: 2, fountain: 1 }, reward: '💎💎💎💎' },
+    { npc: 'elefant', title: 'Honiggarten', desc: 'Törööö... Honig riecht wie eine Melodie! Bienen sind Musiker! Die Blumen sind das Konzerthaus!', needs: { honey: 4, bee: 4, flower: 8, apple: 3 }, reward: '🎵🎵🎵🎵🎵' },
+    { npc: 'maus', title: 'Kuchenland', desc: '*pieps* KUCHEN! *quak* Nein wir brauchen keinen — *pieps* DOCH! *quak* Ein Kuchen reicht! *pieps* DREI!', needs: { cake: 3, apple: 4, honey: 3, flower: 4 }, reward: '🌻🌻🌻🌻🌻🌻' },
+    { npc: 'spongebob', title: 'Trank-Labor', desc: 'Suchergebnis: 1 Trank-Labor gefunden! ...in BIKINI BOTTOM! Ich mache meins hier! Pilze! Kristalle! MAGIE!', needs: { potion: 3, crystal: 2, mushroom: 4, diamond: 1 }, reward: '⭐⭐⭐⭐⭐⭐⭐' },
 ];

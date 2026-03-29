@@ -21,6 +21,9 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-03-29 | Sprint 6 alle 3 Items in einer Session done | S6-1 (Discovery-Counter), S6-2 (+20 Quests, alle neuen Materialien abgedeckt), S6-3 (Tooltips) |
+| 2026-03-29 | updateDiscoveryCounter() Pattern | Funktion war da, aber nicht beim Start aufgerufen — Symptom: falscher Startwert. Fix: eine Zeile. |
+| 2026-03-29 | mat-label → title Migration | 25 Buttons in HTML bereinigt, keine versteckten Spans mehr, Tooltips funktionieren auf Desktop |
 | 2026-03-27 | Insel-Architekt v1 läuft | Pure HTML/CSS/JS, kein Framework, öffnet sich im Browser — fertig |
 | 2026-03-27 | Responsive für 3 Geräte | iPhone SE, MacBook 2013, 4K — ein CSS, keine Frameworks |
 | 2026-03-27 | 14 Skills + 5 Agents in einem Tag | Persona, Anti-Cringe, Recap, Collect, Meeting, Triage, Backlog, etc. |
