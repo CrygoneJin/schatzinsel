@@ -3572,6 +3572,29 @@
             }
         }
 
+        // Schatz platzieren: freie Zelle, nicht Wasser, nicht zu nah am Spawn
+        treasurePos = null;
+        for (let attempt = 0; attempt < 200; attempt++) {
+            const tr = Math.floor(rng() * ROWS);
+            const tc = Math.floor(rng() * COLS);
+            const distSpawn = Math.abs(tr - oskar.r) + Math.abs(tc - oskar.c);
+            const distEdge = Math.min(tr, tc, ROWS - 1 - tr, COLS - 1 - tc);
+            if (distSpawn < 15 || distEdge < 4) continue;
+            const cell = grid[tr][tc];
+            // Nur auf begehbare Felder (null, sand, flower, earth)
+            if (cell === null || cell === 'sand' || cell === 'flower' || cell === 'earth') {
+                // Biom bestimmen für Quest-Text
+                let biome = 'der Wildnis';
+                if (cell === 'sand') biome = 'der Sandwüste';
+                else if (cell === 'flower') biome = 'der Blumenwiese';
+                else if (cell === 'earth') biome = 'den Erdfeldern';
+                else biome = 'der Wiese';
+                treasurePos = { r: tr, c: tc, biome };
+                grid[tr][tc] = 'treasure';
+                break;
+            }
+        }
+
         window.grid = grid;
     }
 
@@ -3725,6 +3748,15 @@
             }
         }
 
+        // Schatz aufheben
+        if (target === 'treasure' && treasureQuestActive && !treasureQuestComplete) {
+            grid[newR][newC] = null;
+            treasureQuestComplete = true;
+            soundOskarPickup();
+            const questNPC = adventureNPCs[0];
+            showToast(`💎 Du hast den Schatz gefunden! ${questNPC.name} wird sich freuen!`, 4000);
+        }
+
         updateCamera();
 
         // NPC in der Nähe? → Automatisch ansprechen
@@ -3757,7 +3789,30 @@
         for (const npc of adventureNPCs) {
             const dist = Math.abs(npc.r - oskar.r) + Math.abs(npc.c - oskar.c);
             if (dist <= 2) {
-                // Zufällige Zeile
+                // Quest-NPC: Der Älteste (erster NPC)
+                if (npc === adventureNPCs[0] && treasurePos) {
+                    if (treasureQuestComplete) {
+                        soundQuestComplete();
+                        showToast(`${npc.emoji} ${npc.name}: "🎉 DANKE! Du bist ein wahrer Held, ${oskar.name}!"`);
+                        treasureQuestComplete = false; // Einmalig
+                        treasurePos = null;
+                        trackEvent('adventure_quest_complete', { npc: npc.id });
+                        return;
+                    }
+                    if (!treasureQuestActive) {
+                        treasureQuestActive = true;
+                        soundOskarNPCTalk();
+                        showToast(`${npc.emoji} ${npc.name}: "Ich habe meinen Schatz verloren! 💎 Er muss irgendwo in ${treasurePos.biome} sein... Kannst du ihn finden?"`, 5000);
+                        trackEvent('adventure_quest_start', { npc: npc.id });
+                        return;
+                    }
+                    // Quest aktiv aber noch nicht gefunden — Hinweis
+                    soundOskarNPCTalk();
+                    showToast(`${npc.emoji} ${npc.name}: "Hast du meinen Schatz 💎 schon gefunden? Schau in ${treasurePos.biome}!"`, 4000);
+                    return;
+                }
+
+                // Normaler NPC-Dialog
                 let line = npc.lines[Math.floor(Math.random() * npc.lines.length)];
                 // Dynamische Platzhalter ersetzen
                 if (line.startsWith('dynamic:')) {
