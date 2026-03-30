@@ -46,4 +46,11 @@ window.INSEL_QUEST_TEMPLATES = [
     { npc: 'elefant', title: 'Honiggarten', desc: 'Törööö... Honig riecht wie eine Melodie! Bienen sind Musiker! Die Blumen sind das Konzerthaus!', needs: { honey: 4, bee: 4, flower: 8, apple: 3 }, reward: '🎵🎵🎵🎵🎵' },
     { npc: 'maus', title: 'Kuchenland', desc: '*pieps* KUCHEN! *quak* Nein wir brauchen keinen — *pieps* DOCH! *quak* Ein Kuchen reicht! *pieps* DREI!', needs: { cake: 3, apple: 4, honey: 3, flower: 4 }, reward: '🌻🌻🌻🌻🌻🌻' },
     { npc: 'spongebob', title: 'Trank-Labor', desc: 'Suchergebnis: 1 Trank-Labor gefunden! ...in BIKINI BOTTOM! Ich mache meins hier! Pilze! Kristalle! MAGIE!', needs: { potion: 3, crystal: 2, mushroom: 4, diamond: 1 }, reward: '⭐⭐⭐⭐⭐⭐⭐' },
+    // Paluten-Quests — Diamanten, Brücken und EPISCHES
+    { npc: 'paluten', title: 'Diamant-Brücke', desc: 'LEUTE! Eine Brücke aus DIAMANTEN! Das wird das EPISCHSTE Video aller Zeiten!', needs: { bridge: 2, glass: 4, lamp: 3, crystal: 1 }, reward: '💎💎💎' },
+    { npc: 'paluten', title: 'Edgar-Hundehütte', desc: 'Alter! Edgar braucht ein Zuhause! Hat jemand meinen Hund gesehen?! EDGAR?!', needs: { wood: 6, fence: 4, door: 1, roof: 2 }, reward: '💎💎' },
+    { npc: 'paluten', title: 'Let\'s Play Arena', desc: 'Okay okay okay, wir bauen eine ARENA! Wie in Minecraft nur mit MEHR Diamanten!', needs: { stone: 8, fence: 6, flag: 4, lamp: 4 }, reward: '💎💎💎💎' },
+    { npc: 'paluten', title: 'Thumbnail-Turm', desc: 'DIESER TURM hat alles verändert! (NICHT CLICKBAIT!) Er muss SO hoch sein dass man ihn vom Festland sieht!', needs: { stone: 10, glass: 6, flag: 2, lamp: 6 }, reward: '💎💎💎💎💎' },
+    { npc: 'paluten', title: 'Diamant-Mine', desc: 'LEUTE wir graben NACH UNTEN! Jeder weiß: auf Y-Level 12 sind die DIAMANTEN! Alter das wird episch!', needs: { stone: 12, lamp: 8, path: 6, crystal: 2 }, reward: '💎💎💎💎💎💎' },
+    { npc: 'paluten', title: 'Enderman-Falle', desc: 'NICHT BEWEGEN! Der Enderman ist... HINTER DIR! Wir brauchen eine FALLE! Mit Wasser! Die hassen Wasser!', needs: { water: 8, fence: 8, lamp: 4, glass: 4 }, reward: '💎💎💎💎💎💎💎' },
 ];

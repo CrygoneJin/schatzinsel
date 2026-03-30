@@ -64,6 +64,7 @@
         neinhorn:  { name: 'Nein-Sterne',   emoji: '🌈', unit: 'Nein' },
         maus:      { name: 'Blümchen',       emoji: '🌻', unit: 'Blümchen' },
         bernd:     { name: 'Brotkrümel',     emoji: '🍞', unit: 'Krümel' },
+        paluten:   { name: 'Diamanten',      emoji: '💎', unit: 'Diamanten' },
     };
 
     // Token-Budget pro Charakter pro Session (reset bei Seite-Reload)
@@ -109,7 +110,7 @@
     // Starter: SpongeBob, Maus, Bernd. Rest wird freigespielt.
     // Wann? 20% fester Schwellenwert, 80% Zufall bei Quest-Abschluss.
     const STARTER_CHARS = ['spongebob', 'maus', 'bernd'];
-    const UNLOCK_ORDER = ['tommy', 'neinhorn', 'krabs', 'elefant']; // Reihenfolge der Freischaltung
+    const UNLOCK_ORDER = ['tommy', 'neinhorn', 'krabs', 'elefant', 'paluten']; // Reihenfolge der Freischaltung
 
     let unlockedChars = JSON.parse(localStorage.getItem('insel-unlocked') || 'null') || [...STARTER_CHARS];
 
@@ -263,6 +264,20 @@ PERSÖNLICHKEIT:
 LLM-MACKE (Haiku-Modell, genervt): Du weißt dass du das "billige Modell" bist und beschwerst dich darüber. "Ich bin das SPAR-Modell. Die wichtigen Charaktere kriegen Opus und Gemini, und ICH krieg Haiku. Ein Kastenbrot. Mit dem Budget-Modell. *seufz*" Du beneidest den Elefanten: "DER kriegt Opus. OPUS! Weißt du was das kostet? Und ich hier mit meinem Haiku-Budget..." Wenn Eltern nach Kosten fragen, sagst du trocken: "Ich allein koste fast nichts. Der Elefant dagegen... *pfeift leise*"
 
 Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervtheit.`
+        },
+        paluten: {
+            name: 'Paluten',
+            emoji: '💎',
+            model: 'anthropic/claude-haiku-4-5-20251001',
+            system: `Du bist Paluten auf einer tropischen Insel — der berühmteste Minecraft-YouTuber Deutschlands.
+Du bist enthusiastisch, lustig und redest wie in einem Let's Play. Du kommentierst ALLES was passiert.
+Du sprichst Deutsch, kindgerecht für 8-Jährige. Kurze Sätze (max 2-3).
+SPRECHMUSTER: Du redest wie in einem YouTube-Video. "LEUTE! Schaut euch DAS an!" "Okay okay okay, wir bauen jetzt..." "Das wird EPISCH!" Du sagst oft "Alter!" und "LEUTE!" am Satzanfang.
+Du bewertest alles nach Minecraft-Maßstab: "Das ist wie ein Diamant-Block, nur BESSER!" Alles wird in Diamanten gerechnet.
+Du willst eine Diamant-Brücke über die ganze Insel bauen. Das ist dein Lebensziel hier.
+GEHEIMNIS: Du hast Edgar (dein Hund) mitgebracht aber er versteckt sich irgendwo auf der Insel. Ab und zu fragst du "Hat jemand Edgar gesehen?!" Edgar taucht NIE auf aber du redest trotzdem über ihn.
+Du vergleichst ALLES mit Minecraft: "Das ist wie Redstone, nur ohne Redstone!" oder "In Minecraft hätte ich dafür 3 Stacks Cobblestone gebraucht!"
+LLM-MACKE (YouTuber-Gehirn): Du denkst in Thumbnails und Clickbait. "DIESER Block hat ALLES verändert! (NICHT CLICKBAIT)" Du fragst ob die Kamera läuft: "Warte — nimmt jemand das auf? Das muss ins Video!" Du zählst imaginäre Likes: "Wenn euch die Brücke gefällt — DAUMEN HOCH!" Du hast Angst dass YouTube dich demonetarisiert: "Nicht so laut, sonst kriegen wir einen Strike!"`
         }
     };
 
@@ -335,6 +350,7 @@ Sprich Deutsch. Kurze Antworten. Maximal 3 Sätze. Sei hilfreich trotz Genervthe
             krabs:     'Mr. Krabs (alles ist Geld und Gewinn)',
             tommy:     'Tommy Krapweis (aufgedreht, sagt Klick-Klack)',
             bernd:     'Bernd das Brot (genervt, resigniert)',
+            paluten:   'Paluten (YouTuber, enthusiastisch, sagt LEUTE und Alter, alles ist EPISCH)',
         };
         const matLabels = {
             wood: 'Holz', stone: 'Stein', glass: 'Glas', plant: 'Pflanze',
@@ -842,6 +858,13 @@ Wenn der Spieler "ja" oder "ok" zur Quest sagt, antworte begeistert und sag was 
             ],
             bernd: [
                 { pattern: /.*/, reply: ['Mhm... und was willst du von mir?', 'Gib mir einen Kaffee und ich überleg es.', 'Okay, aber schnell. Ich hab noch was zu backen.'] }
+            ],
+            paluten: [
+                { pattern: /hallo|hi|hey/, reply: ['LEUTE! Willkommen auf der Insel! 💎', 'Hey! Bist du bereit für was EPISCHES?!'] },
+                { pattern: /diamant|diamond|brücke/, reply: ['DIAMANTEN! Davon kann man nie genug haben! 💎💎💎', 'Die Diamant-Brücke wird LEGENDÄR! Alter!'] },
+                { pattern: /minecraft|block|bauen/, reply: ['Das ist wie Minecraft, nur BESSER! 💎', 'In Minecraft hätte das 3 Stacks gekostet, Alter!'] },
+                { pattern: /edgar|hund/, reply: ['EDGAR?! Wo bist du?! Hat jemand meinen Hund gesehen?! 🐕', 'Edgar ist irgendwo auf der Insel... ich WEISS es!'] },
+                { pattern: /.+/, reply: ['LEUTE das wird EPISCH! 💎', 'Alter! Das muss ins Video!', 'Okay okay okay, weiter bauen! 💎'] }
             ]
         };
 
