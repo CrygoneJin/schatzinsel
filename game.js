@@ -34,88 +34,8 @@
 
     let CELL_SIZE = calcCellSize();
 
-    // --- Materialien (aus materials.js, Fallback inline) ---
-    const MATERIALS = window.INSEL_MATERIALS || {
-        // === DIE 5 ELEMENTE (五行 Wu Xing) ===
-        metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
-        wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },
-        fire:     { emoji: '🟥', label: 'Feuer',    color: '#D32F2F', border: '#B71C1C' },
-        water:    { emoji: '⬛', label: 'Wasser',   color: '#1A1A2E', border: '#0D0D1A' },
-        earth:    { emoji: '🟨', label: 'Erde',     color: '#F5C800', border: '#C8A300' },
-        // === ABGELEITETE MATERIALIEN ===
-        stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
-        glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
-        plant:    { emoji: '🌿', label: 'Pflanze',  color: '#52BE80', border: '#27AE60' },
-        sapling:  { emoji: '🌱', label: 'Setzling', color: '#7DCEA0', border: '#52BE80' },
-        small_tree: { emoji: '🌲', label: 'Kleiner Baum', color: '#229954', border: '#1E8449' },
-        tree:     { emoji: '🌳', label: 'Baum',     color: '#1E8449', border: '#196F3D' },
-        flower:   { emoji: '🌸', label: 'Blume',    color: '#F1948A', border: '#E74C3C' },
-        door:     { emoji: '🚪', label: 'Tür',      color: '#6E3B1A', border: '#4A2510' },
-        roof:     { emoji: '🏠', label: 'Dach',     color: '#E74C3C', border: '#C0392B' },
-        lamp:     { emoji: '💡', label: 'Lampe',    color: '#F9E79F', border: '#F1C40F' },
-        sand:     { emoji: '⬜', label: 'Sand',     color: '#F5DEB3', border: '#DCC89E' },
-        path:     { emoji: '🟫', label: 'Weg',      color: '#A0522D', border: '#8B4513' },
-        fence:    { emoji: '🏗️', label: 'Zaun',     color: '#C4A265', border: '#A08040' },
-        boat:     { emoji: '⛵', label: 'Boot',     color: '#5DADE2', border: '#2E86C1' },
-        fish:     { emoji: '🐟', label: 'Fisch',    color: '#48C9B0', border: '#1ABC9C' },
-        fountain: { emoji: '⛲', label: 'Brunnen',  color: '#7FB3D8', border: '#5499C7' },
-        flag:     { emoji: '🚩', label: 'Flagge',   color: '#E74C3C', border: '#B03A2E' },
-        bridge:   { emoji: '🌉', label: 'Brücke',   color: '#B7950B', border: '#9A7D0A' },
-        cactus:   { emoji: '🌵', label: 'Kaktus',   color: '#28B463', border: '#1D8348' },
-        mushroom: { emoji: '🍄', label: 'Pilz',     color: '#E59866', border: '#CA6F1E' },
-        planks:   { emoji: '🪵', label: 'Bretter',  color: '#C19A6B', border: '#A0784A' },
-        window_pane: { emoji: '🪟', label: 'Fenster', color: '#D4EFFC', border: '#AED6F1' },
-        // === MAGISCHE ARTEFAKTE ===
-        steam:    { emoji: '💨', label: 'Dampf',    color: '#D5D8DC', border: '#AEB6BF' },
-        ice:      { emoji: '🧊', label: 'Eis',      color: '#D6EAF8', border: '#AED6F1' },
-        snow:     { emoji: '❄️', label: 'Schnee',   color: '#EBF5FB', border: '#D6EAF8' },
-        cloud:    { emoji: '☁️', label: 'Wolke',    color: '#F2F4F4', border: '#D5D8DC' },
-        rain:     { emoji: '🌧️', label: 'Regen',   color: '#85C1E9', border: '#5DADE2' },
-        rainbow:  { emoji: '🌈', label: 'Regenbogen', color: '#F9E79F', border: '#F4D03F' },
-        sun:      { emoji: '☀️', label: 'Sonne',    color: '#F9E79F', border: '#F1C40F' },
-        star:     { emoji: '⭐', label: 'Stern',    color: '#F9E79F', border: '#F4D03F' },
-        moon:     { emoji: '🌙', label: 'Mond',     color: '#F7DC6F', border: '#F1C40F' },
-        lightning:{ emoji: '⚡', label: 'Blitz',    color: '#F7DC6F', border: '#F4D03F' },
-        volcano:  { emoji: '🌋', label: 'Vulkan',   color: '#E74C3C', border: '#C0392B' },
-        mountain: { emoji: '🏔️', label: 'Berg',    color: '#95A5A6', border: '#7F8C8D' },
-        diamond:  { emoji: '💎', label: 'Diamant',  color: '#AED6F1', border: '#85C1E9' },
-        sword:    { emoji: '⚔️', label: 'Schwert',  color: '#BDC3C7', border: '#95A5A6' },
-        shield:   { emoji: '🛡️', label: 'Schild',  color: '#F0B27A', border: '#E59866' },
-        crown:    { emoji: '👑', label: 'Krone',    color: '#F9E79F', border: '#F4D03F' },
-        key:      { emoji: '🔑', label: 'Schlüssel', color: '#F9E79F', border: '#F4D03F' },
-        treasure: { emoji: '💰', label: 'Schatz',   color: '#F9E79F', border: '#F4D03F' },
-        dragon:   { emoji: '🐉', label: 'Drache',   color: '#27AE60', border: '#1E8449' },
-        unicorn:  { emoji: '🦄', label: 'Einhorn',  color: '#D2B4DE', border: '#BB8FCE' },
-        ghost:    { emoji: '👻', label: 'Geist',    color: '#F2F4F4', border: '#D5D8DC' },
-        alien:    { emoji: '👽', label: 'Alien',    color: '#82E0AA', border: '#58D68D' },
-        robot:    { emoji: '🤖', label: 'Roboter',  color: '#AEB6BF', border: '#85929E' },
-        potion:   { emoji: '🧪', label: 'Trank',    color: '#AF7AC5', border: '#8E44AD' },
-        crystal:  { emoji: '🔮', label: 'Kristall', color: '#D2B4DE', border: '#BB8FCE' },
-        egg:      { emoji: '🥚', label: 'Ei',       color: '#FDEBD0', border: '#FAD7A0' },
-        nest:     { emoji: '🪺', label: 'Nest',     color: '#D4AC0D', border: '#B7950B' },
-        butterfly:{ emoji: '🦋', label: 'Schmetterling', color: '#85C1E9', border: '#5DADE2' },
-        bee:      { emoji: '🐝', label: 'Biene',    color: '#F9E79F', border: '#F4D03F' },
-        honey:    { emoji: '🍯', label: 'Honig',    color: '#F0B27A', border: '#E59866' },
-        apple:    { emoji: '🍎', label: 'Apfel',    color: '#E74C3C', border: '#C0392B' },
-        cake:     { emoji: '🎂', label: 'Kuchen',   color: '#F1948A', border: '#E74C3C' },
-        music:    { emoji: '🎵', label: 'Musik',    color: '#AF7AC5', border: '#8E44AD' },
-        heart:    { emoji: '❤️', label: 'Herz',     color: '#E74C3C', border: '#C0392B' },
-        skull:    { emoji: '💀', label: 'Skelett',  color: '#F2F4F4', border: '#D5D8DC' },
-        poop:     { emoji: '💩', label: 'Haufen',   color: '#8B6914', border: '#6B4F0A' },
-        rocket:   { emoji: '🚀', label: 'Rakete',   color: '#E74C3C', border: '#C0392B' },
-        ufo:      { emoji: '🛸', label: 'UFO',      color: '#82E0AA', border: '#58D68D' },
-        tornado:  { emoji: '🌪️', label: 'Tornado', color: '#AEB6BF', border: '#85929E' },
-        wave:     { emoji: '🌊', label: 'Tsunami',  color: '#2980B9', border: '#1F618D' },
-        phoenix:  { emoji: '🔥', label: 'Phönix',   color: '#F39C12', border: '#E67E22' },
-        // === INTERNET-NOSTALGIE (90er) ===
-        modem:    { emoji: '📠', label: 'Modem',    color: '#C8BFA9', border: '#A89F8C' },
-        icq:      { emoji: '🌻', label: 'ICQ',      color: '#4BAF4F', border: '#388E3C' },
-        aol:      { emoji: '💿', label: 'AOL',      color: '#0055A4', border: '#003D7A' },
-        knochenhandy: { emoji: '🦴', label: 'Knochenhandy', color: '#7F8C8D', border: '#616A6B' },
-        nokia:    { emoji: '📱', label: 'Nokia 3210', color: '#2C3E50', border: '#1A252F' },
-        snake:    { emoji: '🐍', label: 'Snake',    color: '#27AE60', border: '#1E8449' },
-        tetris:   { emoji: '🎮', label: 'Tetris',   color: '#8E44AD', border: '#6C3483' },
-    };
+    // --- Materialien (aus materials.js) ---
+    const MATERIALS = window.INSEL_MATERIALS;
 
     // --- Infinite Craft: Worker-URL ---
     const CRAFT_URL = (window.INSEL_CONFIG?.proxy || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev') + '/craft';
@@ -153,23 +73,8 @@
     function soundModem()            { if (_snd.soundModem)       _snd.soundModem(); }
     const MODEM_MATERIALS = new Set(['modem', 'icq', 'aol']);
 
-    // ============================================================
-    // === ACHIEVEMENTS === (aus achievements.js, Fallback inline)
-    // ============================================================
-    const ACHIEVEMENTS = window.INSEL_ACHIEVEMENTS || {
-        firstBlock:    { emoji: '⭐', title: 'Erster Block!', desc: 'Platziere deinen ersten Block', check: (s) => s.total >= 1 },
-        builder10:     { emoji: '🏗️', title: 'Kleiner Baumeister', desc: '10 Blöcke gebaut', check: (s) => s.total >= 10 },
-        builder50:     { emoji: '🏘️', title: 'Siedlungsbauer', desc: '50 Blöcke gebaut', check: (s) => s.total >= 50 },
-        builder100:    { emoji: '🏙️', title: 'Stadtplaner', desc: '100 Blöcke gebaut', check: (s) => s.total >= 100 },
-        halfIsland:    { emoji: '🌍', title: 'Halbe Insel!', desc: '50% der Insel bebaut', check: (s) => s.percent >= 50 },
-        fullIsland:    { emoji: '🌟', title: 'Insel-Meister!', desc: '100% der Insel bebaut', check: (s) => s.percent >= 100 },
-        allMaterials:  { emoji: '🎨', title: 'Materialkenner', desc: 'Alle Original-Materialien benutzt', check: (s) => s.uniqueMats >= 12 },
-        gardenLover:   { emoji: '🌺', title: 'Gärtner', desc: '10 Pflanzen, Bäume oder Blumen', check: (s) => (s.counts.plant || 0) + (s.counts.tree || 0) + (s.counts.flower || 0) >= 10 },
-        waterWorld:    { emoji: '🏊', title: 'Wasserwelt', desc: '15 Wasserblöcke', check: (s) => (s.counts.water || 0) >= 15 },
-        architect:     { emoji: '👷', title: 'Architekt', desc: 'Haus gebaut (Holz+Tür+Dach+Glas)', check: (s) => (s.counts.wood || 0) >= 4 && (s.counts.door || 0) >= 1 && (s.counts.roof || 0) >= 2 && (s.counts.glass || 0) >= 1 },
-        fisherman:     { emoji: '🎣', title: 'Fischer', desc: '5 Fische im Wasser', check: (s) => (s.counts.fish || 0) >= 5 },
-        explorer:      { emoji: '🧭', title: 'Entdecker', desc: '15 verschiedene Materialien benutzt', check: (s) => s.uniqueMats >= 15 },
-    };
+    // --- Achievements (aus achievements.js) ---
+    const ACHIEVEMENTS = window.INSEL_ACHIEVEMENTS;
 
     let unlockedAchievements = JSON.parse(localStorage.getItem('insel-achievements') || '[]');
 
@@ -225,36 +130,8 @@
         };
     }
 
-    // ============================================================
-    // === QUESTS === (aus quests.js, Fallback inline)
-    // ============================================================
-    const QUEST_TEMPLATES = window.INSEL_QUEST_TEMPLATES || [
-        { npc: 'spongebob', title: 'Burger-Stand', desc: 'ICH BIN BEREIT einen Burger-Stand zu bauen! Der Professor will wiederkommen!', needs: { wood: 4, roof: 2, door: 1 }, reward: '⭐⭐' },
-        { npc: 'spongebob', title: 'Krabbenburger-Küche', desc: 'Die Küche muss GLÄNZEN! Glas für die Fenster damit man die Burger sieht!', needs: { stone: 6, lamp: 2, glass: 2 }, reward: '⭐⭐⭐' },
-        { npc: 'krabs', title: 'Handelshafen', desc: 'Boote = Kunden = GELD! Darwin sagt: wer keinen Hafen hat, stirbt aus!', needs: { wood: 6, water: 4, boat: 2 }, reward: '💰💰' },
-        { npc: 'krabs', title: 'Schatzkammer', desc: 'Meine Tokens brauchen ein ZUHAUSE! Stein! Dick! Sicher!', needs: { stone: 8, door: 2, lamp: 1 }, reward: '💰💰💰' },
-        { npc: 'elefant', title: 'Musik-Garten', desc: 'Törööö! Blumen die man hört! Also... die man SIEHT. Aber ich höre sie trotzdem!', needs: { flower: 5, tree: 3, path: 4 }, reward: '🎵🎵' },
-        { npc: 'elefant', title: 'Musik-Turm', desc: 'Ein Turm so hoch dass mein Törööö die ganze Insel erreicht! Der Weber hätte Baupläne gemacht. Ich mach einfach!', needs: { stone: 8, glass: 4, lamp: 3 }, reward: '🎵🎵🎵' },
-        { npc: 'tommy', title: 'Boot-Parkplatz', desc: 'Klick-klack! DREI Boote! MINDESTENS! Das ist WISSENSCHAFT! Der lockige Mann hat gesagt!', needs: { water: 6, boat: 3, bridge: 1 }, reward: '⚓⚓' },
-        { npc: 'neinhorn', title: 'Geheimversteck', desc: 'NEIN ich will kein Versteck! ...ok doch. Aber mit Pilzen! Die sind gruselig-schön!', needs: { fence: 4, tree: 4, mushroom: 2 }, reward: '🌈🌈' },
-        { npc: 'neinhorn', title: 'Regenbogen-Turm', desc: 'NEIN kein Turm! ...gut EINEN Turm. Aber mit Flaggen! Der Nein-Sager-Chef wäre neidisch!', needs: { glass: 6, flower: 4, flag: 2, lamp: 2 }, reward: '🌈🌈🌈' },
-        { npc: 'maus', title: 'Blumen-Wiese', desc: '*pieps* Die Maus will Blumen! *quak* Die Ente will einen Brunnen! Weniger ist mehr! Das hat DIE ENTE erfunden!', needs: { flower: 8, plant: 4, fountain: 1 }, reward: '🌻🌻' },
-        { npc: 'maus', title: 'Enten-Teich', desc: '*quak quak!* WASSER! FISCHE! *pieps* Und eine Brücke damit die Maus trockene Füße behält!', needs: { water: 8, fish: 3, bridge: 1, plant: 3 }, reward: '🦆🦆🦆' },
-        // Runde 2: Schwerer, mehr Material, kreativere Kombos
-        { npc: 'spongebob', title: 'Strandpromenade', desc: 'Suchergebnis: 0 Promenaden gefunden! Das muss sich SOFORT ändern!', needs: { path: 8, lamp: 4, flower: 3, fence: 2 }, reward: '⭐⭐⭐⭐' },
-        { npc: 'krabs', title: 'Fischmarkt', desc: 'Fische fangen sich nicht von allein, Junge! Das sind mindestens 500 Krabben-Taler Umsatz!', needs: { fish: 5, wood: 4, roof: 2, water: 4 }, reward: '💰💰💰💰' },
-        { npc: 'elefant', title: 'Botanischer Garten', desc: 'Törööö... stell dir vor: jede Pflanze hat ihre eigene Melodie... Törööö!', needs: { plant: 6, flower: 6, tree: 4, path: 6, fountain: 1 }, reward: '🎵🎵🎵🎵' },
-        { npc: 'tommy', title: 'Leuchtturm', desc: 'Klick-klack! Ein — klick-klack! — RIESIGER Turm! Damit die Boote uns — klick-klack! — FINDEN!', needs: { stone: 6, glass: 4, lamp: 4, flag: 1 }, reward: '⚓⚓⚓' },
-        { npc: 'neinhorn', title: 'Labyrinth', desc: 'NEIN kein Labyrinth! ...ok aber eins wo man sich WIRKLICH verläuft! Mon Dieu!', needs: { fence: 12, mushroom: 3, lamp: 2 }, reward: '🌈🌈🌈🌈' },
-        { npc: 'maus', title: 'Spielplatz', desc: '*pieps* Sand zum Buddeln! *quak* Und Wasser zum Plantschen! *pieps* Weniger ist — *quak* MEHR WASSER!', needs: { sand: 6, water: 4, fence: 4, tree: 2 }, reward: '🌻🌻🌻' },
-        // Runde 3: Gemeinschafts-Quests (beliebiger NPC)
-        { npc: 'spongebob', title: 'Insel-Fest', desc: 'PARTY! Suchergebnis: Noch keine Party gefunden! Flaggen, Lampen, ALLES!', needs: { flag: 4, lamp: 6, flower: 4, path: 4 }, reward: '🎉🎉🎉' },
-        { npc: 'tommy', title: 'Hafen-Erweiterung', desc: 'Klick-klack! FÜNF Boote! Der lockige Mann hat — klick-klack! — gesagt mehr ist besser!', needs: { boat: 5, water: 8, bridge: 2, wood: 4 }, reward: '⚓⚓⚓⚓' },
-        { npc: 'krabs', title: 'Luxus-Resort', desc: 'Glasdächer! Springbrunnen! Das kostet... [RECHNET LAUT] ...2000 Krabben-Taler Bau, 10000 Taler Gewinn!', needs: { glass: 8, fountain: 2, flower: 6, lamp: 4, door: 3 }, reward: '💎💎💎' },
-        // Runde 4: Internet-Nostalgie (90er)
-        { npc: 'krabs', title: 'Internetcafé', desc: 'Bin ich schon drin?! WOW! Ich BIN drin! Das Bobele sagt: JEDE Minute online kostet 3 Krabben-Taler! DAS ist ein Geschäftsmodell!', needs: { modem: 2, aol: 1, lamp: 3, door: 1 }, reward: '💿💿💿' },
-        { npc: 'spongebob', title: 'Uh-Oh-Station', desc: 'Suchergebnis: 0 Freunde online! Das muss sich ändern! ICQ installieren! SOFORT! *Uh-Oh!*', needs: { icq: 2, modem: 1, flower: 3 }, reward: '🌻🌻🌻' },
-    ];
+    // --- Quests (aus quests.js) ---
+    const QUEST_TEMPLATES = window.INSEL_QUEST_TEMPLATES;
 
     let activeQuests = JSON.parse(localStorage.getItem('insel-quests') || '[]');
     let completedQuests = JSON.parse(localStorage.getItem('insel-quests-done') || '[]');
@@ -1080,85 +957,8 @@
         }
     }
 
-    // ============================================================
-    // === CRAFTING === 3x3 Werkbank
-    // ============================================================
-    const CRAFTING_RECIPES = window.INSEL_CRAFTING_RECIPES || [
-        // Stufe 1: Aus den 5 Elementen (五行)
-        { name: 'Stein',    result: 'stone',      resultCount: 2, ingredients: { earth: 2, fire: 1 },  desc: '2 Erde + Feuer = 2 Stein' },
-        { name: 'Sand',     result: 'sand',       resultCount: 2, ingredients: { earth: 1, water: 1 }, desc: 'Erde + Wasser = 2 Sand' },
-        { name: 'Bretter',  result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
-        { name: 'Setzling', result: 'sapling',    resultCount: 1, ingredients: { wood: 1, water: 1 },  desc: 'Holz + Wasser = Setzling' },
-        { name: 'Pflanze',  result: 'plant',      resultCount: 2, ingredients: { earth: 1, wood: 1 },  desc: 'Erde + Holz = 2 Pflanzen' },
-        { name: 'Blume',    result: 'flower',     resultCount: 2, ingredients: { plant: 1, fire: 1 },  desc: 'Pflanze + Feuer = 2 Blumen' },
-        { name: 'Pilz',     result: 'mushroom',   resultCount: 2, ingredients: { earth: 1, water: 1, wood: 1 }, desc: 'Erde + Wasser + Holz = 2 Pilze' },
-        // Stufe 2: Aus Stufe-1-Artefakten
-        { name: 'Glas',     result: 'glass',      resultCount: 1, ingredients: { sand: 1, fire: 1 },   desc: 'Sand + Feuer = Glas' },
-        { name: 'Lampe',    result: 'lamp',       resultCount: 1, ingredients: { glass: 1, fire: 1 },  desc: 'Glas + Feuer = Lampe' },
-        { name: 'Fenster',  result: 'window_pane', resultCount: 1, ingredients: { glass: 1, wood: 1 }, desc: 'Glas + Holz = Fenster' },
-        { name: 'Tür',      result: 'door',       resultCount: 1, ingredients: { planks: 2 },          desc: '2 Bretter = Tür' },
-        { name: 'Zaun',     result: 'fence',      resultCount: 2, ingredients: { planks: 1, wood: 1 }, desc: 'Bretter + Holz = 2 Zäune' },
-        { name: 'Weg',      result: 'path',       resultCount: 3, ingredients: { sand: 1, stone: 1 },  desc: 'Sand + Stein = 3 Wege' },
-        { name: 'Dach',     result: 'roof',       resultCount: 2, ingredients: { planks: 1, stone: 1 },desc: 'Bretter + Stein = 2 Dächer' },
-        { name: 'Flagge',   result: 'flag',       resultCount: 1, ingredients: { wood: 1, fire: 1 },   desc: 'Holz + Feuer = Flagge' },
-        { name: 'Boot',     result: 'boat',       resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Boot' },
-        { name: 'Fisch',    result: 'fish',       resultCount: 2, ingredients: { water: 2, wood: 1 },  desc: '2 Wasser + Holz = 2 Fische' },
-        { name: 'Brunnen',  result: 'fountain',   resultCount: 1, ingredients: { stone: 3, water: 1 }, desc: '3 Stein + Wasser = Brunnen' },
-        { name: 'Brücke',   result: 'bridge',     resultCount: 1, ingredients: { planks: 2, metal: 1 },desc: '2 Bretter + Metall = Brücke' },
-        // === NATUR & WETTER (Feynman-approved) ===
-        { name: 'Dampf',       result: 'steam',     resultCount: 1, ingredients: { water: 1, fire: 1 },    desc: 'Wasser + Feuer = Dampf' },
-        { name: 'Eis',         result: 'ice',       resultCount: 1, ingredients: { water: 2, metal: 1 },   desc: '2 Wasser + Metall = Eis' },
-        { name: 'Schnee',      result: 'snow',      resultCount: 1, ingredients: { ice: 1, cloud: 1 },     desc: 'Eis + Wolke = Schnee' },
-        { name: 'Wolke',       result: 'cloud',     resultCount: 1, ingredients: { steam: 2 },             desc: '2 Dampf = Wolke' },
-        { name: 'Regen',       result: 'rain',      resultCount: 1, ingredients: { cloud: 1, water: 1 },   desc: 'Wolke + Wasser = Regen' },
-        { name: 'Regenbogen',  result: 'rainbow',   resultCount: 1, ingredients: { rain: 1, fire: 1 },     desc: 'Regen + Feuer = Regenbogen' },
-        { name: 'Blitz',       result: 'lightning',  resultCount: 1, ingredients: { cloud: 1, metal: 1 },  desc: 'Wolke + Metall = Blitz' },
-        { name: 'Tornado',     result: 'tornado',   resultCount: 1, ingredients: { cloud: 2, fire: 1 },    desc: '2 Wolken + Feuer = Tornado' },
-        { name: 'Vulkan',      result: 'volcano',   resultCount: 1, ingredients: { mountain: 1, fire: 2 }, desc: 'Berg + 2 Feuer = Vulkan' },
-        { name: 'Berg',        result: 'mountain',  resultCount: 1, ingredients: { stone: 3, earth: 2 },   desc: '3 Stein + 2 Erde = Berg' },
-        { name: 'Sonne',       result: 'sun',       resultCount: 1, ingredients: { fire: 3 },              desc: '3 Feuer = Sonne' },
-        { name: 'Mond',        result: 'moon',      resultCount: 1, ingredients: { stone: 2, fire: 1 },    desc: '2 Stein + Feuer = Mond' },
-        { name: 'Stern',       result: 'star',      resultCount: 1, ingredients: { sun: 1, metal: 1 },     desc: 'Sonne + Metall = Stern' },
-        // === LEBEN (absurd aber logisch) ===
-        { name: 'Ei',          result: 'egg',       resultCount: 1, ingredients: { earth: 1, fire: 1, water: 1 }, desc: 'Erde + Feuer + Wasser = Ei' },
-        { name: 'Nest',        result: 'nest',      resultCount: 1, ingredients: { wood: 2, plant: 1 },    desc: '2 Holz + Pflanze = Nest' },
-        { name: 'Schmetterling', result: 'butterfly', resultCount: 1, ingredients: { flower: 1, cloud: 1 },desc: 'Blume + Wolke = Schmetterling' },
-        { name: 'Biene',       result: 'bee',       resultCount: 1, ingredients: { flower: 2, sun: 1 },    desc: '2 Blumen + Sonne = Biene' },
-        { name: 'Honig',       result: 'honey',     resultCount: 1, ingredients: { bee: 1, flower: 1 },    desc: 'Biene + Blume = Honig' },
-        { name: 'Apfel',       result: 'apple',     resultCount: 2, ingredients: { tree: 1, sun: 1 },      desc: 'Baum + Sonne = 2 Äpfel' },
-        { name: 'Kuchen',      result: 'cake',      resultCount: 1, ingredients: { apple: 1, honey: 1, fire: 1 }, desc: 'Apfel + Honig + Feuer = Kuchen' },
-        // === MAGIE (absurd und wunderbar) ===
-        { name: 'Trank',       result: 'potion',    resultCount: 1, ingredients: { mushroom: 1, water: 1, fire: 1 }, desc: 'Pilz + Wasser + Feuer = Trank' },
-        { name: 'Kristall',    result: 'crystal',   resultCount: 1, ingredients: { diamond: 1, potion: 1 },desc: 'Diamant + Trank = Kristall' },
-        { name: 'Diamant',     result: 'diamond',   resultCount: 1, ingredients: { stone: 3, fire: 3 },    desc: '3 Stein + 3 Feuer = Diamant' },
-        { name: 'Drache',      result: 'dragon',    resultCount: 1, ingredients: { fire: 3, egg: 1 },      desc: '3 Feuer + Ei = Drache' },
-        { name: 'Einhorn',     result: 'unicorn',   resultCount: 1, ingredients: { rainbow: 1, potion: 1 },desc: 'Regenbogen + Trank = Einhorn' },
-        { name: 'Phönix',      result: 'phoenix',   resultCount: 1, ingredients: { fire: 2, egg: 1, star: 1 }, desc: '2 Feuer + Ei + Stern = Phönix' },
-        // === DINGE & ABENTEUER ===
-        { name: 'Schwert',     result: 'sword',     resultCount: 1, ingredients: { metal: 2, fire: 1 },    desc: '2 Metall + Feuer = Schwert' },
-        { name: 'Schild',      result: 'shield',    resultCount: 1, ingredients: { metal: 2, wood: 1 },    desc: '2 Metall + Holz = Schild' },
-        { name: 'Krone',       result: 'crown',     resultCount: 1, ingredients: { metal: 1, diamond: 1 }, desc: 'Metall + Diamant = Krone' },
-        { name: 'Schlüssel',   result: 'key',       resultCount: 1, ingredients: { metal: 1, fire: 1 },    desc: 'Metall + Feuer = Schlüssel' },
-        { name: 'Schatz',      result: 'treasure',  resultCount: 1, ingredients: { key: 1, earth: 2 },     desc: 'Schlüssel + 2 Erde = Schatz' },
-        // === ABSURD (💩🚀👻👽🤖) ===
-        { name: 'Geist',       result: 'ghost',     resultCount: 1, ingredients: { cloud: 1, moon: 1 },    desc: 'Wolke + Mond = Geist' },
-        { name: 'Skelett',     result: 'skull',     resultCount: 1, ingredients: { stone: 2, lightning: 1 },desc: '2 Stein + Blitz = Skelett' },
-        { name: 'Haufen',      result: 'poop',      resultCount: 1, ingredients: { earth: 2, water: 2 },   desc: '2 Erde + 2 Wasser = ...du weißt schon' },
-        { name: 'Rakete',      result: 'rocket',    resultCount: 1, ingredients: { metal: 2, fire: 2 },    desc: '2 Metall + 2 Feuer = Rakete' },
-        { name: 'UFO',         result: 'ufo',       resultCount: 1, ingredients: { rocket: 1, star: 1 },   desc: 'Rakete + Stern = UFO' },
-        { name: 'Alien',       result: 'alien',     resultCount: 1, ingredients: { ufo: 1, egg: 1 },       desc: 'UFO + Ei = Alien' },
-        { name: 'Roboter',     result: 'robot',     resultCount: 1, ingredients: { metal: 3, lightning: 1 },desc: '3 Metall + Blitz = Roboter' },
-        { name: 'Musik',       result: 'music',     resultCount: 1, ingredients: { wood: 1, metal: 1, wind: 1 }, desc: 'Holz + Metall + Wind = Musik' },
-        { name: 'Herz',        result: 'heart',     resultCount: 1, ingredients: { fire: 1, water: 1, flower: 1 }, desc: 'Feuer + Wasser + Blume = Herz' },
-        // === INTERNET-NOSTALGIE (Stufe 5: 90er — Bin ich schon drin?) ===
-        { name: 'Modem',       result: 'modem',     resultCount: 1, ingredients: { metal: 2, lightning: 1 }, desc: '2 Metall + Blitz = Modem — KRRRSCHHHH!' },
-        { name: 'ICQ',         result: 'icq',       resultCount: 1, ingredients: { modem: 1, flower: 1 },   desc: 'Modem + Blume = ICQ — Uh-Oh!' },
-        { name: 'AOL',         result: 'aol',       resultCount: 1, ingredients: { modem: 1, key: 1 },      desc: 'Modem + Schlüssel = AOL — Bin ich schon drin?' },
-        { name: 'Knochenhandy', result: 'knochenhandy', resultCount: 1, ingredients: { metal: 1, stone: 1, lightning: 1 }, desc: 'Metall + Stein + Blitz = Knochenhandy — B-Netz Opa!' },
-        { name: 'Nokia 3210', result: 'nokia',     resultCount: 1, ingredients: { knochenhandy: 1, glass: 1 },  desc: 'Knochenhandy + Glas = Nokia 3210 — unkaputtbar!' },
-        { name: 'Snake',       result: 'snake',     resultCount: 1, ingredients: { nokia: 1, plant: 1 },        desc: 'Nokia + Pflanze = Snake — frisst alles!' },
-        { name: 'Tetris',      result: 'tetris',    resultCount: 1, ingredients: { nokia: 1, stone: 1 },        desc: 'Nokia + Stein = Tetris — Blöcke stapeln!' },
-    ];
+    // --- Crafting-Rezepte (aus recipes.js) ---
+    const CRAFTING_RECIPES = window.INSEL_CRAFTING_RECIPES;
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
 
