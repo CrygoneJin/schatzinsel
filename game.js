@@ -680,11 +680,16 @@
             const age = now - planted;
             const cell = grid[r]?.[c];
 
-            if (cell === 'sapling' && age >= TREE_GROWTH_TIME_1) {
+            // Wu Xing: Wasser nährt Holz — Setzling neben Wasser wächst 2× schneller
+            const hasWaterNeighbor = [[r-1,c],[r+1,c],[r,c-1],[r,c+1]]
+                .some(([nr, nc]) => nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && grid[nr]?.[nc] === 'water');
+            const growTime1 = hasWaterNeighbor ? TREE_GROWTH_TIME_1 / 2 : TREE_GROWTH_TIME_1;
+
+            if (cell === 'sapling' && age >= growTime1) {
                 grid[r][c] = 'small_tree';
                 addPlaceAnimation(r, c);
                 changed = true;
-            } else if (cell === 'small_tree' && age >= TREE_GROWTH_TIME_1 + TREE_GROWTH_TIME_2) {
+            } else if (cell === 'small_tree' && age >= growTime1 + TREE_GROWTH_TIME_2) {
                 grid[r][c] = 'tree';
                 delete treeGrowth[key];
                 addPlaceAnimation(r, c);
@@ -1192,7 +1197,10 @@
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
 
-    // === SPIELFIGUR (deklariert in Zeile ~1357, nach Animationen) ===
+    // === SPIELFIGUR ===
+    let playerName = localStorage.getItem('insel-player-name') || '';
+    let playerEmoji = localStorage.getItem('insel-player-emoji') || '🧒';
+    let playerPos = { r: 8, c: 12 }; // Mitte der Insel
 
     function saveUnlocked() {
         localStorage.setItem('insel-unlocked-materials', JSON.stringify([...unlockedMaterials]));
@@ -1653,7 +1661,7 @@
         ctx.font = `${CELL_SIZE * 0.7}px serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('🧒', px, py);
+        ctx.fillText(playerEmoji, px, py);
 
         // Name-Label
         const fontSize = Math.max(9, CELL_SIZE * 0.27);
@@ -2433,6 +2441,12 @@
                 localStorage.setItem('insel-player-name', playerName);
             }
         }
+        // Gewähltes Avatar-Emoji übernehmen
+        const activeAvatar = document.querySelector('.avatar-btn.active');
+        if (activeAvatar) {
+            playerEmoji = activeAvatar.dataset.avatar;
+            localStorage.setItem('insel-player-emoji', playerEmoji);
+        }
         introOverlay.classList.add('hiding');
         setTimeout(() => {
             introOverlay.style.display = 'none';
@@ -2440,6 +2454,18 @@
         }, 600);
         window.startSessionClock();
     }
+
+    // Avatar-Picker: Klick = auswählen
+    document.querySelectorAll('.avatar-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.avatar-btn').forEach(b => {
+                b.style.borderColor = 'transparent';
+                b.classList.remove('active');
+            });
+            btn.style.borderColor = 'rgba(255,255,255,0.9)';
+            btn.classList.add('active');
+        });
+    });
 
     // Name-Input: Enter-Taste = Spiel starten
     const playerNameInput = document.getElementById('player-name-input');
@@ -2825,6 +2851,52 @@
             localStorage.setItem('insel-muted', String(muted));
             muteBtn.textContent = muted ? '🔇' : '🔊';
         });
+    }
+
+    // === REPLAY-SONG — Bauwerk als Melodie abspielen ===
+    const replayBtn = document.getElementById('replay-btn');
+    if (replayBtn) {
+        replayBtn.addEventListener('click', () => {
+            // Alle belegten Zellen von oben-links nach unten-rechts sammeln
+            const cells = [];
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (grid[r][c]) cells.push({ r, c, mat: grid[r][c] });
+                }
+            }
+            if (cells.length === 0) {
+                showToast('🎵 Nichts zu spielen — bau erst etwas!');
+                return;
+            }
+            replayBtn.disabled = true;
+            replayBtn.textContent = '⏳';
+            const STEP_MS = Math.max(40, Math.min(200, 4000 / cells.length));
+            cells.forEach(({ r, c, mat }, i) => {
+                setTimeout(() => {
+                    soundBuild(mat);
+                    // Kurzes visuelles Highlight: Zelle blinkt
+                    replayHighlight(r, c);
+                    if (i === cells.length - 1) {
+                        setTimeout(() => {
+                            replayBtn.disabled = false;
+                            replayBtn.textContent = '🎵';
+                        }, 400);
+                    }
+                }, i * STEP_MS);
+            });
+        });
+    }
+
+    // Kurzes Highlight auf einer Canvas-Zelle (weißer Flash)
+    function replayHighlight(r, c) {
+        const x = (c + WATER_BORDER) * CELL_SIZE;
+        const y = (r + WATER_BORDER) * CELL_SIZE;
+        ctx.save();
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
+        ctx.restore();
+        setTimeout(() => requestRedraw(), 80);
     }
 
     // ============================================================
