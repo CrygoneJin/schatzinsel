@@ -197,7 +197,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 47 | **Quests/Achievements zu schnell** — Schwierigkeitsgrad erhöhen, passen nicht zur leeren Insel | P1 | Scientist |
 | 48 | **NPCs nicht sichtbar** — Chat-Button/NPCs tauchen nicht auf bei schatzinsel.app | P0 | Engineer |
 | 49 | **Bernd Support-Chat fehlt** — Bernd als Hilfe-NPC nicht erreichbar | P0 | Engineer |
-| 50 | **Höhle = 3 Akte** (Goethe: Oberwelt/Schwelle/Unterwelt). **Akt 1**: Fackeln, Kristalle, Bürokraten (Stempel-Puzzle). **Akt 2**: Teilchenphysik-Ebene — Quarks sichtbar (r/g/b Partikel), Elektronen blitzen bei Crafting, Neutrinos durchdringen Wände (Oscar kann sie sehen aber nicht fangen). **Akt 3**: Mandelbrot (zoombar, Wu-Xing-Farben, endlos). Amélie: Pilze in Binärmuster, Fackeln in Hex-Farben. PR #13 als Basis. | P1 | alle |
+| 50 | **Höhle = Dungeon-Framework** — 3 Akte (Goethe), aber Inhalt ist austauschbar. Mögliche Dungeons: **IT** (Bits→Kernel→Browser), **Kosmologie** (Quarks→Atome→Sterne), **Jim Knopf** (Bürokraten→Drachen→Kummerland), **bunte Mischung**. Jeder Dungeon hat: Akt 1 (Einstieg), Akt 2 (Transformation), Akt 3 (Mandelbrot/Endlos). Welcher Dungeon erscheint = emergent. PR #13 als Basis. | P1 | alle |
 | 51 | **Wu Xing Philosophie im Craft-Prompt** — Holz=Expansion, Feuer=Aktion, Erde=Wandlung, Metall=Reife, Wasser=Ruhe | P1 | Scientist |
 | 52 | **Kung Fu Panda Wuxi** — Ästhetik-Inspiration für Wu Xing Elemente | P2 | Artist |
 | 53 | **Echtes Atlantik-Wetter** — Open-Meteo API (29°N, 31°W — halber Weg Martinique↔Bayonne), 🌊 im Meer wetterabhängig | P1 | Engineer |
