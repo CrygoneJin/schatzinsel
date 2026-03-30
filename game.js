@@ -954,6 +954,7 @@
         addToInventory(matId, 1);
         unlockMaterial(matId);
         soundCraft();
+        showCraftResult(result.emoji, result.name, 1);
 
         if (result.fromCache === false && isNew) {
             showToast(`🏆 WELTPREMIERE! ${result.emoji} ${result.name} — Entdecker: ${result.discoverer}!`);
@@ -968,6 +969,15 @@
         return matId;
     }
 
+    function showCraftResult(emoji, name, count) {
+        const preview = document.getElementById('craft-result');
+        if (!preview) return;
+        preview.innerHTML = `<span class="craft-emoji">${emoji}</span><span class="craft-result-name">${count > 1 ? count + 'x ' : ''}${name}</span>`;
+        preview.title = name;
+        preview.classList.add('craft-success');
+        setTimeout(() => preview.classList.remove('craft-success'), 800);
+    }
+
     async function doCraft() {
         const recipe = findMatchingRecipe();
         if (recipe) {
@@ -980,6 +990,7 @@
             saveDiscoveredRecipes();
             soundCraft();
             const info = MATERIALS[recipe.result];
+            showCraftResult(info.emoji, info.label, recipe.resultCount);
             if (isNew) {
                 showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);
             } else {
