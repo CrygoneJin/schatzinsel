@@ -1190,9 +1190,7 @@
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
 
-    // === SPIELFIGUR ===
-    let playerName = localStorage.getItem('insel-player-name') || '';
-    let playerPos = { r: 8, c: 12 }; // Mitte der Insel
+    // === SPIELFIGUR (deklariert in Zeile ~1357, nach Animationen) ===
 
     function saveUnlocked() {
         localStorage.setItem('insel-unlocked-materials', JSON.stringify([...unlockedMaterials]));
@@ -1347,6 +1345,7 @@
         tree:       { material: 'wood', count: 3 },
         small_tree: { material: 'wood', count: 2 },
         sapling:    { material: 'wood', count: 1 },
+        palm:       { material: 'wood', count: 2 },
     };
     let isMouseDown = false;
     let hoverCell = null;
@@ -1451,7 +1450,7 @@
             { r: 2,        c: Math.floor(COLS / 2) - 2 },
             { r: ROWS - 3, c: Math.floor(COLS / 2) + 2 },
         ];
-        starterTrees.forEach(({ r, c }) => { grid[r][c] = 'tree'; });
+        starterTrees.forEach(({ r, c }) => { grid[r][c] = 'palm'; });
         window.grid = grid; // Chat-Integration aktuell halten
     }
 
@@ -2432,16 +2431,6 @@
     }
 
     startButton.addEventListener('click', startGame);
-
-    // Enter im Name-Input = Los!
-    const playerNameInput = document.getElementById('player-name-input');
-    if (playerNameInput) {
-        playerNameInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') startGame();
-        });
-        // Gespeicherten Namen vorausfüllen
-        if (playerName) playerNameInput.value = playerName;
-    }
 
     // Werkzeug-Buttons
     document.querySelectorAll('.tool-btn').forEach(btn => {
