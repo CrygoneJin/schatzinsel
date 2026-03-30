@@ -1159,8 +1159,8 @@
     // Ursprung + 5 Elemente — immer in der Palette sichtbar
     const BASE_MATERIALS = ['tao', 'yin', 'yang', 'qi', 'metal', 'wood', 'fire', 'water', 'earth'];
 
-    // Starter-Set: 5 Wu-Xing + erste 3 Crafting-Ergebnisse — von Anfang an sichtbar
-    const STARTER_MATERIALS = [...BASE_MATERIALS, 'stone', 'sand', 'glass'];
+    // Starter-Set: nur Genesis-Materialien sichtbar, alles andere wird gecraftet
+    const STARTER_MATERIALS = [...BASE_MATERIALS];
 
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
@@ -1470,7 +1470,17 @@
                     ctx.lineWidth = 1;
                     ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
 
-                    ctx.fillStyle = mat.color;
+                    // Tao-Flackern: instabiles Atom vor dem Zerfall
+                    if (grid[r][c] === 'tao') {
+                        const flicker = Math.sin(time * 8 + r * 3.7 + c * 2.3) * 0.15;
+                        const base = 128;
+                        const v = Math.round(base + flicker * 80);
+                        // Flackert zwischen leichtem Schwarz und leichtem Weiß
+                        const bw = Math.sin(time * 3 + r + c) > 0 ? v + 20 : v - 20;
+                        ctx.fillStyle = `rgb(${bw}, ${bw}, ${bw})`;
+                    } else {
+                        ctx.fillStyle = mat.color;
+                    }
                     ctx.fillRect(x + 1, y + 1, CELL_SIZE - 2, CELL_SIZE - 2);
 
                     // Rand
@@ -2018,9 +2028,13 @@
         if (!merge) return;
 
         // Apply merge
+        const fromMats = merge.cells.map(([mr, mc]) => grid[mr][mc]);
         for (const [mr, mc] of merge.cells) {
             grid[mr][mc] = merge.result;
         }
+
+        // Genesis-Log
+        logGenesis({ type: 'merge', from: fromMats, result: merge.result, cells: merge.cells, msg: merge.msg });
 
         showToast(merge.msg);
         soundCraft();
@@ -2048,6 +2062,164 @@
                 checkAutomerge(mr, mc);
             }
         }, 500);
+    }
+
+    // ============================================================
+    // === GENESIS-LOG + SPONTANER TAO-ZERFALL ===
+    // ============================================================
+    // Einstein: "Grau IST bereits Schwarz und Weiß."
+    // Feynman: "Spontaner Zerfall mit Halbwertszeit. Wie radioaktiver Zerfall."
+    // Pauli: "Yin und Yang können nicht am selben Ort sein."
+
+    const genesisLog = [];
+
+    function logGenesis(event) {
+        genesisLog.push({ ...event, time: Date.now() });
+        // Replay-Button zeigen sobald es was zu sehen gibt
+        const btn = document.getElementById('genesis-replay-btn');
+        const group = document.getElementById('genesis-group');
+        if (btn && group && genesisLog.length > 0) {
+            group.style.display = '';
+        }
+    }
+
+    // Freie Nachbarzelle finden (Pauli: Yin und Yang nicht am selben Ort)
+    function findFreeNeighbor(r, c) {
+        const dirs = [[0,1],[0,-1],[1,0],[-1,0]];
+        // Zufällige Reihenfolge — welche Richtung ist nicht vorhersagbar
+        for (let i = dirs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [dirs[i], dirs[j]] = [dirs[j], dirs[i]];
+        }
+        for (const [dr, dc] of dirs) {
+            const nr = r + dr, nc = c + dc;
+            if (nr >= 2 && nr < ROWS - 2 && nc >= 2 && nc < COLS - 2 && !grid[nr][nc]) {
+                return [nr, nc];
+            }
+        }
+        return null; // Kein Platz — Pauli sagt: warten
+    }
+
+    // Spontaner Zerfall: ~5% pro Sekunde → mittlere Wartezeit ~20s
+    const TAO_DECAY_CHANCE = 0.05;
+
+    function tickTaoDecay() {
+        let hasTao = false;
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (grid[r][c] !== 'tao') continue;
+                hasTao = true;
+                if (Math.random() > TAO_DECAY_CHANCE) continue;
+
+                // Pauli-Check: freie Nachbarzelle?
+                const free = findFreeNeighbor(r, c);
+                if (!free) continue; // Kein Platz → kein Zerfall
+
+                // ZERFALL! Symmetriebrechung.
+                const [yr, yc] = free;
+                grid[r][c] = 'yin';
+                grid[yr][yc] = 'yang';
+
+                logGenesis({ type: 'decay', from: 'tao', results: ['yin', 'yang'], cells: [[r,c],[yr,yc]] });
+
+                showToast('☯️ → ⚫⚪ Symmetriebrechung! Tao teilt sich.');
+                soundCraft();
+                addPlaceAnimation(r, c);
+                addPlaceAnimation(yr, yc);
+
+                // Spark-Animation
+                const wrapper = document.getElementById('canvas-wrapper');
+                if (wrapper) {
+                    const cellSize = canvas.offsetWidth / (COLS + WATER_BORDER * 2);
+                    for (const [sr, sc] of [[r,c],[yr,yc]]) {
+                        const spark = document.createElement('div');
+                        spark.className = 'merge-spark';
+                        spark.style.left = ((sc + WATER_BORDER) * cellSize + cellSize/2 - 20) + 'px';
+                        spark.style.top = ((sr + WATER_BORDER) * cellSize + cellSize/2 - 20) + 'px';
+                        wrapper.appendChild(spark);
+                        setTimeout(() => spark.remove(), 1000);
+                    }
+                }
+
+                updateGenesisVisibility();
+
+                // Automerge-Kettenreaktion: Yin + Yang nebeneinander → Qi
+                setTimeout(() => {
+                    checkAutomerge(r, c);
+                    checkAutomerge(yr, yc);
+                }, 800);
+
+                requestRedraw();
+                return; // Ein Zerfall pro Tick — nicht alle auf einmal
+            }
+        }
+        // Tao auf dem Grid → muss flackern → dirty flag (200ms = 5 FPS, genug für Flicker)
+        if (hasTao && !_taoFlickerActive) {
+            _taoFlickerActive = true;
+            _taoFlickerInterval = setInterval(requestRedraw, 200);
+        } else if (!hasTao && _taoFlickerActive) {
+            _taoFlickerActive = false;
+            clearInterval(_taoFlickerInterval);
+        }
+    }
+
+    let _taoFlickerActive = false;
+    let _taoFlickerInterval = null;
+
+    // Alle 1 Sekunde prüfen
+    setInterval(tickTaoDecay, 1000);
+
+    // Genesis-Replay: Urknall in Zeitlupe abspielen
+    function playGenesisReplay() {
+        if (genesisLog.length === 0) {
+            showToast('Noch keine Genesis passiert. Lege ☯️ auf die Insel!');
+            return;
+        }
+
+        // Modal erstellen
+        const overlay = document.createElement('div');
+        overlay.className = 'genesis-replay-overlay';
+        overlay.innerHTML = `
+            <div class="genesis-replay-modal">
+                <h2>🌌 Genesis — Der Urknall in Zeitlupe</h2>
+                <div class="genesis-timeline" id="genesis-timeline"></div>
+                <button class="genesis-replay-close" id="genesis-replay-close">Schließen</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        const timeline = overlay.querySelector('#genesis-timeline');
+        const close = overlay.querySelector('#genesis-replay-close');
+        close.addEventListener('click', () => overlay.remove());
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+
+        // Schritte nacheinander einblenden
+        const startTime = genesisLog[0]?.time || Date.now();
+        genesisLog.forEach((event, i) => {
+            setTimeout(() => {
+                const step = document.createElement('div');
+                step.className = 'genesis-step';
+                const elapsed = ((event.time - startTime) / 1000).toFixed(1);
+
+                if (event.type === 'decay') {
+                    step.innerHTML = `
+                        <span class="genesis-time">+${elapsed}s</span>
+                        <span class="genesis-icon">☯️ → ⚫⚪</span>
+                        <span class="genesis-text">Symmetriebrechung — Tao teilt sich in Yin und Yang</span>
+                    `;
+                } else if (event.type === 'merge') {
+                    const emoji = MATERIALS[event.result]?.emoji || '?';
+                    step.innerHTML = `
+                        <span class="genesis-time">+${elapsed}s</span>
+                        <span class="genesis-icon">${event.from.map(m => MATERIALS[m]?.emoji || '?').join(' + ')} → ${emoji}</span>
+                        <span class="genesis-text">${event.msg || event.result}</span>
+                    `;
+                }
+
+                timeline.appendChild(step);
+                step.scrollIntoView({ behavior: 'smooth' });
+            }, i * 1500); // 1.5s pro Schritt — Zeitlupe
+        });
     }
 
     // --- Toast-Queue (Weber: "Ein Toast nach dem anderen. Ordnung muss sein.") ---
@@ -2895,6 +3067,10 @@
     updatePaletteVisibility();
     updateGenesisVisibility();
     updateDiscoveryCounter();
+
+    // Genesis-Replay Button
+    const replayBtn = document.getElementById('genesis-replay-btn');
+    if (replayBtn) replayBtn.addEventListener('click', playGenesisReplay);
 
     // --- Sidebar Tabs ---
     document.querySelectorAll('.sidebar-tab').forEach(tab => {
