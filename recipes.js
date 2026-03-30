@@ -14,6 +14,17 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Wasser',   result: 'water', resultCount: 2, ingredients: { yin: 2 },               desc: '2 Yin = 2 Wasser (reine Ruhe)' },
     { name: 'Erde',     result: 'earth', resultCount: 2, ingredients: { yin: 1, yang: 1, qi: 1 }, desc: 'Yin + Yang + Qi = 2 Erde (Mitte, Wandel)' },
     // Stufe 5→10.000: Aus den 5 Elementen (五行)
+    // === Wu Xing Erzeugungszyklus (相生 xiāng shēng) — Nähren ===
+    // Holz nährt Feuer (Holz brennt)
+    { name: 'Glut',     result: 'fire',  resultCount: 3, ingredients: { wood: 2, fire: 1 }, desc: '2 Holz nährt Feuer = 3 Feuer (相生)' },
+    // Feuer erzeugt Erde (Asche wird Boden)
+    { name: 'Asche',    result: 'earth', resultCount: 3, ingredients: { fire: 2, earth: 1 }, desc: '2 Feuer nährt Erde = 3 Erde (相生)' },
+    // Erde birgt Metall (Erz im Boden)
+    { name: 'Erz',      result: 'metal', resultCount: 3, ingredients: { earth: 2, metal: 1 }, desc: '2 Erde nährt Metall = 3 Metall (相生)' },
+    // Metall sammelt Wasser (Kondensation)
+    { name: 'Tau',      result: 'water', resultCount: 3, ingredients: { metal: 2, water: 1 }, desc: '2 Metall nährt Wasser = 3 Wasser (相生)' },
+    // Wasser nährt Holz (Baum trinkt)
+    { name: 'Trieb',    result: 'wood',  resultCount: 3, ingredients: { water: 2, wood: 1 }, desc: '2 Wasser nährt Holz = 3 Holz (相生)' },
     { name: 'Stein',    result: 'stone',      resultCount: 2, ingredients: { earth: 2, fire: 1 },  desc: '2 Erde + Feuer = 2 Stein' },
     { name: 'Sand',     result: 'sand',       resultCount: 2, ingredients: { earth: 1, water: 1 }, desc: 'Erde + Wasser = 2 Sand' },
     { name: 'Bretter',  result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
