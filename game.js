@@ -444,82 +444,119 @@
     }
 
     // --- NPC-Kommentare beim Bauen ---
-    // === GENERATIVE NPC-KOMMENTARE ===
-    // Baustein-System: Satzteile werden live gemischt = unendliche Kombinationen
+    // === EMOJI-GRAMMATIK: Universelle NPC-Sprache ===
+    // Pidgin-Grammatik: Emojis statt Text. Universell verständlich.
+    // Spec: docs/EMOJI-GRAMMAR.md
     // Kein API-Call, kein Data-Leak, rein clientseitig.
+
     const NPC_VOICES = {
-        spongebob: { emoji: '🧽', prefix: 'SpongeBob:', ticks: ['ICH BIN BEREIT', 'Das ist der BESTE Tag!', 'Hihihi!'], style: 'caps' },
-        maus:      { emoji: '🐭', prefix: 'Maus:', ticks: ['*pieps*', '*quak*'], style: 'cute' },
-        elefant:   { emoji: '🐘', prefix: 'Elefant:', ticks: ['Törööö!', 'Hmm, ich möchte sicherstellen...'], style: 'careful' },
-        neinhorn:  { emoji: '🦄', prefix: 'Neinhorn:', ticks: ['NEIN!', '...ok,', 'Mon Dieu!'], style: 'nein' },
-        krabs:     { emoji: '🦀', prefix: 'Krabs:', ticks: ['💰', 'Taler!', 'Geld!'], style: 'money' },
-        tommy:     { emoji: '🎬', prefix: 'Tommy:', ticks: ['Klick-klack!', 'JA!', 'CUT!'], style: 'chaos' },
-        bernd:     { emoji: '🍞', prefix: 'Bernd:', ticks: ['*seufz*', 'Mist.', 'Toll.'], style: 'grumpy' },
-        floriane:  { emoji: '🧚', prefix: 'Floriane:', ticks: ['✨', 'Oh!', 'Ein Wunsch!'], style: 'magic' },
+        spongebob: { emoji: '🧽', flavor: ['🍔', '🌊', '💛', '🧹'], react: ['💛', '🤩', '💪'], style: 'hype' },
+        maus:      { emoji: '🐭', flavor: ['🌻', '🔧', '🧪'],       react: ['🌻', '🥰', '👀'], style: 'cute' },
+        elefant:   { emoji: '🐘', flavor: ['🎵', '🌳', '💙'],       react: ['💙', '🎵', '👍'], style: 'careful' },
+        neinhorn:  { emoji: '🦄', flavor: ['🌈', '✨', '🙅'],       react: ['🙅', '...❤️'], style: 'nein' },
+        krabs:     { emoji: '🦀', flavor: ['💰', '📈', '⚓'],       react: ['💰', '📈', '🤑'], style: 'money' },
+        tommy:     { emoji: '🎬', flavor: ['🎥', '💥', '🎬'],       react: ['💥', '🎬', '⚡'], style: 'chaos' },
+        bernd:     { emoji: '🍞', flavor: ['😑', '💤', '🍞'],       react: ['😑', '💤', '🤷'], style: 'grumpy' },
+        floriane:  { emoji: '🧚', flavor: ['✨', '⭐', '🌸'],       react: ['✨', '🌸', '⭐'], style: 'magic' },
     };
 
-    const MAT_ADJECTIVES = {
-        wood: ['rustikales', 'solides', 'gemütliches', 'warmes', 'klassisches'],
-        stone: ['robuster', 'starker', 'massiver', 'ewiger', 'grauer'],
-        glass: ['durchsichtiges', 'glänzendes', 'funkelndes', 'modernes', 'schickes'],
-        plant: ['grüne', 'lebendige', 'frische', 'wilde', 'wuchernde'],
-        tree: ['großer', 'schattenspendender', 'alter', 'stolzer', 'knorriger'],
-        flower: ['bunte', 'duftende', 'leuchtende', 'zarte', 'wilde'],
-        water: ['blaues', 'plätscherndes', 'kühles', 'tiefes', 'glitzerndes'],
-        fence: ['ordentlicher', 'stabiler', 'gerader', 'praktischer'],
-        boat: ['schnelles', 'kleines', 'mutiges', 'abenteuerlustiges'],
-        fish: ['glitschiger', 'flinker', 'neugieriger', 'bunter'],
-        bridge: ['verbindende', 'elegante', 'starke', 'kühne'],
-        flag: ['wehende', 'stolze', 'bunte', 'mutige'],
-        fountain: ['sprudelnder', 'fröhlicher', 'magischer', 'singender'],
-        mushroom: ['geheimnisvoller', 'leuchtender', 'seltsamer', 'kuscheliger'],
-        door: ['einladende', 'mysteriöse', 'offene', 'knarrende'],
-        roof: ['schützendes', 'rotes', 'stabiles', 'gemütliches'],
-        lamp: ['helle', 'warme', 'leuchtende', 'einladende'],
-        sand: ['goldener', 'weicher', 'warmer', 'endloser'],
-        path: ['verschlungener', 'einladender', 'spannender', 'neuer'],
-        cactus: ['stacheliger', 'zäher', 'trotziger', 'cooler'],
+    // Emoji-Verben (universell, keine Textsprache nötig)
+    const EMOJI_VERBS = {
+        build: '🔨', look: '👁️', love: '❤️', up: '⬆️', question: '❓',
+        no: '🙅', transform: '➡️', plus: '➕', repeat: '🔄', star: '⭐',
     };
 
-    const REACTIONS = {
-        caps:    ['Das ist FANTASTISCH!', 'MEHR DAVON!', 'Der beste Block ALLER ZEITEN!', 'SO toll!', 'WOW!'],
-        cute:    ['*freu*', '*hüpf*', '*kicher*', '*staun*', 'Oh!', 'Schööön!'],
-        careful: ['Sehr schön gemacht.', 'Ganz sorgfältig, ja.', 'Das passt gut hierhin.', 'Ich bin zufrieden.'],
-        nein:    ['...ist eigentlich gut.', '...naja. Geht so. OK es ist toll.', '...NEIN! Doch. Ja.', '...pfff. Hübsch.'],
-        money:   ['Das bringt Kunden!', 'Wertsteigerung!', 'Cha-ching!', 'Investment!', 'Rendite!'],
-        chaos:   ['SCHNITT! Nochmal! BESSER!', 'Das wird im Film GEIL!', 'KAMERA LÄUFT!', 'Action!'],
-        grumpy:  ['Na toll.', 'Muss das sein?', 'Kann man machen.', 'Hab ich auch mal probiert. War schlecht.'],
-    };
-
-    const TEMPLATES = [
-        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${npc.ticks[0]} ${adj} ${mat}! ${react}`,
-        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${react} ${adj} ${mat}!`,
-        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} Oh! ${adj} ${mat}. ${npc.ticks[Math.min(1, npc.ticks.length-1)]}`,
-        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${adj} ${mat}? ${react}`,
-        (npc, adj, mat, react) => `${npc.emoji} ${npc.prefix} ${npc.ticks[0]} Noch mehr ${mat}! ${react}`,
+    // Emoji-Phrasen-Templates (max 5 Emojis pro Phrase = Miller's Law)
+    // Jedes Template gibt [emojiPhrase, deutscherTooltip] zurück
+    const EMOJI_TEMPLATES = [
+        // VERB+OBJ Muster: "Baue X!"
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} 🔨${matEmoji} ${pick(npc.react)}`,
+            `${npcName(npc)} baut ${matLabel}!`
+        ],
+        // OBJ+ZUSTAND Muster: "X ist toll!"
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} ${matEmoji}${pick(npc.react)}`,
+            `${npcName(npc)} findet ${matLabel} toll!`
+        ],
+        // Aufmerksamkeit: "Schau, X!"
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} 👁️${matEmoji} ${pick(npc.flavor)}`,
+            `${npcName(npc)} sieht ${matLabel}!`
+        ],
+        // Mehr davon: "Mehr X!"
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} ${matEmoji}⬆️ ${pick(npc.react)}`,
+            `${npcName(npc)} will mehr ${matLabel}!`
+        ],
+        // Staunen: "Wow, X!"
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} ${pick(npc.flavor)} ${matEmoji}❤️`,
+            `${npcName(npc)} liebt ${matLabel}!`
+        ],
     ];
+
+    // Neinhorn-Sonderregel: negiert erst, dann korrigiert
+    const NEINHORN_TEMPLATES = [
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} 🙅${matEmoji} ...❤️`,
+            `Neinhorn sagt NEIN zu ${matLabel}! ...findet's dann doch toll.`
+        ],
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} 🙅 ...${matEmoji}✨`,
+            `Neinhorn sagt NEIN! ...aber ${matLabel} ist schon magisch.`
+        ],
+        (npc, matEmoji, matLabel) => [
+            `${npc.emoji} 🙅🙅 ...👁️${matEmoji}❤️`,
+            `Neinhorn: NEIN NEIN! ...schaut hin... ok, ist schön.`
+        ],
+    ];
+
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function npcName(npc) {
+        const names = { '🧽': 'SpongeBob', '🐭': 'Maus', '🐘': 'Elefant', '🦄': 'Neinhorn',
+                        '🦀': 'Krabs', '🎬': 'Tommy', '🍞': 'Bernd', '🧚': 'Floriane' };
+        return names[npc.emoji] || '???';
+    }
 
     // Combo-Tracker: besondere Kommentare bei Serien
     let lastMaterial = null;
     let materialStreak = 0;
 
-    const STREAK_COMMENTS = [
-        (npc, mat, n) => `${npc.emoji} ${npc.prefix} ${n}x ${mat} am Stück? ${npc.ticks[0]}`,
-        (npc, mat, n) => `${npc.emoji} ${npc.prefix} Noch mehr ${mat}?! Das wird ja eine ${mat}-Stadt!`,
-        (npc, mat, n) => `${npc.emoji} ${npc.prefix} ${n} ${mat}! Jemand hat einen Plan!`,
+    // Streak-Phrasen (Emoji-only)
+    const EMOJI_STREAK = [
+        (npc, matEmoji, n, matLabel) => [
+            `${npc.emoji} ${matEmoji}🔄${n > 9 ? '🔟' : ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'][n]} ${pick(npc.react)}`,
+            `${npcName(npc)}: ${n}x ${matLabel} am Stück!`
+        ],
+        (npc, matEmoji, n, matLabel) => [
+            `${npc.emoji} ${matEmoji}${matEmoji}${matEmoji}⬆️`,
+            `${npcName(npc)}: So viel ${matLabel}! Weiter so!`
+        ],
     ];
 
-    // Context-Kommentare basierend auf Grid-Zustand
+    // Context-Kommentare basierend auf Grid-Zustand (Emoji-only)
     function getContextComment(npc, stats) {
         if (stats.total === 0) return null;
-        if (stats.percent > 80) return `${npc.emoji} ${npc.prefix} Die Insel ist fast voll! ${npc.ticks[0]}`;
-        if (stats.total % 25 === 0) return `${npc.emoji} ${npc.prefix} ${stats.total} Blöcke! ${REACTIONS[npc.style][Math.floor(Math.random() * REACTIONS[npc.style].length)]}`;
+        if (stats.percent > 80) return [
+            `${npc.emoji} 🏝️🔨🔨🔨 ⬆️`,
+            `${npcName(npc)}: Die Insel ist fast voll!`
+        ];
+        if (stats.total % 25 === 0) return [
+            `${npc.emoji} ${stats.total > 9 ? '🔢' : ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'][stats.total]}🏗️ ${pick(npc.react)}`,
+            `${npcName(npc)}: ${stats.total} Blöcke gebaut!`
+        ];
         // Proportions-Kommentar
         const entries = Object.entries(stats.counts).filter(([,v]) => v > 0);
         if (entries.length >= 2) {
             const sorted = entries.sort((a,b) => b[1] - a[1]);
             if (sorted[0][1] > stats.total * 0.6) {
-                return `${npc.emoji} ${npc.prefix} Sehr viel ${sorted[0][0]}! Wie wärs mit ${sorted[1][0]}?`;
+                const topEmoji = MATERIALS[sorted[0][0]]?.emoji || '❓';
+                const altEmoji = MATERIALS[sorted[1][0]]?.emoji || '❓';
+                return [
+                    `${npc.emoji} ${topEmoji}⬆️⬆️ ❓${altEmoji}`,
+                    `${npcName(npc)}: Viel ${sorted[0][0]}! Wie wärs mit ${sorted[1][0]}?`
+                ];
             }
         }
         return null;
@@ -528,14 +565,16 @@
     function generateNpcComment(material) {
         const npcKeys = Object.keys(NPC_VOICES);
         const npc = NPC_VOICES[npcKeys[Math.floor(Math.random() * npcKeys.length)]];
-        const matLabel = MATERIALS[material]?.label || material;
+        const matInfo = MATERIALS[material];
+        const matEmoji = matInfo?.emoji || '❓';
+        const matLabel = matInfo?.label || material;
 
         // Streak-Check
         if (material === lastMaterial) {
             materialStreak++;
             if (materialStreak >= 5 && Math.random() < 0.5) {
-                const tmpl = STREAK_COMMENTS[Math.floor(Math.random() * STREAK_COMMENTS.length)];
-                return tmpl(npc, matLabel, materialStreak);
+                const [phrase, tooltip] = pick(EMOJI_STREAK)(npc, matEmoji, materialStreak, matLabel);
+                return emojiToast(phrase, tooltip);
             }
         } else {
             lastMaterial = material;
@@ -547,17 +586,19 @@
             const stats = typeof getGridStats === 'function' ? getGridStats() : null;
             if (stats) {
                 const ctx = getContextComment(npc, stats);
-                if (ctx) return ctx;
+                if (ctx) return emojiToast(ctx[0], ctx[1]);
             }
         }
 
-        // Generativer Kommentar aus Bausteinen
-        const adjs = MAT_ADJECTIVES[material] || ['tolles'];
-        const adj = adjs[Math.floor(Math.random() * adjs.length)];
-        const reactions = REACTIONS[npc.style];
-        const react = reactions[Math.floor(Math.random() * reactions.length)];
-        const tmpl = TEMPLATES[Math.floor(Math.random() * TEMPLATES.length)];
-        return tmpl(npc, adj, matLabel, react);
+        // Neinhorn-Sonderregel
+        const templates = (npc.style === 'nein') ? NEINHORN_TEMPLATES : EMOJI_TEMPLATES;
+        const [phrase, tooltip] = pick(templates)(npc, matEmoji, matLabel);
+        return emojiToast(phrase, tooltip);
+    }
+
+    // Erzeugt HTML-String mit Emoji-Phrase + Tooltip für Accessibility
+    function emojiToast(phrase, tooltip) {
+        return `<span class="emoji-phrase" title="${tooltip}" aria-label="${tooltip}">${phrase}</span>`;
     }
 
     // --- Spontan-Hörspiele: Mini-Szenen bei besonderen Anlässen ---
@@ -949,6 +990,187 @@
             showToast('🤔 Kein Rezept gefunden!');
         }
     }
+
+    // ============================================================
+    // === ZAUBERKESSEL === Magisches Craft-Interface (Emoji-Sprache)
+    // ============================================================
+    (function initZauberkessel() {
+        const overlay = document.getElementById('zauberkessel-overlay');
+        const slotA = document.getElementById('kessel-slot-a');
+        const slotB = document.getElementById('kessel-slot-b');
+        const brewBtn = document.getElementById('kessel-brew');
+        const resultDiv = document.getElementById('kessel-result');
+        const matsDiv = document.getElementById('kessel-materials');
+        const closeBtn = overlay?.querySelector('.kessel-close');
+        const kesselBtn = document.getElementById('kessel-btn');
+        const bubblesDiv = overlay?.querySelector('.kessel-bubbles');
+
+        if (!overlay || !slotA || !slotB) return;
+
+        let activeSlot = 'a'; // welcher Slot gerade befüllt wird
+        let slotAMat = null;
+        let slotBMat = null;
+
+        // Bubbles erzeugen
+        function spawnBubbles() {
+            if (!bubblesDiv) return;
+            bubblesDiv.innerHTML = '';
+            for (let i = 0; i < 6; i++) {
+                const b = document.createElement('div');
+                b.className = 'kessel-bubble';
+                b.style.left = (15 + Math.random() * 70) + '%';
+                b.style.width = b.style.height = (6 + Math.random() * 14) + 'px';
+                b.style.animationDelay = (Math.random() * 2) + 's';
+                b.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+                bubblesDiv.appendChild(b);
+            }
+        }
+
+        function openKessel() {
+            slotAMat = null;
+            slotBMat = null;
+            activeSlot = 'a';
+            slotA.textContent = '❓';
+            slotB.textContent = '❓';
+            slotA.classList.remove('filled');
+            slotB.classList.remove('filled');
+            brewBtn.disabled = true;
+            resultDiv.textContent = '';
+            overlay.classList.remove('hidden');
+            populateMaterials();
+            spawnBubbles();
+        }
+
+        function closeKessel() {
+            overlay.classList.add('hidden');
+        }
+
+        function populateMaterials() {
+            matsDiv.innerHTML = '';
+            // Zeige alle freigeschalteten Materialien aus der Palette + Inventar
+            const available = new Set();
+            // Palette-Materialien
+            const palItems = document.querySelectorAll('#palette .palette-item:not(.locked)');
+            palItems.forEach(item => {
+                const mat = item.dataset.material;
+                if (mat) available.add(mat);
+            });
+            // Inventar-Materialien
+            if (typeof inventory === 'object') {
+                Object.keys(inventory).forEach(mat => {
+                    if (inventory[mat] > 0) available.add(mat);
+                });
+            }
+
+            available.forEach(mat => {
+                const info = MATERIALS[mat];
+                if (!info) return;
+                const btn = document.createElement('button');
+                btn.className = 'kessel-mat-btn';
+                btn.textContent = info.emoji;
+                btn.title = info.label;
+                btn.setAttribute('aria-label', info.label);
+                btn.addEventListener('click', () => selectMaterial(mat, info));
+                matsDiv.appendChild(btn);
+            });
+        }
+
+        function selectMaterial(mat, info) {
+            if (activeSlot === 'a') {
+                slotAMat = mat;
+                slotA.textContent = info.emoji;
+                slotA.classList.add('filled');
+                activeSlot = 'b';
+            } else {
+                slotBMat = mat;
+                slotB.textContent = info.emoji;
+                slotB.classList.add('filled');
+                activeSlot = 'a';
+            }
+            brewBtn.disabled = !(slotAMat && slotBMat);
+        }
+
+        // Slot anklicken = zurücksetzen
+        slotA.addEventListener('click', () => {
+            slotAMat = null;
+            slotA.textContent = '❓';
+            slotA.classList.remove('filled');
+            activeSlot = 'a';
+            brewBtn.disabled = true;
+        });
+        slotB.addEventListener('click', () => {
+            slotBMat = null;
+            slotB.textContent = '❓';
+            slotB.classList.remove('filled');
+            activeSlot = 'b';
+            brewBtn.disabled = true;
+        });
+
+        // Brauen!
+        brewBtn.addEventListener('click', async () => {
+            if (!slotAMat || !slotBMat) return;
+            brewBtn.disabled = true;
+            resultDiv.textContent = '✨🔮✨';
+
+            // NPC kommentiert das Brauen in Emoji-Sprache
+            const matAEmoji = MATERIALS[slotAMat]?.emoji || '❓';
+            const matBEmoji = MATERIALS[slotBMat]?.emoji || '❓';
+
+            // Nutze quickCraft (gleicher Mechanismus wie Inventar-Craft)
+            const a = slotAMat;
+            const b = slotBMat;
+            slotAMat = null;
+            slotBMat = null;
+
+            await quickCraft(a, b);
+
+            // Ergebnis-Anzeige: Emoji-Rezept-Phrase
+            const pair = [a, b].sort().join('+');
+            const cached = localStorage.getItem(`llm-craft:${pair}`);
+            if (cached) {
+                const craft = JSON.parse(cached);
+                resultDiv.innerHTML = `<span class="emoji-phrase">${matAEmoji} ➕ ${matBEmoji} ➡️ ${craft.emoji || '✨'}</span>`;
+            } else {
+                // Festes Rezept — suche Ergebnis
+                const recipe = (window.INSEL_CRAFTING_RECIPES || []).find(r => {
+                    const keys = Object.keys(r.ingredients);
+                    if (keys.length !== 2) return false;
+                    const [k1, k2] = keys;
+                    return (k1 === a && k2 === b) || (k1 === b && k2 === a);
+                });
+                if (recipe) {
+                    const rInfo = MATERIALS[recipe.result];
+                    resultDiv.innerHTML = `<span class="emoji-phrase">${matAEmoji} ➕ ${matBEmoji} ➡️ ${rInfo?.emoji || '✨'}</span>`;
+                } else {
+                    resultDiv.textContent = '🤔❓';
+                }
+            }
+
+            // Slots zurücksetzen nach kurzer Pause
+            setTimeout(() => {
+                slotA.textContent = '❓';
+                slotB.textContent = '❓';
+                slotA.classList.remove('filled');
+                slotB.classList.remove('filled');
+                brewBtn.disabled = true;
+                activeSlot = 'a';
+                populateMaterials(); // Inventar könnte sich geändert haben
+            }, 1500);
+        });
+
+        // Öffnen/Schließen
+        if (kesselBtn) kesselBtn.addEventListener('click', openKessel);
+        if (closeBtn) closeBtn.addEventListener('click', closeKessel);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeKessel();
+        });
+        // Escape schließt
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+                closeKessel();
+            }
+        });
+    })();
 
     // ============================================================
     // === CRAFTING === 3x3 Werkbank
@@ -2376,7 +2598,12 @@
         }
         toastBusy = true;
         const { message, duration } = toastQueue.shift();
-        toast.textContent = message;
+        // Emoji-Phrasen kommen als HTML (<span class="emoji-phrase">), alles andere als Text
+        if (typeof message === 'string' && message.includes('class="emoji-phrase"')) {
+            toast.innerHTML = message;
+        } else {
+            toast.textContent = message;
+        }
         toast.classList.remove('hidden');
         clearTimeout(toast._timeout);
         toast._timeout = setTimeout(() => {

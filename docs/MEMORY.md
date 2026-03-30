@@ -23,6 +23,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-03-30 | Emoji-NPC-Sprache + Zauberkessel | NPCs kommunizieren in Emoji-Pidgin-Grammatik (universell, kein Text). Zauberkessel-UI als magisches Craft-Interface. Israelischer Tester = Beweis dass Emojis als universelle Sprache funktionieren. |
 | 2026-03-30 | Sprint 7: Spielfigur 🧒 live | Name-Input → Canvas-Rendering → Arrow-Keys → Touch-Drag — alles ohne Framework, 120 Zeilen |
 | 2026-03-30 | Sand-Rauschen deterministisch | (r*31 + c*17) % 12 — kein Flackern, kein Random(), kein Zustand |
 | 2026-03-30 | Phantom-Done erkannt und korrigiert | Agent hat Code-Realität gegen SPRINT.md geprüft und Diskrepanz aufgelöst |

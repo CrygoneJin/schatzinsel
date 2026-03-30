@@ -760,6 +760,195 @@ header h1 {
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
+/* === EMOJI-PHRASEN === Universelle NPC-Sprache */
+.emoji-phrase {
+    font-size: 1.4em;
+    letter-spacing: 0.15em;
+    cursor: default;
+    user-select: none;
+}
+
+/* === ZAUBERKESSEL === Craft-Interface als magischer Kessel */
+#zauberkessel-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+#zauberkessel-overlay.hidden { display: none; }
+
+.zauberkessel {
+    background: radial-gradient(ellipse at 50% 80%, #2d1b4e, #1a0a2e);
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    width: min(340px, 85vw);
+    height: min(380px, 80vh);
+    position: relative;
+    box-shadow:
+        0 0 60px rgba(138, 43, 226, 0.4),
+        0 0 120px rgba(138, 43, 226, 0.2),
+        inset 0 -40px 60px rgba(75, 0, 130, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    overflow: visible;
+}
+
+.kessel-title {
+    font-size: 1.6em;
+    color: #e8d5f5;
+    text-shadow: 0 0 10px rgba(200, 150, 255, 0.5);
+    margin-bottom: 12px;
+    font-family: var(--font-heading);
+}
+
+.kessel-slots {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.kessel-slot {
+    width: 72px;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px dashed rgba(200, 150, 255, 0.4);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.kessel-slot:hover, .kessel-slot:focus {
+    background: rgba(200, 150, 255, 0.15);
+    border-color: rgba(200, 150, 255, 0.7);
+    transform: scale(1.05);
+}
+.kessel-slot.filled {
+    border-style: solid;
+    background: rgba(200, 150, 255, 0.12);
+}
+
+.kessel-operator {
+    font-size: 1.8em;
+    color: rgba(200, 150, 255, 0.6);
+}
+
+.kessel-brew-btn {
+    margin-top: 20px;
+    padding: 14px 36px;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #8e44ad, #6c3483);
+    color: white;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    box-shadow: 0 4px 16px rgba(142, 68, 173, 0.4);
+    transition: all 0.2s;
+}
+.kessel-brew-btn:hover {
+    background: linear-gradient(135deg, #a855c7, #8e44ad);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(142, 68, 173, 0.5);
+}
+.kessel-brew-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+}
+
+.kessel-result {
+    margin-top: 16px;
+    font-size: 2em;
+    min-height: 48px;
+    text-align: center;
+    color: #e8d5f5;
+}
+
+.kessel-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(200, 150, 255, 0.5);
+    background: #2d1b4e;
+    color: #e8d5f5;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kessel-bubbles {
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    right: 0;
+    height: 60%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.kessel-bubble {
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+    background: rgba(200, 150, 255, 0.2);
+    animation: bubble-rise 2s ease-in infinite;
+}
+
+@keyframes bubble-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.6; }
+    100% { transform: translateY(-200px) scale(0.3); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Kessel-Material-Picker */
+.kessel-materials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-width: 280px;
+    justify-content: center;
+    margin-top: 8px;
+    max-height: 100px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.kessel-mat-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(200, 150, 255, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.kessel-mat-btn:hover {
+    background: rgba(200, 150, 255, 0.2);
+    transform: scale(1.1);
+}
+
 /* === ANIMATIONS === */
 @keyframes pop {
     0% { transform: scale(0.5); opacity: 0.5; }

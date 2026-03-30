@@ -71,6 +71,7 @@
             </div>
             <div class="toolbar-group" id="craft-group">
                 <button class="tool-btn craft-open-btn" id="craft-btn" title="Werkbank">⚒️</button>
+                <button class="tool-btn" id="kessel-btn" title="Zauberkessel">🔮</button>
             </div>
             <div class="toolbar-group" id="genesis-group" style="display:none">
                 <button class="tool-btn" id="genesis-replay-btn" title="Nochmal abspielen: Wie alles angefangen hat">🔄</button>
@@ -241,6 +242,23 @@
 
         <!-- Toast-Nachricht -->
         <div id="toast" class="hidden"></div>
+
+        <!-- Zauberkessel-Overlay -->
+        <div id="zauberkessel-overlay" class="hidden" role="dialog" aria-label="Zauberkessel">
+            <div class="zauberkessel">
+                <button class="kessel-close" aria-label="Schließen">✕</button>
+                <div class="kessel-title">🔮 Zauberkessel</div>
+                <div class="kessel-slots">
+                    <div class="kessel-slot" id="kessel-slot-a" tabindex="0" aria-label="Erste Zutat">❓</div>
+                    <span class="kessel-operator">➕</span>
+                    <div class="kessel-slot" id="kessel-slot-b" tabindex="0" aria-label="Zweite Zutat">❓</div>
+                </div>
+                <div class="kessel-materials" id="kessel-materials"></div>
+                <button class="kessel-brew-btn" id="kessel-brew" disabled>🔥 Brauen</button>
+                <div class="kessel-result" id="kessel-result"></div>
+                <div class="kessel-bubbles" aria-hidden="true"></div>
+            </div>
+        </div>
 
         <!-- NPC Chat -->
         <div id="chat-bubble" title="Mit Inselbewohnern reden" role="button" aria-label="Chat mit Inselbewohnern öffnen" tabindex="0">💬</div>
