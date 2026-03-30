@@ -1030,11 +1030,14 @@
     // aber manchmal schlägt System 1 zu (impulsiv, Fehler).
     // Loss Aversion: Items verlieren wiegt schwerer als der Gewinn.
 
+    // Tic-Tac-Toe → Toe → Zeh → Juli Zeh. Toe++ → C++. Get it?
     const TICTACTOE_PRIZES = [
+        { id: 'juli_zeh', emoji: '📚', label: 'Juli Zeh',
+          msg: '📚 Juli Zeh steigt aus dem Kessel! "Tic Tac Toe... Toe... Zeh... Das bin ja ICH!"' },
+        { id: 'cplusplus', emoji: '⚙️', label: 'C++',
+          msg: '⚙️ C++ springt aus dem Kessel! Toe plus plus! "Ich bin die komplizierteste Sprache der Insel!"' },
         { id: 'billgates', emoji: '🤓', label: 'Bill Gates',
           msg: '🤓 Bill Gates fällt aus dem Kessel! "Haben Sie schon Windows probiert?"' },
-        { id: 'rockband', emoji: '🎸', label: 'Die Band',
-          msg: '🎸 Eine ganze Rockband springt aus dem Kessel und spielt ein Solo!' },
         { id: 'kreide', emoji: '🖍️', label: 'Kreide',
           msg: '🖍️ Kreide! Jetzt kannst du auf die Felsen malen!' },
         { id: 'pippis_pferd', emoji: '🐴', label: 'Kleiner Onkel',
@@ -1109,6 +1112,8 @@
         '🫕 "Anchoring Bias: Ich setze mich IMMER in die Mitte. Fast immer."',
         '🫕 "Du denkst du hast eine Strategie? Das ist nur dein WYSIATI."',
         '🫕 *blubbert* "Prospect Theory sagt: du hasst Verlieren mehr als du Gewinnen liebst."',
+        '🫕 "Tic Tac... Toe... Zeh... Kennst du Juli Zeh? Die schreibt über Überwachung. ICH überwache DEINE Züge."',
+        '🫕 "Toe plus plus... C++! Die komplizierteste Sprache! So wie DIESES Spiel."',
     ];
 
     let tttState = null; // { board, playerMark, cauldronMark, playerEmoji, cauldronEmoji, timer, active }

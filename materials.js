@@ -99,9 +99,10 @@ window.INSEL_MATERIALS = {
     tornado:  { emoji: '🌪️', label: 'Tornado', color: '#AEB6BF', border: '#85929E' },
     wave:     { emoji: '🌊', label: 'Tsunami',  color: '#2980B9', border: '#1F618D' },
     phoenix:  { emoji: '🔥', label: 'Phönix',   color: '#F39C12', border: '#E67E22' },
-    // === TIC-TAC-KESSEL (Easter Egg) ===
+    // === TIC-TAC-ZEH (Easter Egg: Toe → Zeh → Juli Zeh, Toe++ → C++) ===
+    juli_zeh:     { emoji: '📚', label: 'Juli Zeh',     color: '#8E44AD', border: '#6C3483' },
+    cplusplus:    { emoji: '⚙️', label: 'C++',          color: '#2C3E50', border: '#1A252F' },
     billgates:    { emoji: '🤓', label: 'Bill Gates',   color: '#4A90D9', border: '#2E6BB0' },
-    rockband:     { emoji: '🎸', label: 'Die Band',     color: '#E74C3C', border: '#C0392B' },
     kreide:       { emoji: '🖍️', label: 'Kreide',      color: '#F5F5F5', border: '#D5D5D5' },
     pippis_pferd: { emoji: '🐴', label: 'Kleiner Onkel', color: '#D4AC0D', border: '#B7950B' },
     karlsson:     { emoji: '🚁', label: 'Karlsson vom Dach', color: '#F39C12', border: '#E67E22' },
