@@ -77,4 +77,8 @@ window.INSEL_MATERIALS = {
     modem:    { emoji: '📠', label: 'Modem',    color: '#C8BFA9', border: '#A89F8C' },
     icq:      { emoji: '🌻', label: 'ICQ',      color: '#4BAF4F', border: '#388E3C' },
     aol:      { emoji: '💿', label: 'AOL',      color: '#0055A4', border: '#003D7A' },
+    knochenhandy: { emoji: '🦴', label: 'Knochenhandy', color: '#7F8C8D', border: '#616A6B' },
+    nokia:    { emoji: '📱', label: 'Nokia 3210', color: '#2C3E50', border: '#1A252F' },
+    snake:    { emoji: '🐍', label: 'Snake',    color: '#27AE60', border: '#1E8449' },
+    tetris:   { emoji: '🎮', label: 'Tetris',   color: '#8E44AD', border: '#6C3483' },
 };

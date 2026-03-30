@@ -72,4 +72,8 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Modem',       result: 'modem',     resultCount: 1, ingredients: { metal: 2, lightning: 1 }, desc: '2 Metall + Blitz = Modem — KRRRSCHHHH!' },
     { name: 'ICQ',         result: 'icq',       resultCount: 1, ingredients: { modem: 1, flower: 1 },   desc: 'Modem + Blume = ICQ — Uh-Oh!' },
     { name: 'AOL',         result: 'aol',       resultCount: 1, ingredients: { modem: 1, key: 1 },      desc: 'Modem + Schlüssel = AOL — Bin ich schon drin?' },
+    { name: 'Knochenhandy', result: 'knochenhandy', resultCount: 1, ingredients: { metal: 1, stone: 1, lightning: 1 }, desc: 'Metall + Stein + Blitz = Knochenhandy — B-Netz Opa!' },
+    { name: 'Nokia 3210', result: 'nokia',     resultCount: 1, ingredients: { knochenhandy: 1, glass: 1 },  desc: 'Knochenhandy + Glas = Nokia 3210 — unkaputtbar!' },
+    { name: 'Snake',       result: 'snake',     resultCount: 1, ingredients: { nokia: 1, plant: 1 },        desc: 'Nokia + Pflanze = Snake — frisst alles!' },
+    { name: 'Tetris',      result: 'tetris',    resultCount: 1, ingredients: { nokia: 1, stone: 1 },        desc: 'Nokia + Stein = Tetris — Blöcke stapeln!' },
 ];

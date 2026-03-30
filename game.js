@@ -111,6 +111,10 @@
         modem:    { emoji: '📠', label: 'Modem',    color: '#C8BFA9', border: '#A89F8C' },
         icq:      { emoji: '🌻', label: 'ICQ',      color: '#4BAF4F', border: '#388E3C' },
         aol:      { emoji: '💿', label: 'AOL',      color: '#0055A4', border: '#003D7A' },
+        knochenhandy: { emoji: '🦴', label: 'Knochenhandy', color: '#7F8C8D', border: '#616A6B' },
+        nokia:    { emoji: '📱', label: 'Nokia 3210', color: '#2C3E50', border: '#1A252F' },
+        snake:    { emoji: '🐍', label: 'Snake',    color: '#27AE60', border: '#1E8449' },
+        tetris:   { emoji: '🎮', label: 'Tetris',   color: '#8E44AD', border: '#6C3483' },
     };
 
     // --- Infinite Craft: Worker-URL ---
@@ -818,6 +822,90 @@
     setInterval(updateTreeGrowth, 5000);
 
     // ============================================================
+    // === SNAKE AUTO-ERNTE === 🐍 frisst sich über die Insel
+    // ============================================================
+    const SNAKE_INTERVAL = 3000; // Alle 3s ein Schritt
+    const SNAKE_MAX_HUNGER = 15; // Nach 15 Happen ist die Snake satt
+    let activeSnakes = []; // [{ r, c, hunger, dir }]
+
+    function spawnSnake(r, c) {
+        activeSnakes.push({ r, c, hunger: 0, dir: Math.floor(Math.random() * 4) });
+    }
+
+    function updateSnakes() {
+        if (activeSnakes.length === 0) return;
+        const dirs = [[-1,0],[1,0],[0,-1],[0,1]]; // oben, unten, links, rechts
+        let changed = false;
+
+        for (let i = activeSnakes.length - 1; i >= 0; i--) {
+            const s = activeSnakes[i];
+
+            // Satt? Snake verschwindet, hinterlässt Pflanze
+            if (s.hunger >= SNAKE_MAX_HUNGER) {
+                grid[s.r][s.c] = 'plant';
+                addPlaceAnimation(s.r, s.c);
+                showToast('🐍💤 Snake ist satt und schläft ein! Hinterlässt eine Pflanze.');
+                activeSnakes.splice(i, 1);
+                changed = true;
+                continue;
+            }
+
+            // Nächstes Ziel suchen: bevorzugt Feld mit Material
+            let candidates = [];
+            let emptyCandidates = [];
+            for (let d = 0; d < 4; d++) {
+                const nr = s.r + dirs[d][0];
+                const nc = s.c + dirs[d][1];
+                if (nr < 0 || nr >= ROWS || nc < 0 || nc >= COLS) continue;
+                const cell = grid[nr][nc];
+                if (cell !== null && cell !== 'snake') {
+                    candidates.push({ r: nr, c: nc, d, cell });
+                } else if (cell === null) {
+                    emptyCandidates.push({ r: nr, c: nc, d });
+                }
+            }
+
+            // Fressen wenn möglich
+            if (candidates.length > 0) {
+                const target = candidates[Math.floor(Math.random() * candidates.length)];
+                const yield_ = HARVEST_YIELD[target.cell] || { material: target.cell, count: 1 };
+
+                // Altes Feld leeren, neues Feld besetzen
+                grid[s.r][s.c] = null;
+                grid[target.r][target.c] = 'snake';
+                delete treeGrowth[target.r + ',' + target.c];
+                s.r = target.r;
+                s.c = target.c;
+                s.dir = target.d;
+                s.hunger++;
+
+                addToInventory(yield_.material, yield_.count);
+                unlockMaterial(yield_.material);
+                addPlaceAnimation(target.r, target.c);
+                soundChop();
+                const info = MATERIALS[yield_.material];
+                if (info) showToast(`🐍 ${yield_.count}x ${info.emoji} ${info.label} gefressen!`);
+                trackEvent('snake-harvest', { source: target.cell, result: yield_.material });
+                changed = true;
+            } else if (emptyCandidates.length > 0) {
+                // Nichts zu fressen → zufällig bewegen
+                const target = emptyCandidates[Math.floor(Math.random() * emptyCandidates.length)];
+                grid[s.r][s.c] = null;
+                grid[target.r][target.c] = 'snake';
+                s.r = target.r;
+                s.c = target.c;
+                s.dir = target.d;
+                changed = true;
+            }
+            // Komplett eingekesselt → bleibt stehen
+        }
+
+        if (changed) updateStats();
+    }
+
+    setInterval(updateSnakes, SNAKE_INTERVAL);
+
+    // ============================================================
     // === INVENTAR ===
     // ============================================================
     let inventory = {};
@@ -1066,6 +1154,10 @@
         { name: 'Modem',       result: 'modem',     resultCount: 1, ingredients: { metal: 2, lightning: 1 }, desc: '2 Metall + Blitz = Modem — KRRRSCHHHH!' },
         { name: 'ICQ',         result: 'icq',       resultCount: 1, ingredients: { modem: 1, flower: 1 },   desc: 'Modem + Blume = ICQ — Uh-Oh!' },
         { name: 'AOL',         result: 'aol',       resultCount: 1, ingredients: { modem: 1, key: 1 },      desc: 'Modem + Schlüssel = AOL — Bin ich schon drin?' },
+        { name: 'Knochenhandy', result: 'knochenhandy', resultCount: 1, ingredients: { metal: 1, stone: 1, lightning: 1 }, desc: 'Metall + Stein + Blitz = Knochenhandy — B-Netz Opa!' },
+        { name: 'Nokia 3210', result: 'nokia',     resultCount: 1, ingredients: { knochenhandy: 1, glass: 1 },  desc: 'Knochenhandy + Glas = Nokia 3210 — unkaputtbar!' },
+        { name: 'Snake',       result: 'snake',     resultCount: 1, ingredients: { nokia: 1, plant: 1 },        desc: 'Nokia + Pflanze = Snake — frisst alles!' },
+        { name: 'Tetris',      result: 'tetris',    resultCount: 1, ingredients: { nokia: 1, stone: 1 },        desc: 'Nokia + Stein = Tetris — Blöcke stapeln!' },
     ];
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
@@ -1720,6 +1812,10 @@
                 // Setzling platzieren startet Baumwachstum
                 if (currentMaterial === 'sapling') {
                     treeGrowth[r + ',' + c] = Date.now();
+                }
+                // Snake platzieren → Auto-Ernte aktivieren
+                if (currentMaterial === 'snake') {
+                    spawnSnake(r, c);
                 }
                 addPlaceAnimation(r, c);
                 soundBuild(currentMaterial);
