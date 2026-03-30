@@ -203,7 +203,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 53 | **Echtes Atlantik-Wetter** — Open-Meteo API (29°N, 31°W — halber Weg Martinique↔Bayonne), 🌊 im Meer wetterabhängig | P1 | Engineer |
 | 57 | **Stille-Momente** (Ende) — Leere Meerpassagen zwischen Inseln. Kein UI, kein Toast. Nur Wellen und Wind. Oscar denkt nach. | P1 | Designer |
 | 58 | **Unsinn-Rezepte** (Lindgren) — Feuer+Pfannkuchen=?, Drache+Kuchen=?, unlogisch aber wunderbar | P2 | Artist |
-| 59 | **10-Sekunden-Erster-Moment** (Paluten) — Erster Block in 10 Sek, nicht 30. Intro kürzen. | P0 | Designer |
+| 59 | **10-Sekunden-Erster-Moment** (Paluten) — Erster Block in 10 Sek, nicht 30. Intro kürzen. Tao-Glow-Puls hilft. | P0 | Designer |
 | 60 | **Haikus am Strand** (Krapweis) — Jede Insel-Station: 5-7-5 Schild am Strand statt Tutorial-Text | P2 | Artist |
 | 61 | **Konsequenz** (Habeck) — Baum fällen = Baum weg. Brunnen bauen = Blumen wachsen. Welt reagiert. | P1 | Engineer |
 | 62 | **Mehrsprachige NPCs** (Habeck) — Lummerland = alle willkommen. NPCs antworten in Oscars Sprache oder der Sprache der Insel. | P2 | Scientist |
@@ -212,15 +212,15 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 65 | **Neutrino-Spieler** — Analytics: Kinder die spielen ohne zu craften, die nur bauen/schauen. Eigene Metrik. "Sie sind da, verändern nichts, und das ist auch ok." (Lesch) | P2 | Scientist |
 | 66 | **Spielfigur-Bewegung laggt** — Pfeiltasten haben großen Zeitversatz, manchmal keine Reaktion. "Papa, warum kann ich mich nicht bewegen?" (Oscar) | P0 | Engineer |
 | 67 | **Automerge wie 2048** — RGB nebeneinander → Metall entsteht automatisch (starke Kernkraft). Schwarz neben Weiß → Qi/Energie (Strahlung). Wie 2048 auf dem Tesla-Bildschirm. Oscar liebt es. | P1 | Engineer + Scientist |
-| 68 | **Tutorial sichtbar machen** — Kein Text, aber visueller Hinweis dass man entdecken soll. Aktuell sieht man nur Tao und weiß nicht was tun. | P0 | Designer |
+| 68 | **Tutorial sichtbar machen** — Tao-Button pulsiert golden bis zum ersten Klick. | P0 | Designer | ✅ Done |
 | 69 | **Entdeckte Elemente sichtbar** — Fortschritt der Genesis-Stufen anzeigen (0→1→3→5→10.000). Welche Stufe bin ich? | P1 | Designer |
-| 70 | **KLONK vor erstem Block** — Sound kommt erst NACH dem ersten Block, nicht beim Klick auf die Palette. Sofortiges Feedback fehlt. | P0 | Engineer |
+| 70 | **KLONK vor erstem Block** — Erster Sound = KLONK (laut, Minecraft-Niveau). Danach Pentatonik. | P0 | Engineer | ✅ Done |
 | 71 | **Palette = Instrument = Bauwerk** — Links spielen = rechts bauen. Gleichzeitig. Melodie UND Architektur in einem Flow. Denken und Tun verschränkt. Quantenverschränkung als Spielmechanik. Jede Reihe auf dem Canvas = eine Melodie-Spur. Replay = das Bauwerk als Song abspielen. | P1 | alle |
 | 72 | **Das Buch** — Chatverlauf als Kapitel. Struktur: Prolog (plant-care-game), Akt 1 Dark Ages (Free→Pro→Teams), Akt 2 Inflation (Max, 32MB-Nacht), Akt 3 Big Crunch ("Papa warum kann ich mich nicht bewegen?"), Epilog (Oscar baut weiter). Hubble-Korrektur: keine Sterne am Anfang. Kükens: Tokens leer = Supernova (Langdock→Requesty). Schröder: "Nächste Folge 5 Kinder testen." /buch Skill erstellt. | P2 | Artist + Leader |
 | 73 | **Suchregeln-Optimierung 8D-Vektorraum** — Aktuell 13 Regeln → 99.5% Abdeckung. Ziel: auf ~10 Regeln reduzieren (d + ⌈d/4⌉), Rest probabilistisch. Weniger Regeln = weniger Tokens an die KI = billiger + schneller. Feynman misst Abdeckungsgrad pro Regel, Torvalds implementiert den Cutover deterministisch→probabilistisch. | P2 | Scientist + Engineer |
-| 74 | **NPC-Persönlichkeiten differenzieren** — Bernd, Maus, SpongeBob reden alle gleich. KINDERSICHERHEIT-Block (~30 Zeilen) dominiert individuelle Persönlichkeit (~5 Zeilen). Lösung: char.system stärken, gemeinsamen Block kürzen, oder per-Charakter Temperatur/Stil variieren. | P1 | Artist + Scientist |
+| 74 | **NPC-Persönlichkeiten differenzieren** — Few-Shot-Beispiele, STIMME/TICK/ZIEL, Temperature pro NPC. KINDERSICHERHEIT 40→2 Zeilen. | P1 | Artist + Scientist | ✅ Done |
 | 75 | **Wunschfee Floriane** — Oscar will eine Wunschfee. Neuer NPC: Floriane die Wunschfee. Kindgerecht, magisch, erfüllt kleine Wünsche auf der Insel. | P1 | Artist + Engineer |
-| 76 | **Craft-Ergebnis visuell zeigen** — Nach dem Craften sieht man nur Toast. Result-Box zeigt bei LLM-Craft immer "?". Ergebnis-Animation + Name im Crafting-Dialog fehlt. | P1 | Designer + Engineer |
+| 76 | **Craft-Ergebnis visuell zeigen** — Emoji + Name + Bounce-Animation in Result-Box. | P1 | Designer + Engineer | ✅ Done |
 | 77 | **Rewind/Zeitreise** — Baugeschichte rückwärts abspielen wie Kassettenrekorder. Undo-History als Animation. | P2 | Engineer |
 | 54 | **Jim Knopfs Welt als offene Inselkarte** — Lummerland (Tutorial) → Meer → Mandala/Ping → Wüste (Turtur) → Drachenstadt → Kummerland → Schatzinsel. Nicht linear, Oscar wählt. Boot craften = nächste Insel. **Goldener Pfad**: Abendsonne malt Lichtstreifen aufs Meer Richtung nächste Insel — kein UI, nur Licht. **Wachsende Verantwortung**: Lummerland=für sich, Mandala=?, Wüste=Hilfe annehmen (Turtur=Scheinriese: aus der Nähe anders als von weitem), Drachenstadt=?, Schatzinsel=für alle. Jede Station muss an Michael Ende rückgekoppelt werden — wir interpretieren nicht, wir lesen. | P1 | alle |
 | 55 | **Spielfigur auf der Insel** — Kind benennt selbst (max 8 Buchstaben), bewegbar mit Pfeiltasten (PC) oder Finger-Drag (Touch) | P1 | Engineer + Designer |

@@ -441,6 +441,49 @@ Zwei Schichten, ein Spiel. Pixar-Prinzip.
 
 ---
 
+## Session 2026-03-30 (5-Sprint-Velocity-Run)
+
+### Velocity-Metrik (Feynman)
+
+| Sprint | Item | Commits | Lines ±  | Backlog-Impact | Tokens gespart |
+|--------|------|---------|----------|----------------|----------------|
+| S1 | ELIZA Fallback Upgrade | 1 | +34/-18 | — | 0 (war schon da) |
+| S2 | Craft-Ergebnis visuell (#76) | 1 | +31/0 | #76 ✅ | 0 |
+| S3 | KLONK Sound (#70) | 1 | +35/0 | #70 ✅ | 0 |
+| S4 | Tutorial-Glow (#68) | 1 | +14/-1 | #68 ✅ | 0 |
+| S5 | Memory + Velocity | 1 | ~30 | Feynman-Doku | 0 |
+| **Pre-Sprint** | NPC-Persönlichkeiten (#74) | 1 | +125/-110 | #74 ✅ | **~21k/Session** |
+| **Pre-Sprint** | /bugs Endpoint + Zauber-Fix | 1 | +83/-5 | #73 #75 Backlog | ~0 |
+| **Pre-Sprint** | Chat-Panel + Crafting UI | 1 | +12/-3 | #28 teilweise | 0 |
+
+**Summe**: 8 Commits, 5 Sprints + 3 Pre-Sprints, ~330 Lines geändert
+
+**Token-Effizienz**: NPC-Fix spart ~350 Tokens/Call × 60 Calls/Session = **~21.000 Tokens/Session**.
+KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billiger.
+
+### Fehler
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-03-30 | Egress-Proxy blockiert Cloudflare Worker | Sandbox kann `*.workers.dev` nicht erreichen. `/discoveries` und `/bugs` nur im Browser testbar. |
+| 2026-03-30 | NPC-Persönlichkeiten gingen unter weil KINDERSICHERHEIT 80% des Prompts war | System-Prompt-Architektur: Persönlichkeit FIRST (Few-Shot + STIMME/TICK), Regeln KURZ (2 Zeilen). Weniger Boilerplate = stärkere Stimme. |
+
+### Erfolge
+| Datum | Was |
+|-------|-----|
+| 2026-03-30 | 3 P0-Bugs gefixt in einer Session (#68, #70, #74) |
+| 2026-03-30 | /bugs Endpoint ersetzt Google Sheets Webhook (Backlog #5 wird obsolet) |
+| 2026-03-30 | ELIZA klingt jetzt nach den NPCs — Offline-Chat funktioniert mit Persönlichkeit |
+| 2026-03-30 | Craft-Ergebnis sichtbar im Dialog (Bounce-Animation + Name) |
+| 2026-03-30 | PR #43 mit 8 Commits: NPC-Stimmen, Chat-UI, Bugs-Endpoint, Zauber, KLONK, Tutorial |
+
+### Learnings
+- **Few-Shot > Beschreibung**: 3 Beispiel-Dialoge im System-Prompt sind effektiver als 10 Zeilen Beschreibung. Haiku reproduziert Muster besser als Anweisungen.
+- **Temperature pro Charakter**: Bernd=0.3 (trocken), Tommy=0.9 (chaotisch) macht mehr Unterschied als erwartet. Gleiche Temperature = gleiche Stimme.
+- **Sound-Psychologie**: Der erste Sound einer Session prägt die Erwartung. KLONK statt Pentatonik = "hier passiert was" statt "hier klingt was".
+- **KV > Google Sheets**: Cloudflare KV ist zero-setup (Worker hat es schon), Google Sheets braucht Webhook-Konfiguration die nie passiert. Pragmatismus > Plan.
+
+---
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)
