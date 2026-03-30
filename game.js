@@ -1599,6 +1599,20 @@
                 if (currentMaterial === 'sapling') {
                     treeGrowth[r + ',' + c] = Date.now();
                 }
+                // Brunnen zieht nach 10 Sekunden Blumen an
+                if (currentMaterial === 'fountain') {
+                    setTimeout(() => {
+                        for (let dr = -2; dr <= 2; dr++) {
+                            for (let dc = -2; dc <= 2; dc++) {
+                                const nr = r + dr, nc = c + dc;
+                                if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && !grid[nr][nc] && Math.random() < 0.3) {
+                                    grid[nr][nc] = 'flower';
+                                }
+                            }
+                        }
+                        requestRedraw();
+                    }, 10000);
+                }
                 addPlaceAnimation(r, c);
                 soundBuild(currentMaterial);
                 trackMaterialUsage(currentMaterial);
@@ -1611,8 +1625,10 @@
             if (cell !== null) {
                 if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
                 const yield_ = HARVEST_YIELD[cell] || { material: cell, count: 1 };
-                grid[r][c] = null;
+                // Baum hinterlässt Setzling statt leerer Zelle
+                grid[r][c] = (cell === 'tree') ? 'sapling' : null;
                 delete treeGrowth[r + ',' + c];
+                if (cell === 'tree') treeGrowth[r + ',' + c] = Date.now();
                 addToInventory(yield_.material, yield_.count);
                 unlockMaterial(yield_.material);
                 addPlaceAnimation(r, c);
