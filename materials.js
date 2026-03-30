@@ -85,6 +85,8 @@ window.INSEL_MATERIALS = {
     cave:     { emoji: '🕳️', label: 'Höhle',    color: '#34495E', border: '#1C2833' },
     stalactite: { emoji: '🪨', label: 'Tropfstein', color: '#717D7E', border: '#566573' },
     gem:      { emoji: '💠', label: 'Edelstein', color: '#5DADE2', border: '#2E86C1' },
+    // === MUSIK (Werkzeug → Folge → Feld) ===
+    instrument: { emoji: '🎻', label: 'Instrument', color: '#8B4513', border: '#6E3B1A' },
     // === MUSIK-GENRES (verhackstückt) ===
     krabbenpunk:    { emoji: '🦀', label: 'Krabbenpunk',    color: '#E74C3C', border: '#C0392B' },
     muschelwave:    { emoji: '🐚', label: 'Muschelwave',    color: '#AED6F1', border: '#85C1E9' },
