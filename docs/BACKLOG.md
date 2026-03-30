@@ -21,10 +21,10 @@
 |---|------|-------|--------|
 | 6 | **NPC-Stimmen schärfen** — Ogilvy: Jeder NPC braucht typographisches Tick | Artist | ✅ Done (Elefant/Krabs/Tommy) |
 | 7 | **QR-Code auf Postkarte** — Godin/Welch: Scannen → direkt zum Spiel | Engineer | 🔲 Offen |
-| 8 | **Offline-Manifest** — Service Worker für Spielen ohne Internet | Engineer | 🔲 Offen |
-| 9 | **Mehr Quests** — 11 Templates sind zu wenig, mindestens 20 | Artist + Leader | 🔲 Offen |
+| 8 | **Offline-Manifest** — Service Worker für Spielen ohne Internet | Engineer | ✅ Done (sw.js + manifest.json) |
+| 9 | **Mehr Quests** — 11 Templates sind zu wenig, mindestens 20 | Artist + Leader | ✅ Done (45 Templates) |
 | 10 | **Favicon + Meta-Tags** — Torvalds: "10 Minuten, großer Unterschied" | Engineer | ✅ Done |
-| 11 | **Zellteilung game.js** — Sound, Quests, Effects, Stories, Analytics rausziehen | Engineer | 🔲 Offen |
+| 11 | **Zellteilung game.js** — Sound, Quests, Effects, Stories, Analytics rausziehen | Engineer | 🔲 Offen (sound.js, quests.js, achievements.js, recipes.js, automerge.js ausgelagert; Grid-Logik noch drin) |
 
 ## 🟢 P2 — Vor "100 User"-Phase
 
@@ -177,7 +177,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 |---|------|------|-------|
 | 27 | **Cloudflare Worker CORS fixen** — User muss worker.js im Dashboard deployen | P0 | User |
 | 28 | **Chat-Fenster nicht überlappend** — als Sidebar oder unten, kein Overlay über Canvas | P1 | Designer |
-| 29 | **NPC-Emoji eindeutig** — Tommy=🦞 ✅, alle anderen prüfen, kein Doppler | P1 | Artist |
+| 29 | **NPC-Emoji eindeutig** — Tommy=🦞 ✅, alle anderen prüfen, kein Doppler | ✅ Done (tommy: 🎬→🦞, kein Doppler) | Artist |
 | 30 | **Tonhöhe zu Elementen** — Feuer=höher, Erde=tiefer, Wasser=fließend | P1 | Scientist |
 | 31 | **Bauen/Ernten/Füllen Icons** — universelle Symbole statt Text-Labels | P1 | Designer |
 | 32 | **Code-Ebenen per Touch** — Rechts/Links-Swipe statt Rechtsklick | P1 | Engineer |
@@ -188,32 +188,32 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 37 | **Schöpfungsgeschichte als Tutorial** — 7 Level, Insel beginnt als reines Wasser | P2 | Leader |
 | 38 | **A/B Test Mythologie** — Bibel vs. Griechisch vs. Maori vs. Nordisch | P2 | Scientist |
 | 39 | **Tutorial-Gating: Postkarte erst in Schritt 7 (Sonntag)** — Motivation, Tutorium ohne Hilfetext abzuschließen | P2 | Engineer |
-| 40 | **Insel-Identität zurückbringen** — Wasser-Rand sichtbar, Strand-Gradient, Palmen-Starter, Canvas fühlt sich an wie Insel nicht wie Spreadsheet | P0 | Designer + Engineer |
-| 41 | **Sidebar Tabs** — nur eine Sektion sichtbar (Inventar/Quests/Erfolge als Tabs), nicht alles gestapelt | P1 | Designer |
+| 40 | **Insel-Identität zurückbringen** — Wasser-Rand sichtbar, Strand-Gradient, Palmen-Starter, Canvas fühlt sich an wie Insel nicht wie Spreadsheet | ✅ Done (WATER_BORDER, Strand-Gradient, 8 Palmen-Starter, Grid-Linien nur auf belegten Zellen) | Designer + Engineer |
+| 41 | **Sidebar Tabs** — nur eine Sektion sichtbar (Inventar/Quests/Erfolge als Tabs), nicht alles gestapelt | ✅ Done (.sidebar-tab System implementiert) | Designer |
 | 42 | **Werkbank als Canvas-Drag** — Drag Element-A auf Element-B statt 3×3 Modal (Infinite Craft Pattern) | P2 | Engineer |
 | 43 | **Save-System** — localStorage Grid-Persist, Oskar baut nicht nochmal | P0 | Engineer |
 | 45 | **Canvas 16:9 auf PC, iPad-Ratio auf iPad, iPhone-Ratio auf iPhone** — Grid-Dimensionen responsive | P1 | Engineer + Designer |
 | 46 | **Drag & Drop Crafting** — Materialien auf Canvas ziehen statt Klick (Oscars Wunsch) | P1 | Engineer |
-| 47 | **Quests/Achievements zu schnell** — Schwierigkeitsgrad erhöhen, passen nicht zur leeren Insel | P1 | Scientist |
+| 47 | **Quests/Achievements zu schnell** — Schwierigkeitsgrad erhöhen, passen nicht zur leeren Insel | ✅ Done (Baseline-Tracking ab Annahme, max 2 aktive Quests) | Scientist |
 | 48 | **NPCs nicht sichtbar** — Chat-Button/NPCs tauchen nicht auf bei schatzinsel.app | P0 | Engineer |
 | 49 | **Bernd Support-Chat fehlt** — Bernd als Hilfe-NPC nicht erreichbar | P0 | Engineer |
 | 50 | **Höhle = Dungeon-Framework** — 3 Akte (Goethe), aber Inhalt ist austauschbar. Mögliche Dungeons: **IT** (Bits→Kernel→Browser), **Kosmologie** (Quarks→Atome→Sterne), **Jim Knopf** (Bürokraten→Drachen→Kummerland), **bunte Mischung**. Jeder Dungeon hat: Akt 1 (Einstieg), Akt 2 (Transformation), Akt 3 (Mandelbrot/Endlos). Welcher Dungeon erscheint = emergent. PR #13 als Basis. | P1 | alle |
-| 51 | **Wu Xing Philosophie im Craft-Prompt** — Holz=Expansion, Feuer=Aktion, Erde=Wandlung, Metall=Reife, Wasser=Ruhe | P1 | Scientist |
+| 51 | **Wu Xing Philosophie im Craft-Prompt** — Holz=Expansion, Feuer=Aktion, Erde=Wandlung, Metall=Reife, Wasser=Ruhe | ✅ Done (worker.js Craft-Prompt + Beispiele) | Scientist |
 | 52 | **Kung Fu Panda Wuxi** — Ästhetik-Inspiration für Wu Xing Elemente | P2 | Artist |
-| 53 | **Echtes Atlantik-Wetter** — Open-Meteo API (29°N, 31°W — halber Weg Martinique↔Bayonne), 🌊 im Meer wetterabhängig | P1 | Engineer |
+| 53 | **Echtes Atlantik-Wetter** — Open-Meteo API (29°N, 31°W — halber Weg Martinique↔Bayonne), 🌊 im Meer wetterabhängig | ✅ Done (Open-Meteo fetch bei game.js:1434) | Engineer |
 | 57 | **Stille-Momente** (Ende) — Leere Meerpassagen zwischen Inseln. Kein UI, kein Toast. Nur Wellen und Wind. Oscar denkt nach. | P1 | Designer |
 | 58 | **Unsinn-Rezepte** (Lindgren) — Feuer+Pfannkuchen=?, Drache+Kuchen=?, unlogisch aber wunderbar | P2 | Artist |
 | 59 | **10-Sekunden-Erster-Moment** (Paluten) — Erster Block in 10 Sek, nicht 30. Intro kürzen. Tao-Glow-Puls hilft. | P0 | Designer |
 | 60 | **Haikus am Strand** (Krapweis) — Jede Insel-Station: 5-7-5 Schild am Strand statt Tutorial-Text | P2 | Artist |
-| 61 | **Konsequenz** (Habeck) — Baum fällen = Baum weg. Brunnen bauen = Blumen wachsen. Welt reagiert. | P1 | Engineer |
+| 61 | **Konsequenz** (Habeck) — Baum fällen = Baum weg. Brunnen bauen = Blumen wachsen. Welt reagiert. | ✅ Done (Baum→Stumpf→Setzling bereits da; Brunnen→Blumen: updateWorldConsequences()) | Engineer |
 | 62 | **Mehrsprachige NPCs** (Habeck) — Lummerland = alle willkommen. NPCs antworten in Oscars Sprache oder der Sprache der Insel. | P2 | Scientist |
 | 63 | **Erster Block = lautes KLONK** (Paluten) — Bau-Sound muss in 30 Sek auffallen. Lautstärke hoch, befriedigend, Minecraft-Niveau. Pentatonik ist schön aber zu subtil für den ersten Moment. | P1 | Engineer + Scientist |
 | 64 | **Elektronen = Crafting-Blitz** — unsichtbares Feature: beim Craften blitzen kurze Lichtfunken zwischen den Materialien (Ladungsaustausch). Kein UI, kein Label. Amélie. | P2 | Engineer |
 | 65 | **Neutrino-Spieler** — Analytics: Kinder die spielen ohne zu craften, die nur bauen/schauen. Eigene Metrik. "Sie sind da, verändern nichts, und das ist auch ok." (Lesch) | P2 | Scientist |
 | 66 | **Spielfigur-Bewegung laggt** — Pfeiltasten haben großen Zeitversatz, manchmal keine Reaktion. "Papa, warum kann ich mich nicht bewegen?" (Oscar) | P0 | Engineer |
-| 67 | **Automerge wie 2048** — RGB nebeneinander → Metall entsteht automatisch (starke Kernkraft). Schwarz neben Weiß → Qi/Energie (Strahlung). Wie 2048 auf dem Tesla-Bildschirm. Oscar liebt es. | P1 | Engineer + Scientist |
+| 67 | **Automerge wie 2048** — RGB nebeneinander → Metall entsteht automatisch (starke Kernkraft). Schwarz neben Weiß → Qi/Energie (Strahlung). Wie 2048 auf dem Tesla-Bildschirm. Oscar liebt es. | ✅ Done (automerge.js mit MERGE_RULES + TRIPLET_RULES) | Engineer + Scientist |
 | 68 | **Tutorial sichtbar machen** — Tao-Button pulsiert golden bis zum ersten Klick. | P0 | Designer | ✅ Done |
-| 69 | **Entdeckte Elemente sichtbar** — Fortschritt der Genesis-Stufen anzeigen (0→1→3→5→10.000). Welche Stufe bin ich? | P1 | Designer |
+| 69 | **Entdeckte Elemente sichtbar** — Fortschritt der Genesis-Stufen anzeigen (0→1→3→5→10.000). Welche Stufe bin ich? | ✅ Done (updateGenesisBadge() bei game.js:2610, 道→⚫⚪→五行→✨→万+) | Designer |
 | 70 | **KLONK vor erstem Block** — Erster Sound = KLONK (laut, Minecraft-Niveau). Danach Pentatonik. | P0 | Engineer | ✅ Done |
 | 71 | **Palette = Instrument = Bauwerk** — Links spielen = rechts bauen. Gleichzeitig. Melodie UND Architektur in einem Flow. Denken und Tun verschränkt. Quantenverschränkung als Spielmechanik. Jede Reihe auf dem Canvas = eine Melodie-Spur. Replay = das Bauwerk als Song abspielen. | P1 | alle |
 | 72 | **Das Buch** — Chatverlauf als Kapitel. Struktur: Prolog (plant-care-game), Akt 1 Dark Ages (Free→Pro→Teams), Akt 2 Inflation (Max, 32MB-Nacht), Akt 3 Big Crunch ("Papa warum kann ich mich nicht bewegen?"), Epilog (Oscar baut weiter). Hubble-Korrektur: keine Sterne am Anfang. Kükens: Tokens leer = Supernova (Langdock→Requesty). Schröder: "Nächste Folge 5 Kinder testen." /buch Skill erstellt. | P2 | Artist + Leader |

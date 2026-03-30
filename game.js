@@ -159,8 +159,20 @@
         );
     }
 
+    const MAX_ACTIVE_QUESTS = 2; // #47: max 2 gleichzeitig — mehr = zu wenig Fokus
+
     function acceptQuest(quest) {
-        activeQuests.push({ ...quest, accepted: Date.now() });
+        if (activeQuests.length >= MAX_ACTIVE_QUESTS) {
+            showToast(`📜 Erst die laufenden ${MAX_ACTIVE_QUESTS} Quests abschließen!`);
+            return;
+        }
+        // #47: Baseline zum Annehme-Zeitpunkt speichern — verhindert Sofort-Abschluss
+        const baseline = {};
+        const currentStats = getGridStats();
+        for (const mat of Object.keys(quest.needs)) {
+            baseline[mat] = currentStats.counts[mat] || 0;
+        }
+        activeQuests.push({ ...quest, accepted: Date.now(), baseline });
         localStorage.setItem('insel-quests', JSON.stringify(activeQuests));
         showToast(`📜 Quest: ${quest.title}`);
         updateQuestDisplay();
@@ -170,9 +182,12 @@
         if (!stats) stats = getGridStats();
         let completed = [];
         activeQuests = activeQuests.filter(quest => {
-            const done = Object.entries(quest.needs).every(([mat, count]) =>
-                (stats.counts[mat] || 0) >= count
-            );
+            const baseline = quest.baseline || {};
+            const done = Object.entries(quest.needs).every(([mat, count]) => {
+                const base = baseline[mat] || 0;
+                const current = stats.counts[mat] || 0;
+                return (current - base) >= count;
+            });
             if (done) {
                 completed.push(quest);
                 completedQuests.push(quest.title);
@@ -227,8 +242,11 @@
         }
         const stats = getGridStats();
         questPanel.innerHTML = activeQuests.map(q => {
+            const baseline = q.baseline || {};
             const items = Object.entries(q.needs).map(([mat, need]) => {
-                const have = stats.counts[mat] || 0;
+                const base = baseline[mat] || 0;
+                const current = stats.counts[mat] || 0;
+                const have = Math.max(0, current - base); // nur was seit Quest-Annahme gebaut
                 const done = have >= need;
                 const m = MATERIALS[mat];
                 return `<span class="${done ? 'quest-done' : 'quest-todo'}">${m ? m.emoji : mat} ${have}/${need}</span>`;
@@ -453,7 +471,7 @@
         elefant:   { emoji: '🐘', prefix: 'Elefant:', ticks: ['Törööö!', 'Hmm, ich möchte sicherstellen...'], style: 'careful' },
         neinhorn:  { emoji: '🦄', prefix: 'Neinhorn:', ticks: ['NEIN!', '...ok,', 'Mon Dieu!'], style: 'nein' },
         krabs:     { emoji: '🦀', prefix: 'Krabs:', ticks: ['💰', 'Taler!', 'Geld!'], style: 'money' },
-        tommy:     { emoji: '🎬', prefix: 'Tommy:', ticks: ['Klick-klack!', 'JA!', 'CUT!'], style: 'chaos' },
+        tommy:     { emoji: '🦞', prefix: 'Tommy:', ticks: ['Klick-klack!', 'JA!', 'Noch ein Boot!'], style: 'chaos' },
         bernd:     { emoji: '🍞', prefix: 'Bernd:', ticks: ['*seufz*', 'Mist.', 'Toll.'], style: 'grumpy' },
         floriane:  { emoji: '🧚', prefix: 'Floriane:', ticks: ['✨', 'Oh!', 'Ein Wunsch!'], style: 'magic' },
     };
@@ -745,6 +763,36 @@
 
     // Alle 5s prüfen
     setInterval(updateTreeGrowth, 5000);
+
+    // #61: Konsequenz — Welt reagiert auf Aktionen
+    // Brunnen neben leerem Sand → Blume wächst (15% Chance/Tick pro Nachbar-Zelle)
+    function updateWorldConsequences() {
+        let changed = false;
+        const FLOWER_CHANCE = 0.15; // 15% Chance dass eine leere Zelle neben einem Brunnen Blume wird
+        const BEACH_EDGE = 2; // Strand-Rand nicht bepflanzen
+        for (let r = BEACH_EDGE + 1; r < ROWS - BEACH_EDGE - 1; r++) {
+            for (let c = BEACH_EDGE + 1; c < COLS - BEACH_EDGE - 1; c++) {
+                if (grid[r][c] !== null) continue; // Nur auf leerem Sand
+                const neighbors = [[r-1,c],[r+1,c],[r,c-1],[r,c+1]];
+                const hasFountain = neighbors.some(([nr, nc]) =>
+                    nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && grid[nr]?.[nc] === 'fountain'
+                );
+                if (hasFountain && Math.random() < FLOWER_CHANCE) {
+                    grid[r][c] = 'flower';
+                    addPlaceAnimation(r, c);
+                    unlockMaterial('flower');
+                    changed = true;
+                }
+            }
+        }
+        if (changed) {
+            updateStats();
+            showToast('🌺 Brunnen-Magie! Blumen wachsen...');
+        }
+    }
+
+    // Konsequenz-Check alle 8s (versetzt zum Tree-Growth-Check)
+    setInterval(updateWorldConsequences, 8000);
 
     // ============================================================
     // === INVENTAR ===
@@ -1941,7 +1989,8 @@
         if (!stats) stats = getGridStats();
         for (const quest of activeQuests) {
             if (!quest.needs[material]) continue;
-            const have = stats.counts[material] || 0;
+            const base = (quest.baseline || {})[material] || 0;
+            const have = Math.max(0, (stats.counts[material] || 0) - base);
             const need = quest.needs[material];
             if (have >= need) continue; // Schon erfüllt
             const percent = Math.round((have / need) * 100);
