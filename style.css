@@ -569,6 +569,15 @@ header h1 {
     opacity: 0.8;
 }
 
+.sidebar-tab.tab-flash {
+    animation: tab-pulse 0.4s ease-in-out 3;
+}
+
+@keyframes tab-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; background: rgba(255, 215, 0, 0.4); }
+}
+
 .sidebar-panel {
     display: none;
 }

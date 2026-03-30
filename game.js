@@ -797,16 +797,31 @@
                 }
             });
 
-            // Touch/Click: Tap-Tap Crafting
+            // Touch/Click: Tap-Tap Crafting (nur mit Bestätigung)
             item.addEventListener('click', async () => {
                 const mat = item.dataset.material;
                 if (craftTapFirst && craftTapFirst !== mat) {
-                    await quickCraft(craftTapFirst, mat);
-                    craftTapFirst = null;
+                    // Zweites Material angeklickt — Bestätigung zeigen statt sofort craften
+                    const infoA = MATERIALS[craftTapFirst];
+                    const infoB = MATERIALS[mat];
                     container.querySelectorAll('.inv-item').forEach(i => i.classList.remove('tap-selected'));
+                    item.classList.add('tap-selected');
+                    // Bestätigungs-Toast mit Craft-Frage
+                    showToast(`⚒️ ${infoA?.emoji || '?'} + ${infoB?.emoji || '?'} mischen? Nochmal tippen zum Craften!`);
+                    // Drittes Tippen auf dasselbe Item = Craft bestätigen
+                    craftTapPending = { a: craftTapFirst, b: mat };
+                    craftTapFirst = null;
+                } else if (craftTapPending && craftTapPending.b === mat) {
+                    // Bestätigung: nochmal auf B getippt → jetzt wirklich craften
+                    const { a, b } = craftTapPending;
+                    craftTapPending = null;
+                    container.querySelectorAll('.inv-item').forEach(i => i.classList.remove('tap-selected'));
+                    await quickCraft(a, b);
                 } else {
+                    // Erstes Material auswählen
                     container.querySelectorAll('.inv-item').forEach(i => i.classList.remove('tap-selected'));
                     craftTapFirst = mat;
+                    craftTapPending = null;
                     item.classList.add('tap-selected');
                 }
             });
@@ -814,6 +829,15 @@
     }
 
     let craftTapFirst = null;
+    let craftTapPending = null;
+
+    // Inventar-Tab blinken lassen wenn etwas reinkommt
+    function flashInventoryTab() {
+        const tab = document.querySelector('.sidebar-tab[data-tab="inventory"]');
+        if (!tab) return;
+        tab.classList.add('tab-flash');
+        setTimeout(() => tab.classList.remove('tab-flash'), 2000);
+    }
 
     // Quick Craft — Drag Material A auf Material B
     async function quickCraft(a, b) {
@@ -844,10 +868,11 @@
             soundCraft();
             const info = MATERIALS[recipe.result];
             if (isNew) {
-                showToast(`🔮 ${info.emoji} ${recipe.desc}!`);
+                showToast(`🔮 ${info.emoji} ${recipe.desc}! → Schau ins 🎒 Inventar!`, 4000);
             } else {
-                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label}!`);
+                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label}! → Im 🎒 Inventar`, 3000);
             }
+            flashInventoryTab();
             trackEvent('quick-craft', { a, b, result: recipe.result });
             updateInventoryDisplay();
             return;
@@ -955,10 +980,11 @@
         unlockMaterial(matId);
         soundCraft();
 
+        flashInventoryTab();
         if (result.fromCache === false && isNew) {
-            showToast(`🏆 WELTPREMIERE! ${result.emoji} ${result.name} — Entdecker: ${result.discoverer}!`);
+            showToast(`🏆 WELTPREMIERE! ${result.emoji} ${result.name} — Entdecker: ${result.discoverer}! → 🎒`, 5000);
         } else if (isNew) {
-            showToast(`🔮 Neues Rezept: ${result.emoji} ${result.name}!`);
+            showToast(`🔮 Neues Rezept: ${result.emoji} ${result.name}! → Schau ins 🎒 Inventar!`, 4000);
         } else {
             showToast(`⚒️ ${result.emoji} 1x ${result.name} hergestellt!`);
         }
@@ -981,10 +1007,11 @@
             soundCraft();
             const info = MATERIALS[recipe.result];
             if (isNew) {
-                showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);
+                showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}! → Schau ins 🎒 Inventar!`, 4000);
             } else {
-                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
+                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt! → Im 🎒 Inventar`, 3000);
             }
+            flashInventoryTab();
             trackEvent('craft', { recipe: recipe.name, result: recipe.result });
             updateCraftingDisplay();
             return;
@@ -1691,6 +1718,16 @@
         if (r < 2 || r >= ROWS - 2 || c < 2 || c >= COLS - 2) return;
 
         if (currentTool === 'build') {
+            // Hinweis: Klick auf Baum/Pflanze im Bau-Modus → Ernte-Tipp (max 1x pro 30s)
+            const clickedCell = grid[r][c];
+            if (clickedCell && ['tree', 'small_tree', 'sapling', 'plant', 'flower', 'mushroom'].includes(clickedCell)) {
+                const now = Date.now();
+                if (currentMaterial !== clickedCell && (!applyTool._lastHarvestHint || now - applyTool._lastHarvestHint > 30000)) {
+                    applyTool._lastHarvestHint = now;
+                    const info = MATERIALS[clickedCell];
+                    showToast(`💡 Tipp: Wähle ⛏️ (Taste E) um ${info?.emoji || ''} ${info?.label || clickedCell} zu ernten!`, 3000);
+                }
+            }
             if (grid[r][c] !== currentMaterial) {
                 // Nicht-Basis-Materialien brauchen Inventar
                 if (!BASE_MATERIALS.includes(currentMaterial)) {
@@ -1746,7 +1783,8 @@
                 addPlaceAnimation(r, c);
                 soundChop();
                 const info = MATERIALS[yield_.material];
-                if (info) showToast(`⛏️ ${yield_.count}x ${info.emoji} ${info.label} geerntet!`);
+                if (info) showToast(`⛏️ ${yield_.count}x ${info.emoji} ${info.label} geerntet! → Im 🎒 Inventar`, 3000);
+                flashInventoryTab();
                 trackEvent('harvest', { source: cell, result: yield_.material, count: yield_.count });
             }
         } else if (currentTool === 'fill') {

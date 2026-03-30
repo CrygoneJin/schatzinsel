@@ -14,6 +14,7 @@
 | `index.html` | HTML-Struktur |
 | `style.css` | Styling |
 | `game.js` | Spiellogik |
+| `healthcheck.js` | DNA-Autoreparatur: localStorage-LRU, Grid-Integrität, Speicher-Monitoring |
 
 ## Starten
 
