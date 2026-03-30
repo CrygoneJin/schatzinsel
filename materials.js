@@ -82,6 +82,8 @@ window.INSEL_MATERIALS = {
     potion:   { emoji: '🧪', label: 'Trank',    color: '#AF7AC5', border: '#8E44AD' },
     crystal:  { emoji: '🔮', label: 'Kristall', color: '#D2B4DE', border: '#BB8FCE' },
     egg:      { emoji: '🥚', label: 'Ei',       color: '#FDEBD0', border: '#FAD7A0' },
+    feather:  { emoji: '🪶', label: 'Feder',    color: '#D5D8DC', border: '#AEB6BF' },
+    shell:    { emoji: '🐚', label: 'Muschel',  color: '#FDEBD0', border: '#FAD7A0' },
     nest:     { emoji: '🪺', label: 'Nest',     color: '#D4AC0D', border: '#B7950B' },
     butterfly:{ emoji: '🦋', label: 'Schmetterling', color: '#85C1E9', border: '#5DADE2' },
     bee:      { emoji: '🐝', label: 'Biene',    color: '#F9E79F', border: '#F4D03F' },

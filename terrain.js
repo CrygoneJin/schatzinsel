@@ -189,6 +189,38 @@
             c: Math.floor(cols * 0.4 + rng() * cols * 0.2),
         });
 
+        // Frosch am Fluss
+        animals.push({
+            type: 'frog',
+            emoji: '🐸',
+            r: riverStartR + 1,
+            c: riverStartC - 1,
+        });
+
+        // Hase bei Blumen/Wald
+        animals.push({
+            type: 'rabbit',
+            emoji: '🐇',
+            r: Math.floor(rows * 0.5 + rng() * rows * 0.2),
+            c: Math.floor(cols * 0.3 + rng() * cols * 0.3),
+        });
+
+        // Papagei im Dschungel
+        animals.push({
+            type: 'parrot',
+            emoji: '🦜',
+            r: Math.floor(rows * 0.3 + rng() * rows * 0.2),
+            c: Math.floor(cols * 0.5 + rng() * cols * 0.3),
+        });
+
+        // Zweiter Schmetterling
+        animals.push({
+            type: 'butterfly',
+            emoji: '🦋',
+            r: Math.floor(rows * 0.6 + rng() * rows * 0.1),
+            c: Math.floor(cols * 0.2 + rng() * cols * 0.3),
+        });
+
         // === PHASE 7: NPCs über die Insel verteilen ===
         // Jeder NPC hat einen Lieblingsort. Man muss sie FINDEN.
         const npcPlacements = [

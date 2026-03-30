@@ -1695,6 +1695,10 @@
                         swimWarned = false;
                     }
                     swimStamina = Math.min(100, swimStamina + 10);
+                    // Tier-Interaktion: automatisch streicheln bei Kontakt
+                    if (window.Fauna?.tryInteract) {
+                        window.Fauna.tryInteract(nr, nc);
+                    }
                     requestRedraw();
                 }
             }
@@ -3250,10 +3254,12 @@
     // Grid für Chat-Integration exportieren
     window.grid = grid;
 
-    // Exports: Gamepad + Koop brauchen Zugriff
+    // Exports: Gamepad + Koop + Fauna brauchen Zugriff
     window.requestRedraw = requestRedraw;
     window.movePlayer = movePlayer;
     window.playerPos = function () { return { r: playerPos.r, c: playerPos.c }; };
+    window.addToInventory = addToInventory;
+    window.soundAchievement = soundAchievement;
 
     // Material durchschalten (für Gamepad SELECT-Button)
     window.cycleMaterial = function () {
