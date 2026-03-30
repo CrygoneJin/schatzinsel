@@ -23,6 +23,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-03-30 | Sprint 21: 8 PRs in einer Session | Backlog-Abarbeitung mit Worktree-Agents parallel: Sound-Refactor (#50), Storage-Helper (#51), INSEL-Namespace (#52), NPC-Fix (#53), 10s-Intro (#54), Service Worker (#56), Konsequenz-System (#57). Prokaryot baut erste Mitochondrien ein. |
 | 2026-03-30 | Sprint 20: Org-Umbau "Alle antreten" | 18 Agents inventarisiert, 3 CxOs aktiviert, 4 Docs gemergt, 5 Padawan-Codizes gefüllt, Skill-Zuordnung ohne Dopplungen. Hybrid-Session (BUILD+DOC) — geht nur beim Org-Umbau, nicht als Regel. |
 | 2026-03-30 | Code Metrics Review als Podcast-Format | 35 Stimmen, 4 Perspektiven (Feynman/Darwin/Linus/Taylor), Frauenquote 20%, dunkle Materie/Energie-Metapher. Review-Session produziert Dokument, keinen Code — wie es sein soll. |
 | 2026-03-30 | Sprint 7: Spielfigur 🧒 live | Name-Input → Canvas-Rendering → Arrow-Keys → Touch-Drag — alles ohne Framework, 120 Zeilen |

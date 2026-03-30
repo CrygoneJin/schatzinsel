@@ -1,4 +1,42 @@
-# Sprint 20 — "Alle antreten"
+# Sprint 21 — "Erste Mitochondrien"
+
+**Sprint Goal:** Prokaryot baut erste Organellen ein. Code-Modularisierung + P0-Bugs + Offline-Fähigkeit.
+
+**Start:** 2026-03-30
+**Typ:** BUILD
+
+---
+
+## Sprint Backlog
+
+| # | Item | PR | Owner | Status |
+|---|------|----|-------|--------|
+| S21-1 | **Sound Mute-Refactor** — 9× Copy-Paste → 1× `isMuted()` + 2 Bugs gefixt | #50 | Engineer | ✅ Done |
+| S21-2 | **localStorage-Helper** — Zentraler `INSEL_STORAGE` Layer mit Namespace | #51 | Engineer | ✅ Done |
+| S21-3 | **INSEL Namespace** — Event-Bus + Modul-Registry statt 41 Globals | #52 | Engineer | ✅ Done |
+| S21-4 | **NPC-Visibility Fix** — Doppelte Floriane + CHAR_CURRENCY Duplikat | #53 | Engineer | ✅ Done |
+| S21-5 | **10-Sekunden-Erster-Moment** — Intro beschleunigt, Los!-Button pulsiert golden | #54 | Designer + Engineer | ✅ Done |
+| S21-6 | **Offline-Manifest** — Service Worker + PWA-Manifest für Spielen ohne Internet | #56 | Engineer | ✅ Done |
+| S21-7 | **Konsequenz-System** — Wasser→Blumen, Feuer→Asche, Ernten→Stumpf | #57 | Engineer | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-03-30 (Sprint 21 — "Erste Mitochondrien")
+
+**Was passiert ist:**
+- 7 PRs erstellt, alle via Worktree-Agents parallel gebaut
+- Backlog #11 (Zellteilung): 3 Module extrahiert (sound mute, storage, namespace)
+- Backlog #48/#49 (NPCs): Duplikat-Bug gefixt
+- Backlog #59 (10s-Moment): Intro optimiert, goldener Puls
+- Backlog #8 (Offline): Service Worker + PWA-Manifest
+- Backlog #61 (Konsequenz): Welt reagiert auf Bauen/Ernten
+- Backlog #40 (Insel-Identität): Bereits in Sprint 7/8 implementiert — kein neuer PR nötig
+
+---
+
+# Sprint 20 — "Alle antreten" ✅ DONE
 
 **Sprint Goal:** Organisation aufräumen, Code-Fundament stärken. Jeder Agent hat einen Job.
 
@@ -30,11 +68,6 @@
 - 5 Padawan-Codizes mit je 3 Erfahrungseinträgen gefüllt
 - Skill-Zuordnung: 14 Skills auf 5 Masters verteilt, keine Dopplungen
 - Code Metrics Review mit harten Zahlen: 8.583 LOC, 207 Funktionen, 41 Globals, 63 JSON.parse
-
-**Nächster Sprint (S21) — Empfehlung:**
-- S21-1: `game.js` aufteilen — Grid-Logik extrahieren (BACKLOG #11, P1)
-- S21-2: localStorage-Helper — Zentraler Layer statt 81 verstreute Zugriffe
-- S21-3: Sound Mute-Check refactorn — 9× Copy-Paste → 1× Funktion
 
 ---
 
