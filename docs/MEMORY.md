@@ -484,6 +484,31 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 
 ---
 
+## Session 2026-03-30 — Sprint 14 Review
+
+### Erfolge
+| Datum | Was |
+|-------|-----|
+| 2026-03-30 | `automerge.js` als eigenes Modul: `window.INSEL_AUTOMERGE` mit Nachbarschafts-Physik (Yin+Yang→Qi, RGB-Triplet→Metall) |
+| 2026-03-30 | Wu Xing Erzeugungszyklus: Holz→Feuer→Erde→Metall→Wasser→Holz als Wachstums-Bonus implementiert |
+| 2026-03-30 | Funken-Animation: Gold-Spark bei Pair-Merge, weiße Rotation bei Triplet-Merge |
+| 2026-03-30 | Game of Life Screensaver: Nach 2 Min Idle → Conway-Regeln auf dem Grid (Easter Egg) |
+| 2026-03-30 | Spontaner Tao-Zerfall + Genesis-Replay: Symmetriebrechung als Spielmechanik |
+| 2026-03-30 | /buch Skill + 8 Kapitel: Das Buch das sich selbst schreibt |
+
+### Fehler
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-03-30 | 50 Commits in detached HEAD — nicht auf main | Immer `git checkout main` (oder Feature-Branch) vor dem ersten Commit. Detached HEAD = Commits gehen verloren wenn nicht als Branch gesichert. |
+| 2026-03-30 | SPRINT.md zeigte 🔲 obwohl alles committed war | SPRINT.md im selben Commit updaten wie den Feature-Code. Nie trennen. |
+
+### Learnings
+- **Automerge als Physik-Engine**: Nicht Regeln, sondern Naturgesetze. "Die Insel organisiert sich selbst." Das Spielgefühl ist anders.
+- **Emergenz > Prescriptivism**: Wenn Yin+Yang von selbst zu Qi werden, muss Oscar nichts erklären. Er sieht es passieren.
+- **Game of Life als Screensaver**: 2 Minuten Inaktivität = das Grid lebt. Kein UI, kein Toast. Oscar dreht sich um und die Insel hat sich verändert. Perfekt.
+
+---
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)
