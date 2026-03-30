@@ -1617,6 +1617,17 @@ body.code-view-active #chat-settings-btn {
     margin: 4px 0;
 }
 
+/* Tao-Button pulsiert golden bis zum ersten Klick */
+.material-btn[data-material="tao"]:not(.active):not(.tao-clicked) {
+    animation: tao-glow 1.5s ease-in-out infinite;
+    border-radius: 12px;
+}
+
+@keyframes tao-glow {
+    0%, 100% { box-shadow: 0 0 8px rgba(241, 196, 15, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(241, 196, 15, 0.8), 0 0 40px rgba(241, 196, 15, 0.3); }
+}
+
 @keyframes pulse {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }

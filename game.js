@@ -2426,9 +2426,11 @@
 
     function selectMaterial(mat) {
         document.querySelectorAll('.material-btn').forEach(b => b.classList.remove('active'));
-        // Active-Klasse auf den passenden Button setzen
         const target = document.querySelector(`.material-btn[data-material="${mat}"]`);
         if (target) target.classList.add('active');
+        // Tao-Glow stoppen nach erstem Klick
+        const taoBtn = document.querySelector('.material-btn[data-material="tao"]');
+        if (taoBtn) taoBtn.classList.add('tao-clicked');
         currentMaterial = mat;
         soundBuild(currentMaterial);
         currentTool = 'build';
