@@ -1152,8 +1152,8 @@
     let currentMaterial = 'metal';
     let currentTool = 'build';
 
-    // Die 5 Elemente (五行 Wu Xing) — immer in der Palette sichtbar
-    const BASE_MATERIALS = ['metal', 'wood', 'fire', 'water', 'earth'];
+    // Ursprung + 5 Elemente — immer in der Palette sichtbar
+    const BASE_MATERIALS = ['tao', 'yin', 'yang', 'qi', 'metal', 'wood', 'fire', 'water', 'earth'];
 
     // Starter-Set: 5 Wu-Xing + erste 3 Crafting-Ergebnisse — von Anfang an sichtbar
     const STARTER_MATERIALS = [...BASE_MATERIALS, 'stone', 'sand', 'glass'];

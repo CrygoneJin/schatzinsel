@@ -2,7 +2,15 @@
 // Exportiert als window.INSEL_MATERIALS (Vanilla JS, kein Build-Tool)
 
 window.INSEL_MATERIALS = {
-    // === DIE 5 ELEMENTE (五行 Wu Xing) ===
+    // === 0 — NICHTS (vor dem Anfang) ===
+    void:     { emoji: '⬛', label: 'Nichts',    color: '#000000', border: '#000000' },
+    // === 1 — TAO (die Singularität, vor der Teilung) ===
+    tao:      { emoji: '☯️', label: 'Tao',       color: '#808080', border: '#606060' },
+    // === 3 — E=mc² (Energie wird Materie) ===
+    yin:      { emoji: '⚫', label: 'Yin',       color: '#1A1A1A', border: '#000000' },
+    yang:     { emoji: '⚪', label: 'Yang',      color: '#F0F0F0', border: '#D0D0D0' },
+    qi:       { emoji: '✨', label: 'Qi',        color: '#FFD700', border: '#DAA520' },
+    // === 5 — DIE 5 ELEMENTE (五行 Wu Xing) ===
     metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
     wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },
     fire:     { emoji: '🟥', label: 'Feuer',    color: '#D32F2F', border: '#B71C1C' },

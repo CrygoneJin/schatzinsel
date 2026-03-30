@@ -2,7 +2,18 @@
 // Exportiert als window.INSEL_CRAFTING_RECIPES (Vanilla JS, kein Build-Tool)
 
 window.INSEL_CRAFTING_RECIPES = [
-    // Stufe 1: Aus den 5 Elementen (五行)
+    // === GENESIS: 0 → 1 → 3 → 5 → 10.000 ===
+    // Stufe 0→1: Tao spaltet sich
+    { name: 'Yin',      result: 'yin',   resultCount: 1, ingredients: { tao: 1 },              desc: 'Tao → Yin (Dunkelheit)' },
+    { name: 'Yang',     result: 'yang',  resultCount: 1, ingredients: { tao: 1 },              desc: 'Tao → Yang (Licht)' },
+    { name: 'Qi',       result: 'qi',    resultCount: 1, ingredients: { yin: 1, yang: 1 },     desc: 'Yin + Yang = Qi (Lebensenergie)' },
+    // Stufe 3→5: Qi wird zu den 5 Elementen
+    { name: 'Metall',   result: 'metal', resultCount: 2, ingredients: { qi: 1, yin: 1 },       desc: 'Qi + Yin = 2 Metall (Reife, Stille)' },
+    { name: 'Holz',     result: 'wood',  resultCount: 2, ingredients: { qi: 1, yang: 1 },      desc: 'Qi + Yang = 2 Holz (Aufbruch, Wachstum)' },
+    { name: 'Feuer',    result: 'fire',  resultCount: 2, ingredients: { yang: 2 },              desc: '2 Yang = 2 Feuer (reine Aktion)' },
+    { name: 'Wasser',   result: 'water', resultCount: 2, ingredients: { yin: 2 },               desc: '2 Yin = 2 Wasser (reine Ruhe)' },
+    { name: 'Erde',     result: 'earth', resultCount: 2, ingredients: { yin: 1, yang: 1, qi: 1 }, desc: 'Yin + Yang + Qi = 2 Erde (Mitte, Wandel)' },
+    // Stufe 5→10.000: Aus den 5 Elementen (五行)
     { name: 'Stein',    result: 'stone',      resultCount: 2, ingredients: { earth: 2, fire: 1 },  desc: '2 Erde + Feuer = 2 Stein' },
     { name: 'Sand',     result: 'sand',       resultCount: 2, ingredients: { earth: 1, water: 1 }, desc: 'Erde + Wasser = 2 Sand' },
     { name: 'Bretter',  result: 'planks',     resultCount: 3, ingredients: { wood: 2 },            desc: '2 Holz = 3 Bretter' },
