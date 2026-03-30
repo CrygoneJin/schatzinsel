@@ -81,6 +81,7 @@
     function soundQuestComplete()    { if (_snd.soundQuestComplete) _snd.soundQuestComplete(); }
     function soundChop()             { if (_snd.soundChop)        _snd.soundChop(); }
     function soundCraft()            { if (_snd.soundCraft)       _snd.soundCraft(); }
+    function soundSelect(material)   { if (_snd.soundSelect)      _snd.soundSelect(material); }
 
     // ============================================================
     // === ACHIEVEMENTS === (aus achievements.js)
@@ -1373,6 +1374,7 @@
     if (localStorage.getItem('insel-projekte') && playerName && introOverlay) {
         introOverlay.style.display = 'none';
         if (window.startSessionClock) window.startSessionClock();
+        startTutorialPulse();
     }
     const statsContent = document.getElementById('stats-content');
     const projectNameInput = document.getElementById('project-name');
@@ -2360,7 +2362,18 @@
             sessionClock[key] = Date.now();
             const elapsed = Math.round((sessionClock[key] - sessionClock.start) / 1000);
             trackEvent('milestone', { key, seconds: elapsed });
+            if (key === 'firstBlock') stopTutorialPulse();
         }
+    }
+
+    function startTutorialPulse() {
+        const canvas = document.getElementById('game-canvas');
+        if (canvas) canvas.classList.add('tutorial-pulse');
+    }
+
+    function stopTutorialPulse() {
+        const canvas = document.getElementById('game-canvas');
+        if (canvas) canvas.classList.remove('tutorial-pulse');
     }
 
     // Exportieren für chat.js
@@ -2418,6 +2431,7 @@
         introOverlay.classList.add('hiding');
         setTimeout(() => {
             introOverlay.style.display = 'none';
+            startTutorialPulse();
         }, 600);
         window.startSessionClock();
     }
@@ -2501,7 +2515,7 @@
         const taoBtn = document.querySelector('.material-btn[data-material="tao"]');
         if (taoBtn) taoBtn.classList.add('tao-clicked');
         currentMaterial = mat;
-        soundBuild(currentMaterial);
+        soundSelect(currentMaterial);
         currentTool = 'build';
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-tool="build"]').classList.add('active');

@@ -222,6 +222,51 @@
         setTimeout(() => playRichTone(659, 0.2, 'triangle', 0.12), 200);
     }
 
+    // KLONK — lautes befriedigendes Geräusch beim Auswählen eines Materials.
+    // Minecraft-Niveau: tief, körperlich, sofort. Kein Throttle — jeder Klick klingt.
+    const KLONK_FREQS = {
+        earth:  130,
+        metal:  195,
+        wood:   110,
+        fire:   220,
+        water:  155,
+        tao:    null,
+        yin:    80,
+        yang:   330,
+        qi:     165,
+    };
+    function soundSelect(material) {
+        if (localStorage.getItem('insel-muted') === 'true') return;
+        const freq = KLONK_FREQS[material] || 140;
+        if (freq === null) return;
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+            // Hauptschlag: sawtooth, kurz, laut
+            const osc1 = ctx.createOscillator();
+            const g1 = ctx.createGain();
+            osc1.type = 'sawtooth';
+            osc1.frequency.value = freq;
+            g1.gain.setValueAtTime(0.35, t);
+            g1.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+            osc1.connect(g1);
+            g1.connect(ctx.destination);
+            osc1.start(t);
+            osc1.stop(t + 0.18);
+            // Oberton: leichter square-Ping
+            const osc2 = ctx.createOscillator();
+            const g2 = ctx.createGain();
+            osc2.type = 'square';
+            osc2.frequency.value = freq * 2;
+            g2.gain.setValueAtTime(0.12, t + 0.01);
+            g2.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+            osc2.connect(g2);
+            g2.connect(ctx.destination);
+            osc2.start(t + 0.01);
+            osc2.stop(t + 0.12);
+        } catch (e) {}
+    }
+
     window.INSEL_SOUND = {
         soundBuild,
         soundDemolish,
@@ -229,6 +274,7 @@
         soundQuestComplete,
         soundChop,
         soundCraft,
+        soundSelect,
         // Low-level für Erweiterungen
         playTone,
         playRichTone,

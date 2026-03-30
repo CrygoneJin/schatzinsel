@@ -1810,3 +1810,13 @@ body.code-view-active #chat-settings-btn {
         transform: translateX(0);
     }
 }
+
+/* === TUTORIAL-PULS — bis zum ersten Block === */
+@keyframes canvas-beckon {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    50%       { box-shadow: 0 0 0 6px rgba(255,215,0,0.7), 0 4px 24px rgba(0,0,0,0.4); }
+}
+
+#game-canvas.tutorial-pulse {
+    animation: canvas-beckon 1.2s ease-in-out infinite;
+}
