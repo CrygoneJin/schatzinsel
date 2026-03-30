@@ -1268,6 +1268,12 @@
     if (nameGroup && playerName) {
         nameGroup.style.display = 'none';
     }
+
+    // Wiederkehrende Spieler: Intro überspringen → direkt ins Spiel
+    if (localStorage.getItem('insel-projekte') && playerName && introOverlay) {
+        introOverlay.style.display = 'none';
+        if (window.startSessionClock) window.startSessionClock();
+    }
     const statsContent = document.getElementById('stats-content');
     const projectNameInput = document.getElementById('project-name');
     const loadDialog = document.getElementById('load-dialog');
