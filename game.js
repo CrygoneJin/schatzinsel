@@ -82,6 +82,7 @@
     function soundChop()             { if (_snd.soundChop)        _snd.soundChop(); }
     function soundCraft()            { if (_snd.soundCraft)       _snd.soundCraft(); }
     function soundSelect(material)   { if (_snd.soundSelect)      _snd.soundSelect(material); }
+    function soundFirstBlock()       { if (_snd.soundFirstBlock)  _snd.soundFirstBlock(); }
 
     // ============================================================
     // === ACHIEVEMENTS === (aus achievements.js)
@@ -1805,7 +1806,11 @@
                     }, 10000);
                 }
                 addPlaceAnimation(r, c);
-                soundBuild(currentMaterial);
+                if (!sessionClock.firstBlock) {
+                    soundFirstBlock();
+                } else {
+                    soundBuild(currentMaterial);
+                }
                 trackMaterialUsage(currentMaterial);
                 maybeNpcComment(currentMaterial);
                 maybeCodeEasterEgg(currentMaterial);
