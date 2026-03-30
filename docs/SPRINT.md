@@ -1,4 +1,44 @@
-# Sprint 19 — "Floriane & Flow"
+# Sprint 20 — "Alle antreten"
+
+**Sprint Goal:** Organisation aufräumen, Code-Fundament stärken. Jeder Agent hat einen Job.
+
+**Start:** 2026-03-30
+**Typ:** BUILD + DOC (Hybrid — einmalig, weil Org-Umbau)
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S20-1 | **Docs konsolidiert** — SCHNIPSEL→USERS, PROJECT→STORY, DESIGN→STORY, DECISIONS→ARCHITECTURE. 4 Dateien gelöscht, 0 Information verloren. | Weber (COO) + Engineer | ✅ Done |
+| S20-2 | **ROSTER.md** — Alle 18 Agents mit Lebensphase, Model, Skills. Skill-Zuordnung ohne Dopplungen. | Feynman (Scientist) | ✅ Done |
+| S20-3 | **CxO-Aktivierung** — `/einstein`, `/darwin`, `/weber` als Command-Dateien. 3 Agents von EINGEFROREN → AKTIV. | Leader + Engineer | ✅ Done |
+| S20-4 | **Padawan-Codizes** — Alle 5 Codizes mit Erfahrungen aus Sprint 1–19 gefüllt. Kein "Noch leer" mehr. | Alle Padawans + Feynman | ✅ Done |
+| S20-5 | **SPRINT.md getrimmt** — Historische Sprints 14–18 raus. Nur aktiver Sprint + Referenz. | Weber (COO) | ✅ Done |
+| S20-6 | **Code Metrics Review** — Feynman/Darwin/Linus/Taylor Podcast-Format. 35 Stimmen. | Feynman + Darwin | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-03-30 (Sprint 20 — "Alle antreten")
+
+**Was passiert ist:**
+- Kompletter Org-Umbau: 18 Agents inventarisiert, 8 CxOs+Sales als EINGEFROREN identifiziert, 3 CxOs aktiviert
+- Doc-Konsolidierung: 4 Dateien gemergt (SCHNIPSEL, PROJECT, DESIGN, DECISIONS), TEST-RESULTS archiviert
+- 5 Padawan-Codizes mit je 3 Erfahrungseinträgen gefüllt
+- Skill-Zuordnung: 14 Skills auf 5 Masters verteilt, keine Dopplungen
+- Code Metrics Review mit harten Zahlen: 8.583 LOC, 207 Funktionen, 41 Globals, 63 JSON.parse
+
+**Nächster Sprint (S21) — Empfehlung:**
+- S21-1: `game.js` aufteilen — Grid-Logik extrahieren (BACKLOG #11, P1)
+- S21-2: localStorage-Helper — Zentraler Layer statt 81 verstreute Zugriffe
+- S21-3: Sound Mute-Check refactorn — 9× Copy-Paste → 1× Funktion
+
+---
+
+## Sprint 19 — "Floriane & Flow" ✅ DONE
 
 **Sprint Goal:** Bewegung fühlt sich sofort an. Und Oscar bekommt seine Wunschfee.
 
@@ -27,42 +67,6 @@
 
 ---
 
-## Sprint 18 — "Stimme der Elemente" ✅ DONE
+---
 
-| # | Item | Status | Commit |
-|---|------|--------|--------|
-| S18-1 | Tonhöhe zu Elementen | ✅ Done | ffc6c6a (cherry) |
-| S18-2 | Genesis-Badge | ✅ Done | ffc6c6a (cherry) |
-| S18-3 | Titel "Schatzinsel" | ✅ Done | ffc6c6a (cherry) |
-
-## Sprint 17 — "Oscar's Töne" ✅ DONE
-
-| # | Item | Status | Commit |
-|---|------|--------|--------|
-| S17-1 | Replay-Song | ✅ Done | 47dbc0b (cherry) |
-| S17-2 | Wasser nährt Holz | ✅ Done | 47dbc0b (cherry) |
-| S17-3 | Avatar-Wahl | ✅ Done | 47dbc0b (cherry) |
-
-## Sprint 16 — "Reibungslos" ✅ DONE
-
-| # | Item | Status | Commit |
-|---|------|--------|--------|
-| S16-1 | Chat als Sidebar | ✅ Done | b7cc52d (cherry) |
-| S16-2 | Block-KLONK | ✅ Done | b7cc52d (cherry) |
-| S16-3 | NPC-Emoji fix | ✅ Done | b7cc52d (cherry) |
-
-## Sprint 15 — "Erster Moment" ✅ DONE
-
-| # | Item | Status | Commit |
-|---|------|--------|--------|
-| S15-1 | Sofort-KLONK | ✅ Done | 627ba95 (cherry) |
-| S15-2 | Tutorial-Puls | ✅ Done | 627ba95 (cherry) |
-| S15-3 | Sidebar Tabs | ✅ Done | 627ba95 (cherry) |
-
-## Sprint 14 — "Naturgesetze" ✅ DONE
-
-| # | Item | Owner | Status |
-|---|------|-------|--------|
-| S14-1 | automerge.js | Engineer | ✅ Done (4bb86bd) |
-| S14-2 | Wu Xing Zyklen | Engineer | ✅ Done (80f240e) |
-| S14-3 | Visuelle Merge-Animation | Designer | ✅ Done (93dbbbe + abcf45f) |
+*Sprints 14–18: Abgeschlossen. Dokumentation in MEMORY.md.*
