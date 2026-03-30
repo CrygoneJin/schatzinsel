@@ -1694,6 +1694,7 @@
                 }
                 if (!undoPushedThisStroke) { pushUndo(); undoPushedThisStroke = true; }
                 grid[r][c] = currentMaterial;
+                checkAutomerge(r, c);
                 const hint = document.getElementById('genesis-hint');
                 if (hint) hint.style.display = 'none';
                 // Setzling platzieren startet Baumwachstum
@@ -2007,6 +2008,65 @@
         updateDiscoveryCounter();
         requestRedraw();
         showToast('🆕 Neue Insel!');
+    }
+
+    // --- Automerge (2048-Mechanik: Blöcke verschmelzen automatisch) ---
+    function checkAutomerge(r, c) {
+        const neighbors = [
+            [r-1,c], [r+1,c], [r,c-1], [r,c+1]
+        ].filter(([nr,nc]) => nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS);
+
+        const cell = grid[r][c];
+
+        // Yin + Yang → Qi
+        if (cell === 'yin' || cell === 'yang') {
+            const opposite = cell === 'yin' ? 'yang' : 'yin';
+            for (const [nr, nc] of neighbors) {
+                if (grid[nr][nc] === opposite) {
+                    grid[r][c] = 'qi';
+                    grid[nr][nc] = 'qi';
+                    showToast('✨ Yin + Yang → Qi!');
+                    soundCraft();
+                    unlockMaterial('qi');
+                    updateGenesisVisibility();
+                    requestRedraw();
+                    setTimeout(() => {
+                        checkAutomerge(r, c);
+                        checkAutomerge(nr, nc);
+                    }, 500);
+                    return;
+                }
+            }
+        }
+
+        // RGB → Metall (Feuer + Holz + Wasser adjacent = starke Kernkraft)
+        if (cell === 'fire' || cell === 'wood' || cell === 'water') {
+            const allNeighbors = [
+                [r-1,c],[r+1,c],[r,c-1],[r,c+1],
+                [r-1,c-1],[r+1,c+1],[r-1,c+1],[r+1,c-1]
+            ].filter(([nr,nc]) => nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS);
+
+            const rgb = new Set(['fire', 'wood', 'water']);
+            for (let i = 0; i < allNeighbors.length; i++) {
+                const [nr1, nc1] = allNeighbors[i];
+                if (!rgb.has(grid[nr1]?.[nc1])) continue;
+                for (let j = i + 1; j < allNeighbors.length; j++) {
+                    const [nr2, nc2] = allNeighbors[j];
+                    if (!rgb.has(grid[nr2]?.[nc2])) continue;
+                    const trio = new Set([cell, grid[nr1][nc1], grid[nr2][nc2]]);
+                    if (trio.size === 3 && [...trio].every(t => rgb.has(t))) {
+                        grid[r][c] = 'metal';
+                        grid[nr1][nc1] = 'metal';
+                        grid[nr2][nc2] = 'metal';
+                        showToast('⚪ Feuer + Holz + Wasser → Metall! (Starke Kernkraft)');
+                        soundCraft();
+                        unlockMaterial('metal');
+                        requestRedraw();
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     // --- Toast-Queue (Weber: "Ein Toast nach dem anderen. Ordnung muss sein.") ---
