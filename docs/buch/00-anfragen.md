@@ -11,15 +11,15 @@ Lieber Christoph,
 
 Sie hätten einfach angefangen. Keine Einleitung, keine Erklärung. Die Kamera zeigt Ihre Hände, und die Hände bauen.
 
-Genau das ist hier passiert — nur mit einer Tastatur statt einem grünen Pullover. Ein Vater hat zwischen Gartenarbeit und Abendbrot ein Spiel für seinen 8-jährigen Sohn gebaut. Eine Insel. Fünf Elemente. Metall, Holz, Feuer, Wasser, Erde.
+Genau das ist hier passiert — nur mit einer Tastatur statt einem grünen Pullover. Ich habe zwischen Gartenarbeit und Abendbrot ein Spiel für meinen 8-jährigen Sohn gebaut. Eine Insel. Fünf Elemente. Metall, Holz, Feuer, Wasser, Erde. Mein Werkzeug: fünf KI-Agenten die ich dirigiere wie eine Filmcrew — ich sage wohin, sie bauen. Abends ging ich schlafen, morgens war die Insel gewachsen.
 
 Und dann kam die Sachgeschichte von allein: Die fünf Farben im Spiel (weiß, grün, rot, blau, gelb) sind dieselben wie die Farbladungen der Quarks in der Teilchenphysik. Das hat niemand geplant. Es ist einfach passiert — wie Löcher im Käse.
 
 Oscar, 8 Jahre, hat das Spiel getestet. Sein einziger Kommentar: "Papa, warum kann ich mich nicht bewegen?" Die Antwort war eine fehlende Zeile Code. Nicht Quantenphysik. Manchmal sind die wichtigsten Fragen die einfachsten.
 
-Daraus wird ein Buch. Kein Schulbuch. Eher eine Sachgeschichte in Kapiteln. Ein Kind baut eine Insel und entdeckt dabei Dinge die Erwachsene in Vorlesungen lernen — ohne es zu merken. Wie bei Ihnen. Nur mit Tastatur.
+Daraus wird ein Buch. Kein Schulbuch. Eher eine Sachgeschichte in Kapiteln. Ein Vater dirigiert KI-Agenten, ein Kind testet das Ergebnis, und dabei entdecken beide Dinge die Erwachsene in Vorlesungen lernen — ohne es zu merken. Wie bei Ihnen. Nur mit Tastatur.
 
-Wir suchen keinen Lektor der Kommafehler findet. Wir suchen jemanden der sagt: "Das versteht kein Kind" oder "Das versteht jedes Kind — streich die Erklärung."
+Ich suche keinen Lektor der Kommafehler findet. Ich suche jemanden der sagt: "Das versteht kein Kind" oder "Das versteht jedes Kind — streich die Erklärung."
 
 Würden Sie es lesen?
 
@@ -38,9 +38,11 @@ Till und Oscar
 
 Dear Randall,
 
-What if a father built a crafting game for his 8-year-old using AI agents, assigned five colors to five Chinese elements (Wu Xing), and then realized the color mapping was identical to QCD color charges?
+What if a father directed five AI agents — like a film crew — to build a crafting game for his 8-year-old, went to bed, and woke up to a new state of the universe? Three sprints completed. A player character on the island. A pull request waiting.
 
-That's not a hypothetical. It happened.
+What if the five colors he assigned to five Chinese elements (Wu Xing) turned out to be identical to QCD color charges?
+
+That's not a hypothetical. Both happened.
 
 ```
 Red    = Fire  = color charge red
