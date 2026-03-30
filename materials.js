@@ -1,21 +1,37 @@
 // === MATERIALS — alle Material-Definitionen ===
 // Exportiert als window.INSEL_MATERIALS (Vanilla JS, kein Build-Tool)
+//
+// Farbphysik (Lesch/Oppenheimer/Heisenberg, Beirats-Session 2026-03-30):
+//
+//   Quark-Farben     Wu Xing        Physik
+//   ─────────────    ──────────     ──────────────────
+//   Rot              火 Feuer       Farbladung Rot
+//   Grün             木 Holz        Farbladung Grün
+//   Blau             水 Wasser      Farbladung Blau
+//   Weiß (r+g+b)     金 Metall      Gebundenes Atom (farbneutral)
+//   Gelb (Strahlung)  土 Erde        Bindungsenergie → erstes Licht
+//
+//   Tao = Singularität. Yin = Down-Quark. Yang = Up-Quark.
+//   Qi = Starke Kernkraft (hält zusammen).
+//
+//   Ist das exakt? Nein. Ist es falsch? Auch nicht.
+//   Eine brauchbare Lüge die zur Wahrheit führt. — Amélie-Prinzip.
 
 window.INSEL_MATERIALS = {
-    // === 0 — NICHTS (vor dem Anfang) ===
+    // === 0 — NICHTS (Vakuum, Quantenfluktuationen) ===
     void:     { emoji: '⬛', label: 'Nichts',    color: '#000000', border: '#000000' },
-    // === 1 — TAO (die Singularität, vor der Teilung) ===
+    // === 1 — TAO (Singularität, alles in einem Punkt) ===
     tao:      { emoji: '☯️', label: 'Tao',       color: '#808080', border: '#606060' },
-    // === 3 — E=mc² (Energie wird Materie) ===
-    yin:      { emoji: '⚫', label: 'Yin',       color: '#1A1A1A', border: '#000000' },
-    yang:     { emoji: '⚪', label: 'Yang',      color: '#F0F0F0', border: '#D0D0D0' },
-    qi:       { emoji: '✨', label: 'Qi',        color: '#FFD700', border: '#DAA520' },
-    // === 5 — DIE 5 ELEMENTE (五行 Wu Xing) ===
-    metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
-    wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },
-    fire:     { emoji: '🟥', label: 'Feuer',    color: '#D32F2F', border: '#B71C1C' },
-    water:    { emoji: '🟦', label: 'Wasser',   color: '#0D1B4A', border: '#060E2A' },
-    earth:    { emoji: '🟨', label: 'Erde',     color: '#F5C800', border: '#C8A300' },
+    // === 3 — Drei Quarks = ein Proton (Up-Up-Down) ===
+    yin:      { emoji: '⚫', label: 'Yin',       color: '#1A1A1A', border: '#000000' },  // Down-Quark
+    yang:     { emoji: '⚪', label: 'Yang',      color: '#F0F0F0', border: '#D0D0D0' },  // Up-Quark
+    qi:       { emoji: '✨', label: 'Qi',        color: '#FFD700', border: '#DAA520' },  // Starke Kernkraft
+    // === 5 — DIE 5 ELEMENTE (五行 Wu Xing = Quark-Farben + Bindung + Strahlung) ===
+    metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },  // Weiß = r+g+b = gebundenes Atom
+    wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },  // Grün = Farbladung Grün
+    fire:     { emoji: '🟥', label: 'Feuer',    color: '#D32F2F', border: '#B71C1C' },  // Rot = Farbladung Rot
+    water:    { emoji: '🟦', label: 'Wasser',   color: '#0D1B4A', border: '#060E2A' },  // Blau = Farbladung Blau (Goethe: dunkel)
+    earth:    { emoji: '🟨', label: 'Erde',     color: '#F5C800', border: '#C8A300' },  // Gelb = Bindungsenergie → erstes Licht des Universums
     // === ABGELEITETE MATERIALIEN ===
     stone:    { emoji: '🧱', label: 'Stein',    color: '#95A5A6', border: '#7F8C8D' },
     glass:    { emoji: '🪟', label: 'Glas',     color: '#AED6F1', border: '#85C1E9' },
@@ -87,4 +103,22 @@ window.INSEL_MATERIALS = {
     catgold:  { emoji: '✨', label: 'Katzengold', color: '#FFD700', border: '#DAA520' },
     pancake:  { emoji: '🥞', label: 'Eierkuchen', color: '#F5DEB3', border: '#DCC89E' },
     aircastle:{ emoji: '🏰', label: 'Luftschloss', color: '#D6EAF8', border: '#AED6F1' },
+    // === BIBLIOTHEK VON ALEXANDRIA ===
+    library:  { emoji: '🏛️', label: 'Bibliothek', color: '#F5E6CA', border: '#D4C5A9' },
+    scroll:   { emoji: '📜', label: 'Schriftrolle', color: '#FDEBD0', border: '#FAD7A0' },
 };
+
+// === SCHRIFTROLLEN DER BIBLIOTHEK — Easter Eggs für Neugierige ===
+// Werden in der Bibliothek von Alexandria angezeigt wenn Oscar sie baut
+window.INSEL_SCROLLS = [
+    { title: 'Farben der Materie', text: 'Rot, Grün, Blau — die drei Farben der Quarks. Zusammen werden sie Weiß. Wie Metall. Und das Gelb? Das ist das erste Licht des Universums.' },
+    { title: 'Drei Quarks', text: 'Up-Up-Down = Proton. Up-Down-Down = Neutron. Yin und Yang und Qi — die alten Chinesen wussten es schon.' },
+    { title: 'Heisenbergs Geheimnis', text: 'Je genauer du hinschaust, desto unschärfer wird der Rest. Wasser ist schwarz UND blau — bis jemand hinschaut.' },
+    { title: 'Oppenheimers Licht', text: 'Wenn Energie zu Materie wird, strahlt sie. E=mc². Das Gelb der Erde ist das Leuchten der Verwandlung.' },
+    { title: 'Leschs Kaffee', text: '75% Wasserstoff, 25% Helium, Spuren von allem anderen. 75% JavaScript, 25% Rest. Zufall? Natürlich. Aber ein hübscher.' },
+    { title: 'Lindgrens Regel', text: 'Kinder sind nicht logisch. Sie sind besser als das. — Deshalb gibt es Flugfische und Katzengold.' },
+    { title: 'Endes Warnung', text: 'Lies das Buch bevor du die Welt baust. Was darunter liegt ist wichtiger als was oben drauf steht.' },
+    { title: 'Dalai Lamas Frage', text: 'Für wen baust du? — Stille. — Dann baust du richtig.' },
+    { title: 'Kants Inschrift', text: 'Sapere aude. Habe Mut, dich deines eigenen Verstandes zu bedienen. — Über dem Eingang der Bibliothek.' },
+    { title: 'Goethes Farben', text: 'Farbe entsteht am Rand von Licht und Dunkel. Schwarz ist nicht Nichts — Schwarz ist Tiefe.' },
+];
