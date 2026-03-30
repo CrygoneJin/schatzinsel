@@ -73,6 +73,23 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 ---
 
+## Sprint 19 Session — 2026-03-30
+
+| Item | Was | Ergebnis |
+|------|-----|---------|
+| Cherry-picks | Sprints 15-18 auf main gebracht | 4 Cherry-picks, 4 Konflikte gelöst (SPRINT.md, style.css Chat-Sidebar, game.js playerPos-Deklaration) |
+| S19-1 | Spielfigur-Lag fix | `movePlayer()` ruft `draw()` direkt auf + `localStorage.setItem(playerPos)` — kein 100ms-Warten mehr (#66) |
+| S19-2 | Wunschfee Floriane 🧚 | Neue NPC: CHARACTERS in chat.js, NPC_VOICES in game.js, ELIZA-Regeln, UNLOCK_ORDER[0], CHAR_CURRENCY (#75) |
+| Bugfix | Doppelte playerName-Deklaration | Cherry-pick Sprint 17 hatte `let playerName` + `let playerPos` vor der eigentlichen Deklaration — Duplikat entfernt |
+
+**Fehler**: Smoke Tests aus Sandbox nicht möglich (`x-deny-reason: host_not_allowed`). Kein Issue — Proxy-Problem, nicht App.
+
+**Fehler**: Sprints 15-18 lagen auf ungemergten Branches. Root cause: Jeder Agent-Run startet frisch und sieht nur main. Fix für nächste Sessions: cherry-picks oder PRs zeitnah mergen, nie auf Branch liegen lassen.
+
+**Für Oscar**: Pfeiltasten reagieren jetzt sofort (kein 100ms-Ruckeln mehr). Und Floriane die Wunschfee 🧚 ist auf der Insel — als erste freizuspielende NPC!
+
+---
+
 ## Sprint 7 Session — 2026-03-30
 
 | Item | Was | Ergebnis |

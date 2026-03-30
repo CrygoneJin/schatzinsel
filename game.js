@@ -455,6 +455,7 @@
         krabs:     { emoji: '🦀', prefix: 'Krabs:', ticks: ['💰', 'Taler!', 'Geld!'], style: 'money' },
         tommy:     { emoji: '🎬', prefix: 'Tommy:', ticks: ['Klick-klack!', 'JA!', 'CUT!'], style: 'chaos' },
         bernd:     { emoji: '🍞', prefix: 'Bernd:', ticks: ['*seufz*', 'Mist.', 'Toll.'], style: 'grumpy' },
+        floriane:  { emoji: '🧚', prefix: 'Floriane:', ticks: ['✨', 'Oh!', 'Ein Wunsch!'], style: 'magic' },
     };
 
     const MAT_ADJECTIVES = {
@@ -1197,10 +1198,8 @@
     // Freigeschaltete Materialien (durch Ernten oder Crafting)
     let unlockedMaterials = new Set();
 
-    // === SPIELFIGUR ===
-    let playerName = localStorage.getItem('insel-player-name') || '';
+    // === SPIELFIGUR (Variablen weiter unten deklariert) ===
     let playerEmoji = localStorage.getItem('insel-player-emoji') || '🧒';
-    let playerPos = { r: 8, c: 12 }; // Mitte der Insel
 
     function saveUnlocked() {
         localStorage.setItem('insel-unlocked-materials', JSON.stringify([...unlockedMaterials]));
@@ -1684,7 +1683,9 @@
         // Spieler bleibt auf bebaubarem Bereich (kein Wasser-Rand)
         if (nr >= 2 && nr < ROWS - 2 && nc >= 2 && nc < COLS - 2) {
             playerPos = { r: nr, c: nc };
-            requestRedraw(); // sofort zeichnen — kein Warten auf 100ms-Interval
+            localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
+            needsRedraw = true;
+            draw(); // sofort zeichnen — nicht auf 100ms-Interval warten (#66)
         }
     }
 

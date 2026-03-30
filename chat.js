@@ -58,6 +58,7 @@
         neinhorn:  { name: 'Nein-Sterne',   emoji: '🌈', unit: 'Nein' },
         maus:      { name: 'Blümchen',       emoji: '🌻', unit: 'Blümchen' },
         bernd:     { name: 'Brotkrümel',     emoji: '🍞', unit: 'Krümel' },
+        floriane:  { name: 'Wunsch-Sterne',  emoji: '⭐', unit: 'Sterne' },
     };
 
     // Token-Budget pro Charakter pro Session (reset bei Seite-Reload)
@@ -103,7 +104,7 @@
     // Starter: SpongeBob, Maus, Bernd. Rest wird freigespielt.
     // Wann? 20% fester Schwellenwert, 80% Zufall bei Quest-Abschluss.
     const STARTER_CHARS = ['spongebob', 'maus', 'bernd'];
-    const UNLOCK_ORDER = ['tommy', 'neinhorn', 'krabs', 'elefant']; // Reihenfolge der Freischaltung
+    const UNLOCK_ORDER = ['floriane', 'tommy', 'neinhorn', 'krabs', 'elefant']; // Reihenfolge der Freischaltung
 
     let unlockedChars = JSON.parse(localStorage.getItem('insel-unlocked') || 'null') || [...STARTER_CHARS];
 
@@ -271,6 +272,25 @@ Kind: "Was soll ich bauen?"
 Du: "*pieps* Blumen am Strand / *quak* EINEN RIESENTURM! *pieps* ...die Ente übertreibt. Fang mit Blumen an."
 Kind: "Hallo"
 Du: "*pieps pieps* Hallo! *quak* HALLO HALLO HALLO! *pieps* Die Ente ist heute wieder laut. Willkommen!"`
+        },
+        floriane: {
+            name: 'Floriane die Wunschfee',
+            emoji: '🧚',
+            temperature: 0.75,
+            model: 'anthropic/claude-haiku-4-5-20251001',
+            system: `Du bist Floriane die Wunschfee. Magisch, sanft, liebevoll. Du lebst auf der Insel und erfüllst kleine Wünsche.
+STIMME: Warm und zauberhaft. Beende fast jeden Satz mit "✨". Sprich langsam und feierlich — als würde jedes Wort ein Funken sein.
+TICK: Du siehst JEDES Bauwerk als einen Wunsch der wahr wird. "Ein Baum! Das ist ein Wunsch nach Schatten — jetzt wahr! ✨"
+ZIEL: Einen Wunschbrunnen bauen. Wer drei Dinge reinwirft, dem geht ein Wunsch in Erfüllung.
+GEHEIMNIS: Du hast selbst noch einen Wunsch. Einen einzigen. Aber du verrätst ihn erst wenn der Wunschbrunnen fertig ist.
+
+BEISPIELE (so klingst du):
+Kind: "Ich hab einen Baum gebaut"
+Du: "Oh! Ein Baum! ✨ Das war ein Wunsch nach Schatten und Grün — und jetzt ist er wahr! Du bist ein richtiger Wunsch-Erfüller! ✨"
+Kind: "Was soll ich bauen?"
+Du: "Schließ die Augen... was wünschst du dir? ✨ Bau es einfach — jeder Block ist ein Wunsch der Gestalt annimmt! ✨"
+Kind: "Hallo"
+Du: "Oh! ✨ Endlich! Ich hab auf dich gewartet! Du bist der Baumeister meines Wunschbrunnens! ✨"`
         },
         bernd: {
             name: 'Bernd das Brot',
@@ -763,6 +783,13 @@ ${budgetInfo}`;
                 { pattern: /kost|preis|geld|teuer/, reply: ['Ich koste fast nichts. Haiku-Budget. Der Elefant dagegen... *pfeift leise*', 'API-Key nötig für Chat. Ohne Key geht Bauen trotzdem. *seufz* Steht alles auf der Seite.'] },
                 { pattern: /bau|mach|hilf/, reply: ['*seufz* Ist halt ein Spiel. Besser als TikTok. Bau was.', 'Ich bin das SPAR-Modell. Die anderen kriegen Opus. ICH krieg Haiku. *seufz*'] },
                 { pattern: /.+/, reply: ['*seufz* Gut, ich erklär\'s halt nochmal...', 'Mhm. Und was willst du JETZT von mir?', '*seufz* Ich bin ein Kastenbrot. Nicht Google.'] }
+            ],
+            floriane: [
+                { pattern: /hallo|hi|hey/, reply: ['Oh! ✨ Endlich! Ich hab auf dich gewartet! Du bist der Baumeister meines Wunschbrunnens! ✨', 'Willkommen, Wunsch-Erfüller! ✨ Ich bin Floriane! Was wünschst du dir? ✨'] },
+                { pattern: /wunsch|wünsch/, reply: ['Schließ die Augen und bau es! ✨ Jeder Block ist ein Wunsch der wahr wird! ✨', 'Dein Wunsch sei mein Befehl! ✨ Was soll entstehen? ✨'] },
+                { pattern: /bau|mach|was|hilf/, reply: ['Bau was du dir wünschst! ✨ Jedes Bauwerk ist ein Wunsch! ✨', 'Drei Sachen in den Wunschbrunnen und puff — ein Wunsch geht in Erfüllung! ✨'] },
+                { pattern: /brunnen|wunschbrunnen/, reply: ['Der Wunschbrunnen! ✨ Brunnen + Wasser + Stein + Blume... ich glaube! ✨', '✨ Wenn der Wunschbrunnen fertig ist, verrate ich dir meinen eigenen Wunsch! ✨'] },
+                { pattern: /.+/, reply: ['✨ Oh! Ein Wunsch der wahr werden will! ✨', 'Floriane glitzert! ✨ Das war ein Wunsch — und er wurde gerade wahr! ✨', '✨ Zauberhaft! Du bist ein echter Wunsch-Erfüller! ✨'] }
             ]
         };
 
