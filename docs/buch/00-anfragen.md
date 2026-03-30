@@ -19,6 +19,8 @@ Oscar, 8 Jahre, hat das Spiel getestet. Sein einziger Kommentar: "Papa, warum ka
 
 Daraus wird ein Buch. Kein Schulbuch. Eher eine Sachgeschichte in Kapiteln. Ein Vater dirigiert KI-Agenten, ein Kind testet das Ergebnis, und dabei entdecken beide Dinge die Erwachsene in Vorlesungen lernen — ohne es zu merken. Wie bei Ihnen. Nur mit Tastatur.
 
+Der Rhythmus: Wenn ich Lust habe, plane ich ein neues Kapitel. Mein Team setzt es um — über Nacht, wenn nötig. Und Oscar? Der kann es lesen, erleben, entdecken, spielen — was auch immer er damit machen möchte. Kein Lehrplan. Kein Zeitdruck. Nur ein Vater, seine Crew und ein Kind das baut.
+
 Ich suche keinen Lektor der Kommafehler findet. Ich suche jemanden der sagt: "Das versteht kein Kind" oder "Das versteht jedes Kind — streich die Erklärung."
 
 Würden Sie es lesen?
@@ -58,7 +60,9 @@ The game uses "Infinite Craft" — when no recipe exists, an LLM invents one. Th
 
 The kid's first test session produced one bug report: "Dad, why can't I move?" The fix was a missing `requestRedraw()` call. Not quantum physics. Sometimes the answer to the biggest question is one line of code.
 
-We're writing a book about it. The structure follows the expansion of the universe:
+I'm writing a book about it. The rhythm: when I feel like it, I plan a new chapter. My AI crew executes — overnight if needed. And Oscar? He reads it, plays it, discovers it, does whatever he wants with it. No curriculum. No deadline. Just a father, his crew, and a kid who builds.
+
+The structure follows the expansion of the universe:
 
 - **Big Bang:** First commit (`feat: Oskars Insel-Architekt`)
 - **Dark Ages:** Infrastructure (Workers, DNS, MCP servers)
@@ -66,7 +70,7 @@ We're writing a book about it. The structure follows the expansion of the univer
 - **Big Crunch:** "Dad, why can't I move?"
 - **New Big Bang:** Oscar builds again tomorrow
 
-We need someone to review the manuscript. Not for commas — for hand-waving. Someone who would say "you claimed Wu Xing maps to QCD but you skipped the gluon field" or "that Fibonacci benchmark is cute but your sample size is 88."
+I need someone to review the manuscript. Not for commas — for hand-waving. Someone who would say "you claimed Wu Xing maps to QCD but you skipped the gluon field" or "that Fibonacci benchmark is cute but your sample size is 88."
 
 You'd also be the fourth patron saint of the project. The Dalai Lama protects against over-engineering ("Don't disturb it"). Astrid Lindgren protects against seriousness ("Where's the nonsense?"). Michael Ende protects against shallowness ("What's underneath?").
 
