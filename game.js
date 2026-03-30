@@ -34,7 +34,7 @@
 
     let CELL_SIZE = calcCellSize();
 
-    // --- Materialien (aus materials.js, Fallback inline) ---
+    // --- Materialien (aus materials.js) ---
     const MATERIALS = window.INSEL_MATERIALS || {
         // === DIE 5 ELEMENTE (五行 Wu Xing) ===
         metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },
@@ -1307,6 +1307,10 @@
         }
     }
 
+    // --- Dirty-flag (var-gehoisted, damit requestRedraw() überall nutzbar) ---
+    var needsRedraw = true;
+    function requestRedraw() { needsRedraw = true; }
+
     // --- Zustand ---
     let grid = [];
     let currentMaterial = 'metal';
@@ -1461,6 +1465,7 @@
             canvas.style.width = '100%';
             canvas.style.height = 'auto';
         }
+        requestRedraw();
     }
 
     resizeCanvas();
@@ -1480,6 +1485,8 @@
 
     // --- Zeichnen ---
     function draw() {
+        if (!needsRedraw) return;
+        needsRedraw = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Wasser-Hintergrund
@@ -1733,7 +1740,7 @@
         grid = JSON.parse(undoStack.pop());
         window.grid = grid;
         updateStats();
-        draw();
+        requestRedraw();
     }
 
     // --- Aktion auf Zelle ---
@@ -1790,6 +1797,7 @@
         }
         // Teure Checks nur alle 200ms (nicht bei jedem Pixel beim Drag)
         requestStatsUpdate();
+        requestRedraw();
     }
 
     let statsUpdatePending = false;
@@ -2016,7 +2024,7 @@
             updateInventoryDisplay();
             updatePaletteVisibility();
             updateDiscoveryCounter();
-            draw();
+            requestRedraw();
             loadDialog.classList.add('hidden');
             showToast(`📂 "${name}" geladen!`);
         }
@@ -2044,7 +2052,7 @@
         updateInventoryDisplay();
         updatePaletteVisibility();
         updateDiscoveryCounter();
-        draw();
+        requestRedraw();
         showToast('🆕 Neue Insel!');
     }
 
@@ -2184,6 +2192,7 @@
             document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentTool = btn.dataset.tool;
+            requestRedraw();
         });
     });
 
@@ -2290,6 +2299,7 @@
 
     canvas.addEventListener('mousemove', (e) => {
         hoverCell = getGridCell(e);
+        requestRedraw();
         if (isMouseDown && hoverCell && currentTool !== 'fill') {
             applyTool(hoverCell.r, hoverCell.c);
         }
@@ -2302,6 +2312,7 @@
     canvas.addEventListener('mouseleave', () => {
         isMouseDown = false;
         hoverCell = null;
+        requestRedraw();
     });
 
     // Touch-Events für Tablet
@@ -2330,10 +2341,12 @@
             // Spieler auf neue Position ziehen (kein Wasser-Rand)
             if (cell.r >= 2 && cell.r < ROWS - 2 && cell.c >= 2 && cell.c < COLS - 2) {
                 playerPos = { r: cell.r, c: cell.c };
+                requestRedraw();
             }
             return;
         }
         hoverCell = cell;
+        requestRedraw();
         if (isMouseDown && hoverCell && currentTool !== 'fill') {
             applyTool(hoverCell.r, hoverCell.c);
         }
@@ -2499,6 +2512,7 @@
         document.documentElement.setAttribute('data-theme', theme);
         currentTheme = theme;
         localStorage.setItem('insel-theme', theme);
+        requestRedraw();
         // Analytics
         trackEvent('theme_change', { theme });
     }
@@ -2865,16 +2879,10 @@
         setTimeout(() => showToast('🏝️ Deine Insel wartet... Bau los!', 3500), 2000);
     }
 
-    // 15fps gameLoop — ~75% CPU-Reduktion gegenüber 60fps
-    let lastDrawTime = 0;
-    function gameLoop(timestamp) {
-        if (timestamp - lastDrawTime >= 66) {
-            lastDrawTime = timestamp;
-            draw();
-        }
-        requestAnimationFrame(gameLoop);
-    }
-    requestAnimationFrame(gameLoop);
+    // Dirty-flag statt rAF-Loop — CPU 20%→<5%
+    // var (nicht let) damit requestRedraw() via hoisting schon in resizeCanvas() nutzbar ist
+    needsRedraw = true;
+    setInterval(draw, 100);
     updateAchievementDisplay();
     updateQuestDisplay();
     updateInventoryDisplay();
