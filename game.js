@@ -4,8 +4,19 @@
     'use strict';
 
     // --- Konfiguration ---
-    const COLS = 24;
-    const ROWS = 16;
+    // Responsive grid dimensions
+    const ASPECT = window.innerWidth / window.innerHeight;
+    let COLS, ROWS;
+    if (ASPECT > 1.5) {
+        // PC/Mac landscape 16:9
+        COLS = 32; ROWS = 18;
+    } else if (ASPECT > 1.2) {
+        // iPad landscape 4:3
+        COLS = 28; ROWS = 21;
+    } else {
+        // Portrait / iPhone
+        COLS = 18; ROWS = 28;
+    }
     const WATER_BORDER = 2; // Zellen Wasser um die Insel
 
     // Dynamische Zellgröße basierend auf Bildschirm
