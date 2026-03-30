@@ -1531,6 +1531,48 @@ body.code-view-active #chat-settings-btn {
     75% { transform: rotate(5deg); }
 }
 
+/* Tic-Tac-Zeh Grid im Kessel */
+.ttt-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 3px;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    flex-wrap: nowrap !important;
+}
+
+.ttt-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+    transition: background 0.2s;
+    min-height: 0;
+}
+
+.ttt-cell.empty.ttt-clickable {
+    cursor: pointer;
+    background: rgba(255,255,255,0.12);
+}
+
+.ttt-cell.empty.ttt-clickable:hover {
+    background: rgba(100,200,100,0.3);
+}
+
+.ttt-cell.filled {
+    animation: ttt-place 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes ttt-place {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
 .cauldron-right {
     flex: 1;
     min-width: 140px;

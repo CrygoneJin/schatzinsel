@@ -1025,31 +1025,248 @@
         { material: 'star', count: 1, msg: '⭐ Ein Stern fällt aus dem Kessel! WOW!' },
     ];
 
-    // Tic-Tac-Toe-Erkennung: ABABA-Pattern (abwechselnd 2 Materialien)
-    function checkTicTacToe() {
-        if (cauldronItems.length < 5) return false;
-        const types = [...new Set(cauldronItems)];
-        if (types.length !== 2) return false;
-        // Prüfe ABAB...-Muster
-        for (let i = 1; i < cauldronItems.length; i++) {
-            if (cauldronItems[i] === cauldronItems[i - 1]) return false;
-        }
-        return true;
+    // === TIC-TAC-TOE GEGEN DEN KESSEL ===
+    // Kahneman & Pinker: Der Kessel denkt meistens mit System 2 (rational),
+    // aber manchmal schlägt System 1 zu (impulsiv, Fehler).
+    // Loss Aversion: Items verlieren wiegt schwerer als der Gewinn.
+
+    const TICTACTOE_PRIZES = [
+        { id: 'billgates', emoji: '🤓', label: 'Bill Gates',
+          msg: '🤓 Bill Gates fällt aus dem Kessel! "Haben Sie schon Windows probiert?"' },
+        { id: 'rockband', emoji: '🎸', label: 'Die Band',
+          msg: '🎸 Eine ganze Rockband springt aus dem Kessel und spielt ein Solo!' },
+        { id: 'kreide', emoji: '🖍️', label: 'Kreide',
+          msg: '🖍️ Kreide! Jetzt kannst du auf die Felsen malen!' },
+        { id: 'pippis_pferd', emoji: '🐴', label: 'Kleiner Onkel',
+          msg: '🐴 Kleiner Onkel galoppiert aus dem Kessel! Er hat Goldstücke dabei!' },
+        { id: 'karlsson', emoji: '🚁', label: 'Karlsson vom Dach',
+          msg: '🚁 Karlsson fliegt raus! "Ich bin ein schöner und grundgescheiter und gerade richtig dicker Mann!"' },
+    ];
+
+    // Kessel-KI: Kahneman-Style
+    // 70% System 2 (optimal/Minimax), 30% System 1 (impulsiv/zufällig)
+    const TTT_WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+    function tttCheckWin(board, mark) {
+        return TTT_WINS.some(([a,b,c]) => board[a] === mark && board[b] === mark && board[c] === mark);
     }
 
-    // Spezielle Tic-Tac-Toe-Ergebnisse (Bill Gates, Band, Kreide + 2 Lindgren)
-    const TICTACTOE_PRIZES = [
-        { id: 'billgates', emoji: '🤓', label: 'Bill Gates', color: '#4A90D9', border: '#2E6BB0',
-          msg: '🤓 Bill Gates fällt aus dem Kessel! "Haben Sie schon Windows probiert?"' },
-        { id: 'rockband', emoji: '🎸', label: 'Die Band', color: '#E74C3C', border: '#C0392B',
-          msg: '🎸 Eine ganze Rockband springt aus dem Kessel und spielt ein Solo!' },
-        { id: 'kreide', emoji: '🖍️', label: 'Kreide', color: '#F5F5F5', border: '#D5D5D5',
-          msg: '🖍️ Kreide! Jetzt kannst du auf die Felsen malen!' },
-        { id: 'pippis_pferd', emoji: '🐴', label: 'Kleiner Onkel', color: '#D4AC0D', border: '#B7950B',
-          msg: '🐴 Kleiner Onkel! Pippis Pferd galoppiert aus dem Kessel! Er hat Goldstücke dabei!' },
-        { id: 'karlsson', emoji: '🚁', label: 'Karlsson vom Dach', color: '#F39C12', border: '#E67E22',
-          msg: '🚁 Karlsson fliegt aus dem Kessel! "Ich bin ein schöner und grundgescheiter und gerade richtig dicker Mann!"' },
+    function tttCheckDraw(board) {
+        return board.every(c => c !== null);
+    }
+
+    // Minimax (System 2 — Kahneman: langsam, rational, anstrengend)
+    function tttMinimax(board, isMax, cauldronMark, playerMark, depth) {
+        if (tttCheckWin(board, cauldronMark)) return 10 - depth;
+        if (tttCheckWin(board, playerMark)) return depth - 10;
+        if (tttCheckDraw(board)) return 0;
+        const empty = board.map((v,i) => v === null ? i : -1).filter(i => i >= 0);
+        if (isMax) {
+            let best = -Infinity;
+            for (const i of empty) {
+                board[i] = cauldronMark;
+                best = Math.max(best, tttMinimax(board, false, cauldronMark, playerMark, depth + 1));
+                board[i] = null;
+            }
+            return best;
+        } else {
+            let best = Infinity;
+            for (const i of empty) {
+                board[i] = playerMark;
+                best = Math.min(best, tttMinimax(board, true, cauldronMark, playerMark, depth + 1));
+                board[i] = null;
+            }
+            return best;
+        }
+    }
+
+    function tttBestMove(board, cauldronMark, playerMark) {
+        const empty = board.map((v,i) => v === null ? i : -1).filter(i => i >= 0);
+        if (empty.length === 0) return -1;
+
+        // 30% System 1 — impulsiv (Pinker: "Rationalität ist nicht der Normalzustand")
+        if (Math.random() < 0.30) {
+            return empty[Math.floor(Math.random() * empty.length)];
+        }
+
+        // 70% System 2 — Minimax
+        let bestScore = -Infinity;
+        let bestMove = empty[0];
+        for (const i of empty) {
+            board[i] = cauldronMark;
+            const score = tttMinimax(board, false, cauldronMark, playerMark, 0);
+            board[i] = null;
+            if (score > bestScore) { bestScore = score; bestMove = i; }
+        }
+        return bestMove;
+    }
+
+    // Kessel-Sprüche während des Spiels (Kahneman-Referenzen)
+    const TTT_KESSEL_TAUNTS = [
+        '🫕 "Schnell denken ist mein System 1..." *brodelt nachdenklich*',
+        '🫕 "Überleg nicht zu lange — Verlustaversion ist real!"',
+        '🫕 *rührt sich selbst um* "Ich hab ein ganzes Buch gelesen!"',
+        '🫕 "Anchoring Bias: Ich setze mich IMMER in die Mitte. Fast immer."',
+        '🫕 "Du denkst du hast eine Strategie? Das ist nur dein WYSIATI."',
+        '🫕 *blubbert* "Prospect Theory sagt: du hasst Verlieren mehr als du Gewinnen liebst."',
     ];
+
+    let tttState = null; // { board, playerMark, cauldronMark, playerEmoji, cauldronEmoji, timer, active }
+
+    function tttStart(playerMat, cauldronMat) {
+        const pInfo = MATERIALS[playerMat];
+        const cInfo = MATERIALS[cauldronMat];
+        tttState = {
+            board: Array(9).fill(null),
+            playerMark: 'X',
+            cauldronMark: 'O',
+            playerEmoji: pInfo?.emoji || '❌',
+            cauldronEmoji: cInfo?.emoji || '⭕',
+            playerMat: playerMat,
+            cauldronMat: cauldronMat,
+            active: true,
+            timer: null,
+            moveCount: 0,
+        };
+
+        showToast(TTT_KESSEL_TAUNTS[Math.floor(Math.random() * TTT_KESSEL_TAUNTS.length)], 3000);
+        tttRender();
+        tttStartTimer();
+    }
+
+    function tttStartTimer() {
+        if (tttState?.timer) clearTimeout(tttState.timer);
+        if (!tttState?.active) return;
+        // Kessel spielt nach 5s wenn Spieler zögert
+        tttState.timer = setTimeout(() => {
+            if (!tttState?.active) return;
+            showToast('🫕 "Zu langsam! Jetzt bin ICH dran!" *brodelt ungeduldig*');
+            tttCauldronMove();
+        }, 5000);
+    }
+
+    function tttPlayerMove(idx) {
+        if (!tttState?.active || tttState.board[idx] !== null) return;
+        if (tttState.timer) clearTimeout(tttState.timer);
+
+        tttState.board[idx] = tttState.playerMark;
+        tttState.moveCount++;
+        tttRender();
+
+        if (tttCheckWin(tttState.board, tttState.playerMark)) {
+            tttEnd('player');
+            return;
+        }
+        if (tttCheckDraw(tttState.board)) {
+            tttEnd('draw');
+            return;
+        }
+
+        // Kessel antwortet nach kurzer Pause (System 2 braucht Zeit)
+        setTimeout(tttCauldronMove, 800 + Math.random() * 700);
+    }
+
+    function tttCauldronMove() {
+        if (!tttState?.active) return;
+
+        const move = tttBestMove(tttState.board, tttState.cauldronMark, tttState.playerMark);
+        if (move < 0) return;
+
+        tttState.board[move] = tttState.cauldronMark;
+        tttState.moveCount++;
+
+        // Gelegentlich taunten
+        if (Math.random() < 0.4) {
+            showToast(TTT_KESSEL_TAUNTS[Math.floor(Math.random() * TTT_KESSEL_TAUNTS.length)], 2500);
+        }
+
+        tttRender();
+
+        if (tttCheckWin(tttState.board, tttState.cauldronMark)) {
+            tttEnd('cauldron');
+            return;
+        }
+        if (tttCheckDraw(tttState.board)) {
+            tttEnd('draw');
+            return;
+        }
+
+        tttStartTimer(); // Timer für nächsten Spielerzug
+    }
+
+    function tttEnd(winner) {
+        if (!tttState) return;
+        tttState.active = false;
+        if (tttState.timer) clearTimeout(tttState.timer);
+
+        localStorage.setItem('insel-tictactoe', 'true');
+
+        if (winner === 'player') {
+            // Spieler gewinnt → Belohnung!
+            const prize = TICTACTOE_PRIZES[Math.floor(Math.random() * TICTACTOE_PRIZES.length)];
+            if (!MATERIALS[prize.id]) {
+                MATERIALS[prize.id] = { emoji: prize.emoji, label: prize.label,
+                    color: '#F9E79F', border: '#F4D03F' };
+            }
+            cauldronItems = [];
+            addToInventory(prize.id, 1);
+            unlockMaterial(prize.id);
+            soundCraft();
+            soundAchievement();
+            showToast(`🏆 DU GEWINNST! ${prize.msg}`, 5000);
+            showCauldronResult(prize.emoji, prize.label);
+        } else if (winner === 'cauldron') {
+            // Kessel gewinnt → Items weg! (Loss Aversion — tut weh)
+            cauldronItems = [];
+            showToast('🫕 DER KESSEL GEWINNT! *schlürft deine Items auf* "Prospect Theory, Baby!"', 4000);
+            showCauldronResult('🫕', 'Der Kessel hat gewonnen. Deine Items sind weg.');
+        } else {
+            // Unentschieden → Items zurück
+            for (const mat of cauldronItems) addToInventory(mat, 1);
+            cauldronItems = [];
+            showToast('🤝 Unentschieden! Der Kessel nickt respektvoll. Items zurück.', 3000);
+            showCauldronResult('🤝', 'Remis. "Beim nächsten Mal..." *brodelt*');
+        }
+
+        // Board noch 3s zeigen, dann aufräumen
+        setTimeout(() => {
+            tttState = null;
+            tttRender();
+            updateCraftingDisplay();
+        }, 3000);
+    }
+
+    function tttRender() {
+        const container = document.getElementById('cauldron-items');
+        if (!container) return;
+
+        if (!tttState) {
+            // Normaler Kessel-Modus
+            container.innerHTML = cauldronItems.map((mat, i) => {
+                const info = MATERIALS[mat];
+                return info ? `<span class="cauldron-item" data-index="${i}" title="${info.label}">${info.emoji}</span>` : '';
+            }).join('');
+            container.classList.remove('ttt-grid');
+            return;
+        }
+
+        // Tic-Tac-Toe-Grid!
+        container.classList.add('ttt-grid');
+        container.innerHTML = tttState.board.map((cell, i) => {
+            const emoji = cell === tttState.playerMark ? tttState.playerEmoji
+                        : cell === tttState.cauldronMark ? tttState.cauldronEmoji
+                        : '';
+            const cls = cell ? 'ttt-cell filled' : 'ttt-cell empty';
+            const clickable = !cell && tttState.active ? ' ttt-clickable' : '';
+            return `<div class="${cls}${clickable}" data-ttt="${i}">${emoji}</div>`;
+        }).join('');
+    }
+
+    // Tic-Tac-Toe-Erkennung: genau 2 verschiedene Materialien im Kessel
+    function checkTicTacToe() {
+        const types = [...new Set(cauldronItems)];
+        return types.length === 2;
+    }
 
     async function doCraft() {
         if (cauldronItems.length === 0) {
@@ -1057,31 +1274,12 @@
             return;
         }
 
-        // Easter Egg: Tic-Tac-Toe!
+        // Easter Egg: Tic-Tac-Toe! (genau 2 verschiedene Materialien)
         if (checkTicTacToe()) {
-            localStorage.setItem('insel-tictactoe', 'true');
-
-            const stirBtn = document.getElementById('do-craft-btn');
-            if (stirBtn) stirBtn.classList.add('stirring');
-            await new Promise(r => setTimeout(r, 1200));
-            if (stirBtn) stirBtn.classList.remove('stirring');
-
-            // Zufälliger Preis
-            const prize = TICTACTOE_PRIZES[Math.floor(Math.random() * TICTACTOE_PRIZES.length)];
-
-            // Material registrieren wenn nicht vorhanden
-            if (!MATERIALS[prize.id]) {
-                MATERIALS[prize.id] = { emoji: prize.emoji, label: prize.label, color: prize.color, border: prize.border };
-            }
-
-            cauldronItems = [];
-            addToInventory(prize.id, 1);
-            unlockMaterial(prize.id);
-            soundCraft();
-            showCauldronResult(prize.emoji, prize.msg);
-            showToast(`⭕❌ TIC-TAC-TOE! ${prize.msg}`, 5000);
-            if (window.soundAchievement) window.soundAchievement();
-            updateCraftingDisplay();
+            const types = [...new Set(cauldronItems)];
+            showToast('🫕 *Der Kessel vibriert* "Zwei Materialien? Das kenne ich... SPIELEN WIR!"', 3000);
+            await new Promise(r => setTimeout(r, 1000));
+            tttStart(types[0], types[1]);
             return;
         }
 
@@ -1241,14 +1439,19 @@
     let selectedInventoryItem = null;
 
     function updateCraftingDisplay() {
-        // Kessel-Items anzeigen
-        const cauldronItemsEl = document.getElementById('cauldron-items');
-        if (cauldronItemsEl) {
-            cauldronItemsEl.innerHTML = cauldronItems.map((mat, i) => {
-                const info = MATERIALS[mat];
-                if (!info) return '';
-                return `<span class="cauldron-item" data-index="${i}" title="${info.label} (klick = rausnehmen)">${info.emoji}</span>`;
-            }).join('');
+        // Kessel-Items ODER Tic-Tac-Zeh-Grid anzeigen
+        if (tttState) {
+            tttRender();
+        } else {
+            const cauldronItemsEl = document.getElementById('cauldron-items');
+            if (cauldronItemsEl) {
+                cauldronItemsEl.classList.remove('ttt-grid');
+                cauldronItemsEl.innerHTML = cauldronItems.map((mat, i) => {
+                    const info = MATERIALS[mat];
+                    if (!info) return '';
+                    return `<span class="cauldron-item" data-index="${i}" title="${info.label} (klick = rausnehmen)">${info.emoji}</span>`;
+                }).join('');
+            }
         }
 
         // Inventar im Kessel-Dialog
@@ -3353,6 +3556,10 @@
 
     const craftClearBtn = document.getElementById('clear-craft-btn');
     if (craftClearBtn) craftClearBtn.addEventListener('click', () => {
+        if (tttState?.active) {
+            showToast('🫕 "Mitten im Spiel aufgeben? Das ist Verlustaversion!" *brodelt empört*');
+            return;
+        }
         for (const mat of cauldronItems) {
             addToInventory(mat, 1);
         }
@@ -3362,17 +3569,25 @@
 
     // Zauberkessel-Klicks
     document.getElementById('crafting-dialog')?.addEventListener('click', (e) => {
-        // Klick auf Item im Kessel → rausnehmen
+        // Tic-Tac-Zeh: Klick auf TTT-Feld
+        const tttCell = e.target.closest('.ttt-clickable');
+        if (tttCell && tttState?.active) {
+            const idx = parseInt(tttCell.dataset.ttt);
+            tttPlayerMove(idx);
+            return;
+        }
+
+        // Klick auf Item im Kessel → rausnehmen (nur wenn kein TTT läuft)
         const cauldronItem = e.target.closest('.cauldron-item');
-        if (cauldronItem) {
+        if (cauldronItem && !tttState) {
             const idx = parseInt(cauldronItem.dataset.index);
             removeFromCauldron(idx);
             return;
         }
 
-        // Klick auf Inventar-Item → in den Kessel werfen
+        // Klick auf Inventar-Item → in den Kessel werfen (nur wenn kein TTT)
         const invItem = e.target.closest('.craft-inv-item');
-        if (invItem) {
+        if (invItem && !tttState) {
             addToCauldron(invItem.dataset.material);
             return;
         }
