@@ -1410,6 +1410,16 @@
             }
         }
         window.grid = grid; // Chat-Integration aktuell halten
+
+        // Prozedurale Insel generieren (wenn kein gespeichertes Projekt geladen wird)
+        if (window.Terrain) {
+            const name = localStorage.getItem('insel-player-name') || 'Schatzinsel';
+            const result = window.Terrain.generate(grid, ROWS, COLS, name);
+            // Fauna initialisieren
+            if (window.Fauna) {
+                window.Fauna.init(result.animals, result.npc);
+            }
+        }
     }
 
     // --- Zeichnen ---
@@ -1566,6 +1576,11 @@
 
         // Code-View Overlay (zeigt Quellcode statt Emojis)
         drawCodeOverlay();
+
+        // Fauna: Tiere zeichnen (unter Spieler, über Terrain)
+        if (window.Fauna) {
+            window.Fauna.draw(ctx, CELL_SIZE, WATER_BORDER);
+        }
 
         // Spielfigur zuletzt zeichnen (immer sichtbar über allem)
         drawPlayer();
