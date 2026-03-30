@@ -15,4 +15,5 @@ window.INSEL_ACHIEVEMENTS = {
     architect:     { emoji: '👷', title: 'Architekt', desc: 'Haus gebaut (Holz+Tür+Dach+Glas)', check: (s) => (s.counts.wood || 0) >= 4 && (s.counts.door || 0) >= 1 && (s.counts.roof || 0) >= 2 && (s.counts.glass || 0) >= 1 },
     fisherman:     { emoji: '🎣', title: 'Fischer', desc: '5 Fische im Wasser', check: (s) => (s.counts.fish || 0) >= 5 },
     explorer:      { emoji: '🧭', title: 'Entdecker', desc: '15 verschiedene Materialien benutzt', check: (s) => s.uniqueMats >= 15 },
+    tictactoe:     { emoji: '⭕', title: 'Tic-Tac-Kessel!', desc: 'Tic-Tac-Toe gegen den Zauberkessel gespielt', check: () => localStorage.getItem('insel-tictactoe') === 'true' },
 };

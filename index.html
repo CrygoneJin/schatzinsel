@@ -65,7 +65,7 @@
                 <button class="tool-btn" id="testdata-btn" title="Testdaten" style="display:none">📊</button>
             </div>
             <div class="toolbar-group" id="craft-group">
-                <button class="tool-btn craft-open-btn" id="craft-btn" title="Werkbank">⚒️</button>
+                <button class="tool-btn craft-open-btn" id="craft-btn" title="Zauberkessel">🪄</button>
             </div>
             <div class="toolbar-group" id="genesis-group" style="display:none">
                 <button class="tool-btn" id="genesis-replay-btn" title="Genesis-Replay: Urknall in Zeitlupe">🔄</button>
@@ -195,41 +195,32 @@
         <!-- Crafting Dialog -->
         <div id="crafting-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="crafting-dialog-title">
             <div class="dialog-content crafting-content">
-                <h2 id="crafting-dialog-title">⚒️ Werkbank</h2>
-                <div class="crafting-layout">
-                    <div class="crafting-left">
+                <h2 id="crafting-dialog-title">🪄 Zauberkessel</h2>
+                <div class="cauldron-layout">
+                    <div class="cauldron-left">
                         <h3>Dein Inventar</h3>
                         <div id="craft-inventory" class="craft-inventory"></div>
-                        <p class="craft-hint">Leg Materialien rein und probier aus!</p>
+                        <p class="craft-hint">Tippe auf Items um sie in den Kessel zu werfen!</p>
                     </div>
-                    <div class="crafting-center">
-                        <div class="crafting-grid">
-                            <div class="craft-slot" id="craft-slot-0" data-index="0"></div>
-                            <div class="craft-slot" id="craft-slot-1" data-index="1"></div>
-                            <div class="craft-slot" id="craft-slot-2" data-index="2"></div>
-                            <div class="craft-slot" id="craft-slot-3" data-index="3"></div>
-                            <div class="craft-slot" id="craft-slot-4" data-index="4"></div>
-                            <div class="craft-slot" id="craft-slot-5" data-index="5"></div>
-                            <div class="craft-slot" id="craft-slot-6" data-index="6"></div>
-                            <div class="craft-slot" id="craft-slot-7" data-index="7"></div>
-                            <div class="craft-slot" id="craft-slot-8" data-index="8"></div>
+                    <div class="cauldron-center">
+                        <div class="cauldron-pot" id="cauldron-pot">
+                            <div class="cauldron-bubbles" id="cauldron-bubbles"></div>
+                            <div class="cauldron-items" id="cauldron-items"></div>
+                            <div class="cauldron-emoji">🫕</div>
                         </div>
-                        <div class="craft-arrow">➡️</div>
-                        <div class="craft-result-box" id="craft-result">
-                            <span class="craft-question">?</span>
-                        </div>
+                        <div class="cauldron-result" id="cauldron-result"></div>
                     </div>
-                    <div class="crafting-right">
-                        <h3>🔮 Was passiert?</h3>
+                    <div class="cauldron-right">
+                        <h3>📖 Rezeptbuch</h3>
                         <div id="recipe-book" class="recipe-book">
-                            <p class="craft-discover-hint">Mische die Elemente und finde heraus was entsteht!</p>
+                            <p class="craft-discover-hint">Wirf Zutaten rein und rühr um!</p>
                         </div>
                     </div>
                 </div>
                 <div id="craft-hints" class="craft-hints"></div>
                 <div class="crafting-actions">
-                    <button class="action-btn" id="do-craft-btn">⚒️ Craften!</button>
-                    <button class="action-btn" id="clear-craft-btn">🔄 Leeren</button>
+                    <button class="action-btn cauldron-stir-btn" id="do-craft-btn">🥄 Umrühren!</button>
+                    <button class="action-btn" id="clear-craft-btn">🗑️ Ausleeren</button>
                     <button class="action-btn" id="close-crafting-dialog">❌ Schließen</button>
                 </div>
             </div>

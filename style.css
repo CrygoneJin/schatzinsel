@@ -1306,20 +1306,20 @@ body.code-view-active #chat-settings-btn {
     width: 90vw;
 }
 
-.crafting-layout {
+.cauldron-layout {
     display: flex;
     gap: 16px;
     margin: 12px 0;
     align-items: flex-start;
 }
 
-.crafting-left {
+.cauldron-left {
     flex: 1;
     min-width: 120px;
 }
 
-.crafting-left h3,
-.crafting-right h3 {
+.cauldron-left h3,
+.cauldron-right h3 {
     font-size: 13px;
     margin-bottom: 6px;
     color: #555;
@@ -1396,74 +1396,142 @@ body.code-view-active #chat-settings-btn {
     font-size: 13px;
 }
 
-.crafting-center {
+.cauldron-center {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 12px;
 }
 
-.crafting-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 56px);
-    grid-template-rows: repeat(3, 56px);
-    gap: 4px;
-}
-
-.craft-slot {
-    width: 56px;
-    height: 56px;
-    background: #f5f5f5;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.cauldron-pot {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(ellipse at 50% 60%, #2C3E50, #1A252F);
+    border-radius: 50% 50% 45% 45%;
+    border: 4px solid #566573;
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 -20px 40px rgba(0,0,0,0.4);
 }
 
-.craft-slot:hover {
-    background: #e8e8e8;
-    border-color: #aaa;
+.cauldron-pot::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%; height: 30%;
+    background: radial-gradient(ellipse, rgba(100,200,100,0.3), transparent);
+    animation: cauldron-glow 2s ease-in-out infinite;
 }
 
-.craft-slot.filled {
-    background: #D5F5E3;
-    border: 2px solid #27AE60;
+@keyframes cauldron-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
 }
 
-.craft-emoji {
-    font-size: 28px;
+.cauldron-bubbles {
+    position: absolute;
+    bottom: 20%; left: 0; right: 0;
+    height: 60%;
+    pointer-events: none;
 }
 
-.craft-arrow {
-    font-size: 28px;
+.cauldron-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(100, 200, 100, 0.4);
+    animation: bubble-rise 2s ease-in infinite;
 }
 
-.craft-result-box {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, #FEF9E7, #FCF3CF);
-    border: 3px solid #F1C40F;
-    border-radius: 12px;
+@keyframes bubble-rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.6; }
+    100% { transform: translateY(-60px) scale(0.3); opacity: 0; }
+}
+
+.cauldron-items {
+    position: absolute;
+    top: 30%; left: 10%; right: 10%; bottom: 10%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    z-index: 2;
+}
+
+.cauldron-item {
+    font-size: 24px;
+    animation: item-bob 1.5s ease-in-out infinite;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.cauldron-item:nth-child(odd) { animation-delay: -0.5s; }
+.cauldron-item:nth-child(3n) { animation-delay: -1s; }
+
+@keyframes item-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.cauldron-emoji {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 48px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.cauldron-result {
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    gap: 8px;
+    font-size: 16px;
 }
 
-.craft-question {
-    font-size: 28px;
-    color: #ccc;
+.cauldron-result-emoji {
+    font-size: 36px;
+    animation: result-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.craft-result-count {
-    font-size: 11px;
-    font-weight: bold;
-    color: #8B6914;
+@keyframes result-pop {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 
-.crafting-right {
+.cauldron-stir-btn {
+    font-size: 16px !important;
+    padding: 10px 24px !important;
+    background: linear-gradient(135deg, #8E44AD, #6C3483) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    transition: transform 0.15s !important;
+}
+
+.cauldron-stir-btn:hover {
+    transform: scale(1.05);
+}
+
+.cauldron-stir-btn:active {
+    transform: scale(0.95);
+}
+
+.cauldron-stir-btn.stirring {
+    animation: stir-shake 0.3s ease-in-out infinite;
+}
+
+@keyframes stir-shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+.cauldron-right {
     flex: 1;
     min-width: 140px;
 }
@@ -1491,34 +1559,25 @@ body.code-view-active #chat-settings-btn {
     margin-top: 8px;
 }
 
-/* Mobile: Crafting vertikal stapeln */
+/* Mobile: Kessel vertikal stapeln */
 @media (max-width: 767px) {
-    .crafting-layout {
+    .cauldron-layout {
         flex-direction: column;
         align-items: center;
     }
 
-    .crafting-left,
-    .crafting-right {
+    .cauldron-left,
+    .cauldron-right {
         width: 100%;
     }
 
-    .crafting-center {
-        flex-direction: column;
+    .cauldron-pot {
+        width: 150px;
+        height: 150px;
     }
 
-    .craft-arrow {
-        transform: rotate(90deg);
-    }
-
-    .crafting-grid {
-        grid-template-columns: repeat(3, 48px);
-        grid-template-rows: repeat(3, 48px);
-    }
-
-    .craft-slot {
-        width: 48px;
-        height: 48px;
+    .cauldron-item {
+        font-size: 20px;
     }
 }
 

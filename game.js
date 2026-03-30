@@ -895,7 +895,8 @@
     // ============================================================
     const CRAFTING_RECIPES = window.INSEL_CRAFTING_RECIPES;
 
-    let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
+    // === ZAUBERKESSEL — Items reinwerfen, umrühren, staunen ===
+    let cauldronItems = []; // Array von Material-IDs im Kessel
 
     // Entdeckte Rezepte — Spieler sieht nur was er schon gefunden hat
     let discoveredRecipes = new Set(JSON.parse(localStorage.getItem('insel-discovered-recipes') || '[]'));
@@ -904,23 +905,22 @@
         localStorage.setItem('insel-discovered-recipes', JSON.stringify([...discoveredRecipes]));
     }
 
-    function getCraftingIngredients() {
+    function getCauldronIngredients() {
         const counts = {};
-        for (const slot of craftingGrid) {
-            if (slot) counts[slot] = (counts[slot] || 0) + 1;
+        for (const mat of cauldronItems) {
+            counts[mat] = (counts[mat] || 0) + 1;
         }
         return counts;
     }
 
     function findMatchingRecipe() {
-        const placed = getCraftingIngredients();
+        const placed = getCauldronIngredients();
         const placedKeys = Object.keys(placed);
         if (placedKeys.length === 0) return null;
 
         for (const recipe of CRAFTING_RECIPES) {
             const needed = recipe.ingredients;
             const neededKeys = Object.keys(needed);
-            // Exact match: same ingredients, same counts
             if (neededKeys.length !== placedKeys.length) continue;
             let match = true;
             for (const key of neededKeys) {
@@ -929,6 +929,41 @@
             if (match) return recipe;
         }
         return null;
+    }
+
+    function addToCauldron(material) {
+        if (cauldronItems.length >= 6) {
+            showToast('🫕 Der Kessel ist voll! Erst umrühren oder ausleeren.');
+            return;
+        }
+        if ((inventory[material] || 0) <= 0) return;
+        inventory[material]--;
+        if (inventory[material] <= 0) delete inventory[material];
+        saveInventory();
+        cauldronItems.push(material);
+        updateCraftingDisplay();
+        // Blubb-Sound/Animation
+        spawnCauldronBubble();
+    }
+
+    function removeFromCauldron(index) {
+        if (index < 0 || index >= cauldronItems.length) return;
+        const mat = cauldronItems.splice(index, 1)[0];
+        addToInventory(mat, 1);
+        updateCraftingDisplay();
+    }
+
+    function spawnCauldronBubble() {
+        const container = document.getElementById('cauldron-bubbles');
+        if (!container) return;
+        const bubble = document.createElement('div');
+        bubble.className = 'cauldron-bubble';
+        bubble.style.left = (20 + Math.random() * 60) + '%';
+        bubble.style.bottom = '0';
+        bubble.style.width = bubble.style.height = (6 + Math.random() * 10) + 'px';
+        bubble.style.animationDuration = (1 + Math.random() * 1.5) + 's';
+        container.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 3000);
     }
 
     function applyLlmCraft(result) {
@@ -968,11 +1003,106 @@
         return matId;
     }
 
+    // PENG-Effekte — wenn der Kessel explodiert (lustiger Fehlschlag)
+    const PENG_EFFECTS = [
+        { msg: '💥 PENG! Der Kessel rülpst! Alles voller Ruß!', effect: 'smoke' },
+        { msg: '🌈 PUFF! Ein Regenbogen-Furz! ...aber sonst nichts.', effect: 'rainbow' },
+        { msg: '💨 PFFF! Alles verdampft! Naja, Hauptsache warm.', effect: 'steam' },
+        { msg: '🐸 QUAK! Ein Frosch springt raus! ...und wieder rein.', effect: 'frog' },
+        { msg: '✨ BLING! Glitzer überall! ...aber kein Ergebnis.', effect: 'glitter' },
+        { msg: '🎵 Der Kessel singt! Leider falsch.', effect: 'music' },
+        { msg: '👀 Der Kessel guckt dich an. Dann guckt er weg.', effect: 'eyes' },
+    ];
+
+    // Zufällige Ergebnisse (20% Chance bei unbekannter Kombi)
+    const RANDOM_GIFTS = [
+        { material: 'mushroom', count: 2, msg: '🍄 Pilze! Woher kommen die?!' },
+        { material: 'flower', count: 3, msg: '🌸 Blumen! Der Kessel hat einen grünen Daumen!' },
+        { material: 'egg', count: 1, msg: '🥚 Ein Ei! Wer hat das da reingelegt?!' },
+        { material: 'honey', count: 1, msg: '🍯 Honig! Der Kessel summt zufrieden.' },
+        { material: 'feather', count: 2, msg: '🪶 Federn! Kann der Kessel fliegen?!' },
+        { material: 'shell', count: 2, msg: '🐚 Muscheln! Der Kessel war am Strand.' },
+        { material: 'star', count: 1, msg: '⭐ Ein Stern fällt aus dem Kessel! WOW!' },
+    ];
+
+    // Tic-Tac-Toe-Erkennung: ABABA-Pattern (abwechselnd 2 Materialien)
+    function checkTicTacToe() {
+        if (cauldronItems.length < 5) return false;
+        const types = [...new Set(cauldronItems)];
+        if (types.length !== 2) return false;
+        // Prüfe ABAB...-Muster
+        for (let i = 1; i < cauldronItems.length; i++) {
+            if (cauldronItems[i] === cauldronItems[i - 1]) return false;
+        }
+        return true;
+    }
+
+    // Spezielle Tic-Tac-Toe-Ergebnisse (Bill Gates, Band, Kreide + 2 Lindgren)
+    const TICTACTOE_PRIZES = [
+        { id: 'billgates', emoji: '🤓', label: 'Bill Gates', color: '#4A90D9', border: '#2E6BB0',
+          msg: '🤓 Bill Gates fällt aus dem Kessel! "Haben Sie schon Windows probiert?"' },
+        { id: 'rockband', emoji: '🎸', label: 'Die Band', color: '#E74C3C', border: '#C0392B',
+          msg: '🎸 Eine ganze Rockband springt aus dem Kessel und spielt ein Solo!' },
+        { id: 'kreide', emoji: '🖍️', label: 'Kreide', color: '#F5F5F5', border: '#D5D5D5',
+          msg: '🖍️ Kreide! Jetzt kannst du auf die Felsen malen!' },
+        { id: 'pippis_pferd', emoji: '🐴', label: 'Kleiner Onkel', color: '#D4AC0D', border: '#B7950B',
+          msg: '🐴 Kleiner Onkel! Pippis Pferd galoppiert aus dem Kessel! Er hat Goldstücke dabei!' },
+        { id: 'karlsson', emoji: '🚁', label: 'Karlsson vom Dach', color: '#F39C12', border: '#E67E22',
+          msg: '🚁 Karlsson fliegt aus dem Kessel! "Ich bin ein schöner und grundgescheiter und gerade richtig dicker Mann!"' },
+    ];
+
     async function doCraft() {
+        if (cauldronItems.length === 0) {
+            showToast('🫕 Der Kessel ist leer! Wirf erst was rein.');
+            return;
+        }
+
+        // Easter Egg: Tic-Tac-Toe!
+        if (checkTicTacToe()) {
+            localStorage.setItem('insel-tictactoe', 'true');
+
+            const stirBtn = document.getElementById('do-craft-btn');
+            if (stirBtn) stirBtn.classList.add('stirring');
+            await new Promise(r => setTimeout(r, 1200));
+            if (stirBtn) stirBtn.classList.remove('stirring');
+
+            // Zufälliger Preis
+            const prize = TICTACTOE_PRIZES[Math.floor(Math.random() * TICTACTOE_PRIZES.length)];
+
+            // Material registrieren wenn nicht vorhanden
+            if (!MATERIALS[prize.id]) {
+                MATERIALS[prize.id] = { emoji: prize.emoji, label: prize.label, color: prize.color, border: prize.border };
+            }
+
+            cauldronItems = [];
+            addToInventory(prize.id, 1);
+            unlockMaterial(prize.id);
+            soundCraft();
+            showCauldronResult(prize.emoji, prize.msg);
+            showToast(`⭕❌ TIC-TAC-TOE! ${prize.msg}`, 5000);
+            if (window.soundAchievement) window.soundAchievement();
+            updateCraftingDisplay();
+            return;
+        }
+
+        // Rühr-Animation
+        const stirBtn = document.getElementById('do-craft-btn');
+        if (stirBtn) stirBtn.classList.add('stirring');
+        const pot = document.getElementById('cauldron-pot');
+        if (pot) pot.style.animation = 'cauldron-glow 0.3s ease-in-out 3';
+
+        // Kurze Pause für Dramatik
+        await new Promise(r => setTimeout(r, 900));
+        if (stirBtn) stirBtn.classList.remove('stirring');
+        if (pot) pot.style.animation = '';
+
+        // Blasen-Burst
+        for (let i = 0; i < 5; i++) spawnCauldronBubble();
+
         const recipe = findMatchingRecipe();
         if (recipe) {
-            // Festes Rezept gefunden — normaler Crafting-Ablauf
-            craftingGrid = Array(9).fill(null);
+            // 80% — Rezept gefunden!
+            cauldronItems = [];
             addToInventory(recipe.result, recipe.resultCount);
             unlockMaterial(recipe.result);
             const isNew = !discoveredRecipes.has(recipe.name);
@@ -980,21 +1110,54 @@
             saveDiscoveredRecipes();
             soundCraft();
             const info = MATERIALS[recipe.result];
+            showCauldronResult(info.emoji, isNew ? recipe.desc : `${recipe.resultCount}x ${info.label}`);
             if (isNew) {
-                showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`);
+                showToast(`🔮 Neues Rezept entdeckt: ${info.emoji} ${recipe.desc}!`, 4000);
             } else {
-                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label} hergestellt!`);
+                showToast(`✨ ${info.emoji} ${recipe.resultCount}x ${info.label}!`);
             }
             trackEvent('craft', { recipe: recipe.name, result: recipe.result });
             updateCraftingDisplay();
             return;
         }
 
-        // Kein festes Rezept — LLM-Fallback
-        const placed = getCraftingIngredients();
+        // Kein festes Rezept — Zufall!
+        const roll = Math.random();
+
+        if (roll < 0.3) {
+            // 30% — PENG! (lustiger Fehlschlag, Items weg)
+            const peng = PENG_EFFECTS[Math.floor(Math.random() * PENG_EFFECTS.length)];
+            cauldronItems = [];
+            showCauldronResult('💥', peng.msg);
+            showToast(peng.msg, 3000);
+            updateCraftingDisplay();
+            return;
+        }
+
+        if (roll < 0.5) {
+            // 20% — Zufallsgeschenk!
+            const gift = RANDOM_GIFTS[Math.floor(Math.random() * RANDOM_GIFTS.length)];
+            cauldronItems = [];
+            addToInventory(gift.material, gift.count);
+            unlockMaterial(gift.material);
+            soundCraft();
+            const info = MATERIALS[gift.material];
+            showCauldronResult(info.emoji, gift.msg);
+            showToast(gift.msg, 3000);
+            updateCraftingDisplay();
+            return;
+        }
+
+        // 50% — LLM-Fallback (2er-Kombination)
+        const placed = getCauldronIngredients();
         const placedKeys = Object.keys(placed).sort();
         if (placedKeys.length < 2) {
-            showToast('🤔 Kein Rezept gefunden!');
+            // Nur 1 Zutat, kein Rezept → Peng
+            const peng = PENG_EFFECTS[Math.floor(Math.random() * PENG_EFFECTS.length)];
+            cauldronItems = [];
+            showCauldronResult('💨', peng.msg);
+            showToast(peng.msg, 3000);
+            updateCraftingDisplay();
             return;
         }
 
@@ -1006,19 +1169,20 @@
         if (cached) {
             try {
                 const result = JSON.parse(cached);
-                craftingGrid = Array(9).fill(null);
+                cauldronItems = [];
                 applyLlmCraft(result);
+                showCauldronResult(result.emoji, result.name);
             } catch (e) {
                 localStorage.removeItem(pairKey);
-                showToast('🤔 Cache-Fehler, bitte nochmal versuchen!');
+                showToast('🤔 Der Kessel grummelt... nochmal versuchen!');
             }
+            updateCraftingDisplay();
             return;
         }
 
         // Worker anfragen
-        const craftBtn = document.getElementById('craft-btn');
-        if (craftBtn) craftBtn.disabled = true;
-        showToast('🔮 Die Insel denkt nach...');
+        if (stirBtn) stirBtn.disabled = true;
+        showToast('🫕 Der Kessel brodelt...');
 
         try {
             const discoverer = localStorage.getItem('insel-player-name') || 'Unbekannt';
@@ -1032,13 +1196,28 @@
 
             const result = await response.json();
             localStorage.setItem(pairKey, JSON.stringify(result));
-            craftingGrid = Array(9).fill(null);
+            cauldronItems = [];
             applyLlmCraft(result);
+            showCauldronResult(result.emoji, result.name);
         } catch (err) {
-            showToast('🤔 Kein Rezept gefunden!');
+            // Offline/Error → Zufallsgeschenk statt Fehler
+            const gift = RANDOM_GIFTS[Math.floor(Math.random() * RANDOM_GIFTS.length)];
+            cauldronItems = [];
+            addToInventory(gift.material, gift.count);
+            const info = MATERIALS[gift.material];
+            showCauldronResult(info.emoji, '🏝️ Offline-Magie! ' + gift.msg);
+            showToast('🏝️ Kein Internet — der Kessel improvisiert!', 3000);
         } finally {
-            if (craftBtn) craftBtn.disabled = false;
+            if (stirBtn) stirBtn.disabled = false;
         }
+        updateCraftingDisplay();
+    }
+
+    function showCauldronResult(emoji, text) {
+        const resultBox = document.getElementById('cauldron-result');
+        if (!resultBox) return;
+        resultBox.innerHTML = `<span class="cauldron-result-emoji">${emoji}</span> <span>${text}</span>`;
+        setTimeout(() => { resultBox.innerHTML = ''; }, 5000);
     }
 
     function openCraftingDialog() {
@@ -1052,67 +1231,46 @@
     function closeCraftingDialog() {
         const dialog = document.getElementById('crafting-dialog');
         if (dialog) dialog.classList.add('hidden');
-        // Return crafting grid items to inventory
-        for (let i = 0; i < 9; i++) {
-            if (craftingGrid[i]) {
-                addToInventory(craftingGrid[i]);
-                craftingGrid[i] = null;
-            }
+        // Kessel-Items zurück ins Inventar
+        for (const mat of cauldronItems) {
+            addToInventory(mat, 1);
         }
+        cauldronItems = [];
     }
 
     let selectedInventoryItem = null;
 
     function updateCraftingDisplay() {
-        // Update crafting grid slots
-        for (let i = 0; i < 9; i++) {
-            const slot = document.getElementById('craft-slot-' + i);
-            if (!slot) continue;
-            if (craftingGrid[i]) {
-                const info = MATERIALS[craftingGrid[i]];
-                slot.innerHTML = `<span class="craft-emoji">${info.emoji}</span>`;
-                slot.classList.add('filled');
-            } else {
-                slot.innerHTML = '';
-                slot.classList.remove('filled');
-            }
+        // Kessel-Items anzeigen
+        const cauldronItemsEl = document.getElementById('cauldron-items');
+        if (cauldronItemsEl) {
+            cauldronItemsEl.innerHTML = cauldronItems.map((mat, i) => {
+                const info = MATERIALS[mat];
+                if (!info) return '';
+                return `<span class="cauldron-item" data-index="${i}" title="${info.label} (klick = rausnehmen)">${info.emoji}</span>`;
+            }).join('');
         }
 
-        // Update recipe preview
-        const recipe = findMatchingRecipe();
-        const preview = document.getElementById('craft-result');
-        if (preview) {
-            if (recipe) {
-                const info = MATERIALS[recipe.result];
-                preview.innerHTML = `<span class="craft-emoji">${info.emoji}</span><span class="craft-result-count">${recipe.resultCount > 1 ? recipe.resultCount + 'x' : ''}</span>`;
-                preview.title = recipe.name;
-            } else {
-                preview.innerHTML = '<span class="craft-question">?</span>';
-                preview.title = '';
-            }
-        }
-
-        // Update inventory items in crafting dialog
+        // Inventar im Kessel-Dialog
         const invList = document.getElementById('craft-inventory');
         if (invList) {
             const items = Object.entries(inventory).filter(([, count]) => count > 0);
             invList.innerHTML = items.map(([mat, count]) => {
                 const info = MATERIALS[mat];
                 if (!info) return '';
-                const selected = selectedInventoryItem === mat ? ' selected' : '';
-                return `<div class="craft-inv-item${selected}" data-material="${mat}" title="${info.label}">
+                return `<div class="craft-inv-item" data-material="${mat}" title="${info.label} — tippe zum Reinwerfen">
                     <span class="inv-emoji">${info.emoji}</span>
                     <span class="inv-count">${count}</span>
                 </div>`;
-            }).join('') || '<p class="inv-empty">Inventar leer!</p>';
+            }).join('') || '<p class="inv-empty">Inventar leer! Ernte zuerst Materialien.</p>';
         }
 
-        // Update recipe book — nur entdeckte Rezepte zeigen
+        // Rezeptbuch — nur entdeckte Rezepte
         const recipeBook = document.getElementById('recipe-book');
         if (recipeBook) {
             const discovered = CRAFTING_RECIPES.filter(r => discoveredRecipes.has(r.name));
             if (discovered.length === 0) {
-                recipeBook.innerHTML = '<p class="craft-discover-hint">Mische die Elemente und finde heraus was entsteht!</p>';
+                recipeBook.innerHTML = '<p class="craft-discover-hint">Wirf Zutaten in den Kessel und rühr um!</p>';
             } else {
                 recipeBook.innerHTML = discovered.map(r => {
                     const info = MATERIALS[r.result];
@@ -1121,11 +1279,10 @@
             }
         }
 
-        // Crafting-Hints: Zeige bis zu 3 machbare Rezepte (Ergebnis bleibt ???)
+        // Hints: machbare Rezepte
         const hintsBox = document.getElementById('craft-hints');
         if (hintsBox) {
             const craftable = CRAFTING_RECIPES.filter(r => {
-                // Prüfe ob alle Zutaten im Inventar vorhanden (inklusive Grid-Inhalt nicht abziehen)
                 return Object.entries(r.ingredients).every(([mat, needed]) => {
                     return (inventory[mat] || 0) >= needed;
                 });
@@ -3196,38 +3353,27 @@
 
     const craftClearBtn = document.getElementById('clear-craft-btn');
     if (craftClearBtn) craftClearBtn.addEventListener('click', () => {
-        for (let i = 0; i < 9; i++) {
-            if (craftingGrid[i]) {
-                addToInventory(craftingGrid[i]);
-                craftingGrid[i] = null;
-            }
+        for (const mat of cauldronItems) {
+            addToInventory(mat, 1);
         }
+        cauldronItems = [];
         updateCraftingDisplay();
     });
 
-    // Crafting grid slot clicks
+    // Zauberkessel-Klicks
     document.getElementById('crafting-dialog')?.addEventListener('click', (e) => {
-        // Click on crafting slot → remove item back to inventory
-        const slot = e.target.closest('.craft-slot');
-        if (slot) {
-            const idx = parseInt(slot.dataset.index);
-            if (craftingGrid[idx]) {
-                addToInventory(craftingGrid[idx]);
-                craftingGrid[idx] = null;
-                updateCraftingDisplay();
-            } else if (selectedInventoryItem && getInventoryCount(selectedInventoryItem) > 0) {
-                removeFromInventory(selectedInventoryItem);
-                craftingGrid[idx] = selectedInventoryItem;
-                updateCraftingDisplay();
-            }
+        // Klick auf Item im Kessel → rausnehmen
+        const cauldronItem = e.target.closest('.cauldron-item');
+        if (cauldronItem) {
+            const idx = parseInt(cauldronItem.dataset.index);
+            removeFromCauldron(idx);
             return;
         }
 
-        // Click on inventory item → select it
+        // Klick auf Inventar-Item → in den Kessel werfen
         const invItem = e.target.closest('.craft-inv-item');
         if (invItem) {
-            selectedInventoryItem = invItem.dataset.material;
-            updateCraftingDisplay();
+            addToCauldron(invItem.dataset.material);
             return;
         }
     });
