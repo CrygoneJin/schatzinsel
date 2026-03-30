@@ -1,54 +1,81 @@
 # Lektorats-Anfragen
 
-## Mail 1: Christoph Biemann (Sendung mit der Maus)
+## Mail 1: Christoph Biemann
+
+**Kontext:** Christoph Biemann, geboren 1942. Seit 1972 in der Sendung mit der Maus. Grüner Pullover. Hat Kindern erklärt wie Löcher in den Käse kommen, warum der Himmel blau ist, und wie ein Aufzug funktioniert — ohne je das Wort "eigentlich" zu benutzen. Sein Prinzip: zeigen statt erklären. Die Kamera folgt seinen Händen, nicht seinem Mund. Er hat nie eine Sachgeschichte mit "Heute lernen wir..." begonnen. Er fängt einfach an. 50 Jahre. Grüner Pullover. Immer derselbe.
 
 **An:** WDR Redaktion "Die Sendung mit der Maus" / redaktion@wdrmaus.de
-**Betreff:** Buchprojekt — "Wie ein Vater mit KI ein Spiel für seinen Sohn baut"
+**Betreff:** Eine Sachgeschichte die sich selbst erzählt hat
 
 Lieber Christoph,
 
-ein Vater mit 30-Minuten-Zeitfenstern (zwischen Gartenarbeit und Kindern) hat mit KI-Agenten ein Bauspiel für seinen 8-jährigen Sohn gebaut. Auf einer Insel. Mit fünf chinesischen Elementen.
+Sie hätten einfach angefangen. Keine Einleitung, keine Erklärung. Die Kamera zeigt Ihre Hände, und die Hände bauen.
 
-Dabei ist etwas Unerwartetes passiert: Die Quark-Farbladungen der Teilchenphysik (rot, grün, blau) haben sich als identisch mit den Wu-Xing-Farben herausgestellt. Ein Astrophysiker hat am Strand Kaffee getrunken und einem Kinderspiel die Entstehung des Universums erklärt. Und der 8-Jährige hat gesagt: "Papa, warum kann ich mich nicht bewegen?"
+Genau das ist hier passiert — nur mit einer Tastatur statt einem grünen Pullover. Ein Vater hat zwischen Gartenarbeit und Abendbrot ein Spiel für seinen 8-jährigen Sohn gebaut. Eine Insel. Fünf Elemente. Metall, Holz, Feuer, Wasser, Erde.
 
-Daraus soll ein Buch werden. Kein Sachbuch. Kein Roman. Etwas dazwischen — wie eine Lach- und Sachgeschichte in Buchform. Ein Kind baut eine Insel und entdeckt dabei, ohne es zu wissen, Physik, Philosophie und chinesische Kosmologie.
+Und dann kam die Sachgeschichte von allein: Die fünf Farben im Spiel (weiß, grün, rot, blau, gelb) sind dieselben wie die Farbladungen der Quarks in der Teilchenphysik. Das hat niemand geplant. Es ist einfach passiert — wie Löcher im Käse.
 
-Wir suchen jemanden der das lektorieren kann. Jemanden der komplizierte Dinge einfach erklären kann, ohne sie dumm zu machen. Uns fällt da eigentlich nur einer ein.
+Oscar, 8 Jahre, hat das Spiel getestet. Sein einziger Kommentar: "Papa, warum kann ich mich nicht bewegen?" Die Antwort war eine fehlende Zeile Code. Nicht Quantenphysik. Manchmal sind die wichtigsten Fragen die einfachsten.
 
-Hätten Sie Lust, das Manuskript zu lesen?
+Daraus wird ein Buch. Kein Schulbuch. Eher eine Sachgeschichte in Kapiteln. Ein Kind baut eine Insel und entdeckt dabei Dinge die Erwachsene in Vorlesungen lernen — ohne es zu merken. Wie bei Ihnen. Nur mit Tastatur.
 
-Das Spiel: https://schatzinsel.app
-Der Code: https://github.com/CrygoneJin/schatzinsel
+Wir suchen keinen Lektor der Kommafehler findet. Wir suchen jemanden der sagt: "Das versteht kein Kind" oder "Das versteht jedes Kind — streich die Erklärung."
 
-Mit freundlichen Grüßen,
-Till (der Vater) und Oscar (der Architekt)
+Würden Sie es lesen?
+
+https://schatzinsel.app — einfach auf "Los!" drücken. Wie eine Sachgeschichte. Keine Anleitung.
+
+Till und Oscar
 
 ---
 
-## Mail 2: Randall Munroe (xkcd / What If)
+## Mail 2: Randall Munroe
 
-**An:** xkcd@xkcd.com oder über Verlag Houghton Mifflin Harcourt
-**Betreff:** A father, an AI, a kid, and accidental quantum physics
+**Kontext:** Randall Munroe, geboren 1984. NASA-Robotiker bis 2006, dann xkcd — Strichmännchen-Webcomic der Physik, Informatik und Absurdität verbindet. "What If?" beantwortet Fragen wie "Was wäre wenn man einen Baseball mit Lichtgeschwindigkeit wirft?" mit echter Physik und trockenem Humor. "Thing Explainer" erklärt komplizierte Dinge nur mit den 1000 häufigsten Wörtern. Sein Prinzip: Nimm die Frage ernst, egal wie absurd. Rechne es durch. Zeichne es. Mach keinen Witz über die Frage — mach den Witz mit der Antwort.
+
+**An:** xkcd@xkcd.com
+**Betreff:** What if a kid's game accidentally recreated quark color charges?
 
 Dear Randall,
 
-A father built a game for his 8-year-old son using AI agents. An island. Five Chinese elements (Wu Xing). Infinite crafting — when no recipe exists, the AI invents one and the kid becomes the "discoverer."
+What if a father built a crafting game for his 8-year-old using AI agents, assigned five colors to five Chinese elements (Wu Xing), and then realized the color mapping was identical to QCD color charges?
 
-Then something unexpected happened. The Wu Xing colors (red, green, blue, white, yellow) turned out to map to quark color charges. A physicist sat on the beach and explained particle physics to a children's game. And the kid said: "Dad, why can't I move?"
+That's not a hypothetical. It happened.
 
-We're writing a book about it. Not a textbook. Not a novel. Something in between — like "What If?" but for building things. A kid builds an island and accidentally discovers physics, philosophy, and Chinese cosmology.
+```
+Red    = Fire  = color charge red
+Green  = Wood  = color charge green
+Blue   = Water = color charge blue
+White  = Metal = color-neutral (r+g+b = white)
+Yellow = Earth = binding energy → first light
+```
 
-The structure follows the expansion of the universe: Big Bang (first commit), Dark Ages (infrastructure), Inflation (the night everything happened), Big Crunch (the kid's one question that compresses everything).
+Nobody planned this. A game about building islands turned out to encode particle physics. The Chinese figured this out 2,500 years ago without a particle accelerator. They just watched wood burn and water flow.
 
-We're looking for someone who can review the manuscript. Someone who explains complicated things simply without making them dumb. You came to mind.
+The game uses "Infinite Craft" — when no recipe exists, an LLM invents one. The kid becomes the "discoverer." We benchmarked recipe quality using an 80/20 Fibonacci/Exponential growth strategy (143 craft pairs, measured emoji accuracy, name diversity, single-character compliance). The LLM scores 100% on structural criteria but only 14% emoji diversity — because Unicode has 3,790 emojis but only ~20 relevant tool/weapon ones.
 
-Would you be interested in reading it?
+The kid's first test session produced one bug report: "Dad, why can't I move?" The fix was a missing `requestRedraw()` call. Not quantum physics. Sometimes the answer to the biggest question is one line of code.
 
-The game: https://schatzinsel.app
-The code: https://github.com/CrygoneJin/schatzinsel
-The physics: Wu Xing colors = quark color charges. White (metal) = color-neutral bound atom. Yellow (earth) = binding energy → first light of the universe.
+We're writing a book about it. The structure follows the expansion of the universe:
+
+- **Big Bang:** First commit (`feat: Oskars Insel-Architekt`)
+- **Dark Ages:** Infrastructure (Workers, DNS, MCP servers)
+- **Cosmic Inflation:** The night 12 sprints happened (32MB session transcript)
+- **Big Crunch:** "Dad, why can't I move?"
+- **New Big Bang:** Oscar builds again tomorrow
+
+We need someone to review the manuscript. Not for commas — for hand-waving. Someone who would say "you claimed Wu Xing maps to QCD but you skipped the gluon field" or "that Fibonacci benchmark is cute but your sample size is 88."
+
+You'd also be the fourth patron saint of the project. The Dalai Lama protects against over-engineering ("Don't disturb it"). Astrid Lindgren protects against seriousness ("Where's the nonsense?"). Michael Ende protects against shallowness ("What's underneath?").
+
+You'd protect against hand-waving. The xkcd guy who says: "Show me the math."
+
+Interested?
+
+https://schatzinsel.app — click "Los!" and build.
+https://github.com/CrygoneJin/schatzinsel — read `materials.js` line 4-16 for the physics.
 
 Best,
 Till (the father) and Oscar (the architect, age 8)
 
-P.S. — The AI agents have a "patron saint" system. The Dalai Lama protects against over-engineering. Astrid Lindgren protects against seriousness. Michael Ende protects against shallowness. We think you'd protect against hand-waving.
+P.S. — The game has a recipe for "Katzengold" (cat's gold): Sand + Sun + 💩 = ✨. Astrid Lindgren approved.
