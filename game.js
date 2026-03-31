@@ -756,7 +756,7 @@
     let hoerspielSpeaking = false;
 
     function speakLines(lines, onDone) {
-        if (!window.speechSynthesis) {
+        if (!window.speechSynthesis || INSEL_SOUND.isMuted()) {
             if (onDone) onDone();
             return;
         }
@@ -776,7 +776,7 @@
             if (index === 0) soundAchievement();
             index++;
 
-            if (!text) { setTimeout(speakNext, 500); return; }
+            if (!text || INSEL_SOUND.isMuted()) { setTimeout(speakNext, 500); return; }
 
             const utter = new SpeechSynthesisUtterance(text);
             utter.lang = 'de-DE';
@@ -3753,6 +3753,7 @@
         muteBtn.addEventListener('click', () => {
             const nowMuted = !INSEL_SOUND.isMuted();
             INSEL_SOUND.setMuted(nowMuted);
+            if (nowMuted && window.speechSynthesis) window.speechSynthesis.cancel();
             muteBtn.textContent = nowMuted ? '🔇' : '🔊';
             showToast(nowMuted ? 'Ton aus' : 'Ton an');
         });
