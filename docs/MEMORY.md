@@ -12,6 +12,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
 | 2026-03-31 | `const replayBtn` doppelt deklariert → ganzes JS gecrasht → Intro-Screen blockiert | Zwei Sessions haben unabhängig denselben Variablennamen auf IIFE-top-level verwendet. Kein Lint, kein Check, niemand merkt es. | `node --check *.js` vor jedem Commit. Pre-commit Hook installiert. Ohne CI läuft alles durch. |
+| 2026-03-31 | iPhone-Flicker: Insel blitzt kurz auf dann verschwindet | Intro-Overlay wurde bei Zeile ~1604 sofort ausgeblendet, Canvas erst ~2200 Zeilen später initialisiert. Race Condition nur auf langsamem iPhone sichtbar. | UI-Overlay erst entfernen NACHDEM der darunterliegende Content gerendert ist. Reihenfolge: init → draw() → overlay.hide(). |
 | 2026-03-30 | SPRINT.md hatte Review-Einträge ohne Code ("Phantom-Done") | Vorherige Session hat Review vorausgeschrieben bevor Implementierung existierte | Review-Einträge erst schreiben wenn Code committed ist. Nie vorausschreiben. |
 | 2026-03-30 | Local main (b3e8a1a) vs origin/main (0f1a162) divergiert — 87 vs 57 Commits | force-push auf origin/main durch vorherige Session | `git fetch origin` IMMER vor allem anderen. Divergenz prüfen bevor man tippt. |
 | 2026-03-27 | Claude antwortet auf Englisch obwohl Config deutsch sagt | `language: en` in Config, aber User spricht Deutsch. Drei Versuche gebraucht. | Sprache IMMER in CLAUDE.md als erste Zeile setzen, nicht in Settings. |
