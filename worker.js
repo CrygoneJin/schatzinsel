@@ -43,7 +43,8 @@ export default {
             return json({ error: 'POST only' }, 405);
         }
 
-        // Rate Limit (Cloudflare KV optional, sonst skip)
+        // Rate Limit (KV optional — wenn nicht konfiguriert, kein Limit)
+        // TODO: RATE_LIMIT_KV als KV Namespace Binding setzen für Produktion
         if (env.RATE_LIMIT_KV) {
             const ip = request.headers.get('cf-connecting-ip') || 'unknown';
             const key = `rate:${ip}`;
@@ -284,7 +285,12 @@ async function handleBugs(request, env) {
         return json({ ok: true, id: key });
     }
 
-    // GET = alle Bugs lesen
+    // GET = alle Bugs lesen — nur mit Secret-Key
+    const url = new URL(request.url);
+    const secret = url.searchParams.get('key');
+    if (!secret || secret !== (env.BUGS_SECRET || '')) {
+        return json({ error: 'Nicht autorisiert' }, 401);
+    }
     const list = await env.CRAFT_KV.list({ prefix: 'bug:' });
     const bugs = [];
     for (const key of list.keys) {
