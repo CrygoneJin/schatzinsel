@@ -104,6 +104,17 @@ window.INSEL_MATERIALS = {
     catgold:  { emoji: '✨', label: 'Katzengold', color: '#FFD700', border: '#DAA520' },
     pancake:  { emoji: '🥞', label: 'Eierkuchen', color: '#F5DEB3', border: '#DCC89E' },
     aircastle:{ emoji: '🏰', label: 'Luftschloss', color: '#D6EAF8', border: '#AED6F1' },
+    // === NOCH MEHR UNSINN (Backlog #58 — Lindgren-approved) ===
+    firecake:       { emoji: '🔥', label: 'Feuerkuchen',    color: '#FF6347', border: '#DC143C' },
+    dragoncake:     { emoji: '🐉', label: 'Drachentorte',   color: '#8B0000', border: '#660000' },
+    ghostship:      { emoji: '👻', label: 'Geisterschiff',  color: '#B0C4DE', border: '#8B9DC3' },
+    mooncheese:     { emoji: '🧀', label: 'Mondkäse',       color: '#FFE4B5', border: '#FFDAB9' },
+    snowdragon:     { emoji: '❄️', label: 'Schneedrache',   color: '#B0E0E6', border: '#87CEEB' },
+    wormhole:       { emoji: '🌀', label: 'Wurmloch',       color: '#4B0082', border: '#2E0054' },
+    beesting:       { emoji: '🍰', label: 'Bienenstich',    color: '#F0E68C', border: '#DAA520' },
+    fishstick:      { emoji: '🐟', label: 'Fischstäbchen',  color: '#F5DEB3', border: '#DEB887' },
+    shootingstar:   { emoji: '🌠', label: 'Sternschnuppe',  color: '#FFD700', border: '#FFA500' },
+    thunderweather: { emoji: '⛈️', label: 'Donnerwetter',  color: '#696969', border: '#4A4A4A' },
     // === GEBÄUDE (4×4 Bauplan-Ergebnisse) ===
     hut:      { emoji: '🛖', label: 'Hütte',       color: '#A0522D', border: '#8B4513' },
     tower:    { emoji: '🗼', label: 'Turm',         color: '#C0C0C0', border: '#A0A0A0' },
