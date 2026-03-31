@@ -316,25 +316,35 @@
         try {
             const ctx = ensureAudio();
             const t = ctx.currentTime;
-            // Tiefer Schlag
+            // Layer 1: Tiefer Schlag (Wucht) — lauter, länger
             const osc1 = ctx.createOscillator();
             const g1 = ctx.createGain();
             osc1.type = 'square';
-            osc1.frequency.setValueAtTime(180, t);
-            osc1.frequency.exponentialRampToValueAtTime(60, t + 0.15);
-            g1.gain.setValueAtTime(0.35, t);
-            g1.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+            osc1.frequency.setValueAtTime(200, t);
+            osc1.frequency.exponentialRampToValueAtTime(50, t + 0.18);
+            g1.gain.setValueAtTime(0.5 * masterVolume, t);
+            g1.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
             osc1.connect(g1); g1.connect(ctx.destination);
-            osc1.start(t); osc1.stop(t + 0.2);
-            // Heller Klick obendrauf
+            osc1.start(t); osc1.stop(t + 0.25);
+            // Layer 2: Heller Klick (Attack)
             const osc2 = ctx.createOscillator();
             const g2 = ctx.createGain();
             osc2.type = 'triangle';
-            osc2.frequency.value = 800;
-            g2.gain.setValueAtTime(0.2, t);
-            g2.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+            osc2.frequency.value = 900;
+            g2.gain.setValueAtTime(0.3 * masterVolume, t);
+            g2.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
             osc2.connect(g2); g2.connect(ctx.destination);
-            osc2.start(t); osc2.stop(t + 0.08);
+            osc2.start(t); osc2.stop(t + 0.1);
+            // Layer 3: Sub-Bass (Bauch-Feeling, Minecraft-artig)
+            const osc3 = ctx.createOscillator();
+            const g3 = ctx.createGain();
+            osc3.type = 'sine';
+            osc3.frequency.setValueAtTime(80, t);
+            osc3.frequency.exponentialRampToValueAtTime(30, t + 0.3);
+            g3.gain.setValueAtTime(0.4 * masterVolume, t);
+            g3.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+            osc3.connect(g3); g3.connect(ctx.destination);
+            osc3.start(t); osc3.stop(t + 0.3);
         } catch (e) {}
     }
 
