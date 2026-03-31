@@ -465,6 +465,62 @@
         trackEvent('easter_egg', { material, egg: egg.slice(0, 30) });
     }
 
+    // --- NPC-Positionen auf der Insel ---
+    // Questgeber die auf dem Grid stehen und anklickbar sind
+    const NPC_DEFS = {
+        spongebob: { emoji: '🧽', name: 'SpongeBob' },
+        maus:      { emoji: '🐭', name: 'Maus' },
+        elefant:   { emoji: '🐘', name: 'Elefant' },
+        neinhorn:  { emoji: '🦄', name: 'NEINhorn' },
+        krabs:     { emoji: '🦀', name: 'Mr. Krabs' },
+        tommy:     { emoji: '🦞', name: 'Tommy' },
+    };
+
+    // NPCs im Kreis um die Inselmitte verteilen
+    function getNpcPositions() {
+        const cx = Math.floor(COLS / 2);
+        const cy = Math.floor(ROWS / 2);
+        const rx = Math.floor(COLS * 0.3);
+        const ry = Math.floor(ROWS * 0.3);
+        const ids = Object.keys(NPC_DEFS);
+        const positions = {};
+        ids.forEach((id, i) => {
+            const angle = (i / ids.length) * Math.PI * 2 - Math.PI / 2;
+            const r = Math.min(ROWS - 1, Math.max(0, cy + Math.round(Math.sin(angle) * ry)));
+            const c = Math.min(COLS - 1, Math.max(0, cx + Math.round(Math.cos(angle) * rx)));
+            positions[id] = { r, c };
+        });
+        return positions;
+    }
+
+    const npcPositions = getNpcPositions();
+
+    function getNpcAt(r, c) {
+        for (const [id, pos] of Object.entries(npcPositions)) {
+            if (pos.r === r && pos.c === c) return id;
+        }
+        return null;
+    }
+
+    function showNpcQuestDialog(npcId) {
+        const npc = NPC_DEFS[npcId];
+        if (!npc) return;
+        const quest = window.questSystem.getAvailable(npcId);
+        const active = window.questSystem.getActive().find(q => q.npc === npcId);
+        if (active) {
+            showToast(`${npc.emoji} ${npc.name}: Ich warte noch auf "${active.title}"!`, 3000);
+        } else if (quest) {
+            showToast(`${npc.emoji} ${quest.desc}`, 5000);
+            window.questSystem.accept(quest);
+        } else {
+            const voice = NPC_VOICES[npcId];
+            if (voice) {
+                const tick = voice.ticks[Math.floor(Math.random() * voice.ticks.length)];
+                showToast(`${npc.emoji} ${voice.prefix} ${tick}`, 2000);
+            }
+        }
+    }
+
     // --- NPC-Kommentare beim Bauen ---
     // === GENERATIVE NPC-KOMMENTARE ===
     // Baustein-System: Satzteile werden live gemischt = unendliche Kombinationen
@@ -1869,6 +1925,45 @@
             ctx.fillText(playerName, px, py - CELL_SIZE * 0.52);
         }
 
+        // NPCs zeichnen
+        for (const [id, pos] of Object.entries(npcPositions)) {
+            const npc = NPC_DEFS[id];
+            const nx = (pos.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
+            const ny = (pos.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
+            // Leichtes Wippen
+            const bob = Math.sin(time * 2 + pos.r + pos.c) * 2;
+            // Emoji
+            ctx.font = `${CELL_SIZE * 0.6}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(npc.emoji, nx, ny + bob);
+            // Name
+            ctx.font = `bold ${Math.max(8, CELL_SIZE * 0.25)}px sans-serif`;
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+            ctx.lineWidth = 2;
+            ctx.strokeText(npc.name, nx, ny - CELL_SIZE * 0.45);
+            ctx.fillText(npc.name, nx, ny - CELL_SIZE * 0.45);
+            // Quest-Indikator
+            const hasQuest = window.questSystem?.getAvailable(id);
+            const hasActive = window.questSystem?.getActive().find(q => q.npc === id);
+            if (hasQuest) {
+                ctx.font = `bold ${CELL_SIZE * 0.35}px sans-serif`;
+                ctx.fillStyle = '#F1C40F';
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.strokeText('❗', nx + CELL_SIZE * 0.3, ny - CELL_SIZE * 0.3);
+                ctx.fillText('❗', nx + CELL_SIZE * 0.3, ny - CELL_SIZE * 0.3);
+            } else if (hasActive) {
+                ctx.font = `bold ${CELL_SIZE * 0.35}px sans-serif`;
+                ctx.fillStyle = '#3498DB';
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.strokeText('❓', nx + CELL_SIZE * 0.3, ny - CELL_SIZE * 0.3);
+                ctx.fillText('❓', nx + CELL_SIZE * 0.3, ny - CELL_SIZE * 0.3);
+            }
+        }
+
         // Hover-Vorschau
         if (hoverCell) {
             const hx = (hoverCell.c + WATER_BORDER) * CELL_SIZE;
@@ -2063,6 +2158,8 @@
     function applyTool(r, c) {
         // Wasser-Rand (äußere 2 Reihen/Spalten) ist nicht bebaubar
         if (r < 2 || r >= ROWS - 2 || c < 2 || c >= COLS - 2) return;
+        // NPCs nicht überbauen
+        if (getNpcAt(r, c)) return;
 
         if (currentTool === 'build') {
             // Hinweis: Klick auf Baum/Pflanze im Bau-Modus → Ernte-Tipp (max 1x pro 30s)
@@ -3132,6 +3229,8 @@
         undoPushedThisStroke = false;
         const cell = getGridCell(e);
         if (cell) {
+            const npcId = getNpcAt(cell.r, cell.c);
+            if (npcId) { showNpcQuestDialog(npcId); isMouseDown = false; return; }
             applyTool(cell.r, cell.c);
         }
     });
@@ -3171,6 +3270,9 @@
         touchStartY = touchEndY = touch.clientY;
         const cell = getGridCell(touch);
         if (!cell) return;
+        // NPC antippen → Quest-Dialog
+        const npcId = getNpcAt(cell.r, cell.c);
+        if (npcId) { showNpcQuestDialog(npcId); return; }
         // Spielfigur-Drag: Berühre die Spieler-Zelle → Figur ziehen
         if (playerName && cell.r === playerPos.r && cell.c === playerPos.c) {
             playerDragging = true;
