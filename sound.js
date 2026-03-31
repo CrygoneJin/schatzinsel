@@ -139,6 +139,133 @@
         water:  { freq: C4 * 27/16, wave: 'sine',     dur: 0.30, vol: 0.09, glide: C3 * 27/16 },
     };
 
+    // === GENRE-TONSEQUENZEN (Backlog #85) ===
+    // Jedes Genre hat 5 Noten: [freq, duration, waveform, volume]
+    // Beim Platzieren wird die nächste Note der Sequenz gespielt (round-robin)
+    const GENRE_SEQUENCES = {
+        // Punk: schnell, laut, Powerchords (Grundton + Quinte), verzerrt
+        punk: [
+            [329.63, 0.08, 'sawtooth', 0.14],  // E4
+            [440.00, 0.08, 'sawtooth', 0.15],  // A4
+            [493.88, 0.06, 'square',   0.14],  // B4
+            [440.00, 0.06, 'sawtooth', 0.15],  // A4
+            [329.63, 0.10, 'square',   0.16],  // E4 — zurück zum Root
+        ],
+        // Jazz: Swing-Feeling, chromatische Durchgänge, weich
+        jazz: [
+            [261.63, 0.18, 'sine',     0.10],  // C4
+            [329.63, 0.14, 'triangle', 0.09],  // E4
+            [369.99, 0.16, 'sine',     0.10],  // F#4 (Tritone!)
+            [392.00, 0.20, 'triangle', 0.09],  // G4
+            [466.16, 0.22, 'sine',     0.08],  // Bb4 — Blue Note
+        ],
+        // Chiptune: 8-Bit, square waves, schnelle Arpeggios
+        chiptune: [
+            [523.25, 0.06, 'square', 0.10],  // C5
+            [659.25, 0.06, 'square', 0.10],  // E5
+            [783.99, 0.06, 'square', 0.10],  // G5
+            [659.25, 0.04, 'square', 0.08],  // E5
+            [523.25, 0.08, 'square', 0.12],  // C5
+        ],
+        // Reggae: offbeat, entspannt, tief
+        reggae: [
+            [146.83, 0.20, 'triangle', 0.11],  // D3
+            [174.61, 0.16, 'sine',     0.09],  // F3 (Offbeat)
+            [196.00, 0.18, 'triangle', 0.10],  // G3
+            [174.61, 0.14, 'sine',     0.09],  // F3
+            [130.81, 0.24, 'triangle', 0.12],  // C3 — Root
+        ],
+        // Klassik: Mozart-artig, elegant, klare Intervalle
+        klassik: [
+            [523.25, 0.16, 'sine',     0.10],  // C5
+            [587.33, 0.12, 'sine',     0.09],  // D5
+            [659.25, 0.14, 'sine',     0.10],  // E5
+            [783.99, 0.18, 'triangle', 0.09],  // G5
+            [523.25, 0.22, 'sine',     0.11],  // C5 — Auflösung
+        ],
+        // Blues: Moll-Pentatonik, Bends, soulful
+        blues: [
+            [196.00, 0.18, 'triangle', 0.11],  // G3
+            [233.08, 0.16, 'sine',     0.10],  // Bb3
+            [261.63, 0.14, 'triangle', 0.10],  // C4
+            [293.66, 0.20, 'sine',     0.09],  // D4 (Bend-Zone)
+            [196.00, 0.24, 'triangle', 0.12],  // G3 — zurück
+        ],
+        // Metal: tief, aggressiv, Tritonus
+        metal_music: [
+            [82.41,  0.10, 'sawtooth', 0.16],  // E2 — Drop-Tuning
+            [110.00, 0.08, 'sawtooth', 0.15],  // A2
+            [116.54, 0.06, 'square',   0.16],  // Bb2 (Tritonus!)
+            [110.00, 0.08, 'sawtooth', 0.15],  // A2
+            [82.41,  0.12, 'square',   0.18],  // E2 — Chug
+        ],
+        // HipHop: 808-Bass, rhythmisch, deep
+        hiphop: [
+            [65.41,  0.20, 'sine',     0.14],  // C2 — 808 Bass
+            [73.42,  0.12, 'sine',     0.12],  // D2
+            [65.41,  0.16, 'sine',     0.14],  // C2
+            [87.31,  0.10, 'triangle', 0.10],  // F2
+            [65.41,  0.24, 'sine',     0.16],  // C2 — Boom
+        ],
+        // Techno: repetitiv, synthetisch, hypnotisch
+        techno: [
+            [130.81, 0.08, 'sawtooth', 0.12],  // C3
+            [130.81, 0.08, 'square',   0.10],  // C3 (anderer Waveshape)
+            [146.83, 0.10, 'sawtooth', 0.12],  // D3
+            [130.81, 0.08, 'square',   0.10],  // C3
+            [155.56, 0.12, 'sawtooth', 0.14],  // Eb3 — Acid
+        ],
+        // Country: Dur-Tonleiter, twangy, fröhlich
+        country: [
+            [293.66, 0.12, 'triangle', 0.10],  // D4
+            [329.63, 0.10, 'triangle', 0.09],  // E4
+            [369.99, 0.10, 'sine',     0.10],  // F#4
+            [440.00, 0.14, 'triangle', 0.10],  // A4
+            [293.66, 0.16, 'triangle', 0.11],  // D4 — Hoedown!
+        ],
+        // Flamenco: Phrygisch, leidenschaftlich, dramatisch
+        flamenco: [
+            [329.63, 0.14, 'sine',     0.12],  // E4
+            [349.23, 0.10, 'sine',     0.11],  // F4 (Phrygische Sekunde!)
+            [392.00, 0.12, 'triangle', 0.10],  // G4
+            [440.00, 0.16, 'sine',     0.11],  // A4
+            [329.63, 0.20, 'sine',     0.13],  // E4 — Rasgueado
+        ],
+        // Samba: synkopiert, perkussiv, lebhaft
+        samba: [
+            [392.00, 0.08, 'triangle', 0.12],  // G4
+            [440.00, 0.06, 'triangle', 0.10],  // A4
+            [523.25, 0.08, 'triangle', 0.12],  // C5
+            [440.00, 0.06, 'sine',     0.10],  // A4
+            [392.00, 0.10, 'triangle', 0.13],  // G4 — Batucada
+        ],
+        // Oper: dramatisch, weit, Vibrato-artig
+        opera: [
+            [261.63, 0.24, 'sine',     0.12],  // C4
+            [329.63, 0.20, 'sine',     0.11],  // E4
+            [392.00, 0.22, 'sine',     0.12],  // G4
+            [523.25, 0.28, 'sine',     0.13],  // C5 — Aria!
+            [392.00, 0.26, 'triangle', 0.11],  // G4 — Auflösung
+        ],
+        // Surf: Reverb-drenched, tremolo, Strandfeeling
+        surf: [
+            [329.63, 0.10, 'sine',     0.10],  // E4
+            [392.00, 0.08, 'sine',     0.09],  // G4
+            [440.00, 0.10, 'triangle', 0.10],  // A4
+            [493.88, 0.08, 'sine',     0.09],  // B4
+            [329.63, 0.14, 'triangle', 0.11],  // E4 — Pipeline!
+        ],
+        // Wiegenlied: langsam, sanft, einschläfernd
+        lullaby: [
+            [392.00, 0.28, 'sine', 0.06],  // G4
+            [440.00, 0.24, 'sine', 0.05],  // A4
+            [523.25, 0.30, 'sine', 0.06],  // C5
+            [440.00, 0.26, 'sine', 0.05],  // A4
+            [392.00, 0.32, 'sine', 0.04],  // G4 — Schlaf...
+        ],
+    };
+    const genreNoteIndex = {}; // Tracks welche Note als nächstes kommt pro Genre
+
     // Erster Sound = KLONK. Laut. Befriedigend. Minecraft-Niveau.
     let firstSoundPlayed = false;
 
@@ -192,6 +319,16 @@
             if (tone.chord) {
                 playRichTone(tone.chord * (1 + (Math.random() - 0.5) * 0.02), tone.dur, tone.wave, tone.vol * 0.7);
             }
+            return;
+        }
+        // Genre-Materialien: 5-Noten-Sequenz round-robin
+        const seq = GENRE_SEQUENCES[material];
+        if (seq) {
+            if (!(material in genreNoteIndex)) genreNoteIndex[material] = 0;
+            const note = seq[genreNoteIndex[material] % seq.length];
+            genreNoteIndex[material] = (genreNoteIndex[material] + 1) % seq.length;
+            const freq = note[0] * (1 + (Math.random() - 0.5) * 0.01); // Minimale Variation
+            playRichTone(freq, note[1], note[2], note[3]);
             return;
         }
         // Nicht-Basis-Materialien: melodische Skala wie bisher
