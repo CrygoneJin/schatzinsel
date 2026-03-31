@@ -3409,8 +3409,8 @@
     updateDiscoveryCounter();
 
     // Genesis-Replay Button
-    const replayBtn = document.getElementById('genesis-replay-btn');
-    if (replayBtn) replayBtn.addEventListener('click', playGenesisReplay);
+    const genesisReplayBtn = document.getElementById('genesis-replay-btn');
+    if (genesisReplayBtn) genesisReplayBtn.addEventListener('click', playGenesisReplay);
 
     // --- Sidebar Tabs ---
     document.querySelectorAll('.sidebar-tab').forEach(tab => {
