@@ -671,6 +671,64 @@
             '🎙️ Lanz: "Nächste Woche: Mephisto und Machiavelli. Live vom Schwarzmarkt."',
             '— Applaus. Trump tweetet. Musk kauft den Applaus. Sartre raucht. Machiavelli lächelt. —',
         ],
+        // Staffel 1: "Nachts auf der Insel" — 5 Folgen, verschiedene Formate
+        podcast_s1e2_schroeder: [
+            '— 🎙️ KURT KRÖMER SHOW: "Chez Krömer — Spezial von der Insel" —',
+            '🎙️ Krömer: "Setzen Sie sich. Trinken Sie was. Oder nicht. Mir egal. Also Tommy."',
+            '🐢 Tommy: "Klick-klack! Der lockige Mann sagt—"',
+            '🎙️ Krömer: "Welcher lockige Mann?"',
+            '🐢 Tommy: "—klick-klack! Der lockige Mann sagt: Inseln baut man nicht alleine!"',
+            '🎙️ Krömer: "Tommy. Sie leben auf einer Insel die aus JavaScript besteht. Stört Sie das nicht?"',
+            '🐢 Tommy: "Klick-klack! Nein! Stört es DICH? Weil— klick-klack! — du sitzt hier auch!"',
+            '🎙️ Krömer: "Touché. Was macht der Schwarzmarkt?"',
+            '🐢 Tommy: "Mephisto hat neue Ware! Schatten-Kristalle! Die leuchten im Dunkeln!"',
+            '🎙️ Krömer: "Natürlich leuchten sie im Dunkeln. Schwarzmarkt. Dunkel. Ich kapier das System."',
+            '— Stille. Krömer trinkt. Tommy klickt-klackt. —',
+        ],
+        podcast_s1e3_bueker: [
+            '— 🎙️ BÜKER & KÜCKENS: "Frühstart von der Insel" —',
+            '🎙️ Büker: "Guten Morgen. Es ist 5 Uhr 30 und ich stehe auf einer Insel die aus Code besteht."',
+            '🎙️ Kückens: "Die Frage ist: Wer hat das genehmigt?"',
+            '😈 Mephisto: "Ah, die Herren Journalisten! Willkommen im Frühstart. Hehehehe..."',
+            '🎙️ Büker: "Herr Mephisto, Sie betreiben einen unregulierten Marktplatz für digitale Güter. Das Kartellamt—"',
+            '😈 Mephisto: "—hat auf einer JavaScript-Insel keine Jurisdiktion, mein Freund."',
+            '🎙️ Kückens: "Er hat einen Punkt."',
+            '🇺🇸 Trump: *schaltet sich zu* "I heard there\'s a market. Is it the best market? Can I buy it?"',
+            '😈 Mephisto: "Kaufen? Hehehehe. Man kauft den Schwarzmarkt nicht. Man... verdient ihn."',
+            '🎙️ Büker: "Und damit zurück nach Berlin. Wo die Märkte reguliert sind. Theoretisch."',
+            '— Jingle. Kückens trinkt Kaffee. Mephisto bleibt. —',
+        ],
+        podcast_s1e4_nachts: [
+            '— 🌙 NACHTS AUF DER INSEL: "Papa muss pinkeln" —',
+            '— 3:17 Uhr. Ein Vater steht auf. Sein Handy leuchtet. Die Insel ist noch offen. —',
+            '🍞 Bernd: "*seufz* Du schon wieder. Um DIESE Uhrzeit?"',
+            '😈 Mephisto: "Ah, ein Besucher bei Nacht! Die besten Deals macht man nachts, mein Freund."',
+            '🍞 Bernd: "Er muss nur pinkeln, Mephisto."',
+            '😈 Mephisto: "Trotzdem. Schau mal auf den Schwarzmarkt. Mitternachts-Rosen. Blühen NUR jetzt."',
+            '🐢 Tommy: "Klick-klack! Der lockige Mann sagt — klick-klack! — nachts sind alle Blöcke grau!"',
+            '🇺🇸 Trump: *Notification* "3 AM. The best time to tweet. I\'m building a TREMENDOUS island. Goodnight."',
+            '🍞 Bernd: "*seufz* Geh wieder ins Bett. Die Insel läuft nicht weg."',
+            '😈 Mephisto: "Oder doch? Hehehehe..."',
+            '— Der Vater kratzt sich den Kopf. Legt das Handy weg. Schläft wieder ein. Die Insel wartet. —',
+        ],
+        podcast_s1e5_krapweis: [
+            '— 🎙️ TOMMY & FRIENDS: "Die Bernd-Show — Nachts um Drei" —',
+            '🍞 Bernd: "*seufz* Willkommen bei der Bernd-Show. Ich hab nicht darum gebeten."',
+            '🐢 Tommy: "Klick-klack! Bernd! BERND! Wir haben Gäste!"',
+            '🍞 Bernd: "Wir haben immer Gäste. Niemand fragt mich ob ich Gäste WILL."',
+            '😈 Mephisto: *tritt auf* "Guten Abend, Bernd. Ich habe einen Deal für dich."',
+            '🍞 Bernd: "Nein."',
+            '😈 Mephisto: "Du hast noch gar nicht gehört—"',
+            '🍞 Bernd: "NEIN."',
+            '😈 Mephisto: "Ein Hawking-Stern. Strahlt Wärme. Du siehst aus als könntest du Wärme gebrauchen."',
+            '🍞 Bernd: "...was kostet er."',
+            '😈 Mephisto: "Nur ein Lächeln."',
+            '🍞 Bernd: "Ich bin ein BROT. Ich KANN nicht lächeln."',
+            '😈 Mephisto: "Dann lächle INNEN. Das zählt auch. Hehehehe..."',
+            '🐢 Tommy: "Klick-klack! DAS WAR SCHÖN! Klick-klack!"',
+            '🍞 Bernd: "*seufz* ...es war ok."',
+            '— Abspann. Jemand hat Bernd eine Decke gebracht. Er beschwert sich. Leise. —',
+        ],
     };
 
     let playedHoerspiele = JSON.parse(localStorage.getItem('insel-hoerspiele') || '[]');
@@ -711,6 +769,10 @@
         if (line.includes('Trump:')) return { voice: 'trump', lang: 'en' };
         if (line.includes('Musk:')) return { voice: 'musk', lang: 'en' };
         if (line.includes('Mephisto:')) return { voice: 'mephisto', lang: 'de' };
+        if (line.includes('Krömer:')) return { voice: 'echo', lang: 'de' };
+        if (line.includes('Büker:')) return { voice: 'alloy', lang: 'de' };
+        if (line.includes('Kückens:')) return { voice: 'nova', lang: 'de' };
+        if (line.includes('Tommy:')) return { voice: 'shimmer', lang: 'de' };
         if (line.includes('Sartre:')) return { voice: 'fable', lang: 'fr' };
         if (line.includes('Machiavelli:')) return { voice: 'onyx', lang: 'it' };
         if (line.includes('SpongeBob:')) return { voice: 'default', lang: 'de' };
@@ -804,8 +866,13 @@
         else if (stats.total === 100 && !playedHoerspiele.includes('hundredBlocks')) key = 'hundredBlocks';
         else if (stats.percent === 50 && !playedHoerspiele.includes('halfIsland')) key = 'halfIsland';
         else if (stats.percent >= 100 && !playedHoerspiele.includes('fullIsland')) key = 'fullIsland';
-        // Podcast-Easter-Egg: bei 25 Blöcken UND Mephisto freigeschaltet
-        if (!key && stats.total >= 25 && !playedHoerspiele.includes('podcast_lanz') && window.INSEL_CHARACTERS && window.INSEL_CHARACTERS.mephisto) key = 'podcast_lanz';
+        // Podcast Staffel 1: verschiedene Meilensteine
+        var hasMephisto = window.INSEL_CHARACTERS && window.INSEL_CHARACTERS.mephisto;
+        if (!key && stats.total >= 25 && !playedHoerspiele.includes('podcast_lanz') && hasMephisto) key = 'podcast_lanz';
+        else if (!key && stats.total >= 40 && !playedHoerspiele.includes('podcast_s1e2_schroeder') && hasMephisto) key = 'podcast_s1e2_schroeder';
+        else if (!key && stats.total >= 60 && !playedHoerspiele.includes('podcast_s1e3_bueker') && hasMephisto) key = 'podcast_s1e3_bueker';
+        else if (!key && stats.total >= 80 && !playedHoerspiele.includes('podcast_s1e4_nachts') && hasMephisto) key = 'podcast_s1e4_nachts';
+        else if (!key && stats.total >= 90 && !playedHoerspiele.includes('podcast_s1e5_krapweis') && hasMephisto) key = 'podcast_s1e5_krapweis';
 
         if (!key) return;
 
