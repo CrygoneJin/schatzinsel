@@ -220,7 +220,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 60 | **Haikus am Strand** (Krapweis) — Jede Insel-Station: 5-7-5 Schild am Strand statt Tutorial-Text | P2 | Artist |
 | 61 | **Konsequenz** (Habeck) — Baum fällen = Baum weg. Brunnen bauen = Blumen wachsen. Welt reagiert. | ✅ Done (Baum→Stumpf→Setzling; Brunnen→Blumen: updateWorldConsequences(); Wasser→Blumen, Feuer→Asche: e002de7) | Engineer |
 | 62 | **Mehrsprachige NPCs** (Habeck) — Lummerland = alle willkommen. NPCs antworten in Oscars Sprache oder der Sprache der Insel. | P2 | Scientist |
-| 63 | **Erster Block = lautes KLONK** (Paluten) — Bau-Sound muss in 30 Sek auffallen. Lautstärke hoch, befriedigend, Minecraft-Niveau. Pentatonik ist schön aber zu subtil für den ersten Moment. | P1 | Engineer + Scientist |
+| 63 | **Erster Block = lautes KLONK** (Paluten) — Bau-Sound muss in 30 Sek auffallen. Lautstärke hoch, befriedigend, Minecraft-Niveau. | ✅ Done (3-Layer KLONK: Square+Triangle+Sub-Bass, Gain 0.5) | Engineer + Scientist |
 | 64 | **Elektronen = Crafting-Blitz** — unsichtbares Feature: beim Craften blitzen kurze Lichtfunken zwischen den Materialien (Ladungsaustausch). Kein UI, kein Label. Amélie. | ✅ Done (spawnCraftSparks() — 8 Funken, 80ms versetzt) | Engineer |
 | 65 | **Neutrino-Spieler** — Analytics: Kinder die spielen ohne zu craften, die nur bauen/schauen. Eigene Metrik. "Sie sind da, verändern nichts, und das ist auch ok." (Lesch) | P2 | Scientist |
 | 66 | **Spielfigur-Bewegung laggt** — Pfeiltasten haben großen Zeitversatz, manchmal keine Reaktion. "Papa, warum kann ich mich nicht bewegen?" (Oscar) | ✅ Done (Sprint 19) | Engineer |
@@ -240,7 +240,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 56 | **Bibliothek von Alexandria** — Gebäude auf der Insel (Stein+Bretter+Wissen), Schriftrollen statt Bücher, jede Rolle = Wiki-Game-Challenge ("Von Wasser zu Drache in X Schritten"). Timbuktu als zweite Bibliothek — wer beide baut verbindet zwei Wissenswelten. Papyrus vor Gutenberg. Wikipedia von damals. | P2 | alle |
 | 78 | **Tesla-Nutzertest auswerten** — 1h Video von Oscar im Tesla (Auto-Touchscreen). Datei >1GB, muss kleiner formatiert werden (komprimieren/schneiden), dann hier rein. Da ist Gold drin — tonnenweise. Echte Nutzerdaten, echte Reaktionen, echter 8-Jähriger. | P0 | Scientist + Leader |
 | 79 | **Hau-den-Lukas Mini-Game zurückbringen** — Existierte als eigenständige HTML-Seite (hau-den-lukas.html, 441 Zeilen). Pump-Check-Game. Bei Main→Branch-Migration nicht mitgenommen. Code lag auf Main, muss neu integriert oder als separates Mini-Game verlinkt werden. | P3 | Engineer |
-| 80 | **docs/PROJECT.md + DESIGN.md + DECISIONS.md neu aufsetzen** — Bei Branch-Migration verloren gegangen. Inhalte teilweise in ARCHITECTURE.md, aber eigenständige Dateien fehlen. CLAUDE.md referenziert sie beim Session-Start. | P1 | Leader | ✅ Done (PR #97) |
+| 80 | **docs/PROJECT.md + DESIGN.md + DECISIONS.md neu aufsetzen** — Alle drei existieren mit solidem Inhalt. ARCHITECTURE.md aktualisiert (22 Dateien). | ✅ Done | Leader | ✅ Done (PR #97) |
 
 ---
 
