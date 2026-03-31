@@ -2007,6 +2007,27 @@
             }
         }
 
+        // Sammelbare Items zeichnen
+        for (const ci of collectibles) {
+            const cx = (ci.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
+            const cy = (ci.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
+            // Schwebendes Glitzern
+            const float = Math.sin(time * 3 + ci.r * 2 + ci.c) * 3;
+            const glow = 0.6 + Math.sin(time * 4 + ci.c) * 0.2;
+            // Leuchtkreis
+            ctx.globalAlpha = glow * 0.4;
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(cx, cy + float, CELL_SIZE * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+            // Emoji
+            ctx.font = `${CELL_SIZE * 0.5}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(ci.emoji, cx, cy + float);
+        }
+
         // Hover-Vorschau
         if (hoverCell) {
             const hx = (hoverCell.c + WATER_BORDER) * CELL_SIZE;
@@ -2118,6 +2139,74 @@
             localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
             needsRedraw = true;
             draw(); // sofort zeichnen — nicht auf 100ms-Interval warten (#66)
+            checkPlayerProximity();
+        }
+    }
+
+    // --- Spieler-Abenteuer: Entdecken durch Laufen ---
+
+    // Sammelbare Items auf der Insel
+    let collectibles = JSON.parse(localStorage.getItem('insel-collectibles') || '[]');
+    let lastNpcGreet = {}; // NPC-ID → timestamp, damit nicht jede Sekunde gegrüßt wird
+
+    function spawnCollectibles() {
+        if (collectibles.length >= 5) return; // max 5 gleichzeitig
+        const types = [
+            { emoji: '💎', name: 'Diamant', material: 'diamond' },
+            { emoji: '🔑', name: 'Schlüssel', material: 'key' },
+            { emoji: '🍎', name: 'Apfel', material: 'apple' },
+            { emoji: '🥚', name: 'Ei', material: 'egg' },
+            { emoji: '🍯', name: 'Honig', material: 'honey' },
+            { emoji: '🌸', name: 'Blume', material: 'flower' },
+            { emoji: '🍄', name: 'Pilz', material: 'mushroom' },
+            { emoji: '🔮', name: 'Kristall', material: 'crystal' },
+            { emoji: '⭐', name: 'Stern', material: 'star' },
+        ];
+        // Zufällige freie Zelle finden
+        for (let attempt = 0; attempt < 50; attempt++) {
+            const r = 2 + Math.floor(Math.random() * (ROWS - 4));
+            const c = 2 + Math.floor(Math.random() * (COLS - 4));
+            if (grid[r][c]) continue; // nur auf leeren Zellen
+            if (getNpcAt(r, c)) continue;
+            if (r === playerPos.r && c === playerPos.c) continue;
+            if (collectibles.some(ci => ci.r === r && ci.c === c)) continue;
+            const type = types[Math.floor(Math.random() * types.length)];
+            collectibles.push({ ...type, r, c });
+            localStorage.setItem('insel-collectibles', JSON.stringify(collectibles));
+            requestRedraw();
+            return;
+        }
+    }
+
+    function checkPlayerProximity() {
+        // Sammelbare Items einsammeln (Spieler steht drauf)
+        const collected = collectibles.filter(ci => ci.r === playerPos.r && ci.c === playerPos.c);
+        if (collected.length > 0) {
+            collected.forEach(ci => {
+                addToInventory(ci.material, 1);
+                unlockMaterial(ci.material);
+                showToast(`${ci.emoji} ${ci.name} gefunden!`, 2000);
+                soundCraft();
+            });
+            collectibles = collectibles.filter(ci => ci.r !== playerPos.r || ci.c !== playerPos.c);
+            localStorage.setItem('insel-collectibles', JSON.stringify(collectibles));
+            updateInventoryDisplay();
+            requestRedraw();
+            // Neues Item spawnen (verzögert)
+            setTimeout(spawnCollectibles, 3000 + Math.random() * 5000);
+        }
+
+        // NPCs in der Nähe (2 Felder) begrüßen + Quest anbieten
+        const now = Date.now();
+        for (const [id, pos] of Object.entries(npcPositions)) {
+            const dist = Math.abs(pos.r - playerPos.r) + Math.abs(pos.c - playerPos.c);
+            if (dist <= 2) {
+                // Nur alle 15s pro NPC
+                if (lastNpcGreet[id] && now - lastNpcGreet[id] < 15000) continue;
+                lastNpcGreet[id] = now;
+                showNpcQuestDialog(id);
+                break; // nur ein NPC pro Schritt
+            }
         }
     }
 
@@ -3338,6 +3427,7 @@
                 playerPos = { r: cell.r, c: cell.c };
                 localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
                 requestRedraw();
+                checkPlayerProximity();
             }
             return;
         }
@@ -4046,10 +4136,17 @@
     // NPCs auf freie Zellen platzieren (nach Grid-Init + Auto-Save-Restore)
     initNpcPositions();
 
+    // Sammelbare Items spawnen (Schätze, Materialien zum Einsammeln)
+    if (collectibles.length === 0) {
+        for (let i = 0; i < 3; i++) spawnCollectibles();
+    }
+
     // Dirty-flag statt rAF-Loop — CPU 20%→<5%
     // var (nicht let) damit requestRedraw() via hoisting schon in resizeCanvas() nutzbar ist
     needsRedraw = true;
     setInterval(draw, 100);
+    // Collectibles + NPCs animieren (Glitzern/Wippen)
+    setInterval(() => { if (collectibles.length > 0) requestRedraw(); }, 200);
 
     // Wiederkehrende Spieler: Intro JETZT ausblenden — Canvas ist bereit
     if (isReturningPlayer && introOverlay) {
