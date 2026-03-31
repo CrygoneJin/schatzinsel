@@ -566,6 +566,31 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 
 ---
 
+## Session 2026-03-31 — Backlog-Sprint (User AFK, Decke streichen)
+
+### Was passiert ist
+8 PRs erstellt, alles P2/P3 Backlog-Items die nur Code brauchen:
+
+| PR | Backlog | Was |
+|----|---------|-----|
+| #70 | #84 | Höhlen + Edelsteine — 9 Rezepte, 9 Materialien (Höhle→Tropfstein→Edelsteine→Varianten) |
+| #75 | #85 | Genre-Tonsequenzen — 15 Genres mit 5-Noten-Sequenzen |
+| #79 | #87 | TTS Hörspiele — Mute stoppt Speech, Canvas-Klick stoppt Hörspiel |
+| #83 | #14 | Haiku-Bauanleitungen — 12 Quests in 5-7-5 Silben |
+| #85 | #81 | Inventar-Töne — 70+ Materialien mit eigenem Klang |
+| #86 | #82 | Bau-Trommel — 7 Drum-Kits, materialabhängig |
+| #87 | #58 | Unsinn-Rezepte — 10 absurde Kombinationen (Lindgren) |
+| #88 | #77 | Rewind/Zeitreise — Undo-History als Animation |
+| #89 | — | 6 neue Achievements (Endgame) |
+
+### Learnings
+- **Worktree-Chaos**: Mehrere worktrees blockierten `git checkout main`. Workaround: `git checkout -B feat/xxx origin/main` statt `git checkout main && git checkout -b feat/xxx`.
+- **Branch-Verwechslung**: Commits landeten auf dem falschen Branch (feat/more-achievements). Cherry-pick als Fix. Immer `git branch` prüfen vor dem Commit.
+- **`node -c` vor jedem Commit**: Funktioniert. Kein Syntax-Error durchgerutscht.
+- **Backlog #33 schon done**: Header war bereits "Schatzinsel". Backlog-Status nicht aktuell.
+
+---
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)
