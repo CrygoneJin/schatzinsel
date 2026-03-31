@@ -4015,11 +4015,11 @@
         ctx.fillStyle = '#3AAC59';
         ctx.fillText('🌱 XCH  ' + xchAddr.slice(0, 12) + '...' + xchAddr.slice(-6) + '  ' + xchBal + ' XCH', 10, mmxY + 20);
 
-        // Zeile 3: Philosophie
+        // Zeile 3: Hawking-Philosophie
         ctx.fillStyle = '#666';
         ctx.font = '8px monospace';
-        ctx.fillText('madMAx + Bram Cohen — Nerds die aus Leidenschaft bauen. Wie wir.', 10, mmxY + 38);
-        ctx.fillText('Proof of Work + Proof of Space. Tokens rein, niemand raus.', 10, mmxY + 48);
+        ctx.fillText('Schwarze L\u00f6cher. Tokens rein, niemand raus.', 10, mmxY + 38);
+        ctx.fillText('Hawking-Strahlung: die Arbeit die rausstrahlt ist das Eigentliche.', 10, mmxY + 48);
     }
 
     // Crypto Balance-Polling alle 60s (öffentliche APIs, kein Auth nötig)
