@@ -3986,11 +3986,14 @@
         ctx.textBaseline = 'top';
         ctx.fillText('</> CODE-VIEW: grid[r][c]', 10, 10);
 
-        // === MMX Burn Panel — Nerd Easter Egg ===
-        // "Proof of Work. Tokens rein, niemand raus. Pures Statement."
+        // === Crypto Donation Panel — Nerd Easter Egg ===
+        // MMX: "Proof of Work. Tokens rein, niemand raus."
+        // XCH: "Proof of Space. Dein Speicher, dein Statement."
         const mmxAddr = window.INSEL_MMX_BURN || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
+        const xchAddr = window.INSEL_XCH_BURN || 'xch1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdlkwut';
         const mmxBal = window._mmxBurnBalance || '?';
-        const panelH = 44;
+        const xchBal = window._xchBurnBalance || '?';
+        const panelH = 58;
         const panelW = Math.min(460, totalCols * CELL_SIZE - 10);
         const mmxY = totalRows * CELL_SIZE - panelH - 5;
 
@@ -4001,36 +4004,54 @@
         ctx.lineWidth = 1;
         ctx.strokeRect(5, mmxY, panelW, panelH);
 
-        // Zeile 1: Burn-Adresse
+        // Zeile 1: MMX
         ctx.fillStyle = '#FF6B00';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.fillText('🔥 BURN ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6), 10, mmxY + 5);
+        ctx.fillText('🔥 MMX  ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6) + '  ' + mmxBal + ' MMX', 10, mmxY + 5);
 
-        // Zeile 2: Balance + Link
-        ctx.fillStyle = '#888';
-        ctx.font = '9px monospace';
-        ctx.fillText('Balance: ' + mmxBal + ' MMX  |  mmx.network  |  Proof of Work. Tokens rein, niemand raus.', 10, mmxY + 22);
+        // Zeile 2: XCH (Chia — Bram Cohen)
+        ctx.fillStyle = '#3AAC59';
+        ctx.fillText('🌱 XCH  ' + xchAddr.slice(0, 12) + '...' + xchAddr.slice(-6) + '  ' + xchBal + ' XCH', 10, mmxY + 20);
+
+        // Zeile 3: Philosophie
+        ctx.fillStyle = '#666';
+        ctx.font = '8px monospace';
+        ctx.fillText('madMAx + Bram Cohen — Nerds die aus Leidenschaft bauen. Wie wir.', 10, mmxY + 38);
+        ctx.fillText('Proof of Work + Proof of Space. Tokens rein, niemand raus.', 10, mmxY + 48);
     }
 
-    // MMX Burn-Balance alle 60s abfragen (öffentliche API, kein Auth nötig)
-    // Account-basiert, REST: /wapi/address?id=mmx1...
-    (function fetchMmxBalance() {
-        const addr = window.INSEL_MMX_BURN || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
-        const apiUrl = 'https://api.mmxplorer.com/wapi/address?id=' + addr;
-        function poll() {
-            fetch(apiUrl).then(r => r.ok ? r.json() : null).then(data => {
+    // Crypto Balance-Polling alle 60s (öffentliche APIs, kein Auth nötig)
+    (function fetchCryptoBalances() {
+        // MMX: Account-basiert, REST: /wapi/address?id=mmx1...
+        const mmxAddr = window.INSEL_MMX_BURN || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
+        const mmxApi = 'https://api.mmxplorer.com/wapi/address?id=' + mmxAddr;
+        function pollMmx() {
+            fetch(mmxApi).then(r => r.ok ? r.json() : null).then(data => {
                 if (data && data.balances) {
-                    const mmxBal = data.balances['MMX'] || data.balance || 0;
-                    window._mmxBurnBalance = (mmxBal / 10000).toFixed(4);
+                    const bal = data.balances['MMX'] || data.balance || 0;
+                    window._mmxBurnBalance = (bal / 10000).toFixed(4);
                 } else {
                     window._mmxBurnBalance = '0.0000';
                 }
             }).catch(() => { window._mmxBurnBalance = '—'; });
         }
-        poll();
-        setInterval(poll, 60000);
+        // XCH (Chia): spacescan.io public API
+        const xchAddr = window.INSEL_XCH_BURN || 'xch1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdlkwut';
+        const xchApi = 'https://api2.spacescan.io/1/xch/balance/' + xchAddr;
+        function pollXch() {
+            fetch(xchApi).then(r => r.ok ? r.json() : null).then(data => {
+                if (data && data.xch_balance != null) {
+                    window._xchBurnBalance = parseFloat(data.xch_balance).toFixed(6);
+                } else {
+                    window._xchBurnBalance = '0.000000';
+                }
+            }).catch(() => { window._xchBurnBalance = '—'; });
+        }
+        pollMmx(); pollXch();
+        setInterval(pollMmx, 60000);
+        setInterval(pollXch, 60000);
     })();
 
     // Monkey-patch requestAnimationFrame callback to add overlay
