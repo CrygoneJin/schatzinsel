@@ -2355,7 +2355,7 @@
                 playerBlocksPlaced++;
                 localStorage.setItem('insel-blocks-placed', playerBlocksPlaced);
                 addPlaceAnimation(r, c);
-                if (!sessionClock.firstBlock) {
+                if (!window.INSEL_ANALYTICS.getSessionClock().firstBlock) {
                     soundFirstBlock();
                 } else {
                     soundBuild(currentMaterial);
@@ -3104,24 +3104,9 @@
     }
 
     // ============================================================
-    // === FEYNMAN-MESSPUNKTE === (Testprotokoll-Daten)
+    // === FEYNMAN-MESSPUNKTE === (extrahiert nach analytics.js)
     // ============================================================
-    const sessionClock = { start: null, firstBlock: null, firstChat: null, firstCodeView: null, firstEasterEgg: null };
-
-    window.startSessionClock = function () {
-        sessionClock.start = Date.now();
-        trackEvent('clock_start', {});
-    };
-
-    function recordMilestone(key) {
-        if (sessionClock.start && !sessionClock[key]) {
-            sessionClock[key] = Date.now();
-            const elapsed = Math.round((sessionClock[key] - sessionClock.start) / 1000);
-            trackEvent('milestone', { key, seconds: elapsed });
-            if (key === 'firstBlock') stopTutorialPulse();
-        }
-    }
-
+    // Tutorial-Puls: Callback für milestone 'firstBlock'
     function startTutorialPulse() {
         const canvas = document.getElementById('game-canvas');
         if (canvas) canvas.classList.add('tutorial-pulse');
@@ -3132,37 +3117,33 @@
         if (canvas) canvas.classList.remove('tutorial-pulse');
     }
 
-    // Exportieren für chat.js
-    window.recordMilestone = recordMilestone;
+    // Milestone-Hook: Tutorial-Puls bei firstBlock stoppen
+    if (window.INSEL) {
+        window.INSEL.on('milestone', function (data) {
+            if (data.key === 'firstBlock') stopTutorialPulse();
+        });
+    }
 
-    // Feynman-Dashboard: alle Messpunkte auf einmal
+    // Feynman-Dashboard: game.js-State + analytics.js-Daten
     window.getTestData = function () {
-        const s = sessionClock;
+        const s = window.INSEL_ANALYTICS.getSessionClock();
         const elapsed = (key) => s.start && s[key] ? Math.round((s[key] - s.start) / 1000) + 's' : '—';
         const analytics = getAnalytics();
         const events = analytics.events || [];
-        const builds = events.filter(e => e.e === 'build').length;
-        const demolishes = events.filter(e => e.e === 'demolish').length;
-        const uniqueMats = new Set(events.filter(e => e.e === 'build').map(e => e.d?.material)).size;
-        const easterEggs = events.filter(e => e.e === 'easter_egg').length;
-        const hoerspiele = events.filter(e => e.e === 'hoerspiel').length;
-        const codeZauber = events.filter(e => e.e === 'code_zauber').length;
-        const postcards = events.filter(e => e.e === 'postcard').length;
-        const sessionDuration = s.start ? Math.round((Date.now() - s.start) / 1000) : 0;
 
         return {
-            '⏱️ Session-Dauer': sessionDuration + 's',
+            '⏱️ Session-Dauer': s.start ? Math.round((Date.now() - s.start) / 1000) + 's' : '0s',
             '🧱 Zeit bis 1. Block': elapsed('firstBlock'),
             '💬 Zeit bis 1. Chat': elapsed('firstChat'),
             '👨‍💻 Zeit bis Code-View': elapsed('firstCodeView'),
             '🔍 Zeit bis 1. Easter Egg': elapsed('firstEasterEgg'),
-            '🧱 Blöcke gebaut': builds,
-            '💥 Blöcke abgerissen': demolishes,
-            '🎨 Materialien benutzt': uniqueMats,
-            '🔍 Easter Eggs entdeckt': easterEggs,
-            '🎭 Hörspiele gehört': hoerspiele,
-            '✨ Zaubersprüche': codeZauber,
-            '📸 Postkarten': postcards,
+            '🧱 Blöcke gebaut': events.filter(e => e.e === 'build').length,
+            '💥 Blöcke abgerissen': events.filter(e => e.e === 'demolish').length,
+            '🎨 Materialien benutzt': new Set(events.filter(e => e.e === 'build').map(e => e.d?.material)).size,
+            '🔍 Easter Eggs entdeckt': events.filter(e => e.e === 'easter_egg').length,
+            '🎭 Hörspiele gehört': events.filter(e => e.e === 'hoerspiel').length,
+            '✨ Zaubersprüche': events.filter(e => e.e === 'code_zauber').length,
+            '📸 Postkarten': events.filter(e => e.e === 'postcard').length,
             '🏆 Achievements': unlockedAchievements.length,
             '📜 Quests abgeschlossen': completedQuests.length,
         };
@@ -3781,52 +3762,13 @@
     }
 
     // ============================================================
-    // === ANALYTICS === (→ analytics.js bei Zellteilung)
+    // === ANALYTICS === (extrahiert nach analytics.js)
     // ============================================================
-    function getAnalytics() {
-        return JSON.parse(localStorage.getItem('insel-analytics') || '{}');
-    }
-
-    function trackEvent(event, data) {
-        const analytics = getAnalytics();
-        if (!analytics.events) analytics.events = [];
-        analytics.events.push({
-            e: event,
-            d: data || {},
-            t: Date.now(),
-        });
-        // Max 500 Events speichern
-        if (analytics.events.length > 500) {
-            analytics.events = analytics.events.slice(-500);
-        }
-        localStorage.setItem('insel-analytics', JSON.stringify(analytics));
-    }
-
-    function trackSession() {
-        const analytics = getAnalytics();
-        analytics.sessions = (analytics.sessions || 0) + 1;
-        analytics.lastVisit = Date.now();
-        analytics.theme = currentTheme;
-        if (!analytics.firstVisit) analytics.firstVisit = Date.now();
-        localStorage.setItem('insel-analytics', JSON.stringify(analytics));
-    }
-
-    // A/B-Test: Neuen Usern zufälliges Theme zuweisen
-    function assignABTest() {
-        const analytics = getAnalytics();
-        if (!analytics.abGroup) {
-            const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
-            analytics.abGroup = randomTheme;
-            localStorage.setItem('insel-analytics', JSON.stringify(analytics));
-            applyTheme(randomTheme);
-            return randomTheme;
-        }
-        return analytics.abGroup;
-    }
-
-    // Kennzahlen exportieren (für Feynman)
-    // trackEvent für chat.js exportieren
-    window.trackEvent = trackEvent;
+    const trackEvent = window.trackEvent;
+    const recordMilestone = window.recordMilestone;
+    function getAnalytics() { return window.INSEL_ANALYTICS.getAnalytics(); }
+    function trackSession() { window.INSEL_ANALYTICS.trackSession(currentTheme); }
+    function assignABTest() { return window.INSEL_ANALYTICS.assignABTest(THEMES, applyTheme); }
 
     window.getMetrics = function () {
         const analytics = getAnalytics();
@@ -3843,7 +3785,7 @@
             questsCompleted: completedQuests.length,
             questsActive: activeQuests.length,
             events: (analytics.events || []).length,
-            sessionDuration: sessionClock.start ? Math.round((Date.now() - sessionClock.start) / 1000) : 0,
+            sessionDuration: window.INSEL_ANALYTICS.getSessionClock().start ? Math.round((Date.now() - window.INSEL_ANALYTICS.getSessionClock().start) / 1000) : 0,
             // Engagement-Score (0-100)
             engagement: Math.min(100, Math.round(
                 (stats.total * 0.3) +
@@ -3980,124 +3922,21 @@
     // Monkey-patch requestAnimationFrame callback to add overlay
     const origRAF = window.requestAnimationFrame;
 
-    // --- Testdaten: Export + anonymer Ping ---
-    // Einfachste Persistenz: Clipboard + optional Google Sheet Webhook
-
-    // Anonyme Test-ID (pro Gerät, nicht pro Person)
-    function getAnonId() {
-        let id = localStorage.getItem('insel-anon-id');
-        if (!id) {
-            id = 'T' + Math.random().toString(36).slice(2, 8);
-            localStorage.setItem('insel-anon-id', id);
-        }
-        return id;
-    }
-
-    function collectTestData() {
-        const s = sessionClock;
-        const analytics = getAnalytics();
-        const events = analytics.events || [];
+    // --- Testdaten + Bug-Reporter: extrahiert nach analytics.js ---
+    // Game-Stats Callback registrieren für collectTestData()
+    window.INSEL_ANALYTICS.setGameStatsFn(function () {
         const stats = getGridStats();
-        const elapsed = (key) => s.start && s[key] ? Math.round((s[key] - s.start) / 1000) : null;
-
         return {
-            id: getAnonId(),
-            ts: new Date().toISOString(),
-            session: analytics.sessions || 1,
-            theme: currentTheme,
-            abGroup: analytics.abGroup || null,
-            duration_s: s.start ? Math.round((Date.now() - s.start) / 1000) : 0,
-            ms_firstBlock: elapsed('firstBlock'),
-            ms_firstChat: elapsed('firstChat'),
-            ms_firstCodeView: elapsed('firstCodeView'),
-            ms_firstEasterEgg: elapsed('firstEasterEgg'),
-            blocks: stats.total,
-            materials: stats.uniqueMats,
+            total: stats.total,
+            uniqueMats: stats.uniqueMats,
             achievements: unlockedAchievements.length,
-            quests_done: completedQuests.length,
-            quests_active: activeQuests.length,
-            easter_eggs: discoveredEggs.length,
+            questsDone: completedQuests.length,
+            questsActive: activeQuests.length,
+            easterEggs: discoveredEggs.length,
             hoerspiele: playedHoerspiele.length,
-            builds: events.filter(e => e.e === 'build').length,
-            demolishes: events.filter(e => e.e === 'demolish').length,
-            zauber: events.filter(e => e.e === 'code_zauber').length,
-            postcards: events.filter(e => e.e === 'postcard').length,
         };
-    }
-
-    // Export: Kopiert JSON in die Zwischenablage
-    const testdataBtn = document.getElementById('testdata-btn');
-    if (testdataBtn) {
-        testdataBtn.addEventListener('click', () => {
-            const data = collectTestData();
-            const json = JSON.stringify(data, null, 2);
-            navigator.clipboard.writeText(json).then(() => {
-                showToast('📊 Testdaten kopiert! Einfügen mit Strg+V.');
-            }).catch(() => {
-                // Fallback: Download
-                const blob = new Blob([json], { type: 'application/json' });
-                const link = document.createElement('a');
-                link.download = `testdaten-${data.id}.json`;
-                link.href = URL.createObjectURL(blob);
-                link.click();
-                showToast('📊 Testdaten heruntergeladen!');
-            });
-        });
-    }
-
-    // Anonymer Ping: POST an konfigurierbaren Webhook (Google Sheet / Supabase / etc.)
-    // Aktivieren: localStorage.setItem('insel-webhook', 'https://script.google.com/...')
-    function pingWebhook() {
-        const url = localStorage.getItem('insel-webhook');
-        if (!url) return;
-        try {
-            const data = collectTestData();
-            navigator.sendBeacon(url, JSON.stringify(data));
-        } catch (e) { /* Stille — kein Tracking ist besser als kaputtes Tracking */ }
-    }
-
-    // Ping bei Session-Ende (Tab schließen / Navigation)
-    window.addEventListener('beforeunload', pingWebhook);
-
-    // Testdaten-Button nur zeigen wenn ?test in URL oder localStorage
-    if (window.location.search.includes('test') || localStorage.getItem('insel-testmode')) {
-        if (testdataBtn) testdataBtn.style.display = '';
-        if (bugBtn) bugBtn.style.display = '';
-        localStorage.setItem('insel-testmode', '1');
-    }
-
-    // Aktivieren per Konsole: localStorage.setItem('insel-testmode', '1'); location.reload()
-    // Webhook setzen: localStorage.setItem('insel-webhook', 'https://...')
-
-    // --- Bug-Reporter: window.reportBug('text') oder 🐛-Button ---
-    const BUGS_URL = (window.INSEL_CONFIG?.proxy || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev') + '/bugs';
-
-    window.reportBug = function(msg) {
-        if (!msg || !msg.trim()) { showToast('🐛 Bitte beschreibe den Bug!'); return; }
-        const bug = {
-            msg: msg.trim(),
-            page: window.location.href,
-            screen: `${window.innerWidth}x${window.innerHeight}`,
-            reporter: localStorage.getItem('insel-spielername') || 'Anonym',
-        };
-        fetch(BUGS_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bug),
-        }).then(r => r.json()).then(d => {
-            if (d.ok) showToast('🐛 Bug gemeldet! Danke!');
-            else showToast('🐛 Fehler beim Melden.');
-        }).catch(() => showToast('🐛 Kein Netz — Bug nicht gemeldet.'));
-    };
-
-    // 🐛 Button (nur im Testmodus sichtbar)
-    const bugBtn = document.getElementById('bug-btn');
-    if (bugBtn) {
-        bugBtn.addEventListener('click', () => {
-            const msg = prompt('🐛 Was ist kaputt?');
-            if (msg) window.reportBug(msg);
-        });
-    }
+    });
+    window.INSEL_ANALYTICS.initTestUI(showToast);
 
     // --- Block-Tracking ---
 
