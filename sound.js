@@ -227,6 +227,81 @@
         setTimeout(() => playTone(freq * 0.6, 0.12, type, 0.04), 60);
     }
 
+    // === BAU-TROMMEL (Backlog #82) ===
+    // Blöcke platzieren macht Percussion-Sounds.
+    // Verschiedene Materialien = verschiedene Drum-Sounds.
+    // Oscar O-Ton: "Blöcke platzieren ist Trommel"
+    const DRUM_KITS = {
+        // Stein/Erde/Sand = tiefe Trommel (Kick)
+        kick:    { freq: 80,  sweep: 40,  dur: 0.15, wave: 'sine',     vol: 0.20 },
+        // Holz/Bretter = Snare (knackig)
+        snare:   { freq: 200, sweep: 100, dur: 0.10, wave: 'triangle', vol: 0.15 },
+        // Metall/Glas = Hi-Hat (zischend)
+        hihat:   { freq: 800, sweep: 1200, dur: 0.05, wave: 'square',  vol: 0.08 },
+        // Wasser = Tom (rollend)
+        tom:     { freq: 150, sweep: 80,  dur: 0.12, wave: 'sine',     vol: 0.15 },
+        // Feuer = Crash (explosiv)
+        crash:   { freq: 400, sweep: 600, dur: 0.20, wave: 'sawtooth', vol: 0.10 },
+        // Pflanzen/Blumen = Bongo (leicht)
+        bongo:   { freq: 300, sweep: 200, dur: 0.08, wave: 'triangle', vol: 0.12 },
+        // Magie = Glocke (hell)
+        bell:    { freq: 600, sweep: 800, dur: 0.25, wave: 'sine',     vol: 0.08 },
+        // Default
+        tap:     { freq: 180, sweep: 120, dur: 0.10, wave: 'triangle', vol: 0.12 },
+    };
+
+    const MATERIAL_DRUM_MAP = {
+        stone: 'kick', earth: 'kick', sand: 'kick', mountain: 'kick', volcano: 'kick',
+        wood: 'snare', planks: 'snare', door: 'snare', fence: 'snare', nest: 'snare',
+        metal: 'hihat', glass: 'hihat', lamp: 'hihat', window_pane: 'hihat', robot: 'hihat',
+        water: 'tom', ice: 'tom', rain: 'tom', snow: 'tom', fountain: 'tom',
+        fire: 'crash', lightning: 'crash', sun: 'crash', lava: 'crash',
+        plant: 'bongo', flower: 'bongo', sapling: 'bongo', tree: 'bongo', mushroom: 'bongo',
+        diamond: 'bell', crystal: 'bell', crown: 'bell', star: 'bell', rainbow: 'bell',
+        potion: 'bell', unicorn: 'bell', treasure: 'bell',
+    };
+
+    function soundDrum(material) {
+        if (isMuted()) return;
+        if (!canPlaySound()) return;
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+            const drumName = MATERIAL_DRUM_MAP[material] || 'tap';
+            const drum = DRUM_KITS[drumName];
+
+            // Hauptschlag: Frequency-Sweep runter (typisch für Drums)
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = drum.wave;
+            osc.frequency.setValueAtTime(drum.freq, t);
+            osc.frequency.exponentialRampToValueAtTime(drum.sweep, t + drum.dur);
+            gain.gain.setValueAtTime(drum.vol * masterVolume, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + drum.dur);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + drum.dur);
+
+            // Noise-Layer für Snare/HiHat/Crash (knusprig)
+            if (drumName === 'snare' || drumName === 'hihat' || drumName === 'crash') {
+                const bufSize = ctx.sampleRate * drum.dur;
+                const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+                const data = buf.getChannelData(0);
+                for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * 0.5;
+                const noise = ctx.createBufferSource();
+                const nGain = ctx.createGain();
+                noise.buffer = buf;
+                nGain.gain.setValueAtTime(drum.vol * 0.4 * masterVolume, t);
+                nGain.gain.exponentialRampToValueAtTime(0.001, t + drum.dur);
+                noise.connect(nGain);
+                nGain.connect(ctx.destination);
+                noise.start(t);
+                noise.stop(t + drum.dur);
+            }
+        } catch (e) {}
+    }
+
     function soundAchievement() {
         if (isMuted()) return;
         // Zelda-Chest-artig: aufsteigende Fanfare mit Chorus
@@ -342,6 +417,7 @@
         soundChop,
         soundCraft,
         soundSelect,
+        soundDrum,
         soundFirstBlock,
         // Volume-Steuerung
         setMasterVolume,
