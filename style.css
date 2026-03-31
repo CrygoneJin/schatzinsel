@@ -238,7 +238,6 @@ body {
     background: rgba(255,255,255,0.15);
     color: white;
     text-align: center;
-    outline: none;
     margin-top: 16px;
     width: 220px;
     letter-spacing: 1px;
@@ -1311,7 +1310,6 @@ body.code-view-active #chat-settings-btn {
     border: 2px solid #ddd;
     border-radius: 20px;
     font-size: 14px;
-    outline: none;
     transition: border-color 0.2s;
 }
 
@@ -2037,4 +2035,41 @@ body.code-view-active #chat-settings-btn {
         --text-light: #e0e0e0;
         --btn-bg: #2d1f3d;
     }
+}
+
+/* === ACCESSIBILITY — :focus-visible for keyboard navigation (WCAG AA) === */
+.tool-btn:focus-visible,
+.action-btn:focus-visible,
+.material-btn:focus-visible,
+.sidebar-tab:focus-visible,
+.avatar-btn:focus-visible,
+.craft-slot:focus-visible,
+#start-button:focus-visible,
+#chat-send-btn:focus-visible,
+#chat-settings-btn:focus-visible,
+#chat-close-btn:focus-visible,
+#chat-bubble:focus-visible,
+#api-key-toggle:focus-visible,
+#api-key-save:focus-visible,
+#api-key-close:focus-visible,
+.saved-project-delete:focus-visible {
+    outline: 2px solid #27AE60;
+    outline-offset: 2px;
+}
+
+#player-name-input:focus-visible,
+#project-name:focus-visible,
+#chat-input:focus-visible,
+#api-key-input:focus-visible,
+#api-url-input:focus-visible,
+#chat-character:focus-visible,
+#api-provider:focus-visible {
+    outline: 2px solid #27AE60;
+    outline-offset: 2px;
+}
+
+/* Skip outline for mouse clicks — keep border-based focus indication */
+#player-name-input:focus:not(:focus-visible),
+#chat-input:focus:not(:focus-visible) {
+    outline: none;
 }
