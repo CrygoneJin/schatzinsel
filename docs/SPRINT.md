@@ -16,6 +16,21 @@
 
 ---
 
+## Sprint Review — 2026-03-31
+
+**Sprint Goal erreicht:** ✅ Ja
+
+**Was geliefert wurde:**
+- S21-1: Drag & Drop — Oscar zieht Materialien direkt auf den Canvas. `draggable="true"`, `dragstart`/`dragover`/`drop` Handler, auch dynamisch gecraftete Buttons. Oscar's Wunsch (#46) erfüllt.
+- S21-2: Code-Ebenen per Touch — Swipe Left/Right wechselt Code-Layer. `touchWasPainting`-Flag verhindert Fehltrigger beim Malen. Threshold: ≥80px horizontal, <40px vertikal.
+- S21-3: Quests/Achievements balanciert — Baseline-Tracking ab Annahme, max 2 aktive Quests gleichzeitig. PR #62.
+
+**Was nicht geliefert wurde:** Nichts. Alle 3 Items Done.
+
+**Oscar-Check:** "Ich kann jetzt einfach hinziehen." Das ist der Satz der zählt.
+
+---
+
 ## Standup Log
 
 ### 2026-03-31 (Daily Scrum)
