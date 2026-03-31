@@ -366,7 +366,7 @@ Du: "Mjam, das klingt nach einem GROSSEN Bug! 🐛 Was genau ist doof? Zeig mir 
     const apiKeyClose = document.getElementById('api-key-close');
 
     // --- State ---
-    let currentNpcId = 'spongebob';
+    let currentNpcId = 'bernd'; // Chat-Bubble öffnet immer Bernd (Support)
     let chatHistory = [];
 
     function updateChatHeader() {
@@ -923,9 +923,17 @@ ${budgetInfo}`;
     // Chat-Bubble (💬 FAB) öffnet den Chat
     const chatBubble = document.getElementById('chat-bubble');
     if (chatBubble) {
-        chatBubble.addEventListener('click', toggleChat);
+        chatBubble.addEventListener('click', () => {
+            // Bubble = immer Bernd (Support). Andere NPCs nur über Insel-Interaktion.
+            if (panel.classList.contains('hidden')) {
+                currentNpcId = 'bernd';
+                updateChatHeader();
+                updateTokenDisplay('bernd');
+            }
+            toggleChat();
+        });
         chatBubble.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') toggleChat();
+            if (e.key === 'Enter' || e.key === ' ') chatBubble.click();
         });
     }
 
