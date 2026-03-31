@@ -226,6 +226,8 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 55 | **Spielfigur auf der Insel** — Kind benennt selbst (max 8 Buchstaben), bewegbar mit Pfeiltasten (PC) oder Finger-Drag (Touch) | P1 | Engineer + Designer | ✅ Done (Sprint 7) |
 | 56 | **Bibliothek von Alexandria** — Gebäude auf der Insel (Stein+Bretter+Wissen), Schriftrollen statt Bücher, jede Rolle = Wiki-Game-Challenge ("Von Wasser zu Drache in X Schritten"). Timbuktu als zweite Bibliothek — wer beide baut verbindet zwei Wissenswelten. Papyrus vor Gutenberg. Wikipedia von damals. | P2 | alle |
 | 78 | **Tesla-Nutzertest auswerten** — 1h Video von Oscar im Tesla (Auto-Touchscreen). Datei >1GB, muss kleiner formatiert werden (komprimieren/schneiden), dann hier rein. Da ist Gold drin — tonnenweise. Echte Nutzerdaten, echte Reaktionen, echter 8-Jähriger. | P0 | Scientist + Leader |
+| 79 | **Hau-den-Lukas Mini-Game zurückbringen** — Existierte als eigenständige HTML-Seite (hau-den-lukas.html, 441 Zeilen). Pump-Check-Game. Bei Main→Branch-Migration nicht mitgenommen. Code lag auf Main, muss neu integriert oder als separates Mini-Game verlinkt werden. | P3 | Engineer |
+| 80 | **docs/PROJECT.md + DESIGN.md + DECISIONS.md neu aufsetzen** — Bei Branch-Migration verloren gegangen. Inhalte teilweise in ARCHITECTURE.md, aber eigenständige Dateien fehlen. CLAUDE.md referenziert sie beim Session-Start. | P1 | Leader |
 
 ---
 
