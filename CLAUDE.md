@@ -20,8 +20,13 @@ ist eine verlorene Minute.
 
 - **Commit + Push selbstständig** nach jeder abgeschlossenen Arbeit. Nicht fragen.
 - **PR erstellen nach jedem Feature.** Kein Feature ohne PR.
+- **Ein Feature = ein Branch = ein PR.** Atomar. Keine Multi-Feature-Branches.
+  Wenn während der Arbeit ein zweites Feature dazukommt → neuer Branch.
+  Cherry-Pick ist Notfall, nicht Workflow.
 - Commit-Messages auf Deutsch oder Denglisch, kurz und präzise.
-- Branch-Name kommt vom Task/Issue. Kein Push auf main ohne PR.
+- Branch-Name kommt vom Feature, nicht von der Session.
+- Kein Push auf main ohne PR.
+- **Typecheck vor jedem Commit.** `tsc --noEmit` muss grün sein.
 
 ---
 
@@ -109,6 +114,19 @@ unique_materials     → UniqueMaterials (fldDGwYhNDLbBiGvC)
 ```
 
 Definition of Done: siehe `docs/DONE.md` — drei Punkte, binär.
+
+---
+
+## Git-Workflow
+
+1. **Commit & Push selbstständig.** Nicht fragen. Machen.
+2. **PR-Pflicht nach jedem Feature.** Kein Push auf main ohne PR.
+3. **Ein Feature = ein Branch = ein PR.** Atomar. Keine Multi-Feature-Branches.
+   Wenn während der Arbeit ein zweites Feature dazukommt → neuer Branch.
+   Cherry-Pick ist Notfall, nicht Workflow.
+4. **Branch benennen nach Feature**, nicht nach Session oder Ticket-Batch.
+5. **Typecheck vor jedem Commit.** `tsc --noEmit` muss grün sein.
+   Pre-commit Hook und Claude Code PreToolUse Hook erzwingen das.
 
 ---
 
