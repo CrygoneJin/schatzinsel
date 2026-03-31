@@ -111,6 +111,176 @@
     let lastBuildNote = -1;
     let buildNoteDir = 1;
 
+    // === BAU-TROMMEL — Percussion pro Material ===
+    // Oscar O-Ton: "Blöcke platzieren ist Trommel"
+    // Jedes Material hat einen eigenen Drum-Sound via Web Audio API
+
+    function createNoiseBuffer(duration) {
+        const ctx = ensureAudio();
+        const sampleRate = ctx.sampleRate;
+        const length = Math.floor(sampleRate * duration);
+        const buffer = ctx.createBuffer(1, length, sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < length; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+        return buffer;
+    }
+
+    // Holzblock: kurzer Klick, mittlere Frequenz
+    function drumWood(ctx, t, vol) {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(800, t);
+        osc.frequency.exponentialRampToValueAtTime(300, t + 0.03);
+        g.gain.setValueAtTime(vol * 0.3, t);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(t); osc.stop(t + 0.06);
+        // Zweiter kurzer Klick (Holzblock-Charakter)
+        const osc2 = ctx.createOscillator();
+        const g2 = ctx.createGain();
+        osc2.type = 'square';
+        osc2.frequency.value = 540;
+        g2.gain.setValueAtTime(vol * 0.12, t + 0.005);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+        osc2.connect(g2); g2.connect(ctx.destination);
+        osc2.start(t + 0.005); osc2.stop(t + 0.04);
+    }
+
+    // Kick Drum: tiefer Thump (Stein, Erde)
+    function drumKick(ctx, t, vol) {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, t);
+        osc.frequency.exponentialRampToValueAtTime(40, t + 0.12);
+        g.gain.setValueAtTime(vol * 0.4, t);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(t); osc.stop(t + 0.15);
+        // Click-Transient obendrauf
+        const osc2 = ctx.createOscillator();
+        const g2 = ctx.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.value = 160;
+        g2.gain.setValueAtTime(vol * 0.2, t);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
+        osc2.connect(g2); g2.connect(ctx.destination);
+        osc2.start(t); osc2.stop(t + 0.02);
+    }
+
+    // Hi-Hat: kurzes Rauschen (Metall)
+    function drumHiHat(ctx, t, vol) {
+        const buf = createNoiseBuffer(0.05);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        // Highpass-Filter für metallischen Charakter
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 7000;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(vol * 0.18, t);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+        src.connect(hp); hp.connect(g); g.connect(ctx.destination);
+        src.start(t); src.stop(t + 0.05);
+    }
+
+    // Snare: Rauschen + Ton (Feuer)
+    function drumSnare(ctx, t, vol) {
+        // Ton-Komponente
+        const osc = ctx.createOscillator();
+        const g1 = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = 200;
+        g1.gain.setValueAtTime(vol * 0.25, t);
+        g1.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+        osc.connect(g1); g1.connect(ctx.destination);
+        osc.start(t); osc.stop(t + 0.08);
+        // Rausch-Komponente (Snare-Teppich)
+        const buf = createNoiseBuffer(0.1);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 3000;
+        const g2 = ctx.createGain();
+        g2.gain.setValueAtTime(vol * 0.2, t);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+        src.connect(hp); hp.connect(g2); g2.connect(ctx.destination);
+        src.start(t); src.stop(t + 0.1);
+    }
+
+    // Splash: längeres Rauschen (Wasser)
+    function drumSplash(ctx, t, vol) {
+        const buf = createNoiseBuffer(0.3);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.value = 4000;
+        bp.Q.value = 0.5;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(vol * 0.15, t);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+        src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+        src.start(t); src.stop(t + 0.3);
+    }
+
+    // Ride Cymbal: hoch, nachhallend (Glas)
+    function drumRide(ctx, t, vol) {
+        // Hoher Ton, lang
+        const osc = ctx.createOscillator();
+        const g1 = ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.value = 6000;
+        g1.gain.setValueAtTime(vol * 0.06, t);
+        g1.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+        osc.connect(g1); g1.connect(ctx.destination);
+        osc.start(t); osc.stop(t + 0.4);
+        // Rausch-Schimmer
+        const buf = createNoiseBuffer(0.35);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 8000;
+        const g2 = ctx.createGain();
+        g2.gain.setValueAtTime(vol * 0.1, t);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+        src.connect(hp); hp.connect(g2); g2.connect(ctx.destination);
+        src.start(t); src.stop(t + 0.35);
+    }
+
+    const DRUM_MAP = {
+        wood:  drumWood,
+        earth: drumKick,
+        stone: drumKick,
+        metal: drumHiHat,
+        fire:  drumSnare,
+        water: drumSplash,
+        glass: drumRide,
+    };
+    const DRUM_FUNCS = [drumWood, drumKick, drumHiHat, drumSnare, drumSplash, drumRide];
+
+    function playDrumSound(materialId) {
+        if (isMuted()) return;
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+            const vol = masterVolume;
+            const drumFn = DRUM_MAP[materialId];
+            if (drumFn) {
+                drumFn(ctx, t, vol);
+            } else {
+                // Unbekanntes Material: zufälliger Drum
+                const fn = DRUM_FUNCS[Math.floor(Math.random() * DRUM_FUNCS.length)];
+                fn(ctx, t, vol);
+            }
+        } catch (e) { /* Audio nicht verfügbar */ }
+    }
+
     // === 五音 (Wǔ Yīn) — Die 5 Töne der chinesischen Pentatonik ===
     // === GENESIS-Töne: Stille → Tiefe → Höhe → Akkord → Pentatonik ===
     const C2 = 65.41;   // Tiefes C
@@ -192,27 +362,13 @@
             if (tone.chord) {
                 playRichTone(tone.chord * (1 + (Math.random() - 0.5) * 0.02), tone.dur, tone.wave, tone.vol * 0.7);
             }
+            // Bau-Trommel: Drum-Layer dazu (leiser, als Percussion-Schicht)
+            playDrumSound(material);
             return;
         }
-        // Nicht-Basis-Materialien: melodische Skala wie bisher
-        scaleChangeCounter++;
-        if (scaleChangeCounter > 25 + Math.floor(Math.random() * 15)) {
-            scaleChangeCounter = 0;
-            currentScale = SCALES[SCALE_NAMES[Math.floor(Math.random() * SCALE_NAMES.length)]];
-        }
-
-        let idx;
-        if (lastBuildNote < 0) {
-            idx = Math.floor(Math.random() * currentScale.length);
-        } else {
-            if (Math.random() < 0.3) buildNoteDir *= -1;
-            idx = lastBuildNote + buildNoteDir * (1 + Math.floor(Math.random() * 2));
-            if (idx >= currentScale.length) { idx = currentScale.length - 2; buildNoteDir = -1; }
-            if (idx < 0) { idx = 1; buildNoteDir = 1; }
-        }
-        lastBuildNote = idx;
-        const type = BUILD_WAVES[Math.floor(Math.random() * BUILD_WAVES.length)];
-        playRichTone(currentScale[idx], 0.06 + Math.random() * 0.06, type, 0.06 + Math.random() * 0.04);
+        // Nicht-Basis-Materialien: Bau-Trommel statt melodische Skala
+        // Oscar: "Blöcke platzieren ist Trommel"
+        playDrumSound(material);
     }
 
     function soundDemolish(getGridStats) {
@@ -525,6 +681,7 @@
         soundSelect,
         soundFirstBlock,
         playMaterialSound,
+        playDrumSound,
         // Volume-Steuerung
         setMasterVolume,
         getMasterVolume,
