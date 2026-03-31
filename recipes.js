@@ -99,6 +99,17 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Höhle',       result: 'cave',       resultCount: 1, ingredients: { mountain: 1, water: 1 },    desc: 'Berg + Wasser = Höhle' },
     { name: 'Tropfstein',  result: 'stalactite',  resultCount: 1, ingredients: { cave: 1, water: 1 },       desc: 'Höhle + Wasser = Tropfstein' },
     { name: 'Edelstein',   result: 'gem',         resultCount: 1, ingredients: { stalactite: 1, fire: 1 },  desc: 'Tropfstein + Feuer = Edelstein' },
+    // === NOCH MEHR UNSINN (Backlog #58 — Lindgren: "unlogisch aber wunderbar") ===
+    { name: 'Feuerkuchen',    result: 'firecake',    resultCount: 1, ingredients: { fire: 1, pancake: 1 },     desc: 'Feuer + Eierkuchen = Feuerkuchen (schmeckt nach Abenteuer!)' },
+    { name: 'Drachentorte',   result: 'dragoncake',  resultCount: 1, ingredients: { dragon: 1, cake: 1 },      desc: 'Drache + Kuchen = Drachentorte (vorsicht, heiß!)' },
+    { name: 'Geisterschiff',  result: 'ghostship',   resultCount: 1, ingredients: { ghost: 1, boat: 1 },       desc: 'Geist + Boot = Geisterschiff (es fährt bei Vollmond!)' },
+    { name: 'Mondkäse',       result: 'mooncheese',  resultCount: 2, ingredients: { moon: 1, fire: 1, earth: 1 }, desc: 'Mond + Feuer + Erde = 2 Mondkäse (natürlich ist der Mond aus Käse!)' },
+    { name: 'Schneedrache',   result: 'snowdragon',  resultCount: 1, ingredients: { dragon: 1, snow: 1 },      desc: 'Drache + Schnee = Schneedrache (spuckt Schneeflocken statt Feuer!)' },
+    { name: 'Wurmloch',       result: 'wormhole',    resultCount: 1, ingredients: { worm: 1, star: 1 },        desc: 'Regenwurm + Stern = Wurmloch (Einstein hätte gelacht!)' },
+    { name: 'Bienenstich',    result: 'beesting',    resultCount: 2, ingredients: { bee: 1, cake: 1 },         desc: 'Biene + Kuchen = 2 Bienenstich (der Kuchen, nicht der Stich!)' },
+    { name: 'Fischstäbchen',  result: 'fishstick',   resultCount: 3, ingredients: { fish: 1, planks: 1 },      desc: 'Fisch + Bretter = 3 Fischstäbchen (Käpt\'n Iglo nickt.)' },
+    { name: 'Sternschnuppe',  result: 'shootingstar', resultCount: 1, ingredients: { star: 1, fire: 1 },       desc: 'Stern + Feuer = Sternschnuppe (schnell wünschen!)' },
+    { name: 'Donnerwetter',   result: 'thunderweather', resultCount: 1, ingredients: { lightning: 1, rain: 1, poop: 1 }, desc: 'Blitz + Regen + 💩 = Donnerwetter (im wahrsten Sinne!)' },
     // === BIBLIOTHEK VON ALEXANDRIA ===
     { name: 'Schriftrolle', result: 'scroll',  resultCount: 1, ingredients: { wood: 1, water: 1, fire: 1 }, desc: 'Holz + Wasser + Feuer = Schriftrolle (Papyrus!)' },
     { name: 'Bibliothek', result: 'library',   resultCount: 1, ingredients: { stone: 3, scroll: 3, crown: 1 }, desc: '3 Stein + 3 Schriftrollen + Krone = Bibliothek von Alexandria' },
