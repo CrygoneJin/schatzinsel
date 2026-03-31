@@ -455,8 +455,9 @@ async function logAirtable(body, meta, env) {
 async function handleTTS(request, env) {
     if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
 
-    const apiKey = env['schatzinsel-requesty'] || env.API_KEY;
-    if (!apiKey) return json({ error: 'Kein API-Key konfiguriert' }, 500);
+    // OpenAI TTS direkt (Requesty hat kein /audio/speech)
+    const apiKey = env.OPENAI_TTS_KEY || env.OPENAI_API_KEY;
+    if (!apiKey) return json({ error: 'Kein OpenAI TTS-Key (OPENAI_TTS_KEY) konfiguriert' }, 500);
 
     let body;
     try { body = await request.json(); } catch (e) {
@@ -467,28 +468,28 @@ async function handleTTS(request, env) {
     if (!text) return json({ error: 'text benötigt' }, 400);
 
     // Stimmen-Mapping: Charakter → OpenAI Voice
-    // alloy=neutral, echo=tief, fable=britisch, onyx=dunkel, nova=warm, shimmer=hell
+    // alloy=neutral, echo=tief, fable=britisch/warm, onyx=dunkel, nova=warm, shimmer=hell
     const voiceMap = {
-        lanz: 'onyx',       // tief, seriös
-        precht: 'fable',    // eloquent, nachdenklich
-        merz: 'echo',       // sachlich, tief
+        lanz: 'onyx',       // tief, seriös — der Moderator
+        precht: 'fable',    // eloquent, nachdenklich — der Philosoph
+        merz: 'echo',       // sachlich, tief — der Kanzler
         trump: 'alloy',     // neutral (accent kommt aus dem Text)
-        musk: 'shimmer',    // hell, technisch
-        mephisto: 'onyx',   // dunkel, samtig
-        default: 'nova',    // warm, freundlich
+        musk: 'shimmer',    // hell, technisch — der Disruptor
+        mephisto: 'onyx',   // dunkel, samtig — der Teufel
+        default: 'nova',    // warm, freundlich — Erzähler
     };
     const voice = voiceMap[body.voice] || voiceMap.default;
     const speed = body.speed || 1.0;
 
     try {
-        const response = await fetch('https://router.requesty.ai/v1/audio/speech', {
+        const response = await fetch('https://api.openai.com/v1/audio/speech', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-                model: 'openai/tts-1',
+                model: 'tts-1',
                 input: text,
                 voice: voice,
                 speed: Math.max(0.5, Math.min(2.0, speed)),
