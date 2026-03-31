@@ -334,6 +334,113 @@
         } catch (e) {}
     }
 
+    // === INVENTAR-TÖNE — Jedes Material hat einen eigenen Ton beim Auswählen ===
+    // Oscar O-Ton: "Inventar sind Töne"
+    // Kurze, charakteristische Sounds die sich gut anfühlen beim Durchklicken.
+    function playMaterialSound(materialId) {
+        if (isMuted()) return;
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+            switch (materialId) {
+                case 'wood': {
+                    // Warmer Holz-Knock: niedrige Frequenz, kurzer Attack, weich
+                    const osc = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, t);
+                    osc.frequency.exponentialRampToValueAtTime(120, t + 0.08);
+                    g.gain.setValueAtTime(0.25 * masterVolume, t);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.start(t); osc.stop(t + 0.15);
+                    break;
+                }
+                case 'fire': {
+                    // Zisch-Sound: hohe Frequenz, schnell abklingend, sawtooth
+                    const osc = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(1200, t);
+                    osc.frequency.exponentialRampToValueAtTime(400, t + 0.1);
+                    g.gain.setValueAtTime(0.12 * masterVolume, t);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.start(t); osc.stop(t + 0.1);
+                    break;
+                }
+                case 'water': {
+                    // Tropfen-Sound: Frequenz-Sweep abwärts, sine, weich
+                    const osc = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(800, t);
+                    osc.frequency.exponentialRampToValueAtTime(200, t + 0.2);
+                    g.gain.setValueAtTime(0.18 * masterVolume, t);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.start(t); osc.stop(t + 0.25);
+                    break;
+                }
+                case 'earth': {
+                    // Dumpfer Thud: sehr niedrige Frequenz, kurz
+                    const osc = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(80, t);
+                    osc.frequency.exponentialRampToValueAtTime(40, t + 0.12);
+                    g.gain.setValueAtTime(0.30 * masterVolume, t);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.start(t); osc.stop(t + 0.18);
+                    break;
+                }
+                case 'metal': {
+                    // Heller Klang: hohe Frequenz, nachhallend, square + Oberton
+                    const osc1 = ctx.createOscillator();
+                    const g1 = ctx.createGain();
+                    osc1.type = 'square';
+                    osc1.frequency.value = 880;
+                    g1.gain.setValueAtTime(0.10 * masterVolume, t);
+                    g1.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                    osc1.connect(g1); g1.connect(ctx.destination);
+                    osc1.start(t); osc1.stop(t + 0.35);
+                    // Oberton für Glocken-Effekt
+                    const osc2 = ctx.createOscillator();
+                    const g2 = ctx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.value = 880 * 2.76; // Inharmonischer Oberton = glockenartig
+                    g2.gain.setValueAtTime(0.06 * masterVolume, t);
+                    g2.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+                    osc2.connect(g2); g2.connect(ctx.destination);
+                    osc2.start(t); osc2.stop(t + 0.3);
+                    break;
+                }
+                default: {
+                    // Andere Materialien: Ton basierend auf Material-Name-Hash
+                    // Erzeugt einen konsistenten, aber unterschiedlichen Ton pro Material
+                    let hash = 0;
+                    for (let i = 0; i < materialId.length; i++) {
+                        hash = ((hash << 5) - hash + materialId.charCodeAt(i)) | 0;
+                    }
+                    const freq = 200 + (Math.abs(hash) % 600); // 200-800 Hz
+                    const waves = ['sine', 'triangle', 'square'];
+                    const wave = waves[Math.abs(hash) % waves.length];
+                    const dur = 0.1 + (Math.abs(hash) % 15) / 100; // 0.10-0.25s
+                    const osc = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    osc.type = wave;
+                    osc.frequency.value = freq;
+                    g.gain.setValueAtTime(0.15 * masterVolume, t);
+                    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+                    osc.connect(g); g.connect(ctx.destination);
+                    osc.start(t); osc.stop(t + dur);
+                    break;
+                }
+            }
+        } catch (e) { /* Audio nicht verfügbar */ }
+    }
+
     window.INSEL_SOUND = {
         soundBuild,
         soundDemolish,
@@ -343,6 +450,7 @@
         soundCraft,
         soundSelect,
         soundFirstBlock,
+        playMaterialSound,
         // Volume-Steuerung
         setMasterVolume,
         getMasterVolume,
