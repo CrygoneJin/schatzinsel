@@ -4176,6 +4176,12 @@
         });
     });
 
+    // --- Marketplace Button ---
+    const marketBtn = document.getElementById('market-btn');
+    if (marketBtn) marketBtn.addEventListener('click', function () {
+        if (window.INSEL_MARKETPLACE) window.INSEL_MARKETPLACE.open();
+    });
+
     // --- Crafting Dialog Events ---
     const craftBtn = document.getElementById('craft-btn');
     if (craftBtn) craftBtn.addEventListener('click', openCraftingDialog);
