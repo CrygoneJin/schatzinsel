@@ -46,4 +46,14 @@ window.INSEL_QUEST_TEMPLATES = [
     { npc: 'elefant', title: 'Honiggarten', desc: 'Törööö... Honig riecht wie eine Melodie! Bienen sind Musiker! Die Blumen sind das Konzerthaus!', needs: { honey: 4, bee: 4, flower: 8, apple: 3 }, reward: '🎵🎵🎵🎵🎵' },
     { npc: 'maus', title: 'Kuchenland', desc: '*pieps* KUCHEN! *quak* Nein wir brauchen keinen — *pieps* DOCH! *quak* Ein Kuchen reicht! *pieps* DREI!', needs: { cake: 3, apple: 4, honey: 3, flower: 4 }, reward: '🌻🌻🌻🌻🌻🌻' },
     { npc: 'spongebob', title: 'Trank-Labor', desc: 'Suchergebnis: 1 Trank-Labor gefunden! ...in BIKINI BOTTOM! Ich mache meins hier! Pilze! Kristalle! MAGIE!', needs: { potion: 3, crystal: 2, mushroom: 4, diamond: 1 }, reward: '⭐⭐⭐⭐⭐⭐⭐' },
+    // === Runde 7: HAIKU-QUESTS (#14/#60 — Krapweis-Idee: 5-7-5 Silben) ===
+    // Jede Quest-Beschreibung ist ein Haiku. Am Strand steht ein Schild.
+    { npc: 'elefant', title: '🎋 Bambusgarten', desc: 'Bäume wiegen sich\nim Wind der Insel so sanft —\nbau mir einen Wald.', needs: { tree: 6, plant: 4, path: 3 }, reward: '🎋🎋' },
+    { npc: 'neinhorn', title: '🌙 Mondteich', desc: 'Mond spiegelt sich still\nim dunklen Wasser der Nacht —\nNEIN ich will das DOCH.', needs: { moon: 1, water: 6, flower: 3 }, reward: '🌙🌙' },
+    { npc: 'spongebob', title: '⛵ Hafen der Stille', desc: 'Boote schaukeln sacht\ndie Sonne sinkt ins Meer — jetzt\nSuchergebnis: Hafen!', needs: { boat: 3, water: 6, lamp: 2 }, reward: '⛵⛵' },
+    { npc: 'maus', title: '🌸 Kirschblüte', desc: 'Rosa Blätter fall\'n\ndie Ente watschelt hindurch —\n*quak* das ist Poesie!', needs: { flower: 8, tree: 3, path: 4 }, reward: '🌸🌸' },
+    { npc: 'krabs', title: '💎 Schatzhöhle', desc: 'Tief im Berg versteckt\nglänzt Gold im Fackellicht — mein!\nInvestition: Berg.', needs: { mountain: 1, treasure: 1, lamp: 4, stone: 4 }, reward: '💎💎' },
+    { npc: 'tommy', title: '⚡ Gewitterturm', desc: 'Blitz zuckt durch die Nacht\nder lockige Mann sagt — klick! —\nTürme fangen Blitz.', needs: { lightning: 2, stone: 6, metal: 3, glass: 2 }, reward: '⚡⚡' },
+    { npc: 'elefant', title: '🦋 Schmetterlingsweg', desc: 'Flügel tanzen leis\nvon Blume hin zu Blume —\nTörööö... wie schön das klingt.', needs: { butterfly: 2, flower: 6, path: 6 }, reward: '🦋🦋' },
+    { npc: 'neinhorn', title: '❄️ Eispalast', desc: 'Kristalle funkeln\nkalt und klar im Winterlicht —\nNEIN es ist nicht kalt!', needs: { ice: 4, crystal: 2, glass: 4, lamp: 2 }, reward: '❄️❄️' },
 ];

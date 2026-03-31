@@ -115,6 +115,21 @@ window.INSEL_MATERIALS = {
     // === BIBLIOTHEK VON ALEXANDRIA ===
     library:  { emoji: '🏛️', label: 'Bibliothek', color: '#F5E6CA', border: '#D4C5A9' },
     scroll:   { emoji: '📜', label: 'Schriftrolle', color: '#FDEBD0', border: '#FAD7A0' },
+    // === HÖHLEN & EDELSTEINE ===
+    cave:         { emoji: '🕳️', label: 'Höhle',     color: '#4A4A4A', border: '#333333' },
+    stalactite:   { emoji: '🪨', label: 'Tropfstein', color: '#8B8682', border: '#6B6662' },
+    gem:          { emoji: '💎', label: 'Edelstein',  color: '#50C878', border: '#3DA066' },
+    obsidian:     { emoji: '⬛', label: 'Obsidian',   color: '#1C1C1C', border: '#0A0A0A' },
+    amber:        { emoji: '🟠', label: 'Bernstein',  color: '#FFBF00', border: '#CC9900' },
+    // === MEHR UNSINN (Lindgren-approved) ===
+    pancakedragon:{ emoji: '🥞🐉', label: 'Pfannkuchen-Drache', color: '#F5DEB3', border: '#DCC89E' },
+    fireice:      { emoji: '🔥🧊', label: 'Feuer-Eis', color: '#FF6347', border: '#CC4F39' },
+    cloudsheep:   { emoji: '☁️🐑', label: 'Wolkenschaf', color: '#F2F4F4', border: '#D5D8DC' },
+    mooncake:     { emoji: '🥮', label: 'Mondkuchen', color: '#DAA520', border: '#B8860B' },
+    stardust:     { emoji: '✨', label: 'Sternenstaub', color: '#E6E6FA', border: '#C8C8E6' },
+    // === FEHLENDE BASIS ===
+    wind:     { emoji: '💨', label: 'Wind',    color: '#E8F0FE', border: '#C8D8EE' },
+    palm:     { emoji: '🌴', label: 'Palme',   color: '#2E7D32', border: '#1B5E20' },
 };
 
 // === SCHRIFTROLLEN DER BIBLIOTHEK — Easter Eggs für Neugierige ===

@@ -884,6 +884,8 @@ ${budgetInfo}`;
     // --- Events ---
     function toggleChat() {
         panel.classList.toggle('hidden');
+        // #28: Canvas schrumpft wenn Chat offen — kein Overlay mehr
+        document.body.classList.toggle('chat-open', !panel.classList.contains('hidden'));
         if (!panel.classList.contains('hidden')) {
             input.focus();
             if (window.recordMilestone) window.recordMilestone('firstChat');
@@ -918,6 +920,7 @@ ${budgetInfo}`;
 
     closeBtn.addEventListener('click', () => {
         panel.classList.add('hidden');
+        document.body.classList.remove('chat-open');
     });
 
     // Chat-Bubble (💬 FAB) öffnet den Chat

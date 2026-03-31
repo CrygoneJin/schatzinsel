@@ -1,3 +1,44 @@
+# Sprint 22 — "Backlog leer"
+
+**Sprint Goal:** Backlog aufräumen. Alles was machbar ist: machen. Rest einfrieren.
+
+**Start:** 2026-03-31
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S22-1 | **#28 Chat nicht überlappend** — body.chat-open + margin-right auf canvas-wrapper | Engineer | ✅ Done |
+| S22-2 | **#14/#60 Haiku-Quests** — 8 neue Quests in 5-7-5 Silben (Krapweis-Idee) | Artist | ✅ Done |
+| S22-3 | **#58/#84 Rezepte** — Höhlen+Edelsteine (5) + Unsinn (5) + Wind/Palme (2) | Engineer | ✅ Done |
+| S22-4 | **#85 Genre-Tonsequenzen** — 5 Genres (Ambient/Industrial/Folk/Synthwave/Drone) × 5 Noten | Engineer | ✅ Done |
+| S22-5 | **#86 CI/CD** — ci.yml mit Unit Tests + Syntax Check + Secret Scan | Engineer | ✅ Done |
+| S22-6 | **#87 TTS Hörspiele** — Web Speech API, lang=de-DE, Mute-respecting | Engineer | ✅ Done |
+| S22-7 | **#65 Neutrino-Metrik** — isNeutrino + neutrinoScore in getMetrics() | Scientist | ✅ Done |
+| S22-8 | **#80 Docs** — PROJECT.md + DESIGN.md + DECISIONS.md neu geschrieben | Leader | ✅ Done |
+| S22-9 | **Backlog-Cleanup** — Alle erledigten Items markiert, Vision eingefroren | Weber | ✅ Done |
+
+---
+
+## Sprint Review — 2026-03-31
+
+**Sprint Goal erreicht:** ✅ Ja — 9 Items, alle Done.
+
+**Was geliefert wurde:**
+- Chat-Panel ist jetzt echte Sidebar (Desktop), kein Overlay mehr
+- 8 Haiku-Quests in 5-7-5 Silben: Bambusgarten, Mondteich, Hafen der Stille, Kirschblüte, Schatzhöhle, Gewitterturm, Schmetterlingsweg, Eispalast
+- 12 neue Rezepte: Höhle, Tropfstein, Edelstein, Obsidian, Bernstein, Pfannkuchen-Drache, Feuer-Eis, Wolkenschaf, Mondkuchen, Sternenstaub, Wind, Palme
+- Genre-basierte Bau-Sounds: Natur=Ambient, Stein=Industrial, Holz=Folk, Magie=Synthwave, Wetter=Drone
+- CI pipeline mit Unit Tests, JS-Syntax-Check, Secret-Scan
+- TTS für Hörspiele via Web Speech API
+- Neutrino-Spieler-Metrik für Analytics
+- 3 fehlende Docs geschrieben
+- Backlog von ~60 offenen auf 1+5 reduziert (1 Readability, 5 Human-Input)
+
+---
+
 # Sprint 21 — "Oscar zieht"
 
 **Sprint Goal:** Drag & Drop auf dem Canvas — Oscar zieht Materialien direkt, kein Klicken mehr.

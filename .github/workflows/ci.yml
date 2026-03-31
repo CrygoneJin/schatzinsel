@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Unit Tests
+        run: node --test tests/unit.test.js
+
+      - name: Smoke Test — HTML valid
+        run: |
+          # Prüfe dass index.html existiert und kein leeres File ist
+          test -s index.html || exit 1
+          # Prüfe dass alle JS-Dateien syntaktisch korrekt sind
+          for f in *.js; do
+            node --check "$f" || exit 1
+          done
+
+      - name: Smoke Test — keine Secrets im Code
+        run: |
+          # Keine API-Keys im Code (außer Beispiel-Dateien)
+          ! grep -r "sk-[a-zA-Z0-9]\{20,\}" --include="*.js" --exclude="config.example.js" . || exit 1
+          ! grep -r "sk-ant-[a-zA-Z0-9]\{20,\}" --include="*.js" --exclude="config.example.js" . || exit 1

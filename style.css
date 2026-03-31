@@ -1207,6 +1207,17 @@ body.code-view-active #token-budget-display {
     transform: translateX(100%);
 }
 
+/* #28: Canvas schrumpft wenn Chat offen — kein Overlay */
+@media (min-width: 768px) {
+    body.chat-open #canvas-wrapper {
+        margin-right: 320px;
+        transition: margin-right 0.25s ease;
+    }
+    #canvas-wrapper {
+        transition: margin-right 0.25s ease;
+    }
+}
+
 #chat-header {
     background: linear-gradient(135deg, #2C3E50, #34495E);
     padding: 8px 12px;

@@ -98,4 +98,19 @@ window.INSEL_CRAFTING_RECIPES = [
     // === BIBLIOTHEK VON ALEXANDRIA ===
     { name: 'Schriftrolle', result: 'scroll',  resultCount: 1, ingredients: { wood: 1, water: 1, fire: 1 }, desc: 'Holz + Wasser + Feuer = Schriftrolle (Papyrus!)' },
     { name: 'Bibliothek', result: 'library',   resultCount: 1, ingredients: { stone: 3, scroll: 3, crown: 1 }, desc: '3 Stein + 3 Schriftrollen + Krone = Bibliothek von Alexandria' },
+    // === HÖHLEN & EDELSTEINE ===
+    { name: 'Höhle',      result: 'cave',       resultCount: 1, ingredients: { mountain: 1, water: 1 },        desc: 'Berg + Wasser = Höhle' },
+    { name: 'Tropfstein', result: 'stalactite', resultCount: 1, ingredients: { cave: 1, water: 1 },            desc: 'Höhle + Wasser = Tropfstein' },
+    { name: 'Edelstein',  result: 'gem',        resultCount: 1, ingredients: { stalactite: 1, fire: 1 },       desc: 'Tropfstein + Feuer = Edelstein' },
+    { name: 'Obsidian',   result: 'obsidian',   resultCount: 1, ingredients: { volcano: 1, water: 1 },         desc: 'Vulkan + Wasser = Obsidian' },
+    { name: 'Bernstein',  result: 'amber',      resultCount: 1, ingredients: { wood: 1, sun: 1, earth: 1 },    desc: 'Holz + Sonne + Erde = Bernstein' },
+    // === MEHR UNSINN (Lindgren: "Kinder sind nicht logisch. Sie sind besser als das.") ===
+    { name: 'Pfannkuchen-Drache', result: 'pancakedragon', resultCount: 1, ingredients: { dragon: 1, pancake: 1 }, desc: 'Drache + Eierkuchen = Pfannkuchen-Drache' },
+    { name: 'Feuer-Eis',  result: 'fireice',    resultCount: 1, ingredients: { fire: 1, ice: 1 },              desc: 'Feuer + Eis = Feuer-Eis ("Wie geht das?!" — "Magie.")' },
+    { name: 'Wolkenschaf', result: 'cloudsheep', resultCount: 1, ingredients: { cloud: 1, plant: 1 },          desc: 'Wolke + Pflanze = Wolkenschaf' },
+    { name: 'Mondkuchen', result: 'mooncake',   resultCount: 1, ingredients: { moon: 1, cake: 1 },             desc: 'Mond + Kuchen = Mondkuchen' },
+    { name: 'Sternenstaub', result: 'stardust', resultCount: 1, ingredients: { star: 1, earth: 1 },            desc: 'Stern + Erde = Sternenstaub' },
+    // === FEHLEND: Wind (für Musik-Rezept) ===
+    { name: 'Wind',       result: 'wind',      resultCount: 1, ingredients: { cloud: 1, fire: 1 },              desc: 'Wolke + Feuer = Wind (heiße Luft steigt auf!)' },
+    { name: 'Palme',      result: 'palm',      resultCount: 1, ingredients: { wood: 1, sand: 1, sun: 1 },       desc: 'Holz + Sand + Sonne = Palme' },
 ];

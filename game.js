@@ -751,17 +751,32 @@
 
     let hoerspielSpeaking = false;
 
+    let ttsCancelled = false;
+
+    function stopTTS() {
+        ttsCancelled = true;
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        if (hoerspielSpeaking) {
+            hoerspielSpeaking = false;
+            INSEL_SOUND.setMasterVolume(1.0);
+        }
+    }
+
     function speakLines(lines, onDone) {
-        if (!window.speechSynthesis) {
-            if (onDone) onDone();
+        if (!window.speechSynthesis || INSEL_SOUND.isMuted()) {
+            // Muted → show toasts only, no speech
+            lines.forEach((line, i) => setTimeout(() => showToast(line, 4000), i * 2500));
+            if (lines.length > 0) soundAchievement();
+            if (onDone) setTimeout(onDone, lines.length * 2500);
             return;
         }
         hoerspielSpeaking = true;
+        ttsCancelled = false;
         INSEL_SOUND.setMasterVolume(0.15); // Bau-Töne leiser während Hörspiel
 
         let index = 0;
         function speakNext() {
-            if (index >= lines.length) {
+            if (ttsCancelled || index >= lines.length) {
                 hoerspielSpeaking = false;
                 INSEL_SOUND.setMasterVolume(1.0);
                 if (onDone) onDone();
@@ -3729,6 +3744,7 @@
         muteBtn.addEventListener('click', () => {
             const nowMuted = !INSEL_SOUND.isMuted();
             INSEL_SOUND.setMuted(nowMuted);
+            if (nowMuted) stopTTS();
             muteBtn.textContent = nowMuted ? '🔇' : '🔊';
             showToast(nowMuted ? 'Ton aus' : 'Ton an');
         });
@@ -3851,6 +3867,10 @@
                 (completedQuests.length * 10) +
                 (stats.uniqueMats * 2)
             )),
+            // #65 Neutrino-Spieler: baut/schaut aber craftet nicht
+            // "Sie sind da, verändern nichts, und das ist auch ok." (Lesch)
+            isNeutrino: stats.total > 5 && unlockedMaterials.size <= 5 && completedQuests.length === 0,
+            neutrinoScore: Math.max(0, stats.total - (unlockedMaterials.size * 10) - (completedQuests.length * 20)),
         };
     };
 

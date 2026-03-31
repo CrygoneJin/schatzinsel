@@ -139,6 +139,42 @@
         water:  { freq: C4 * 27/16, wave: 'sine',     dur: 0.30, vol: 0.09, glide: C3 * 27/16 },
     };
 
+    // === Genre-Tonsequenzen (#85) ===
+    // Verschiedene Materialien = verschiedene Musikstile
+    const GENRE_TONES = {
+        // Natur: Ambient (weiche Sinus-Töne, langsam)
+        nature: { notes: [261, 294, 330, 392, 440], wave: 'sine', dur: 0.25, vol: 0.08 },
+        // Stein/Metall: Industrial (eckige Square-Töne, kurz)
+        industrial: { notes: [110, 147, 165, 196, 220], wave: 'square', dur: 0.08, vol: 0.07 },
+        // Holz/Bretter: Folk (warme Triangle-Töne)
+        folk: { notes: [196, 220, 261, 294, 330], wave: 'triangle', dur: 0.15, vol: 0.09 },
+        // Magie: Synthwave (hohe Sawtooth-Töne, geheimnisvoll)
+        magic: { notes: [440, 523, 587, 659, 784], wave: 'sawtooth', dur: 0.18, vol: 0.06 },
+        // Wetter: Drone (tiefe Sinus-Töne, langanhaltend)
+        drone: { notes: [65, 73, 82, 98, 110], wave: 'sine', dur: 0.4, vol: 0.07 },
+    };
+
+    // Material → Genre mapping
+    const MATERIAL_GENRE = {
+        // Natur
+        tree: 'nature', plant: 'nature', flower: 'nature', sapling: 'nature', mushroom: 'nature',
+        palm: 'nature', nest: 'nature', butterfly: 'nature', bee: 'nature', apple: 'nature',
+        // Industrial
+        stone: 'industrial', metal: 'industrial', sand: 'industrial', glass: 'industrial',
+        fence: 'industrial', bridge: 'industrial', path: 'industrial',
+        // Folk
+        planks: 'folk', door: 'folk', roof: 'folk', boat: 'folk', lamp: 'folk',
+        window_pane: 'folk', flag: 'folk',
+        // Magie
+        potion: 'magic', crystal: 'magic', diamond: 'magic', dragon: 'magic',
+        unicorn: 'magic', phoenix: 'magic', rainbow: 'magic', treasure: 'magic',
+        crown: 'magic', heart: 'magic',
+        // Wetter/Drone
+        cloud: 'drone', rain: 'drone', snow: 'drone', ice: 'drone',
+        lightning: 'drone', tornado: 'drone', volcano: 'drone', mountain: 'drone',
+    };
+    let genreNoteIndex = {};
+
     // Erster Sound = KLONK. Laut. Befriedigend. Minecraft-Niveau.
     let firstSoundPlayed = false;
 
@@ -195,6 +231,16 @@
             return;
         }
         // Nicht-Basis-Materialien: melodische Skala wie bisher
+        // Genre-Tonsequenz für bekannte Materialien
+        const genre = MATERIAL_GENRE[material];
+        if (genre) {
+            const g = GENRE_TONES[genre];
+            if (!genreNoteIndex[genre]) genreNoteIndex[genre] = 0;
+            const freq = g.notes[genreNoteIndex[genre] % g.notes.length];
+            genreNoteIndex[genre]++;
+            playRichTone(freq * (1 + (Math.random() - 0.5) * 0.02), g.dur, g.wave, g.vol);
+            return;
+        }
         scaleChangeCounter++;
         if (scaleChangeCounter > 25 + Math.floor(Math.random() * 15)) {
             scaleChangeCounter = 0;

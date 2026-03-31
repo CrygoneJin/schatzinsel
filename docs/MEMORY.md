@@ -26,6 +26,10 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 ## Erfolge (damit wir wissen was funktioniert)
 
 | Datum | Was | Warum gut |
+| 2026-03-31 | Sprint 22: "Backlog leer" — 9 Items in einer Session | Parallele Agents (4 gleichzeitig) + direkte Edits. Backlog von ~60 offenen auf 1+5 reduziert. Alles was keine Human-Input braucht: erledigt. |
+| 2026-03-31 | Genre-Tonsequenzen — Material→Genre Mapping | 5 Genres × 5 Noten. Crafted Materials klingen jetzt nach ihrem Genre (Natur=Ambient, Stein=Industrial, etc.). Minimal-invasiv: nur sound.js geändert. |
+| 2026-03-31 | Haiku-Quests — 5-7-5 Silben als Quest-Beschreibung | Krapweis-Idee umgesetzt. 8 Quests mit echten Haikus. Oscar merkt den Unterschied vielleicht nicht — aber die Atmosphäre stimmt. |
+| 2026-03-31 | CI Pipeline — Endlich automatische Tests | ci.yml: Unit Tests + Syntax Check + Secret Scan. Kein `sk-` mehr im Code. `node --check` vor jedem Push. |
 |-------|-----|-----------|
 | 2026-03-31 | Zufalls-Insel-Generator + kindgerechte Achievements + Toast-Fix | Starter-Insel war leer (8 Sand, 8 Bäume fix). Jetzt prozedural: Strand-Oval mit Wobble, Palmen, Bäume, Blumen — skaliert auf jedes Grid. Achievements klingen jetzt nach Abenteuer statt Baubehörde. Toast: `pointer-events: none` — eine Zeile CSS, Problem gelöst. |
 | 2026-03-31 | Sprint 21 Review abgeschlossen — alle 3 Items Done | Sprint Goal erreicht: Drag & Drop, Swipe-Layer, Quest-Balancing. Sprint Review in SPRINT.md geschrieben. Nächste Ceremony: Retrospektive. |
