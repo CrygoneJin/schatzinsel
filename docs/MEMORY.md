@@ -11,6 +11,10 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
+| 2026-03-31 | Charakter-Dropdown hatte kein change-Event — NPC-Wechsel funktionierte nicht | Dropdown existierte im HTML, aber kein JS-Listener registriert. Alle NPCs redeten wie SpongeBob. | Jedes UI-Element das Zustand ändert braucht einen Event-Listener. Ohne Listener ist es Dekoration. |
+| 2026-03-31 | Grid-Dimension-Mismatch: Save von Desktop crasht auf Mobile | Auto-Save überschreibt Grid blind — 32×18 Grid auf 18×28 Viewport = undefined rows = Crash. | Beim Restore Grid-Dimensionen prüfen und Inhalte transferieren statt blind überschreiben. |
+| 2026-03-31 | Tutorial-Pulse blinkte endlos für wiederkehrende Spieler | `startTutorialPulse()` wurde für alle aufgerufen, `stopTutorialPulse()` nur bei firstBlock-Milestone der aktuellen Session. | Pulse nur starten wenn noch kein Block platziert wurde. |
+| 2026-03-31 | Merge-Konflikte bei jedem PR weil parallele Sessions auf verschiedenen Branches arbeiten | Hauptbranch divergiert wenn mehrere Feature-Branches gemergt werden ohne Rebase. | Vor PR immer `git rebase origin/main`. `.claude/worktrees/` in .gitignore. |
 | 2026-03-31 | `const replayBtn` doppelt deklariert → ganzes JS gecrasht → Intro-Screen blockiert | Zwei Sessions haben unabhängig denselben Variablennamen auf IIFE-top-level verwendet. Kein Lint, kein Check, niemand merkt es. | `node --check *.js` vor jedem Commit. Pre-commit Hook installiert. Ohne CI läuft alles durch. |
 | 2026-03-31 | iPhone-Flicker: Insel blitzt kurz auf dann verschwindet | Intro-Overlay wurde bei Zeile ~1604 sofort ausgeblendet, Canvas erst ~2200 Zeilen später initialisiert. Race Condition nur auf langsamem iPhone sichtbar. | UI-Overlay erst entfernen NACHDEM der darunterliegende Content gerendert ist. Reihenfolge: init → draw() → overlay.hide(). |
 | 2026-03-30 | SPRINT.md hatte Review-Einträge ohne Code ("Phantom-Done") | Vorherige Session hat Review vorausgeschrieben bevor Implementierung existierte | Review-Einträge erst schreiben wenn Code committed ist. Nie vorausschreiben. |
