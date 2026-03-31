@@ -1,3 +1,56 @@
+# Sprint 22 — "The devil is most devilish when respectable"
+
+**Sprint Goal:** Mephisto NPC + Gemini Voice + Insel-Upgrade + Bugfixes. Nacht-Session.
+
+**Start:** 2026-03-31 (Abend)
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S22-1 | **Mephisto NPC** — 😈 Charmanter Händler, letzter Unlock, 5 Quests, Seelenglut-Währung | Artist + Engineer | ✅ Done |
+| S22-2 | **Gemini Voice Chat** — NPCs sprechen via Gemini Live API (Worker + Browser) | Engineer | ✅ Done |
+| S22-3 | **Bugfixes** — Blinkender Rahmen, Grid-Dimension-Mismatch, Dropdown ohne Listener | Engineer | ✅ Done |
+| S22-4 | **Starter-Insel aufpumpen** — Fluss, Berge, Steine, dichter Wald, Weg | Engineer | ✅ Done |
+| S22-5 | **Lummerland** — ?lummerland URL-Parameter, handgebaute Jim-Knopf-Insel | Engineer | ✅ Done |
+| S22-6 | **KLONK verstärkt** — 3-Layer Sub-Bass, Minecraft-Niveau | Engineer | ✅ Done |
+| S22-7 | **Backlog-Audit** — 8 Items als Done erkannt (Voice, Haiku, Tonhöhe, Icons, Unsinn, Töne, Trommel, Höhlen) | Scientist | ✅ Done |
+| S22-8 | **Docs** — ARCHITECTURE.md aktualisiert, .gitignore erweitert | Leader | ✅ Done |
+
+---
+
+## User Actions (vom Sprint generiert)
+
+| # | Was | Wer | Status |
+|---|-----|-----|--------|
+| U1 | **MMX Wallet erstellen** — mmx.network Wallet für Donation-Adresse im Code View | User | 🔲 Offen |
+| U2 | **Cloudflare Voice Worker testen** — schatzinsel.app Chat → 🎤 → Mikrofon erlauben | User | 🔲 Offen |
+| U3 | **Gemini API Key in Worker** — `wrangler secret put GEMINI_API_KEY` | User | ✅ Done |
+
+---
+
+## Sprint Review — 2026-03-31 (Nacht)
+
+**Sprint Goal erreicht:** ✅ Ja — alle 8 Items Done.
+
+**Was geliefert wurde:**
+- Mephisto: 10. NPC, Browning-Zitat als Motto, Deal-Mechanik
+- Voice: Gemini Live API, 5 Stimmen (Charon/Puck/Kore/Aoede/Fenrir)
+- 3 Bugfixes: Tutorial-Pulse, Grid-Mismatch, Dropdown
+- Reichere Insel: Fluss, Berge, Wald, Weg
+- Lummerland: Zwei Berge, Lokschuppen, Frau Waas, Hafen
+- KLONK: 3 Oszillatoren, Sub-Bass, Gain 0.5
+- Backlog: 8 Phantom-Opens bereinigt
+- Docs: ARCHITECTURE.md von 4 auf 22 Dateien
+
+**Nicht geliefert:**
+- #28 Chat-Sidebar (Layout-Umbau verschoben)
+- #93/#94 MMX-Integration (braucht Wallet-Adresse + Design)
+
+---
+
 # Sprint 21 — "Oscar zieht"
 
 **Sprint Goal:** Drag & Drop auf dem Canvas — Oscar zieht Materialien direkt, kein Klicken mehr.
