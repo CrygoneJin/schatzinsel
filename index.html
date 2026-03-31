@@ -153,11 +153,11 @@
             <!-- Sidebar Tabs -->
             <div id="stats">
                 <div class="sidebar-tabs">
-                    <button class="sidebar-tab active" data-tab="info">🏝️</button>
-                    <button class="sidebar-tab" data-tab="inventory">🎒</button>
-                    <button class="sidebar-tab" data-tab="quests">📜</button>
-                    <button class="sidebar-tab" data-tab="achievements">🏆</button>
-                    <button class="sidebar-tab" data-tab="blueprints">🏗️</button>
+                    <button class="sidebar-tab active" data-tab="info" aria-label="Insel-Info">🏝️</button>
+                    <button class="sidebar-tab" data-tab="inventory" aria-label="Inventar">🎒</button>
+                    <button class="sidebar-tab" data-tab="quests" aria-label="Quests">📜</button>
+                    <button class="sidebar-tab" data-tab="achievements" aria-label="Erfolge">🏆</button>
+                    <button class="sidebar-tab" data-tab="blueprints" aria-label="Baupläne">🏗️</button>
                 </div>
 
                 <div class="sidebar-panel active" id="panel-info">
@@ -217,15 +217,15 @@
                     </div>
                     <div class="crafting-center">
                         <div class="crafting-grid">
-                            <div class="craft-slot" id="craft-slot-0" data-index="0"></div>
-                            <div class="craft-slot" id="craft-slot-1" data-index="1"></div>
-                            <div class="craft-slot" id="craft-slot-2" data-index="2"></div>
-                            <div class="craft-slot" id="craft-slot-3" data-index="3"></div>
-                            <div class="craft-slot" id="craft-slot-4" data-index="4"></div>
-                            <div class="craft-slot" id="craft-slot-5" data-index="5"></div>
-                            <div class="craft-slot" id="craft-slot-6" data-index="6"></div>
-                            <div class="craft-slot" id="craft-slot-7" data-index="7"></div>
-                            <div class="craft-slot" id="craft-slot-8" data-index="8"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-0" data-index="0"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-1" data-index="1"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-2" data-index="2"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-3" data-index="3"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-4" data-index="4"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-5" data-index="5"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-6" data-index="6"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-7" data-index="7"></div>
+                            <div class="craft-slot" role="button" tabindex="0" id="craft-slot-8" data-index="8"></div>
                         </div>
                         <div class="craft-arrow">➡️</div>
                         <div class="craft-result-box" id="craft-result">
@@ -265,14 +265,14 @@
                     <option value="bernd">🍞 Bernd (Support)</option>
                     <option value="floriane">🧚 Floriane (Wunschfee)</option>
                 </select>
-                <button id="chat-settings-btn" title="API-Key">⚙️</button>
-                <button id="chat-close-btn" title="Schließen">✕</button>
+                <button id="chat-settings-btn" title="API-Key" aria-label="API-Key Einstellungen">⚙️</button>
+                <button id="chat-close-btn" title="Schließen" aria-label="Chat schließen">✕</button>
             </div>
             <div id="token-budget-display" class="token-display">💰 2000/2000 Tokens</div>
             <div id="chat-messages"></div>
             <div id="chat-input-area">
                 <input type="text" id="chat-input" placeholder="Sag was zu deinem Inselbewohner..." maxlength="200">
-                <button id="chat-send-btn">➤</button>
+                <button id="chat-send-btn" aria-label="Nachricht senden">➤</button>
             </div>
         </div>
 
@@ -300,7 +300,7 @@
                 <label style="font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px;">API-Key:</label>
                 <div style="position: relative;">
                     <input type="password" id="api-key-input" placeholder="sk-..." style="width: 100%; padding: 10px; padding-right: 44px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; box-sizing: border-box;">
-                    <button id="api-key-toggle" type="button" style="position: absolute; right: 8px; top: 8px; background: none; border: none; cursor: pointer; font-size: 18px; padding: 2px 4px;" title="Key anzeigen/verbergen">👁</button>
+                    <button id="api-key-toggle" type="button" style="position: absolute; right: 8px; top: 8px; background: none; border: none; cursor: pointer; font-size: 18px; padding: 2px 4px;" title="Key anzeigen/verbergen" aria-label="API-Key anzeigen oder verbergen">👁</button>
                 </div>
 
                 <div id="api-url-row" style="display: none;">
