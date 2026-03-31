@@ -83,6 +83,7 @@
     function soundCraft()            { if (_snd.soundCraft)       _snd.soundCraft(); }
     function soundSelect(material)   { if (_snd.soundSelect)      _snd.soundSelect(material); }
     function soundFirstBlock()       { if (_snd.soundFirstBlock)  _snd.soundFirstBlock(); }
+    function playMaterialSound(mat)  { if (_snd.playMaterialSound) _snd.playMaterialSound(mat); }
 
     // ============================================================
     // === ACHIEVEMENTS === (aus achievements.js)
@@ -1081,6 +1082,7 @@
             // Touch/Click: Tap-Tap Crafting (nur mit Bestätigung)
             item.addEventListener('click', async () => {
                 const mat = item.dataset.material;
+                playMaterialSound(mat); // Inventar-Ton beim Auswählen
                 if (craftTapFirst && craftTapFirst !== mat) {
                     // Zweites Material angeklickt — Bestätigung zeigen statt sofort craften
                     const infoA = MATERIALS[craftTapFirst];
