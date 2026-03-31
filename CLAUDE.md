@@ -74,8 +74,29 @@ If none of these files exist, ask the user:
 Jede Session ist ein Sprint. 30 Minuten. Ein Ergebnis.
 
 ```
-START (optional):  "Heute will ich X"
-ENDE (immer):      Memory-Eintrag in docs/MEMORY.md
+START:  D1→Airtable Sync (Airtable MCP: neue D1-Rows seit letztem Sync nach Feynman Sessions pushen)
+        "Heute will ich X" (optional)
+ENDE:   Memory-Eintrag in docs/MEMORY.md
+```
+
+### D1→Airtable Sync (Session-Start)
+
+Bei jedem Session-Start: D1 `sessions`-Tabelle via Worker (`/metrics?table=sessions`)
+abfragen und neue Rows per Airtable MCP nach `Feynman Sessions` (appWiMxA1w46Mi1jC /
+tblw9gpdNAdPAcEQw) schreiben. Felder-Mapping:
+
+```
+D1 sessions          → Airtable Feynman Sessions
+ts                   → Timestamp    (fldjz0mcPrWmjCOpL)
+country              → Country      (flddeJqqqShMuHqpf)
+player_name          → Message      (fldp6rzAQy1yXynr9)
+                     → CharacterID  (fldI8MlQyMxc2r6iI)
+duration_s           → SessionDuration (fldYdxNjASm0zRxWX)
+blocks_placed        → BlocksPlaced    (fldUtZ6sxc1AxVC5i)
+quests_completed     → QuestsCompleted (fld2Pdzn8bBvCD7uB)
+chat_messages > 0    → ChatUsed        (fldhpCQvm99i10LwJ)
+engagement_score     → EngagementScore (fldcDmuQ3duhiH226)
+unique_materials     → UniqueMaterials (fldDGwYhNDLbBiGvC)
 ```
 
 Definition of Done: siehe `docs/DONE.md` — drei Punkte, binär.
