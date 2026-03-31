@@ -479,6 +479,7 @@
         neinhorn:  { emoji: '🦄', name: 'NEINhorn' },
         krabs:     { emoji: '🦀', name: 'Mr. Krabs' },
         tommy:     { emoji: '🦞', name: 'Tommy' },
+        mephisto:  { emoji: '😈', name: 'Mephisto' },
     };
 
     // NPCs im Kreis um die Inselmitte verteilen
@@ -553,6 +554,7 @@
         tommy:     { emoji: '🦞', prefix: 'Tommy:', ticks: ['Klick-klack!', 'JA!', 'Noch ein Boot!'], style: 'chaos' },
         bernd:     { emoji: '🍞', prefix: 'Bernd:', ticks: ['*seufz*', 'Mist.', 'Toll.'], style: 'grumpy' },
         floriane:  { emoji: '🧚', prefix: 'Floriane:', ticks: ['✨', 'Oh!', 'Ein Wunsch!'], style: 'magic' },
+        mephisto:  { emoji: '😈', prefix: 'Mephisto:', ticks: ['Hehehehe...', 'Ein Angebot!', 'Deal?'], style: 'deal' },
         // #13: Programmiersprachen-Bewohner
         haskell:   { emoji: '🟣', prefix: 'Haskell:', ticks: ['Rein funktional!', 'Keine Seiteneffekte!', 'Typen lösen alles!'], style: 'careful' },
         lua:       { emoji: '🌙', prefix: 'Lua:', ticks: ['Schnell und leicht!', 'Tables!', '-- Ein Kommentar genügt'], style: 'cute' },
@@ -591,6 +593,7 @@
         money:   ['Das bringt Kunden!', 'Wertsteigerung!', 'Cha-ching!', 'Investment!', 'Rendite!'],
         chaos:   ['SCHNITT! Nochmal! BESSER!', 'Das wird im Film GEIL!', 'KAMERA LÄUFT!', 'Action!'],
         grumpy:  ['Na toll.', 'Muss das sein?', 'Kann man machen.', 'Hab ich auch mal probiert. War schlecht.'],
+        deal:    ['Interessant...', 'Das hat seinen Preis.', 'Ein fairer Tausch!', 'Hehehehe...', 'Wir kommen ins Geschäft!'],
     };
 
     const TEMPLATES = [
