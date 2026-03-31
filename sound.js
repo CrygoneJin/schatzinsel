@@ -261,16 +261,92 @@
 
     // KLONK — lautes befriedigendes Geräusch beim Auswählen eines Materials.
     // Minecraft-Niveau: tief, körperlich, sofort. Kein Throttle — jeder Klick klingt.
+    // Backlog #81: Jedes Inventar-Item hat einen eigenen Ton (Oscar O-Ton: "Inventar sind Töne")
     const KLONK_FREQS = {
-        earth:  65,   // C2 — tief, geerdet (Sprint 18: tiefer)
-        metal:  196,  // G3 — klar, glockenartig
-        wood:   147,  // D3 — warm, organisch
-        fire:   440,  // A4 — hoch, heiß (Sprint 18: höher)
-        water:  110,  // A2 — ruhig, fließend (Sprint 18: tiefer)
+        // === Genesis ===
         tao:    null,
-        yin:    80,
-        yang:   330,
-        qi:     165,
+        yin:    80,    // Sub-Bass
+        yang:   330,   // E4
+        qi:     165,   // E3
+        // === 5 Elemente ===
+        earth:  65,    // C2 — tief, geerdet
+        metal:  196,   // G3 — klar, glockenartig
+        wood:   147,   // D3 — warm, organisch
+        fire:   440,   // A4 — hoch, heiß
+        water:  110,   // A2 — ruhig, fließend
+        // === Natur ===
+        stone:  175,   // F3 — fest, klopfend
+        sand:   220,   // A3 — rieselig
+        plant:  262,   // C4 — frisch
+        sapling:294,   // D4 — jung
+        tree:   131,   // C3 — tief, groß
+        flower: 523,   // C5 — hell, zart
+        mushroom:185,  // F#3 — mystisch
+        planks: 165,   // E3 — holzig
+        // === Wetter ===
+        steam:  349,   // F4 — zischend
+        ice:    587,   // D5 — kristallin
+        snow:   554,   // C#5 — sanft
+        cloud:  247,   // B3 — schwebend
+        rain:   330,   // E4 — tropfend
+        rainbow:392,   // G4 — bunt
+        sun:    440,   // A4 — strahlend
+        star:   659,   // E5 — funkelnd
+        moon:   220,   // A3 — ruhig
+        lightning:880, // A5 — zackig
+        tornado:98,    // G2 — brausend
+        volcano:73,    // D2 — grollend
+        mountain:87,   // F2 — massiv
+        // === Gebaut ===
+        glass:  698,   // F5 — klirrig
+        lamp:   494,   // B4 — warm leuchtend
+        door:   130,   // C3 — klappend
+        roof:   156,   // Eb3 — schützend
+        fence:  175,   // F3 — klackernd
+        path:   196,   // G3 — trittfest
+        boat:   110,   // A2 — schwankend
+        fish:   370,   // F#4 — platschend
+        fountain:262,  // C4 — plätschernd
+        flag:   466,   // A#4 — flatternd
+        bridge: 147,   // D3 — knarrend
+        window_pane:784,// G5 — gläsern
+        // === Magie ===
+        diamond:1047,  // C6 — funkelnd
+        crystal:932,   // A#5 — schimmernd
+        potion: 311,   // D#4 — blubbernd
+        sword:  523,   // C5 — klingend
+        shield: 175,   // F3 — dröhnend
+        crown:  659,   // E5 — majestätisch
+        key:    740,   // F#5 — klickend
+        treasure:349,  // F4 — rasselnd
+        // === Kreaturen ===
+        dragon: 65,    // C2 — brüllend
+        unicorn:587,   // D5 — magisch
+        phoenix:698,   // F5 — flammend
+        ghost:  415,   // G#4 — gespenstisch
+        alien:  554,   // C#5 — außerirdisch
+        robot:  196,   // G3 — mechanisch
+        egg:    494,   // B4 — zerbrechlich
+        nest:   175,   // F3 — raschelig
+        butterfly:784, // G5 — flatterig
+        bee:    880,   // A5 — summend
+        honey:  262,   // C4 — süß
+        apple:  330,   // E4 — knackig
+        cake:   392,   // G4 — lecker
+        // === Absurd ===
+        skull:  98,    // G2 — dumpf
+        poop:   73,    // D2 — ... ja.
+        rocket: 1047,  // C6 — startend
+        ufo:    622,   // D#5 — wuuuuh
+        music:  440,   // A4 — Kammerton
+        heart:  262,   // C4 — pochend
+        worm:   147,   // D3 — schleimig
+        flyfish:370,   // F#4 — spritzend
+        catgold:523,   // C5 — funkelnd
+        pancake:220,   // A3 — brutzelig
+        aircastle:330, // E4 — traumhaft
+        scroll: 196,   // G3 — raschelnd
+        library:131,   // C3 — ehrfürchtig
     };
     function soundSelect(material) {
         if (isMuted()) return;
