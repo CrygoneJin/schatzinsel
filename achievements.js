@@ -27,4 +27,16 @@ window.INSEL_ACHIEVEMENTS = {
     architect:      { emoji: '🏛️', title: 'Architekt!', desc: '3 verschiedene Gebäude per Bauplan gebaut!', check: (s) => s.blueprintsDone >= 3 },
     stadtplaner:    { emoji: '🏙️', title: 'Stadtplaner!', desc: '200 Blöcke selbst platziert — eine richtige Stadt!', check: (s) => s.playerPlaced >= 200 },
     burgherr:       { emoji: '🏰', title: 'Burgherr!', desc: 'Alle 8 Baupläne gebaut — die Insel ist komplett!', check: (s) => s.blueprintsDone >= 8 },
+
+    // --- Entdecker (Crafting-Tiefe) ---
+    wuxingMaster:   { emoji: '☯️', title: 'Wu Xing Meister!', desc: 'Alle 5 Elemente gecraftet — der Kreislauf ist komplett!', check: (s) => s.recipesFound >= 8 },
+    absurdist:      { emoji: '🤪', title: 'Quatschkopf!', desc: '5 Unsinn-Rezepte entdeckt — Pippi wäre stolz!', check: (s) => s.recipesFound >= 30 },
+    allRecipes:     { emoji: '📖', title: 'Rezeptbuch voll!', desc: 'Alle festen Rezepte entdeckt — du kennst ALLES!', check: (s) => s.recipesFound >= 50 },
+
+    // --- Ausdauer ---
+    marathonBauer:  { emoji: '🏃', title: 'Marathon-Bauer!', desc: '500 Blöcke selbst platziert — Respekt!', check: (s) => s.playerPlaced >= 500 },
+    inselGott:      { emoji: '🌟', title: 'Insel-Gott!', desc: '1000 Blöcke! Die Insel ist dein Meisterwerk!', check: (s) => s.playerPlaced >= 1000 },
+
+    // --- Quests Endgame ---
+    questMaster:    { emoji: '🎖️', title: 'Quest-Meister!', desc: '20 Quests erledigt — die Bewohner bauen dir ein Denkmal!', check: (s) => s.questsDone >= 20 },
 };
