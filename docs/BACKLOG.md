@@ -30,15 +30,15 @@
 
 | # | Item | Owner | Status |
 |---|------|-------|--------|
-| 12 | **Voice-Pipeline** — Cartesia + vapi.ai, NPCs sprechen wirklich | Engineer + Scientist | 🔲 Offen |
+| 12 | **Voice-Pipeline** — ~~Cartesia + vapi.ai~~ Gemini Live API via Cloudflare Worker | Engineer + Scientist | ✅ Done (voice.js + gemini-voice-worker.js, 5 Stimmen gemappt) |
 | 13 | **Mehr Programmiersprachen-Bewohner** — Haskell, Lua, SQL, Scratch | Artist | ✅ Done (NPC_VOICES: haskell 🟣, lua 🌙, sql 🗃️, scratch 🐱) |
-| 14 | **Haiku-Bauanleitungen** — Quests in 5-7-5 Silben (Krapweis-Idee) | Artist | 🔲 Offen |
+| 14 | **Haiku-Bauanleitungen** — Quests in 5-7-5 Silben (Krapweis-Idee) | Artist | ✅ Done (10 Haiku-Quests in quests.js Runde 7) |
 | 15 | **Tutorial ohne Text** — Mandela: Kinder die nicht lesen können | Designer | 🔲 Offen |
 | 16 | **Premium-Themes** — 3 weitere Themes als optionaler Kauf | Designer | 🔲 Offen |
 | 17 | **Eltern-Dashboard** — Bernd zeigt Spielstatistiken für Eltern | Engineer | 🔲 Offen |
 | 18 | **Musik on demand** — Loisach Marci Stil, Hardstyle kinderkompatibel | Artist + Engineer | 🔲 Offen |
-| 81 | **Inventar-Töne** — Jedes Inventar-Item hat einen eigenen Ton beim Auswählen (Oscar O-Ton: "Inventar sind Töne") | Engineer | 🔲 Offen |
-| 82 | **Bau-Trommel** — Blöcke platzieren macht Percussion-Sounds, verschiedene Materialien = verschiedene Drums (Oscar O-Ton: "Blöcke platzieren ist Trommel") | Engineer | 🔲 Offen |
+| 81 | **Inventar-Töne** — Jedes Inventar-Item hat einen eigenen Ton beim Auswählen | Engineer | ✅ Done (soundSelect + KLONK_FREQS pro Material) |
+| 82 | **Bau-Trommel** — Blöcke platzieren macht Percussion-Sounds | Engineer | ✅ Done (playDrumSound + DRUM_MAP pro Material) |
 
 ## 🔵 P3 — Vision / Irgendwann
 
@@ -53,7 +53,7 @@
 | 25 | **Hörspiel-Aufnahmen** — Professionelle Sprecher für die Hörspiele | Artist | ❄️ Eingefroren |
 | 26 | **ZKM-Ausstellung** — "Mensch, Maschine, KI" als Installation | Leader + alle | ❄️ Eingefroren |
 | 83 | **Urknall-Crafting** — Masse + Energie + Licht als Basis-Materialien, Wu Xing = Teilchen (ex-PR #41) | Scientist + Engineer | 🔲 Design-Entscheidung nötig |
-| 84 | **Höhlen + Edelsteine** — Berg+Wasser=Höhle, Höhle+Wasser=Tropfsteine, Tropfstein+Feuer=Edelstein (ex-PR #41) | Engineer | 🔲 Offen |
+| 84 | **Höhlen + Edelsteine** — Berg+Wasser=Höhle, Höhle+Wasser=Tropfsteine, Tropfstein+Feuer=Edelstein | Engineer | ✅ Done (recipes.js:99-101) |
 | 85 | **Genre-Tonsequenzen** — 15 Musik-Genres mit eigenen 5-Noten-Sequenzen beim Platzieren (ex-PR #41) | Engineer + Artist | 🔲 Offen |
 | 86 | **CI/CD Pipeline** — deploy.yml + release.sh + Puppeteer Smoke-Test (ex-PR #13) | Engineer | 🔲 Cherry-pick |
 | 87 | **TTS Hörspiele** — Web Speech API für Hörspiel-Zeilen, Mute-Button (ex-PR #40) | Engineer | 🔲 Offen |
@@ -191,8 +191,8 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 27 | **Cloudflare Worker CORS fixen** — User muss worker.js im Dashboard deployen | P0 | User |
 | 28 | **Chat-Fenster nicht überlappend** — als Sidebar oder unten, kein Overlay über Canvas | P1 | Designer |
 | 29 | **NPC-Emoji eindeutig** — Tommy=🦞 ✅, alle anderen prüfen, kein Doppler | ✅ Done (tommy: 🎬→🦞, kein Doppler) | Artist |
-| 30 | **Tonhöhe zu Elementen** — Feuer=höher, Erde=tiefer, Wasser=fließend | P1 | Scientist |
-| 31 | **Bauen/Ernten/Füllen Icons** — universelle Symbole statt Text-Labels | P1 | Designer |
+| 30 | **Tonhöhe zu Elementen** — Feuer=höher, Erde=tiefer, Wasser=fließend | ✅ Done (ELEMENT_TONES: earth=C3, fire=G5, water=glide A4→A3) | Scientist |
+| 31 | **Bauen/Ernten/Füllen Icons** — universelle Symbole statt Text-Labels | ✅ Done (🖌️⛏️🪣 Emojis, Text nur in title/Tooltip) | Designer |
 | 32 | **Code-Ebenen per Touch** — Rechts/Links-Swipe statt Rechtsklick | P1 | Engineer |
 | 33 | **Header-Title "Schatzinsel"** — aktuell "Schnipsels Insel-Architekt" | P2 | Designer |
 | 34 | **NPCs antworten in User-Sprache** — Eingabe Englisch → Antwort Englisch | P2 | Scientist |
@@ -215,7 +215,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 52 | **Kung Fu Panda Wuxi** — Ästhetik-Inspiration für Wu Xing Elemente | P2 | Artist |
 | 53 | **Echtes Atlantik-Wetter** — Open-Meteo API (29°N, 31°W — halber Weg Martinique↔Bayonne), 🌊 im Meer wetterabhängig | ✅ Done (Open-Meteo fetch bei game.js:1434) | Engineer |
 | 57 | **Stille-Momente** (Ende) — Leere Meerpassagen zwischen Inseln. Kein UI, kein Toast. Nur Wellen und Wind. Oscar denkt nach. | P1 | Designer |
-| 58 | **Unsinn-Rezepte** (Lindgren) — Feuer+Pfannkuchen=?, Drache+Kuchen=?, unlogisch aber wunderbar | P2 | Artist |
+| 58 | **Unsinn-Rezepte** (Lindgren) — Feuer+Pfannkuchen=?, Drache+Kuchen=?, unlogisch aber wunderbar | ✅ Done (7 Unsinn-Rezepte in recipes.js: Feuerkuchen, Drachentorte, Geisterschiff, Mondkäse, Schneedrache, Wurmloch, Bienenstich) | Artist |
 | 59 | **10-Sekunden-Erster-Moment** (Paluten) — Erster Block in 10 Sek, nicht 30. Intro kürzen. Tao-Glow-Puls hilft. | P0 | Designer | ✅ Done (9f8a0bf) |
 | 60 | **Haikus am Strand** (Krapweis) — Jede Insel-Station: 5-7-5 Schild am Strand statt Tutorial-Text | P2 | Artist |
 | 61 | **Konsequenz** (Habeck) — Baum fällen = Baum weg. Brunnen bauen = Blumen wachsen. Welt reagiert. | ✅ Done (Baum→Stumpf→Setzling; Brunnen→Blumen: updateWorldConsequences(); Wasser→Blumen, Feuer→Asche: e002de7) | Engineer |
