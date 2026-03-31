@@ -104,6 +104,16 @@ window.INSEL_MATERIALS = {
     catgold:  { emoji: '✨', label: 'Katzengold', color: '#FFD700', border: '#DAA520' },
     pancake:  { emoji: '🥞', label: 'Eierkuchen', color: '#F5DEB3', border: '#DCC89E' },
     aircastle:{ emoji: '🏰', label: 'Luftschloss', color: '#D6EAF8', border: '#AED6F1' },
+    // === HÖHLEN & EDELSTEINE (Backlog #84) ===
+    cave:       { emoji: '🕳️', label: 'Höhle',       color: '#3D3D3D', border: '#2A2A2A' },
+    stalactite: { emoji: '🪨', label: 'Tropfstein',   color: '#A9A9A9', border: '#808080' },
+    gemstone:   { emoji: '💎', label: 'Edelstein',    color: '#E040FB', border: '#AB00D9' },
+    amethyst:   { emoji: '🔮', label: 'Amethyst',     color: '#9C27B0', border: '#7B1FA2' },
+    ruby:       { emoji: '❤️', label: 'Rubin',        color: '#D50000', border: '#B71C1C' },
+    sapphire:   { emoji: '💙', label: 'Saphir',       color: '#1565C0', border: '#0D47A1' },
+    emerald:    { emoji: '💚', label: 'Smaragd',      color: '#2E7D32', border: '#1B5E20' },
+    lava:       { emoji: '🔥', label: 'Lava',         color: '#FF6D00', border: '#E65100' },
+    obsidian:   { emoji: '⬛', label: 'Obsidian',     color: '#212121', border: '#000000' },
     // === GEBÄUDE (4×4 Bauplan-Ergebnisse) ===
     hut:      { emoji: '🛖', label: 'Hütte',       color: '#A0522D', border: '#8B4513' },
     tower:    { emoji: '🗼', label: 'Turm',         color: '#C0C0C0', border: '#A0A0A0' },

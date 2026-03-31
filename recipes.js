@@ -95,6 +95,16 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Katzengold',  result: 'catgold',   resultCount: 1, ingredients: { sand: 1, sun: 1, poop: 1 },desc: 'Sand + Sonne + 💩 = Katzengold' },
     { name: 'Eierkuchen',  result: 'pancake',   resultCount: 2, ingredients: { egg: 1, fire: 1, earth: 1 }, desc: 'Ei + Feuer + Erde = 2 Eierkuchen (Pippi würde 3 backen)' },
     { name: 'Luftschloss', result: 'aircastle', resultCount: 1, ingredients: { cloud: 2, crown: 1 },      desc: '2 Wolken + Krone = Luftschloss (natürlich!)' },
+    // === HÖHLEN & EDELSTEINE (Backlog #84: Berg+Wasser=Höhle, Höhle+Wasser=Tropfsteine, Tropfstein+Feuer=Edelstein) ===
+    { name: 'Höhle',       result: 'cave',       resultCount: 1, ingredients: { mountain: 1, water: 2 },        desc: 'Berg + 2 Wasser = Höhle (das Wasser gräbt sich durch!)' },
+    { name: 'Tropfstein',  result: 'stalactite',  resultCount: 2, ingredients: { cave: 1, water: 2 },           desc: 'Höhle + 2 Wasser = 2 Tropfsteine (tröpfchen für tröpfchen)' },
+    { name: 'Edelstein',   result: 'gemstone',    resultCount: 1, ingredients: { stalactite: 1, fire: 1 },      desc: 'Tropfstein + Feuer = Edelstein (Druck + Hitze = Glanz!)' },
+    { name: 'Amethyst',    result: 'amethyst',    resultCount: 1, ingredients: { gemstone: 1, water: 1 },       desc: 'Edelstein + Wasser = Amethyst (violetter Traum!)' },
+    { name: 'Rubin',       result: 'ruby',        resultCount: 1, ingredients: { gemstone: 1, fire: 2 },        desc: 'Edelstein + 2 Feuer = Rubin (rot wie die Glut!)' },
+    { name: 'Saphir',      result: 'sapphire',    resultCount: 1, ingredients: { gemstone: 1, ice: 1 },         desc: 'Edelstein + Eis = Saphir (blau wie der tiefste Ozean!)' },
+    { name: 'Smaragd',     result: 'emerald',     resultCount: 1, ingredients: { gemstone: 1, wood: 2 },        desc: 'Edelstein + 2 Holz = Smaragd (grün wie der Urwald!)' },
+    { name: 'Lava',        result: 'lava',        resultCount: 2, ingredients: { cave: 1, fire: 3 },            desc: 'Höhle + 3 Feuer = 2 Lava (es brodelt!)' },
+    { name: 'Obsidian',    result: 'obsidian',    resultCount: 1, ingredients: { lava: 1, water: 1 },           desc: 'Lava + Wasser = Obsidian (Vulkanglas — schärfer als Stahl!)' },
     // === BIBLIOTHEK VON ALEXANDRIA ===
     { name: 'Schriftrolle', result: 'scroll',  resultCount: 1, ingredients: { wood: 1, water: 1, fire: 1 }, desc: 'Holz + Wasser + Feuer = Schriftrolle (Papyrus!)' },
     { name: 'Bibliothek', result: 'library',   resultCount: 1, ingredients: { stone: 3, scroll: 3, crown: 1 }, desc: '3 Stein + 3 Schriftrollen + Krone = Bibliothek von Alexandria' },
