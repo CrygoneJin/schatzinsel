@@ -27,6 +27,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-03-31 | Zufalls-Insel-Generator + kindgerechte Achievements + Toast-Fix | Starter-Insel war leer (8 Sand, 8 Bäume fix). Jetzt prozedural: Strand-Oval mit Wobble, Palmen, Bäume, Blumen — skaliert auf jedes Grid. Achievements klingen jetzt nach Abenteuer statt Baubehörde. Toast: `pointer-events: none` — eine Zeile CSS, Problem gelöst. |
 | 2026-03-31 | Sprint 21 abgeschlossen: S21-2 Code-Layer per Swipe | touchWasPainting-Flag verhindert versehentlichen Layer-Wechsel beim Malen. Swipe-Threshold 80px horizontal / 40px vertikal. S21-3 war Phantom-Open (BACKLOG bereits ✅). |
 | 2026-03-31 | Security-Review: LLM-Output → innerHTML ohne escapeHtml() — klassische XSS-Lücke | Fix: escapeHtml(name) an der richtigen Stelle. Funktion existierte schon — nur nicht überall eingesetzt. Lesson: escapeHtml() an ALLEN innerHTML-Stellen die externe Daten (LLM, User-Input, API) zeigen. |
 | 2026-03-31 | /bugs GET-Endpoint: Kindernamen + User-Agent öffentlich lesbar ohne Auth | DSGVO-Frage bevor Mama sie stellt. Fix: BUGS_SECRET als Env-Variable, ?key= Query-Param. Jeder nicht-öffentliche Lese-Endpoint braucht Authentifizierung. |
