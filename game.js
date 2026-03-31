@@ -4073,7 +4073,20 @@
     // Auto-Save wiederherstellen wenn vorhanden
     const savedProjects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
     if (savedProjects[AUTOSAVE_KEY] && isValidGrid(savedProjects[AUTOSAVE_KEY].grid)) {
-        grid = savedProjects[AUTOSAVE_KEY].grid;
+        const savedGrid = savedProjects[AUTOSAVE_KEY].grid;
+        const savedRows = savedGrid.length;
+        const savedCols = savedGrid[0] ? savedGrid[0].length : 0;
+        // Grid-Dimensionen können sich ändern (Desktop→Mobile, Portrait→Landscape)
+        if (savedRows !== ROWS || savedCols !== COLS) {
+            // Inhalte übertragen soweit sie passen, Rest bleibt null
+            for (let r = 0; r < Math.min(savedRows, ROWS); r++) {
+                for (let c = 0; c < Math.min(savedCols, COLS); c++) {
+                    if (savedGrid[r] && savedGrid[r][c]) grid[r][c] = savedGrid[r][c];
+                }
+            }
+        } else {
+            grid = savedGrid;
+        }
         treeGrowth = savedProjects[AUTOSAVE_KEY].treeGrowth || {};
         inventory = savedProjects[AUTOSAVE_KEY].inventory || inventory;
         if (savedProjects[AUTOSAVE_KEY].unlocked) {
@@ -4117,7 +4130,9 @@
         draw();
         introOverlay.style.display = 'none';
         if (window.startSessionClock) window.startSessionClock();
-        startTutorialPulse();
+        // Pulse nur wenn noch kein Block platziert wurde (leere Insel)
+        const hasBlocks = grid.some(row => row && row.some(cell => cell !== null));
+        if (!hasBlocks) startTutorialPulse();
     }
 
     updateAchievementDisplay();
