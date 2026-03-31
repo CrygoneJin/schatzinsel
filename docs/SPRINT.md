@@ -31,6 +31,37 @@
 
 ---
 
+## Sprint Retrospective — 2026-03-31
+
+### Was lief gut?
+
+- **Alle 3 Items in einer Session.** Sprint Goal vollständig erreicht, kein Nachlauf.
+- **Oscar-Check positiv.** "Ich kann jetzt einfach hinziehen." — er hat den Maßstab selbst gesetzt.
+- **Touch-UX ohne Regression.** `touchWasPainting`-Flag verhinderte Fehltrigger. Kein neues Global-State-Chaos.
+- **Quest-Balance als Constraint gelöst**, nicht als Feature. Weniger Code, gleiches Ergebnis.
+
+### Was lief schlecht?
+
+- **Phantom-Item #47.** Quest-Balance war faktisch bereits teilweise implementiert. Sprint-Slot unnötig verbraucht.
+- **Smoke Test blockiert.** Proxy-Sandbox verhindert Curl gegen externe Domains aus Claude Code Web. Muss als Constraint akzeptiert oder in CI ausgelagert werden.
+- **#44 schatzinsel.app liegt weiter offen (P0).** DNS-Zugang beim User. Bleibt liegen wenn nicht explizit als User-Action adressiert.
+
+### Was verbessern wir?
+
+1. **Vor Sprint Planning: Backlog gegen letzten Commit abgleichen** — verhindert Phantom-Items.
+2. **#44 als User-Action im nächsten Sprint** — nicht als Code-Task, sondern konkrete DNS-Schritt-Anleitung für den User.
+3. **Smoke Test in GitHub Actions** — nicht sessionabhängig.
+
+### Sprint 22 — Empfehlung (Planning nächste Session)
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#44 schatzinsel.app → GitHub Pages** | P0 | Zu lange offen. User-Action + Repo-Konfiguration kombiniert. |
+| **#57 Stille-Momente** | P1 | Kein Code-Aufwand. Höchster Emotional-Impact für Oscar. |
+| **#80 docs/PROJECT.md neu anlegen** | P1 | CLAUDE.md referenziert fehlende Dateien. Jede Session mit leerem State. |
+
+---
+
 ## Standup Log
 
 ### 2026-03-31 (Daily Scrum)
