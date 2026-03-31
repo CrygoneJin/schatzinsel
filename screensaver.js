@@ -34,7 +34,6 @@
         animationInterval = setInterval(() => {
             stepGameOfLife(grid);
             if (typeof window.requestRedraw === 'function') window.requestRedraw();
-            else if (typeof requestRedraw === 'function') requestRedraw();
         }, 500);
     }
 

@@ -27,6 +27,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-03-31 | JSDoc + checkJs: Typsicherheit ohne Build-Schritt | TypeScript evaluiert → Overkill für 8K LOC Vanilla JS ohne Bundler. Stattdessen: `tsconfig.json` mit `checkJs`, `types.d.ts` (230 Zeilen), `npm run typecheck` = 0 Errors. Zero-Build-Architektur bleibt erhalten. game.js + chat.js mit @ts-nocheck — schrittweise bei Backlog #11 (Code-Splitting). |
 | 2026-03-31 | Zufalls-Insel-Generator + kindgerechte Achievements + Toast-Fix | Starter-Insel war leer (8 Sand, 8 Bäume fix). Jetzt prozedural: Strand-Oval mit Wobble, Palmen, Bäume, Blumen — skaliert auf jedes Grid. Achievements klingen jetzt nach Abenteuer statt Baubehörde. Toast: `pointer-events: none` — eine Zeile CSS, Problem gelöst. |
 | 2026-03-31 | Sprint 21 Retrospektive abgeschlossen | Phantom-Item #47 erkannt (bereits impl.), Smoke Test als Proxy-Blocker dokumentiert, #44 als User-Action für Sprint 22 markiert. Sprint 22 Kandidaten: #44 (GitHub Pages), #57 (Stille-Momente), #80 (Docs). |
 | 2026-03-31 | Sprint 21 Review abgeschlossen — alle 3 Items Done | Sprint Goal erreicht: Drag & Drop, Swipe-Layer, Quest-Balancing. Sprint Review in SPRINT.md geschrieben. Nächste Ceremony: Retrospektive. |
@@ -60,6 +61,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 - CLAUDE.md ist die beste Investition: einmal schreiben, jede Session profitiert
 
 ### Für das Team
+- JSDoc + checkJs > TypeScript wenn kein Bundler da ist. Gleiche Typsicherheit, null Infrastruktur.
 - Flache Ordnerstruktur > tiefe Hierarchie (Feynman: "13 Dateien brauchen keine Taxonomie")
 - Agent ⊂ Skill — Skills sind das Superset
 - Vorname Nachname statt Nachnamen — sonst wird's unpersönlich
