@@ -12,8 +12,8 @@
 | 2 | **Accessibility Audit** — Screenreader-Test, Tab-Navigation, Kontraste | Designer + Hick | ✅ Done (ARIA, Escape, Dialoge) |
 | 3 | **Mobile Palette** — klappbar oder horizontal scrollbar auf iPad | Designer | ✅ Done |
 | 4 | **Toolbar-Overflow auf Mobile** — 7 Buttons brechen auf kleinen Screens | Designer | ✅ Done |
-| 5 | **Google Sheet Webhook einrichten** — Testdaten automatisch einsammeln | Engineer | 🔲 Offen |
-| 44 | **schatzinsel.app → GitHub Pages** — DNS in Cloudflare auf GitHub IPs, Custom Domain setzen | Engineer | 🔲 Offen |
+| 5 | ~~Google Sheet Webhook~~ — ersetzt durch Airtable + D1 Worker | Engineer | ✅ Obsolet |
+| 44 | **schatzinsel.app → GitHub Pages** — DNS in Cloudflare auf GitHub IPs, Custom Domain setzen | Engineer | ✅ Done (2026-03-31, User bestätigt: aufrufbar) |
 
 ## 🟡 P1 — Vor Spielplatz-Phase (10 User)
 
