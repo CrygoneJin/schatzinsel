@@ -3942,6 +3942,7 @@
             trackEvent('code_view_toggle', { state: 'on' });
         }
     };
+    window.isCodeViewActive = function () { return codeViewActive; };
 
     // Code-View Rendering in draw() einhängen — überschreibt Emoji-Darstellung
     const _originalDraw = draw;

@@ -1041,6 +1041,11 @@ ${budgetInfo}`;
     }
 
     settingsBtn.addEventListener('click', () => {
+        // BYOK nur im Code-View (Nerd-Level)
+        if (window.isCodeViewActive && !window.isCodeViewActive()) {
+            showToast('⚙️ API-Settings nur in der Code-Ansicht (</> Button)');
+            return;
+        }
         apiKeyInput.value = getApiKey();
         apiUrlInput.value = getApiUrl();
         providerSelect.value = getProvider();
