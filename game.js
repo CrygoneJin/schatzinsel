@@ -455,6 +455,9 @@
     }
 
     // === KRABS SHOP — Muschelhandel ===
+    // 1 Muschel = 0.001 MMX (Nerd-Ebene). Kinder sehen 🐚, Nerds sehen MMX.
+    const SHELL_TO_MMX = 0.001;
+
     function showKrabsShop() {
         const shells = getInventoryCount('shell');
         // Welche Materialien kann der Spieler verkaufen?
@@ -502,10 +505,15 @@
             </div>`;
         }).join('');
 
+        const mmxValue = (shells * SHELL_TO_MMX).toFixed(4);
+        const mmxMax = (SHELL_CAP * SHELL_TO_MMX).toFixed(1);
+        const capPct = Math.round(shells / SHELL_CAP * 100);
         modal.innerHTML = `<div style="background:#1a1a2e;color:#eee;border-radius:12px;padding:20px;max-width:360px;width:90%;max-height:70vh;overflow-y:auto;font-family:monospace;">
             <h3 style="margin:0 0 8px;text-align:center;">🦀 Krabben-Kontor 💰</h3>
-            <p style="text-align:center;margin:0 0 12px;font-size:1.1em;">Dein Vermögen: <strong>${shells} 🐚</strong></p>
-            <p style="text-align:center;margin:0 0 12px;font-size:0.8em;color:#aaa;">Darwin sagt: Handel ist Evolution! Muscheln findest du am Strand!</p>
+            <p style="text-align:center;margin:0 0 4px;font-size:1.1em;">Dein Vermögen: <strong>${shells} / ${SHELL_CAP} 🐚</strong></p>
+            <div style="background:#333;border-radius:4px;height:6px;margin:0 20px 8px;"><div style="background:${capPct >= 90 ? '#FF6B00' : '#2E7D32'};border-radius:4px;height:6px;width:${capPct}%;transition:width 0.3s;"></div></div>
+            <p style="text-align:center;margin:0 0 4px;font-size:0.8em;color:#aaa;">Darwin sagt: Handel ist Evolution! Muscheln findest du am Strand!</p>
+            <p style="text-align:center;margin:0 0 12px;font-size:0.65em;color:#FF6B00;cursor:help;" title="1 🐚 = ${SHELL_TO_MMX} MMX · Max ${mmxMax} MMX · Goldstandard · mmx.network">≈ ${mmxValue} / ${mmxMax} MMX</p>
             ${shopHTML}
             <p style="text-align:center;margin:12px 0 0;font-size:0.7em;color:#666;">Klick außerhalb zum Schließen</p>
         </div>`;
@@ -953,8 +961,18 @@
     // ============================================================
     let inventory = {};
 
+    const SHELL_CAP = 42; // The Answer. 42 🐚 = 0.042 MMX pro Spieler.
+
     function addToInventory(material, count) {
         count = count || 1;
+        if (material === 'shell') {
+            const current = inventory['shell'] || 0;
+            if (current >= SHELL_CAP) {
+                showToast(`🦀 Krabs: "${SHELL_CAP} Muscheln! The Answer! Mehr passt nicht in die Bank! SPAR oder GIB AUS!"`, 3000);
+                return;
+            }
+            count = Math.min(count, SHELL_CAP - current);
+        }
         inventory[material] = (inventory[material] || 0) + count;
         updateInventoryDisplay();
         saveInventory();
@@ -1631,6 +1649,12 @@
         small_tree: { material: 'wood', count: 2 },
         sapling:    { material: 'wood', count: 1 },
         palm:       { material: 'wood', count: 2 },
+        // Sinn: Investitions-Erträge — ROI steigt mit Geduld
+        seed:       { material: 'seed', count: 1 },      // Zu früh geerntet: kein Gewinn
+        sprout:     { material: 'plant', count: 2 },      // Halbzeit: 2 Pflanzen
+        fruit:      { material: 'apple', count: 3 },      // Voll reif: 3 Äpfel (2 Saat → 3 Äpfel!)
+        ore:        { material: 'metal', count: 2 },      // Zu früh: 2 Metall zurück
+        ingot:      { material: 'ingot', count: 2 },      // Voll reif: 2 Barren
     };
 
     // === KRABS: Muschelhandel — Preisliste ===
@@ -2450,6 +2474,10 @@
                 if (hint) hint.style.display = 'none';
                 // Setzling platzieren startet Baumwachstum
                 if (currentMaterial === 'sapling') {
+                    treeGrowth[r + ',' + c] = Date.now();
+                }
+                // Saat/Erz platzieren startet Investitions-Wachstum (Sinn)
+                if (currentMaterial === 'seed' || currentMaterial === 'ore') {
                     treeGrowth[r + ',' + c] = Date.now();
                 }
                 // Konsequenz: Wasser/Brunnen zieht nach 10s Blumen an (1-2 Stück)
@@ -4302,13 +4330,17 @@
             }
         }
         // Code-View Label
+        const shellsNow = typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0;
+        const adamsMode = shellsNow === 42;
         ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(5, 5, 200, 24);
-        ctx.fillStyle = '#00FF41';
+        ctx.fillRect(5, 5, adamsMode ? 420 : 200, 24);
+        ctx.fillStyle = adamsMode ? '#FFD700' : '#00FF41';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.fillText('</> CODE-VIEW: grid[r][c]', 10, 10);
+        ctx.fillText(adamsMode
+            ? 'DON\'T PANIC · The Answer is 42 · So long, and thanks for all the fish'
+            : '</> CODE-VIEW: grid[r][c]', 10, 10);
 
         // === Crypto Donation Panel — Nerd Easter Egg ===
         // MMX: "Proof of Work. Tokens rein, niemand raus."
@@ -4335,6 +4367,12 @@
         ctx.textBaseline = 'top';
         ctx.fillText('🔥 MMX  ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6) + '  ' + mmxBal + ' MMX', 10, mmxY + 5);
 
+        // Zeile 2: Balance + Muschel-Wallet (Goldstandard: max 42 🐚 = 0.042 MMX)
+        const shellCount = typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0;
+        const shellMmx = (shellCount * 0.001).toFixed(4);
+        ctx.fillStyle = '#888';
+        ctx.font = '9px monospace';
+        ctx.fillText('Burn: ' + mmxBal + ' MMX  |  Wallet: ' + shellCount + '/42 🐚 ≈ ' + shellMmx + '/0.042 MMX  |  The Answer', 10, mmxY + 22);
         // Zeile 2: XCH (Chia — Bram Cohen)
         ctx.fillStyle = '#3AAC59';
         ctx.fillText('🌱 XCH  ' + xchAddr.slice(0, 12) + '...' + xchAddr.slice(-6) + '  ' + xchBal + ' XCH', 10, mmxY + 20);
