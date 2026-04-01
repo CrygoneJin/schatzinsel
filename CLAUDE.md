@@ -58,22 +58,27 @@ At the start of every session, scan the project for these documents and read any
 that exist before doing anything else:
 
 ```
-docs/PROJECT.md       — What the product is and why it exists
-docs/USERS.md         — Who the primary users are
-docs/ARCHITECTURE.md  — Stack, structure, data models, integrations
-docs/DESIGN.md        — Visual principles, component conventions, accessibility
-docs/DECISIONS.md     — Why it's built this way, known debt, open questions
-docs/BACKLOG.md       — Product Backlog + Product Goal (what we're building)
-docs/SPRINT.md        — Current Sprint Backlog + Sprint Goal (what we're building now)
-docs/DONE.md          — Definition of Done (the quality bar for every increment)
+PROJECT.md       — What the product is and why it exists
+USERS.md         — Who the primary users are
+ARCHITECTURE.md  — Stack, structure, data models, integrations
+DESIGN.md        — Visual principles, component conventions, accessibility
+DECISIONS.md     — Why it's built this way, known debt, open questions
+BACKLOG.md       — Product Backlog + Product Goal (what we're building)
+SPRINT.md        — Current Sprint Backlog + Sprint Goal (what we're building now)
+DONE.md          — Definition of Done (the quality bar for every increment)
+MEMORY.md        — Fehler, Erfolge, Learnings (persistent across sessions)
 ```
 
-Also read the team memory:
+Padawan-Codexe:
 ```
-docs/MEMORY.md        — Fehler, Erfolge, Learnings (persistent across sessions)
+padawans/leader-padawan.md
+padawans/artist-padawan.md
+padawans/designer-padawan.md
+padawans/scientist-padawan.md
+padawans/engineer-padawan.md
 ```
 
-Also check for these in the project root as fallbacks:
+WICHTIG: Alles im ROOT. Nicht in docs/. docs/ ist für Essays und Prosa (iCloud).
 `PROJECT.md`, `USERS.md`, `ARCHITECTURE.md`, `DESIGN.md`, `DECISIONS.md`,
 `BACKLOG.md`, `SPRINT.md`, `DONE.md`
 
@@ -90,7 +95,7 @@ Jede Session ist ein Sprint. 30 Minuten. Ein Ergebnis.
 ```
 START:  D1→Airtable Sync (Airtable MCP: neue D1-Rows seit letztem Sync nach Feynman Sessions pushen)
         "Heute will ich X" (optional)
-ENDE:   Memory-Eintrag in docs/MEMORY.md
+ENDE:   Memory-Eintrag in MEMORY.md
 ```
 
 ### D1→Airtable Sync (Session-Start)
@@ -113,7 +118,7 @@ engagement_score     → EngagementScore (fldcDmuQ3duhiH226)
 unique_materials     → UniqueMaterials (fldDGwYhNDLbBiGvC)
 ```
 
-Definition of Done: siehe `docs/DONE.md` — drei Punkte, binär.
+Definition of Done: siehe `DONE.md` — drei Punkte, binär.
 
 ---
 
@@ -126,7 +131,7 @@ Definition of Done: siehe `docs/DONE.md` — drei Punkte, binär.
    Cherry-Pick ist Notfall, nicht Workflow.
 4. **Branch benennen nach Feature**, nicht nach Session oder Ticket-Batch.
 5. **Typecheck vor jedem Commit.** `tsc --noEmit` muss grün sein.
-6. **Memory nach jedem PR.** `docs/MEMORY.md` updaten — Fehler, Erfolg, oder
+6. **Memory nach jedem PR.** `MEMORY.md` updaten — Fehler, Erfolg, oder
    Learning. Eine Zeile reicht. Nicht am Session-Ende sammeln, sondern sofort.
    Pre-commit Hook und Claude Code PreToolUse Hook erzwingen das.
 
@@ -204,11 +209,11 @@ Each Padawan has a full persona profile built by `/personabuilder`. Profiles are
 stored as a **Codex** — one file per Padawan:
 
 ```
-docs/padawans/leader-padawan.md
-docs/padawans/artist-padawan.md
-docs/padawans/designer-padawan.md
-docs/padawans/scientist-padawan.md
-docs/padawans/engineer-padawan.md
+padawans/leader-padawan.md
+padawans/artist-padawan.md
+padawans/designer-padawan.md
+padawans/scientist-padawan.md
+padawans/engineer-padawan.md
 ```
 
 A Codex contains:
@@ -236,7 +241,7 @@ Warnsignal — entweder lernt der Padawan nichts oder er schreibt nichts auf.
 After a task, a Padawan may debrief with their master. Lessons learned are
 written back into the Codex. The Feynman tracks drift in the 80/20 ratio across
 sessions and adjusts the calibration as evidence builds. Erfahrungen aus
-`docs/MEMORY.md` fließen in den Codex und umgekehrt.
+`MEMORY.md` fließen in den Codex und umgekehrt.
 
 ### Spawning rules
 
@@ -283,11 +288,11 @@ Cross-cutting concerns → start with `/leader` to decompose, then delegate.
 
 ## Shared Constraints — all agents honour these
 
-1. **The primary user is the user.** Read `docs/USERS.md` to know who that is.
+1. **The primary user is the user.** Read `USERS.md` to know who that is.
    Every output is judged by whether it helps that person do their job.
-2. **Respect the stack.** Read `docs/ARCHITECTURE.md` before making technology
+2. **Respect the stack.** Read `ARCHITECTURE.md` before making technology
    choices. Don't introduce dependencies without a reason.
-3. **Respect the design.** Read `docs/DESIGN.md` before building UI. Don't
+3. **Respect the design.** Read `DESIGN.md` before building UI. Don't
    override established patterns without flagging it.
 4. **No gold-plating.** If you can't explain why a feature is here from the
    user's point of view, it probably isn't.
