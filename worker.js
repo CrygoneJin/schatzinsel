@@ -35,6 +35,9 @@ export default {
         if (pathname === '/discoveries') {
             return handleDiscoveries(env);
         }
+        if (pathname.startsWith('/karte')) {
+            return handleKarte(request, env);
+        }
         if (pathname === '/bugs') {
             return handleBugs(request, env);
         }
@@ -284,6 +287,110 @@ async function handleDiscoveries(env) {
         ranking,
         recent: discoveries.slice(0, 20),
     });
+}
+
+// --- Schatzkarte Endpoint ---
+// PUT /karte/:code → Stats speichern (24h TTL)
+// GET /karte/:code → Stats lesen (anonym, kein Auth)
+
+const KARTE_WORTLISTE = [
+    'meer','wald','blitz','stern','mond','berg','wolf','adler','fuchs','hase',
+    'wind','stein','gold','silber','kupfer','eisen','feuer','eis','sand','koralle',
+    'palme','anker','segel','kompass','leuchtturm','muschel','perle','krabbe','wal','delfin',
+    'donner','nebel','tau','frost','glut','asche','flamme','funke','blume','moos',
+    'pilz','wurzel','krone','schwert','schild','turm','brücke','quelle','höhle','riff',
+    'möwe','rabe','eule','falke','bär','hirsch','lachs','otter','igel','marder',
+    'eiche','birke','tanne','buche','linde','weide','efeu','farn','klee','distel',
+    'rubin','saphir','smaragd','opal','jade','bernstein','granit','basalt','quarz','marmor',
+    'harfe','trommel','flöte','glocke','horn','pfeife','laute','geige','orgel','pauke',
+    'drache','phoenix','greif','einhorn','hydra','sphinx','troll','zwerg','riese','elfe',
+    'orbit','komet','nova','pulsar','nebula','quasar','aurora','zenit','nadir','eklipse',
+    'morgen','abend','dämmerung','mittag','stunde','welle','strömung','brandung','flut','ebbe',
+    'friede','kraft','mut','treue','ehre','stolz','freude','hoffnung','gnade','weisheit',
+    'zimt','honig','minze','salbei','thymian','vanille','safran','nelke','ingwer','kakao',
+    'atlas','chronik','fabel','legende','mythos','saga','rune','siegel','chiffre','echo',
+    'tinten','feder','pergament','papyrus','tafel','kreide','pinsel','leinwand','rahmen','skizze',
+    'amboss','zange','meißel','hobel','säge','nadel','spindel','webstuhl','anker','lot',
+    'flagge','banner','wimpel','fackel','laterne','kerze','ampel','spiegel','prisma','linse',
+    'garten','wiese','heide','steppe','tundra','oase','lagune','fjord','delta','bucht',
+    'ziegel','balken','giebel','pfeiler','bogen','kuppel','zinne','erker','söller','graben',
+    'reise','pfad','fährte','spur','kreuzung','hafen','kai','pier','mole','steg',
+    'herbst','lenz','ernte','saat','knospe','trieb','laub','rinde','harz','pollen',
+    'kobalt','titan','neon','argon','helium','lithium','bor','carbon','phosphor','schwefel',
+    'takt','rhythmus','melodie','akkord','terz','quinte','oktave','synkope','kadenz','coda',
+    'anmut','eleganz','würde','demut','güte','milde','wärme','tiefe','stille','klarheit',
+    'dampf','rauch','dunst','schaum','staub','splitter',
+]; // 256 Wörter
+
+function generateKarteCode() {
+    const indices = new Uint8Array(4);
+    crypto.getRandomValues(indices);
+    return Array.from(indices).map(i => KARTE_WORTLISTE[i]).join('-');
+}
+
+async function handleKarte(request, env) {
+    if (!env.CRAFT_KV) return json({ error: 'KV nicht konfiguriert' }, 500);
+
+    const url = new URL(request.url);
+    const parts = url.pathname.split('/').filter(Boolean); // ['karte', 'meer-wald-blitz-stern']
+    const code = parts[1] || null;
+
+    // POST /karte → neuen Code generieren + Stats speichern
+    if (request.method === 'POST' && !code) {
+        let body;
+        try { body = await request.json(); } catch { return json({ error: 'Ungültiger Body' }, 400); }
+
+        const newCode = generateKarteCode();
+        const karte = {
+            blocks:    body.blocks || 0,
+            shells:    body.shells || 0,
+            quests:    body.quests || 0,
+            minutes:   body.minutes || 0,
+            materials: body.materials || 0,
+            player:    (body.player || 'Anonym').slice(0, 20),
+            created:   new Date().toISOString(),
+        };
+
+        await env.CRAFT_KV.put(`karte:${newCode}`, JSON.stringify(karte), {
+            expirationTtl: 60 * 60 * 24 // 24h TTL — wie eine Schatzkarte die im Regen verblasst
+        });
+
+        return json({ ok: true, code: newCode, expires: '24h' }, 201, corsHeaders());
+    }
+
+    // PUT /karte/:code → Stats aktualisieren (Code muss existieren)
+    if (request.method === 'PUT' && code) {
+        const existing = await env.CRAFT_KV.get(`karte:${code}`, 'json');
+        if (!existing) return json({ error: 'Schatzkarte nicht gefunden' }, 404);
+
+        let body;
+        try { body = await request.json(); } catch { return json({ error: 'Ungültiger Body' }, 400); }
+
+        const updated = {
+            ...existing,
+            blocks:    body.blocks ?? existing.blocks,
+            shells:    body.shells ?? existing.shells,
+            quests:    body.quests ?? existing.quests,
+            minutes:   body.minutes ?? existing.minutes,
+            materials: body.materials ?? existing.materials,
+            updated:   new Date().toISOString(),
+        };
+
+        await env.CRAFT_KV.put(`karte:${code}`, JSON.stringify(updated), {
+            expirationTtl: 60 * 60 * 24
+        });
+
+        return json({ ok: true }, 200, corsHeaders());
+    }
+
+    // GET /karte/:code → Stats lesen (anonym, kein Auth nötig)
+    if (request.method === 'GET' && code) {
+        const karte = await env.CRAFT_KV.get(`karte:${code}`, 'json');
+        if (!karte) return json({ error: 'Schatzkarte nicht gefunden oder abgelaufen' }, 404);
+        return json(karte, 200, corsHeaders());
+    }
+
+    return json({ error: 'Ungültiger Request' }, 400);
 }
 
 // --- Bugs Endpoint ---
