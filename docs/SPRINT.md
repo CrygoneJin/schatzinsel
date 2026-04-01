@@ -9,9 +9,9 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S26-1 | **#11 island-gen.js** — `generateStarterIsland()` + `generateLummerland()` (~233 LOC) nach island-gen.js. `window.INSEL_ISLAND_GEN`. game.js: 4653→~4420. | Engineer | 🔲 Offen |
-| S26-2 | **#50 Höhle = Dungeon-Entry** — Klick auf Höhle öffnet IT-Dungeon-Dialog (Bits→Kernel→Browser). Oscar entdeckt etwas Neues. | Engineer + Artist | 🔲 Offen |
-| S26-3 | **#95 Wu-Xing→NPC-Events** — NPCs reagieren kontextbezogen auf Element-Transformationen (Feuer→Asche = SpongeBob-Kommentar, Wasser→Blumen = Floriane-Reaktion). | Engineer + Artist | 🔲 Offen |
+| S26-1 | **#11 island-gen.js** — `generateStarterIsland()` + `generateLummerland()` (~233 LOC) nach island-gen.js. `window.INSEL_ISLAND_GEN`. game.js: 4653→4424. | Engineer | ✅ Done |
+| S26-2 | **#50 Höhle = Dungeon-Entry** — Klick auf Höhle öffnet IT-Dungeon-Dialog (Bits→Kernel→Browser). Oscar entdeckt etwas Neues. | Engineer + Artist | ✅ Done |
+| S26-3 | **#95 Wu-Xing→NPC-Events** — SpongeBob reagiert auf Feuer→Asche, Floriane auf Wasser→Blumen. 30s Cooldown, nur wenn NPC freigeschaltet. | Engineer + Artist | ✅ Done |
 
 ---
 

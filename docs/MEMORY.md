@@ -7,6 +7,8 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 ## Fehler (damit wir sie nicht wiederholen)
 
+| 2026-04-01 | Sprint-26-Branch existierte lokal (Altlast, nicht gepusht) — reset --hard auf origin/feat/sprint-25 war nötig | Kein Remote-Check vor Branch-Erstellung | `git fetch origin && git log origin/feat/sprint-N --oneline -3` IMMER vor Branch-Erstellung |
+
 | 2026-04-01 | Sprint-25-Branch existierte schon (wieder) — gleicher Namenskonflikt wie Sprint 23 | Session-Start ohne `git fetch origin` | `git fetch origin && git log origin/feat/sprint-N -3` ist die ERSTE Aktion nach Session-Start. IMMER. |
 
 | 2026-03-30 | Backlog-Drift: 14 Items waren in Code done aber Backlog zeigte 🔲 | Keine Session-übergreifende Backlog-Pflege | Am Ende jeder Session: Backlog-Zeilen updaten, bevor MEMORY geschrieben wird |
@@ -37,6 +39,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 ## Erfolge (damit wir wissen was funktioniert)
 
 | Datum | Was | Warum gut |
+| 2026-04-01 | Sprint 26 — island-gen.js + Dungeon-Entry + Wu-Xing-NPC-Events | island-gen.js: Parameter-Übergabe macht Closure-abhängige Funktion extrahierbar. 229 LOC weg. Dungeon: 30 Zeilen, Oscar-sichtbar. Wu-Xing-Events: Hooks in bestehende Konsequenz-Callbacks, kein neues System. |
 | 2026-04-01 | Sprint 25 — easter-eggs.js + Instrument-Modus + Oscar-Greeting | Reine-Daten-Extraktion ohne State ist sicher. Instrument-Modus: 30 Zeilen, bestehende API. Baustil-Erkennung ohne KI: simples Zählen. Alle 3 Oscar-sichtbar. |
 |-------|-----|-----------|
 | 2026-04-01 | Sprint 24 Retro — max 3 Items, game.js teilweise aufgeteilt, Tutorial ohne Text live | Sprint 25 Empfehlung: easter-eggs.js, Dungeon-Framework, Palette als Instrument |
