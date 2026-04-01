@@ -1657,20 +1657,60 @@
     }
 
     // Zufalls-Insel generieren: Strand, Palmen, Blumen, Steine
+    // === LAVA LAMP RNG ===
+    // Cloudflare filmt Lavalampen. Wir nehmen Hardware-Entropie vom Browser.
+    // Fallback: LCG mit Date.now() für ältere Browser.
+    function createLavaRng() {
+        const pool = new Uint32Array(256);
+        let idx = 256;
+        function refill() {
+            if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+                crypto.getRandomValues(pool);
+            } else {
+                let s = Date.now();
+                for (let i = 0; i < 256; i++) {
+                    s = (s * 16807 + 0) % 2147483647;
+                    pool[i] = s;
+                }
+            }
+            idx = 0;
+        }
+        return function rng() {
+            if (idx >= 256) refill();
+            return pool[idx++] / 4294967295;
+        };
+    }
+
+    // === FENG SHUI INSEL-GENERATION ===
+    // Berg im Norden (Schildkröte — Rückendeckung)
+    // Wasser im Süden (Phönix — Wohlstand fließt zu dir)
+    // Wald im Osten (Drache — Wachstum)
+    // Steine im Westen (Tiger — Schutz)
+    // Ming Tang im Zentrum (offener Platz — Chi sammelt sich)
+    // Chi-Pfade kurven, nie gerade
     function generateStarterIsland() {
-        // Pseudo-random mit Seed damit jeder Start anders ist
-        let seed = Date.now();
-        function rng() { seed = (seed * 16807 + 0) % 2147483647; return seed / 2147483647; }
+        const rng = createLavaRng();
 
         const cx = COLS / 2, cy = ROWS / 2;
         const rx = COLS * 0.38, ry = ROWS * 0.38;
 
-        // Strandrand (1-2 Zellen Sand um die Insel)
+        // Hilfsfunktion: liegt Zelle in einer Feng-Shui-Zone?
+        function zone(r, c) {
+            const nr = (r - cy) / ry; // -1=Nord(oben), +1=Süd(unten)
+            const nc = (c - cx) / rx; // -1=West, +1=Ost
+            if (nr < -0.25 && Math.abs(nc) < 0.4) return 'north'; // Schildkröte
+            if (nr > 0.25 && Math.abs(nc) < 0.4) return 'south';  // Phönix
+            if (nc > 0.25 && Math.abs(nr) < 0.4) return 'east';   // Drache
+            if (nc < -0.25 && Math.abs(nr) < 0.4) return 'west';  // Tiger
+            if (Math.abs(nr) < 0.2 && Math.abs(nc) < 0.2) return 'center'; // Ming Tang
+            return 'between';
+        }
+
+        // Strandrand — wellige Ellipse
         for (let r = 0; r < ROWS; r++) {
             for (let c = 0; c < COLS; c++) {
                 const dx = (c - cx) / rx, dy = (r - cy) / ry;
                 const dist = dx * dx + dy * dy;
-                // Wellige Kante via einfache Noise-Näherung
                 const wobble = 0.15 * Math.sin(r * 1.7 + c * 0.9) + 0.1 * Math.cos(c * 2.3 - r * 0.7);
                 if (dist < (0.7 + wobble) && dist >= (0.55 + wobble)) {
                     grid[r][c] = 'sand';
@@ -1678,7 +1718,7 @@
             }
         }
 
-        // Palmen am Strand verteilen
+        // Palmen am Strand
         const palmCount = Math.max(6, Math.floor((ROWS + COLS) * 0.3));
         let palmsPlaced = 0;
         for (let attempt = 0; attempt < 200 && palmsPlaced < palmCount; attempt++) {
@@ -1690,99 +1730,119 @@
             }
         }
 
-        // Bäume im Insel-Inneren
-        const treeCount = Math.max(4, Math.floor((ROWS + COLS) * 0.2));
-        let treesPlaced = 0;
-        for (let attempt = 0; attempt < 200 && treesPlaced < treeCount; attempt++) {
-            const r = Math.floor(rng() * ROWS);
-            const c = Math.floor(rng() * COLS);
-            const dx = (c - cx) / rx, dy = (r - cy) / ry;
-            if (dx * dx + dy * dy < 0.4 && !grid[r][c]) {
-                grid[r][c] = rng() < 0.5 ? 'tree' : 'small_tree';
-                treesPlaced++;
-            }
-        }
-
-        // Ein paar Blumen und Pflanzen
-        const floraCount = Math.max(3, Math.floor((ROWS + COLS) * 0.15));
-        let floraPlaced = 0;
-        for (let attempt = 0; attempt < 200 && floraPlaced < floraCount; attempt++) {
-            const r = Math.floor(rng() * ROWS);
-            const c = Math.floor(rng() * COLS);
-            const dx = (c - cx) / rx, dy = (r - cy) / ry;
-            if (dx * dx + dy * dy < 0.45 && !grid[r][c]) {
-                grid[r][c] = rng() < 0.6 ? 'flower' : 'plant';
-                floraPlaced++;
-            }
-        }
-
-        // Fluss: schlängelt sich von oben nach unten durch die Inselmitte
-        const riverStartC = Math.floor(cx + (rng() - 0.5) * 4);
-        let rc = riverStartC;
-        for (let r = Math.floor(cy - ry * 0.6); r < Math.floor(cy + ry * 0.6); r++) {
-            if (r >= 0 && r < ROWS && rc >= 0 && rc < COLS) {
-                const dx = (rc - cx) / rx, dy = (r - cy) / ry;
-                if (dx * dx + dy * dy < 0.5) {
-                    grid[r][rc] = 'water';
-                    // Fluss 2 Zellen breit an manchen Stellen
-                    if (rng() < 0.4 && rc + 1 < COLS) grid[r][rc + 1] = 'water';
+        // NORDEN: Berge + Steine (Schildkröte — Rückendeckung)
+        if (MATERIALS['mountain']) {
+            const mountainCount = rng() < 0.4 ? 2 : 3;
+            let placed = 0;
+            for (let attempt = 0; attempt < 100 && placed < mountainCount; attempt++) {
+                const r = Math.floor(cy - ry * 0.55 + rng() * ry * 0.35);
+                const c = Math.floor(cx + (rng() - 0.5) * rx * 0.6);
+                if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
+                    const dx = (c - cx) / rx, dy = (r - cy) / ry;
+                    if (dx * dx + dy * dy < 0.45) {
+                        grid[r][c] = 'mountain';
+                        placed++;
+                    }
                 }
             }
-            // Schlängeln
-            rc += rng() < 0.3 ? -1 : rng() > 0.7 ? 1 : 0;
-            rc = Math.max(2, Math.min(COLS - 3, rc));
         }
-
-        // Steingruppe (kleine Felsformation)
-        const stoneCount = Math.max(3, Math.floor((ROWS + COLS) * 0.08));
-        // Steine eher im oberen Drittel (Hügel-Feeling)
+        const stoneCount = Math.max(4, Math.floor((ROWS + COLS) * 0.1));
         let stonesPlaced = 0;
-        const stoneCy = cy - ry * 0.3;
         for (let attempt = 0; attempt < 200 && stonesPlaced < stoneCount; attempt++) {
-            const r = Math.floor(stoneCy + (rng() - 0.5) * ry * 0.4);
-            const c = Math.floor(cx + (rng() - 0.5) * rx * 0.5);
+            const r = Math.floor(cy - ry * 0.6 + rng() * ry * 0.4);
+            const c = Math.floor(cx + (rng() - 0.5) * rx * 0.7);
             if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
                 const dx = (c - cx) / rx, dy = (r - cy) / ry;
-                if (dx * dx + dy * dy < 0.35) {
+                if (dx * dx + dy * dy < 0.45) {
                     grid[r][c] = 'stone';
                     stonesPlaced++;
                 }
             }
         }
 
-        // Berg (1-2 Berge im Insel-Inneren, wenn Material existiert)
-        if (MATERIALS['mountain']) {
-            const mountainCount = rng() < 0.5 ? 1 : 2;
-            let mountainsPlaced = 0;
-            for (let attempt = 0; attempt < 100 && mountainsPlaced < mountainCount; attempt++) {
-                const r = Math.floor(cy - ry * 0.2 + rng() * ry * 0.3);
-                const c = Math.floor(cx + (rng() - 0.5) * rx * 0.4);
-                if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
-                    grid[r][c] = 'mountain';
-                    mountainsPlaced++;
+        // OSTEN: Dichter Wald (Drache — Wachstum, Holz-Element)
+        const eastTrees = Math.max(6, Math.floor((ROWS + COLS) * 0.25));
+        let eastPlaced = 0;
+        for (let attempt = 0; attempt < 300 && eastPlaced < eastTrees; attempt++) {
+            const r = Math.floor(cy + (rng() - 0.5) * ry * 1.2);
+            const c = Math.floor(cx + rx * 0.1 + rng() * rx * 0.5);
+            if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
+                const dx = (c - cx) / rx, dy = (r - cy) / ry;
+                if (dx * dx + dy * dy < 0.45) {
+                    grid[r][c] = rng() < 0.4 ? 'tree' : rng() < 0.7 ? 'small_tree' : 'plant';
+                    eastPlaced++;
                 }
             }
         }
 
-        // Mehr Bäume — dichter Wald im Zentrum
-        const extraTrees = Math.max(4, Math.floor((ROWS + COLS) * 0.15));
-        let extraPlaced = 0;
-        for (let attempt = 0; attempt < 300 && extraPlaced < extraTrees; attempt++) {
-            const r = Math.floor(rng() * ROWS);
-            const c = Math.floor(rng() * COLS);
-            const dx = (c - cx) / rx, dy = (r - cy) / ry;
-            if (dx * dx + dy * dy < 0.3 && !grid[r][c]) {
-                grid[r][c] = rng() < 0.3 ? 'tree' : rng() < 0.6 ? 'small_tree' : 'plant';
-                extraPlaced++;
+        // WESTEN: Steine + vereinzelte Bäume (Tiger — Metall-Element, Schutz)
+        const westStones = Math.max(3, Math.floor((ROWS + COLS) * 0.06));
+        let westPlaced = 0;
+        for (let attempt = 0; attempt < 200 && westPlaced < westStones; attempt++) {
+            const r = Math.floor(cy + (rng() - 0.5) * ry * 1.0);
+            const c = Math.floor(cx - rx * 0.1 - rng() * rx * 0.5);
+            if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
+                const dx = (c - cx) / rx, dy = (r - cy) / ry;
+                if (dx * dx + dy * dy < 0.45) {
+                    grid[r][c] = rng() < 0.7 ? 'stone' : 'small_tree';
+                    westPlaced++;
+                }
             }
         }
 
-        // Weg vom Strand zum Zentrum
+        // SÜDEN: Wasser-Feature (Phönix — Wasser-Element, Wohlstand fließt zu)
+        const riverStartC = Math.floor(cx + (rng() - 0.5) * 3);
+        let rc = riverStartC;
+        for (let r = Math.floor(cy); r < Math.floor(cy + ry * 0.6); r++) {
+            if (r >= 0 && r < ROWS && rc >= 0 && rc < COLS) {
+                const dx = (rc - cx) / rx, dy = (r - cy) / ry;
+                if (dx * dx + dy * dy < 0.5) {
+                    grid[r][rc] = 'water';
+                    if (rng() < 0.4 && rc + 1 < COLS) grid[r][rc + 1] = 'water';
+                }
+            }
+            rc += rng() < 0.3 ? -1 : rng() > 0.7 ? 1 : 0;
+            rc = Math.max(2, Math.min(COLS - 3, rc));
+        }
+
+        // Blumen am Südufer (Feuer-Element, Blüte)
+        const floraCount = Math.max(4, Math.floor((ROWS + COLS) * 0.15));
+        let floraPlaced = 0;
+        for (let attempt = 0; attempt < 200 && floraPlaced < floraCount; attempt++) {
+            const r = Math.floor(cy + rng() * ry * 0.5);
+            const c = Math.floor(cx + (rng() - 0.5) * rx * 0.8);
+            if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
+                const dx = (c - cx) / rx, dy = (r - cy) / ry;
+                if (dx * dx + dy * dy < 0.45) {
+                    grid[r][c] = rng() < 0.6 ? 'flower' : 'plant';
+                    floraPlaced++;
+                }
+            }
+        }
+
+        // ZENTRUM: Ming Tang — offen lassen, nur Chi-Pfad durchführen
+        // Wenige Bäume im Zentrum, Platz zum Atmen
+        const centerTrees = Math.max(2, Math.floor((ROWS + COLS) * 0.05));
+        let centerPlaced = 0;
+        for (let attempt = 0; attempt < 100 && centerPlaced < centerTrees; attempt++) {
+            const r = Math.floor(cy + (rng() - 0.5) * ry * 0.3);
+            const c = Math.floor(cx + (rng() - 0.5) * rx * 0.3);
+            if (r >= 0 && r < ROWS && c >= 0 && c < COLS && !grid[r][c]) {
+                grid[r][c] = rng() < 0.5 ? 'flower' : 'plant';
+                centerPlaced++;
+            }
+        }
+
+        // Chi-Pfad: S-Kurve vom Süden (Strand) durch Ming Tang nach Norden (Berg)
+        // Feng Shui: Chi fließt in Kurven, nie gerade — gerade Linien = Sha Chi (Giftpfeile)
         const pathStartR = Math.floor(cy + ry * 0.6);
-        for (let r = pathStartR; r > Math.floor(cy); r--) {
-            const c = Math.floor(cx + Math.sin(r * 0.3) * 2);
+        const pathEndR = Math.floor(cy - ry * 0.4);
+        for (let r = pathStartR; r > pathEndR; r--) {
+            const progress = (pathStartR - r) / (pathStartR - pathEndR);
+            const amplitude = 2.5 + Math.sin(progress * Math.PI) * 1.5;
+            const c = Math.floor(cx + Math.sin(progress * Math.PI * 2 + rng() * 0.3) * amplitude);
             if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
-                if (!grid[r][c] || grid[r][c] === 'sand') {
+                if (!grid[r][c] || grid[r][c] === 'sand' || grid[r][c] === 'plant') {
                     grid[r][c] = 'path';
                 }
             }
