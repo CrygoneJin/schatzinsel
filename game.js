@@ -2121,6 +2121,11 @@
             }
         }
 
+        // Fraktale Bäume (L-System) über die Zellen rendern
+        if (window.FRACTAL_TREES) {
+            window.FRACTAL_TREES.drawAllTrees(ctx, grid, ROWS, COLS, CELL_SIZE, WATER_BORDER, false);
+        }
+
         // Blueprint-Overlay zeichnen (Ghost-Preview)
         drawBlueprintOverlay();
 
@@ -2431,6 +2436,11 @@
 
         // Insel + Materialien als isometrische Würfel
         ISO.drawIsoIsland(ctx, grid, MATERIALS, ROWS, COLS, WATER_BORDER, CELL_SIZE, time, prefersReducedMotion);
+
+        // Fraktale Bäume (L-System) — isometrisch
+        if (window.FRACTAL_TREES) {
+            window.FRACTAL_TREES.drawAllTrees(ctx, grid, ROWS, COLS, CELL_SIZE, WATER_BORDER, true);
+        }
 
         // Blueprint-Overlay
         drawBlueprintOverlay();
