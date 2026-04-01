@@ -50,6 +50,9 @@
 
     let CELL_SIZE = calcCellSize();
 
+    // --- Isometrischer Modus (Tetraeder-Gitter) ---
+    let isoMode = localStorage.getItem('insel-iso-mode') === 'true';
+
     // --- Materialien (aus materials.js) ---
     const MATERIALS = window.INSEL_MATERIALS;
 
@@ -244,6 +247,8 @@
                         showToast(`🎉 Quest geschafft: ${q.title} ${q.reward}`);
                         soundQuestComplete();
                     }
+                    // Memory: Quest-Abschluss für den NPC vermerken
+                    if (q.npc) recordNpcQuestDone(q.npc, q.title);
                     // Hirn-Transplantation: Neuen Charakter freischalten?
                     if (window.tryCharacterUnlock) {
                         const unlocked = window.tryCharacterUnlock();
@@ -433,14 +438,35 @@
     }
 
     function showNpcQuestDialog(npcId) {
+        // Bernd das Brot: öffnet das Eltern-Dashboard
+        if (npcId === 'bernd') {
+            if (window._openDashboardFromBernd) {
+                window._openDashboardFromBernd();
+            }
+            return;
+        }
         const npc = NPC_DEFS[npcId];
         if (!npc) return;
+        // Memory: Besuch registrieren
+        touchNpcMemory(npcId);
         const quest = window.questSystem.getAvailable(npcId);
         const active = window.questSystem.getActive().find(q => q.npc === npcId);
         if (active) {
             showToast(`${npc.emoji} ${npc.name}: Ich warte noch auf "${active.title}"!`, 3000);
         } else if (quest) {
-            showToast(`${npc.emoji} ${quest.desc}`, 5000);
+            // Memory: beim Annehmen eines neuen Quests Gedächtnis-Kommentar zeigen
+            const voice = NPC_VOICES[npcId];
+            if (voice) {
+                const memComment = getNpcMemoryComment(voice, npcId);
+                if (memComment) {
+                    showToast(memComment, 3000);
+                    setTimeout(() => showToast(`${npc.emoji} ${quest.desc}`, 5000), 3200);
+                } else {
+                    showToast(`${npc.emoji} ${quest.desc}`, 5000);
+                }
+            } else {
+                showToast(`${npc.emoji} ${quest.desc}`, 5000);
+            }
             window.questSystem.accept(quest);
         } else if (npcId === 'krabs') {
             // Krabs: Kein Quest? Dann HANDEL! 🦀💰
@@ -448,8 +474,10 @@
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {
-                const tick = voice.ticks[Math.floor(Math.random() * voice.ticks.length)];
-                showToast(`${npc.emoji} ${voice.prefix} ${tick}`, 2000);
+                // Memory-Kommentar Vorrang vor generic tick
+                const memComment = getNpcMemoryComment(voice, npcId);
+                const msg = memComment || `${npc.emoji} ${voice.prefix} ${voice.ticks[Math.floor(Math.random() * voice.ticks.length)]}`;
+                showToast(msg, 3000);
             }
         }
     }
@@ -625,8 +653,97 @@
         (npc, mat, n) => `${npc.emoji} ${npc.prefix} ${n} ${mat}! Jemand hat einen Plan!`,
     ];
 
+    // === NPC-SESSION-GEDÄCHTNIS ===
+    // Speichert pro NPC: letztes Lieblingsmaterial, abgeschlossene Quests, letzter Besuch
+    // Key: 'insel-npc-memory'
+    // Format: { [npcId]: { lastMaterial, lastMaterialKey, lastVisit, questsDone: [] } }
+
+    const NPC_MEMORY_KEY = 'insel-npc-memory';
+
+    function loadNpcMemory() {
+        try { return JSON.parse(localStorage.getItem(NPC_MEMORY_KEY) || '{}'); }
+        catch { return {}; }
+    }
+
+    function saveNpcMemory(mem) {
+        localStorage.setItem(NPC_MEMORY_KEY, JSON.stringify(mem));
+    }
+
+    function getNpcMem(npcId) {
+        return loadNpcMemory()[npcId] || null;
+    }
+
+    // Letzten Besuch für diesen NPC aktualisieren
+    function touchNpcMemory(npcId) {
+        const mem = loadNpcMemory();
+        if (!mem[npcId]) mem[npcId] = { lastVisit: null, lastMaterial: null, lastMaterialKey: null, questsDone: [] };
+        mem[npcId].lastVisit = Date.now();
+        saveNpcMemory(mem);
+    }
+
+    // Quest-Abschluss für diesen NPC vermerken
+    function recordNpcQuestDone(npcId, questTitle) {
+        const mem = loadNpcMemory();
+        if (!mem[npcId]) mem[npcId] = { lastVisit: null, lastMaterial: null, lastMaterialKey: null, questsDone: [] };
+        if (!mem[npcId].questsDone.includes(questTitle)) mem[npcId].questsDone.push(questTitle);
+        mem[npcId].lastVisit = Date.now();
+        saveNpcMemory(mem);
+    }
+
+    // Nach jeder Session: Lieblingsmaterial (meistgenutzt) in alle NPC-Memory-Einträge schreiben
+    // Wird bei beforeunload aufgerufen
+    function flushNpcSessionMemory() {
+        const raw = localStorage.getItem('insel-mat-usage');
+        if (!raw) return;
+        let usage;
+        try { usage = JSON.parse(raw); } catch { return; }
+        const sorted = Object.entries(usage).sort((a, b) => b[1] - a[1]);
+        const favKey = sorted.length > 0 ? sorted[0][0] : null;
+        if (!favKey) return;
+        const favLabel = MATERIALS[favKey]?.label || favKey;
+        const mem = loadNpcMemory();
+        for (const id of Object.keys(NPC_VOICES)) {
+            if (!mem[id]) mem[id] = { lastVisit: null, lastMaterial: null, lastMaterialKey: null, questsDone: [] };
+            mem[id].lastMaterial = favLabel;
+            mem[id].lastMaterialKey = favKey;
+        }
+        saveNpcMemory(mem);
+    }
+
+    // Gedächtnis-Kommentar für NPC erzeugen (gibt null zurück wenn nichts sinnvolles da)
+    function getNpcMemoryComment(npc, npcId) {
+        const m = getNpcMem(npcId);
+        if (!m) return null;
+        const hasName = playerName && playerName !== 'Spieler' && playerName !== 'Anonym';
+        const nameStr = hasName ? ` ${playerName}` : '';
+        const daysSince = m.lastVisit ? Math.floor((Date.now() - m.lastVisit) / 86400000) : null;
+
+        if (m.lastMaterial && m.questsDone && m.questsDone.length > 0) {
+            return `${npc.emoji} ${npc.prefix} Hey${nameStr}! Letztes Mal hast du viel mit ${m.lastMaterial} gebaut. Und ${m.questsDone.length} Quest${m.questsDone.length > 1 ? 's' : ''} geschafft!`;
+        }
+        if (m.lastMaterial) {
+            return `${npc.emoji} ${npc.prefix} Hey${nameStr}! Letztes Mal hast du viel mit ${m.lastMaterial} gebaut...`;
+        }
+        if (daysSince !== null && daysSince >= 1) {
+            const dayText = daysSince === 1 ? 'gestern' : `vor ${daysSince} Tagen`;
+            return `${npc.emoji} ${npc.prefix} Schon ${dayText} warst du zuletzt hier${nameStr}!`;
+        }
+        if (m.questsDone && m.questsDone.length > 0) {
+            return `${npc.emoji} ${npc.prefix} Erinnerst du dich${nameStr}? Wir haben schon ${m.questsDone.length} Quest${m.questsDone.length > 1 ? 's' : ''} zusammen gemacht!`;
+        }
+        return null;
+    }
+
+    // beforeunload: Session-Memory sichern
+    window.addEventListener('beforeunload', flushNpcSessionMemory);
+
     // Context-Kommentare basierend auf Grid-Zustand
-    function getContextComment(npc, stats) {
+    function getContextComment(npc, stats, npcId) {
+        // Memory-Kommentar: 30% Chance, damit er nicht bei jedem Baustein kommt
+        if (npcId && Math.random() < 0.30) {
+            const memComment = getNpcMemoryComment(npc, npcId);
+            if (memComment) return memComment;
+        }
         if (stats.total === 0) return null;
         if (stats.percent > 80) return `${npc.emoji} ${npc.prefix} Die Insel ist fast voll! ${npc.ticks[0]}`;
         if (stats.total % 25 === 0) return `${npc.emoji} ${npc.prefix} ${stats.total} Blöcke! ${REACTIONS[npc.style][Math.floor(Math.random() * REACTIONS[npc.style].length)]}`;
@@ -635,7 +752,9 @@
         if (entries.length >= 2) {
             const sorted = entries.sort((a,b) => b[1] - a[1]);
             if (sorted[0][1] > stats.total * 0.6) {
-                return `${npc.emoji} ${npc.prefix} Sehr viel ${sorted[0][0]}! Wie wärs mit ${sorted[1][0]}?`;
+                const matLabel = MATERIALS[sorted[0][0]]?.label || sorted[0][0];
+                const mat2Label = MATERIALS[sorted[1][0]]?.label || sorted[1][0];
+                return `${npc.emoji} ${npc.prefix} Sehr viel ${matLabel}! Wie wärs mit ${mat2Label}?`;
             }
         }
         return null;
@@ -643,7 +762,9 @@
 
     function generateNpcComment(material) {
         const npcKeys = Object.keys(NPC_VOICES);
-        const npc = NPC_VOICES[npcKeys[Math.floor(Math.random() * npcKeys.length)]];
+        const npcIdx = Math.floor(Math.random() * npcKeys.length);
+        const npcId = npcKeys[npcIdx];
+        const npc = NPC_VOICES[npcId];
         const matLabel = MATERIALS[material]?.label || material;
 
         // Streak-Check
@@ -658,11 +779,11 @@
             materialStreak = 1;
         }
 
-        // Context-Kommentar (10% Chance)
+        // Context-Kommentar (10% Chance) — npcId an getContextComment übergeben für Memory
         if (Math.random() < 0.1) {
             const stats = typeof getGridStats === 'function' ? getGridStats() : null;
             if (stats) {
-                const ctx = getContextComment(npc, stats);
+                const ctx = getContextComment(npc, stats, npcId);
                 if (ctx) return ctx;
             }
         }
@@ -676,9 +797,9 @@
         return tmpl(npc, adj, matLabel, react);
     }
 
-    // --- Spontan-Hörspiele -- delegiert an tts.js ---
+    // --- Spontan-Hörspiele — delegiert an tts.js ---
     // TTS-Funktionen leben in window.INSEL_TTS (tts.js)
-    // playedHoerspiele.length wird noch fuer Analytics benoetigt
+    // playedHoerspiele.length wird noch für Analytics benötigt
     const playedHoerspiele = JSON.parse(localStorage.getItem('insel-hoerspiele') || '[]');
 
     function stopHoerspiel() {
@@ -884,6 +1005,7 @@
             }
             flashInventoryTab();
             trackEvent('quick-craft', { a, b, result: recipe.result });
+            window.INSEL_BUS && window.INSEL_BUS.emit('craft:success', { result: recipe.result, ingredients: { [a]: 1, [b]: 1 } });
             updateInventoryDisplay();
             return;
         }
@@ -1003,6 +1125,7 @@
         }
 
         trackEvent('llm-craft', { name: result.name, fromCache: result.fromCache });
+        window.INSEL_BUS && window.INSEL_BUS.emit('craft:success', { result: matId, ingredients: result.ingredients || {} });
         updateCraftingDisplay();
         return matId;
     }
@@ -1058,6 +1181,7 @@
             }
             flashInventoryTab();
             trackEvent('craft', { recipe: recipe.name, result: recipe.result });
+            window.INSEL_BUS && window.INSEL_BUS.emit('craft:success', { result: recipe.result, ingredients: recipe.ingredients });
             updateCraftingDisplay();
             return;
         }
@@ -1497,11 +1621,18 @@
 
     function resizeCanvas() {
         CELL_SIZE = calcCellSize();
-        canvas.width = totalCols * CELL_SIZE;
-        canvas.height = totalRows * CELL_SIZE;
-        // CSS-Größe für scharfe Darstellung auf HiDPI/4K
-        canvas.style.width = (totalCols * CELL_SIZE) + 'px';
-        canvas.style.height = (totalRows * CELL_SIZE) + 'px';
+        if (isoMode && window.ISO_RENDERER) {
+            const size = window.ISO_RENDERER.getIsoCanvasSize(CELL_SIZE, totalCols, totalRows);
+            canvas.width = size.width;
+            canvas.height = size.height;
+            canvas.style.width = size.width + 'px';
+            canvas.style.height = size.height + 'px';
+        } else {
+            canvas.width = totalCols * CELL_SIZE;
+            canvas.height = totalRows * CELL_SIZE;
+            canvas.style.width = (totalCols * CELL_SIZE) + 'px';
+            canvas.style.height = (totalRows * CELL_SIZE) + 'px';
+        }
         // Auf Mobilgeräten Canvas in den Container einpassen
         if (window.innerWidth < 768) {
             canvas.style.width = '100%';
@@ -1772,6 +1903,12 @@
         needsRedraw = false;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // === ISOMETRISCHER MODUS ===
+        if (isoMode && window.ISO_RENDERER) {
+            drawIso();
+            return;
+        }
+
         // Wasser-Hintergrund
         ctx.fillStyle = '#3498DB';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1861,6 +1998,11 @@
                     ctx.fillText(mat.emoji, x + CELL_SIZE / 2, y + CELL_SIZE / 2 + 1);
                 }
             }
+        }
+
+        // Fraktale Bäume (L-System) über die Zellen rendern
+        if (window.FRACTAL_TREES) {
+            window.FRACTAL_TREES.drawAllTrees(ctx, grid, ROWS, COLS, CELL_SIZE, WATER_BORDER, false);
         }
 
         // Blueprint-Overlay zeichnen (Ghost-Preview)
@@ -2160,6 +2302,97 @@
 
     // addPlaceAnimation + drawAnimations → effects.js
 
+    // --- Isometrische draw()-Funktion ---
+    function drawIso() {
+        const ISO = window.ISO_RENDERER;
+        const time = Date.now() / 1000;
+
+        // Wasser-Hintergrund
+        ctx.fillStyle = '#2980B9';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Wasser (outer)
+        ISO.drawIsoWater(ctx, totalRows, totalCols, ROWS, COLS, WATER_BORDER, CELL_SIZE, time, prefersReducedMotion);
+
+        // Insel + Materialien als isometrische Würfel
+        ISO.drawIsoIsland(ctx, grid, MATERIALS, ROWS, COLS, WATER_BORDER, CELL_SIZE, time, prefersReducedMotion);
+
+        // Fraktale Bäume (L-System) — isometrisch
+        if (window.FRACTAL_TREES) {
+            window.FRACTAL_TREES.drawAllTrees(ctx, grid, ROWS, COLS, CELL_SIZE, WATER_BORDER, true);
+        }
+
+        // Blueprint-Overlay
+        drawBlueprintOverlay();
+
+        // Conway overlay
+        if (conwayOverlay) {
+            const totalColsN = COLS + WATER_BORDER * 2;
+            const originX = (totalColsN * CELL_SIZE) / 2;
+            const originY = CELL_SIZE * 2;
+            ctx.font = `${Math.round(CELL_SIZE * 0.5)}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (!conwayOverlay[r][c]) continue;
+                    const pos = ISO.gridToIso(r + WATER_BORDER, c + WATER_BORDER, CELL_SIZE, originX, originY);
+                    ctx.fillText(conwayOverlay[r][c], pos.x, pos.y - CELL_SIZE * 0.4);
+                }
+            }
+        }
+
+        // Spielfigur
+        if (playerName) {
+            ISO.drawIsoEntity(ctx, playerPos.r, playerPos.c, '\uD83E\uDDD2', playerName,
+                WATER_BORDER, COLS, CELL_SIZE, time, { shadow: true, fontSize: 0.65 });
+        }
+
+        // NPCs
+        for (const [id, pos] of Object.entries(npcPositions)) {
+            const npc = NPC_DEFS[id];
+            ISO.drawIsoEntity(ctx, pos.r, pos.c, npc.emoji, npc.name,
+                WATER_BORDER, COLS, CELL_SIZE, time, { bob: true, circle: true });
+        }
+
+        // Sammelbare Items
+        for (const ci of collectibles) {
+            const totalColsN = COLS + WATER_BORDER * 2;
+            const originX = (totalColsN * CELL_SIZE) / 2;
+            const originY = CELL_SIZE * 2;
+            const pos = ISO.gridToIso(ci.r + WATER_BORDER, ci.c + WATER_BORDER, CELL_SIZE, originX, originY);
+            const float = Math.sin(time * 3 + ci.r * 2 + ci.c) * 3;
+            const glow = 0.6 + Math.sin(time * 4 + ci.c) * 0.2;
+            ctx.globalAlpha = glow * 0.4;
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y - CELL_SIZE * 0.4 + float, CELL_SIZE * 0.35, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+            ctx.font = `${CELL_SIZE * 0.45}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(ci.emoji, pos.x, pos.y - CELL_SIZE * 0.4 + float);
+        }
+
+        // Hover-Vorschau
+        if (hoverCell) {
+            ISO.drawIsoHover(ctx, hoverCell.r, hoverCell.c, MATERIALS, currentMaterial, currentTool, grid,
+                WATER_BORDER, COLS, CELL_SIZE);
+        }
+
+        // Effects
+        EFFECTS.drawAnimations(ctx, CELL_SIZE, WATER_BORDER);
+        EFFECTS.updateDayNight();
+        const overlay = EFFECTS.getDayNightOverlay();
+        if (overlay) {
+            ctx.fillStyle = overlay;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        EFFECTS.updateWeather();
+        EFFECTS.drawWeather(ctx, canvas);
+    }
+
     // --- Maus → Grid-Koordinaten ---
     function getGridCell(e) {
         const rect = canvas.getBoundingClientRect();
@@ -2167,6 +2400,10 @@
         const scaleY = canvas.height / rect.height;
         const px = (e.clientX - rect.left) * scaleX;
         const py = (e.clientY - rect.top) * scaleY;
+
+        if (isoMode && window.ISO_RENDERER) {
+            return window.ISO_RENDERER.getIsoGridCell(px, py, CELL_SIZE, ROWS, COLS, WATER_BORDER);
+        }
 
         const c = Math.floor(px / CELL_SIZE) - WATER_BORDER;
         const r = Math.floor(py / CELL_SIZE) - WATER_BORDER;
@@ -2976,6 +3213,72 @@
 
     // === EVENT LISTENERS ===
 
+    // --- Oscar als 7. Schicht: Baustil-Erkennung ---
+    // Analysiert das gespeicherte Grid und erkennt den Baustil des Spielers.
+    // Gibt { stil, emoji, blockCount } zurück.
+    function analysiereBaustil(g) {
+        const counts = {};
+        let total = 0;
+
+        // Materialien nach Kategorie gruppieren
+        const kategorien = {
+            gaertner:    ['tree', 'small_tree', 'sapling', 'plant', 'flower', 'garden', 'wood', 'cactus', 'mushroom', 'butterfly', 'bee', 'honey', 'apple', 'nest', 'egg'],
+            seefahrer:   ['water', 'wave', 'fish', 'flyfish', 'boat', 'dock', 'fountain', 'bridge', 'rain', 'rainbow', 'shell'],
+            bergbauer:   ['stone', 'mountain', 'cave', 'stalactite', 'gem', 'diamond', 'metal', 'earth', 'ash', 'crystal'],
+            feuertaenzer:['fire', 'volcano', 'phoenix', 'lightning', 'forge', 'firecake', 'dragoncake', 'tornado'],
+        };
+
+        // Alle Zellen zählen
+        for (let r = 0; r < (g ? g.length : 0); r++) {
+            for (let c = 0; c < (g[r] ? g[r].length : 0); c++) {
+                const mat = g[r][c];
+                if (mat) {
+                    counts[mat] = (counts[mat] || 0) + 1;
+                    total++;
+                }
+            }
+        }
+
+        if (total === 0) return { stil: 'Insel-Architekt', emoji: '🏝️', blockCount: 0 };
+
+        // Score pro Kategorie berechnen
+        const scores = {};
+        for (const [kat, mats] of Object.entries(kategorien)) {
+            scores[kat] = mats.reduce((sum, m) => sum + (counts[m] || 0), 0);
+        }
+
+        const maxScore = Math.max(...Object.values(scores));
+        const dominant = Object.entries(scores).find(([, v]) => v === maxScore)?.[0];
+
+        // Mindest-Schwelle: 15% der platzierten Blöcke müssen in eine Kategorie fallen
+        const threshold = total * 0.15;
+        let stil, stilEmoji;
+        if (maxScore >= threshold && dominant) {
+            const stilMap = {
+                gaertner:    { label: 'Gärtner',    emoji: '🌳' },
+                seefahrer:   { label: 'Seefahrer',  emoji: '⛵' },
+                bergbauer:   { label: 'Bergbauer',  emoji: '⛏️' },
+                feuertaenzer:{ label: 'Feuertänzer',emoji: '🔥' },
+            };
+            stil      = stilMap[dominant].label;
+            stilEmoji = stilMap[dominant].emoji;
+        } else {
+            stil      = 'Insel-Architekt';
+            stilEmoji = '🏝️';
+        }
+
+        return { stil, emoji: stilEmoji, blockCount: total };
+    }
+
+    // Baustil speichern + personalisierten Toast anzeigen (nur für Wiederkehrende)
+    function zeigeWillkommensToast(name) {
+        const { stil, emoji, blockCount } = analysiereBaustil(grid);
+        // Baustil in Spieler-Profil persistieren
+        localStorage.setItem('insel-baustil', stil);
+        const msg = `${emoji} Willkommen zurück, ${name} der ${stil}! Deine Insel hat ${blockCount} Blöcke.`;
+        setTimeout(() => showToast(msg, 5000), 800);
+    }
+
     // Intro — Session-Uhr starten
     function startGame() {
         // Spielernamen aus dem Intro-Eingabefeld übernehmen
@@ -3569,8 +3872,8 @@
     }
 
     // --- Theme-Switcher ---
-    const THEMES = ['tropical', 'night', 'candy', 'ocean', 'retro'];
-    const THEME_NAMES = ['🏝️ Tropeninsel', '🌙 Nachtmodus', '🍭 Candy Pop', '🌊 Ozean', '🕹️ Retro'];
+    const THEMES = ['tropical', 'night', 'candy', 'ocean', 'retro', 'neon', 'sakura', 'arctic'];
+    const THEME_NAMES = ['🏝️ Tropeninsel', '🌙 Nachtmodus', '🍭 Candy Pop', '🌊 Ozean', '🕹️ Retro', '⚡ Neon', '🌸 Sakura', '❄️ Arctic'];
     let currentTheme = localStorage.getItem('insel-theme') || 'tropical';
     const userChoseTheme = localStorage.getItem('insel-theme-manual') === '1';
 
@@ -3608,6 +3911,18 @@
     }
 
     // --- Code-View-Button ---
+    // --- Iso-Toggle (Tetraeder-Gitter) ---
+    const isoBtn = document.getElementById('iso-btn');
+    if (isoBtn) {
+        if (isoMode) isoBtn.classList.add('active');
+        isoBtn.addEventListener('click', () => {
+            isoMode = !isoMode;
+            localStorage.setItem('insel-iso-mode', isoMode);
+            isoBtn.classList.toggle('active', isoMode);
+            resizeCanvas();
+        });
+    }
+
     const codeViewBtn = document.getElementById('code-view-btn');
     if (codeViewBtn) {
         codeViewBtn.addEventListener('click', () => {
@@ -4178,7 +4493,12 @@
         }
         window.grid = grid;
         migrateUnlocked();
-        showToast('🔄 Letzte Insel wiederhergestellt');
+        // Baustil-Erkennung beim Laden — Oscar als 7. Schicht
+        if (playerName) {
+            zeigeWillkommensToast(playerName);
+        } else {
+            showToast('🔄 Letzte Insel wiederhergestellt');
+        }
     } else {
         // Lummerland oder Zufalls-Insel
         if (new URLSearchParams(location.search).has('lummerland')) {
@@ -4344,6 +4664,173 @@
         updateStats: updateStats,
         showToast: showToast,
         requestRedraw: requestRedraw
+    });
+
+    // ============================================================
+    // === ELTERN-DASHBOARD (#17) ===
+    // Bernd das Brot zeigt trockene Statistiken für Eltern
+    // ============================================================
+
+    // Session-Log: jede Session in localStorage persistieren
+    (function initSessionLog() {
+        const key = 'insel-session-log';
+        const log = JSON.parse(localStorage.getItem(key) || '[]');
+        const sessionStart = window.INSEL_ANALYTICS.getSessionClock().start || Date.now();
+        // Beim Seiten-Verlassen: aktuelle Session in Log schreiben
+        window.addEventListener('beforeunload', function () {
+            const duration = Math.round((Date.now() - sessionStart) / 1000);
+            if (duration < 5) return; // Kurz-Bounces ignorieren
+            const stats = getGridStats();
+            const entry = {
+                ts: sessionStart,
+                duration_s: duration,
+                blocks: stats.playerPlaced || 0,
+                quests: stats.questsDone || 0,
+            };
+            const updated = [entry, ...log].slice(0, 20); // max 20 Einträge
+            localStorage.setItem(key, JSON.stringify(updated));
+        });
+    })();
+
+    function getBaustil(counts) {
+        // Oscar 7. Schicht: Baustil aus Materialverteilung ableiten
+        if (!counts || Object.keys(counts).length === 0) return '—';
+        const total = Object.values(counts).reduce((a, b) => a + b, 0);
+        if (total === 0) return '—';
+
+        // Kategorien
+        const natur = ['tree', 'palm', 'plant', 'flower', 'mushroom', 'sapling', 'wood', 'earth'];
+        const wasser = ['water', 'fish', 'boat', 'bridge', 'fountain'];
+        const struktur = ['stone', 'planks', 'roof', 'door', 'window_pane', 'fence', 'path', 'glass'];
+        const licht = ['lamp', 'fire', 'qi'];
+
+        const score = (keys) => keys.reduce((s, k) => s + (counts[k] || 0), 0) / total;
+
+        const scores = {
+            'Naturpark': score(natur),
+            'Seemacht': score(wasser),
+            'Festungsbauer': score(struktur),
+            'Lichtarchitekt': score(licht),
+        };
+        const top = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+        if (top[1] < 0.15) return 'Generalist';
+        return top[0];
+    }
+
+    function formatDuration(seconds) {
+        if (!seconds || seconds < 60) return seconds + ' Sek.';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        if (h > 0) return h + ' Std. ' + m + ' Min.';
+        return m + ' Min.';
+    }
+
+    function formatDate(ts) {
+        return new Date(ts).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    }
+
+    function openDashboard() {
+        const overlay = document.getElementById('dashboard-overlay');
+        if (!overlay) return;
+
+        const analytics = getAnalytics();
+        const stats = getGridStats();
+        const metrics = window.getMetrics ? window.getMetrics() : {};
+        const sessionLog = JSON.parse(localStorage.getItem('insel-session-log') || '[]');
+        const matUsage = JSON.parse(localStorage.getItem('insel-mat-usage') || '{}');
+
+        // Spielzeit gesamt: aus Session-Log summieren + aktuelle Session
+        const historicSeconds = sessionLog.reduce((s, e) => s + (e.duration_s || 0), 0);
+        const currentSeconds = window.INSEL_ANALYTICS.getSessionClock().start
+            ? Math.round((Date.now() - window.INSEL_ANALYTICS.getSessionClock().start) / 1000)
+            : 0;
+        const totalSeconds = historicSeconds + currentSeconds;
+
+        // Lieblingsmaterial
+        const sorted = Object.entries(matUsage).sort((a, b) => b[1] - a[1]);
+        const favKey = sorted.length > 0 ? sorted[0][0] : null;
+        const favLabel = favKey ? (MATERIALS[favKey]?.emoji || '') + ' ' + (MATERIALS[favKey]?.label || favKey) : '—';
+
+        // Baustil
+        const baustil = getBaustil(stats.counts);
+
+        // Engagement-Score
+        const engagement = metrics.engagement || 0;
+
+        // DOM befüllen
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        set('dash-total-time', totalSeconds > 0 ? formatDuration(totalSeconds) : '—');
+        set('dash-sessions', analytics.sessions || '—');
+        set('dash-blocks', localStorage.getItem('insel-blocks-placed') || stats.playerPlaced || '—');
+        set('dash-quests', (typeof completedQuests !== 'undefined' ? completedQuests.length : 0).toString());
+        set('dash-fav-material', favLabel);
+        set('dash-baustil', baustil);
+        set('dash-engagement', engagement + ' / 100');
+
+        const fill = document.getElementById('dash-engagement-fill');
+        if (fill) fill.style.width = engagement + '%';
+
+        // Session-Verlauf
+        const listEl = document.getElementById('dash-sessions-list');
+        if (listEl) {
+            if (sessionLog.length === 0) {
+                listEl.innerHTML = '<p class="dashboard-empty">Noch keine Session-Daten gespeichert.</p>';
+            } else {
+                listEl.innerHTML = sessionLog.slice(0, 5).map(s => `
+                    <div class="dashboard-session-row">
+                        <span class="dashboard-session-date">${formatDate(s.ts)}</span>
+                        <span class="dashboard-session-meta">
+                            <span>${formatDuration(s.duration_s)}</span>
+                            <span>${s.blocks} Blöcke</span>
+                            <span>${s.quests} Quests</span>
+                        </span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        overlay.classList.remove('hidden');
+        document.getElementById('dashboard-close-btn')?.focus();
+    }
+
+    function closeDashboard() {
+        const overlay = document.getElementById('dashboard-overlay');
+        if (overlay) overlay.classList.add('hidden');
+    }
+
+    // Bernd zu NPC_DEFS hinzufügen (Klick öffnet Dashboard)
+    NPC_DEFS.bernd = { emoji: '🍞', name: 'Bernd' };
+    initNpcPositions(); // Positionen neu berechnen mit Bernd
+
+    // Dashboard-Button in Toolbar
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    if (dashboardBtn) {
+        dashboardBtn.addEventListener('click', openDashboard);
+    }
+
+    // Bernd-NPC-Klick: Dashboard öffnen statt Quest-Dialog
+    const _origShowNpcQuestDialog = showNpcQuestDialog;
+    // showNpcQuestDialog bereits per Closure definiert — Bernd-Branch via global
+    window._openDashboardFromBernd = function () {
+        showToast('🍞 Bernd: "Schau dir das an. Ich schon nicht mehr."', 3000);
+        setTimeout(openDashboard, 400);
+    };
+
+    // Close-Buttons
+    document.getElementById('dashboard-close-btn')?.addEventListener('click', closeDashboard);
+    document.getElementById('dashboard-close-btn-2')?.addEventListener('click', closeDashboard);
+    document.getElementById('dashboard-overlay')?.addEventListener('click', function (e) {
+        if (e.target === this) closeDashboard();
+    });
+
+    // Keyboard: Escape schließt Dashboard
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            const overlay = document.getElementById('dashboard-overlay');
+            if (overlay && !overlay.classList.contains('hidden')) {
+                closeDashboard();
+            }
+        }
     });
 
 })();
