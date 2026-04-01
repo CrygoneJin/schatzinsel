@@ -3938,6 +3938,14 @@
         });
     }
 
+    // --- Tutorial-Button ---
+    const tutorialBtn = document.getElementById('tutorial-btn');
+    if (tutorialBtn) {
+        tutorialBtn.addEventListener('click', () => {
+            if (window.INSEL_TUTORIAL) window.INSEL_TUTORIAL.open();
+        });
+    }
+
     // --- Wetter-Button ---
     const weatherBtn = document.getElementById('weather-btn');
     const WEATHER_TYPES = ['sun', 'rain', 'rainbow'];
