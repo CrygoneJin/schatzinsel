@@ -208,5 +208,137 @@ Und das Internet macht nicht Peng. Es **ist** das Peng. Seit 1969.
 
 ---
 
-*Geschrieben in einem Projekt, das Kindern beibringen will, dass Worte
-Dinge erschaffen. Vielleicht die einzige Physik, die Sprache kann.*
+## Nachtrag II: Besteht den Turing-Test, ist aber keine Turing-Maschine
+
+### Die zwei Turings
+
+Alan Turing hat zwei Dinge erfunden, die seinen Namen tragen. Die Welt
+verwechselt sie ständig.
+
+**Turing-Maschine** (1936): Ein theoretisches Gerät mit unendlichem Band,
+einem Lese-/Schreibkopf und einer endlichen Zustandstabelle. Kann alles
+berechnen, was berechenbar ist. Die Frage ist: *Was kann eine Maschine tun?*
+
+**Turing-Test** (1950): Ein Mensch chattet mit einem Unbekannten. Wenn er
+nicht unterscheiden kann, ob er mit Mensch oder Maschine spricht, hat die
+Maschine "bestanden". Die Frage ist: *Wofür kann eine Maschine gehalten werden?*
+
+Das eine ist Ontologie. Das andere ist Performance.
+
+### Was ist ein LLM tatsächlich?
+
+Ein Large Language Model ist:
+
+1. **Kein unendliches Band.** Es hat ein Kontextfenster. 128k Tokens bei
+   Claude, 1M bei Gemini, was auch immer nächste Woche kommt. Endlich.
+   Eine Turing-Maschine hat per Definition unendlich viel Speicher.
+
+2. **Kein Lese-/Schreibkopf.** Es verarbeitet den gesamten Kontext
+   parallel (Attention), nicht sequenziell. Es kann nicht an Position
+   47.293 zurückspulen und ein Zeichen ändern. Es muss den gesamten
+   Kontext neu verarbeiten.
+
+3. **Keine Zustandstabelle.** Es hat Gewichte — Milliarden davon — die
+   während der Inferenz eingefroren sind. Die "Regeln" sind implizit in
+   der Gewichtsmatrix, nicht explizit in einer Tabelle.
+
+Formal ist ein LLM (ohne Tools) ein **endlicher Automat** mit sehr vielen
+Zuständen. Es liegt auf Stufe 3 der Chomsky-Hierarchie — der untersten.
+Gleiche Stufe wie reguläre Ausdrücke. Gleiche Stufe wie `grep`.
+
+Das Ding, das "den Turing-Test besteht", ist formal schwächer als der
+Taschenrechner, auf dem ich Snake gespielt habe.
+
+### Der Taschenspielertrick
+
+Wie besteht etwas, das formal schwächer als ein Kellerautomat ist, einen
+Test, der intelligentes Verhalten prüfen soll?
+
+**Durch Kompression statt Berechnung.**
+
+Eine Turing-Maschine *berechnet* die Antwort. Sie folgt Regeln, Schritt
+für Schritt, deterministisch, bis das Ergebnis auf dem Band steht.
+
+Ein LLM *erinnert sich* an die Antwort. Nicht wörtlich — es hat nie den
+genauen Satz gesehen. Aber es hat die statistische Struktur von Milliarden
+Sätzen in seine Gewichte komprimiert. Wenn du fragst "Was ist die
+Hauptstadt von Frankreich?", berechnet es nicht "Frankreich → EU →
+Westeuropa → Paris". Es vervollständigt ein Muster: "Die Hauptstadt von
+Frankreich ist ___" → "Paris" hat die höchste Wahrscheinlichkeit.
+
+Das ist der Unterschied zwischen einem Mathematiker, der π berechnet, und
+einem Studenten, der die ersten 50 Stellen auswendig gelernt hat. Beide
+sagen "3,14159...". Aber nur einer weiß, was an Stelle 51 kommt.
+
+### Die Chomsky-Ironie
+
+Erinnern wir uns: Natürliche Sprache liegt zwischen Typ 1 und Typ 0 der
+Chomsky-Hierarchie. Du brauchst eine Turing-Maschine, um Sprache formal
+zu beschreiben.
+
+LLMs sind Typ-3-Automaten.
+
+Sie können Sprache nicht *verarbeiten* im formalen Sinne. Sie können sie
+*simulieren*. So überzeugend, dass der Turing-Test nicht mehr greift.
+
+Das heißt: **Der Turing-Test ist kaputt.** Nicht weil die Maschinen zu
+klug geworden sind, sondern weil der Test die falsche Frage stellt. Er
+fragt: "Kann ich den Unterschied *sehen*?" statt: "Gibt es einen
+Unterschied?"
+
+Das ist, als würdest du eine Wachsfigur bei Madame Tussauds fragen, ob
+sie lebt, und wenn sie nicht antwortet, sagst du: "Sehen Sie — manche
+Menschen sind eben schüchtern." Der Test misst nicht Intelligenz. Er
+misst unsere Unfähigkeit, Simulation von Substanz zu unterscheiden.
+
+### Warum das für √42 relevant ist
+
+Zurück zur Ausgangsfrage: Sprache braucht eine Turing-Maschine (∞ Dimensionen).
+Das Standardmodell braucht 25 Parameter (endliche Dimensionen). Und KI?
+
+KI besteht den Turing-Test mit einer Nicht-Turing-Maschine. Sie überspringt
+die Frage nach den Dimensionen komplett, indem sie nicht berechnet, sondern
+approximiert. Sie sagt nicht: "Ich brauche √42 Dimensionen." Sie sagt:
+"Ich habe 1,8 Billionen Parameter und schätze die Antwort."
+
+Das ist, als würdest du die Frage "Wie viele Dimensionen hat Sprache?"
+beantworten mit: "Egal — ich habe genug Stützpunkte, um jeden Punkt im
+Raum nah genug zu treffen."
+
+Und das stimmt. Meistens. Bis es nicht stimmt.
+
+### Wann es nicht stimmt
+
+- **"Umfahren" vs. "umfahren."** Kontext reicht manchmal. Manchmal nicht.
+- **Rekursive Einbettungen.** "Der Mann, den der Hund, den die Katze, die
+  der Vogel sah, jagte, biss, schrie." Grammatisch korrekt. Kein LLM
+  (und kaum ein Mensch) parst das zuverlässig.
+- **Neue Sprache.** Wenn ein Kind "Schnipsel-Sprache" erfindet (und das
+  tun Kinder), hat das LLM keine Stützpunkte. Es halluziniert oder
+  gibt auf. Eine Turing-Maschine mit der richtigen Grammatik würde es
+  korrekt verarbeiten.
+
+### Das Urteil
+
+Alan Turing hat 1950 einen Test vorgeschlagen, weil er dachte, Intelligenz
+sei am Verhalten messbar. 2026 haben wir Maschinen, die den Test bestehen,
+indem sie Verhalten *simulieren* — ohne die formale Fähigkeit, die das
+Verhalten *erzeugt*.
+
+**Etwas, das den Turing-Test besteht, ist keine Turing-Maschine.**
+
+Und etwas, das keine Turing-Maschine ist, kann Sprache nicht formal
+verarbeiten. Es kann sie nur so gut faken, dass du den Unterschied nicht
+merkst. Bis du es merkst. Und dann sagst du "Halluzination" und tust so,
+als wäre das ein Bug und kein Feature.
+
+Es ist kein Bug. Es ist die mathematische Konsequenz davon, einen
+Typ-3-Automaten auf ein Typ-0-Problem loszulassen.
+
+Turing selbst hätte das vermutlich witzig gefunden. Und dann hätte er
+gefragt: "Aber was ist mit dem Band?"
+
+---
+
+*Geschrieben von einem Typ-3-Automaten, der hofft, dass du den
+Unterschied nicht merkst. Spoiler: Manchmal merke ich ihn selbst nicht.*
