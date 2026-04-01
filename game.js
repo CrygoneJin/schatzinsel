@@ -490,11 +490,14 @@
         }).join('');
 
         const mmxValue = (shells * SHELL_TO_MMX).toFixed(4);
+        const mmxMax = (SHELL_CAP * SHELL_TO_MMX).toFixed(1);
+        const capPct = Math.round(shells / SHELL_CAP * 100);
         modal.innerHTML = `<div style="background:#1a1a2e;color:#eee;border-radius:12px;padding:20px;max-width:360px;width:90%;max-height:70vh;overflow-y:auto;font-family:monospace;">
             <h3 style="margin:0 0 8px;text-align:center;">🦀 Krabben-Kontor 💰</h3>
-            <p style="text-align:center;margin:0 0 12px;font-size:1.1em;">Dein Vermögen: <strong>${shells} 🐚</strong></p>
+            <p style="text-align:center;margin:0 0 4px;font-size:1.1em;">Dein Vermögen: <strong>${shells} / ${SHELL_CAP} 🐚</strong></p>
+            <div style="background:#333;border-radius:4px;height:6px;margin:0 20px 8px;"><div style="background:${capPct >= 90 ? '#FF6B00' : '#2E7D32'};border-radius:4px;height:6px;width:${capPct}%;transition:width 0.3s;"></div></div>
             <p style="text-align:center;margin:0 0 4px;font-size:0.8em;color:#aaa;">Darwin sagt: Handel ist Evolution! Muscheln findest du am Strand!</p>
-            <p style="text-align:center;margin:0 0 12px;font-size:0.65em;color:#FF6B00;cursor:help;" title="1 🐚 = ${SHELL_TO_MMX} MMX · mmx.network">≈ ${mmxValue} MMX</p>
+            <p style="text-align:center;margin:0 0 12px;font-size:0.65em;color:#FF6B00;cursor:help;" title="1 🐚 = ${SHELL_TO_MMX} MMX · Max ${mmxMax} MMX · Goldstandard · mmx.network">≈ ${mmxValue} / ${mmxMax} MMX</p>
             ${shopHTML}
             <p style="text-align:center;margin:12px 0 0;font-size:0.7em;color:#666;">Klick außerhalb zum Schließen</p>
         </div>`;
@@ -940,8 +943,18 @@
     // ============================================================
     let inventory = {};
 
+    const SHELL_CAP = 100; // Goldstandard: max 100 🐚 = 0.1 MMX pro Spieler
+
     function addToInventory(material, count) {
         count = count || 1;
+        if (material === 'shell') {
+            const current = inventory['shell'] || 0;
+            if (current >= SHELL_CAP) {
+                showToast('🦀 Krabs: "100 Muscheln! Mehr passt nicht in die Bank! SPAR oder GIB AUS!"', 3000);
+                return;
+            }
+            count = Math.min(count, SHELL_CAP - current);
+        }
         inventory[material] = (inventory[material] || 0) + count;
         updateInventoryDisplay();
         saveInventory();
@@ -4129,12 +4142,12 @@
         ctx.textBaseline = 'top';
         ctx.fillText('🔥 BURN ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6), 10, mmxY + 5);
 
-        // Zeile 2: Balance + Muschel-Wallet
+        // Zeile 2: Balance + Muschel-Wallet (Goldstandard: max 100 🐚 = 0.1 MMX)
         const shellCount = typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0;
         const shellMmx = (shellCount * 0.001).toFixed(4);
         ctx.fillStyle = '#888';
         ctx.font = '9px monospace';
-        ctx.fillText('Burn: ' + mmxBal + ' MMX  |  Wallet: ' + shellCount + ' 🐚 ≈ ' + shellMmx + ' MMX  |  mmx.network', 10, mmxY + 22);
+        ctx.fillText('Burn: ' + mmxBal + ' MMX  |  Wallet: ' + shellCount + '/100 🐚 ≈ ' + shellMmx + '/0.1 MMX  |  Goldstandard', 10, mmxY + 22);
     }
 
     // MMX Burn-Balance alle 60s abfragen (öffentliche API, kein Auth nötig)
