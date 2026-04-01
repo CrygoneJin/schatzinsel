@@ -619,6 +619,48 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 
 ---
 
+## Session 2026-04-01 — Inselbewusstsein + Wirtschaftstheorie
+
+### Erkenntnisse
+
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-04-01 | Die Insel hat 6 Bewusstseinsschichten — aber Feynman sagt: technisch sind es 3 Gruppen (regelbasiert, dekorativ, LLM-basiert). Conway ist Dekoration, kein Bewusstsein. | "Verteilt" impliziert Kommunikation. Ohne Inter-Schicht-Events sind es parallele Systeme, kein verteiltes System. |
+| 2026-04-01 | Freud genügten 3 (Es, Ich, Über-Ich) weil er den ganzen Menschen modellierte. Die Insel braucht 6 weil sie KEIN Ich hat — das Kind bringt das Ich mit. | Stärkste These der Session. Die Insel ist ein Nervensystem ohne Gehirn. |
+| 2026-04-01 | Muscheln waren unendlich craftbar → kein Goldstandard möglich. SHELL_CAP=42 macht sie knapp → MMX-Deckung funktioniert. | Knappheit auf beiden Seiten = Goldstandard. Douglas Adams als stiller Beirat. |
+| 2026-04-01 | NPC-Currencies (Krabbenburger, Sternenstaub etc.) sind KEINE Währung sondern Beziehungsenergie. Ricardo: Trennung beibehalten. | Muscheln = Handel, NPC-Tokens = Beziehung. Zwei verschiedene Dinge. |
+| 2026-04-01 | Kommazahlen sind zum Messen, nicht zum Einkaufen. Geld ist diskret, die Welt ist kontinuierlich. | Krabs rechnet in Muscheln (ganz), Elefant misst in Kommazahlen. Zwei NPCs = zwei Zahlensysteme = ein Kind das beides lernt. |
+| 2026-04-01 | "Zusammen sind wir weniger allein" — der Satz der über dem ganzen Projekt steht. | Schatzkarte, Geleitschutz-Quest, NPC-Beziehungen — alles dreht sich um Verbindung, nicht um Features. |
+
+### Neue Beiräte
+
+- `/ricardo` — David Ricardo · Komparative Vorteile & Währungstheorie
+- `/pestalozzi` — Johann Heinrich Pestalozzi · Grundschulpädagogik & Lektorat
+- `/adams` — Douglas Adams · Absurdität & die Frage nach 42
+
+### Ideen-Dump (noch nicht im Backlog)
+
+1. **Piraten-Ökonomie** — Gierige Spieler mit mehreren Inseln parallel, Muscheln per Schiff überweisen, Piraten als Risiko
+2. **Hardware als Wirtschafts-Cap** — Wirtschaftsleistung passt sich GPU/CPU/Speicher an
+3. **Quest: Geleitschutz von Papa** — Schiff beladen mit Schätzen, Papa eskortiert zurück
+4. **Weltkarte mit Inseln anderer Spieler** — jede Insel ein Punkt auf der Karte
+5. **Neue unbewohnte Inseln** — entdecken, besiedeln, benennen
+6. **Inseln mit NPCs** — andere Inseln haben eigene NPC-Bewohner
+7. **Unkontaktierte Völker** — Inseln die man sehen aber nicht betreten kann. Respekt vor dem Unbekannten.
+
+### Deliverables
+
+- Podcast: `docs/podcast-island-consciousness.md`
+- Essay: `docs/essay-island-consciousness.md`
+- Feynman-Review: `docs/review-island-consciousness.md`
+- Ricardo-Interview: `docs/interview-ricardo-currency.md`
+- Aufsatz Grundschule: `docs/aufsatz-kommazahlen-grundschule.md`
+- Schatzkarte: Worker-Endpoint + Spiel-Button + Telegram MCP (feat/schatzkarte)
+- WhatsApp MCP: feat/whatsapp-mcp
+- PR #112: Bewusstsein + Muscheln + MMX + Goldstandard
+
+---
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)
