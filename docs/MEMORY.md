@@ -7,6 +7,8 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 ## Fehler (damit wir sie nicht wiederholen)
 
+| 2026-04-01 | #11 Zellteilung game.js seit Sprint 21 "In Arbeit" ohne Fortschritt | Sprint 22 hat Mephisto + Voice priorisiert — game.js lag weiter | Kein Sprint ohne konkreten Fortschritt bei #11: LOC-Ziel setzen, messbar machen |
+
 | 2026-03-30 | Backlog-Drift: 14 Items waren in Code done aber Backlog zeigte 🔲 | Keine Session-übergreifende Backlog-Pflege | Am Ende jeder Session: Backlog-Zeilen updaten, bevor MEMORY geschrieben wird |
 
 | Datum | Was | Warum | Lektion |

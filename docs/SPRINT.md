@@ -31,6 +31,38 @@
 
 ---
 
+## Sprint Retrospective — 2026-04-01
+
+### Was lief gut?
+
+- **Maximale Dichte.** 8 Items in einer Nacht-Session. Sprint Goal vollständig erreicht.
+- **Mephisto überraschend stark.** 10. NPC mit Deal-Mechanik + Browning-Zitat. Kein Anhängsel — ein echter Charakter.
+- **Gemini Voice deployed.** Technisch riskant (Live API + Worker), trotzdem durch. 5 Stimmen fertig.
+- **Lummerland als Proof of Concept.** URL-Parameter `?lummerland` — Oscar kann Freunde auf Jim-Knopfs Insel schicken.
+- **KLONK auf Minecraft-Niveau.** Oscar hat das als erstes bemerkt. Das ist der Maßstab.
+
+### Was lief schlecht?
+
+- **U1 + U2 bleiben offen.** MMX Wallet (braucht User-Action) und Voice-Test (braucht echtes iOS) — beides außerhalb der Kontrolle des Teams, aber sie liegen schon seit Sprint 22.
+- **Smoke Tests weiter blockiert.** Proxy-Sandbox verhindert Curl gegen externe Domains. Kein Code-Problem, aber die Statusprüfung ist blind.
+- **game.js Zellteilung (#11) schleift.** "In Arbeit" seit Sprint 21. Kein Fortschritt in Sprint 22.
+
+### Was verbessern wir?
+
+1. **#11 Zellteilung als Sprint-23-Anker.** Nicht wieder verschieben. Konkret: Grid-Logik aus game.js extrahieren. Messbar: LOC in game.js sinkt.
+2. **U1/U2 in Sprint 23 als User-Actions sichtbar halten.** Nicht still sterben lassen — explizit im Planning adressieren.
+3. **QR-Code (#7) als Quick-Win in Sprint 23.** 10-Minuten-Job. Godin und Oscar wollen es.
+
+### Sprint 23 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#11 game.js Zellteilung** | P1 | Seit Sprint 21 offen. Grid-Logik extrahieren — ein konkretes Modul. |
+| **#7 QR-Code auf Postkarte** | P1 | 10 Min. Postkarte existiert, QR fehlt. Godin-Check erfüllt. |
+| **#15 Tutorial ohne Text** | P2 | Für Kinder die nicht lesen können. Mandela-Check. |
+
+---
+
 ## Sprint Review — 2026-03-31 (Nacht)
 
 **Sprint Goal erreicht:** ✅ Ja — alle 8 Items Done.
