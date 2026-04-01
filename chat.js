@@ -401,6 +401,9 @@ Du: "Ah, willkommen, verehrter Baumeister! Ich bin Mephisto. Man sagt ich sei ei
     function updateChatHeader() {
         const char = CHARACTERS[currentNpcId];
         if (char && charNameDisplay) charNameDisplay.textContent = char.emoji + ' ' + char.name;
+        // Dropdown synchron halten — voice.js liest charSelect.value
+        const sel = document.getElementById('chat-character');
+        if (sel && sel.value !== currentNpcId) sel.value = currentNpcId;
     }
 
     // --- Öffnen von außen (game.js ruft das auf wenn man einen NPC-Block antippt) ---
