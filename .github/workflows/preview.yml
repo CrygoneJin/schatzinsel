@@ -26,9 +26,9 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy . --project-name=schatzinsel --branch=${{ github.head_ref }}
 
-      - name: Skip notice
+      - name: Skip notice (kein Cloudflare Token -- Fork oder fehlende Secrets)
         if: ${{ env.CF_API_TOKEN == '' }}
-        run: echo "⚠️ CLOUDFLARE_API_TOKEN nicht gesetzt — Preview-Deploy übersprungen"
+        run: echo "CLOUDFLARE_API_TOKEN nicht gesetzt -- Preview-Deploy uebersprungen (Fork oder fehlende Secrets)"
 
       - name: Comment Preview URL
         if: ${{ steps.deploy.outcome == 'success' }}
@@ -36,7 +36,7 @@ jobs:
         with:
           script: |
             const url = '${{ steps.deploy.outputs.deployment-url }}';
-            const body = `🏝️ **Preview bereit!**\n\n${url}\n\n_Automatisch deployed von Cloudflare Pages_`;
+            const body = `Preview bereit!\n\n${url}\n\n_Automatisch deployed von Cloudflare Pages_`;
 
             // Find existing comment
             const comments = await github.rest.issues.listComments({
