@@ -435,12 +435,26 @@
     function showNpcQuestDialog(npcId) {
         const npc = NPC_DEFS[npcId];
         if (!npc) return;
+        // Memory: Besuch registrieren
+        touchNpcMemory(npcId);
         const quest = window.questSystem.getAvailable(npcId);
         const active = window.questSystem.getActive().find(q => q.npc === npcId);
         if (active) {
             showToast(`${npc.emoji} ${npc.name}: Ich warte noch auf "${active.title}"!`, 3000);
         } else if (quest) {
-            showToast(`${npc.emoji} ${quest.desc}`, 5000);
+            // Memory: beim Annehmen eines neuen Quests Gedächtnis-Kommentar zeigen
+            const voice = NPC_VOICES[npcId];
+            if (voice) {
+                const memComment = getNpcMemoryComment(voice, npcId);
+                if (memComment) {
+                    showToast(memComment, 3000);
+                    setTimeout(() => showToast(`${npc.emoji} ${quest.desc}`, 5000), 3200);
+                } else {
+                    showToast(`${npc.emoji} ${quest.desc}`, 5000);
+                }
+            } else {
+                showToast(`${npc.emoji} ${quest.desc}`, 5000);
+            }
             window.questSystem.accept(quest);
         } else if (npcId === 'krabs') {
             // Krabs: Kein Quest? Dann HANDEL! 🦀💰
@@ -448,8 +462,10 @@
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {
-                const tick = voice.ticks[Math.floor(Math.random() * voice.ticks.length)];
-                showToast(`${npc.emoji} ${voice.prefix} ${tick}`, 2000);
+                // Memory-Kommentar Vorrang vor generic tick
+                const memComment = getNpcMemoryComment(voice, npcId);
+                const msg = memComment || `${npc.emoji} ${voice.prefix} ${voice.ticks[Math.floor(Math.random() * voice.ticks.length)]}`;
+                showToast(msg, 3000);
             }
         }
     }
