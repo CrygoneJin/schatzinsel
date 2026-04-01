@@ -15,6 +15,54 @@
 
 ---
 
+## Sprint Review — 2026-04-01
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S25-1: `easter-eggs.js` (67 LOC) — `CODE_EASTER_EGGS` aus game.js extrahiert, als `window.INSEL_EASTER_EGGS` exportiert. game.js schrumpfte netto ~58 LOC. Muster für nächste Extraktion (initGrid, draw) gesetzt.
+- S25-2: 🎹 Instrument-Modus — Toggle-Button in Toolbar. Palette-Klick = Ton spielen + Block am Spieler platzieren. Oscar spielt eine Melodie und die Insel wächst dabei.
+- S25-3: Oscar als 7. Schicht — Willkommens-Toast für Wiederkehrer: Name + erkannter Baustil (Waldarchitekt 🌳 / Meeresarchitekt 🌊 / Steinarchitekt 🪨 / Abenteurer ⚔️). Erkennung läuft bei Start, nur wenn playerName bekannt und mindestens 10 Blöcke platziert.
+
+**Nicht geliefert:**
+- `initGrid()` und `draw*()` noch in game.js. Zu viele Canvas-Context-Abhängigkeiten für sicheren Refactor. Bleibt Sprint 26.
+- Dungeon-Framework (#50) verschoben — Oscar-Sichtbarkeit hatte höhere Priorität.
+
+**Oscar-Check:** "Die Insel kennt meinen Namen." + Melodie bauen = zwei Momente die er einem Freund zeigt.
+
+---
+
+## Sprint Retrospective — 2026-04-01
+
+### Was lief gut?
+
+- **Alle 3 Items in einer Session.** easter-eggs.js + Instrument-Modus + Oscar-Greeting — drei sichtbare Verbesserungen.
+- **Extraktion ohne Risiko.** `CODE_EASTER_EGGS` ist reine Daten, kein State, kein Event-Listener. Muster funktioniert: JSON-Daten in eigene Datei, `window.*` exportieren, `<script>` in index.html.
+- **Instrument-Modus ist Vanilla.** Kein neues System — `instrumentMode`-Flag, bestehenden `soundElementNote()`-Aufruf nutzen, Block am `playerPos` platzieren. 30 Zeilen.
+- **Baustil-Erkennung ohne KI.** Einfaches Zählen: Wenn >30% Holz/Pflanzen → Waldarchitekt. Keine API, keine Latenz, funktioniert offline.
+
+### Was lief schlecht?
+
+- **game.js ist immer noch zu groß.** 4649 → ~4590 Zeilen. Ziel <4000 ist weit. `initGrid()` und `draw()` wären die nächsten 200 LOC aber zu riskant ohne Smoke Test.
+- **Smoke Test nach wie vor blockiert.** Sandbox-Proxy verhindert externe Curls seit Sprint 19. Kein CI, kein automatischer Health-Check. Zeitbombe.
+- **Sprint-25-Branch existierte schon.** Gleicher Namenskonflikt wie Sprint 23. `git fetch origin && git log origin/feat/sprint-N` ist Pflicht — MEMORY-Eintrag hat nicht ausgereicht.
+
+### Was verbessern wir?
+
+1. **game.js: `initGrid()` extrahieren** — Ziel Sprint 26. ~60 LOC, kein Canvas-Context, sicher.
+2. **Dungeon-Framework (#50)** — Berg+Wasser=Höhle mit IT-Charakter. Jetzt fällig, zweimal verschoben.
+3. **Vor Sprint Planning: `git fetch origin`** — nicht verhandelbar. Noch einmal in MEMORY dokumentieren.
+
+### Sprint 26 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#11 game.js → initGrid()** | P1 | ~60 LOC, kein Canvas-Context, sicher. game.js unter 4500. |
+| **#50 Höhle = Dungeon-Framework** | P1 | Zweimal verschoben. Oscar entdeckt etwas Neues. IT-Themen: Bits→Kernel→Browser. |
+| **#95 Wu-Xing→NPC-Events** | P2 | Feuer→Asche triggert SpongeBob-Kommentar. Inter-Schicht-Kommunikation. Wäre Oscar-sichtbar. |
+
+---
+
 ## Standup Log
 
 ### 2026-04-01 (Sprint 25 Planning)

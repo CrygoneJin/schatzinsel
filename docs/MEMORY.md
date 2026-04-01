@@ -7,6 +7,8 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 ## Fehler (damit wir sie nicht wiederholen)
 
+| 2026-04-01 | Sprint-25-Branch existierte schon (wieder) — gleicher Namenskonflikt wie Sprint 23 | Session-Start ohne `git fetch origin` | `git fetch origin && git log origin/feat/sprint-N -3` ist die ERSTE Aktion nach Session-Start. IMMER. |
+
 | 2026-03-30 | Backlog-Drift: 14 Items waren in Code done aber Backlog zeigte 🔲 | Keine Session-übergreifende Backlog-Pflege | Am Ende jeder Session: Backlog-Zeilen updaten, bevor MEMORY geschrieben wird |
 
 | Datum | Was | Warum | Lektion |
@@ -35,6 +37,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 ## Erfolge (damit wir wissen was funktioniert)
 
 | Datum | Was | Warum gut |
+| 2026-04-01 | Sprint 25 — easter-eggs.js + Instrument-Modus + Oscar-Greeting | Reine-Daten-Extraktion ohne State ist sicher. Instrument-Modus: 30 Zeilen, bestehende API. Baustil-Erkennung ohne KI: simples Zählen. Alle 3 Oscar-sichtbar. |
 |-------|-----|-----------|
 | 2026-04-01 | Sprint 24 Retro — max 3 Items, game.js teilweise aufgeteilt, Tutorial ohne Text live | Sprint 25 Empfehlung: easter-eggs.js, Dungeon-Framework, Palette als Instrument |
 | 2026-04-01 | Sprint 24 — Genre-Tonsequenzen + stories.js + Tutorial ohne Text | 15 Genres in sound.js mit genreMode-Toggle funktionieren. stories.js-Extraktion ist safe (nur Daten, kein State). Tutorial-Onboarding mit CSS-Animationen + Tap-to-skip ist minimal aber wirksam. |
