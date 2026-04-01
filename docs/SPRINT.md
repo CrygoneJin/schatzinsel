@@ -10,9 +10,9 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S23-1 | **#85 Genre-Tonsequenzen** — 15 Musik-Genres mit je 5-Noten-Sequenz beim Platzieren. Oscar baut und hört Jazz, Reggae, Metal. | Engineer | 🔲 Offen |
-| S23-2 | **#11 game.js aufteilen** — Rendering-Funktionen (draw*, drawPlayer, drawBlueprintOverlay, drawCodeOverlay) nach renderer.js auslagern | Engineer | 🔲 Offen |
-| S23-3 | **#15 Tutorial ohne Text** — Erste 3 Schritte als Icon-Animationen statt Text. Für Kinder die noch nicht lesen können. | Designer + Engineer | 🔲 Offen |
+| S23-1 | **#85 Genre-Tonsequenzen** — 15 Musik-Genres mit je 5-Noten-Sequenz beim Platzieren. Oscar baut und hört Jazz, Reggae, Metal. | Engineer | ✅ Done |
+| S23-2 | **#11 game.js aufteilen** — HOERSPIELE-Daten → stories.js (77 Zeilen), game.js: 4246→4210. draw*() bleibt (zu viele globale Abhängigkeiten für sicheren Refactor). | Engineer | ✅ Done |
+| S23-3 | **#15 Tutorial ohne Text** — 3-Schritt Icon-Onboarding (🖌️➡️🟫 / 🪵➡️🏝️ / ⚒️+✨), keine Texte, 2.5s auto + Tap-to-skip. Nur für Erstbesucher. | Designer + Engineer | ✅ Done |
 
 ---
 

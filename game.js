@@ -3061,6 +3061,46 @@
         };
     };
 
+    // === TUTORIAL-ONBOARDING (#15) — kein Text, nur Icons ===
+    // 3 Schritte à 2.5s, Tap überspringt. Nur für Erstbesucher.
+    function showTutorialOnboarding() {
+        const overlay = document.getElementById('tutorial-onboarding');
+        if (!overlay) return;
+        overlay.style.display = 'flex';
+
+        const steps = [1, 2, 3];
+        let current = 0;
+
+        function showStep(i) {
+            steps.forEach(n => {
+                const el = document.getElementById('tut-step-' + n);
+                if (el) el.style.display = (n === i + 1) ? 'flex' : 'none';
+                const dot = document.getElementById('tut-dot-' + n);
+                if (dot) dot.style.opacity = (n === i + 1) ? '1' : '0.3';
+            });
+        }
+
+        function advance() {
+            current++;
+            if (current >= steps.length) {
+                overlay.style.display = 'none';
+                return;
+            }
+            showStep(current);
+            timer = setTimeout(advance, 2500);
+        }
+
+        showStep(0);
+        let timer = setTimeout(advance, 2500);
+
+        overlay.addEventListener('click', function onTap() {
+            clearTimeout(timer);
+            overlay.removeEventListener('click', onTap);
+            current = steps.length; // direkt beenden
+            overlay.style.display = 'none';
+        }, { once: true });
+    }
+
     // === EVENT LISTENERS ===
 
     // Intro — Session-Uhr starten
@@ -3087,6 +3127,8 @@
         setTimeout(() => {
             introOverlay.style.display = 'none';
             startTutorialPulse();
+            // Tutorial-Onboarding nur für Erstbesucher (noch kein Grid gespeichert)
+            if (!localStorage.getItem('insel-grid')) showTutorialOnboarding();
         }, 300);
         window.startSessionClock();
     }
