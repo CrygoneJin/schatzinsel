@@ -1,39 +1,45 @@
 // Service Worker for Schatzinsel — offline play support
 // Stale-While-Revalidate: zeigt Cache sofort, lädt im Hintergrund neu
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 const CACHE_NAME = `schatzinsel-v${CACHE_VERSION}`;
 
+// Muss exakt mit index.html <script>-Tags übereinstimmen
+// config.js ist absichtlich NICHT drin (gitignored, optional, 404 killt addAll)
 const STATIC_ASSETS = [
     '/',
     '/index.html',
     '/style.css',
-    '/game.js',
-    '/chat.js',
+    '/manifest.json',
     '/bus.js',
-    '/conway.js',
-    '/tts.js',
-    '/save.js',
-    '/npc-craft.js',
+    '/qr.js',
+    '/insel.js',
+    '/storage.js',
     '/materials.js',
     '/achievements.js',
     '/quests.js',
     '/recipes.js',
     '/automerge.js',
-    '/screensaver.js',
-    '/sound.js',
-    '/effects.js',
-    '/nature.js',
-    '/stories.js',
-    '/voice.js',
-    '/marketplace.js',
     '/blueprints.js',
+    '/screensaver.js',
+    '/stories.js',
+    '/sound.js',
     '/analytics.js',
-    '/qr.js',
     '/healthcheck.js',
+    '/iso-renderer.js',
+    '/fractal-trees.js',
+    '/effects.js',
     '/eliza.js',
     '/eliza-scripts.js',
-    '/config.example.js',
-    '/manifest.json'
+    '/nature.js',
+    '/marketplace.js',
+    '/conway.js',
+    '/tts.js',
+    '/save.js',
+    '/game.js',
+    '/npc-craft.js',
+    '/chat.js',
+    '/bedtime.js',
+    '/voice.js',
 ];
 
 // External API hosts — these get network-first strategy
