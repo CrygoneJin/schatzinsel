@@ -3545,6 +3545,74 @@
         });
     }
 
+    // === Schatzkarte — Eltern-Dashboard via Shared Secret ===
+    // Oscar erstellt einen Code, sagt ihn Papa, Papa sieht Stats.
+    // 4 Wörter, 256^4 = 4 Mrd. Kombinationen, 24h TTL.
+    let karteCode = localStorage.getItem('karteCode') || null;
+
+    function getWorkerUrl() {
+        return (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy)
+            || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
+    }
+
+    async function createSchatzkarte() {
+        const stats = getGridStats();
+        const payload = {
+            blocks:    stats.total,
+            shells:    typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0,
+            quests:    stats.questsDone || 0,
+            minutes:   window._sessionMinutes || 0,
+            materials: stats.uniqueMats || 0,
+            player:    localStorage.getItem('playerName') || 'Anonym',
+        };
+
+        try {
+            const res = await fetch(getWorkerUrl() + '/karte', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (data.ok && data.code) {
+                karteCode = data.code;
+                localStorage.setItem('karteCode', karteCode);
+                navigator.clipboard.writeText(karteCode)
+                    .then(() => showToast(`🗺️ Schatzkarte: ${karteCode}\nKopiert! Sag den Code deinen Eltern!`, 6000))
+                    .catch(() => showToast(`🗺️ Schatzkarte: ${karteCode}`, 8000));
+            }
+        } catch (e) {
+            showToast('🗺️ Schatzkarte konnte nicht erstellt werden (offline?)', 3000);
+        }
+    }
+
+    async function updateSchatzkarte() {
+        if (!karteCode) return;
+        const stats = getGridStats();
+        const payload = {
+            blocks:    stats.total,
+            shells:    typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0,
+            quests:    stats.questsDone || 0,
+            minutes:   window._sessionMinutes || 0,
+            materials: stats.uniqueMats || 0,
+        };
+        try {
+            await fetch(getWorkerUrl() + '/karte/' + karteCode, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+        } catch { /* still — kein Toast bei Update-Fehler */ }
+    }
+
+    // Auto-Update alle 60s wenn Karte aktiv
+    setInterval(() => { if (karteCode) updateSchatzkarte(); }, 60000);
+
+    // Schatzkarte-Button (neben Share-Button)
+    const karteBtn = document.getElementById('karte-btn');
+    if (karteBtn) {
+        karteBtn.addEventListener('click', createSchatzkarte);
+    }
+
     // URL-Sharing: beim Start ?insel= Parameter prüfen und Grid laden
     const sharedGrid = new URLSearchParams(location.search).get('insel');
     if (sharedGrid) {
