@@ -38,8 +38,9 @@
                 Math.floor(availH / totalRows)
             ));
         }
-        // Desktop: verfügbare Höhe abzüglich Header+Toolbar (~100px), mit Seitenleisten (~300px)
-        const availW = window.innerWidth - 320;
+        // Desktop: verfügbare Höhe abzüglich Header+Toolbar (~100px), mit Seitenleisten (~300px) + Chat-Panel (320px)
+        const chatW = document.body.classList.contains('chat-open') ? 320 : 0;
+        const availW = window.innerWidth - 320 - chatW;
         const availH = window.innerHeight - 110;
         return Math.max(20, Math.min(
             Math.floor(availW / totalCols),
@@ -220,14 +221,28 @@
                     const currentBonus = window.getTokenBonus ? window.getTokenBonus(q.npc) : 0;
                     const cappedReward = Math.min(tokenReward, 2000 - currentBonus);
 
-                    if (cappedReward > 0) {
+                    if (q.community) {
+                        // Trotzki: Gemeinschaftsquest — ALLE NPCs profitieren!
+                        showToast(`🤝 Inselrat: ${q.title} geschafft! ALLE profitieren! ${q.reward}`, 4000);
+                        soundQuestComplete();
+                        if (window.addTokenBudget) {
+                            const allNpcs = Object.keys(NPC_DEFS);
+                            const perNpcReward = Math.max(1, Math.round(cappedReward / 2));
+                            allNpcs.forEach(npcId => {
+                                const bonus = window.getTokenBonus ? window.getTokenBonus(npcId) : 0;
+                                const capped = Math.min(perNpcReward, 2000 - bonus);
+                                if (capped > 0) window.addTokenBudget(npcId, capped);
+                            });
+                        }
+                    } else if (cappedReward > 0) {
                         showToast(`🎉 Quest geschafft: ${q.title} ${q.reward} +⚡ Energie!`);
+                        soundQuestComplete();
+                        if (window.addTokenBudget) {
+                            window.addTokenBudget(q.npc, cappedReward);
+                        }
                     } else {
                         showToast(`🎉 Quest geschafft: ${q.title} ${q.reward}`);
-                    }
-                    soundQuestComplete();
-                    if (window.addTokenBudget && cappedReward > 0) {
-                        window.addTokenBudget(q.npc, cappedReward);
+                        soundQuestComplete();
                     }
                     // Hirn-Transplantation: Neuen Charakter freischalten?
                     if (window.tryCharacterUnlock) {
@@ -260,7 +275,8 @@
                 const m = MATERIALS[mat];
                 return `<span class="${done ? 'quest-done' : 'quest-todo'}">${m ? m.emoji : mat} ${have}/${need}</span>`;
             }).join(' ');
-            return `<div class="quest-item"><strong>${q.title}</strong><br><small>${items}</small></div>`;
+            const communityTag = q.community ? ' 🤝<em>Inselrat</em>' : '';
+            return `<div class="quest-item"><strong>${q.title}${communityTag}</strong><br><small>${items}</small></div>`;
         }).join('');
     }
 
@@ -426,6 +442,9 @@
         } else if (quest) {
             showToast(`${npc.emoji} ${quest.desc}`, 5000);
             window.questSystem.accept(quest);
+        } else if (npcId === 'krabs') {
+            // Krabs: Kein Quest? Dann HANDEL! 🦀💰
+            showKrabsShop();
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {
@@ -433,6 +452,104 @@
                 showToast(`${npc.emoji} ${voice.prefix} ${tick}`, 2000);
             }
         }
+    }
+
+    // === KRABS SHOP — Muschelhandel ===
+    // 1 Muschel = 0.001 MMX (Nerd-Ebene). Kinder sehen 🐚, Nerds sehen MMX.
+    const SHELL_TO_MMX = 0.001;
+
+    function showKrabsShop() {
+        const shells = getInventoryCount('shell');
+        // Welche Materialien kann der Spieler verkaufen?
+        const sellable = Object.entries(KRABS_SHOP)
+            .filter(([mat]) => getInventoryCount(mat) > 0)
+            .map(([mat, price]) => {
+                const info = MATERIALS[mat];
+                return `${info.emoji} ${info.label}: ${price.sell} 🐚`;
+            }).slice(0, 4);
+
+        // Welche kann er kaufen?
+        const buyable = Object.entries(KRABS_SHOP)
+            .filter(([, price]) => shells >= price.buy)
+            .map(([mat, price]) => {
+                const info = MATERIALS[mat];
+                return `${info.emoji} ${info.label}: ${price.buy} 🐚`;
+            }).slice(0, 4);
+
+        // Dialog als Modal
+        let existing = document.getElementById('krabs-shop-modal');
+        if (existing) existing.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'krabs-shop-modal';
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;';
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+
+        const shopItems = Object.entries(KRABS_SHOP);
+        const shopHTML = shopItems.map(([mat, price]) => {
+            const info = MATERIALS[mat];
+            if (!info) return '';
+            const have = getInventoryCount(mat);
+            return `<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid #333;">
+                <span>${info.emoji} ${info.label} (${have}x)</span>
+                <span>
+                    <button class="krabs-buy" data-mat="${mat}" data-cost="${price.buy}"
+                        style="background:#2E7D32;color:white;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;margin:0 2px;"
+                        ${shells < price.buy ? 'disabled style="opacity:0.4;background:#2E7D32;color:white;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;margin:0 2px;"' : ''}>
+                        Kauf ${price.buy}🐚</button>
+                    <button class="krabs-sell" data-mat="${mat}" data-earn="${price.sell}"
+                        style="background:#C62828;color:white;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;margin:0 2px;"
+                        ${have <= 0 ? 'disabled style="opacity:0.4;background:#C62828;color:white;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;margin:0 2px;"' : ''}>
+                        Verkauf ${price.sell}🐚</button>
+                </span>
+            </div>`;
+        }).join('');
+
+        const mmxValue = (shells * SHELL_TO_MMX).toFixed(4);
+        const mmxMax = (SHELL_CAP * SHELL_TO_MMX).toFixed(1);
+        const capPct = Math.round(shells / SHELL_CAP * 100);
+        modal.innerHTML = `<div style="background:#1a1a2e;color:#eee;border-radius:12px;padding:20px;max-width:360px;width:90%;max-height:70vh;overflow-y:auto;font-family:monospace;">
+            <h3 style="margin:0 0 8px;text-align:center;">🦀 Krabben-Kontor 💰</h3>
+            <p style="text-align:center;margin:0 0 4px;font-size:1.1em;">Dein Vermögen: <strong>${shells} / ${SHELL_CAP} 🐚</strong></p>
+            <div style="background:#333;border-radius:4px;height:6px;margin:0 20px 8px;"><div style="background:${capPct >= 90 ? '#FF6B00' : '#2E7D32'};border-radius:4px;height:6px;width:${capPct}%;transition:width 0.3s;"></div></div>
+            <p style="text-align:center;margin:0 0 4px;font-size:0.8em;color:#aaa;">Darwin sagt: Handel ist Evolution! Muscheln findest du am Strand!</p>
+            <p style="text-align:center;margin:0 0 12px;font-size:0.65em;color:#FF6B00;cursor:help;" title="1 🐚 = ${SHELL_TO_MMX} MMX · Max ${mmxMax} MMX · Goldstandard · mmx.network">≈ ${mmxValue} / ${mmxMax} MMX</p>
+            ${shopHTML}
+            <p style="text-align:center;margin:12px 0 0;font-size:0.7em;color:#666;">Klick außerhalb zum Schließen</p>
+        </div>`;
+
+        document.body.appendChild(modal);
+
+        // Event-Handler für Kauf/Verkauf
+        modal.querySelectorAll('.krabs-buy').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mat = btn.dataset.mat;
+                const cost = parseInt(btn.dataset.cost);
+                if (getInventoryCount('shell') >= cost) {
+                    removeFromInventory('shell', cost);
+                    addToInventory(mat, 1);
+                    unlockMaterial(mat);
+                    showToast(`🦀 DEAL! 1x ${MATERIALS[mat]?.emoji} ${MATERIALS[mat]?.label} für ${cost} 🐚!`, 2000);
+                    modal.remove();
+                    showKrabsShop(); // Refresh
+                }
+            });
+        });
+
+        modal.querySelectorAll('.krabs-sell').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mat = btn.dataset.mat;
+                const earn = parseInt(btn.dataset.earn);
+                if (getInventoryCount(mat) > 0) {
+                    removeFromInventory(mat, 1);
+                    addToInventory('shell', earn);
+                    unlockMaterial('shell');
+                    showToast(`🦀 VERKAUFT! 1x ${MATERIALS[mat]?.emoji} für ${earn} 🐚! Ahahaha!`, 2000);
+                    modal.remove();
+                    showKrabsShop(); // Refresh
+                }
+            });
+        });
     }
 
     // --- NPC-Kommentare beim Bauen ---
@@ -561,84 +678,7 @@
 
     // --- Spontan-Hörspiele: Mini-Szenen bei besonderen Anlässen ---
     // "Mensch, Maschine, KI" — wie im ZKM Karlsruhe
-    const HOERSPIELE = {
-        firstBlock: [
-            '🪨 C: "Da baut jemand! Zum ersten Mal seit ich hier bin!"',
-            '🐍 Python: "Willkommen auf Java! Ich versteeeehe dich."',
-            '🦜 Fortran: "Fort-ran die Langeweile! Jemand BAUT!"',
-            '🧮 R: "Block Nummer 1. In Binär: 1. In Tertiär: 1. Immer noch 1."',
-            '🌍 Geo: "Robert, NICHT jetzt!"',
-        ],
-        tenBlocks: [
-            '💡 JavaScript: "10 Blöcke! Genau wie ich — in 10 Tagen geboren!"',
-            '📝 TypeScript: "Korrekt wäre: blöcke: number = 10;"',
-            '💡 JavaScript: "LASS MICH."',
-            '🦈 Makro: *taucht kurz auf* "Zehn? Ich mache HUNDERT draus!" *taucht ab*',
-            '🐍 Python: "Ignoriert den Hai. Zehn ist gut. Zehn ist... gemütlich."',
-        ],
-        fiftyBlocks: [
-            '🧽 SpongeBob: "ICH BIN BEREIT zu sagen: DAS ist eine STADT!"',
-            '🦀 Mr. Krabs: "Stadt = Kunden = <umsatz>VIEL GELD</umsatz>!"',
-            '🐘 Elefant: "Hmm, ich möchte sicherstellen... ja. Törööö! Das ist schön."',
-            '🪨 C: "50 Blöcke. Zu meiner Zeit haben wir mit EINEM Byte angefangen."',
-            '🪨 C++: "Und dann bin ich gegen den Stein gelaufen und alles wurde besser!"',
-            '🪨 C: "...definiere besser."',
-        ],
-        hundredBlocks: [
-            '🦄 Neinhorn: "NEIN das sind nicht 100 Blöcke! ...doch? Mon Dieu!"',
-            '🧮 R: "100 in Binär: 1100100. In Oktal: 144. In—"',
-            '🌍 Geo: "ROBERT."',
-            '🐭 Maus: "*pieps* Hundert Blöcke / Die Insel wird zur Stadt / Weniger war mehr *pieps*"',
-            '🦆 Ente: "*quak* Was soll das mit den Silben SCHON WIEDER?!"',
-            '🍄 Hirnfitz: "++++++[>++++++++++<-]>++++. !" (Das heißt: "d!" — er versucht "du bist toll" zu sagen)',
-            '🍞 Bernd: "*seufz* 100 Blöcke. Und ich muss immer noch Support machen."',
-        ],
-        talkshow: [
-            '— TALKSHOW: "Gebaut oder Geklickt?" — Live von der Insel Java —',
-            '🐍 Python: "Willkommen bei Gebaut oder Geklickt — der einzigen Talkshow auf einer Insel die aus Code besteht."',
-            '💡 JavaScript: "Gaming ist wenn jemand auf Dinge klickt und sich gut fühlt."',
-            '📝 TypeScript: "Gaming ist wenn jemand auf Dinge klickt und sich gut fühlt, ABER typsicher."',
-            '💡 JavaScript: "Ich HASSE dich."',
-            '🧽 SpongeBob: "ICH BIN BEREIT zu sagen: DAS IST EIN SPIEL! Da sind Blöcke! Da sind Farben! Da ist SPASS!"',
-            '🪨 C: "Zu meiner Zeit war ein Spiel ein Cursor der sich bewegt hat. Und wir waren DANKBAR."',
-            '🦄 Neinhorn: "NEIN das ist kein Spiel. ...doch. ...NEIN. ...ach, es macht Spaß. Egal."',
-            '🍞 Bernd: "*seufz* Ist Leiden Gaming? Dann bin ich Pro-Gamer."',
-            '🦈 Makro: *taucht auf* "Ist INVESTIEREN Gaming? Ich habe aus einem Block HUNDERT gemacht!" *taucht ab*',
-            '🐘 Elefant: "Hmm, Törööö. Gaming ist wenn man vergisst dass man spielt. Und hier vergisst man das."',
-            '🦜 Fortran: "Fort-ran die Langeweile! Her-kam der Spaß! ALLES ist Gaming wenn man es mit Freude tut!"',
-            '🪨 C: "Es ist aus Worten gebaut. Nicht aus einer Engine. Aus Worten."',
-            '🧽 SpongeBob: "Und die Insel hat FREUNDE! Wir sind die Freunde! ICH BIN EIN FREUND!"',
-            '🍞 Bernd: "*seufz* ...ich auch. Sag ich nur einmal."',
-            '— Applaus. Jemand wirft eine Kokosnuss. Bernd seufzt. —',
-        ],
-        halfIsland: [
-            '— HÖRSPIEL: Mensch, Maschine, KI — Live von der Insel Java —',
-            '🐍 Python: "Die halbe Insel ist bebaut. Ein Mensch hat das gemacht. Mit Klicks."',
-            '💡 JavaScript: "Aber WIR haben die Klicks VERARBEITET! Ohne mich wäre das nur Sand!"',
-            '📝 TypeScript: "Ohne mich hättest DU drei Bugs. Mindestens."',
-            '🪨 C: "Ohne MICH gäbe es euch alle nicht."',
-            '🐍 Python: "Die Frage ist: Wer baut hier wirklich? Der Mensch? Die Maschine? Oder die KI im Chat?"',
-            '🧽 SpongeBob: "ICH glaube der Baumeister baut! Und wir helfen! ICH BIN BEREIT ZU HELFEN!"',
-            '🦄 Neinhorn: "NEIN! ...aber ja. Zusammen ists schöner."',
-            '— Applaus von der Insel Java. Nächste Vorstellung bei 100%. —',
-        ],
-        fullIsland: [
-            '— GROSSES FINALE: Mensch, Maschine, KI — Insel Java Uraufführung —',
-            '🪨 C: "Ich erinnere mich an den Tag als hier NICHTS war."',
-            '🐍 Python: "Ein leeres Grid. Null Blöcke. None."',
-            '🧮 R: "Genau 0. In jedem Zahlensystem."',
-            '💡 JavaScript: "Und dann hat jemand geklickt. Ein Mensch. Ein WORT wurde zu einem BLOCK."',
-            '📝 TypeScript: "grid[0][0] = \'wood\' — der erste Zauberspruch."',
-            '🦜 Fortran: "Fort-ran die Leere! Her-kam die Stadt!"',
-            '🧽 SpongeBob: "Alles nur mit WORTEN! Kein Hammer, kein Bagger! Nur: Klick. Text. MAGIE!"',
-            '🐘 Elefant: "Törööö! Und die ganze Insel hat zugehört."',
-            '🦄 Neinhorn: "NEIN ich weine nicht! ...es regnet. Auf mein Gesicht. Nur da."',
-            '🍞 Bernd: "*seufz* Gut, DAS war schön. Sag ich nur einmal. Nie wieder."',
-            '🦈 Makro: *ganz leise aus dem Wasser* "...ich fand es auch schön."',
-            '— Standing Ovation auf der Insel Java. Grüße ans ZKM Karlsruhe. —',
-        ],
-    };
-
+    const HOERSPIELE = window.INSEL_STORIES || {}; // Daten in stories.js
     let playedHoerspiele = JSON.parse(localStorage.getItem('insel-hoerspiele') || '[]');
 
     // TTS: Emoji und Markup aus Text strippen für Sprachausgabe
@@ -653,21 +693,85 @@
 
     let hoerspielSpeaking = false;
 
-    // TTS Hörspiele — Web Speech API (Backlog #87)
+    // TTS Hörspiele — Cloud TTS via Worker /tts (OpenAI tts-1 über Requesty)
+    // Fallback: Web Speech API wenn Worker nicht erreichbar
     // Stoppt bei: Mute, Canvas-Klick, oder INSEL_SOUND.isMuted()
     let hoerspielAborted = false;
+    let hoerspielAudio = null;
 
     function stopHoerspiel() {
         if (!hoerspielSpeaking) return;
         hoerspielAborted = true;
+        if (hoerspielAudio) { hoerspielAudio.pause(); hoerspielAudio = null; }
         if (window.speechSynthesis) window.speechSynthesis.cancel();
         hoerspielSpeaking = false;
         INSEL_SOUND.setMasterVolume(1.0);
         showToast('🎭 Hörspiel gestoppt');
     }
 
+    // Stimme + Sprache aus Zeile extrahieren
+    function detectVoice(line) {
+        if (line.includes('Lanz:')) return { voice: 'lanz', lang: 'de' };
+        if (line.includes('Precht:')) return { voice: 'precht', lang: 'de' };
+        if (line.includes('Merz:')) return { voice: 'merz', lang: 'de' };
+        if (line.includes('Trump:')) return { voice: 'trump', lang: 'en' };
+        if (line.includes('Musk:')) return { voice: 'musk', lang: 'en' };
+        if (line.includes('Mephisto:')) return { voice: 'mephisto', lang: 'de' };
+        if (line.includes('Krömer:')) return { voice: 'echo', lang: 'de' };
+        if (line.includes('Büker:')) return { voice: 'alloy', lang: 'de' };
+        if (line.includes('Kückens:')) return { voice: 'nova', lang: 'de' };
+        if (line.includes('Tommy:')) return { voice: 'shimmer', lang: 'de' };
+        if (line.includes('Lesch:')) return { voice: 'nova', lang: 'de' };
+        if (line.includes('Feynman:')) return { voice: 'fable', lang: 'de' };
+        if (line.includes('Sartre:')) return { voice: 'fable', lang: 'fr' };
+        if (line.includes('Machiavelli:')) return { voice: 'onyx', lang: 'it' };
+        if (line.includes('SpongeBob:')) return { voice: 'default', lang: 'de' };
+        if (line.includes('Python:')) return { voice: 'default', lang: 'de' };
+        if (line.includes('JavaScript:')) return { voice: 'shimmer', lang: 'de' };
+        if (line.includes('TypeScript:')) return { voice: 'echo', lang: 'de' };
+        if (line.includes('Bernd:')) return { voice: 'echo', lang: 'de' };
+        if (line.includes('Elefant:')) return { voice: 'nova', lang: 'de' };
+        if (line.includes('Neinhorn:')) return { voice: 'shimmer', lang: 'de' };
+        return { voice: 'default', lang: 'de' };
+    }
+
+    // Cloud TTS: Text → MP3 via Worker
+    function speakCloudTTS(text, voiceInfo) {
+        const proxy = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
+        return fetch(proxy + '/tts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang, speed: 1.0 }),
+        }).then(function (r) {
+            if (!r.ok) throw new Error('TTS ' + r.status);
+            return r.blob();
+        }).then(function (blob) {
+            return new Promise(function (resolve, reject) {
+                var url = URL.createObjectURL(blob);
+                var audio = new Audio(url);
+                hoerspielAudio = audio;
+                audio.onended = function () { URL.revokeObjectURL(url); hoerspielAudio = null; resolve(); };
+                audio.onerror = function () { URL.revokeObjectURL(url); hoerspielAudio = null; reject(); };
+                audio.play().catch(reject);
+            });
+        });
+    }
+
+    // Fallback: Web Speech API
+    function speakBrowserTTS(text, lang) {
+        return new Promise(function (resolve) {
+            if (!window.speechSynthesis) { resolve(); return; }
+            var utter = new SpeechSynthesisUtterance(text);
+            utter.lang = (lang === 'en') ? 'en-US' : (lang === 'fr') ? 'fr-FR' : (lang === 'it') ? 'it-IT' : 'de-DE';
+            utter.rate = 0.95;
+            utter.onend = function () { resolve(); };
+            utter.onerror = function () { resolve(); };
+            window.speechSynthesis.speak(utter);
+        });
+    }
+
     function speakLines(lines, onDone) {
-        if (!window.speechSynthesis || INSEL_SOUND.isMuted()) {
+        if (INSEL_SOUND.isMuted()) {
             if (onDone) onDone();
             return;
         }
@@ -687,15 +791,17 @@
             const text = stripForTTS(lines[index]);
             showToast(lines[index], 4000);
             if (index === 0) soundAchievement();
+            const voice = detectVoice(lines[index]);
             index++;
 
             if (!text || INSEL_SOUND.isMuted()) { setTimeout(speakNext, 500); return; }
 
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.lang = 'de-DE';
-            utter.rate = 0.95;
-            utter.onend = () => setTimeout(speakNext, 600);
-            utter.onerror = () => setTimeout(speakNext, 600);
+            // Cloud TTS mit Fallback auf Browser
+            speakCloudTTS(text, voice).catch(function () {
+                return speakBrowserTTS(text, voice.lang);
+            }).then(function () {
+                setTimeout(speakNext, 400);
+            });
             window.speechSynthesis.speak(utter);
         }
         speakNext();
@@ -710,6 +816,14 @@
         else if (stats.total === 100 && !playedHoerspiele.includes('hundredBlocks')) key = 'hundredBlocks';
         else if (stats.percent === 50 && !playedHoerspiele.includes('halfIsland')) key = 'halfIsland';
         else if (stats.percent >= 100 && !playedHoerspiele.includes('fullIsland')) key = 'fullIsland';
+        // Podcast Staffel 1: verschiedene Meilensteine
+        var hasMephisto = window.INSEL_CHARACTERS && window.INSEL_CHARACTERS.mephisto;
+        if (!key && stats.total >= 25 && !playedHoerspiele.includes('podcast_lanz') && hasMephisto) key = 'podcast_lanz';
+        else if (!key && stats.total >= 40 && !playedHoerspiele.includes('podcast_s1e2_schroeder') && hasMephisto) key = 'podcast_s1e2_schroeder';
+        else if (!key && stats.total >= 60 && !playedHoerspiele.includes('podcast_s1e3_bueker') && hasMephisto) key = 'podcast_s1e3_bueker';
+        else if (!key && stats.total >= 80 && !playedHoerspiele.includes('podcast_s1e4_nachts') && hasMephisto) key = 'podcast_s1e4_nachts';
+        else if (!key && stats.total >= 90 && !playedHoerspiele.includes('podcast_s1e5_krapweis') && hasMephisto) key = 'podcast_s1e5_krapweis';
+        else if (!key && stats.percent >= 75 && !playedHoerspiele.includes('podcast_lesch') && hasMephisto) key = 'podcast_lesch';
 
         if (!key) return;
 
@@ -737,113 +851,26 @@
     // === BAUM-WACHSTUM + WELT-KONSEQUENZEN → nature.js ===
     const treeGrowth = window.INSEL_NATURE.treeGrowth;
 
-    // #19: Evolution-Screensaver — drei Terrain-Zonen, Kreaturen verabschieden sich
-    const CONWAY_WATER   = ['🐟','🐠','🐡','🦑','🪼','🐙','🦐','🐬','🐳'];
-    const CONWAY_BEACH   = ['🦀','🐚','🐸','🦎','🦭','🦞','🐊'];
-    const CONWAY_LAND    = ['🦋','🐝','🐛','🐇','🦔','🐿️','🌸','🍄','🦜','🦊'];
-    const CONWAY_MIGRANT = ['🐋','🦅','🐦‍⬛','🦢']; // erscheinen überall, kurz
-
-    let conwayOverlay = null; // 2D String-Array ('' = leer, sonst Emoji)
-    let conwayInterval = null;
-    let conwayFading = false;
-    let lastInteraction = Date.now();
-    const CONWAY_IDLE_MS = 30000;
-
-    function conwayZone(r, c) {
-        if (r < 2 || r >= ROWS - 2 || c < 2 || c >= COLS - 2) return 'water';
-        if (r === 2 || r === ROWS - 3 || c === 2 || c === COLS - 3) return 'beach';
-        return 'land';
-    }
-
-    function conwayCreature(r, c) {
-        if (Math.random() < 0.04) return CONWAY_MIGRANT[Math.floor(Math.random() * CONWAY_MIGRANT.length)];
-        const zone = conwayZone(r, c);
-        const pool = zone === 'water' ? CONWAY_WATER : zone === 'beach' ? CONWAY_BEACH : CONWAY_LAND;
-        return pool[Math.floor(Math.random() * pool.length)];
-    }
-
-    function startConway() {
-        if (conwayInterval || prefersReducedMotion) return;
-        conwayFading = false;
-        conwayOverlay = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
-        for (let r = 0; r < ROWS; r++)
-            for (let c = 0; c < COLS; c++)
-                if (grid[r][c] === null && Math.random() < 0.18)
-                    conwayOverlay[r][c] = conwayCreature(r, c);
-        conwayInterval = setInterval(conwayStep, 650);
-    }
-
-    function conwayStep() {
-        if (!conwayOverlay || conwayFading) return;
-        const next = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (grid[r][c] !== null) continue; // Materialien unberührt
-                let alive = 0;
-                for (let dr = -1; dr <= 1; dr++)
-                    for (let dc = -1; dc <= 1; dc++)
-                        if ((dr || dc) && conwayOverlay[r + dr]?.[c + dc]) alive++;
-                const cur = conwayOverlay[r][c] !== '';
-                // Migrants sterben öfter (Besuch, kein Zuhause)
-                const isMigrant = cur && CONWAY_MIGRANT.includes(conwayOverlay[r][c]);
-                if (cur) {
-                    next[r][c] = (alive >= 2 && alive <= 4 && !(isMigrant && Math.random() < 0.35))
-                        ? conwayOverlay[r][c] : '';
-                } else {
-                    // Geburt: 3 Nachbarn ODER seltene Spontangeburt (Migration)
-                    if (alive === 3 || (alive >= 1 && Math.random() < 0.008))
-                        next[r][c] = conwayCreature(r, c);
-                }
-            }
-        }
-        conwayOverlay = next;
-        requestRedraw();
-    }
-
-    function fadeConway() {
-        // Kreaturen verschwinden langsam wenn jemand zurückkommt
-        if (!conwayOverlay) return;
-        conwayFading = true;
-        clearInterval(conwayInterval);
-        conwayInterval = null;
-        const fade = setInterval(() => {
-            if (!conwayOverlay) { clearInterval(fade); return; }
-            let left = 0;
-            for (let r = 0; r < ROWS; r++)
-                for (let c = 0; c < COLS; c++)
-                    if (conwayOverlay[r][c] && Math.random() < 0.12) conwayOverlay[r][c] = '';
-            for (let r = 0; r < ROWS; r++)
-                for (let c = 0; c < COLS; c++)
-                    if (conwayOverlay[r][c]) left++;
-            requestRedraw();
-            if (left === 0) { clearInterval(fade); conwayOverlay = null; conwayFading = false; requestRedraw(); }
-        }, 120);
-    }
-
-    function stopConway() {
-        clearInterval(conwayInterval);
-        conwayInterval = null;
-        conwayOverlay = null;
-        conwayFading = false;
-        requestRedraw();
-    }
-
-    function resetIdleTimer() {
-        lastInteraction = Date.now();
-        if (conwayOverlay) fadeConway(); // sanfter Abschied statt sofort weg
-    }
-
-    setInterval(() => {
-        if (!conwayInterval && !conwayFading && Date.now() - lastInteraction > CONWAY_IDLE_MS) startConway();
-    }, 5000);
+    // #19: Evolution-Screensaver → ausgelagert nach conway.js
+    // Funktionen startConway, stopConway, resetIdleTimer via window.* verfügbar
 
     // ============================================================
     // === INVENTAR ===
     // ============================================================
     let inventory = {};
 
+    const SHELL_CAP = 42; // The Answer. 42 🐚 = 0.042 MMX pro Spieler.
+
     function addToInventory(material, count) {
         count = count || 1;
+        if (material === 'shell') {
+            const current = inventory['shell'] || 0;
+            if (current >= SHELL_CAP) {
+                showToast(`🦀 Krabs: "${SHELL_CAP} Muscheln! The Answer! Mehr passt nicht in die Bank! SPAR oder GIB AUS!"`, 3000);
+                return;
+            }
+            count = Math.min(count, SHELL_CAP - current);
+        }
         inventory[material] = (inventory[material] || 0) + count;
         updateInventoryDisplay();
         saveInventory();
@@ -1342,6 +1369,10 @@
     var needsRedraw = true;
     function requestRedraw() { needsRedraw = true; }
 
+    // Globaler Export für conway.js und andere Module
+    window.requestRedraw = requestRedraw;
+    window.INSEL_DIMS = { ROWS, COLS };
+
     // --- Zustand ---
     let grid = [];
     let currentMaterial = 'metal';
@@ -1520,6 +1551,29 @@
         small_tree: { material: 'wood', count: 2 },
         sapling:    { material: 'wood', count: 1 },
         palm:       { material: 'wood', count: 2 },
+        // Sinn: Investitions-Erträge — ROI steigt mit Geduld
+        seed:       { material: 'seed', count: 1 },      // Zu früh geerntet: kein Gewinn
+        sprout:     { material: 'plant', count: 2 },      // Halbzeit: 2 Pflanzen
+        fruit:      { material: 'apple', count: 3 },      // Voll reif: 3 Äpfel (2 Saat → 3 Äpfel!)
+        ore:        { material: 'metal', count: 2 },      // Zu früh: 2 Metall zurück
+        ingot:      { material: 'ingot', count: 2 },      // Voll reif: 2 Barren
+    };
+
+    // === KRABS: Muschelhandel — Preisliste ===
+    // Muscheln sind die Insel-Währung. Krabs kauft und verkauft.
+    const KRABS_SHOP = {
+        // material: { buy: Muscheln die Krabs verlangt, sell: Muscheln die Krabs zahlt }
+        wood:     { buy: 2,  sell: 1 },
+        stone:    { buy: 3,  sell: 1 },
+        sand:     { buy: 1,  sell: 1 },
+        planks:   { buy: 4,  sell: 2 },
+        glass:    { buy: 5,  sell: 2 },
+        flower:   { buy: 3,  sell: 1 },
+        fish:     { buy: 4,  sell: 2 },
+        diamond:  { buy: 20, sell: 8 },
+        crystal:  { buy: 15, sell: 6 },
+        honey:    { buy: 8,  sell: 3 },
+        apple:    { buy: 6,  sell: 2 },
     };
     let isMouseDown = false;
     let hoverCell = null;
@@ -1956,17 +2010,18 @@
         // Blueprint-Overlay zeichnen (Ghost-Preview)
         drawBlueprintOverlay();
 
-        // Evolution Screensaver — Kreaturen als Emojis auf Terrain-Zonen
-        if (conwayOverlay) {
+        // Evolution Screensaver — Kreaturen als Emojis auf Terrain-Zonen (conway.js)
+        const _conwayOverlay = window.INSEL_CONWAY && window.INSEL_CONWAY.getOverlay();
+        if (_conwayOverlay) {
             ctx.font = `${Math.round(CELL_SIZE * 0.62)}px serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             for (let r = 0; r < ROWS; r++) {
                 for (let c = 0; c < COLS; c++) {
-                    if (!conwayOverlay[r][c]) continue;
+                    if (!_conwayOverlay[r][c]) continue;
                     const x = (c + WATER_BORDER) * CELL_SIZE;
                     const y = (r + WATER_BORDER) * CELL_SIZE;
-                    ctx.fillText(conwayOverlay[r][c], x + CELL_SIZE / 2, y + CELL_SIZE / 2 + 1);
+                    ctx.fillText(_conwayOverlay[r][c], x + CELL_SIZE / 2, y + CELL_SIZE / 2 + 1);
                 }
             }
         }
@@ -2324,6 +2379,10 @@
                 if (currentMaterial === 'sapling') {
                     treeGrowth[r + ',' + c] = Date.now();
                 }
+                // Saat/Erz platzieren startet Investitions-Wachstum (Sinn)
+                if (currentMaterial === 'seed' || currentMaterial === 'ore') {
+                    treeGrowth[r + ',' + c] = Date.now();
+                }
                 // Konsequenz: Wasser/Brunnen zieht nach 10s Blumen an (1-2 Stück)
                 if (currentMaterial === 'fountain' || currentMaterial === 'water') {
                     setTimeout(() => {
@@ -2386,6 +2445,12 @@
                 }
                 addToInventory(yield_.material, yield_.count);
                 unlockMaterial(yield_.material);
+                // Krabs: Sand/Wasser ernten → Chance auf Bonus-Muschel (Strandgut!)
+                if ((cell === 'sand' || cell === 'water') && Math.random() < 0.3) {
+                    addToInventory('shell', 1);
+                    unlockMaterial('shell');
+                    showToast('🐚 Eine Muschel! Mr. Krabs kauft die...', 2000);
+                }
                 EFFECTS.addPlaceAnimation(r, c);
                 soundChop();
                 const info = MATERIALS[yield_.material];
@@ -3137,6 +3202,46 @@
         };
     };
 
+    // === TUTORIAL-ONBOARDING (#15) — kein Text, nur Icons ===
+    // 3 Schritte à 2.5s, Tap überspringt. Nur für Erstbesucher.
+    function showTutorialOnboarding() {
+        const overlay = document.getElementById('tutorial-onboarding');
+        if (!overlay) return;
+        overlay.style.display = 'flex';
+
+        const steps = [1, 2, 3];
+        let current = 0;
+
+        function showStep(i) {
+            steps.forEach(n => {
+                const el = document.getElementById('tut-step-' + n);
+                if (el) el.style.display = (n === i + 1) ? 'flex' : 'none';
+                const dot = document.getElementById('tut-dot-' + n);
+                if (dot) dot.style.opacity = (n === i + 1) ? '1' : '0.3';
+            });
+        }
+
+        function advance() {
+            current++;
+            if (current >= steps.length) {
+                overlay.style.display = 'none';
+                return;
+            }
+            showStep(current);
+            timer = setTimeout(advance, 2500);
+        }
+
+        showStep(0);
+        let timer = setTimeout(advance, 2500);
+
+        overlay.addEventListener('click', function onTap() {
+            clearTimeout(timer);
+            overlay.removeEventListener('click', onTap);
+            current = steps.length; // direkt beenden
+            overlay.style.display = 'none';
+        }, { once: true });
+    }
+
     // === EVENT LISTENERS ===
 
     // Intro — Session-Uhr starten
@@ -3163,6 +3268,8 @@
         setTimeout(() => {
             introOverlay.style.display = 'none';
             startTutorialPulse();
+            // Tutorial-Onboarding nur für Erstbesucher (noch kein Grid gespeichert)
+            if (!localStorage.getItem('insel-grid')) showTutorialOnboarding();
         }, 300);
         window.startSessionClock();
     }
@@ -3325,7 +3432,7 @@
 
     // Canvas Maus-Events
     canvas.addEventListener('mousedown', (e) => {
-        resetIdleTimer();
+        if (window.resetIdleTimer) window.resetIdleTimer();
         // TTS Hörspiel stoppen bei Canvas-Interaktion (Backlog #87)
         if (hoerspielSpeaking) stopHoerspiel();
         isMouseDown = true;
@@ -3364,7 +3471,7 @@
     const SWIPE_MAX_Y = 40;
 
     canvas.addEventListener('touchstart', (e) => {
-        resetIdleTimer();
+        if (window.resetIdleTimer) window.resetIdleTimer();
         e.preventDefault();
         undoPushedThisStroke = false;
         touchWasPainting = false;
@@ -3457,37 +3564,77 @@
             const pc = document.createElement('canvas');
             const pcCtx = pc.getContext('2d');
             pc.width = canvas.width;
-            pc.height = canvas.height + 80;
+            const BANNER_H = 90; // 10px mehr für QR-Code-Platz
+            pc.height = canvas.height + BANNER_H;
 
             // Insel kopieren
             pcCtx.drawImage(canvas, 0, 0);
 
             // Postkarten-Banner unten
             pcCtx.fillStyle = 'rgba(0, 0, 0, 0.75)';
-            pcCtx.fillRect(0, canvas.height, pc.width, 80);
+            pcCtx.fillRect(0, canvas.height, pc.width, BANNER_H);
 
+            // QR-Code rechts im Banner (schatzinsel.app, scanbar für Eltern)
+            const QR_SIZE = 82; // Pixel inkl. Quiet-Zone
+            const qrX = pc.width - QR_SIZE - 6;
+            const qrY = canvas.height + 4;
+            if (window.QRCode) window.QRCode.draw(pcCtx, 'https://schatzinsel.app', qrX, qrY, QR_SIZE);
+
+            // Text links/mittig neben QR-Code
+            const textWidth = pc.width - QR_SIZE - 12;
             pcCtx.fillStyle = '#F9E79F';
-            pcCtx.font = 'bold 18px Fredoka, sans-serif';
+            pcCtx.font = 'bold 17px Fredoka, sans-serif';
             pcCtx.textAlign = 'center';
-            pcCtx.fillText(`📸 Grüße von der Insel Java!`, pc.width / 2, canvas.height + 28);
+            pcCtx.fillText(`📸 Grüße von der Insel Java!`, textWidth / 2, canvas.height + 26);
 
             pcCtx.fillStyle = '#FFFFFF';
-            pcCtx.font = '14px Comic Neue, sans-serif';
+            pcCtx.font = '12px Comic Neue, sans-serif';
             const discoveries = discoveredEggs.length;
             pcCtx.fillText(
-                `🏗️ ${stats.total} Blöcke · 🎨 ${stats.uniqueMats} Materialien · 🔍 ${discoveries} Bewohner entdeckt · 🏆 ${unlockedAchievements.length} Erfolge`,
-                pc.width / 2, canvas.height + 52
+                `🏗️ ${stats.total} Blöcke · 🎨 ${stats.uniqueMats} Materialien · 🔍 ${discoveries} entdeckt`,
+                textWidth / 2, canvas.height + 47
+            );
+            pcCtx.fillText(
+                `🏆 ${unlockedAchievements.length} Erfolge`,
+                textWidth / 2, canvas.height + 63
             );
 
-            pcCtx.font = '11px Comic Neue, sans-serif';
+            pcCtx.font = '10px Comic Neue, sans-serif';
             pcCtx.fillStyle = '#AAA';
-            pcCtx.fillText('Außer Text nix gehext. 🏝️', pc.width / 2, canvas.height + 72);
+            pcCtx.fillText('Außer Text nix gehext. 🏝️', textWidth / 2, canvas.height + 80);
 
-            // Download
-            const link = document.createElement('a');
-            link.download = `postkarte-von-java-${name.replace(/\s+/g, '-')}.png`;
-            link.href = pc.toDataURL('image/png');
-            link.click();
+            // QR-Code auf Postkarte (#7)
+            function renderPostcard() {
+                const link = document.createElement('a');
+                link.download = `postkarte-von-java-${name.replace(/\s+/g, '-')}.png`;
+                link.href = pc.toDataURL('image/png');
+                link.click();
+            }
+
+            if (window.QRCode) {
+                try {
+                    const qrSize = 64;
+                    const qrMargin = 8;
+                    const qrContainer = document.createElement('div');
+                    new window.QRCode(qrContainer, {
+                        text: 'https://schatzinsel.app/',
+                        width: qrSize, height: qrSize,
+                        colorDark: '#000000', colorLight: '#ffffff',
+                        correctLevel: window.QRCode.CorrectLevel.M
+                    });
+                    const qrCanvas = qrContainer.querySelector('canvas');
+                    if (qrCanvas) {
+                        // Weißer Hintergrund hinter QR
+                        const qrX = pc.width - qrSize - qrMargin;
+                        const qrY = canvas.height + (80 - qrSize) / 2;
+                        pcCtx.fillStyle = '#FFFFFF';
+                        pcCtx.fillRect(qrX - 2, qrY - 2, qrSize + 4, qrSize + 4);
+                        pcCtx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
+                    }
+                } catch (_) { /* QR nicht verfügbar — kein Problem */ }
+            }
+
+            renderPostcard();
 
             showToast('📸 Postkarte gespeichert! Zeig sie deinen Freunden!');
             trackEvent('postcard', { blocks: stats.total, discoveries });
@@ -3545,6 +3692,74 @@
         });
     }
 
+    // === Schatzkarte — Eltern-Dashboard via Shared Secret ===
+    // Oscar erstellt einen Code, sagt ihn Papa, Papa sieht Stats.
+    // 4 Wörter, 256^4 = 4 Mrd. Kombinationen, 24h TTL.
+    let karteCode = localStorage.getItem('karteCode') || null;
+
+    function getWorkerUrl() {
+        return (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy)
+            || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
+    }
+
+    async function createSchatzkarte() {
+        const stats = getGridStats();
+        const payload = {
+            blocks:    stats.total,
+            shells:    typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0,
+            quests:    stats.questsDone || 0,
+            minutes:   window._sessionMinutes || 0,
+            materials: stats.uniqueMats || 0,
+            player:    localStorage.getItem('playerName') || 'Anonym',
+        };
+
+        try {
+            const res = await fetch(getWorkerUrl() + '/karte', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (data.ok && data.code) {
+                karteCode = data.code;
+                localStorage.setItem('karteCode', karteCode);
+                navigator.clipboard.writeText(karteCode)
+                    .then(() => showToast(`🗺️ Schatzkarte: ${karteCode}\nKopiert! Sag den Code deinen Eltern!`, 6000))
+                    .catch(() => showToast(`🗺️ Schatzkarte: ${karteCode}`, 8000));
+            }
+        } catch (e) {
+            showToast('🗺️ Schatzkarte konnte nicht erstellt werden (offline?)', 3000);
+        }
+    }
+
+    async function updateSchatzkarte() {
+        if (!karteCode) return;
+        const stats = getGridStats();
+        const payload = {
+            blocks:    stats.total,
+            shells:    typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0,
+            quests:    stats.questsDone || 0,
+            minutes:   window._sessionMinutes || 0,
+            materials: stats.uniqueMats || 0,
+        };
+        try {
+            await fetch(getWorkerUrl() + '/karte/' + karteCode, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+        } catch { /* still — kein Toast bei Update-Fehler */ }
+    }
+
+    // Auto-Update alle 60s wenn Karte aktiv
+    setInterval(() => { if (karteCode) updateSchatzkarte(); }, 60000);
+
+    // Schatzkarte-Button (neben Share-Button)
+    const karteBtn = document.getElementById('karte-btn');
+    if (karteBtn) {
+        karteBtn.addEventListener('click', createSchatzkarte);
+    }
+
     // URL-Sharing: beim Start ?insel= Parameter prüfen und Grid laden
     const sharedGrid = new URLSearchParams(location.search).get('insel');
     if (sharedGrid) {
@@ -3565,7 +3780,7 @@
     });
 
     document.addEventListener('keydown', (e) => {
-        resetIdleTimer();
+        if (window.resetIdleTimer) window.resetIdleTimer();
         if (e.key === 'Escape' && !loadDialog.classList.contains('hidden')) {
             loadDialog.classList.add('hidden');
             return;
@@ -3725,6 +3940,46 @@
                 INSEL_SOUND.setMasterVolume(1.0);
             }
             showToast(nowMuted ? 'Ton aus (+ Hörspiele)' : 'Ton an');
+        });
+    }
+
+    // === GENRE-TONSEQUENZEN (Backlog #85) ===
+    const genreBtn = document.getElementById('genre-btn');
+    if (genreBtn && _snd.setGenre && _snd.getGenreNames) {
+        const genreNames = _snd.getGenreNames();
+        let genreIndex = genreNames.indexOf(_snd.getGenre ? _snd.getGenre() : genreNames[0]);
+        if (genreIndex < 0) genreIndex = 0;
+
+        function updateGenreBtn() {
+            const active = _snd.getGenreMode && _snd.getGenreMode();
+            genreBtn.textContent = active ? '🎼' : '🎶';
+            genreBtn.title = active
+                ? `Genre: ${genreNames[genreIndex]} — klicken für nächstes`
+                : 'Musik-Genre aktivieren — klicken';
+            genreBtn.style.opacity = active ? '1' : '0.6';
+        }
+        updateGenreBtn();
+
+        genreBtn.addEventListener('click', () => {
+            const wasActive = _snd.getGenreMode && _snd.getGenreMode();
+            if (!wasActive) {
+                // Aktivieren
+                _snd.setGenreMode(true);
+                showToast(`🎼 ${genreNames[genreIndex]}`);
+            } else {
+                // Nächstes Genre
+                genreIndex = (genreIndex + 1) % genreNames.length;
+                _snd.setGenre(genreNames[genreIndex]);
+                const atEnd = genreIndex === genreNames.length - 1;
+                if (atEnd) {
+                    // Einmal durch alle → deaktivieren beim nächsten Klick klar machen
+                    _snd.setGenreMode(false);
+                    showToast('🔇 Genre-Modus aus');
+                } else {
+                    showToast(`🎼 ${genreNames[genreIndex]}`);
+                }
+            }
+            updateGenreBtn();
         });
     }
 
@@ -3978,19 +4233,26 @@
             }
         }
         // Code-View Label
+        const shellsNow = typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0;
+        const adamsMode = shellsNow === 42;
         ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(5, 5, 200, 24);
-        ctx.fillStyle = '#00FF41';
+        ctx.fillRect(5, 5, adamsMode ? 420 : 200, 24);
+        ctx.fillStyle = adamsMode ? '#FFD700' : '#00FF41';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.fillText('</> CODE-VIEW: grid[r][c]', 10, 10);
+        ctx.fillText(adamsMode
+            ? 'DON\'T PANIC · The Answer is 42 · So long, and thanks for all the fish'
+            : '</> CODE-VIEW: grid[r][c]', 10, 10);
 
-        // === MMX Burn Panel — Nerd Easter Egg ===
-        // "Proof of Work. Tokens rein, niemand raus. Pures Statement."
+        // === Crypto Donation Panel — Nerd Easter Egg ===
+        // MMX: "Proof of Work. Tokens rein, niemand raus."
+        // XCH: "Proof of Space. Dein Speicher, dein Statement."
         const mmxAddr = window.INSEL_MMX_BURN || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
+        const xchAddr = window.INSEL_XCH_BURN || 'xch1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdlkwut';
         const mmxBal = window._mmxBurnBalance || '?';
-        const panelH = 44;
+        const xchBal = window._xchBurnBalance || '?';
+        const panelH = 58;
         const panelW = Math.min(460, totalCols * CELL_SIZE - 10);
         const mmxY = totalRows * CELL_SIZE - panelH - 5;
 
@@ -4001,36 +4263,60 @@
         ctx.lineWidth = 1;
         ctx.strokeRect(5, mmxY, panelW, panelH);
 
-        // Zeile 1: Burn-Adresse
+        // Zeile 1: MMX
         ctx.fillStyle = '#FF6B00';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.fillText('🔥 BURN ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6), 10, mmxY + 5);
+        ctx.fillText('🔥 MMX  ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6) + '  ' + mmxBal + ' MMX', 10, mmxY + 5);
 
-        // Zeile 2: Balance + Link
+        // Zeile 2: Balance + Muschel-Wallet (Goldstandard: max 42 🐚 = 0.042 MMX)
+        const shellCount = typeof getInventoryCount === 'function' ? getInventoryCount('shell') : 0;
+        const shellMmx = (shellCount * 0.001).toFixed(4);
         ctx.fillStyle = '#888';
         ctx.font = '9px monospace';
-        ctx.fillText('Balance: ' + mmxBal + ' MMX  |  mmx.network  |  Proof of Work. Tokens rein, niemand raus.', 10, mmxY + 22);
+        ctx.fillText('Burn: ' + mmxBal + ' MMX  |  Wallet: ' + shellCount + '/42 🐚 ≈ ' + shellMmx + '/0.042 MMX  |  The Answer', 10, mmxY + 22);
+        // Zeile 2: XCH (Chia — Bram Cohen)
+        ctx.fillStyle = '#3AAC59';
+        ctx.fillText('🌱 XCH  ' + xchAddr.slice(0, 12) + '...' + xchAddr.slice(-6) + '  ' + xchBal + ' XCH', 10, mmxY + 20);
+
+        // Zeile 3: Hawking-Philosophie
+        ctx.fillStyle = '#666';
+        ctx.font = '8px monospace';
+        ctx.fillText('Schwarze L\u00f6cher. Tokens rein, niemand raus.', 10, mmxY + 38);
+        ctx.fillText('Hawking-Strahlung: die Arbeit die rausstrahlt ist das Eigentliche.', 10, mmxY + 48);
     }
 
-    // MMX Burn-Balance alle 60s abfragen (öffentliche API, kein Auth nötig)
-    // Account-basiert, REST: /wapi/address?id=mmx1...
-    (function fetchMmxBalance() {
-        const addr = window.INSEL_MMX_BURN || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
-        const apiUrl = 'https://api.mmxplorer.com/wapi/address?id=' + addr;
-        function poll() {
-            fetch(apiUrl).then(r => r.ok ? r.json() : null).then(data => {
+    // Crypto Balance-Polling alle 60s (öffentliche APIs, kein Auth nötig)
+    (function fetchCryptoBalances() {
+        // MMX: Account-basiert, REST: /wapi/address?id=mmx1...
+        const mmxAddr = window.INSEL_MMX_BURN || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
+        const mmxApi = 'https://api.mmxplorer.com/wapi/address?id=' + mmxAddr;
+        function pollMmx() {
+            fetch(mmxApi).then(r => r.ok ? r.json() : null).then(data => {
                 if (data && data.balances) {
-                    const mmxBal = data.balances['MMX'] || data.balance || 0;
-                    window._mmxBurnBalance = (mmxBal / 10000).toFixed(4);
+                    const bal = data.balances['MMX'] || data.balance || 0;
+                    window._mmxBurnBalance = (bal / 10000).toFixed(4);
                 } else {
                     window._mmxBurnBalance = '0.0000';
                 }
             }).catch(() => { window._mmxBurnBalance = '—'; });
         }
-        poll();
-        setInterval(poll, 60000);
+        // XCH (Chia): spacescan.io public API
+        const xchAddr = window.INSEL_XCH_BURN || 'xch1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdlkwut';
+        const xchApi = 'https://api2.spacescan.io/1/xch/balance/' + xchAddr;
+        function pollXch() {
+            fetch(xchApi).then(r => r.ok ? r.json() : null).then(data => {
+                if (data && data.xch_balance != null) {
+                    window._xchBurnBalance = parseFloat(data.xch_balance).toFixed(6);
+                } else {
+                    window._xchBurnBalance = '0.000000';
+                }
+            }).catch(() => { window._xchBurnBalance = '—'; });
+        }
+        pollMmx(); pollXch();
+        setInterval(pollMmx, 60000);
+        setInterval(pollXch, 60000);
     })();
 
     // Monkey-patch requestAnimationFrame callback to add overlay
@@ -4155,6 +4441,12 @@
         });
     });
 
+    // --- Marketplace Button ---
+    const marketBtn = document.getElementById('market-btn');
+    if (marketBtn) marketBtn.addEventListener('click', function () {
+        if (window.INSEL_MARKETPLACE) window.INSEL_MARKETPLACE.open();
+    });
+
     // --- Crafting Dialog Events ---
     const craftBtn = document.getElementById('craft-btn');
     if (craftBtn) craftBtn.addEventListener('click', openCraftingDialog);
@@ -4233,6 +4525,20 @@
 
     // Grid für Chat-Integration exportieren
     window.grid = grid;
+
+    // Genre-Toast bei Wechsel (Backlog #85)
+    const GENRE_LABELS = {
+        klassik: '🎻 Klassik', jazz: '🎷 Jazz', blues: '🎸 Blues',
+        rock: '🤘 Rock', elektro: '⚡ Elektro', reggae: '🌴 Reggae',
+        country: '🤠 Country', funk: '🕺 Funk', walzer: '💃 Walzer',
+        schlaflied: '🌙 Schlaflied', marsch: '🥁 Marsch', samba: '🌶️ Samba',
+        ambient: '🌊 Ambient', piraten: '🏴‍☠️ Piraten', zirkus: '🎪 Zirkus',
+    };
+    if (window.INSEL_SOUND && window.INSEL_SOUND.setOnGenreChange) {
+        window.INSEL_SOUND.setOnGenreChange((genre) => {
+            showToast(GENRE_LABELS[genre] || genre, 2000);
+        });
+    }
 
     // Nature-Modul starten (Baumwachstum + Welt-Konsequenzen)
     window.INSEL_NATURE.start(grid, ROWS, COLS, MATERIALS, {
