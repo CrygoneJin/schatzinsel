@@ -676,163 +676,19 @@
         return tmpl(npc, adj, matLabel, react);
     }
 
-    // --- Spontan-Hörspiele: Mini-Szenen bei besonderen Anlässen ---
-    // "Mensch, Maschine, KI" — wie im ZKM Karlsruhe
-    const HOERSPIELE = window.INSEL_STORIES || {}; // Daten in stories.js
-    let playedHoerspiele = JSON.parse(localStorage.getItem('insel-hoerspiele') || '[]');
-
-    // TTS: Emoji und Markup aus Text strippen für Sprachausgabe
-    function stripForTTS(text) {
-        return text
-            .replace(/[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FEFF}]|[\u{1F900}-\u{1F9FF}]/gu, '')
-            .replace(/<[^>]+>/g, '')
-            .replace(/—/g, '–')
-            .replace(/\s+/g, ' ')
-            .trim();
-    }
-
-    let hoerspielSpeaking = false;
-
-    // TTS Hörspiele — Cloud TTS via Worker /tts (OpenAI tts-1 über Requesty)
-    // Fallback: Web Speech API wenn Worker nicht erreichbar
-    // Stoppt bei: Mute, Canvas-Klick, oder INSEL_SOUND.isMuted()
-    let hoerspielAborted = false;
-    let hoerspielAudio = null;
+    // --- Spontan-Hörspiele -- delegiert an tts.js ---
+    // TTS-Funktionen leben in window.INSEL_TTS (tts.js)
+    // playedHoerspiele.length wird noch fuer Analytics benoetigt
+    const playedHoerspiele = JSON.parse(localStorage.getItem('insel-hoerspiele') || '[]');
 
     function stopHoerspiel() {
-        if (!hoerspielSpeaking) return;
-        hoerspielAborted = true;
-        if (hoerspielAudio) { hoerspielAudio.pause(); hoerspielAudio = null; }
-        if (window.speechSynthesis) window.speechSynthesis.cancel();
-        hoerspielSpeaking = false;
-        INSEL_SOUND.setMasterVolume(1.0);
-        showToast('🎭 Hörspiel gestoppt');
+        if (window.INSEL_TTS) window.INSEL_TTS.stopHoerspiel();
     }
-
-    // Stimme + Sprache aus Zeile extrahieren
-    function detectVoice(line) {
-        if (line.includes('Lanz:')) return { voice: 'lanz', lang: 'de' };
-        if (line.includes('Precht:')) return { voice: 'precht', lang: 'de' };
-        if (line.includes('Merz:')) return { voice: 'merz', lang: 'de' };
-        if (line.includes('Trump:')) return { voice: 'trump', lang: 'en' };
-        if (line.includes('Musk:')) return { voice: 'musk', lang: 'en' };
-        if (line.includes('Mephisto:')) return { voice: 'mephisto', lang: 'de' };
-        if (line.includes('Krömer:')) return { voice: 'echo', lang: 'de' };
-        if (line.includes('Büker:')) return { voice: 'alloy', lang: 'de' };
-        if (line.includes('Kückens:')) return { voice: 'nova', lang: 'de' };
-        if (line.includes('Tommy:')) return { voice: 'shimmer', lang: 'de' };
-        if (line.includes('Lesch:')) return { voice: 'nova', lang: 'de' };
-        if (line.includes('Feynman:')) return { voice: 'fable', lang: 'de' };
-        if (line.includes('Sartre:')) return { voice: 'fable', lang: 'fr' };
-        if (line.includes('Machiavelli:')) return { voice: 'onyx', lang: 'it' };
-        if (line.includes('SpongeBob:')) return { voice: 'default', lang: 'de' };
-        if (line.includes('Python:')) return { voice: 'default', lang: 'de' };
-        if (line.includes('JavaScript:')) return { voice: 'shimmer', lang: 'de' };
-        if (line.includes('TypeScript:')) return { voice: 'echo', lang: 'de' };
-        if (line.includes('Bernd:')) return { voice: 'echo', lang: 'de' };
-        if (line.includes('Elefant:')) return { voice: 'nova', lang: 'de' };
-        if (line.includes('Neinhorn:')) return { voice: 'shimmer', lang: 'de' };
-        return { voice: 'default', lang: 'de' };
-    }
-
-    // Cloud TTS: Text → MP3 via Worker
-    function speakCloudTTS(text, voiceInfo) {
-        const proxy = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
-        return fetch(proxy + '/tts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang, speed: 1.0 }),
-        }).then(function (r) {
-            if (!r.ok) throw new Error('TTS ' + r.status);
-            return r.blob();
-        }).then(function (blob) {
-            return new Promise(function (resolve, reject) {
-                var url = URL.createObjectURL(blob);
-                var audio = new Audio(url);
-                hoerspielAudio = audio;
-                audio.onended = function () { URL.revokeObjectURL(url); hoerspielAudio = null; resolve(); };
-                audio.onerror = function () { URL.revokeObjectURL(url); hoerspielAudio = null; reject(); };
-                audio.play().catch(reject);
-            });
-        });
-    }
-
-    // Fallback: Web Speech API
-    function speakBrowserTTS(text, lang) {
-        return new Promise(function (resolve) {
-            if (!window.speechSynthesis) { resolve(); return; }
-            var utter = new SpeechSynthesisUtterance(text);
-            utter.lang = (lang === 'en') ? 'en-US' : (lang === 'fr') ? 'fr-FR' : (lang === 'it') ? 'it-IT' : 'de-DE';
-            utter.rate = 0.95;
-            utter.onend = function () { resolve(); };
-            utter.onerror = function () { resolve(); };
-            window.speechSynthesis.speak(utter);
-        });
-    }
-
-    function speakLines(lines, onDone) {
-        if (INSEL_SOUND.isMuted()) {
-            if (onDone) onDone();
-            return;
-        }
-        hoerspielSpeaking = true;
-        hoerspielAborted = false;
-        INSEL_SOUND.setMasterVolume(0.15); // Bau-Töne leiser während Hörspiel
-
-        let index = 0;
-        function speakNext() {
-            if (hoerspielAborted || index >= lines.length) {
-                hoerspielSpeaking = false;
-                hoerspielAborted = false;
-                INSEL_SOUND.setMasterVolume(1.0);
-                if (onDone) onDone();
-                return;
-            }
-            const text = stripForTTS(lines[index]);
-            showToast(lines[index], 4000);
-            if (index === 0) soundAchievement();
-            const voice = detectVoice(lines[index]);
-            index++;
-
-            if (!text || INSEL_SOUND.isMuted()) { setTimeout(speakNext, 500); return; }
-
-            // Cloud TTS mit Fallback auf Browser
-            speakCloudTTS(text, voice).catch(function () {
-                return speakBrowserTTS(text, voice.lang);
-            }).then(function () {
-                setTimeout(speakNext, 400);
-            });
-            window.speechSynthesis.speak(utter);
-        }
-        speakNext();
-    }
-
     function maybeHoerspiel(stats) {
-        let key = null;
-        if (stats.total === 1 && !playedHoerspiele.includes('firstBlock')) key = 'firstBlock';
-        else if (stats.total === 10 && !playedHoerspiele.includes('tenBlocks')) key = 'tenBlocks';
-        else if (stats.total === 50 && !playedHoerspiele.includes('fiftyBlocks')) key = 'fiftyBlocks';
-        else if (stats.total === 75 && !playedHoerspiele.includes('talkshow')) key = 'talkshow';
-        else if (stats.total === 100 && !playedHoerspiele.includes('hundredBlocks')) key = 'hundredBlocks';
-        else if (stats.percent === 50 && !playedHoerspiele.includes('halfIsland')) key = 'halfIsland';
-        else if (stats.percent >= 100 && !playedHoerspiele.includes('fullIsland')) key = 'fullIsland';
-        // Podcast Staffel 1: verschiedene Meilensteine
-        var hasMephisto = window.INSEL_CHARACTERS && window.INSEL_CHARACTERS.mephisto;
-        if (!key && stats.total >= 25 && !playedHoerspiele.includes('podcast_lanz') && hasMephisto) key = 'podcast_lanz';
-        else if (!key && stats.total >= 40 && !playedHoerspiele.includes('podcast_s1e2_schroeder') && hasMephisto) key = 'podcast_s1e2_schroeder';
-        else if (!key && stats.total >= 60 && !playedHoerspiele.includes('podcast_s1e3_bueker') && hasMephisto) key = 'podcast_s1e3_bueker';
-        else if (!key && stats.total >= 80 && !playedHoerspiele.includes('podcast_s1e4_nachts') && hasMephisto) key = 'podcast_s1e4_nachts';
-        else if (!key && stats.total >= 90 && !playedHoerspiele.includes('podcast_s1e5_krapweis') && hasMephisto) key = 'podcast_s1e5_krapweis';
-        else if (!key && stats.percent >= 75 && !playedHoerspiele.includes('podcast_lesch') && hasMephisto) key = 'podcast_lesch';
-
-        if (!key) return;
-
-        playedHoerspiele.push(key);
-        localStorage.setItem('insel-hoerspiele', JSON.stringify(playedHoerspiele));
-
-        const lines = HOERSPIELE[key];
-        speakLines(lines);
-        trackEvent('hoerspiel', { scene: key, blocks: stats.total });
+        if (window.INSEL_TTS) window.INSEL_TTS.maybeHoerspiel(stats);
+    }
+    function speakLines(lines, onDone) {
+        if (window.INSEL_TTS) window.INSEL_TTS.speakLines(lines, onDone);
     }
 
     let lastCommentTime = 0;
@@ -2582,157 +2438,33 @@
         statsContent.innerHTML = html;
     }
 
-    // --- Speichern ---
-    function saveProject() {
-        const name = projectNameInput.value.trim() || 'Mein Bauwerk';
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-
-        projects[name] = {
-            grid: grid,
-            date: new Date().toLocaleDateString('de-DE'),
-            treeGrowth: treeGrowth,
-            inventory: inventory,
-            unlocked: [...unlockedMaterials],
-            discovered: [...discoveredRecipes],
-        };
-
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        saveInventory();
-        saveUnlocked();
-        showToast(`💾 "${name}" gespeichert!`);
-    }
-
-    // --- Auto-Save: alle 30s still im Hintergrund ---
+    // --- Speichern / Laden / AutoSave / URL-Sharing -- delegiert an save.js ---
+    // AUTOSAVE_KEY wird noch beim Start-Restore benoetigt
     const AUTOSAVE_KEY = '~autosave~';
-    let lastSaveHash = '';
+
+    function saveProject() {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.saveProject();
+    }
     function autoSave() {
-        if (!grid || !grid.length) return;
-        const hasContent = grid.some(row => row.some(cell => cell !== null));
-        if (!hasContent) return;
-        // Nur speichern wenn sich was geändert hat
-        const hash = JSON.stringify(grid);
-        if (hash === lastSaveHash) return;
-        lastSaveHash = hash;
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        projects[AUTOSAVE_KEY] = {
-            grid: grid,
-            date: new Date().toLocaleDateString('de-DE'),
-            auto: true,
-            treeGrowth: treeGrowth,
-            inventory: inventory,
-            unlocked: [...unlockedMaterials],
-            discovered: [...discoveredRecipes],
-            playerPos: playerPos,
-        };
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        // Subtiler Indikator: Save-Button blinkt kurz
-        const saveBtn = document.getElementById('save-btn');
-        if (saveBtn) {
-            saveBtn.style.transition = 'opacity 0.3s';
-            saveBtn.style.opacity = '0.5';
-            setTimeout(() => { saveBtn.style.opacity = '1'; }, 600);
-        }
+        if (window.INSEL_SAVE) window.INSEL_SAVE.autoSave();
+    }
+    function showLoadDialog() {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.showLoadDialog();
+    }
+    function isValidGrid(g) {
+        return window.INSEL_SAVE ? window.INSEL_SAVE.isValidGrid(g) : (Array.isArray(g) && g.length > 0);
+    }
+    function loadProject(name) {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.loadProject(name);
+    }
+    function deleteProject(name) {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.deleteProject(name);
+    }
+    function newProject() {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.newProject();
     }
     setInterval(autoSave, 30000);
     window.addEventListener('beforeunload', autoSave);
-
-    // --- Laden-Dialog ---
-    function showLoadDialog() {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        const names = Object.keys(projects);
-
-        if (names.length === 0) {
-            savedProjectsList.innerHTML = '<p class="no-projects">Keine Projekte gespeichert!</p>';
-        } else {
-            savedProjectsList.innerHTML = names.map(name => {
-                const proj = projects[name];
-                const displayName = name === AUTOSAVE_KEY ? '🔄 Letzte Session (Auto)' : escapeHtml(name);
-                return `
-                    <div class="saved-project-item" data-name="${escapeHtml(name)}">
-                        <div>
-                            <div class="saved-project-name">${displayName}</div>
-                            <div class="saved-project-date">${proj.date}</div>
-                        </div>
-                        <button class="saved-project-delete" data-delete="${escapeHtml(name)}" title="Löschen">🗑️</button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        loadDialog.classList.remove('hidden');
-    }
-
-    function isValidGrid(g) {
-        return Array.isArray(g) && g.length === ROWS && g[0]?.length === COLS;
-    }
-
-    function loadProject(name) {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        if (projects[name]) {
-            const saved = projects[name].grid;
-            if (isValidGrid(saved)) {
-                grid = saved;
-            } else {
-                initGrid(); // Fallback bei kaputtem Grid
-            }
-            // treeGrowth ist shared reference → clear + assign
-            Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
-            Object.assign(treeGrowth, projects[name].treeGrowth || {});
-            inventory = projects[name].inventory || {};
-            if (projects[name].unlocked) {
-                unlockedMaterials = new Set(projects[name].unlocked);
-                saveUnlocked();
-            } else {
-                unlockedMaterials = new Set();
-            }
-            if (projects[name].discovered) {
-                discoveredRecipes = new Set(projects[name].discovered);
-                saveDiscoveredRecipes();
-            }
-            window.grid = grid;
-            migrateUnlocked();
-            projectNameInput.value = name === AUTOSAVE_KEY ? '' : name;
-            updateStats();
-            updateInventoryDisplay();
-            updatePaletteVisibility();
-            updateGenesisVisibility();
-            updateDiscoveryCounter();
-            requestRedraw();
-            loadDialog.classList.add('hidden');
-            showToast(`📂 "${name}" geladen!`);
-        }
-    }
-
-    function deleteProject(name) {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        delete projects[name];
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        showLoadDialog(); // Dialog aktualisieren
-        showToast(`🗑️ "${name}" gelöscht!`);
-    }
-
-    function newProject() {
-        initGrid();
-        Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
-        inventory = {};
-        unlockedMaterials = new Set();
-        discoveredRecipes = new Set();
-        playerPos = { r: Math.floor(ROWS / 2), c: Math.floor(COLS / 2) };
-        localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
-        saveInventory();
-        saveUnlocked();
-        saveDiscoveredRecipes();
-        projectNameInput.value = '';
-        _genesisYinYangShown = false;
-        _genesisQiShown = false;
-        updateStats();
-        updateInventoryDisplay();
-        updatePaletteVisibility();
-        updateGenesisVisibility();
-        updateDiscoveryCounter();
-        requestRedraw();
-        showToast('🆕 Neue Insel!');
-    }
 
     // --- Automerge (delegiert an automerge.js Modul) ---
     function checkAutomerge(r, c) {
@@ -3434,7 +3166,7 @@
     canvas.addEventListener('mousedown', (e) => {
         if (window.resetIdleTimer) window.resetIdleTimer();
         // TTS Hörspiel stoppen bei Canvas-Interaktion (Backlog #87)
-        if (hoerspielSpeaking) stopHoerspiel();
+        if (window.INSEL_TTS && window.INSEL_TTS.hoerspielSpeaking) stopHoerspiel();
         isMouseDown = true;
         undoPushedThisStroke = false;
         const cell = getGridCell(e);
@@ -3641,39 +3373,12 @@
         });
     }
 
-    // --- #22: Projekt-Sharing via URL (Base64-encoded Grid) ---
+    // --- #22: Projekt-Sharing via URL -- delegiert an save.js ---
     function encodeGridToURL() {
-        const cells = [];
-        const matKeys = Object.keys(MATERIALS);
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (grid[r][c]) {
-                    const idx = matKeys.indexOf(grid[r][c]);
-                    cells.push([r, c, idx >= 0 ? idx : grid[r][c]]);
-                }
-            }
-        }
-        const payload = { v: 1, m: matKeys, g: cells };
-        return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+        return window.INSEL_SAVE ? window.INSEL_SAVE.encodeGridToURL() : '';
     }
-
     function decodeGridFromURL(encoded) {
-        try {
-            const payload = JSON.parse(decodeURIComponent(escape(atob(encoded))));
-            if (!payload.v || !payload.g) return false;
-            initGrid();
-            for (const [r, c, mat] of payload.g) {
-                if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
-                    const material = typeof mat === 'number' ? payload.m[mat] : mat;
-                    if (material && MATERIALS[material]) grid[r][c] = material;
-                }
-            }
-            requestRedraw();
-            requestStatsUpdate();
-            return true;
-        } catch (e) {
-            return false;
-        }
+        return window.INSEL_SAVE ? window.INSEL_SAVE.decodeGridFromURL(encoded) : false;
     }
 
     // Share-Button
@@ -3934,9 +3639,9 @@
             if (nowMuted && window.speechSynthesis) window.speechSynthesis.cancel();
             muteBtn.textContent = nowMuted ? '🔇' : '🔊';
             // TTS sofort stoppen wenn gemutet
-            if (nowMuted && window.speechSynthesis) {
-                window.speechSynthesis.cancel();
-                hoerspielSpeaking = false;
+            if (nowMuted) {
+                if (window.speechSynthesis) window.speechSynthesis.cancel();
+                if (window.INSEL_TTS && window.INSEL_TTS.hoerspielSpeaking) window.INSEL_TTS.stopHoerspiel();
                 INSEL_SOUND.setMasterVolume(1.0);
             }
             showToast(nowMuted ? 'Ton aus (+ Hörspiele)' : 'Ton an');
@@ -4339,6 +4044,98 @@
     window.INSEL_ANALYTICS.initTestUI(showToast);
 
     // --- Block-Tracking ---
+
+    // --- save.js Context registrieren ---
+    if (window.INSEL_SAVE) {
+        window.INSEL_SAVE.registerContext({
+            ROWS: ROWS,
+            COLS: COLS,
+            getGrid: function() { return grid; },
+            setGrid: function(g) { grid = g; },
+            getTreeGrowth: function() { return treeGrowth; },
+            setTreeGrowth: function(tg) {
+                Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
+                Object.assign(treeGrowth, tg);
+            },
+            getInventory: function() { return inventory; },
+            setInventory: function(inv) { inventory = inv; },
+            getUnlockedMaterials: function() { return unlockedMaterials; },
+            setUnlockedMaterials: function(s) { unlockedMaterials = s; },
+            getDiscoveredRecipes: function() { return discoveredRecipes; },
+            setDiscoveredRecipes: function(s) { discoveredRecipes = s; },
+            getPlayerPos: function() { return playerPos; },
+            resetPlayerPos: function() {
+                playerPos = { r: Math.floor(ROWS / 2), c: Math.floor(COLS / 2) };
+                localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
+            },
+            getMaterials: function() { return MATERIALS; },
+            getProjectName: function() { return projectNameInput ? projectNameInput.value.trim() : ''; },
+            setProjectName: function(n) { if (projectNameInput) projectNameInput.value = n; },
+            initGrid: initGrid,
+            saveInventory: saveInventory,
+            saveUnlocked: saveUnlocked,
+            saveDiscoveredRecipes: saveDiscoveredRecipes,
+            setWindowGrid: function() { window.grid = grid; },
+            migrateUnlocked: migrateUnlocked,
+            updateStats: updateStats,
+            updateInventoryDisplay: updateInventoryDisplay,
+            updatePaletteVisibility: updatePaletteVisibility,
+            updateGenesisVisibility: updateGenesisVisibility,
+            updateDiscoveryCounter: updateDiscoveryCounter,
+            requestRedraw: requestRedraw,
+            requestStatsUpdate: requestStatsUpdate,
+            resetGenesisFlags: function() {
+                _genesisYinYangShown = false;
+                _genesisQiShown = false;
+            },
+        });
+    }
+
+    // --- save.js Context registrieren ---
+    if (window.INSEL_SAVE) {
+        window.INSEL_SAVE.registerContext({
+            ROWS: ROWS,
+            COLS: COLS,
+            getGrid: function() { return grid; },
+            setGrid: function(g) { grid = g; },
+            getTreeGrowth: function() { return treeGrowth; },
+            setTreeGrowth: function(tg) {
+                Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
+                Object.assign(treeGrowth, tg);
+            },
+            getInventory: function() { return inventory; },
+            setInventory: function(inv) { inventory = inv; },
+            getUnlockedMaterials: function() { return unlockedMaterials; },
+            setUnlockedMaterials: function(s) { unlockedMaterials = s; },
+            getDiscoveredRecipes: function() { return discoveredRecipes; },
+            setDiscoveredRecipes: function(s) { discoveredRecipes = s; },
+            getPlayerPos: function() { return playerPos; },
+            resetPlayerPos: function() {
+                playerPos = { r: Math.floor(ROWS / 2), c: Math.floor(COLS / 2) };
+                localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
+            },
+            getMaterials: function() { return MATERIALS; },
+            getProjectName: function() { return projectNameInput ? projectNameInput.value.trim() : ''; },
+            setProjectName: function(n) { if (projectNameInput) projectNameInput.value = n; },
+            initGrid: initGrid,
+            saveInventory: saveInventory,
+            saveUnlocked: saveUnlocked,
+            saveDiscoveredRecipes: saveDiscoveredRecipes,
+            setWindowGrid: function() { window.grid = grid; },
+            migrateUnlocked: migrateUnlocked,
+            updateStats: updateStats,
+            updateInventoryDisplay: updateInventoryDisplay,
+            updatePaletteVisibility: updatePaletteVisibility,
+            updateGenesisVisibility: updateGenesisVisibility,
+            updateDiscoveryCounter: updateDiscoveryCounter,
+            requestRedraw: requestRedraw,
+            requestStatsUpdate: requestStatsUpdate,
+            resetGenesisFlags: function() {
+                _genesisYinYangShown = false;
+                _genesisQiShown = false;
+            },
+        });
+    }
 
     // === START ===
     initGrid();
