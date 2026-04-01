@@ -695,6 +695,7 @@
     function flushNpcSessionMemory() {
         const raw = localStorage.getItem('insel-mat-usage');
         if (!raw) return;
+        /** @type {Record<string, number>} */
         let usage;
         try { usage = JSON.parse(raw); } catch { return; }
         const sorted = Object.entries(usage).sort((a, b) => b[1] - a[1]);
@@ -708,6 +709,45 @@
             mem[id].lastMaterialKey = favKey;
         }
         saveNpcMemory(mem);
+
+        // Session-Snapshot: Top 3 Materialien, Block-Count, Quests, Baustil
+        saveSessionSnapshot(sorted);
+    }
+
+    /**
+     * Speichert einen Session-Snapshot in localStorage (max 1KB).
+     * Wird von flushNpcSessionMemory aufgerufen.
+     * @param {Array<[string, number]>} sortedMats - Materialien sortiert nach Nutzung
+     */
+    function saveSessionSnapshot(sortedMats) {
+        const stats = getGridStats();
+        const baustil = localStorage.getItem('insel-baustil') || 'Insel-Architekt';
+        const topMaterials = sortedMats.slice(0, 3).map(function (entry) {
+            return MATERIALS[entry[0]]?.label || entry[0];
+        });
+        const questTitles = (typeof completedQuests !== 'undefined' && Array.isArray(completedQuests))
+            ? completedQuests.slice(-5)  // letzte 5 Quests reichen
+            : [];
+        const name = localStorage.getItem('insel-player-name') || 'Spieler';
+
+        /** @type {{ timestamp: number, playerName: string, baustil: string, topMaterials: string[], blocksPlaced: number, questsCompleted: string[], lastChatNpc: string|null }} */
+        const snapshot = {
+            timestamp: Date.now(),
+            playerName: name,
+            baustil: baustil,
+            topMaterials: topMaterials,
+            blocksPlaced: stats.total,
+            questsCompleted: questTitles,
+            lastChatNpc: window._lastChatNpcId || null,
+        };
+
+        // Max 1KB Check — wenn zu groß, Quests kürzen
+        let json = JSON.stringify(snapshot);
+        if (json.length > 1024) {
+            snapshot.questsCompleted = questTitles.slice(-2);
+            json = JSON.stringify(snapshot);
+        }
+        localStorage.setItem('insel-session-snapshot', json);
     }
 
     // Gedächtnis-Kommentar für NPC erzeugen (gibt null zurück wenn nichts sinnvolles da)
