@@ -2141,8 +2141,13 @@
         // Code-View Overlay (zeigt Quellcode statt Emojis)
         drawCodeOverlay();
 
-        // Spielfigur zuletzt zeichnen (immer sichtbar über allem)
-        drawPlayer();
+        // Dungeon-Overlay: Höhlen-Exploration (#50)
+        if (window.INSEL_DUNGEON && window.INSEL_DUNGEON.isActive()) {
+            window.INSEL_DUNGEON.draw(ctx, canvas.width, canvas.height);
+        } else {
+            // Spielfigur zuletzt zeichnen (immer sichtbar über allem)
+            drawPlayer();
+        }
 
     }
 
@@ -2174,6 +2179,15 @@
 
     function movePlayer(dr, dc) {
         if (!playerName) return;
+
+        // Dungeon-Modus: Bewegung an Dungeon delegieren (#50)
+        if (window.INSEL_DUNGEON && window.INSEL_DUNGEON.isActive()) {
+            window.INSEL_DUNGEON.movePlayer(dr, dc);
+            needsRedraw = true;
+            draw();
+            return;
+        }
+
         const nr = playerPos.r + dr;
         const nc = playerPos.c + dc;
         // Spieler bleibt auf bebaubarem Bereich (kein Wasser-Rand)
@@ -2222,6 +2236,17 @@
     }
 
     function checkPlayerProximity() {
+        // Höhle betreten: Spieler steht auf cave-Zelle → Dungeon öffnen (#50)
+        if (window.INSEL_DUNGEON && !window.INSEL_DUNGEON.isActive() && grid[playerPos.r]?.[playerPos.c] === 'cave') {
+            window.INSEL_DUNGEON.enter(playerPos.r, playerPos.c, {
+                addToInventory: addToInventory,
+                unlockMaterial: unlockMaterial,
+                showToast: showToast,
+                requestRedraw: requestRedraw,
+            });
+            return;
+        }
+
         // Sammelbare Items einsammeln (Spieler steht drauf)
         const collected = collectibles.filter(ci => ci.r === playerPos.r && ci.c === playerPos.c);
         if (collected.length > 0) {
@@ -2388,6 +2413,8 @@
     let undoPushedThisStroke = false;
 
     function applyTool(r, c) {
+        // Im Dungeon-Modus kein Bauen auf der Insel (#50)
+        if (window.INSEL_DUNGEON && window.INSEL_DUNGEON.isActive()) return;
         // Wasser-Rand (äußere 2 Reihen/Spalten) ist nicht bebaubar
         if (r < 2 || r >= ROWS - 2 || c < 2 || c >= COLS - 2) return;
         // NPCs nicht überbauen
@@ -3751,6 +3778,13 @@
 
     document.addEventListener('keydown', (e) => {
         if (window.resetIdleTimer) window.resetIdleTimer();
+        // Dungeon verlassen mit ESC (#50)
+        if (e.key === 'Escape' && window.INSEL_DUNGEON && window.INSEL_DUNGEON.isActive()) {
+            window.INSEL_DUNGEON.exit();
+            needsRedraw = true;
+            draw();
+            return;
+        }
         if (e.key === 'Escape' && !loadDialog.classList.contains('hidden')) {
             loadDialog.classList.add('hidden');
             return;

@@ -358,6 +358,22 @@ interface InselSave {
     decodeGridFromURL(encoded: string): boolean;
 }
 
+// --- Dungeon (#50) ---
+interface DungeonCallbacks {
+    addToInventory(material: string, count: number): void;
+    unlockMaterial(mat: string): void;
+    showToast(msg: string, duration?: number): void;
+    requestRedraw(): void;
+}
+
+interface InselDungeon {
+    isActive(): boolean;
+    enter(caveR: number, caveC: number, callbacks: DungeonCallbacks): void;
+    exit(): void;
+    movePlayer(dr: number, dc: number): boolean;
+    draw(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number): void;
+}
+
 // --- Window Extensions ---
 interface Window {
     INSEL: InselNamespace;
@@ -385,6 +401,7 @@ interface Window {
         getDiscoveredEggs(): string[];
     };
     INSEL_CHARACTERS: Record<string, unknown>;
+    INSEL_DUNGEON: InselDungeon;
     INSEL_BUS: InselNamespace;
     INSEL_DIMS: { ROWS: number; COLS: number };
     startSessionClock?(): void;
