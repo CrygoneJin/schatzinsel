@@ -435,6 +435,13 @@
     }
 
     function showNpcQuestDialog(npcId) {
+        // Bernd das Brot: öffnet das Eltern-Dashboard
+        if (npcId === 'bernd') {
+            if (window._openDashboardFromBernd) {
+                window._openDashboardFromBernd();
+            }
+            return;
+        }
         const npc = NPC_DEFS[npcId];
         if (!npc) return;
         // Memory: Besuch registrieren
@@ -2549,157 +2556,33 @@
         statsContent.innerHTML = html;
     }
 
-    // --- Speichern ---
-    function saveProject() {
-        const name = projectNameInput.value.trim() || 'Mein Bauwerk';
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-
-        projects[name] = {
-            grid: grid,
-            date: new Date().toLocaleDateString('de-DE'),
-            treeGrowth: treeGrowth,
-            inventory: inventory,
-            unlocked: [...unlockedMaterials],
-            discovered: [...discoveredRecipes],
-        };
-
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        saveInventory();
-        saveUnlocked();
-        showToast(`💾 "${name}" gespeichert!`);
-    }
-
-    // --- Auto-Save: alle 30s still im Hintergrund ---
+    // --- Speichern / Laden / AutoSave / URL-Sharing -- delegiert an save.js ---
+    // AUTOSAVE_KEY wird noch beim Start-Restore benoetigt
     const AUTOSAVE_KEY = '~autosave~';
-    let lastSaveHash = '';
+
+    function saveProject() {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.saveProject();
+    }
     function autoSave() {
-        if (!grid || !grid.length) return;
-        const hasContent = grid.some(row => row.some(cell => cell !== null));
-        if (!hasContent) return;
-        // Nur speichern wenn sich was geändert hat
-        const hash = JSON.stringify(grid);
-        if (hash === lastSaveHash) return;
-        lastSaveHash = hash;
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        projects[AUTOSAVE_KEY] = {
-            grid: grid,
-            date: new Date().toLocaleDateString('de-DE'),
-            auto: true,
-            treeGrowth: treeGrowth,
-            inventory: inventory,
-            unlocked: [...unlockedMaterials],
-            discovered: [...discoveredRecipes],
-            playerPos: playerPos,
-        };
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        // Subtiler Indikator: Save-Button blinkt kurz
-        const saveBtn = document.getElementById('save-btn');
-        if (saveBtn) {
-            saveBtn.style.transition = 'opacity 0.3s';
-            saveBtn.style.opacity = '0.5';
-            setTimeout(() => { saveBtn.style.opacity = '1'; }, 600);
-        }
+        if (window.INSEL_SAVE) window.INSEL_SAVE.autoSave();
+    }
+    function showLoadDialog() {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.showLoadDialog();
+    }
+    function isValidGrid(g) {
+        return window.INSEL_SAVE ? window.INSEL_SAVE.isValidGrid(g) : (Array.isArray(g) && g.length > 0);
+    }
+    function loadProject(name) {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.loadProject(name);
+    }
+    function deleteProject(name) {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.deleteProject(name);
+    }
+    function newProject() {
+        if (window.INSEL_SAVE) window.INSEL_SAVE.newProject();
     }
     setInterval(autoSave, 30000);
     window.addEventListener('beforeunload', autoSave);
-
-    // --- Laden-Dialog ---
-    function showLoadDialog() {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        const names = Object.keys(projects);
-
-        if (names.length === 0) {
-            savedProjectsList.innerHTML = '<p class="no-projects">Keine Projekte gespeichert!</p>';
-        } else {
-            savedProjectsList.innerHTML = names.map(name => {
-                const proj = projects[name];
-                const displayName = name === AUTOSAVE_KEY ? '🔄 Letzte Session (Auto)' : escapeHtml(name);
-                return `
-                    <div class="saved-project-item" data-name="${escapeHtml(name)}">
-                        <div>
-                            <div class="saved-project-name">${displayName}</div>
-                            <div class="saved-project-date">${proj.date}</div>
-                        </div>
-                        <button class="saved-project-delete" data-delete="${escapeHtml(name)}" title="Löschen">🗑️</button>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        loadDialog.classList.remove('hidden');
-    }
-
-    function isValidGrid(g) {
-        return Array.isArray(g) && g.length === ROWS && g[0]?.length === COLS;
-    }
-
-    function loadProject(name) {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        if (projects[name]) {
-            const saved = projects[name].grid;
-            if (isValidGrid(saved)) {
-                grid = saved;
-            } else {
-                initGrid(); // Fallback bei kaputtem Grid
-            }
-            // treeGrowth ist shared reference → clear + assign
-            Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
-            Object.assign(treeGrowth, projects[name].treeGrowth || {});
-            inventory = projects[name].inventory || {};
-            if (projects[name].unlocked) {
-                unlockedMaterials = new Set(projects[name].unlocked);
-                saveUnlocked();
-            } else {
-                unlockedMaterials = new Set();
-            }
-            if (projects[name].discovered) {
-                discoveredRecipes = new Set(projects[name].discovered);
-                saveDiscoveredRecipes();
-            }
-            window.grid = grid;
-            migrateUnlocked();
-            projectNameInput.value = name === AUTOSAVE_KEY ? '' : name;
-            updateStats();
-            updateInventoryDisplay();
-            updatePaletteVisibility();
-            updateGenesisVisibility();
-            updateDiscoveryCounter();
-            requestRedraw();
-            loadDialog.classList.add('hidden');
-            showToast(`📂 "${name}" geladen!`);
-        }
-    }
-
-    function deleteProject(name) {
-        const projects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-        delete projects[name];
-        localStorage.setItem('insel-projekte', JSON.stringify(projects));
-        showLoadDialog(); // Dialog aktualisieren
-        showToast(`🗑️ "${name}" gelöscht!`);
-    }
-
-    function newProject() {
-        initGrid();
-        Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
-        inventory = {};
-        unlockedMaterials = new Set();
-        discoveredRecipes = new Set();
-        playerPos = { r: Math.floor(ROWS / 2), c: Math.floor(COLS / 2) };
-        localStorage.setItem('insel-player-pos', JSON.stringify(playerPos));
-        saveInventory();
-        saveUnlocked();
-        saveDiscoveredRecipes();
-        projectNameInput.value = '';
-        _genesisYinYangShown = false;
-        _genesisQiShown = false;
-        updateStats();
-        updateInventoryDisplay();
-        updatePaletteVisibility();
-        updateGenesisVisibility();
-        updateDiscoveryCounter();
-        requestRedraw();
-        showToast('🆕 Neue Insel!');
-    }
 
     // --- Automerge (delegiert an automerge.js Modul) ---
     function checkAutomerge(r, c) {
@@ -3608,39 +3491,12 @@
         });
     }
 
-    // --- #22: Projekt-Sharing via URL (Base64-encoded Grid) ---
+    // --- #22: Projekt-Sharing via URL -- delegiert an save.js ---
     function encodeGridToURL() {
-        const cells = [];
-        const matKeys = Object.keys(MATERIALS);
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                if (grid[r][c]) {
-                    const idx = matKeys.indexOf(grid[r][c]);
-                    cells.push([r, c, idx >= 0 ? idx : grid[r][c]]);
-                }
-            }
-        }
-        const payload = { v: 1, m: matKeys, g: cells };
-        return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+        return window.INSEL_SAVE ? window.INSEL_SAVE.encodeGridToURL() : '';
     }
-
     function decodeGridFromURL(encoded) {
-        try {
-            const payload = JSON.parse(decodeURIComponent(escape(atob(encoded))));
-            if (!payload.v || !payload.g) return false;
-            initGrid();
-            for (const [r, c, mat] of payload.g) {
-                if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
-                    const material = typeof mat === 'number' ? payload.m[mat] : mat;
-                    if (material && MATERIALS[material]) grid[r][c] = material;
-                }
-            }
-            requestRedraw();
-            requestStatsUpdate();
-            return true;
-        } catch (e) {
-            return false;
-        }
+        return window.INSEL_SAVE ? window.INSEL_SAVE.decodeGridFromURL(encoded) : false;
     }
 
     // Share-Button
@@ -4514,6 +4370,173 @@
         updateStats: updateStats,
         showToast: showToast,
         requestRedraw: requestRedraw
+    });
+
+    // ============================================================
+    // === ELTERN-DASHBOARD (#17) ===
+    // Bernd das Brot zeigt trockene Statistiken für Eltern
+    // ============================================================
+
+    // Session-Log: jede Session in localStorage persistieren
+    (function initSessionLog() {
+        const key = 'insel-session-log';
+        const log = JSON.parse(localStorage.getItem(key) || '[]');
+        const sessionStart = window.INSEL_ANALYTICS.getSessionClock().start || Date.now();
+        // Beim Seiten-Verlassen: aktuelle Session in Log schreiben
+        window.addEventListener('beforeunload', function () {
+            const duration = Math.round((Date.now() - sessionStart) / 1000);
+            if (duration < 5) return; // Kurz-Bounces ignorieren
+            const stats = getGridStats();
+            const entry = {
+                ts: sessionStart,
+                duration_s: duration,
+                blocks: stats.playerPlaced || 0,
+                quests: stats.questsDone || 0,
+            };
+            const updated = [entry, ...log].slice(0, 20); // max 20 Einträge
+            localStorage.setItem(key, JSON.stringify(updated));
+        });
+    })();
+
+    function getBaustil(counts) {
+        // Oscar 7. Schicht: Baustil aus Materialverteilung ableiten
+        if (!counts || Object.keys(counts).length === 0) return '—';
+        const total = Object.values(counts).reduce((a, b) => a + b, 0);
+        if (total === 0) return '—';
+
+        // Kategorien
+        const natur = ['tree', 'palm', 'plant', 'flower', 'mushroom', 'sapling', 'wood', 'earth'];
+        const wasser = ['water', 'fish', 'boat', 'bridge', 'fountain'];
+        const struktur = ['stone', 'planks', 'roof', 'door', 'window_pane', 'fence', 'path', 'glass'];
+        const licht = ['lamp', 'fire', 'qi'];
+
+        const score = (keys) => keys.reduce((s, k) => s + (counts[k] || 0), 0) / total;
+
+        const scores = {
+            'Naturpark': score(natur),
+            'Seemacht': score(wasser),
+            'Festungsbauer': score(struktur),
+            'Lichtarchitekt': score(licht),
+        };
+        const top = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+        if (top[1] < 0.15) return 'Generalist';
+        return top[0];
+    }
+
+    function formatDuration(seconds) {
+        if (!seconds || seconds < 60) return seconds + ' Sek.';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        if (h > 0) return h + ' Std. ' + m + ' Min.';
+        return m + ' Min.';
+    }
+
+    function formatDate(ts) {
+        return new Date(ts).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    }
+
+    function openDashboard() {
+        const overlay = document.getElementById('dashboard-overlay');
+        if (!overlay) return;
+
+        const analytics = getAnalytics();
+        const stats = getGridStats();
+        const metrics = window.getMetrics ? window.getMetrics() : {};
+        const sessionLog = JSON.parse(localStorage.getItem('insel-session-log') || '[]');
+        const matUsage = JSON.parse(localStorage.getItem('insel-mat-usage') || '{}');
+
+        // Spielzeit gesamt: aus Session-Log summieren + aktuelle Session
+        const historicSeconds = sessionLog.reduce((s, e) => s + (e.duration_s || 0), 0);
+        const currentSeconds = window.INSEL_ANALYTICS.getSessionClock().start
+            ? Math.round((Date.now() - window.INSEL_ANALYTICS.getSessionClock().start) / 1000)
+            : 0;
+        const totalSeconds = historicSeconds + currentSeconds;
+
+        // Lieblingsmaterial
+        const sorted = Object.entries(matUsage).sort((a, b) => b[1] - a[1]);
+        const favKey = sorted.length > 0 ? sorted[0][0] : null;
+        const favLabel = favKey ? (MATERIALS[favKey]?.emoji || '') + ' ' + (MATERIALS[favKey]?.label || favKey) : '—';
+
+        // Baustil
+        const baustil = getBaustil(stats.counts);
+
+        // Engagement-Score
+        const engagement = metrics.engagement || 0;
+
+        // DOM befüllen
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        set('dash-total-time', totalSeconds > 0 ? formatDuration(totalSeconds) : '—');
+        set('dash-sessions', analytics.sessions || '—');
+        set('dash-blocks', localStorage.getItem('insel-blocks-placed') || stats.playerPlaced || '—');
+        set('dash-quests', (typeof completedQuests !== 'undefined' ? completedQuests.length : 0).toString());
+        set('dash-fav-material', favLabel);
+        set('dash-baustil', baustil);
+        set('dash-engagement', engagement + ' / 100');
+
+        const fill = document.getElementById('dash-engagement-fill');
+        if (fill) fill.style.width = engagement + '%';
+
+        // Session-Verlauf
+        const listEl = document.getElementById('dash-sessions-list');
+        if (listEl) {
+            if (sessionLog.length === 0) {
+                listEl.innerHTML = '<p class="dashboard-empty">Noch keine Session-Daten gespeichert.</p>';
+            } else {
+                listEl.innerHTML = sessionLog.slice(0, 5).map(s => `
+                    <div class="dashboard-session-row">
+                        <span class="dashboard-session-date">${formatDate(s.ts)}</span>
+                        <span class="dashboard-session-meta">
+                            <span>${formatDuration(s.duration_s)}</span>
+                            <span>${s.blocks} Blöcke</span>
+                            <span>${s.quests} Quests</span>
+                        </span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        overlay.classList.remove('hidden');
+        document.getElementById('dashboard-close-btn')?.focus();
+    }
+
+    function closeDashboard() {
+        const overlay = document.getElementById('dashboard-overlay');
+        if (overlay) overlay.classList.add('hidden');
+    }
+
+    // Bernd zu NPC_DEFS hinzufügen (Klick öffnet Dashboard)
+    NPC_DEFS.bernd = { emoji: '🍞', name: 'Bernd' };
+    initNpcPositions(); // Positionen neu berechnen mit Bernd
+
+    // Dashboard-Button in Toolbar
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    if (dashboardBtn) {
+        dashboardBtn.addEventListener('click', openDashboard);
+    }
+
+    // Bernd-NPC-Klick: Dashboard öffnen statt Quest-Dialog
+    const _origShowNpcQuestDialog = showNpcQuestDialog;
+    // showNpcQuestDialog bereits per Closure definiert — Bernd-Branch via global
+    window._openDashboardFromBernd = function () {
+        showToast('🍞 Bernd: "Schau dir das an. Ich schon nicht mehr."', 3000);
+        setTimeout(openDashboard, 400);
+    };
+
+    // Close-Buttons
+    document.getElementById('dashboard-close-btn')?.addEventListener('click', closeDashboard);
+    document.getElementById('dashboard-close-btn-2')?.addEventListener('click', closeDashboard);
+    document.getElementById('dashboard-overlay')?.addEventListener('click', function (e) {
+        if (e.target === this) closeDashboard();
+    });
+
+    // Keyboard: Escape schließt Dashboard
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            const overlay = document.getElementById('dashboard-overlay');
+            if (overlay && !overlay.classList.contains('hidden')) {
+                closeDashboard();
+            }
+        }
     });
 
 })();
