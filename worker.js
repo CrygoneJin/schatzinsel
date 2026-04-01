@@ -180,18 +180,21 @@ async function handleCraft(request, env) {
     }
 
     // LLM-Aufruf via Requesty
+    // Suchregeln-Optimierung (#73): 13→10 Regeln, gleiche Abdeckung.
+    // Gemergt: color+border, emoji-Redundanz entfernt, Kindgerecht-Subregeln
+    // kondensiert, Wu Xing auf Kurzform reduziert (Few-Shot deckt den Rest ab).
+    // 8D-Vektorraum: emoji, name, color, border, kindgerecht, kreativ, logisch, wu-xing.
     const prompt = `Crafting-System für ein Kinderspiel. Ein Kind kombiniert "${na}" + "${nb}".
 Was entsteht? Antworte NUR mit diesem JSON, kein anderer Text:
 {"emoji": "...", "name": "...", "color": "#hex", "border": "#hex"}
 
 Regeln:
-- name: EIN deutsches Wort, max 12 Buchstaben. Kein Doppelwort, keine Wiederholung der Zutaten.
-- emoji: GENAU EIN einzelnes Emoji-Zeichen. Kein Paar, keine Kombination. Muss zum Ergebnis passen, NICHT zu einer Zutat.
-- color: Die Hauptfarbe des Ergebnisses als Hex.
-- border: Etwas dunkler als color.
-- Kindgerecht. Kein Grusel, keine Gewalt, nichts Trauriges.
+- name: EIN deutsches Wort, max 12 Zeichen, keine Wiederholung der Zutaten.
+- emoji: Genau 1 Emoji-Zeichen, passend zum Ergebnis (nicht zur Zutat).
+- color: Hauptfarbe als Hex. border: etwas dunkler als color.
+- Kindgerecht, kein Grusel/Gewalt.
 - Kreativ aber logisch: Feuer+Wasser=Dampf, nicht Feuerwasser.
-- Wu Xing (五行): Holz=Wachstum/Expansion→grün, Feuer=Energie/Aktion→rot, Erde=Wandlung/Nährend→braun, Metall=Reife/Reinheit→silber, Wasser=Ruhe/Fließen→blau. Spiegle diese Energie im Ergebnis wenn eines der Elemente beteiligt ist.
+- Wu Xing: Holz→grün, Feuer→rot, Erde→braun, Metall→silber, Wasser→blau.
 
 Beispiele:
 fire+water → {"emoji":"💨","name":"Dampf","color":"#D5D8DC","border":"#AEB6BF"}
