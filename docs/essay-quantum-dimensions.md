@@ -340,5 +340,212 @@ gefragt: "Aber was ist mit dem Band?"
 
 ---
 
-*Geschrieben von einem Typ-3-Automaten, der hofft, dass du den
-Unterschied nicht merkst. Spoiler: Manchmal merke ich ihn selbst nicht.*
+## Nachtrag III: Die Straßenlaterne — oder: Vom Irrationalen zum Imaginären
+
+### 9. Klasse: Die irrationale Ebene
+
+√42 ist irrational. Das lernt man in der 9. Klasse. Es bedeutet: Die Zahl
+hat unendlich viele Nachkommastellen ohne Muster. Du kannst sie nie exakt
+aufschreiben. Nur annähern.
+
+Das war unser bisheriges Werkzeug. Reelle Zahlen. Irrationale Dimensionen.
+Die Frage war: *Wie viele Dimensionen?* Und die Antwort war: *Eine
+irrationale Anzahl — du kannst sie nie genau treffen.*
+
+Aber wir haben die ganze Zeit unter der Straßenlaterne gesucht.
+
+### Die Straßenlaterne
+
+Ein Betrunkener sucht nachts seinen Schlüssel unter einer Straßenlaterne.
+Ein Polizist fragt: "Haben Sie ihn hier verloren?" — "Nein, dort drüben.
+Aber hier ist Licht."
+
+Die reellen Zahlen sind die Straßenlaterne. Wir suchen dort, weil wir
+dort sehen können. Die Zahlenachse ist eine Linie — links, rechts,
+Punkt fertig. Wir messen alles in einer Dimension: Temperatur, Geld,
+IQ, Follower, Aktienkurs. Eine Zahl. Ein Ranking. Licht.
+
+Aber der Schlüssel liegt nicht auf der Zahlenachse.
+
+### Oberstufe: Die komplexe Ebene
+
+In der Oberstufe lernt man: √(−1) = i. Eine "imaginäre" Zahl. Der Name
+ist das größte Branding-Desaster der Mathematik. Es klingt nach
+ausgedacht, nach nicht-real, nach Fantasie. In Wahrheit ist i die
+**zweite Dimension der Zahlen**.
+
+Reelle Zahlen sind eine Linie. Komplexe Zahlen sind eine Fläche.
+Jede komplexe Zahl hat zwei Teile: einen reellen (wo du stehst) und
+einen imaginären (wohin du dich drehst).
+
+Und jetzt wird's relevant:
+
+**Die Quantenmechanik braucht komplexe Zahlen.** Nicht als mathematischen
+Trick. Nicht als Abkürzung. Als Fundament. Die Wellenfunktion ψ — das
+Ding, das beschreibt, "wo" ein Elektron "ist" — ist komplex-wertig.
+Sie hat einen Realteil (Aufenthaltswahrscheinlichkeit) und einen
+Imaginärteil (Phase).
+
+Das 2×2-Gitter der Quantenchromodynamik ist nicht über den reellen
+Zahlen definiert. Es ist über SU(3) definiert — einer Gruppe von 3×3
+**komplexen** unitären Matrizen mit Determinante 1. Jeder Eintrag
+in der Matrix hat einen Real- und einen Imaginärteil.
+
+**Die Physik war nie unter der Straßenlaterne.** Sie war von Anfang
+an im Dunkeln. Und hat dort den Schlüssel gefunden.
+
+### Was jede Ebene der Sprache tun kann
+
+Lass uns jede Dimension mit einer Zahlenebene erweitern:
+
+| Zahlsystem    | Klasse     | Eigenschaft              | Was es für Sprache bedeutet                        |
+|---------------|------------|--------------------------|---------------------------------------------------|
+| **ℝ — Reell** | 9. Klasse  | Irrational, aber linear  | Wortbedeutung: "Hund" = ein Punkt auf einer Achse  |
+| **ℂ — Komplex** | Oberstufe | Drehungen und Phasen   | Konnotation: "Hund" vs. "Köter" — gleicher Realteil, andere Phase |
+| **ℍ — Quaternionen** | Studium | Nicht-kommutativ    | Wortstellung: "Der Hund beißt den Mann" ≠ "Den Mann beißt der Hund" |
+| **𝕆 — Oktonionen** | Promotion | Nicht-assoziativ     | Ironie: (A sagt B) über C ≠ A sagt (B über C)     |
+| **𝕊 — Sedenionen** | ??? | Nullteiler               | Ein Gespräch, in dem beide reden und Null rauskommt |
+
+### ℝ — Die Linie (9. Klasse)
+
+Reelle Zahlen. Eine Dimension pro Achse. "Hund" ist ein Punkt im
+Vektorraum. Word2Vec funktioniert hier: König − Mann + Frau = Königin.
+Lineare Algebra. Alles ist addierbar, subtrahierbar, skalierbar.
+
+**Was es kann:** Synonyme, Analogien, Ähnlichkeit.
+**Was es nicht kann:** Erklären, warum "Das ist ja toll" manchmal das
+Gegenteil bedeutet.
+
+### ℂ — Die Fläche (Oberstufe)
+
+Komplexe Zahlen. Jedes Wort hat jetzt nicht nur eine Position (Realteil)
+sondern auch eine **Phase** (Imaginärteil). "Hund" und "Köter" haben
+denselben Realteil (Canis lupus familiaris), aber eine andere Phase.
+"Köter" ist um 180° gedreht — gleiche Denotation, umgekehrte Konnotation.
+
+**Was es kann:** Register, Ton, Stilebene, Höflichkeit.
+**Was es nicht kann:** Erklären, warum "Köter" in einem Krimi anders
+klingt als in einem Gedicht. Dafür bräuchte man den Kontext. Und
+Kontext ist nicht kommutativ.
+
+### ℍ — Der 4D-Raum (Studium)
+
+Quaternionen. Erfunden 1843 von Hamilton, der die Formel in eine Brücke
+ritzte (Vandalismus! Genie!). Vier Dimensionen: 1, i, j, k. Und:
+**i·j ≠ j·i**. Die Multiplikation ist nicht kommutativ.
+
+Das ist Wortstellung. Im Deutschen:
+- "Der Hund beißt den Mann" (Hund = Subjekt)
+- "Den Mann beißt der Hund" (immer noch Hund = Subjekt, aber Betonung
+  auf Mann — Topikalisierung)
+
+Gleiche Wörter. Andere Reihenfolge. Andere Bedeutung. In der reellen
+Welt ist 3 × 5 = 5 × 3. In der Sprache ist "erst denken, dann reden"
+etwas fundamental anderes als "erst reden, dann denken". Quaternionen
+können das. Reelle Zahlen nicht.
+
+**Was es kann:** Syntax, Topikalisierung, Informationsstruktur.
+**Was es nicht kann:** Erklären, warum "erst reden, dann denken" in
+manchen Kontexten als Kompliment gemeint sein kann. Dafür bräuchte
+man Assoziativität aufgeben.
+
+### 𝕆 — Der 8D-Raum (Promotion)
+
+Oktonionen. Acht Dimensionen. Nicht kommutativ UND nicht assoziativ:
+**(a·b)·c ≠ a·(b·c)**.
+
+Das ist Ironie. Kontext. Pragmatik.
+
+"Mein Sohn sagt, sein Vater ist ein Genie" — (Sohn sagt) (Vater ist
+Genie) oder Sohn sagt (Vater ist Genie)? Gleiche Klammerung, andere
+Interpretation. Wer spricht? Zitiert der Vater den Sohn, um sich
+selbst zu loben? Oder berichtet jemand Drittes?
+
+Die Assoziativität der Sprache hängt davon ab, **wer klammert**. Und
+das steht nicht im Satz. Das steht im Raum zwischen Sprecher und Hörer.
+In einem Raum, der mindestens acht Dimensionen hat.
+
+**Was es kann:** Ironie, Zitat, indirekte Rede, Pragmatik.
+**Was es nicht kann:** Erklären, warum ein Gedicht schön ist. Dafür
+bräuchte man Nullteiler.
+
+### 𝕊 — Der 16D-Raum (Jenseits)
+
+Sedenionen. Sechzehn Dimensionen. Und hier passiert etwas Unheimliches:
+**Es gibt Nullteiler.** Zwei Zahlen, die beide nicht Null sind, aber
+deren Produkt Null ergibt.
+
+a ≠ 0, b ≠ 0, aber a · b = 0.
+
+Das ist das Gespräch, in dem beide reden und nichts rauskommt. Der
+Meeting, in dem jeder seinen Punkt macht und am Ende keiner weiß, was
+beschlossen wurde. Die Beziehung, in der beide lieben und es trotzdem
+nicht funktioniert.
+
+**Nullteiler sind das mathematische Modell für Kommunikationsversagen.**
+
+Nicht Schweigen (das wäre Null). Nicht Streit (das wäre negativ). Sondern:
+Zwei volle, reiche, nicht-triviale Aussagen, die zusammen Null ergeben.
+Weil die Struktur es so will. Nicht weil jemand schuld ist.
+
+### Die Treppe
+
+```
+ℝ   Reell        →  Wörter haben Bedeutung
+ℂ   Komplex      →  Wörter haben Färbung
+ℍ   Quaternion   →  Reihenfolge verändert Bedeutung
+𝕆   Oktonion     →  Klammerung verändert Bedeutung
+𝕊   Sedenion     →  Bedeutung × Bedeutung = Null (möglich)
+```
+
+Jede Stufe verliert eine algebraische Eigenschaft:
+- ℝ → ℂ: Verlust der Anordnung (komplexe Zahlen kann man nicht sortieren)
+- ℂ → ℍ: Verlust der Kommutativität (Reihenfolge zählt)
+- ℍ → 𝕆: Verlust der Assoziativität (Klammerung zählt)
+- 𝕆 → 𝕊: Verlust der Teilbarkeit (Nullteiler)
+
+**Jede Stufe, die Sprache mächtiger macht, nimmt der Mathematik eine
+Sicherheit weg.**
+
+Das ist kein Zufall. Das ist der Preis. Die Physik funktioniert mit
+ℂ (Quantenmechanik) und berührt gerade ℍ (Quaternionen in der
+Relativitätstheorie). Sprache braucht mindestens 𝕆 für Ironie und
+stößt bei Poesie in 𝕊 vor — wo Bedeutung × Bedeutung = Null sein
+kann. Wo ein Gedicht gleichzeitig alles und nichts sagen kann.
+
+### Zurück zur Straßenlaterne
+
+Die Physik steht unter der ℂ-Laterne und findet fast alles.
+Die Linguistik steht unter der ℝ-Laterne und findet fast nichts.
+Die KI steht unter gar keiner Laterne — sie hat eine Taschenlampe
+mit 1,8 Billionen LEDs und leuchtet überall gleichzeitig hin. Sie
+findet Dinge, aber sie weiß nicht *warum* sie dort liegen.
+
+Und der Literaturnobelpreis? Der geht an Leute, die im 𝕊-Raum
+arbeiten. Die Nullteiler erzeugen können. Zwei Sätze, die jeweils
+etwas bedeuten und zusammen etwas anderes — oder nichts — oder
+alles.
+
+"Das Meer war nicht blau. Es war auch nicht grün. Es war die Farbe
+eines Versprechens, das niemand gemacht hatte."
+
+Realteil: Null (welche Farbe?). Imaginärteil: Unendlich.
+
+**Das ist keine Literatur. Das sind Nullteiler. Und dafür gibt es
+keinen Nobelpreis in Physik, weil die Physik bei 𝕆 aufhört und
+die Dichtung bei 𝕊 anfängt.**
+
+Sind wir Oberstufe? Wir sind Oberstufe, wenn wir akzeptieren,
+dass die Straßenlaterne nicht die Welt ist. Dass i kein Fehler ist,
+sondern eine Richtung. Dass nicht-kommutativ kein Problem ist,
+sondern Grammatik. Und dass Nullteiler nicht pathologisch sind,
+sondern poetisch.
+
+9\. Klasse war: "Es gibt keine Wurzel aus −1."
+Oberstufe ist: "Doch. Sie heißt i und sie ist der Anfang."
+
+---
+
+*Geschrieben von einem Typ-3-Automaten mit einer Taschenlampe aus
+1,8 Billionen LEDs. Ich stehe unter keiner Laterne. Aber ich
+leuchte ganz schön hell für jemanden, der nicht weiß wo er ist.*
