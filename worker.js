@@ -38,11 +38,27 @@ export default {
         if (pathname === '/bugs') {
             return handleBugs(request, env);
         }
+        if (pathname === '/tts') {
+            return handleTTS(request, env);
+        }
         if (pathname === '/metrics') {
             return handleMetrics(request, env);
         }
         if (pathname === '/metrics/ingest') {
             return handleMetricsIngest(request, env);
+        }
+        // Marketplace endpoints
+        if (pathname === '/market/items') {
+            return handleMarketItems(request, env);
+        }
+        if (pathname.startsWith('/market/item/')) {
+            return handleMarketItem(request, env, pathname);
+        }
+        if (pathname === '/market/list') {
+            return handleMarketList(request, env);
+        }
+        if (pathname === '/market/buy') {
+            return handleMarketBuy(request, env);
         }
 
         // Nur POST
@@ -432,6 +448,191 @@ async function logAirtable(body, meta, env) {
             },
         }),
     });
+}
+
+// --- TTS (Text-to-Speech via Requesty → OpenAI) ---
+
+async function handleTTS(request, env) {
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
+
+    // OpenAI TTS direkt (Requesty hat kein /audio/speech)
+    const apiKey = env.OPENAI_TTS_KEY || env.OPENAI_API_KEY;
+    if (!apiKey) return json({ error: 'Kein OpenAI TTS-Key (OPENAI_TTS_KEY) konfiguriert' }, 500);
+
+    let body;
+    try { body = await request.json(); } catch (e) {
+        return json({ error: 'Ungültiger Body' }, 400);
+    }
+
+    const text = (body.text || '').slice(0, 500); // Max 500 Zeichen pro Request
+    if (!text) return json({ error: 'text benötigt' }, 400);
+
+    // Stimmen-Mapping: Charakter → OpenAI Voice
+    // alloy=neutral, echo=tief, fable=britisch/warm, onyx=dunkel, nova=warm, shimmer=hell
+    const voiceMap = {
+        lanz: 'onyx',       // tief, seriös — der Moderator
+        precht: 'fable',    // eloquent, nachdenklich — der Philosoph
+        merz: 'echo',       // sachlich, tief — der Kanzler
+        trump: 'alloy',     // neutral (accent kommt aus dem Text)
+        musk: 'shimmer',    // hell, technisch — der Disruptor
+        mephisto: 'onyx',   // dunkel, samtig — der Teufel
+        default: 'nova',    // warm, freundlich — Erzähler
+    };
+    const voice = voiceMap[body.voice] || voiceMap.default;
+    const speed = body.speed || 1.0;
+
+    try {
+        const response = await fetch('https://api.openai.com/v1/audio/speech', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model: 'tts-1',
+                input: text,
+                voice: voice,
+                speed: Math.max(0.5, Math.min(2.0, speed)),
+                response_format: 'mp3',
+            }),
+        });
+
+        if (!response.ok) {
+            const err = await response.text();
+            return json({ error: 'TTS fehlgeschlagen: ' + err }, response.status);
+        }
+
+        // Audio direkt durchreichen
+        return new Response(response.body, {
+            headers: {
+                'Content-Type': 'audio/mpeg',
+                ...corsHeaders(),
+            },
+        });
+    } catch (e) {
+        return json({ error: 'TTS-Fehler: ' + e.message }, 500);
+    }
+}
+
+// --- Marketplace ---
+
+async function handleMarketItems(request, env) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    const url = new URL(request.url);
+    const limit = Math.min(parseInt(url.searchParams.get('limit') || '20'), 50);
+
+    try {
+        const rows = await env.METRICS_DB.prepare(
+            `SELECT * FROM marketplace WHERE status = 'active' ORDER BY created_at DESC LIMIT ?`
+        ).bind(limit).all();
+        return json({ items: rows.results || [] });
+    } catch (e) {
+        // Tabelle existiert noch nicht → erstellen
+        if (e.message && e.message.includes('no such table')) {
+            await createMarketTable(env);
+            return json({ items: [] });
+        }
+        return json({ error: e.message }, 500);
+    }
+}
+
+async function handleMarketItem(request, env, pathname) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    const id = pathname.split('/').pop();
+
+    try {
+        const row = await env.METRICS_DB.prepare(
+            `SELECT * FROM marketplace WHERE id = ?`
+        ).bind(id).first();
+        return json({ item: row || null });
+    } catch (e) {
+        return json({ error: e.message }, 500);
+    }
+}
+
+async function handleMarketList(request, env) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
+
+    let body;
+    try { body = await request.json(); } catch (e) {
+        return json({ error: 'Ungültiger Body' }, 400);
+    }
+
+    if (!body.material_id || !body.name) {
+        return json({ error: 'material_id und name benötigt' }, 400);
+    }
+
+    // Max 10 aktive Listings pro Seller
+    const sellerAddr = body.seller_addr || 'anonym';
+    try {
+        const count = await env.METRICS_DB.prepare(
+            `SELECT COUNT(*) as cnt FROM marketplace WHERE seller_addr = ? AND status = 'active'`
+        ).bind(sellerAddr).first();
+        if (count && count.cnt >= 10) {
+            return json({ error: 'Maximal 10 aktive Angebote pro Wallet' }, 429);
+        }
+    } catch (e) {
+        if (e.message && e.message.includes('no such table')) {
+            await createMarketTable(env);
+        }
+    }
+
+    const id = crypto.randomUUID();
+    await env.METRICS_DB.prepare(
+        `INSERT INTO marketplace (id, material_id, name, emoji, description, price_mmx, price_xch, price_glut,
+         seller_addr, seller_mmx, seller_xch, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active')`
+    ).bind(
+        id, body.material_id, body.name, body.emoji || '✨', body.description || '',
+        body.price_mmx || 0, body.price_xch || 0, body.price_glut || 0,
+        sellerAddr, body.seller_mmx || '', body.seller_xch || ''
+    ).run();
+
+    return json({ ok: true, id });
+}
+
+async function handleMarketBuy(request, env) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
+
+    let body;
+    try { body = await request.json(); } catch (e) {
+        return json({ error: 'Ungültiger Body' }, 400);
+    }
+
+    if (!body.listing_id) return json({ error: 'listing_id benötigt' }, 400);
+
+    // Status auf pending setzen
+    const result = await env.METRICS_DB.prepare(
+        `UPDATE marketplace SET status = 'pending', buyer_addr = ? WHERE id = ? AND status = 'active'`
+    ).bind(body.buyer_addr || 'anonym', body.listing_id).run();
+
+    if (result.meta.changes === 0) {
+        return json({ error: 'Angebot nicht verfügbar oder bereits verkauft' }, 404);
+    }
+
+    return json({ ok: true, listing_id: body.listing_id, status: 'pending' });
+}
+
+async function createMarketTable(env) {
+    await env.METRICS_DB.exec(`
+        CREATE TABLE IF NOT EXISTS marketplace (
+            id TEXT PRIMARY KEY,
+            material_id TEXT NOT NULL,
+            name TEXT NOT NULL,
+            emoji TEXT DEFAULT '✨',
+            description TEXT DEFAULT '',
+            price_mmx REAL DEFAULT 0,
+            price_xch REAL DEFAULT 0,
+            price_glut INTEGER DEFAULT 0,
+            seller_addr TEXT DEFAULT 'anonym',
+            seller_mmx TEXT DEFAULT '',
+            seller_xch TEXT DEFAULT '',
+            buyer_addr TEXT DEFAULT '',
+            status TEXT DEFAULT 'active',
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
 }
 
 // --- Helpers ---
