@@ -943,7 +943,7 @@
     // ============================================================
     let inventory = {};
 
-    const SHELL_CAP = 100; // Goldstandard: max 100 🐚 = 0.1 MMX pro Spieler
+    const SHELL_CAP = 42; // The Answer. 42 🐚 = 0.042 MMX pro Spieler.
 
     function addToInventory(material, count) {
         count = count || 1;
@@ -4147,7 +4147,7 @@
         const shellMmx = (shellCount * 0.001).toFixed(4);
         ctx.fillStyle = '#888';
         ctx.font = '9px monospace';
-        ctx.fillText('Burn: ' + mmxBal + ' MMX  |  Wallet: ' + shellCount + '/100 🐚 ≈ ' + shellMmx + '/0.1 MMX  |  Goldstandard', 10, mmxY + 22);
+        ctx.fillText('Burn: ' + mmxBal + ' MMX  |  Wallet: ' + shellCount + '/42 🐚 ≈ ' + shellMmx + '/0.042 MMX  |  The Answer', 10, mmxY + 22);
     }
 
     // MMX Burn-Balance alle 60s abfragen (öffentliche API, kein Auth nötig)
