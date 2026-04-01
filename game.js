@@ -4,6 +4,10 @@
 (function () {
     'use strict';
 
+    // Frühe Deklaration — wird ab Zeile ~386 benutzt, Definition in analytics.js
+    function trackEvent(name, data) { if (window.trackEvent) window.trackEvent(name, data); }
+    function recordMilestone(key) { if (window.recordMilestone) window.recordMilestone(key); }
+
     // --- Accessibility: reduced-motion ---
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -4073,8 +4077,7 @@
     // ============================================================
     // === ANALYTICS === (extrahiert nach analytics.js)
     // ============================================================
-    const trackEvent = window.trackEvent;
-    const recordMilestone = window.recordMilestone;
+    // trackEvent + recordMilestone: oben deklariert (Zeile 8-9) wegen TDZ
     function getAnalytics() { return window.INSEL_ANALYTICS.getAnalytics(); }
     function trackSession() { window.INSEL_ANALYTICS.trackSession(currentTheme); }
     function assignABTest() { return window.INSEL_ANALYTICS.assignABTest(THEMES, applyTheme); }
