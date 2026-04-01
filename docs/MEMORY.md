@@ -11,6 +11,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
+| 2026-04-01 | Robinson-Ökonomie: 3 PRs (#109 #110 #111) in einer Session | Kreative Frage (Sinn/Krabs/Trotzki) → 3 atomare Features auf bestehenden Patterns (nature.js, quest system, NPC dialog) | Bestehende Patterns erweitern > neue Systeme bauen. treeGrowth → seedGrowth war 5 Zeilen statt neuem Timer. |
 | 2026-03-31 | Doppelte eliza.js Script-Tags in index.html nach PR-Merge | Merge von effects.js/nature.js Extraktion (#11) hat eliza.js/eliza-scripts.js dupliziert. Smoke-Test fängt console.error → Deployment failed. | Immer `grep -c '<script' index.html` prüfen nach Merge. Duplikate = potentieller Runtime-Crash. |
 | 2026-03-31 | analytics.js schrieb nichts nach D1 — nur Google Sheets Webhook | `pingWebhook()` nutzte nur localStorage-URL (`insel-webhook`), nicht den Worker `/metrics/ingest`. D1-Tabellen blieben leer. | Frontend muss aktiv an den Worker senden. "Endpoint existiert" ≠ "Endpoint wird genutzt". |
 | 2026-03-31 | Charakter-Dropdown hatte kein change-Event — NPC-Wechsel funktionierte nicht | Dropdown existierte im HTML, aber kein JS-Listener registriert. Alle NPCs redeten wie SpongeBob. | Jedes UI-Element das Zustand ändert braucht einen Event-Listener. Ohne Listener ist es Dekoration. |
@@ -33,6 +34,7 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-01 | 3 Wirtschaftssysteme in 30 Min: Zeitinvestition, Muschelhandel, Gemeinschaftsquests | Drei orthogonale Mechaniken statt monolithischem Economy-System. Jedes Feature < 130 LOC. Alle auf existierenden Patterns gebaut (nature.js growth, HARVEST_YIELD, quest completion). Hans-Werner Sinn, Mr. Krabs und Trotzki als Designleitplanken — absurd aber funktional. |
 | 2026-03-31 | QR-Code-Generator in reinem Vanilla JS (qr.js, ~260 Zeilen) | Kein npm, kein CDN, kein Build-Schritt. QR Version 2 EC-L: GF(256) Reed-Solomon + Finder/Alignment-Platzierung + BCH Format-Info + 8-Masken-Auswahl per Penalty-Score. Postkarte trägt jetzt scanbare schatzinsel.app-URL. Eltern können direkt zum Spiel. |
 | 2026-03-31 | Backlog-Audit Sprint 23: #87 TTS Hörspiele war Phantom-Open | TTS war komplett in game.js:656-720 (speakLines, stopHoerspiel, 7 Szenen, Mute-Integration). Vor jedem Sprint-Planning: Items gegen Code-Realität prüfen, nicht nur gegen letzte Session-Erinnerung. |
 | 2026-03-31 | JSDoc + checkJs: Typsicherheit ohne Build-Schritt | TypeScript evaluiert → Overkill für 8K LOC Vanilla JS ohne Bundler. Stattdessen: `tsconfig.json` mit `checkJs`, `types.d.ts` (230 Zeilen), `npm run typecheck` = 0 Errors. Zero-Build-Architektur bleibt erhalten. game.js + chat.js mit @ts-nocheck — schrittweise bei Backlog #11 (Code-Splitting). |
@@ -620,6 +622,48 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 - **8-Item-Sprints sind technisch möglich aber pädagogisch falsch.** Rhythmus (1 Sprint = 1 Stunde = 3 Items) ist nicht Bürokratie, sondern Fokus.
 - **Smoke Tests gehören in CI, nicht in den Agent.** Proxy-Sandbox macht externe Curls unzuverlässig. BACKLOG #86 löst das.
 - **Easter Eggs bauen sich schnell.** Lummerland: eine Stunde, maximale Freude. Verhältnis merken.
+
+---
+
+## Session 2026-04-01 — Inselbewusstsein + Wirtschaftstheorie
+
+### Erkenntnisse
+
+| Datum | Was | Lektion |
+|-------|-----|---------|
+| 2026-04-01 | Die Insel hat 6 Bewusstseinsschichten — aber Feynman sagt: technisch sind es 3 Gruppen (regelbasiert, dekorativ, LLM-basiert). Conway ist Dekoration, kein Bewusstsein. | "Verteilt" impliziert Kommunikation. Ohne Inter-Schicht-Events sind es parallele Systeme, kein verteiltes System. |
+| 2026-04-01 | Freud genügten 3 (Es, Ich, Über-Ich) weil er den ganzen Menschen modellierte. Die Insel braucht 6 weil sie KEIN Ich hat — das Kind bringt das Ich mit. | Stärkste These der Session. Die Insel ist ein Nervensystem ohne Gehirn. |
+| 2026-04-01 | Muscheln waren unendlich craftbar → kein Goldstandard möglich. SHELL_CAP=42 macht sie knapp → MMX-Deckung funktioniert. | Knappheit auf beiden Seiten = Goldstandard. Douglas Adams als stiller Beirat. |
+| 2026-04-01 | NPC-Currencies (Krabbenburger, Sternenstaub etc.) sind KEINE Währung sondern Beziehungsenergie. Ricardo: Trennung beibehalten. | Muscheln = Handel, NPC-Tokens = Beziehung. Zwei verschiedene Dinge. |
+| 2026-04-01 | Kommazahlen sind zum Messen, nicht zum Einkaufen. Geld ist diskret, die Welt ist kontinuierlich. | Krabs rechnet in Muscheln (ganz), Elefant misst in Kommazahlen. Zwei NPCs = zwei Zahlensysteme = ein Kind das beides lernt. |
+| 2026-04-01 | "Zusammen sind wir weniger allein" — der Satz der über dem ganzen Projekt steht. | Schatzkarte, Geleitschutz-Quest, NPC-Beziehungen — alles dreht sich um Verbindung, nicht um Features. |
+
+### Neue Beiräte
+
+- `/ricardo` — David Ricardo · Komparative Vorteile & Währungstheorie
+- `/pestalozzi` — Johann Heinrich Pestalozzi · Grundschulpädagogik & Lektorat
+- `/adams` — Douglas Adams · Absurdität & die Frage nach 42
+
+### Ideen-Dump (noch nicht im Backlog)
+
+1. **Piraten-Ökonomie** — Gierige Spieler mit mehreren Inseln parallel, Muscheln per Schiff überweisen, Piraten als Risiko
+2. **Hardware als Wirtschafts-Cap** — Wirtschaftsleistung passt sich GPU/CPU/Speicher an
+3. **Quest: Geleitschutz von Papa** — Schiff beladen mit Schätzen, Papa eskortiert zurück
+4. **Weltkarte mit Inseln anderer Spieler** — jede Insel ein Punkt auf der Karte
+5. **Neue unbewohnte Inseln** — entdecken, besiedeln, benennen
+6. **Inseln mit NPCs** — andere Inseln haben eigene NPC-Bewohner
+7. **Unkontaktierte Völker** — Inseln die man sehen aber nicht betreten kann. Respekt vor dem Unbekannten.
+
+### Deliverables
+
+- Podcast: `docs/podcast-island-consciousness.md`
+- Essay: `docs/essay-island-consciousness.md`
+- Feynman-Review: `docs/review-island-consciousness.md`
+- Ricardo-Interview: `docs/interview-ricardo-currency.md`
+- Aufsatz Grundschule: `docs/aufsatz-kommazahlen-grundschule.md`
+- Schatzkarte: Worker-Endpoint + Spiel-Button + Telegram MCP (feat/schatzkarte)
+- WhatsApp MCP: feat/whatsapp-mcp
+- PR #112: Bewusstsein + Muscheln + MMX + Goldstandard
 
 ---
 
