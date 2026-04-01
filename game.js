@@ -438,6 +438,13 @@
     }
 
     function showNpcQuestDialog(npcId) {
+        // Bernd das Brot: öffnet das Eltern-Dashboard
+        if (npcId === 'bernd') {
+            if (window._openDashboardFromBernd) {
+                window._openDashboardFromBernd();
+            }
+            return;
+        }
         const npc = NPC_DEFS[npcId];
         if (!npc) return;
         // Memory: Besuch registrieren
@@ -4611,6 +4618,173 @@
         updateStats: updateStats,
         showToast: showToast,
         requestRedraw: requestRedraw
+    });
+
+    // ============================================================
+    // === ELTERN-DASHBOARD (#17) ===
+    // Bernd das Brot zeigt trockene Statistiken für Eltern
+    // ============================================================
+
+    // Session-Log: jede Session in localStorage persistieren
+    (function initSessionLog() {
+        const key = 'insel-session-log';
+        const log = JSON.parse(localStorage.getItem(key) || '[]');
+        const sessionStart = window.INSEL_ANALYTICS.getSessionClock().start || Date.now();
+        // Beim Seiten-Verlassen: aktuelle Session in Log schreiben
+        window.addEventListener('beforeunload', function () {
+            const duration = Math.round((Date.now() - sessionStart) / 1000);
+            if (duration < 5) return; // Kurz-Bounces ignorieren
+            const stats = getGridStats();
+            const entry = {
+                ts: sessionStart,
+                duration_s: duration,
+                blocks: stats.playerPlaced || 0,
+                quests: stats.questsDone || 0,
+            };
+            const updated = [entry, ...log].slice(0, 20); // max 20 Einträge
+            localStorage.setItem(key, JSON.stringify(updated));
+        });
+    })();
+
+    function getBaustil(counts) {
+        // Oscar 7. Schicht: Baustil aus Materialverteilung ableiten
+        if (!counts || Object.keys(counts).length === 0) return '—';
+        const total = Object.values(counts).reduce((a, b) => a + b, 0);
+        if (total === 0) return '—';
+
+        // Kategorien
+        const natur = ['tree', 'palm', 'plant', 'flower', 'mushroom', 'sapling', 'wood', 'earth'];
+        const wasser = ['water', 'fish', 'boat', 'bridge', 'fountain'];
+        const struktur = ['stone', 'planks', 'roof', 'door', 'window_pane', 'fence', 'path', 'glass'];
+        const licht = ['lamp', 'fire', 'qi'];
+
+        const score = (keys) => keys.reduce((s, k) => s + (counts[k] || 0), 0) / total;
+
+        const scores = {
+            'Naturpark': score(natur),
+            'Seemacht': score(wasser),
+            'Festungsbauer': score(struktur),
+            'Lichtarchitekt': score(licht),
+        };
+        const top = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+        if (top[1] < 0.15) return 'Generalist';
+        return top[0];
+    }
+
+    function formatDuration(seconds) {
+        if (!seconds || seconds < 60) return seconds + ' Sek.';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        if (h > 0) return h + ' Std. ' + m + ' Min.';
+        return m + ' Min.';
+    }
+
+    function formatDate(ts) {
+        return new Date(ts).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    }
+
+    function openDashboard() {
+        const overlay = document.getElementById('dashboard-overlay');
+        if (!overlay) return;
+
+        const analytics = getAnalytics();
+        const stats = getGridStats();
+        const metrics = window.getMetrics ? window.getMetrics() : {};
+        const sessionLog = JSON.parse(localStorage.getItem('insel-session-log') || '[]');
+        const matUsage = JSON.parse(localStorage.getItem('insel-mat-usage') || '{}');
+
+        // Spielzeit gesamt: aus Session-Log summieren + aktuelle Session
+        const historicSeconds = sessionLog.reduce((s, e) => s + (e.duration_s || 0), 0);
+        const currentSeconds = window.INSEL_ANALYTICS.getSessionClock().start
+            ? Math.round((Date.now() - window.INSEL_ANALYTICS.getSessionClock().start) / 1000)
+            : 0;
+        const totalSeconds = historicSeconds + currentSeconds;
+
+        // Lieblingsmaterial
+        const sorted = Object.entries(matUsage).sort((a, b) => b[1] - a[1]);
+        const favKey = sorted.length > 0 ? sorted[0][0] : null;
+        const favLabel = favKey ? (MATERIALS[favKey]?.emoji || '') + ' ' + (MATERIALS[favKey]?.label || favKey) : '—';
+
+        // Baustil
+        const baustil = getBaustil(stats.counts);
+
+        // Engagement-Score
+        const engagement = metrics.engagement || 0;
+
+        // DOM befüllen
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        set('dash-total-time', totalSeconds > 0 ? formatDuration(totalSeconds) : '—');
+        set('dash-sessions', analytics.sessions || '—');
+        set('dash-blocks', localStorage.getItem('insel-blocks-placed') || stats.playerPlaced || '—');
+        set('dash-quests', (typeof completedQuests !== 'undefined' ? completedQuests.length : 0).toString());
+        set('dash-fav-material', favLabel);
+        set('dash-baustil', baustil);
+        set('dash-engagement', engagement + ' / 100');
+
+        const fill = document.getElementById('dash-engagement-fill');
+        if (fill) fill.style.width = engagement + '%';
+
+        // Session-Verlauf
+        const listEl = document.getElementById('dash-sessions-list');
+        if (listEl) {
+            if (sessionLog.length === 0) {
+                listEl.innerHTML = '<p class="dashboard-empty">Noch keine Session-Daten gespeichert.</p>';
+            } else {
+                listEl.innerHTML = sessionLog.slice(0, 5).map(s => `
+                    <div class="dashboard-session-row">
+                        <span class="dashboard-session-date">${formatDate(s.ts)}</span>
+                        <span class="dashboard-session-meta">
+                            <span>${formatDuration(s.duration_s)}</span>
+                            <span>${s.blocks} Blöcke</span>
+                            <span>${s.quests} Quests</span>
+                        </span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        overlay.classList.remove('hidden');
+        document.getElementById('dashboard-close-btn')?.focus();
+    }
+
+    function closeDashboard() {
+        const overlay = document.getElementById('dashboard-overlay');
+        if (overlay) overlay.classList.add('hidden');
+    }
+
+    // Bernd zu NPC_DEFS hinzufügen (Klick öffnet Dashboard)
+    NPC_DEFS.bernd = { emoji: '🍞', name: 'Bernd' };
+    initNpcPositions(); // Positionen neu berechnen mit Bernd
+
+    // Dashboard-Button in Toolbar
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    if (dashboardBtn) {
+        dashboardBtn.addEventListener('click', openDashboard);
+    }
+
+    // Bernd-NPC-Klick: Dashboard öffnen statt Quest-Dialog
+    const _origShowNpcQuestDialog = showNpcQuestDialog;
+    // showNpcQuestDialog bereits per Closure definiert — Bernd-Branch via global
+    window._openDashboardFromBernd = function () {
+        showToast('🍞 Bernd: "Schau dir das an. Ich schon nicht mehr."', 3000);
+        setTimeout(openDashboard, 400);
+    };
+
+    // Close-Buttons
+    document.getElementById('dashboard-close-btn')?.addEventListener('click', closeDashboard);
+    document.getElementById('dashboard-close-btn-2')?.addEventListener('click', closeDashboard);
+    document.getElementById('dashboard-overlay')?.addEventListener('click', function (e) {
+        if (e.target === this) closeDashboard();
+    });
+
+    // Keyboard: Escape schließt Dashboard
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            const overlay = document.getElementById('dashboard-overlay');
+            if (overlay && !overlay.classList.contains('hidden')) {
+                closeDashboard();
+            }
+        }
     });
 
 })();
