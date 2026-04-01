@@ -1963,7 +1963,7 @@
 
                 // Material zeichnen (Grid-Linie nur auf belegten Zellen — kein Spreadsheet-Look)
                 if (grid[r][c]) {
-                    const mat = MATERIALS[grid[r][c]];
+                    const mat = MATERIALS[grid[r][c]] || { emoji: '❓', label: grid[r][c], color: '#888', border: '#666' };
                     // Subtile Zellgrenze
                     ctx.strokeStyle = 'rgba(0, 0, 0, 0.12)';
                     ctx.lineWidth = 1;
@@ -2123,7 +2123,7 @@
             const hy = (hoverCell.r + WATER_BORDER) * CELL_SIZE;
 
             if (currentTool === 'build') {
-                const mat = MATERIALS[currentMaterial];
+                const mat = MATERIALS[currentMaterial] || { emoji: '❓', label: currentMaterial, color: '#888', border: '#666' };
                 ctx.fillStyle = mat.color;
                 ctx.globalAlpha = 0.4;
                 ctx.fillRect(hx + 1, hy + 1, CELL_SIZE - 2, CELL_SIZE - 2);
@@ -2651,7 +2651,7 @@
         let html = `<p class="stat-count">Gesamt: ${total} Blöcke</p>`;
 
         for (const [mat, count] of Object.entries(counts).sort((a, b) => b[1] - a[1])) {
-            const info = MATERIALS[mat];
+            const info = MATERIALS[mat] || { emoji: '❓', label: mat };
             html += `<p>${info.emoji} <strong>${count}</strong></p>`;
         }
 
@@ -3302,7 +3302,9 @@
         introOverlay.classList.add('hiding');
         setTimeout(() => {
             introOverlay.style.display = 'none';
-            startTutorialPulse();
+            // Pulse nur wenn noch kein Block platziert wurde
+            const hasBlocks = grid.some(row => row && row.some(cell => cell !== null));
+            if (!hasBlocks) startTutorialPulse();
             // Tutorial-Onboarding nur für Erstbesucher (noch kein Grid gespeichert)
             if (!localStorage.getItem('insel-grid')) showTutorialOnboarding();
         }, 300);
@@ -3775,7 +3777,8 @@
         if (ok && introOverlay) {
             introOverlay.style.display = 'none';
             if (window.startSessionClock) window.startSessionClock();
-            startTutorialPulse();
+            const hasBlocks = grid.some(row => row && row.some(cell => cell !== null));
+            if (!hasBlocks) startTutorialPulse();
             showToast('🏝️ Geteilte Insel geladen!', 3000);
             // URL sauber halten — Parameter entfernen
             history.replaceState({}, '', location.pathname);
