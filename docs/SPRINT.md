@@ -1,3 +1,35 @@
+# Sprint 26 — "Oscar findet die Höhle"
+
+**Sprint Goal:** game.js schrumpft auf unter 4500 Zeilen, Oscar entdeckt interaktive Höhlen, NPCs reagieren auf Element-Transformationen.
+**Start:** 2026-04-01
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S26-1 | **#11 island-gen.js** — `generateStarterIsland()` + `generateLummerland()` (~233 LOC) nach island-gen.js. `window.INSEL_ISLAND_GEN`. game.js: 4653→~4420. | Engineer | 🔲 Offen |
+| S26-2 | **#50 Höhle = Dungeon-Entry** — Klick auf Höhle öffnet IT-Dungeon-Dialog (Bits→Kernel→Browser). Oscar entdeckt etwas Neues. | Engineer + Artist | 🔲 Offen |
+| S26-3 | **#95 Wu-Xing→NPC-Events** — NPCs reagieren kontextbezogen auf Element-Transformationen (Feuer→Asche = SpongeBob-Kommentar, Wasser→Blumen = Floriane-Reaktion). | Engineer + Artist | 🔲 Offen |
+
+---
+
+## Standup Log
+
+### 2026-04-01 (Sprint 26 Planning)
+
+**Kontext:** Sprint 25 Review + Retro abgeschlossen (alle 3 Items Done). game.js: 4653 Zeilen nach Sprint-25-Commit. Ziel: unter 4500.
+
+**Sprint 26 Fokus:**
+- S26-1: Größte sichere Extraktion — Island-Gen-Funktionen. 233 LOC, kein Canvas-Context, kein State.
+- S26-2: Oscar-sichtbar — Höhle klicken → IT-Dungeon-Dialog. Zweimal verschoben, jetzt fällig.
+- S26-3: NPC-Reaktionen auf Wu-Xing-Events. Inter-Schicht-Kommunikation.
+
+**Blocker:** Smoke Test weiterhin in Sandbox blockiert. GitHub MCP nicht verfügbar — PRs müssen manuell erstellt werden.
+
+---
+
 # Sprint 25 — "Oscar wird erkannt"
 
 **Sprint Goal:** Oscar sieht seinen Namen auf der Insel, spielt Melodie und baut gleichzeitig, game.js wird kleiner.
