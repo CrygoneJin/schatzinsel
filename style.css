@@ -2594,3 +2594,15 @@ body.code-view-active #chat-settings-btn {
         text-align: center;
     }
 }
+
+/* #42 Canvas-Craft Shake — Feedback wenn kein Rezept passt */
+@keyframes craft-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+}
+.craft-shake {
+    animation: craft-shake 0.4s ease-in-out;
+}

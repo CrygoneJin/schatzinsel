@@ -1011,6 +1011,119 @@
     }
 
     // ============================================================
+    // === CANVAS DROP CRAFT (#42) — Material aus Palette/Inventar auf Canvas-Block ziehen
+    // ============================================================
+    // Infinite Craft Pattern: Drag Element-A auf Element-B auf dem Canvas
+    async function canvasDropCraft(draggedMat, targetMat, cell) {
+        // draggedMat kommt aus Palette/Inventar-Drag, targetMat liegt auf dem Canvas
+        // Prüfe ob Spieler das gedraggte Material im Inventar hat
+        if ((inventory[draggedMat] || 0) < 1) {
+            showToast('🤔 Nicht genug Material!');
+            return;
+        }
+
+        // Festes Rezept suchen (2er-Kombination, je 1x)
+        const recipe = CRAFTING_RECIPES.find(r => {
+            const keys = Object.keys(r.ingredients);
+            if (keys.length !== 2) return false;
+            const [k1, k2] = keys;
+            return (k1 === draggedMat && k2 === targetMat && r.ingredients[k1] === 1 && r.ingredients[k2] === 1)
+                || (k1 === targetMat && k2 === draggedMat && r.ingredients[k1] === 1 && r.ingredients[k2] === 1);
+        });
+
+        if (recipe) {
+            // Inventar: nur das gedraggte Material abziehen (Target liegt auf Canvas, nicht im Inventar)
+            inventory[draggedMat]--;
+            if (inventory[draggedMat] <= 0) delete inventory[draggedMat];
+            // Canvas: Ziel-Block durch Ergebnis ersetzen
+            pushUndo();
+            grid[cell.r][cell.c] = recipe.result;
+            // Rest ins Inventar (resultCount - 1, weil 1 auf dem Canvas liegt)
+            if (recipe.resultCount > 1) {
+                addToInventory(recipe.result, recipe.resultCount - 1);
+            }
+            unlockMaterial(recipe.result);
+            const isNew = !discoveredRecipes.has(recipe.name);
+            discoveredRecipes.add(recipe.name);
+            saveDiscoveredRecipes();
+            saveInventory();
+            soundCraft();
+            requestRedraw();
+            // Sparks auf der Craft-Zelle
+            EFFECTS.spawnCraftSparks();
+            const info = MATERIALS[recipe.result];
+            if (isNew) {
+                showToast(`🔮 ${info.emoji} ${recipe.desc}!`, 4000);
+            } else {
+                showToast(`⚒️ ${info.emoji} ${recipe.resultCount}x ${info.label}!`, 3000);
+            }
+            flashInventoryTab();
+            trackEvent('canvas-craft', { a: draggedMat, b: targetMat, result: recipe.result });
+            window.INSEL_BUS && window.INSEL_BUS.emit('craft:success', { result: recipe.result, ingredients: { [draggedMat]: 1, [targetMat]: 1 } });
+            updateInventoryDisplay();
+            return;
+        }
+
+        // Kein festes Rezept → LLM fragen
+        const pair = [draggedMat, targetMat].sort().join('+');
+        const localKey = `llm-craft:${pair}`;
+        const localCached = localStorage.getItem(localKey);
+
+        if (localCached) {
+            inventory[draggedMat]--;
+            if (inventory[draggedMat] <= 0) delete inventory[draggedMat];
+            saveInventory();
+            const result = JSON.parse(localCached);
+            const matId = applyLlmCraft(result);
+            if (matId) {
+                pushUndo();
+                grid[cell.r][cell.c] = matId;
+                requestRedraw();
+            }
+            updateInventoryDisplay();
+            return;
+        }
+
+        showToast('🔮 Die Insel denkt nach...');
+        try {
+            const playerName = localStorage.getItem('insel-player-name') || 'Anonym';
+            const res = await fetch(CRAFT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ a: draggedMat, b: targetMat, discoverer: playerName }),
+            });
+            if (!res.ok) { canvasCraftShake(cell); return; }
+            const craft = await res.json();
+            if (craft.error) { canvasCraftShake(cell); return; }
+
+            localStorage.setItem(localKey, JSON.stringify(craft));
+            inventory[draggedMat]--;
+            if (inventory[draggedMat] <= 0) delete inventory[draggedMat];
+            saveInventory();
+            const matId = applyLlmCraft(craft);
+            if (matId) {
+                pushUndo();
+                grid[cell.r][cell.c] = matId;
+                requestRedraw();
+            }
+            updateInventoryDisplay();
+        } catch (e) {
+            canvasCraftShake(cell);
+        }
+    }
+
+    // Shake-Animation wenn Canvas-Craft fehlschlägt
+    function canvasCraftShake(cell) {
+        showToast('🤔 Passt nicht zusammen!');
+        // Visuelles Feedback: kurzer Canvas-Shake
+        const wrapper = document.getElementById('canvas-wrapper');
+        if (wrapper) {
+            wrapper.classList.add('craft-shake');
+            setTimeout(() => wrapper.classList.remove('craft-shake'), 400);
+        }
+    }
+
+    // ============================================================
     // === CRAFTING === 3x3 Werkbank
     // ============================================================
     const CRAFTING_RECIPES = window.INSEL_CRAFTING_RECIPES;
@@ -3527,17 +3640,26 @@
     });
 
     // Drag & Drop: Material aus Palette auf Canvas ziehen
+    // #42 Werkbank-Canvas-Drag: auf belegtes Feld droppen = Crafting
     canvas.addEventListener('dragover', e => {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
     });
-    canvas.addEventListener('drop', e => {
+    canvas.addEventListener('drop', async e => {
         e.preventDefault();
         const mat = e.dataTransfer.getData('text/plain');
         if (!mat || !MATERIALS[mat]) return;
-        selectMaterial(mat);
         const cell = getGridCell(e);
-        if (cell) applyTool(cell.r, cell.c);
+        if (!cell) return;
+        const targetMat = grid[cell.r] && grid[cell.r][cell.c];
+        // Wenn Ziel-Zelle ein anderes Material hat → Canvas-Craft
+        if (targetMat && targetMat !== mat && MATERIALS[targetMat]) {
+            await canvasDropCraft(mat, targetMat, cell);
+            return;
+        }
+        // Sonst: normales Platzieren
+        selectMaterial(mat);
+        applyTool(cell.r, cell.c);
     });
 
     // Aktions-Buttons
