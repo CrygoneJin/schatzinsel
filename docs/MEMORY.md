@@ -7,6 +7,8 @@ Scientist gepflegt. Jeder darf schreiben, Feynman kuratiert.
 
 ## Fehler (damit wir sie nicht wiederholen)
 
+| 2026-04-01 | Sprint 26 Review + Retro fehlten in SPRINT.md obwohl alle Items Done — vorherige Session hat nur Status-Flags gesetzt, kein Review-Text geschrieben | Review-Text erst beim nächsten Session-Start nachgeholt | Review schreiben bevor man Commit macht. "Done" = Items ✅ + Review-Abschnitt existiert. |
+
 | 2026-04-01 | Sprint-26-Branch existierte lokal (Altlast, nicht gepusht) — reset --hard auf origin/feat/sprint-25 war nötig | Kein Remote-Check vor Branch-Erstellung | `git fetch origin && git log origin/feat/sprint-N --oneline -3` IMMER vor Branch-Erstellung |
 
 | 2026-04-01 | Sprint-25-Branch existierte schon (wieder) — gleicher Namenskonflikt wie Sprint 23 | Session-Start ohne `git fetch origin` | `git fetch origin && git log origin/feat/sprint-N -3` ist die ERSTE Aktion nach Session-Start. IMMER. |

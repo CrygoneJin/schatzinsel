@@ -15,6 +15,54 @@
 
 ---
 
+## Sprint Review — 2026-04-01
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done. game.js: 4653→4490 LOC (netto, inkl. Neuzusätze durch S26-2+S26-3).
+
+**Was geliefert wurde:**
+- S26-1: `island-gen.js` (229 LOC) — `generateStarterIsland()` + `generateLummerland()` extrahiert, als `window.INSEL_ISLAND_GEN` exportiert. game.js verlor ~233 reine Logik-Zeilen. Parameter-Übergabe für Canvas-unabhängige Funktionen ist das richtige Muster.
+- S26-2: Dungeon-Entry — Klick auf Höhle öffnet IT-Dialog mit 3 Kammern (Bits, Kernel, Browser). `showDungeonEntry()` trackt besuchte Kammern per localStorage. Oscar entdeckt etwas Neues hinter jedem Berg.
+- S26-3: Wu-Xing→NPC-Events — `triggerWuXingNpcEvent()` mit 30s Cooldown, nur wenn NPC freigeschaltet. SpongeBob reagiert auf Feuer→Asche, Floriane auf Wasser→Blumen. Inter-Schicht-Kommunikation ohne neues System — hooks in bestehende `updateWorldConsequences()`-Callbacks.
+
+**Nicht geliefert:**
+- `draw*()` noch in game.js — Canvas-Context-Abhängigkeit zu tief. Bleibt Tech-Schuld.
+- NPC-Session-Gedächtnis (#96) — nicht angepackt.
+
+**Oscar-Check:** Höhle klicken = Überraschung. SpongeBob sagt etwas wenn die Welt sich verändert. Zwei Dinge die er zeigen wird.
+
+---
+
+## Sprint Retrospective — 2026-04-01
+
+### Was lief gut?
+
+- **island-gen.js: 229 LOC sicher extrahiert.** Parameter-Übergabe (nicht Closure) macht Canvas-unabhängige Funktionen sicher extrahierbar — Muster für draw*()-Vorbereitung.
+- **Dungeon ohne Framework.** 30 Zeilen, localStorage-Tracking, 3 IT-Kammern. Kein neues System — ein Dialog mit Inhalt.
+- **Wu-Xing-Events als Hooks.** `triggerWuXingNpcEvent()` in bestehende Konsequenz-Callbacks eingehängt. NPC-System reagiert auf Welt-Events ohne Architektur-Umbau.
+- **game.js unter 4500.** 4490 LOC — Ziel erreicht. Schuldenabbau funktioniert in kleinen Schritten.
+
+### Was lief schlecht?
+
+- **game.js-Netto-Reduktion schwach.** 4653→4490 = 163 LOC gespart, aber 233 LOC rausgezogen. S26-2+S26-3 haben 70 LOC reingebracht. Feature-Arbeit frisst Refactor-Gewinne.
+- **Smoke Test blockiert seit Sprint 19.** Keine externe URL-Verifikation in Sandbox. Kein CI. Echtes Deployment-Risiko.
+- **PRs manuell.** GitHub MCP nicht konfiguriert, gh CLI fehlt. feat/sprint-25 und feat/sprint-26 liegen ungemergt.
+
+### Was verbessern wir?
+
+1. **Refactor-Sprint isolieren** — Sprint 27 nur Extraktion, kein neues Feature. draw*()-Vorbereitung oder NPC-System.
+2. **NPC-Session-Gedächtnis (#96)** — Oscar soll sich erinnert fühlen. War zweimal nicht dran.
+3. **PRs manuell erstellen** — feat/sprint-25 und feat/sprint-26 auf github.com als PR anlegen. User-Action.
+
+### Sprint 27 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#96 NPC-Session-Gedächtnis** | P2 | NPCs erinnern sich an letzte Session. Oscar fühlt sich erkannt — noch tiefer als der Willkommens-Toast. |
+| **#11 draw-layer.js** | P1 | draw*()-Funktionen (~300 LOC) raus. game.js unter 4200. Benötigt Parameter-Audit (Canvas-Context). |
+| **#54 Jim Knopf — zweite Insel** | P1 | Boot craften → Meer überqueren → nächste Insel. Großes Oscar-Feature. Zwei Inseln sind wie zwei Kapitel. |
+
+---
+
 ## Standup Log
 
 ### 2026-04-01 (Sprint 26 Planning)
