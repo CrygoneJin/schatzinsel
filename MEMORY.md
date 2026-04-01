@@ -4,6 +4,11 @@ Persistent team log. Append-only. Read by all agents.
 
 ---
 
+## Erfolge
+
+| 2026-04-01 | Feng Shui Weltgeneration + Lava-Lamp-RNG (#139) | LCG→crypto.getRandomValues(), Insel folgt 5 Feng Shui Tieren, Chi-Pfad statt Giftpfeil |
+| 2026-04-01 | Requesty-Leak gefunden: CLI lief über LiteLLM-Proxy statt Max → $9.11 Opus-Kosten | Env-Vars in .zshrc entfernt |
+
 ## Bugs (so we don't repeat them)
 
 | 2026-03-30 | Backlog-Drift: 14 Items waren in Code done aber Backlog zeigte 🔲 | Keine Session-übergreifende Backlog-Pflege | Am Ende jeder Session: Backlog-Zeilen updaten, bevor MEMORY geschrieben wird |
