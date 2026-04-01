@@ -396,6 +396,36 @@
         }
     }
 
+    // === HÖHLEN-DUNGEON — IT-Entdeckungsraum ===
+    // Oscar klickt eine Höhle an → drei IT-Kammern zum Entdecken
+    const DUNGEON_CHAMBERS = [
+        {
+            id: 'bits',
+            label: '💡 Bit-Kammer',
+            text: '0 und 1. Mehr braucht ein Computer nicht. Millionen davon pro Sekunde!'
+        },
+        {
+            id: 'kernel',
+            label: '⚙️ Kernel-Kammer',
+            text: 'Der Kernel ist der Chef. Er entscheidet, wer die CPU bekommt — wie ein Stundenplan.'
+        },
+        {
+            id: 'browser',
+            label: '🌐 Browser-Kammer',
+            text: 'Dein Browser übersetzt HTML in Bilder. Genau so wie diese Insel aus Text entsteht!'
+        }
+    ];
+
+    function showDungeonEntry(r, c) {
+        const visited = JSON.parse(localStorage.getItem('insel-dungeon-visited') || '[]');
+        const next = DUNGEON_CHAMBERS.find(ch => !visited.includes(ch.id)) || DUNGEON_CHAMBERS[0];
+        showToast(`🕳️ ${next.label}: ${next.text}`, 5000);
+        if (!visited.includes(next.id)) {
+            visited.push(next.id);
+            localStorage.setItem('insel-dungeon-visited', JSON.stringify(visited));
+        }
+    }
+
     // === KRABS SHOP — Muschelhandel ===
     // 1 Muschel = 0.001 MMX (Nerd-Ebene). Kinder sehen 🐚, Nerds sehen MMX.
     const SHELL_TO_MMX = 0.001;
@@ -2156,6 +2186,12 @@
         if (r < 2 || r >= ROWS - 2 || c < 2 || c >= COLS - 2) return;
         // NPCs nicht überbauen
         if (getNpcAt(r, c)) return;
+
+        // Höhlen-Interaktion: Klick auf Höhle öffnet IT-Dungeon
+        if (grid[r][c] === 'cave' && currentTool === 'harvest') {
+            showDungeonEntry(r, c);
+            return;
+        }
 
         if (currentTool === 'build') {
             // Hinweis: Klick auf Baum/Pflanze im Bau-Modus → Ernte-Tipp (max 1x pro 30s)
