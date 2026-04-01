@@ -116,5 +116,97 @@ keine Symmetriegruppen — sie haben Geschichte.
 
 ---
 
+## Nachtrag: √42 Dimensionen
+
+### Die Zahl
+
+√42 ≈ 6,4807406984...
+
+Irrational. Nicht-periodisch. Unendlich viele Nachkommastellen. Wie Sprache
+selbst: Du kannst sie beliebig genau approximieren, aber nie exakt fassen.
+
+Douglas Adams hat die Frage nach dem Leben, dem Universum und dem ganzen
+Rest mit 42 beantwortet. Die Wurzel davon — also die Frage hinter der
+Antwort hinter der Frage — ist eine gebrochene Dimension. Kein ganzer Raum.
+Ein Fraktal.
+
+### Macht das Internet Peng?
+
+Nein. Aber es erklärt, warum es so ist wie es ist.
+
+Das Internet ist ein ~6,5-dimensionaler Raum. Nicht metaphorisch — die
+Netzwerktopologie des Internets hat eine fraktale Dimension, die je nach
+Messmethode zwischen 4 und 8 liegt. Jeder Knoten (Server, Router, Mensch)
+hat mehr Nachbarn als eine euklidische Geometrie erlauben würde. Small-World-
+Netzwerke. Six Degrees of Separation. **Sechs Komma irgendwas.**
+
+√42.
+
+Das Internet macht nicht Peng. Das Internet **ist** √42. Es war nie etwas
+anderes. Jede Webseite, jeder Tweet, jede WhatsApp-Nachricht existiert in
+einem Raum, der zu gebrochen ist für Physik und zu strukturiert für Zufall.
+
+### Implodiert AWS?
+
+AWS hat aktuell ~100 Availability Zones in ~32 Regionen. Die Service-Matrix
+(welcher Service läuft wo) hat eine effektive Dimensionalität, die — man
+ahnt es — deutlich unter 42 liegt, aber deutlich über 3.
+
+Das Problem ist nicht die Implosion. Das Problem ist, dass Bezos' gesamtes
+Imperium auf einer Annahme beruht, die niemand ausspricht: **Dass die
+Dimensionalität der Kundenbedürfnisse endlich ist.** Dass man mit genug
+Regionen, genug Services, genug EC2-Instanztypen (aktuell ~750) jeden
+Use Case abdecken kann.
+
+Aber wenn Sprache √42-dimensional ist und AWS Sprache verarbeiten will
+(Alexa, Bedrock, Transcribe) — dann baut Bezos ein ganzzahliges Regal
+für irrationale Bücher. Es passt immer fast. Nie ganz.
+
+### Heult Ballmer?
+
+Steve Ballmer hat 2001 auf einer Bühne "Developers! Developers! Developers!"
+geschrien. Dreimal. Drei Dimensionen. Er hat instinktiv verstanden, dass
+Microsoft in einem 3D-Raum lebt:
+
+1. **Betriebssystem** (Windows)
+2. **Office-Suite** (Office)
+3. **Entwicklertools** (Visual Studio)
+
+Drei Achsen. Alles andere war Projektion auf diese drei Dimensionen. Xbox?
+Entertainment-Windows. Azure? Cloud-Windows. LinkedIn? Office für Karriere.
+
+Ballmer hat nie geweint, weil die drei Dimensionen nicht reichten. Er hat
+geweint, weil er wusste, dass sie reichen **müssen** — weil Microsoft nichts
+anderes kann. Das iPhone hat nicht eine vierte Dimension hinzugefügt. Es hat
+gezeigt, dass die Welt nie dreidimensional war.
+
+### Sind Milliardäre dann auch nur Menschen?
+
+Die Forbes-Liste ist ein eindimensionales Ranking. Eine Zahl. Nettovermögen.
+Alles auf eine Achse projiziert.
+
+Wenn man Milliardäre in √42 Dimensionen betrachtet:
+- **Bezos** ist hoch auf der Logistik-Achse, null auf der Empathie-Achse
+- **Musk** ist hoch auf der Entropie-Achse (Chaos erzeugen → Aufmerksamkeit → Kapital)
+- **Gates** hat nach der Microsoft-Achse eine Malaria-Achse entdeckt und pendelt seitdem
+- **Zuckerberg** hat eine einzige Dimension (Verbindungen zwischen Menschen) so hart optimiert, dass sie zur Waffe wurde
+- **Ballmer** tanzt auf allen Achsen gleichzeitig und schwitzt dabei
+
+Sind sie Menschen? In einer Dimension (Geld) nicht — da sind sie statistische
+Ausreißer, 6σ-Events. In √42 Dimensionen? Da sind sie genauso verloren wie
+alle anderen. Musk twittert nachts. Bezos kauft eine Zeitung, um relevant
+zu bleiben. Zuckerberg trainiert MMA, weil er in der physischen Dimension
+versagt hat und das nicht aushält.
+
+√42 ist die Dimension, in der Geld nicht mehr hilft. In der du nicht "mehr
+Dimensionen kaufen" kannst, weil die Dimension irrational ist. Du kannst
+dich ihr nur asymptotisch nähern. Wie jeder andere Mensch auch.
+
+**Ja. In √42 Dimensionen sind Milliardäre auch nur Menschen.**
+
+Und das Internet macht nicht Peng. Es **ist** das Peng. Seit 1969.
+
+---
+
 *Geschrieben in einem Projekt, das Kindern beibringen will, dass Worte
 Dinge erschaffen. Vielleicht die einzige Physik, die Sprache kann.*
