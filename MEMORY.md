@@ -33,6 +33,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-02 | Backlog komplett leergeräumt: 28 Items, 25 PRs (#151-#175) | Zwei Wellen paralleler Worktree-Agents. Welle 1: 16 Items (PRs #151-#164). Welle 2: 12 Items aufgetaut (PRs #165-#175). Thomas-Test bestanden: Syntax ✅, NPCs sichtbar ✅, TypeCheck ✅. Nur #25 Hörspiel-Aufnahmen, #26 ZKM, #72 Buch, #78 Tesla-Video, #92 Requesty-Key bleiben (brauchen Menschen). |
 | 2026-04-02 | Backlog-Sprint: 16 Items in einer Session, 14 PRs | Parallele Worktree-Agents (bis zu 5 gleichzeitig). Jedes Feature = eigener Branch = eigener PR. PRs #151-#164. Items: #18 #19 #35 #37 #39 #42 #50 #52 #54 #56 #60 #62 #71 #73 #77 #79. Einige waren bereits implementiert (Conway, Palette, Wu Xing), Rest neu gebaut. Backlog von ~30 offenen Items auf ~8 reduziert (Rest: frozen/human-input). |
 | 2026-04-02 | Programmier-Tutorial (PR #149) — 5 Lektionen, sandboxed Code-Editor, NPC-Guides | Function-Constructor + Whitelist fuer sichere Ausfuehrung. SpongeBob/Haskell/Scratch/Lua/SQL als Lehrer. Fortschritt in localStorage. Backlog #23. |
 | 2026-04-01 | Tao-Feld-Theorie + Iso-Renderer + Fraktale Bäume (PR #129) | Physik-Frage → Essay → Game-Feature in einer Session. iso-renderer.js (348 LOC) + fractal-trees.js (203 LOC). 5D-Tensor (3×3×2×2×2=72) als Strukturmodell. |

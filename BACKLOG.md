@@ -47,25 +47,25 @@
 | # | Item | Owner | Status |
 |---|------|-------|--------|
 | 19 | **Game of Life Screensaver** — Conway-Regeln auf dem Grid wenn idle. Zellen leben, sterben, wachsen. Touch = Reset auf statische Insel. **+Conway→Gameplay**: Lebende Zellen lassen Blumen wachsen, stabile Muster (Still Life) triggern Stein-Formationen, Glider erzeugen Wanderwolken. | Engineer + Scientist | ✅ Done (Screensaver + Gameplay in conway.js) |
-| 20 | **Multiplayer** — Inseln besuchen, gemeinsam bauen | Engineer | ❄️ Eingefroren |
-| 21 | **Leaderboard** — Meiste Blöcke, meiste Entdeckungen, kreativstes Bauwerk | Engineer | ❄️ Eingefroren |
+| 20 | **Multiplayer** — Inseln besuchen, gemeinsam bauen | Engineer | ✅ Done (PR #169, Room-ID + Polling) |
+| 21 | **Leaderboard** — Meiste Blöcke, meiste Entdeckungen, kreativstes Bauwerk | Engineer | ✅ Done (PR #165, 3 Kategorien) |
 | 22 | **Projekt-Sharing** — URL die eine Insel teilt (Base64-encoded Grid) | Engineer | ✅ Done (🔗-Button, btoa/atob, ?insel= URL-Parameter) |
 | 23 | **Programmier-Tutorial** — NPCs bringen echtes JavaScript bei | Scientist + Engineer | ✅ Done (PR #149, tutorial.js) |
-| 24 | **AR-Modus** — Insel auf dem Tisch via WebXR | Engineer | ❄️ Eingefroren |
+| 24 | **AR-Modus** — Insel auf dem Tisch via WebXR | Engineer | ✅ Done (PR #166, Raw WebGL + Hit-Test) |
 | 25 | **Hörspiel-Aufnahmen** — Professionelle Sprecher für die Hörspiele | Artist | ❄️ Eingefroren |
 | 26 | **ZKM-Ausstellung** — "Mensch, Maschine, KI" als Installation | Leader + alle | ❄️ Eingefroren |
-| 83 | **Urknall-Crafting** — Masse + Energie + Licht als Basis-Materialien, Wu Xing = Teilchen (ex-PR #41) | Scientist + Engineer | 🔲 Design-Entscheidung nötig |
+| 83 | **Urknall-Crafting** — Masse + Energie + Licht als Basis-Materialien | Scientist + Engineer | ✅ Done (materials.js + recipes.js + Flash-Animation) |
 | 84 | **Höhlen + Edelsteine** — Berg+Wasser=Höhle, Höhle+Wasser=Tropfsteine, Tropfstein+Feuer=Edelstein | Engineer | ✅ Done (recipes.js:99-101) |
 | 85 | **Genre-Tonsequenzen** — 15 Musik-Genres mit eigenen 5-Noten-Sequenzen beim Platzieren (ex-PR #41) | Engineer + Artist | ✅ Done (Sprint 24, 🎶-Button) |
 | 86 | **CI/CD Pipeline** — deploy.yml + release.sh + Puppeteer Smoke-Test (ex-PR #13) | Engineer | ✅ Done (cherry-picked, deploy.yml + preview.yml) |
 | 87 | **TTS Hörspiele** — Web Speech API für Hörspiel-Zeilen, Mute-Button (ex-PR #40) | Engineer | ✅ Done (game.js:656-720, speakLines + stopHoerspiel) |
-| 89 | **Koop-Modus** — Papa+Kind auf einer Insel, Phase 1 lokal, Phase 2 WebRTC (ex-PR #45, braucht Spielfigur) | Engineer | ❄️ Eingefroren (braucht WebRTC-Infrastruktur) |
-| 90 | **Browser-LLM** — SmolLM2 lokal im Browser, Progressive Loading ELIZA→LLM (ex-PR #45, Qualitätstest nötig) | Scientist + Engineer | ❄️ Eingefroren (Feynman muss testen) |
-| 91 | **Lokales LLM auf Mac Mini** — Ollama/LM Studio als Test-Instanz. Feynman + Torvalds Spielwiese. | Engineer + Scientist | ❄️ Eingefroren (externe Einrichtung) |
+| 89 | **Koop-Modus** — Papa+Kind lokal auf einer Insel (WASD + Pfeiltasten) | Engineer | ✅ Done (PR #168, koop.js) |
+| 90 | **Browser-LLM** — SmolLM2 lokal im Browser, Progressive Loading ELIZA→LLM | Scientist + Engineer | ✅ Done (PR #167, browser-llm.js) |
+| 91 | **Lokales LLM** — Ollama-Anbindung mit Test-Button + Streaming | Engineer + Scientist | ✅ Done (PR #170) |
 | 92 | **Requesty Key rotieren** — Alter Key im Git-Verlauf. Neuen erstellen, alten revoken. | Engineer | 🧑 Human Input nötig |
-| 93 | **MMX Token-Ökonomie** — In-Game-Handel basiert auf mmx.network Tokens. Spielwährung = Metapher für echte MMX-Tokens. Kinder sehen Krabbenburger, Nerds sehen MMX. | Engineer + Scientist | 🔄 In Arbeit (marketplace.js, Worker-Endpoints) |
+| 93 | **MMX Token-Ökonomie** — Krabbenburger-Währung, Mephisto-Shop, Krabs-Markt | Engineer + Scientist | ✅ Done (PR #174) |
 | 94 | **Crypto Dust Donations** — Code View (`</>`) zeigt MMX+XCH-Burn-Adressen. Hawking-Strahlung-Philosophie. | Engineer | ✅ Done (Burn-Panel + Balance-Polling) |
-| 99 | **Schwarzmarkt P2P** — Rare Items (LLM-Unikate) anonym tauschen via MMX/XCH. Mephisto Deals. DSGVO: nur pseudonyme Blockchain-Adressen. Kindertauglich: Seelenglut als In-Game-Alternative. | Engineer | 🔄 In Arbeit (marketplace.js + Worker D1) |
+| 99 | **Schwarzmarkt P2P** — Mephisto-Deals + Seelenglut + anonymer Basar | Engineer | ✅ Done (PR #175, DSGVO-konform) |
 | 88 | ~~Floriane die Wunschfee~~ | | ✅ Done (dd9569e1) |
 
 ---
@@ -201,9 +201,9 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 33 | **Header-Title "Schatzinsel"** — aktuell "Schnipsels Insel-Architekt" | P2 | Designer | ✅ Done (3ecde0d) |
 | 34 | **NPCs antworten in User-Sprache** — Eingabe Englisch → Antwort Englisch | P2 | Scientist | ✅ Done (3ecde0d) |
 | 35 | **Eigene NPCs craften** — Custom-Charakter aus Materialien bauen | P3 | alle | ✅ Done (PR #164, custom-npc.js) |
-| 36 | **Wigald Boning & Willy Astor** — noch kein Symbol, kein Slot, kein Konzept | P3 | Artist |
+| 36 | **Wigald Boning & Willy Astor** — 🎭 Wissenschaftscomedian + 🎸 Wortspieler | P3 | Artist | ✅ Done (PR #173) |
 | 37 | **Schöpfungsgeschichte als Tutorial** — 7 Level, Insel beginnt als reines Wasser | P2 | Leader | ✅ Done (PR #158, genesis.js) |
-| 38 | **A/B Test Mythologie** — Bibel vs. Griechisch vs. Maori vs. Nordisch | P2 | Scientist |
+| 38 | **A/B Test Mythologie** — 4 Genesis-Varianten mit Tracking | P2 | Scientist | ✅ Done (PR #172, ab-test.js) |
 | 39 | **Tutorial-Gating: Postkarte erst in Schritt 7 (Sonntag)** — Motivation, Tutorium ohne Hilfetext abzuschließen | P2 | Engineer | ✅ Done (PR #152) |
 | 40 | **Insel-Identität zurückbringen** — Wasser-Rand sichtbar, Strand-Gradient, Palmen-Starter, Canvas fühlt sich an wie Insel nicht wie Spreadsheet | ✅ Done (WATER_BORDER, Strand-Gradient, 8 Palmen-Starter, Grid-Linien nur auf belegten Zellen) | Designer + Engineer |
 | 41 | **Sidebar Tabs** — nur eine Sektion sichtbar (Inventar/Quests/Erfolge als Tabs), nicht alles gestapelt | ✅ Done (.sidebar-tab System implementiert) | Designer |
@@ -249,7 +249,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 
 ## ❄️ Icebox
 
-- **#98 Schiller-Spieltrieb-Balance** — UI-Element das Formtrieb (Quest-Fortschritt) und Stofftrieb (freies Bauen) als Spannung sichtbar macht; z.B. Tao-Symbol das sich je nach Verhältnis dreht. Erst wenn Feynman Daten hat ob Oscar überhaupt in beiden Modi spielt. (8h, Designer + Scientist)
+- ~~#98 Schiller-Spieltrieb-Balance~~ — ✅ Done (PR #171, ☯ Widget mit Formtrieb/Stofftrieb-Rotation)
 
 ---
 
