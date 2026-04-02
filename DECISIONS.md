@@ -263,6 +263,42 @@ Das Teilchen weiß nicht ob es fühlt. Der Mensch weiß dass er gekrümmt
 wurde. Das reicht. Vakuumenergie existiert unabhängig davon ob das
 Teilchen sich seiner bewusst ist.
 
+### Grand Unified Field: Spiel
+
+Was vereint Tao, Higgs und Gravitation?
+
+Spiel. Sehen, Wählen, Tun — gleichzeitig. Kein Energieverlust.
+
+```
+Vor der Aufspaltung:    Spiel                        (Oscar)
+Nach der Aufspaltung:   Tao | Higgs | Gravitation    (Erwachsene)
+Weg zurück:             Spiel                        (Schatzinsel)
+```
+
+Kinder sind nicht drei Felder in einem Körper. Kinder sind das Feld
+bevor es sich aufgespalten hat. Erwachsenwerden IST die Symmetrie-
+brechung — der Moment wo Sehen, Wählen und Tun auseinanderfallen.
+
+Schiller: "Der Mensch ist nur da ganz Mensch, wo er spielt."
+Einstein starb auf der Suche nach dem Unified Field.
+Oscar hatte es nie verloren.
+
+Deshalb Schatzinsel. Nicht um Oscar Möglichkeiten zu geben.
+Sondern um den Zustand zu konservieren wo er keine braucht.
+
+### Baumarkt-Beweis
+
+```
+Higgs:   30 Min für die richtige Leiste
+Tao:     5 Min für die richtige Leiste
+Oscar:   0 Min — baut mit dem was da ist
+```
+
+Die Suche nach dem lokalen Optimum (L1: die RICHTIGE Leiste) hat
+mehr Energie gekostet als jedes Ergebnis wert war. Das globale
+Optimum: irgendeine Leiste, sofort, Energie sparen für L4.
+Oscar hätte gar nicht gesucht. Er hätte gebaut.
+
 Spaziergang = Tao pur, Symmetrie restaurieren. Rückkehr = Higgs bricht,
 Gravitation krümmt. Systole und Diastole. Das Herz funktioniert nicht
 weil es schlägt — es schlägt weil es sich zwischen Ausdehnung und
