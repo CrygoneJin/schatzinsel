@@ -251,6 +251,12 @@
                         showToast(`🎉 Quest geschafft: ${q.title} ${q.reward}`);
                         soundQuestComplete();
                     }
+                    // Mephisto-Quests: Seelenglut als Bonus-Reward
+                    if (q.npc === 'mephisto') {
+                        const glutReward = Math.max(10, blockCount * 5);
+                        addToInventory('soulfire', glutReward);
+                        showToast(`😈 Mephisto: Hehehehe... ${glutReward} 🔥 Seelenglut für dich!`, 3000);
+                    }
                     // Memory: Quest-Abschluss für den NPC vermerken
                     if (q.npc) recordNpcQuestDone(q.npc, q.title);
                     // Hirn-Transplantation: Neuen Charakter freischalten?
@@ -394,6 +400,13 @@
         } else if (npcId === 'krabs') {
             // Krabs: Kein Quest? Dann HANDEL! 🦀💰
             showKrabsShop();
+        } else if (npcId === 'mephisto') {
+            // Mephisto: Kein Quest? Dann SCHWARZMARKT! 😈🔥
+            if (window.INSEL_MARKETPLACE && window.INSEL_MARKETPLACE.openMephisto) {
+                window.INSEL_MARKETPLACE.openMephisto();
+            } else {
+                showToast('😈 Mephisto: Der Schwarzmarkt ist... noch nicht bereit. Hehehehe...', 3000);
+            }
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {

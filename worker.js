@@ -63,6 +63,16 @@ export default {
         if (pathname === '/market/buy') {
             return handleMarketBuy(request, env);
         }
+        // Schwarzmarkt (Seelenglut-basiert, anonym)
+        if (pathname === '/blackmarket/items') {
+            return handleBlackmarketItems(request, env);
+        }
+        if (pathname === '/blackmarket/list') {
+            return handleBlackmarketList(request, env);
+        }
+        if (pathname === '/blackmarket/buy') {
+            return handleBlackmarketBuy(request, env);
+        }
 
         // Nur POST
         if (request.method !== 'POST') {
@@ -749,6 +759,138 @@ async function createMarketTable(env) {
     await env.METRICS_DB.prepare(
         'CREATE TABLE IF NOT EXISTS marketplace (id TEXT PRIMARY KEY, material_id TEXT NOT NULL, name TEXT NOT NULL, emoji TEXT DEFAULT \'✨\', description TEXT DEFAULT \'\', price_mmx REAL DEFAULT 0, price_xch REAL DEFAULT 0, price_glut INTEGER DEFAULT 0, seller_addr TEXT DEFAULT \'anonym\', seller_mmx TEXT DEFAULT \'\', seller_xch TEXT DEFAULT \'\', buyer_addr TEXT DEFAULT \'\', status TEXT DEFAULT \'active\', created_at DATETIME DEFAULT CURRENT_TIMESTAMP)'
     ).run();
+}
+
+// --- Schwarzmarkt (Seelenglut, anonym, DSGVO-konform) ---
+
+async function createBlackmarketTable(env) {
+    await env.METRICS_DB.prepare(
+        `CREATE TABLE IF NOT EXISTS blackmarket (
+            id TEXT PRIMARY KEY,
+            material_id TEXT NOT NULL,
+            name TEXT NOT NULL,
+            emoji TEXT DEFAULT '✨',
+            description TEXT DEFAULT '',
+            price_glut INTEGER NOT NULL DEFAULT 10,
+            seller_id TEXT NOT NULL,
+            buyer_id TEXT DEFAULT '',
+            status TEXT DEFAULT 'active',
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )`
+    ).run();
+}
+
+async function handleBlackmarketItems(request, env) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    const url = new URL(request.url);
+    const limit = Math.min(parseInt(url.searchParams.get('limit') || '20'), 50);
+
+    try {
+        await createBlackmarketTable(env);
+        const rows = await env.METRICS_DB.prepare(
+            `SELECT id, material_id, name, emoji, description, price_glut, seller_id, status, created_at
+             FROM blackmarket WHERE status = 'active' ORDER BY created_at DESC LIMIT ?`
+        ).bind(limit).all();
+        return json({ items: rows.results || [] });
+    } catch (e) {
+        return json({ error: e.message }, 500);
+    }
+}
+
+async function handleBlackmarketList(request, env) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
+
+    let body;
+    try { body = await request.json(); } catch (e) {
+        return json({ error: 'Ungültiger Body' }, 400);
+    }
+
+    if (!body.material_id || !body.name) {
+        return json({ error: 'material_id und name benötigt' }, 400);
+    }
+    if (!body.price_glut || body.price_glut < 1) {
+        return json({ error: 'price_glut muss mindestens 1 sein' }, 400);
+    }
+
+    const sellerId = body.seller_id || 'anonym';
+
+    try {
+        await createBlackmarketTable(env);
+
+        // Max 10 aktive Listings pro Seller
+        const count = await env.METRICS_DB.prepare(
+            `SELECT COUNT(*) as cnt FROM blackmarket WHERE seller_id = ? AND status = 'active'`
+        ).bind(sellerId).first();
+        if (count && count.cnt >= 10) {
+            return json({ error: 'Maximal 10 aktive Angebote. Mephisto sagt: Geduld!' }, 429);
+        }
+
+        const id = crypto.randomUUID();
+        await env.METRICS_DB.prepare(
+            `INSERT INTO blackmarket (id, material_id, name, emoji, description, price_glut, seller_id, status)
+             VALUES (?, ?, ?, ?, ?, ?, ?, 'active')`
+        ).bind(
+            id, body.material_id, body.name, body.emoji || '✨',
+            body.description || '', body.price_glut, sellerId
+        ).run();
+
+        return json({ ok: true, id });
+    } catch (e) {
+        return json({ error: e.message }, 500);
+    }
+}
+
+async function handleBlackmarketBuy(request, env) {
+    if (!env.METRICS_DB) return json({ error: 'D1 nicht konfiguriert' }, 500);
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
+
+    let body;
+    try { body = await request.json(); } catch (e) {
+        return json({ error: 'Ungültiger Body' }, 400);
+    }
+
+    if (!body.listing_id) return json({ error: 'listing_id benötigt' }, 400);
+
+    try {
+        await createBlackmarketTable(env);
+
+        // Item lesen um Details zurückzugeben
+        const item = await env.METRICS_DB.prepare(
+            `SELECT * FROM blackmarket WHERE id = ? AND status = 'active'`
+        ).bind(body.listing_id).first();
+
+        if (!item) {
+            return json({ error: 'Angebot nicht verfügbar oder bereits verkauft' }, 404);
+        }
+
+        // Nicht eigenes Item kaufen
+        if (item.seller_id === body.buyer_id) {
+            return json({ error: 'Du kannst dein eigenes Angebot nicht kaufen, Schlauberger.' }, 400);
+        }
+
+        // Status auf sold setzen
+        const result = await env.METRICS_DB.prepare(
+            `UPDATE blackmarket SET status = 'sold', buyer_id = ? WHERE id = ? AND status = 'active'`
+        ).bind(body.buyer_id || 'anonym', body.listing_id).run();
+
+        if (result.meta.changes === 0) {
+            return json({ error: 'Jemand war schneller. Mephisto lacht.' }, 409);
+        }
+
+        return json({
+            ok: true,
+            listing_id: body.listing_id,
+            item: {
+                material_id: item.material_id,
+                name: item.name,
+                emoji: item.emoji,
+                description: item.description,
+            }
+        });
+    } catch (e) {
+        return json({ error: e.message }, 500);
+    }
 }
 
 // --- Helpers ---

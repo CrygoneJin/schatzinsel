@@ -618,6 +618,7 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 ### Erfolge
 | Datum | Was |
 |-------|-----|
+| 2026-04-02 | Schwarzmarkt P2P live: Mephisto-Klick → Shop, Basar (anonym), Seelenglut-Währung, Worker /blackmarket/* Endpoints, DSGVO nur pseudonyme IDs |
 | 2026-03-31 | Mephisto NPC live: 10. Charakter, Deal-Mechanik, Browning-Zitat, Seelenglut-Währung |
 | 2026-03-31 | Gemini Voice Chat: 5 Stimmen, Worker-Abstraktion, kein Vendor-Lock-In |
 | 2026-03-31 | KLONK auf Minecraft-Niveau: 3-Layer Sub-Bass — Oscar hört den Unterschied |
