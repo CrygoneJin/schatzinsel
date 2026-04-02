@@ -1,3 +1,39 @@
+# Sprint 25 — "Die Insel kennt dich"
+
+**Sprint Goal:** Oscar kommt zurück — die Insel begrüßt ihn namentlich. Boot-Rezept als erster Schritt zur Inselkarte. grid.js sauber extrahiert.
+**Start:** 2026-04-02
+
+**Hinweis:** Parallele Branches `feat/dungeon-framework` (Sprint 25 doppelt) und `feat/palette-instrument` (Sprint 26) existieren noch ungemergt. Dieser Sprint arbeitet von main — kein Merge-Konflikt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S25-1 | **#54 Jim Knopf — Boot + goldener Pfad** — Boot im Inventar + neben Wasser → goldener Lichtstreifen auf Wasserzellen + Toast "⛵ Das nächste Abenteuer wartet...". Kein UI, nur Licht + Text. Erster Schritt der Inselkarte. | Engineer | ✅ Done |
+| S25-2 | **#11 grid.js — Extraktion** — initGrid() + generateStarterIsland() + generateLummerland() raus aus game.js. Fresh von main. game.js: 4972→4764 (−208 LOC). | Engineer | ✅ Done |
+| S25-3 | **Backlog-Audit** — #95 (npc-events.js), #96 (NPC-Gedächtnis), #57 (Stille-Momente), #23 (Programmier-Tutorial) als ✅ Done markiert. 4 Phantom-Opens bereinigt. | Scientist | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-02 (Sprint 25 Planning)
+
+**Kontext (Sprint 24 Review + Retro abgeschlossen):**
+- S24-1: Genre-Tonsequenzen ✅
+- S24-2: stories.js extrahiert ✅
+- S24-3: Tutorial ohne Text ✅
+- Retro empfahl: easter-eggs.js, Dungeon, Palette → alles auf Branches (nicht gemergt)
+- Dieser Sprint wählt frische P1/P2 Items ohne Branch-Konflikte
+
+**Sprint-Fokus:** NPC-Gedächtnis zuerst (Oscar-sichtbar). Dann Boot (Welt öffnet sich). Dann grid.js (Schulden).
+
+**Blocker:** Keine.
+
+---
+
 # Sprint 24 — "Oscar hört die Welt"
 
 **Sprint Goal:** Musik beim Bauen (Genre-Sequenzen) + technische Schulden (game.js aufteilen) + Tutorial ohne Text.

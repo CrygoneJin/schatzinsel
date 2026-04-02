@@ -39,8 +39,8 @@
 | 18 | **Musik on demand** — Loisach Marci Stil, Hardstyle kinderkompatibel | Artist + Engineer | 🔲 Offen |
 | 81 | **Inventar-Töne** — Jedes Inventar-Item hat einen eigenen Ton beim Auswählen | Engineer | ✅ Done (soundSelect + KLONK_FREQS pro Material) |
 | 82 | **Bau-Trommel** — Blöcke platzieren macht Percussion-Sounds | Engineer | ✅ Done (playDrumSound + DRUM_MAP pro Material) |
-| 95 | **Wu-Xing→NPC-Events** — NPCs reagieren kontextbezogen auf Element-Events (Feuer→Asche triggert SpongeBob-Kommentar, Wasser→Blumen triggert ELIZA-Reaktion). Inter-Schicht-Kommunikation. | Engineer + Artist | 🔲 Offen |
-| 96 | **NPC-Session-Gedächtnis** — NPCs erinnern sich an letzte Session (letztes Bauwerk, Lieblingsmaterial, Quests) via localStorage und erwähnen es beim nächsten Start | Engineer + Scientist | 🔲 Offen |
+| 95 | **Wu-Xing→NPC-Events** — NPCs reagieren kontextbezogen auf Element-Events (Feuer→Asche triggert SpongeBob-Kommentar, Wasser→Blumen triggert ELIZA-Reaktion). Inter-Schicht-Kommunikation. | Engineer + Artist | ✅ Done (npc-events.js, Sprint 25 Audit) |
+| 96 | **NPC-Session-Gedächtnis** — NPCs erinnern sich an letzte Session (letztes Bauwerk, Lieblingsmaterial, Quests) via localStorage und erwähnen es beim nächsten Start | Engineer + Scientist | ✅ Done (game.js:590-708, getNpcMemoryComment + saveSessionSnapshot, Sprint 25 Audit) |
 
 ## 🔵 P3 — Vision / Irgendwann
 
@@ -50,7 +50,7 @@
 | 20 | **Multiplayer** — Inseln besuchen, gemeinsam bauen | Engineer | ❄️ Eingefroren |
 | 21 | **Leaderboard** — Meiste Blöcke, meiste Entdeckungen, kreativstes Bauwerk | Engineer | ❄️ Eingefroren |
 | 22 | **Projekt-Sharing** — URL die eine Insel teilt (Base64-encoded Grid) | Engineer | ✅ Done (🔗-Button, btoa/atob, ?insel= URL-Parameter) |
-| 23 | **Programmier-Tutorial** — NPCs bringen echtes JavaScript bei | Scientist + Engineer | 🔲 Offen |
+| 23 | **Programmier-Tutorial** — NPCs bringen echtes JavaScript bei | Scientist + Engineer | ✅ Done (PR #149, 5 Lektionen + sandboxed Code-Editor, 2026-04-02) |
 | 24 | **AR-Modus** — Insel auf dem Tisch via WebXR | Engineer | ❄️ Eingefroren |
 | 25 | **Hörspiel-Aufnahmen** — Professionelle Sprecher für die Hörspiele | Artist | ❄️ Eingefroren |
 | 26 | **ZKM-Ausstellung** — "Mensch, Maschine, KI" als Installation | Leader + alle | ❄️ Eingefroren |
@@ -218,7 +218,7 @@ Idee: Die leere Insel (nur Wasser) wird in einer Sequenz erschaffen. Verschieden
 | 51 | **Wu Xing Philosophie im Craft-Prompt** — Holz=Expansion, Feuer=Aktion, Erde=Wandlung, Metall=Reife, Wasser=Ruhe | ✅ Done (worker.js Craft-Prompt + Beispiele) | Scientist |
 | 52 | **Kung Fu Panda Wuxi** — Ästhetik-Inspiration für Wu Xing Elemente | P2 | Artist |
 | 53 | **Echtes Atlantik-Wetter** — Open-Meteo API (29°N, 31°W — halber Weg Martinique↔Bayonne), 🌊 im Meer wetterabhängig | ✅ Done (Open-Meteo fetch bei game.js:1434) | Engineer |
-| 57 | **Stille-Momente** (Ende) — Leere Meerpassagen zwischen Inseln. Kein UI, kein Toast. Nur Wellen und Wind. Oscar denkt nach. **+Offline-Flüster-Modus**: wenn kein LLM erreichbar, wechselt die Insel in gedämpfte Farben, ELIZA-artige lokale Antworten, Toast "Die Insel flüstert nur noch". 3 von 6 Schichten fallen weg, aber es fühlt sich wie Regen an, nicht wie Fehler. | P1 | Designer + Artist || 58 | **Unsinn-Rezepte** (Lindgren) — Feuer+Pfannkuchen=?, Drache+Kuchen=?, unlogisch aber wunderbar | ✅ Done (7 Unsinn-Rezepte in recipes.js: Feuerkuchen, Drachentorte, Geisterschiff, Mondkäse, Schneedrache, Wurmloch, Bienenstich) | Artist |
+| 57 | **Stille-Momente** (Ende) — Leere Meerpassagen zwischen Inseln. Kein UI, kein Toast. Nur Wellen und Wind. Oscar denkt nach. **+Offline-Flüster-Modus**: wenn kein LLM erreichbar, wechselt die Insel in gedämpfte Farben, ELIZA-artige lokale Antworten, Toast "Die Insel flüstert nur noch". 3 von 6 Schichten fallen weg, aber es fühlt sich wie Regen an, nicht wie Fehler. | ✅ Done (Sprint 23, Wellen-Ambient via Web Audio + LFO nach 10s Idle) | Designer + Artist || 58 | **Unsinn-Rezepte** (Lindgren) — Feuer+Pfannkuchen=?, Drache+Kuchen=?, unlogisch aber wunderbar | ✅ Done (7 Unsinn-Rezepte in recipes.js: Feuerkuchen, Drachentorte, Geisterschiff, Mondkäse, Schneedrache, Wurmloch, Bienenstich) | Artist |
 | 59 | **10-Sekunden-Erster-Moment** (Paluten) — Erster Block in 10 Sek, nicht 30. Intro kürzen. Tao-Glow-Puls hilft. | P0 | Designer | ✅ Done (9f8a0bf) |
 | 60 | **Haikus am Strand** (Krapweis) — Jede Insel-Station: 5-7-5 Schild am Strand statt Tutorial-Text | P2 | Artist |
 | 61 | **Konsequenz** (Habeck) — Baum fällen = Baum weg. Brunnen bauen = Blumen wachsen. Welt reagiert. | ✅ Done (Baum→Stumpf→Setzling; Brunnen→Blumen: updateWorldConsequences(); Wasser→Blumen, Feuer→Asche: e002de7) | Engineer |

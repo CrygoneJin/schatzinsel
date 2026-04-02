@@ -33,6 +33,12 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-02 | Sprint 25 — Jim Knopf Boot-Hint + grid.js + Backlog-Audit | ⛵ Goldener Pfad: Boot im Inventar + nah am Wasser → goldenes Leuchten + Toast. grid.js (250 LOC) extrahiert: game.js 4972→4764. 4 Phantom-Opens bereinigt (#95 #96 #57 #23). Alle 3 S25-Items done in einer Session. |
+
+## Bugs (so we don't repeat them)
+
+| Datum | Was | Warum gut |
+|-------|-----|-----------|
 | 2026-04-02 | Programmier-Tutorial (PR #149) — 5 Lektionen, sandboxed Code-Editor, NPC-Guides | Function-Constructor + Whitelist fuer sichere Ausfuehrung. SpongeBob/Haskell/Scratch/Lua/SQL als Lehrer. Fortschritt in localStorage. Backlog #23. |
 | 2026-04-01 | Tao-Feld-Theorie + Iso-Renderer + Fraktale Bäume (PR #129) | Physik-Frage → Essay → Game-Feature in einer Session. iso-renderer.js (348 LOC) + fractal-trees.js (203 LOC). 5D-Tensor (3×3×2×2×2=72) als Strukturmodell. |
 | 2026-04-01 | Sprint 24 Retro — max 3 Items, game.js teilweise aufgeteilt, Tutorial ohne Text live | Sprint 25 Empfehlung: easter-eggs.js, Dungeon-Framework, Palette als Instrument |
