@@ -10,7 +10,6 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
-| 2026-04-03 | Sprint-Namenskonflikt wieder — feat/sprint-25 auf Remote hatte anderen Sprint 25 Plan | Session startete ohne Remote-Branch-Check | `git fetch origin && git log origin/feat/sprint-N -3` ZWINGEND vor Sprint Planning. Branch-Inhalt lesen, nicht nur Namen. Sprint-Nummer aus Remote, nicht aus lokalem SPRINT.md |
 | 2026-04-01 | Session startete ohne `git fetch` — planned Sprint 23 which already existed on remote with different content | feat/sprint-23 Branch war schon 5 Commits weiter (Sprint 23+24 done) | `git fetch origin && git log origin/feat/sprint-23 -5` als ERSTE Aktion nach Branch-Checkout — IMMER |
 | 2026-04-01 | Zwei parallele Sessions haben unabhängig Sprint 23 geplant — Namenskonflikt | feat/sprint-23 Branch existierte schon mit anderen Items | Vor Sprint Planning: `git fetch origin && git log origin/feat/sprint-N` — prüfen ob Branch schon läuft || 2026-04-01 | Robinson-Ökonomie: 3 PRs (#109 #110 #111) in einer Session | Kreative Frage (Sinn/Krabs/Trotzki) → 3 atomare Features auf bestehenden Patterns (nature.js, quest system, NPC dialog) | Bestehende Patterns erweitern > neue Systeme bauen. treeGrowth → seedGrowth war 5 Zeilen statt neuem Timer. || 2026-03-31 | Doppelte eliza.js Script-Tags in index.html nach PR-Merge | Merge von effects.js/nature.js Extraktion (#11) hat eliza.js/eliza-scripts.js dupliziert. Smoke-Test fängt console.error → Deployment failed. | Immer `grep -c '<script' index.html` prüfen nach Merge. Duplikate = potentieller Runtime-Crash. |
 | 2026-03-31 | analytics.js schrieb nichts nach D1 — nur Google Sheets Webhook | `pingWebhook()` nutzte nur localStorage-URL (`insel-webhook`), nicht den Worker `/metrics/ingest`. D1-Tabellen blieben leer. | Frontend muss aktiv an den Worker senden. "Endpoint existiert" ≠ "Endpoint wird genutzt". |
@@ -34,12 +33,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
-| 2026-04-02 | Sprint 25 — Jim Knopf Boot-Hint + grid.js + Backlog-Audit | ⛵ Goldener Pfad: Boot im Inventar + nah am Wasser → goldenes Leuchten + Toast. grid.js (250 LOC) extrahiert: game.js 4972→4764. 4 Phantom-Opens bereinigt (#95 #96 #57 #23). Alle 3 S25-Items done in einer Session. |
-
-## Bugs (so we don't repeat them)
-
-| Datum | Was | Warum gut |
-|-------|-----|-----------|
+| 2026-04-02 | Pereira-Audit: Backlog von 99 auf 18 aktive Items | "Backlog items age like milk." 17 Items archiviert (ARCHIVE.md), 5 eingefrorene begraben, Schöpfungsgeschichten nach docs/ ausgelagert. Oscar-Filter als Priorisierungsregel. Jedes Item braucht einen Satz: "Oscar wird ___ weil ___." |
 | 2026-04-02 | Programmier-Tutorial (PR #149) — 5 Lektionen, sandboxed Code-Editor, NPC-Guides | Function-Constructor + Whitelist fuer sichere Ausfuehrung. SpongeBob/Haskell/Scratch/Lua/SQL als Lehrer. Fortschritt in localStorage. Backlog #23. |
 | 2026-04-01 | Tao-Feld-Theorie + Iso-Renderer + Fraktale Bäume (PR #129) | Physik-Frage → Essay → Game-Feature in einer Session. iso-renderer.js (348 LOC) + fractal-trees.js (203 LOC). 5D-Tensor (3×3×2×2×2=72) als Strukturmodell. |
 | 2026-04-01 | Sprint 24 Retro — max 3 Items, game.js teilweise aufgeteilt, Tutorial ohne Text live | Sprint 25 Empfehlung: easter-eggs.js, Dungeon-Framework, Palette als Instrument |
