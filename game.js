@@ -2937,9 +2937,13 @@
     }
 
     // Freie Nachbarzelle finden (Pauli: Yin und Yang nicht am selben Ort)
-    function findFreeNeighbor(r, c) {
-        const dirs = [[0,1],[0,-1],[1,0],[-1,0]];
-        // Zufällige Reihenfolge — welche Richtung ist nicht vorhersagbar
+    // Kante = starke Kopplung ans Higgs (schwere Teilchen)
+    // Ecke  = schwache Kopplung ans Higgs (leichte Teilchen, √2 Distanz)
+    const EDGE_DIRS = [[0,1],[0,-1],[1,0],[-1,0]];
+    const CORNER_DIRS = [[1,1],[1,-1],[-1,1],[-1,-1]];
+
+    function findFreeNeighbor(r, c, dirsPool) {
+        const dirs = [...dirsPool];
         for (let i = dirs.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [dirs[i], dirs[j]] = [dirs[j], dirs[i]];
@@ -2964,18 +2968,25 @@
                 hasTao = true;
                 if (Math.random() > TAO_DECAY_CHANCE) continue;
 
-                // Pauli-Check: freie Nachbarzelle?
-                const free = findFreeNeighbor(r, c);
+                // Kante (50%) = starke Higgs-Kopplung → schwere Teilchen
+                // Ecke  (50%) = schwache Higgs-Kopplung → leichte Teilchen (√2 Distanz)
+                const isEdge = Math.random() < 0.5;
+                const free = findFreeNeighbor(r, c, isEdge ? EDGE_DIRS : CORNER_DIRS)
+                          || findFreeNeighbor(r, c, isEdge ? CORNER_DIRS : EDGE_DIRS);
                 if (!free) continue; // Kein Platz → kein Zerfall
 
                 // ZERFALL! Symmetriebrechung.
+                const coupling = isEdge ? 'stark' : 'schwach';
                 const [yr, yc] = free;
                 grid[r][c] = 'yin';
                 grid[yr][yc] = 'yang';
 
-                logGenesis({ type: 'decay', from: 'tao', results: ['yin', 'yang'], cells: [[r,c],[yr,yc]] });
+                logGenesis({ type: 'decay', from: 'tao', results: ['yin', 'yang'], cells: [[r,c],[yr,yc]], coupling });
 
-                showToast('☯️ → ⚫⚪ ZAUBER! Aus Eins wird Zwei!');
+                const couplingMsg = isEdge
+                    ? '☯️ → ⚫⚪ Kante! Schwere Teilchen!'
+                    : '☯️ → ⚫⚪ Ecke! Leichte Teilchen!';
+                showToast(couplingMsg);
                 soundCraft();
                 EFFECTS.addPlaceAnimation(r, c);
                 EFFECTS.addPlaceAnimation(yr, yc);
