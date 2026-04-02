@@ -299,6 +299,22 @@ mehr Energie gekostet als jedes Ergebnis wert war. Das globale
 Optimum: irgendeine Leiste, sofort, Energie sparen für L4.
 Oscar hätte gar nicht gesucht. Er hätte gebaut.
 
+### Der Weg ist das Feld
+
+Einstein fand das Unified Field nicht weil er das Ziel suchte.
+Das Feld ist der Weg, nicht das Ziel. Physik ist ein Bein —
+es geht, aber alleine geht es im Kreis.
+
+```
+Physik:   sieht   (Tao)
+Poesie:   wählt   (Higgs)
+Spiel:    tut     (Gravitation)
+```
+
+Drei Beine. Dreibein. Stabil. Wie ein Lagrange-Dreieck.
+Der Weg der sich krümmt führt zurück. Wie Lummerland.
+Wie der Spaziergang. Wie Systole und Diastole.
+
 Spaziergang = Tao pur, Symmetrie restaurieren. Rückkehr = Higgs bricht,
 Gravitation krümmt. Systole und Diastole. Das Herz funktioniert nicht
 weil es schlägt — es schlägt weil es sich zwischen Ausdehnung und
