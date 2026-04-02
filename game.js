@@ -4,6 +4,19 @@
 (function () {
     'use strict';
 
+    // SW Cache-Update: automatisch neu laden wenn neue Version verfügbar
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.addEventListener('message', function(e) {
+            if (e.data?.type === 'cache-update') {
+                // Einmal neu laden damit neue Assets aktiv werden
+                if (!sessionStorage.getItem('sw-reloaded')) {
+                    sessionStorage.setItem('sw-reloaded', '1');
+                    location.reload();
+                }
+            }
+        });
+    }
+
     // Frühe Deklaration — wird ab Zeile ~386 benutzt, Definition in analytics.js
     function trackEvent(name, data) { if (window.trackEvent) window.trackEvent(name, data); }
     function recordMilestone(key) { if (window.recordMilestone) window.recordMilestone(key); }
@@ -12,19 +25,18 @@
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // --- Konfiguration ---
-    // Responsive grid dimensions
+    // Isometrischer Modus ZUERST lesen — bestimmt Grid-Größe
+    let isoMode = localStorage.getItem('insel-iso-mode') === 'true';
+
+    // Grid-Dimensionen: Iso = 64×64, Normal = responsive
     const ASPECT = window.innerWidth / window.innerHeight;
-    let COLS, ROWS;
-    if (ASPECT > 1.5) {
-        // PC/Mac landscape 16:9
-        COLS = 32; ROWS = 18;
-    } else if (ASPECT > 1.2) {
-        // iPad landscape 4:3
-        COLS = 28; ROWS = 21;
-    } else {
-        // Portrait / iPhone
-        COLS = 18; ROWS = 28;
+    function getGridDimensions(iso) {
+        if (iso) return { cols: 64, rows: 64 };
+        if (ASPECT > 1.5) return { cols: 32, rows: 18 };
+        if (ASPECT > 1.2) return { cols: 28, rows: 21 };
+        return { cols: 18, rows: 28 };
     }
+    let { cols: COLS, rows: ROWS } = getGridDimensions(isoMode);
     const WATER_BORDER = 2; // Zellen Wasser um die Insel
 
     // Dynamische Zellgröße basierend auf Bildschirm
@@ -34,28 +46,24 @@
         const totalRows = ROWS + WATER_BORDER * 2;
 
         if (isMobile) {
-            // Canvas soll die volle Breite nutzen, mit etwas Padding
             const availW = window.innerWidth - 16;
-            const availH = window.innerHeight * 0.55; // ~55% der Höhe für Canvas
-            return Math.max(12, Math.min(
+            const availH = window.innerHeight * 0.55;
+            return Math.max(isoMode ? 8 : 12, Math.min(
                 Math.floor(availW / totalCols),
                 Math.floor(availH / totalRows)
             ));
         }
-        // Desktop: verfügbare Höhe abzüglich Header+Toolbar (~100px), mit Seitenleisten (~300px) + Chat-Panel (320px)
+        // Desktop
         const chatW = document.body.classList.contains('chat-open') ? 320 : 0;
         const availW = window.innerWidth - 320 - chatW;
         const availH = window.innerHeight - 110;
-        return Math.max(20, Math.min(
+        return Math.max(isoMode ? 10 : 20, Math.min(
             Math.floor(availW / totalCols),
             Math.floor(availH / totalRows)
         ));
     }
 
     let CELL_SIZE = calcCellSize();
-
-    // --- Isometrischer Modus (Tetraeder-Gitter) ---
-    let isoMode = localStorage.getItem('insel-iso-mode') === 'true';
 
     // --- Materialien (aus materials.js) ---
     const MATERIALS = window.INSEL_MATERIALS;
@@ -313,6 +321,8 @@
     const NPC_DEFS = {
         spongebob: { emoji: '🧽', name: 'SpongeBob' },
         maus:      { emoji: '🐭', name: 'Maus' },
+        floriane:  { emoji: '🧚', name: 'Floriane' },
+        bug:       { emoji: '🐛', name: 'Bug' },
         elefant:   { emoji: '🐘', name: 'Elefant' },
         neinhorn:  { emoji: '🦄', name: 'NEINhorn' },
         krabs:     { emoji: '🦀', name: 'Mr. Krabs' },
@@ -2070,6 +2080,33 @@
             ctx.fillText(ci.emoji, cx, cy + float);
         }
 
+        // === BERND-WOLKE (Lakitu-Style) — schwebt oben rechts ===
+        {
+            const bx = totalCols * CELL_SIZE - CELL_SIZE * 3;
+            const by = CELL_SIZE * 1.5;
+            const bob = Math.sin(time * 1.5) * 4;
+            // Wolke
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.ellipse(bx, by + bob, CELL_SIZE * 1.4, CELL_SIZE * 0.7, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            // Bernd Emoji
+            ctx.font = `${CELL_SIZE * 0.8}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🍞', bx, by + bob);
+            // Name
+            ctx.font = `bold ${Math.max(8, CELL_SIZE * 0.22)}px sans-serif`;
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = 'rgba(0,0,0,0.7)';
+            ctx.lineWidth = 2;
+            ctx.strokeText('Bernd', bx, by + bob + CELL_SIZE * 0.55);
+            ctx.fillText('Bernd', bx, by + bob + CELL_SIZE * 0.55);
+        }
+
         // Hover-Vorschau
         if (hoverCell) {
             const hx = (hoverCell.c + WATER_BORDER) * CELL_SIZE;
@@ -3423,6 +3460,17 @@
         if (window.INSEL_TTS && window.INSEL_TTS.hoerspielSpeaking) stopHoerspiel();
         isMouseDown = true;
         undoPushedThisStroke = false;
+        // Bernd-Wolke Klick (oben rechts)
+        const rect = canvas.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+        const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+        const bwx = totalCols * CELL_SIZE - CELL_SIZE * 3;
+        const bwy = CELL_SIZE * 1.5;
+        if (Math.abs(mx - bwx) < CELL_SIZE * 1.4 && Math.abs(my - bwy) < CELL_SIZE * 0.7) {
+            isMouseDown = false;
+            if (window.openChat) window.openChat('bernd');
+            return;
+        }
         const cell = getGridCell(e);
         if (cell) {
             const npcId = getNpcAt(cell.r, cell.c);
@@ -3878,10 +3926,39 @@
     if (isoBtn) {
         if (isoMode) isoBtn.classList.add('active');
         isoBtn.addEventListener('click', () => {
+            // Grid-Migration: alte Blöcke in neues Grid übertragen
+            const oldGrid = grid.map(row => row.slice());
+            const oldRows = ROWS, oldCols = COLS;
             isoMode = !isoMode;
             localStorage.setItem('insel-iso-mode', isoMode);
             isoBtn.classList.toggle('active', isoMode);
+            // Neue Dimensionen setzen
+            const dims = getGridDimensions(isoMode);
+            COLS = dims.cols; ROWS = dims.rows;
+            CELL_SIZE = calcCellSize();
+            initGrid();
+            // Blöcke zentriert übertragen
+            const offR = Math.max(0, Math.floor((ROWS - oldRows) / 2));
+            const offC = Math.max(0, Math.floor((COLS - oldCols) / 2));
+            const srcOffR = Math.max(0, Math.floor((oldRows - ROWS) / 2));
+            const srcOffC = Math.max(0, Math.floor((oldCols - COLS) / 2));
+            for (let r = 0; r < Math.min(oldRows, ROWS); r++) {
+                for (let c = 0; c < Math.min(oldCols, COLS); c++) {
+                    const sr = r + srcOffR, sc = c + srcOffC;
+                    const dr = r + offR, dc = c + offC;
+                    if (sr < oldRows && sc < oldCols && dr < ROWS && dc < COLS && oldGrid[sr]?.[sc]) {
+                        grid[dr][dc] = oldGrid[sr][sc];
+                    }
+                }
+            }
+            window.grid = grid;
+            initNpcPositions();
             resizeCanvas();
+            if (isoMode) {
+                showToast('🔷 Iso-Modus: 64×64 Grid!', 2000);
+            } else {
+                showToast('🎨 Normal-Modus: ' + COLS + '×' + ROWS, 2000);
+            }
         });
     }
 
@@ -4683,7 +4760,7 @@
 
     // Nature-Modul starten (Baumwachstum + Welt-Konsequenzen)
     window.INSEL_NATURE.start(grid, ROWS, COLS, MATERIALS, {
-        addPlaceAnimation: addPlaceAnimation,
+        addPlaceAnimation: function(r, c) { EFFECTS.addPlaceAnimation(r, c); },
         unlockMaterial: unlockMaterial,
         updateStats: updateStats,
         showToast: showToast,
@@ -4860,9 +4937,8 @@
         if (overlay) overlay.classList.add('hidden');
     }
 
-    // Bernd zu NPC_DEFS hinzufügen (Klick öffnet Dashboard)
-    NPC_DEFS.bernd = { emoji: '🍞', name: 'Bernd' };
-    initNpcPositions(); // Positionen neu berechnen mit Bernd
+    // Bernd ist KEIN Grid-NPC — er schwebt als Lakitu-Wolke über der Insel
+    // Klick auf die Wolke öffnet Dashboard/Support-Chat
 
     // Dashboard-Button in Toolbar
     const dashboardBtn = document.getElementById('dashboard-btn');

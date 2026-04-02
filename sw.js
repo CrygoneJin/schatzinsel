@@ -1,6 +1,6 @@
 // Service Worker for Schatzinsel — offline play support
 // Stale-While-Revalidate: zeigt Cache sofort, lädt im Hintergrund neu
-const CACHE_VERSION = 4;
+const CACHE_VERSION = 5;
 const CACHE_NAME = `schatzinsel-v${CACHE_VERSION}`;
 
 // Muss exakt mit index.html <script>-Tags übereinstimmen
@@ -58,7 +58,7 @@ self.addEventListener('install', event => {
     );
 });
 
-// Activate: clean up ALL old caches, claim clients
+// Activate: clean up ALL old caches, claim clients, notify about update
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys()
@@ -67,7 +67,20 @@ self.addEventListener('activate', event => {
                     .map(key => caches.delete(key))
             ))
             .then(() => self.clients.claim())
+            .then(() => self.clients.matchAll().then(clients => {
+                clients.forEach(c => c.postMessage({
+                    type: 'cache-update',
+                    version: CACHE_VERSION
+                }));
+            }))
     );
+});
+
+// Version-Abfrage: Client kann aktuelle Cache-Version anfragen
+self.addEventListener('message', event => {
+    if (event.data?.type === 'version') {
+        event.source.postMessage({ type: 'cache-version', version: CACHE_VERSION });
+    }
 });
 
 // Fetch: network-first for API, stale-while-revalidate for static

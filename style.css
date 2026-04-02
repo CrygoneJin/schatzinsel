@@ -503,7 +503,7 @@ header h1 {
 #main-area {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow: auto; /* Iso 64×64 Canvas kann größer als Viewport sein */
 }
 
 /* === PALETTE === */
