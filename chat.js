@@ -701,7 +701,28 @@ Du: "Ah, willkommen, verehrter Baumeister! Ich bin Mephisto. Man sagt ich sei ei
         const char = CHARACTERS[charId];
         const key = getApiKey();
         if (!key) {
-            // Kein Key und kein Proxy → ELIZA Fallback
+            // Kein Key → Browser-LLM versuchen, dann ELIZA Fallback
+            if (window.BROWSER_LLM && window.BROWSER_LLM.isReady()) {
+                chatHistory.push({ role: 'user', content: userMessage });
+                const loadingDiv = addMessage(`${char.emoji} denkt nach...`, 'loading');
+                sendBtn.disabled = true;
+                try {
+                    const reply = await window.BROWSER_LLM.generate(chatHistory, charId);
+                    loadingDiv.remove();
+                    chatHistory.push({ role: 'assistant', content: reply });
+                    addMessage(`${char.emoji} ${reply}`, 'npc');
+                } catch (e) {
+                    loadingDiv.remove();
+                    console.warn('[Chat] Browser-LLM fehlgeschlagen, ELIZA Fallback:', e);
+                    const elizaReply = getElizaReply(userMessage, charId);
+                    chatHistory.push({ role: 'assistant', content: elizaReply });
+                    addMessage(`${char.emoji} ${elizaReply}`, 'npc');
+                } finally {
+                    sendBtn.disabled = false;
+                    input.focus();
+                }
+                return;
+            }
             const elizaReply = getElizaReply(userMessage, charId);
             addMessage(char.emoji + ' ' + elizaReply, 'npc');
             chatHistory.push({ role: 'assistant', content: elizaReply });
@@ -827,12 +848,12 @@ ${budgetInfo}`;
             loadingDiv.remove();
 
             if (!response.ok) {
-                // Flüster-Modus: ELIZA statt Fehlermeldung
+                // Flüster-Modus: Browser-LLM > ELIZA Fallback
                 enterWhisperMode();
-                const elizaReply = getElizaReply(userMessage, charId);
                 chatHistory.pop();
-                chatHistory.push({ role: 'assistant', content: elizaReply });
-                addMessage(`${char.emoji} ${elizaReply}`, 'npc');
+                const fallbackReply = await getBrowserLlmOrEliza(userMessage, charId);
+                chatHistory.push({ role: 'assistant', content: fallbackReply });
+                addMessage(`${char.emoji} ${fallbackReply}`, 'npc');
                 loadingDiv.remove();
                 sendBtn.disabled = false;
                 input.focus();
@@ -865,11 +886,11 @@ ${budgetInfo}`;
 
         } catch (err) {
             loadingDiv.remove();
-            // Flüster-Modus: ELIZA Fallback wenn Netzwerk/API fehlt
+            // Flüster-Modus: Browser-LLM > ELIZA Fallback wenn Netzwerk/API fehlt
             enterWhisperMode();
-            const elizaReply = getElizaReply(userMessage, currentNpcId);
             chatHistory.pop();
-            chatHistory.push({ role: 'assistant', content: elizaReply });
+            const fallbackReply = await getBrowserLlmOrEliza(userMessage, currentNpcId);
+            chatHistory.push({ role: 'assistant', content: fallbackReply });
             const char = CHARACTERS[currentNpcId];
             addMessage(`${char.emoji} ${elizaReply}`, 'npc');
         } finally {
@@ -920,6 +941,20 @@ ${budgetInfo}`;
                 screen: `${window.innerWidth}x${window.innerHeight}`,
             }),
         }).catch(() => {});
+    }
+
+    // --- Browser-LLM > ELIZA Fallback-Kette ---
+    async function getBrowserLlmOrEliza(userMessage, charId) {
+        if (window.BROWSER_LLM && window.BROWSER_LLM.isReady()) {
+            try {
+                return await window.BROWSER_LLM.generate(
+                    [{ role: 'user', content: userMessage }], charId
+                );
+            } catch (e) {
+                console.warn('[Chat] Browser-LLM Fallback fehlgeschlagen:', e);
+            }
+        }
+        return getElizaReply(userMessage, charId);
     }
 
     // --- ELIZA Fallback (Weizenbaum 1966, echte Portierung in eliza.js) ---
