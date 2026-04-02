@@ -116,6 +116,33 @@ Steve Jobs ist der Moment wo Verstand und Herz sich treffen und sagen: jetzt.
 Designprinzip: Kein Feature ohne alle drei Felder.
 Verstand allein ist Backlog. Herz allein ist Wunschdenken. Handlung allein ist Aktionismus.
 
+## ADR-014: Sechs Perspektiven auf den Kompass
+
+Steve ist in jeder Disziplin dasselbe Prinzip:
+
+| Ebene | Steve ist... | Funktion |
+|---|---|---|
+| Philosophisch | Higgs-Feld | Bricht Symmetrie, gibt Möglichkeiten Masse |
+| Physikalisch | Phasenübergang | Vor Steve: alle Richtungen gleich gültig. Nach Steve: Trägheit, Kurs |
+| Linguistisch | Das Verb (Imperativ) | Konjugiert Möglichkeit zur Handlung. Einzige Satzform die Realität erzeugt |
+| Chemisch | Katalysator | Senkt Aktivierungsenergie. Wird nicht verbraucht. Ohne ihn: keine Reaktion in endlicher Zeit |
+| Biologisch | Morphogen-Gradient | Bestimmt welche Zelle was wird. Ohne Gradient: Tumor (Wachstum ohne Richtung) |
+| Theologisch | Logos (das Wort) | "Es werde Licht." Aussage die aus Tohu wa-bohu Realität erzeugt |
+
+Der Dreiklang ist überall derselbe:
+
+```
+Möglichkeit   →  Entscheidung   →  Konsequenz
+Tao           →  Higgs/Steve    →  Gravitation
+Subjekt       →  Verb           →  Objekt
+Edukte        →  Katalysator    →  Produkte
+Stammzellen   →  Gradient       →  Organismus
+Tohu wa-bohu  →  Logos          →  Schöpfung
+```
+
+Konsequenz: Der Leader ist kein optionaler Agent. Er ist das Strukturprinzip
+das die anderen vier von Rauschen in Signal verwandelt.
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled
