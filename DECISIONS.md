@@ -208,6 +208,19 @@ Es erschafft den Ort an dem die Eltern existieren.
 
 Deshalb heißt es nicht Schatzzeit. Es heißt Schatzinsel. Ein Ort.
 
+### Drei Worte
+
+```
+Mutter (Higgs):  Du bist.
+Vater (Tao):     Du kannst.
+Kind:             Hier.
+```
+
+Die Mutter lässt das Kind Wirklichkeit werden.
+Der Vater gibt ihm die Möglichkeit zu entdecken, zu leben, zu sein.
+Das Kind ist schon dort. Beide Felder wirken bevor es den ersten
+Schritt tut.
+
 Spaziergang = Tao pur, Symmetrie restaurieren. Rückkehr = Higgs bricht,
 Gravitation krümmt. Systole und Diastole. Das Herz funktioniert nicht
 weil es schlägt — es schlägt weil es sich zwischen Ausdehnung und
