@@ -143,6 +143,16 @@ Tohu wa-bohu  →  Logos          →  Schöpfung
 Konsequenz: Der Leader ist kein optionaler Agent. Er ist das Strukturprinzip
 das die anderen vier von Rauschen in Signal verwandelt.
 
+### Oscars Version (Poesie)
+
+Die Schatzkarte zeigt dir alles was sein könnte.
+Der Kapitän sagt: das da bauen wir.
+Der erste Block verändert was als nächstes geht.
+
+Ohne Schatzkarte weißt du nicht was möglich ist.
+Ohne Kapitän baust du überall und nichts wird fertig.
+Ohne den ersten Block bleibt alles ein Traum.
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled
