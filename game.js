@@ -2144,6 +2144,11 @@
         // Spielfigur zuletzt zeichnen (immer sichtbar über allem)
         drawPlayer();
 
+        // Koop-Modus: weitere Spieler zeichnen
+        if (window.INSEL_KOOP_API && window.INSEL_KOOP_API._fireAfterDraw) {
+            window.INSEL_KOOP_API._fireAfterDraw();
+        }
+
     }
 
     // === SPIELFIGUR — Zeichnen + Bewegen ===
@@ -4894,5 +4899,32 @@
             }
         }
     });
+
+    // === Koop-Modus API Export (#89) ===
+    var _koopAfterDrawCallbacks = [];
+    window.INSEL_KOOP_API = {
+        getGrid: function() { return grid; },
+        getROWS: function() { return ROWS; },
+        getCOLS: function() { return COLS; },
+        getCellSize: function() { return CELL_SIZE; },
+        getWaterBorder: function() { return WATER_BORDER; },
+        getPlayerPos: function() { return playerPos; },
+        getPlayerName: function() { return playerName; },
+        getPlayerEmoji: function() { return playerEmoji; },
+        getCurrentMaterial: function() { return currentMaterial; },
+        getCurrentTool: function() { return currentTool; },
+        getCanvas: function() { return canvas; },
+        getCtx: function() { return ctx; },
+        applyTool: applyTool,
+        requestRedraw: requestRedraw,
+        selectMaterial: selectMaterial,
+        selectTool: selectTool,
+        getMATERIALS: function() { return MATERIALS; },
+        draw: draw,
+        onAfterDraw: function(cb) { _koopAfterDrawCallbacks.push(cb); },
+        _fireAfterDraw: function() {
+            _koopAfterDrawCallbacks.forEach(function(cb) { cb(); });
+        },
+    };
 
 })();
