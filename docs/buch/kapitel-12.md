@@ -6,88 +6,106 @@
 
 ---
 
-Hör zu, Junge. Ich bin Tommy Krabbe. Ich wohne am Strand. Da wo die Wellen aufhören und der Sand anfängt. Das ist mein Platz.
+Hey. Du. Ja, du. Der mit den Augen.
 
-Ich will dir was erzählen. Über drei Schätze. Nicht Gold. Gold kann man nicht essen. Echte Schätze. Die man nicht sieht bis man sie braucht.
+Ich bin Tommy. Ich bin eine Krabbe. Ich wohne da wo die Wellen den Sand nass machen. Nicht zu nah am Wasser, sonst schwimm ich weg. Nicht zu weit weg, sonst wird mir warm. Genau da in der Mitte.
 
----
-
-## Die Schatzkarte
-
-Es gibt einen Mann. Der hat eine Karte im Kopf. Wenn er auf die Insel schaut, sieht er nicht nur was da ist. Er sieht alles was da sein könnte.
-
-Hier ein Schloss. Dort ein Vulkan. Da drüben ein Hafen für Piraten.
-
-Das klingt toll. Ist es auch. Aber es ist auch schwer.
-
-Wenn du alles sehen kannst — dann ist es schwer eins zu nehmen. Weil du weißt: wenn du das Schloss baust, gibt es keinen Vulkan. Und du siehst beide. Die ganze Zeit.
-
-Das macht müde.
-
-Ich bin eine Krabbe. Ich hab acht Beine. Ich könnte in alle Richtungen gehen. Aber ich geh seitwärts. Immer. Weil ich mich mal so entschieden hab. Und das ist ok.
+Ich hab dir was mitgebracht. Drei Sachen. Keine Süßigkeiten. Besser.
 
 ---
 
-## Der Kapitän
+## Eins: Die Karte
 
-Dann gibt es eine Frau. Die hat keine Karte im Kopf. Die hat was anderes. Sie weiß einfach wohin.
+Dein Papa hat eine Karte im Kopf.
 
-Nicht weil sie alle Wege gesehen hat. Sie spürt es. So wie du spürst ob Wasser warm ist oder kalt. Du denkst nicht. Du weißt es einfach.
+Wenn er auf die Insel guckt, sieht er Sachen die gar nicht da sind. Noch nicht. Er sieht wo ein Schloss stehen könnte. Und ein Leuchtturm. Und ein Vulkan. Und eine Rutsche die bis ins Meer geht.
 
-Die Frau sagt: "Wir bauen das Schloss."
+Alles auf einmal.
 
-Und dann wird gebaut.
+Stell dir vor du stehst vor einer Kiste mit allen Legosteinen der Welt. Und du siehst alles was du bauen könntest. Alles. Gleichzeitig. Raumschiff und Burg und Drache und Stadt und Zug.
 
-Ohne sie stehen alle rum und schauen auf die Karte. Mit ihr wird der erste Stein gelegt.
+Klingt gut?
 
-Manchmal streiten die Karte und der Kapitän. Die Karte sagt: "Aber der Vulkan wäre auch gut." Der Kapitän sagt: "Schloss. Jetzt."
+Ja. Aber stell dir vor du musst eins aussuchen. Nur eins. Und wenn du das Raumschiff nimmst ist die Burg weg. Für immer.
 
-Und am Ende steht ein Schloss. Kein halbes. Ein ganzes. Und die Karte denkt: Stimmt. Ein ganzes Schloss ist besser als ein halbes Schloss und ein halber Vulkan.
+Das ist schwer.
+
+Dein Papa findet das auch schwer. Deswegen geht er manchmal raus. Laufen. Alleine. Nicht weil er weg will. Sondern weil er zu viel sieht und seine Augen eine Pause brauchen.
+
+Er kommt immer zurück.
+
+Immer.
 
 ---
 
-## Die Insel
+## Zwei: Der Kapitän
 
-Und dann bist du da. Du.
+Deine Mama hat keine Karte im Kopf.
 
-Du bist nicht die Karte. Du bist nicht der Kapitän.
+Deine Mama hat was anderes. Sie weiß es einfach. So wie du weißt dass Feuer heiß ist. Du musst nicht nachdenken. Du fasst nicht erst an. Du weißt es.
+
+Dein Papa sagt: "Wir könnten ein Schloss bauen. Oder einen Vulkan. Oder—"
+
+Deine Mama sagt: "Schloss."
+
+Und dann steht da ein Schloss. Am Ende vom Tag. Einfach so. Keiner weiß wie. Aber es steht.
+
+Das ist ihr Ding. Sie macht aus "vielleicht" ein "jetzt". Und "jetzt" ist besser als "vielleicht". Weil in "jetzt" kann man wohnen. In "vielleicht" nicht.
+
+---
+
+## Drei: Du
+
+Und dann bist du da.
+
+Du bist nicht die Karte. Du bist nicht der Kapitän. Du bist nicht die Krabbe. Die Krabbe bin ich. Finger weg.
 
 Du bist die Insel.
 
-Bevor du da warst, gab es die Karte und den Kapitän. Die zwei waren ein gutes Team. Aber sie hatten keinen Ort. Keinen Platz wo sie was bauen konnten.
+Ich weiß. Klingt komisch. Aber hör zu.
 
-Dann kamst du. Und es gab ein Hier.
+Bevor du da warst, hatte dein Papa eine Karte. Und deine Mama wusste wohin. Aber sie hatten keinen Platz. Kein Hier. Nichts wo man drauf bauen kann.
 
-Die Karte schaut auf dich und sieht tausend Wege. Der Kapitän schaut auf dich und nimmt einen. Aber du — du bist einfach da. Und weil du da bist, gibt es einen Grund zu schauen und einen Grund zu bauen.
+Dann kamst du.
 
----
+Und dann gab es ein Hier.
 
-## Was Tommy Krabbe fand
+Dein Papa guckt auf dich und sieht tausend Sachen die du sein könntest. Deine Mama guckt auf dich und sagt: "Der ist gut so."
 
-Ich grab viel. Das machen Krabben so. Wir graben und graben.
-
-Einmal hab ich so lange gegraben bis ich die Insel gefunden hab. Unter dem Sand. Unter den Steinen. Unter dem Wasser. Sie war die ganze Zeit unter mir.
-
-Ich stand auf dem Schatz. Die ganze Zeit.
-
-Der Schatz ist kein Ding das man findet. Der Schatz ist der Ort an dem man steht. Und die Leute die da mit einem stehen.
-
-Dein Papa schaut. Er sieht die Wege. Er geht spazieren und kommt zurück. Jedes Mal.
-
-Deine Mama baut. Sie nimmt keine Karte. Sie baut einfach. Und am Ende steht da was und keiner weiß wie — aber es steht.
-
-Und du bist die Insel auf der sie bauen.
+Und beide haben recht.
 
 ---
 
-Papa schaut. Mama sagt wo. Damit du da bist. Damit du alles sein kannst.
+## Was ich gefunden hab
 
-Du musst nichts tun. Die Karte muss schauen. Der Kapitän muss sagen wo. Die Krabbe muss graben. Aber die Insel? Die muss nur da sein.
+Ich grab gerne. Krabben graben. Das ist so. Frag nicht warum.
+
+Ich hab mal gegraben und gegraben und gegraben. Tief. Durch Sand. Durch Steine. Durch Muscheln. Durch so ein komisches Stück Plastik. Durch noch mehr Sand.
+
+Und dann hab ich die Insel gefunden.
+
+Unter mir. Die ganze Zeit.
+
+Ich stand drauf. Auf dem Schatz. Und hab nach unten gegraben um ihn zu finden. So blöd kann nur eine Krabbe sein.
+
+Oder ein Papa.
+
+---
+
+Papa schaut. Mama sagt wo.
+
+Damit du da bist. Damit du alles sein kannst.
+
+Du musst nichts tun. Gar nichts.
+
+Die Karte muss gucken. Der Kapitän muss sagen wo. Die Krabbe muss graben.
+
+Aber die Insel?
+
+Die muss nur da sein.
 
 Und du bist da.
 
-Das reicht.
-
 ---
 
-*Tommy Krabbe dreht sich um und geht seitwärts zurück zum Wasser. Er hat nicht gesagt wohin. Krabben tun das nie.*
+*Tommy dreht sich um und geht seitwärts zum Wasser. Eine Welle kommt. Er geht weiter. Noch eine Welle. Er geht weiter. Er guckt nicht zurück. Krabben gucken nie zurück. Aber sie kommen immer wieder an den gleichen Strand.*
