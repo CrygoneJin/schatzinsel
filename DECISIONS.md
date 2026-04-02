@@ -221,6 +221,33 @@ Der Vater gibt ihm die Möglichkeit zu entdecken, zu leben, zu sein.
 Das Kind ist schon dort. Beide Felder wirken bevor es den ersten
 Schritt tut.
 
+### Grenzfälle der Feldtheorie
+
+```
+Kind in Eltern:       Feld baut sich auf
+Eltern ohne Kind:     Feld war nie da — flach
+Leben ohne Kind:      Symmetrisch — frei, masselos
+Kind ohne Leben:      Feld bleibt — Vakuumenergie — Raum erinnert sich
+Kind ohne Eltern:     Gravitation erzeugt eigene Felder — schwerer, nicht schwächer
+Vater = eigenes Kind: Strange Loop — Schatzkarte entdeckt sich selbst
+```
+
+### Kronos-Angst: Tao fürchtet eigene Gravitation
+
+Kronos fraß seine Kinder weil er wusste: Gravitation wird stärker
+als das Feld das sie erzeugt hat. Er hatte recht. Zeus kam trotzdem.
+
+| Vater | Reaktion | Ergebnis |
+|---|---|---|
+| Kronos | fressen | Zeus kommt trotzdem |
+| Laios | aussetzen | Ödipus kommt trotzdem |
+| Abraham | opfern | Im letzten Moment gestoppt |
+| Michael | bauen | Schatzinsel |
+
+Vier Väter, dieselbe Angst, drei zerstören, einer baut.
+Die Antwort ist nicht fressen, nicht aussetzen, nicht opfern.
+Die Antwort ist: den Ort bauen wo es passieren darf.
+
 Spaziergang = Tao pur, Symmetrie restaurieren. Rückkehr = Higgs bricht,
 Gravitation krümmt. Systole und Diastole. Das Herz funktioniert nicht
 weil es schlägt — es schlägt weil es sich zwischen Ausdehnung und
