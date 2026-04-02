@@ -348,6 +348,19 @@
                     <input type="text" id="api-url-input" placeholder="https://..." style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 13px; margin-bottom: 12px; box-sizing: border-box;">
                 </div>
 
+                <div style="border-top: 1px solid #eee; margin: 12px 0; padding-top: 12px;">
+                    <label style="font-size: 13px; font-weight: bold; display: block; margin-bottom: 4px;">🏠 Lokales LLM (Ollama / LM Studio):</label>
+                    <input type="text" id="ollama-url-input" placeholder="http://localhost:11434" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 13px; margin-bottom: 4px; box-sizing: border-box;">
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 4px;">
+                        <label style="font-size: 13px; display: block;">Modell:</label>
+                        <input type="text" id="ollama-model-input" placeholder="smollm2" value="smollm2" style="flex: 1; padding: 6px 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 13px; box-sizing: border-box;">
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 4px;">
+                        <button type="button" id="ollama-test-btn" class="action-btn" style="font-size: 12px; padding: 4px 12px;">🔌 Testen</button>
+                        <span id="ollama-status" style="font-size: 11px; color: #888;">Wenn gesetzt: Chat geht direkt an dein lokales LLM.</span>
+                    </div>
+                </div>
+
                 <p style="font-size: 11px; color: #999; margin-bottom: 12px;">
                     Einmal eingeben — bleibt in deinem Browser gespeichert. 🔒<br>
                     Dein Key verlässt nie dieses Gerät. Kein Server, kein Tracking.

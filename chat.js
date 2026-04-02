@@ -552,11 +552,31 @@ Du: "Ah, willkommen, verehrter Baumeister! Ich bin Mephisto. Man sagt ich sei ei
         return null; // Fallback auf Template in game.js
     };
 
+    // --- Ollama / lokales LLM ---
+    function getOllamaUrl() {
+        return localStorage.getItem('ollama-url') || '';
+    }
+    function setOllamaUrl(url) {
+        if (url) localStorage.setItem('ollama-url', url);
+        else localStorage.removeItem('ollama-url');
+    }
+    function getOllamaModel() {
+        return localStorage.getItem('ollama-model') || 'smollm2';
+    }
+    function setOllamaModel(model) {
+        if (model) localStorage.setItem('ollama-model', model);
+        else localStorage.removeItem('ollama-model');
+    }
+    function hasOllama() {
+        return !!getOllamaUrl();
+    }
+
     function hasProxy() {
         return !!(CFG.proxy);
     }
 
     function getApiKey() {
+        if (hasOllama()) return '__ollama__';
         if (hasProxy()) return CFG.proxyKey || '__proxy__';
         return localStorage.getItem('langdock-api-key') || CFG.apiKey || '';
     }
@@ -769,6 +789,77 @@ ${budgetInfo}`;
 
         const temp = char.temperature ?? 0.7;
         let body, headers;
+
+        // --- Ollama / lokales LLM: direkt ansprechen mit Streaming ---
+        if (hasOllama()) {
+            const ollamaUrl = getOllamaUrl().replace(/\/+$/, '');
+            const ollamaModel = getOllamaModel();
+            try {
+                const ollamaBody = JSON.stringify({
+                    model: ollamaModel,
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        ...chatHistory
+                    ],
+                    options: { temperature: temp, num_predict: 150 }
+                });
+                const response = await fetch(ollamaUrl + '/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: ollamaBody
+                });
+
+                loadingDiv.remove();
+
+                if (!response.ok) {
+                    // Ollama nicht erreichbar → Fallback auf Worker/ELIZA
+                    throw new Error('Ollama HTTP ' + response.status);
+                }
+
+                leaveWhisperMode();
+
+                // Streaming: Ollama streamt NDJSON (ein JSON pro Zeile)
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let fullReply = '';
+                const replyDiv = addMessage(`${char.emoji} `, 'npc');
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    const chunk = decoder.decode(value, { stream: true });
+                    // Ollama sendet ein JSON-Objekt pro Zeile
+                    for (const line of chunk.split('\n')) {
+                        if (!line.trim()) continue;
+                        try {
+                            const json = JSON.parse(line);
+                            if (json.message && json.message.content) {
+                                fullReply += json.message.content;
+                                replyDiv.textContent = `${char.emoji} ${fullReply}`;
+                                messages.scrollTop = messages.scrollHeight;
+                            }
+                        } catch (_) { /* partial JSON — ignorieren */ }
+                    }
+                }
+
+                chatHistory.push({ role: 'assistant', content: fullReply });
+                updateTokenDisplay(charId);
+
+                if (charId === 'floriane' || charId === 'bug') {
+                    logFeedback(charId, userMessage, fullReply);
+                }
+
+                sendBtn.disabled = false;
+                input.focus();
+                return;
+            } catch (ollamaErr) {
+                // Ollama-Fehler → Fallback auf normalen Weg (Proxy/BYOK/ELIZA)
+                console.warn('Ollama nicht erreichbar, Fallback:', ollamaErr.message);
+                // loadingDiv könnte schon entfernt sein
+                if (loadingDiv.parentNode) loadingDiv.remove();
+                // Weiter zum normalen Pfad unten
+            }
+        }
 
         if (hasProxy()) {
             // Proxy: Worker braucht keinen Auth-Header, LiteLLM lokal schon
@@ -1139,6 +1230,15 @@ ${budgetInfo}`;
     const apiKeyToggle = document.getElementById('api-key-toggle');
 
     function updateApiStatus() {
+        if (hasOllama()) {
+            const model = getOllamaModel();
+            apiStatus.textContent = `🏠 Lokales LLM aktiv — ${model}`;
+            apiStatus.style.background = '#e3f2fd';
+            apiStatus.style.color = '#1565c0';
+            settingsBtn.textContent = '⚙️';
+            settingsBtn.style.position = 'relative';
+            return;
+        }
         const hasKey = !!getApiKey();
         const pId = getProvider();
         const pName = providerSelect.options[providerSelect.selectedIndex]?.text || pId;
@@ -1173,17 +1273,60 @@ ${budgetInfo}`;
         apiUrlRow.style.display = providerSelect.value === 'custom' ? 'block' : 'none';
     }
 
+    // --- Ollama UI ---
+    const ollamaUrlInput = document.getElementById('ollama-url-input');
+    const ollamaModelInput = document.getElementById('ollama-model-input');
+    const ollamaStatus = document.getElementById('ollama-status');
+    const ollamaTestBtn = document.getElementById('ollama-test-btn');
+
+    // Ollama-Verbindungstest
+    if (ollamaTestBtn) {
+        ollamaTestBtn.addEventListener('click', async () => {
+            const url = (ollamaUrlInput ? ollamaUrlInput.value.trim() : '').replace(/\/+$/, '');
+            if (!url) {
+                ollamaStatus.textContent = '❌ Bitte URL eingeben';
+                ollamaStatus.style.color = '#c62828';
+                return;
+            }
+            ollamaStatus.textContent = '⏳ Teste Verbindung...';
+            ollamaStatus.style.color = '#888';
+            try {
+                const resp = await fetch(url + '/api/tags', { signal: AbortSignal.timeout(5000) });
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const data = await resp.json();
+                const models = (data.models || []).map(m => m.name);
+                if (models.length === 0) {
+                    ollamaStatus.textContent = '⚠️ Verbunden, aber keine Modelle installiert. → ollama pull smollm2';
+                    ollamaStatus.style.color = '#e65100';
+                } else {
+                    ollamaStatus.textContent = `✅ Verbunden! Modelle: ${models.slice(0, 5).join(', ')}${models.length > 5 ? '...' : ''}`;
+                    ollamaStatus.style.color = '#2e7d32';
+                    // Erstes verfügbares Modell vorschlagen falls Feld leer
+                    if (ollamaModelInput && !ollamaModelInput.value.trim() && models[0]) {
+                        ollamaModelInput.value = models[0];
+                    }
+                }
+            } catch (err) {
+                ollamaStatus.textContent = `❌ Nicht erreichbar: ${err.message}`;
+                ollamaStatus.style.color = '#c62828';
+            }
+        });
+    }
+
     settingsBtn.addEventListener('click', () => {
         // BYOK nur im Code-View (Nerd-Level)
         if (window.isCodeViewActive && !window.isCodeViewActive()) {
             showToast('⚙️ API-Settings nur in der Code-Ansicht (</> Button)');
             return;
         }
-        apiKeyInput.value = getApiKey();
+        apiKeyInput.value = getApiKey() === '__ollama__' ? '' : getApiKey();
         apiUrlInput.value = getApiUrl();
         providerSelect.value = getProvider();
         apiKeyInput.type = 'password';
         apiKeyToggle.textContent = '👁';
+        // Ollama-Felder befüllen
+        if (ollamaUrlInput) ollamaUrlInput.value = getOllamaUrl();
+        if (ollamaModelInput) ollamaModelInput.value = getOllamaModel();
         updateApiStatus();
         updateUrlRowVisibility();
         updateProviderHint();
@@ -1204,6 +1347,19 @@ ${budgetInfo}`;
     });
 
     apiKeySave.addEventListener('click', () => {
+        // Ollama-Felder immer speichern
+        const ollamaUrl = ollamaUrlInput ? ollamaUrlInput.value.trim() : '';
+        const ollamaModel = ollamaModelInput ? ollamaModelInput.value.trim() : '';
+        setOllamaUrl(ollamaUrl);
+        setOllamaModel(ollamaModel || 'smollm2');
+
+        // Wenn Ollama gesetzt → kein API-Key nötig
+        if (ollamaUrl) {
+            apiKeyDialog.classList.add('hidden');
+            addMessage(`🏠 Lokales LLM konfiguriert — ${ollamaModel || 'smollm2'} @ ${ollamaUrl}`, 'system');
+            return;
+        }
+
         const key = apiKeyInput.value.trim();
         if (!key) {
             apiStatus.textContent = '❌ Bitte Key eingeben';

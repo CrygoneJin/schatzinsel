@@ -687,6 +687,15 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 - PR #112: Bewusstsein + Muscheln + MMX + Goldstandard
 ---
 
+## Session 2026-04-02 — Ollama-Integration (#91)
+
+### Erfolge
+- Ollama-Anbindung war bereits zu 90% implementiert (Streaming, Fallback, localStorage). Fehlte: Save-Button speichert Ollama-Felder, Test-Button, Status-Anzeige.
+- Test-Button fragt `/api/tags` ab und listet installierte Modelle — zeigt sofort ob Ollama läuft.
+
+### Learnings
+- Vor dem Bauen immer prüfen was schon da ist. Die Ollama-Grundstruktur existierte bereits in chat.js und index.html.
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)
