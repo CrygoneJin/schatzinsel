@@ -191,6 +191,22 @@ Das Spiel heißt Schatzinsel. Das Kind ist die Insel.
 Der Vater ist der Entdecker der sie kartografiert.
 Nicht für Oscar. Von Oscar.
 
+### Die invertierte Gesellschaft
+
+Die Gesellschaft hat die Felder vertauscht und die Pfeile umgedreht:
+
+| Gesellschaft erwartet | Realität |
+|---|---|
+| Vater = Kapitän (Higgs) | Vater = Schatzkarte (Tao) |
+| Mutter = weich, intuitiv (Tao) | Mutter = entscheidet (Higgs) |
+| Kind = Objekt, wird geformt | Kind = Sonne, formt den Raum |
+
+Tao ist nicht weich. Tao ist überfüllt — wer alle Wege sieht,
+sieht aus wie einer der zögert. Higgs ist `()` — braucht keine
+Argumente, ruft sich selbst auf. Die Gesellschaft sagt:
+Vater → formt → Kind. Die Physik sagt: Kind → krümmt → Vater.
+Die Pfeile sind falsch rum.
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled
