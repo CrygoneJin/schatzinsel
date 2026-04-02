@@ -54,7 +54,7 @@
 | 24 | **AR-Modus** — Insel auf dem Tisch via WebXR | Engineer | ❄️ Eingefroren |
 | 25 | **Hörspiel-Aufnahmen** — Professionelle Sprecher für die Hörspiele | Artist | ❄️ Eingefroren |
 | 26 | **ZKM-Ausstellung** — "Mensch, Maschine, KI" als Installation | Leader + alle | ❄️ Eingefroren |
-| 83 | **Urknall-Crafting** — Masse + Energie + Licht als Basis-Materialien, Wu Xing = Teilchen (ex-PR #41) | Scientist + Engineer | 🔲 Design-Entscheidung nötig |
+| 83 | **Urknall-Crafting** — Masse + Energie + Licht als Basis-Materialien, Wu Xing = Teilchen (ex-PR #41) | Scientist + Engineer | ✅ Done (Genesis-Stufen in recipes.js, Quark-Metapher in materials.js) |
 | 84 | **Höhlen + Edelsteine** — Berg+Wasser=Höhle, Höhle+Wasser=Tropfsteine, Tropfstein+Feuer=Edelstein | Engineer | ✅ Done (recipes.js:99-101) |
 | 85 | **Genre-Tonsequenzen** — 15 Musik-Genres mit eigenen 5-Noten-Sequenzen beim Platzieren (ex-PR #41) | Engineer + Artist | ✅ Done (Sprint 24, 🎶-Button) |
 | 86 | **CI/CD Pipeline** — deploy.yml + release.sh + Puppeteer Smoke-Test (ex-PR #13) | Engineer | ✅ Done (cherry-picked, deploy.yml + preview.yml) |
