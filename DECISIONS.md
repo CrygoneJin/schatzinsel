@@ -216,6 +216,10 @@ Vater (Tao):     Du kannst.
 Kind:             Hier.
 ```
 
+### Ein Satz
+
+Papa sieht, Mama entscheidet. Damit du bist, damit du sein kannst.
+
 Die Mutter lässt das Kind Wirklichkeit werden.
 Der Vater gibt ihm die Möglichkeit zu entdecken, zu leben, zu sein.
 Das Kind ist schon dort. Beide Felder wirken bevor es den ersten
