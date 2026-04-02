@@ -59,6 +59,22 @@ Procedural tree generation via Lindenmayer grammars.
 Three complexity levels (sapling, small_tree, tree).
 Deterministic per-cell hash for variation.
 
+## ADR-012: Fünf Rollen = Fünf Richtungen
+
+Die fünf Agenten sind keine Job-Titel, sondern Funktionen:
+
+| Rolle | Agent | Gibt dem Team... |
+|---|---|---|
+| **Navigator** | Steve Jobs (Leader) | **Richtung** |
+| Denker | David Ogilvy (Artist) | Bedeutung |
+| Tester | Dieter Rams (Designer) | Qualität |
+| Entdecker | Richard Feynman (Scientist) | Wahrheit |
+| Handwerker | Linus Torvalds (Engineer) | Substanz |
+
+Ohne Navigator rotieren vier exzellente Handwerker in vier verschiedene
+Richtungen. Der Leader ist kein Manager — er ist der Kompass.
+Deshalb ist `/leader` immer der erste Aufruf bei cross-cutting concerns.
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled
