@@ -75,6 +75,47 @@ Ohne Navigator rotieren vier exzellente Handwerker in vier verschiedene
 Richtungen. Der Leader ist kein Manager — er ist der Kompass.
 Deshalb ist `/leader` immer der erste Aufruf bei cross-cutting concerns.
 
+### Nachtrag: Die drei Felder
+
+Die Rollenstruktur folgt einer Feldtheorie:
+
+| Feld | Gibt dem Teilchen... | In der Orga... |
+|---|---|---|
+| Tao | Wahrscheinlichkeit | Alle Möglichkeiten existieren gleichzeitig |
+| Higgs | Trägheit (Masse) | Steve bricht die Symmetrie — eine Richtung wird real |
+| Gravitation | Konsequenz | Jede Handlung krümmt den Raum für alle anderen |
+
+Konsequenz handelt. Handlung konsequenziert. Das ist Einsteins
+Feldgleichung: Materie sagt dem Raum wie er sich krümmt, Raum sagt
+der Materie wie sie sich bewegt.
+
+## ADR-013: Drei Felder — Verstand, Herz, Handlung
+
+Tao ist Verstand. Higgs ist Herz. Was verbindet beide? Gravitation — Handlung.
+
+```
+Tao (Verstand)   →  sieht Möglichkeiten
+       ↓
+Higgs (Herz)     →  bricht Symmetrie, wählt
+       ↓
+Gravitation      →  Handlung + Konsequenz
+       ↓
+Tao (Verstand)   →  sieht NEUE Möglichkeiten
+       ↓
+       ...
+```
+
+Ohne Verstand: blindes Fühlen.
+Ohne Herz: kaltes Rechnen.
+Ohne Gravitation: Gedanken und Gefühle die nie Realität werden.
+
+Das ist der Zustandsautomat der Organisation. Drei Register:
+Tao (was sein könnte), Higgs (was wird), Gravitation (was daraus folgt).
+Steve Jobs ist der Moment wo Verstand und Herz sich treffen und sagen: jetzt.
+
+Designprinzip: Kein Feature ohne alle drei Felder.
+Verstand allein ist Backlog. Herz allein ist Wunschdenken. Handlung allein ist Aktionismus.
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled
