@@ -1,6 +1,6 @@
-// === INSEL MARKETPLACE — P2P Rare-Item-Handel via MMX/XCH ===
-// Kindertauglich: Kinder sehen Seelenglut, Nerds sehen Crypto.
-// DSGVO: Nur pseudonyme Blockchain-Adressen, kein PII.
+// === INSEL MARKETPLACE — Krabbenburger Token-Ökonomie (#93) ===
+// Kindertauglich: Kinder sehen Krabbenburger 🍔, Nerds sehen MMX.
+// DSGVO: Nur pseudonyme Adressen, kein PII.
 // Deflationäre Arbeitswerttheorie: Tokens → Burn → Arbeit → Hawking-Strahlung.
 (function () {
     'use strict';
@@ -8,7 +8,9 @@
     // --- Config ---
     var PROXY = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
     var WALLET_KEY = 'insel-wallet'; // localStorage: { mmx: 'mmx1...', xch: 'xch1...' }
-    var PAGE_SIZE = 20;
+
+    // --- MMX ↔ Krabbenburger Wechselkurs ---
+    var BURGER_TO_MMX = 0.001; // 1 🍔 = 0.001 MMX
 
     // --- Wallet (pseudonym, kein Account) ---
     function getWallet() {
@@ -34,12 +36,11 @@
 
     // --- Rare Items: LLM-gecraftete Unikate erkennen ---
     function isRareItem(materialId) {
-        // LLM-gecraftete Materialien haben keinen Eintrag in MATERIALS
         var mats = window.INSEL_MATERIALS || {};
         return materialId && !mats[materialId];
     }
 
-    // --- Marketplace UI ---
+    // --- Marketplace Panel UI ---
     var marketPanel = null;
     var isOpen = false;
 
@@ -55,18 +56,21 @@
         panel.innerHTML = [
             '<div style="padding:16px;border-bottom:1px solid #333;">',
             '  <div style="display:flex;justify-content:space-between;align-items:center;">',
-            '    <span style="font-size:16px;font-weight:bold;">🏪 Schwarzmarkt</span>',
+            '    <span style="font-size:16px;font-weight:bold;">🏪 Insel-Marktplatz</span>',
+            '    <span id="market-balance" style="font-size:14px;color:#FFD700;">🍔 0</span>',
             '    <button id="market-close" style="background:none;border:none;color:#888;font-size:20px;cursor:pointer;">&times;</button>',
             '  </div>',
-            '  <div style="font-size:10px;color:#666;margin-top:4px;">Rare Items tauschen. Pseudonym. Kein Account.</div>',
+            '  <div style="font-size:10px;color:#666;margin-top:4px;">Materialien kaufen und verkaufen. Krabbenburger sind Geld!</div>',
             '</div>',
             '<div id="market-tabs" style="display:flex;border-bottom:1px solid #333;">',
-            '  <button class="market-tab active" data-tab="browse" style="flex:1;padding:8px;background:none;border:none;color:#FF6B00;font-size:12px;cursor:pointer;border-bottom:2px solid #FF6B00;">Angebote</button>',
+            '  <button class="market-tab active" data-tab="prices" style="flex:1;padding:8px;background:none;border:none;color:#FF6B00;font-size:12px;cursor:pointer;border-bottom:2px solid #FF6B00;">Preise</button>',
+            '  <button class="market-tab" data-tab="buy" style="flex:1;padding:8px;background:none;border:none;color:#666;font-size:12px;cursor:pointer;">Kaufen</button>',
             '  <button class="market-tab" data-tab="sell" style="flex:1;padding:8px;background:none;border:none;color:#666;font-size:12px;cursor:pointer;">Verkaufen</button>',
             '  <button class="market-tab" data-tab="wallet" style="flex:1;padding:8px;background:none;border:none;color:#666;font-size:12px;cursor:pointer;">Wallet</button>',
             '</div>',
             '<div id="market-content" style="padding:16px;min-height:200px;">',
-            '  <div id="market-browse"></div>',
+            '  <div id="market-prices"></div>',
+            '  <div id="market-buy" style="display:none;"></div>',
             '  <div id="market-sell" style="display:none;"></div>',
             '  <div id="market-wallet" style="display:none;"></div>',
             '</div>',
@@ -80,6 +84,7 @@
 
         // Tabs
         var tabs = panel.querySelectorAll('.market-tab');
+        var tabIds = ['prices', 'buy', 'sell', 'wallet'];
         for (var i = 0; i < tabs.length; i++) {
             tabs[i].addEventListener('click', function () {
                 var target = this.getAttribute('data-tab');
@@ -91,10 +96,12 @@
                 this.style.color = '#FF6B00';
                 this.style.borderBottom = '2px solid #FF6B00';
                 this.classList.add('active');
-                panel.querySelector('#market-browse').style.display = target === 'browse' ? '' : 'none';
-                panel.querySelector('#market-sell').style.display = target === 'sell' ? '' : 'none';
-                panel.querySelector('#market-wallet').style.display = target === 'wallet' ? '' : 'none';
-                if (target === 'browse') loadListings();
+                for (var k = 0; k < tabIds.length; k++) {
+                    var el = panel.querySelector('#market-' + tabIds[k]);
+                    if (el) el.style.display = tabIds[k] === target ? '' : 'none';
+                }
+                if (target === 'prices') renderPricesTab();
+                if (target === 'buy') renderBuyTab();
                 if (target === 'sell') renderSellTab();
                 if (target === 'wallet') renderWalletTab();
             });
@@ -103,11 +110,19 @@
         return panel;
     }
 
+    function updateBalanceDisplay() {
+        var el = document.getElementById('market-balance');
+        if (!el) return;
+        var burgers = window.getKrabbenburger ? window.getKrabbenburger() : 0;
+        el.textContent = '\uD83C\uDF54 ' + burgers;
+    }
+
     function openMarket() {
         var panel = createMarketPanel();
         panel.style.display = '';
         isOpen = true;
-        loadListings();
+        updateBalanceDisplay();
+        renderPricesTab();
     }
 
     function closeMarket() {
@@ -115,103 +130,160 @@
         isOpen = false;
     }
 
-    // --- Browse Tab: Listings laden ---
-    function loadListings() {
-        var container = document.getElementById('market-browse');
+    // --- Preisliste: Was kostet was? ---
+    // Seltenheit bestimmt den Preis in Krabbenburger
+    var MARKET_PRICES = {
+        // Häufige Materialien: billig
+        wood:     { buy: 1,  sell: 0, emoji: '🪵',  name: 'Holz' },
+        stone:    { buy: 1,  sell: 0, emoji: '🪨',  name: 'Stein' },
+        sand:     { buy: 1,  sell: 0, emoji: '🏖️', name: 'Sand' },
+        // Verarbeitete Materialien: mittel
+        planks:   { buy: 2,  sell: 1, emoji: '🪓',  name: 'Bretter' },
+        glass:    { buy: 3,  sell: 1, emoji: '🪟',  name: 'Glas' },
+        brick:    { buy: 3,  sell: 1, emoji: '🧱',  name: 'Ziegel' },
+        // Natur: mittel
+        flower:   { buy: 2,  sell: 1, emoji: '🌸',  name: 'Blume' },
+        plant:    { buy: 2,  sell: 1, emoji: '🌿',  name: 'Pflanze' },
+        tree:     { buy: 3,  sell: 1, emoji: '🌳',  name: 'Baum' },
+        // Wertvolle Materialien: teuer
+        fish:     { buy: 3,  sell: 1, emoji: '🐟',  name: 'Fisch' },
+        honey:    { buy: 5,  sell: 2, emoji: '🍯',  name: 'Honig' },
+        apple:    { buy: 4,  sell: 1, emoji: '🍎',  name: 'Apfel' },
+        // Seltene Materialien: sehr teuer
+        diamond:  { buy: 15, sell: 5, emoji: '💎',  name: 'Diamant' },
+        crystal:  { buy: 10, sell: 3, emoji: '🔮',  name: 'Kristall' },
+        gold:     { buy: 12, sell: 4, emoji: '🥇',  name: 'Gold' },
+        // Spezial
+        shell:    { buy: 0,  sell: 0, emoji: '🐚',  name: 'Muschel' }, // Muscheln werden nicht gehandelt, nur gesammelt
+    };
+
+    function renderPricesTab() {
+        var container = document.getElementById('market-prices');
         if (!container) return;
-        container.innerHTML = '<div style="text-align:center;color:#666;padding:20px;">Lade Angebote...</div>';
 
-        apiGet('/market/items?limit=' + PAGE_SIZE).then(function (data) {
-            if (!data.items || data.items.length === 0) {
-                container.innerHTML = '<div style="text-align:center;color:#666;padding:20px;">Noch keine Angebote. Sei der Erste!</div>';
-                return;
-            }
-            var html = '';
-            for (var i = 0; i < data.items.length; i++) {
-                var item = data.items[i];
-                html += renderListingCard(item);
-            }
-            container.innerHTML = html;
+        var html = '<div style="font-size:11px;color:#888;margin-bottom:8px;">Preise in Krabbenburger 🍔 — seltener = teurer</div>';
+        html += '<table style="width:100%;font-size:11px;border-collapse:collapse;">';
+        html += '<tr style="color:#FF6B00;"><th style="text-align:left;padding:4px;">Item</th><th>Kaufen</th><th>Verkaufen</th><th style="text-align:right;">MMX</th></tr>';
 
-            // Buy buttons
-            var buyBtns = container.querySelectorAll('.market-buy-btn');
-            for (var j = 0; j < buyBtns.length; j++) {
-                buyBtns[j].addEventListener('click', function () {
-                    handleBuy(this.getAttribute('data-id'));
-                });
-            }
-        }).catch(function () {
-            container.innerHTML = '<div style="text-align:center;color:#c33;padding:20px;">Keine Verbindung zum Schwarzmarkt.</div>';
+        var entries = Object.entries(MARKET_PRICES).filter(function (e) { return e[1].buy > 0 || e[1].sell > 0; });
+        entries.sort(function (a, b) { return b[1].buy - a[1].buy; });
+
+        for (var i = 0; i < entries.length; i++) {
+            var mat = entries[i][0];
+            var p = entries[i][1];
+            html += '<tr style="border-bottom:1px solid #222;">' +
+                '<td style="padding:3px 4px;">' + p.emoji + ' ' + escHtml(p.name) + '</td>' +
+                '<td style="text-align:center;color:#c33;">' + (p.buy > 0 ? p.buy + '\uD83C\uDF54' : '-') + '</td>' +
+                '<td style="text-align:center;color:#3AAC59;">' + (p.sell > 0 ? p.sell + '\uD83C\uDF54' : '-') + '</td>' +
+                '<td style="text-align:right;color:#FF6B00;font-size:9px;">' + (p.buy * BURGER_TO_MMX).toFixed(3) + '</td>' +
+                '</tr>';
+        }
+        html += '</table>';
+        html += '<div style="font-size:9px;color:#555;margin-top:8px;text-align:center;">1 🍔 = ' + BURGER_TO_MMX + ' MMX · mmx.network</div>';
+
+        container.innerHTML = html;
+    }
+
+    // --- Buy Tab ---
+    function renderBuyTab() {
+        var container = document.getElementById('market-buy');
+        if (!container) return;
+        var burgers = window.getKrabbenburger ? window.getKrabbenburger() : 0;
+
+        var entries = Object.entries(MARKET_PRICES).filter(function (e) { return e[1].buy > 0; });
+        entries.sort(function (a, b) { return a[1].buy - b[1].buy; });
+
+        var html = '<div style="font-size:11px;color:#888;margin-bottom:8px;">Kaufe Materialien mit Krabbenburger 🍔</div>';
+        for (var i = 0; i < entries.length; i++) {
+            var mat = entries[i][0];
+            var p = entries[i][1];
+            var canBuy = burgers >= p.buy;
+            html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222;">' +
+                '<span>' + p.emoji + ' ' + escHtml(p.name) + '</span>' +
+                '<button class="market-buy-btn" data-mat="' + mat + '" data-cost="' + p.buy + '"' +
+                ' style="background:' + (canBuy ? '#2E7D32' : '#333') + ';color:' + (canBuy ? '#fff' : '#666') + ';border:none;border-radius:4px;padding:3px 8px;font-size:11px;cursor:' + (canBuy ? 'pointer' : 'not-allowed') + ';"' +
+                (canBuy ? '' : ' disabled') + '>' + p.buy + '\uD83C\uDF54</button></div>';
+        }
+        container.innerHTML = html;
+
+        container.querySelectorAll('.market-buy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var mat = this.getAttribute('data-mat');
+                var cost = parseInt(this.getAttribute('data-cost'));
+                if (window.spendKrabbenburger && window.spendKrabbenburger(cost)) {
+                    // Item zum Inventar hinzufügen (via game.js global)
+                    if (window.INSEL_addToInventory) window.INSEL_addToInventory(mat, 1);
+                    if (typeof window.showToast === 'function') window.showToast('🏪 Gekauft: ' + (MARKET_PRICES[mat] ? MARKET_PRICES[mat].emoji + ' ' + MARKET_PRICES[mat].name : mat), 2000);
+                    updateBalanceDisplay();
+                    renderBuyTab(); // Refresh
+                }
+            });
         });
     }
 
-    function renderListingCard(item) {
-        var emoji = item.emoji || '🎁';
-        var priceStr = '';
-        if (item.price_mmx > 0) priceStr += item.price_mmx + ' MMX ';
-        if (item.price_xch > 0) priceStr += item.price_xch + ' XCH ';
-        if (item.price_glut > 0) priceStr += item.price_glut + ' Seelenglut ';
-        if (!priceStr) priceStr = 'Gratis';
-
-        return [
-            '<div style="background:#0f0f1a;border:1px solid #333;border-radius:8px;padding:12px;margin-bottom:8px;">',
-            '  <div style="display:flex;justify-content:space-between;align-items:center;">',
-            '    <span style="font-size:20px;">' + emoji + '</span>',
-            '    <div style="flex:1;margin-left:10px;">',
-            '      <div style="font-weight:bold;font-size:12px;">' + escHtml(item.name || item.material_id) + '</div>',
-            '      <div style="font-size:10px;color:#888;">' + escHtml(item.description || '') + '</div>',
-            '    </div>',
-            '    <div style="text-align:right;">',
-            '      <div style="font-size:11px;color:#FF6B00;">' + escHtml(priceStr) + '</div>',
-            '      <button class="market-buy-btn" data-id="' + item.id + '" style="margin-top:4px;background:#FF6B00;color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:10px;cursor:pointer;">Kaufen</button>',
-            '    </div>',
-            '  </div>',
-            '  <div style="font-size:9px;color:#555;margin-top:4px;">von ' + (item.seller_addr ? item.seller_addr.slice(0, 10) + '...' : 'Anonym') + '</div>',
-            '</div>',
-        ].join('');
-    }
-
-    // --- Sell Tab: Eigene Rare Items listen ---
+    // --- Sell Tab ---
     function renderSellTab() {
         var container = document.getElementById('market-sell');
         if (!container) return;
 
-        var wallet = getWallet();
-        if (!wallet.mmx && !wallet.xch) {
-            container.innerHTML = '<div style="text-align:center;color:#888;padding:20px;">Erst Wallet einrichten (Tab: Wallet)</div>';
-            return;
+        // Welche Materialien hat der Spieler und was kann er verkaufen?
+        var entries = Object.entries(MARKET_PRICES).filter(function (e) { return e[1].sell > 0; });
+        var html = '<div style="font-size:11px;color:#888;margin-bottom:8px;">Verkaufe Materialien für Krabbenburger 🍔</div>';
+        var hasAny = false;
+
+        for (var i = 0; i < entries.length; i++) {
+            var mat = entries[i][0];
+            var p = entries[i][1];
+            var count = window.INSEL_getInventoryCount ? window.INSEL_getInventoryCount(mat) : 0;
+            if (count <= 0) continue;
+            hasAny = true;
+            html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222;">' +
+                '<span>' + p.emoji + ' ' + escHtml(p.name) + ' (' + count + 'x)</span>' +
+                '<button class="market-sell-btn" data-mat="' + mat + '" data-earn="' + p.sell + '"' +
+                ' style="background:#C62828;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;">Verkauf +' + p.sell + '\uD83C\uDF54</button></div>';
         }
 
-        // Rare Items aus dem Inventar finden
+        // Rare Items (LLM-gecraftet)
         var rareItems = findPlayerRareItems();
-        if (rareItems.length === 0) {
-            container.innerHTML = '<div style="text-align:center;color:#888;padding:20px;">Keine Rare Items. Crafte mit dem LLM etwas Einzigartiges!</div>';
-            return;
+        for (var j = 0; j < rareItems.length; j++) {
+            hasAny = true;
+            html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222;">' +
+                '<span>' + (rareItems[j].emoji || '✨') + ' ' + escHtml(rareItems[j].name) + ' <span style="color:#FF6B00;font-size:9px;">RARE</span></span>' +
+                '<button class="market-sell-rare-btn" data-material="' + escHtml(rareItems[j].id) + '" data-name="' + escHtml(rareItems[j].name) + '"' +
+                ' style="background:#8B0000;color:#FFD700;border:none;border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer;">Liste im P2P-Markt</button></div>';
         }
 
-        var html = '<div style="font-size:11px;color:#888;margin-bottom:8px;">Deine seltenen Items:</div>';
-        for (var i = 0; i < rareItems.length; i++) {
-            var item = rareItems[i];
-            html += [
-                '<div style="background:#0f0f1a;border:1px solid #333;border-radius:8px;padding:10px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;">',
-                '  <span style="font-size:16px;">' + (item.emoji || '✨') + ' ' + escHtml(item.name) + '</span>',
-                '  <button class="market-list-btn" data-material="' + escHtml(item.id) + '" data-name="' + escHtml(item.name) + '" data-emoji="' + escHtml(item.emoji || '✨') + '" style="background:#3AAC59;color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:10px;cursor:pointer;">Anbieten</button>',
-                '</div>',
-            ].join('');
+        if (!hasAny) {
+            html += '<div style="text-align:center;color:#666;padding:20px;">Kein Material zum Verkaufen. Baue und sammle zuerst!</div>';
         }
+
         container.innerHTML = html;
 
-        // List buttons
-        var listBtns = container.querySelectorAll('.market-list-btn');
-        for (var j = 0; j < listBtns.length; j++) {
-            listBtns[j].addEventListener('click', function () {
-                handleList(this.getAttribute('data-material'), this.getAttribute('data-name'), this.getAttribute('data-emoji'));
+        container.querySelectorAll('.market-sell-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var mat = this.getAttribute('data-mat');
+                var earn = parseInt(this.getAttribute('data-earn'));
+                if (window.INSEL_getInventoryCount && window.INSEL_getInventoryCount(mat) > 0) {
+                    if (window.INSEL_removeFromInventory) window.INSEL_removeFromInventory(mat, 1);
+                    if (window.addKrabbenburger) window.addKrabbenburger(earn);
+                    if (typeof window.showToast === 'function') window.showToast('🏪 Verkauft! +' + earn + '🍔', 2000);
+                    updateBalanceDisplay();
+                    renderSellTab(); // Refresh
+                }
             });
-        }
+        });
+
+        // Rare Items → P2P Markt (Worker-Backend)
+        container.querySelectorAll('.market-sell-rare-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var materialId = this.getAttribute('data-material');
+                var name = this.getAttribute('data-name');
+                handleListRare(materialId, name);
+            });
+        });
     }
 
     function findPlayerRareItems() {
-        // LLM-gecraftete Materialien aus localStorage
         var rares = [];
         try {
             var stored = JSON.parse(localStorage.getItem('insel-llm-materials') || '{}');
@@ -228,17 +300,52 @@
         return rares;
     }
 
+    function handleListRare(materialId, name) {
+        var wallet = getWallet();
+        var price = prompt('Preis in 🍔 Krabbenburger (z.B. 10):');
+        if (!price || isNaN(parseInt(price))) return;
+        var priceBurger = parseInt(price);
+
+        apiPost('/market/list', {
+            material_id: materialId,
+            name: name,
+            emoji: '✨',
+            price_mmx: priceBurger * BURGER_TO_MMX,
+            price_xch: 0,
+            price_glut: priceBurger,
+            seller_addr: wallet.mmx || wallet.xch || 'anonym',
+            seller_mmx: wallet.mmx || '',
+            seller_xch: wallet.xch || '',
+        }).then(function (res) {
+            if (res.ok) {
+                if (typeof window.showToast === 'function') window.showToast('✨ Rare Item gelistet für ' + priceBurger + '🍔!');
+                renderSellTab();
+            } else {
+                if (typeof window.showToast === 'function') window.showToast(res.error || 'Fehler beim Listen');
+            }
+        }).catch(function () {
+            if (typeof window.showToast === 'function') window.showToast('Keine Verbindung zum Markt');
+        });
+    }
+
     // --- Wallet Tab ---
     function renderWalletTab() {
         var container = document.getElementById('market-wallet');
         if (!container) return;
 
         var wallet = getWallet();
+        var burgers = window.getKrabbenburger ? window.getKrabbenburger() : 0;
+        var mmxValue = (burgers * BURGER_TO_MMX).toFixed(4);
 
         container.innerHTML = [
-            '<div style="font-size:11px;color:#888;margin-bottom:12px;">',
-            '  Pseudonym. Keine Registrierung. Nur Blockchain-Adressen.',
-            '  <br><span style="color:#555;font-size:9px;">DSGVO: Kein PII gespeichert. Adressen = Pseudonyme.</span>',
+            '<div style="text-align:center;padding:12px 0;">',
+            '  <div style="font-size:24px;">🍔 ' + burgers + '</div>',
+            '  <div style="font-size:11px;color:#FF6B00;">≈ ' + mmxValue + ' MMX</div>',
+            '  <div style="font-size:9px;color:#666;margin-top:4px;">Verdiene Krabbenburger durch Quests und Entdeckungen!</div>',
+            '</div>',
+            '<hr style="border:none;border-top:1px solid #333;">',
+            '<div style="font-size:11px;color:#888;margin:12px 0 8px;">',
+            '  Für Nerds: Wallet-Adressen (optional, für P2P-Handel)',
             '</div>',
             '<label style="font-size:10px;color:#FF6B00;">MMX Adresse</label>',
             '<input id="wallet-mmx" type="text" value="' + escHtml(wallet.mmx || '') + '" placeholder="mmx1..." style="width:100%;background:#0f0f1a;color:#e0e0e0;border:1px solid #333;border-radius:4px;padding:6px;font-size:11px;font-family:monospace;margin:4px 0 12px;box-sizing:border-box;">',
@@ -247,11 +354,9 @@
             '<button id="wallet-save" style="width:100%;background:#FF6B00;color:#fff;border:none;border-radius:6px;padding:8px;font-size:12px;cursor:pointer;">Speichern</button>',
             '<div style="margin-top:12px;padding:10px;background:#0f0f1a;border:1px solid #222;border-radius:6px;font-size:9px;color:#555;">',
             '  <b style="color:#888;">Deflation\u00e4re Arbeitswerttheorie</b><br>',
-            '  Jeder Token der hierher flie\u00dft, wird zu Arbeit. Jede Arbeit strahlt<br>',
+            '  Jeder Krabbenburger der hier flie\u00dft, wird zu Arbeit. Jede Arbeit strahlt<br>',
             '  als Code, als Quest, als Insel zur\u00fcck in die Welt. Das Schwarze Loch<br>',
-            '  frisst Tokens und strahlt Hawking-Strahlung: Kinderlachen.<br><br>',
-            '  Marx sa\u00df im Lesesaal. Wir sitzen auf der Insel.<br>',
-            '  Der Wert entsteht nicht im Besitz, sondern im Verschwinden.',
+            '  frisst Tokens und strahlt Hawking-Strahlung: Kinderlachen.',
             '</div>',
         ].join('\n');
 
@@ -259,7 +364,6 @@
             var mmx = container.querySelector('#wallet-mmx').value.trim();
             var xch = container.querySelector('#wallet-xch').value.trim();
 
-            // Validierung: Adressen-Prefix
             if (mmx && !mmx.startsWith('mmx1')) {
                 if (typeof window.showToast === 'function') window.showToast('MMX-Adresse muss mit mmx1 beginnen');
                 return;
@@ -274,69 +378,6 @@
         });
     }
 
-    // --- Handlers ---
-    function handleBuy(listingId) {
-        var wallet = getWallet();
-        if (!wallet.mmx && !wallet.xch) {
-            if (typeof window.showToast === 'function') window.showToast('Erst Wallet einrichten!');
-            return;
-        }
-
-        apiGet('/market/item/' + listingId).then(function (data) {
-            if (!data.item) {
-                if (typeof window.showToast === 'function') window.showToast('Angebot nicht mehr verf\u00fcgbar');
-                return;
-            }
-            var item = data.item;
-
-            // Zeige Zahlungsinfos
-            var payAddr = item.seller_mmx || item.seller_xch || '';
-            var payAmount = item.price_mmx > 0 ? item.price_mmx + ' MMX' : item.price_xch + ' XCH';
-            var msg = item.name + ' kaufen?\n\nSende ' + payAmount + ' an:\n' + payAddr +
-                '\n\nDanach "Zahlung best\u00e4tigen" klicken.';
-
-            if (confirm(msg)) {
-                // Zahlung als pending markieren
-                apiPost('/market/buy', {
-                    listing_id: listingId,
-                    buyer_addr: wallet.mmx || wallet.xch,
-                }).then(function (res) {
-                    if (res.ok) {
-                        if (typeof window.showToast === 'function') window.showToast('Kauf eingeleitet! Verifizierung l\u00e4uft...');
-                        loadListings();
-                    }
-                });
-            }
-        });
-    }
-
-    function handleList(materialId, name, emoji) {
-        var wallet = getWallet();
-        var price = prompt('Preis in MMX (z.B. 0.1):');
-        if (!price || isNaN(parseFloat(price))) return;
-
-        apiPost('/market/list', {
-            material_id: materialId,
-            name: name,
-            emoji: emoji,
-            price_mmx: parseFloat(price),
-            price_xch: 0,
-            price_glut: 0,
-            seller_addr: wallet.mmx || wallet.xch || 'anonym',
-            seller_mmx: wallet.mmx || '',
-            seller_xch: wallet.xch || '',
-        }).then(function (res) {
-            if (res.ok) {
-                if (typeof window.showToast === 'function') window.showToast('Item gelistet!');
-                renderSellTab();
-            } else {
-                if (typeof window.showToast === 'function') window.showToast(res.error || 'Fehler beim Listen');
-            }
-        }).catch(function () {
-            if (typeof window.showToast === 'function') window.showToast('Keine Verbindung');
-        });
-    }
-
     // --- HTML Escaping ---
     function escHtml(str) {
         var div = document.createElement('div');
@@ -344,13 +385,13 @@
         return div.innerHTML;
     }
 
-    // --- NPC Rare Shop (Mephisto) ---
+    // --- NPC Rare Shop (Mephisto) — Legacy Compat ---
     var MEPHISTO_DEALS = [
-        { id: 'schatten_kristall', name: 'Schatten-Kristall', emoji: '🔮', desc: 'Leuchtet nur bei Nacht. Fl\u00fcstert Faust-Zitate.', price_glut: 50, price_mmx: 0.01 },
-        { id: 'seelen_laterne', name: 'Seelen-Laterne', emoji: '🏮', desc: 'Zeigt den Weg den man nicht gehen sollte.', price_glut: 80, price_mmx: 0.02 },
-        { id: 'mitternachts_rose', name: 'Mitternachts-Rose', emoji: '🥀', desc: 'Bl\u00fcht nur zwischen 23:00 und 01:00.', price_glut: 120, price_mmx: 0.05 },
-        { id: 'pakt_siegel', name: 'Pakt-Siegel', emoji: '📜', desc: 'Unterschreibe nicht. Oder doch. Hehehehe...', price_glut: 200, price_mmx: 0.1 },
-        { id: 'hawking_stern', name: 'Hawking-Stern', emoji: '⭐', desc: 'Strahlt Information. Schwarzes Loch im Taschenformat.', price_glut: 500, price_mmx: 0.5 },
+        { id: 'schatten_kristall', name: 'Schatten-Kristall', emoji: '🔮', desc: 'Leuchtet nur bei Nacht.', price_glut: 5, price_mmx: 0.005 },
+        { id: 'seelen_laterne', name: 'Seelen-Laterne', emoji: '🏮', desc: 'Zeigt den Weg den man nicht gehen sollte.', price_glut: 8, price_mmx: 0.008 },
+        { id: 'mitternachts_rose', name: 'Mitternachts-Rose', emoji: '🥀', desc: 'Bl\u00fcht nur zwischen 23:00 und 01:00.', price_glut: 12, price_mmx: 0.012 },
+        { id: 'pakt_siegel', name: 'Pakt-Siegel', emoji: '📜', desc: 'Unterschreibe nicht. Oder doch.', price_glut: 20, price_mmx: 0.02 },
+        { id: 'hawking_stern', name: 'Hawking-Stern', emoji: '⭐', desc: 'Strahlt Information.', price_glut: 50, price_mmx: 0.05 },
     ];
 
     function getMephistoDeals() { return MEPHISTO_DEALS; }
@@ -365,6 +406,7 @@
         isRareItem: isRareItem,
         getMephistoDeals: getMephistoDeals,
         MEPHISTO_DEALS: MEPHISTO_DEALS,
+        MARKET_PRICES: MARKET_PRICES,
     };
 
     if (window.INSEL) {

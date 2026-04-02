@@ -51,6 +51,9 @@ export default {
             return handleMetricsIngest(request, env);
         }
         // Marketplace endpoints
+        if (pathname === '/market/prices') {
+            return handleMarketPrices(request, env);
+        }
         if (pathname === '/market/items') {
             return handleMarketItems(request, env);
         }
@@ -62,6 +65,9 @@ export default {
         }
         if (pathname === '/market/buy') {
             return handleMarketBuy(request, env);
+        }
+        if (pathname === '/market/sell') {
+            return handleMarketSell(request, env);
         }
 
         // Nur POST
@@ -743,6 +749,89 @@ async function handleMarketBuy(request, env) {
     }
 
     return json({ ok: true, listing_id: body.listing_id, status: 'pending' });
+}
+
+// GET /market/prices — Krabbenburger-Preisliste (#93)
+async function handleMarketPrices(request, env) {
+    // Statische Preisliste — identisch zu marketplace.js MARKET_PRICES
+    // Server-authoritative Preise für Validierung
+    const prices = {
+        wood:     { buy: 1,  sell: 0 },
+        stone:    { buy: 1,  sell: 0 },
+        sand:     { buy: 1,  sell: 0 },
+        planks:   { buy: 2,  sell: 1 },
+        glass:    { buy: 3,  sell: 1 },
+        brick:    { buy: 3,  sell: 1 },
+        flower:   { buy: 2,  sell: 1 },
+        plant:    { buy: 2,  sell: 1 },
+        tree:     { buy: 3,  sell: 1 },
+        fish:     { buy: 3,  sell: 1 },
+        honey:    { buy: 5,  sell: 2 },
+        apple:    { buy: 4,  sell: 1 },
+        diamond:  { buy: 15, sell: 5 },
+        crystal:  { buy: 10, sell: 3 },
+        gold:     { buy: 12, sell: 4 },
+    };
+    return json({ prices, currency: 'krabbenburger', mmx_rate: 0.001 });
+}
+
+// POST /market/sell — Material verkaufen für Krabbenburger (#93)
+async function handleMarketSell(request, env) {
+    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
+
+    let body;
+    try { body = await request.json(); } catch (e) {
+        return json({ error: 'Ungültiger Body' }, 400);
+    }
+
+    if (!body.material_id) return json({ error: 'material_id benötigt' }, 400);
+    if (!body.quantity || body.quantity < 1) return json({ error: 'quantity >= 1 benötigt' }, 400);
+
+    // Preisvalidierung
+    const sellPrices = {
+        planks: 1, glass: 1, brick: 1, flower: 1, plant: 1, tree: 1,
+        fish: 1, honey: 2, apple: 1, diamond: 5, crystal: 3, gold: 4,
+    };
+
+    const pricePerUnit = sellPrices[body.material_id];
+    if (!pricePerUnit) {
+        return json({ error: 'Material nicht verkaufbar: ' + body.material_id }, 400);
+    }
+
+    const totalEarned = pricePerUnit * body.quantity;
+
+    // Log transaction (optional, bei D1)
+    if (env.METRICS_DB) {
+        try {
+            await env.METRICS_DB.prepare(
+                `INSERT INTO market_transactions (id, type, material_id, quantity, price_burger, player_addr, created_at)
+                 VALUES (?, 'sell', ?, ?, ?, ?, datetime('now'))`
+            ).bind(
+                crypto.randomUUID(),
+                body.material_id,
+                body.quantity,
+                totalEarned,
+                body.player_addr || 'anonym'
+            ).run();
+        } catch (e) {
+            // Table might not exist yet, create it
+            if (e.message && e.message.includes('no such table')) {
+                await env.METRICS_DB.prepare(
+                    `CREATE TABLE IF NOT EXISTS market_transactions (
+                        id TEXT PRIMARY KEY,
+                        type TEXT NOT NULL,
+                        material_id TEXT NOT NULL,
+                        quantity INTEGER DEFAULT 1,
+                        price_burger INTEGER DEFAULT 0,
+                        player_addr TEXT DEFAULT 'anonym',
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )`
+                ).run();
+            }
+        }
+    }
+
+    return json({ ok: true, earned: totalEarned, material: body.material_id, quantity: body.quantity });
 }
 
 async function createMarketTable(env) {

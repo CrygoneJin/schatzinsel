@@ -228,9 +228,13 @@
                     const currentBonus = window.getTokenBonus ? window.getTokenBonus(q.npc) : 0;
                     const cappedReward = Math.min(tokenReward, 2000 - currentBonus);
 
+                    // Krabbenburger-Reward: 1-5 🍔 pro Quest (#93)
+                    const burgerReward = Math.min(5, Math.max(1, Math.ceil(blockCount / 3)));
+                    const actualBurgers = addKrabbenburger(burgerReward);
+
                     if (q.community) {
                         // Trotzki: Gemeinschaftsquest — ALLE NPCs profitieren!
-                        showToast(`🤝 Inselrat: ${q.title} geschafft! ALLE profitieren! ${q.reward}`, 4000);
+                        showToast(`🤝 Inselrat: ${q.title} geschafft! ALLE profitieren! ${q.reward}${actualBurgers > 0 ? ` +${actualBurgers}🍔` : ''}`, 4000);
                         soundQuestComplete();
                         if (window.addTokenBudget) {
                             const allNpcs = Object.keys(NPC_DEFS);
@@ -242,13 +246,13 @@
                             });
                         }
                     } else if (cappedReward > 0) {
-                        showToast(`🎉 Quest geschafft: ${q.title} ${q.reward} +⚡ Energie!`);
+                        showToast(`🎉 Quest geschafft: ${q.title} ${q.reward} +⚡ Energie!${actualBurgers > 0 ? ` +${actualBurgers}🍔` : ''}`);
                         soundQuestComplete();
                         if (window.addTokenBudget) {
                             window.addTokenBudget(q.npc, cappedReward);
                         }
                     } else {
-                        showToast(`🎉 Quest geschafft: ${q.title} ${q.reward}`);
+                        showToast(`🎉 Quest geschafft: ${q.title} ${q.reward}${actualBurgers > 0 ? ` +${actualBurgers}🍔` : ''}`);
                         soundQuestComplete();
                     }
                     // Memory: Quest-Abschluss für den NPC vermerken
@@ -394,6 +398,9 @@
         } else if (npcId === 'krabs') {
             // Krabs: Kein Quest? Dann HANDEL! 🦀💰
             showKrabsShop();
+        } else if (npcId === 'mephisto') {
+            // Mephisto: Kein Quest? Dann MEPHISTO-SHOP! 😈🍔
+            showMephistoShop();
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {
@@ -502,6 +509,98 @@
             });
         });
     }
+
+    // === MEPHISTO SHOP — Krabbenburger-Handel (#93) ===
+    // Mephisto verkauft rare/magische Items für Krabbenburger
+    const MEPHISTO_SHOP = [
+        { id: 'schatten_kristall', emoji: '🔮', name: 'Schatten-Kristall', desc: 'Leuchtet nur bei Nacht. Flüstert Faust-Zitate.', cost: 5 },
+        { id: 'seelen_laterne',   emoji: '🏮', name: 'Seelen-Laterne', desc: 'Zeigt den Weg den man nicht gehen sollte.', cost: 8 },
+        { id: 'mitternachts_rose', emoji: '🥀', name: 'Mitternachts-Rose', desc: 'Blüht nur zwischen 23:00 und 01:00.', cost: 12 },
+        { id: 'pakt_siegel',      emoji: '📜', name: 'Pakt-Siegel', desc: 'Unterschreibe nicht. Oder doch. Hehehehe...', cost: 20 },
+        { id: 'hawking_stern',    emoji: '⭐', name: 'Hawking-Stern', desc: 'Strahlt Information. Schwarzes Loch im Taschenformat.', cost: 50 },
+        { id: 'drachenschuppe',   emoji: '🐉', name: 'Drachenschuppe', desc: 'Warm. Sehr warm. HEISS!', cost: 15 },
+        { id: 'nebel_essenz',     emoji: '🌫️', name: 'Nebel-Essenz', desc: 'Fang Nebel in einer Flasche. Mephisto kann das.', cost: 10 },
+    ];
+
+    function showMephistoShop() {
+        const burgers = getKrabbenburger();
+
+        let existing = document.getElementById('mephisto-shop-modal');
+        if (existing) existing.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'mephisto-shop-modal';
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;display:flex;align-items:center;justify-content:center;';
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+
+        const shopHTML = MEPHISTO_SHOP.map(item => {
+            const canBuy = burgers >= item.cost;
+            const owned = getInventoryCount(item.id) > 0;
+            return `<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #333;">
+                <span style="font-size:14px;">${item.emoji} <strong>${item.name}</strong></span>
+                <span style="font-size:10px;color:#888;flex:1;margin:0 8px;">${item.desc}</span>
+                <span>
+                    ${owned ? '<span style="color:#3AAC59;font-size:11px;">✓</span>' : ''}
+                    <button class="mephisto-buy" data-item="${item.id}" data-cost="${item.cost}"
+                        style="background:${canBuy ? '#8B0000' : '#333'};color:${canBuy ? '#FFD700' : '#666'};border:none;border-radius:4px;padding:3px 8px;cursor:${canBuy ? 'pointer' : 'not-allowed'};margin-left:4px;font-size:11px;"
+                        ${canBuy ? '' : 'disabled'}>${item.cost}🍔</button>
+                </span>
+            </div>`;
+        }).join('');
+
+        modal.innerHTML = `<div style="background:#1a0a2e;color:#eee;border-radius:12px;padding:20px;max-width:400px;width:90%;max-height:70vh;overflow-y:auto;font-family:monospace;border:2px solid #8B0000;">
+            <h3 style="margin:0 0 4px;text-align:center;">😈 Mephistos Raritäten-Kabinett</h3>
+            <p style="text-align:center;margin:0 0 4px;font-size:0.9em;color:#FF6B00;">Dein Vermögen: <strong>${burgers} 🍔</strong></p>
+            <p style="text-align:center;margin:0 0 12px;font-size:0.7em;color:#888;">"Alles hat seinen Preis... Hehehehe..."</p>
+            ${shopHTML}
+            <p style="text-align:center;margin:12px 0 0;font-size:0.65em;color:#555;">Krabbenburger verdienst du durch Quests! · 1🍔 ≈ 0.001 MMX</p>
+            <p style="text-align:center;margin:4px 0 0;font-size:0.7em;color:#666;">Klick außerhalb zum Schließen</p>
+        </div>`;
+
+        document.body.appendChild(modal);
+
+        modal.querySelectorAll('.mephisto-buy').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const itemId = btn.dataset.item;
+                const cost = parseInt(btn.dataset.cost);
+                const item = MEPHISTO_SHOP.find(i => i.id === itemId);
+                if (!item) return;
+
+                if (spendKrabbenburger(cost)) {
+                    addToInventory(itemId, 1);
+                    unlockMaterial(itemId);
+                    showToast(`😈 DEAL! ${item.emoji} ${item.name} für ${cost}🍔! Hehehehe...`, 3000);
+                    modal.remove();
+                    showMephistoShop(); // Refresh
+                } else {
+                    showToast(`😈 Nicht genug Krabbenburger! Du brauchst ${cost}🍔, hast aber nur ${getKrabbenburger()}🍔.`, 3000);
+                }
+            });
+        });
+    }
+
+    // Mephisto-Items als Materialien registrieren (damit sie im Inventar/Grid nutzbar sind)
+    MEPHISTO_SHOP.forEach(item => {
+        if (!MATERIALS[item.id]) {
+            MATERIALS[item.id] = {
+                emoji: item.emoji,
+                label: item.name,
+                color: '#8B0000',
+                rarity: 'rare',
+            };
+        }
+    });
+
+    // Krabbenburger-Bonus bei seltenen Item-Entdeckungen
+    const _origAddToInv = addToInventory;
+    // Note: wir patchen nicht addToInventory direkt — stattdessen ein Event-Hook
+    window.addEventListener('insel-rare-discovery', (e) => {
+        const bonus = e.detail && e.detail.bonus || 1;
+        const actual = addKrabbenburger(bonus);
+        if (actual > 0) {
+            showToast(`🍔 +${actual} Krabbenburger für eine seltene Entdeckung!`, 2000);
+        }
+    });
 
     // --- NPC-Kommentare beim Bauen ---
     // === GENERATIVE NPC-KOMMENTARE ===
@@ -800,6 +899,59 @@
     let inventory = {};
 
     const SHELL_CAP = 42; // The Answer. 42 🐚 = 0.042 MMX pro Spieler.
+
+    // === KRABBENBURGER — Premium Token-Ökonomie (#93) ===
+    // 🍔 Krabbenburger = In-Game-Premium-Token (= MMX auf Nerd-Ebene)
+    // Verdienen: Quests abschließen, seltene Items entdecken
+    // Ausgeben: Bei Mephisto rare Items kaufen, im Marketplace handeln
+    const KRABBENBURGER_KEY = 'insel-krabbenburger';
+    const KRABBENBURGER_CAP = 999;
+
+    function getKrabbenburger() {
+        return parseInt(localStorage.getItem(KRABBENBURGER_KEY) || '0');
+    }
+
+    function addKrabbenburger(amount) {
+        const current = getKrabbenburger();
+        const newVal = Math.min(KRABBENBURGER_CAP, current + amount);
+        localStorage.setItem(KRABBENBURGER_KEY, String(newVal));
+        updateKrabbenburgerDisplay();
+        return newVal - current; // tatsächlich hinzugefügt
+    }
+
+    function spendKrabbenburger(amount) {
+        const current = getKrabbenburger();
+        if (current < amount) return false;
+        localStorage.setItem(KRABBENBURGER_KEY, String(current - amount));
+        updateKrabbenburgerDisplay();
+        return true;
+    }
+
+    function updateKrabbenburgerDisplay() {
+        let el = document.getElementById('krabbenburger-display');
+        if (!el) {
+            el = document.createElement('div');
+            el.id = 'krabbenburger-display';
+            el.style.cssText = 'position:fixed;top:8px;right:8px;background:rgba(26,26,46,0.9);color:#FFD700;' +
+                'padding:6px 12px;border-radius:20px;font-family:monospace;font-size:14px;z-index:9999;' +
+                'border:1px solid #FF6B00;cursor:pointer;user-select:none;';
+            el.title = 'Krabbenburger — Deine Premium-Münzen! Klick für Details.';
+            el.addEventListener('click', () => {
+                showToast(`🍔 ${getKrabbenburger()} Krabbenburger\n🐚 ${getInventoryCount('shell')} Muscheln\n\n1🍔 ≈ 0.001 MMX · Verdiene mehr durch Quests!`, 4000);
+            });
+            document.body.appendChild(el);
+        }
+        el.textContent = `🍔 ${getKrabbenburger()}`;
+    }
+
+    // Export für marketplace.js
+    window.getKrabbenburger = getKrabbenburger;
+    window.addKrabbenburger = addKrabbenburger;
+    window.spendKrabbenburger = spendKrabbenburger;
+    // Inventory-Zugriff für marketplace.js (#93)
+    window.INSEL_addToInventory = function(mat, n) { addToInventory(mat, n); };
+    window.INSEL_removeFromInventory = function(mat, n) { removeFromInventory(mat, n); };
+    window.INSEL_getInventoryCount = function(mat) { return getInventoryCount(mat); };
 
     function addToInventory(material, count) {
         count = count || 1;
@@ -4531,6 +4683,9 @@
 
     // NPCs auf freie Zellen platzieren (nach Grid-Init + Auto-Save-Restore)
     initNpcPositions();
+
+    // Krabbenburger-Display initialisieren (#93)
+    updateKrabbenburgerDisplay();
 
     // Sammelbare Items spawnen (Schätze, Materialien zum Einsammeln)
     if (collectibles.length === 0) {
