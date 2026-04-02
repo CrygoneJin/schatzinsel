@@ -44,6 +44,9 @@ export default {
         if (pathname === '/tts') {
             return handleTTS(request, env);
         }
+        if (pathname === '/leaderboard') {
+            return handleLeaderboard(env);
+        }
         if (pathname === '/metrics') {
             return handleMetrics(request, env);
         }
@@ -456,6 +459,43 @@ async function handleBugs(request, env) {
     bugs.sort((a, b) => (b.created || '').localeCompare(a.created || ''));
 
     return json({ total: bugs.length, bugs });
+}
+
+// --- Leaderboard Endpoint ---
+
+async function handleLeaderboard(env) {
+    // D1: aggregiert Top 10 pro Kategorie aus sessions-Tabelle
+    if (env.METRICS_DB) {
+        try {
+            const [blocks, discoveries, time] = await Promise.all([
+                env.METRICS_DB.prepare(
+                    `SELECT player_name AS name, SUM(blocks_placed) AS score
+                     FROM sessions WHERE player_name != 'Anonym'
+                     GROUP BY player_name ORDER BY score DESC LIMIT 10`
+                ).all(),
+                env.METRICS_DB.prepare(
+                    `SELECT player_name AS name, SUM(quests_completed) AS score
+                     FROM sessions WHERE player_name != 'Anonym'
+                     GROUP BY player_name ORDER BY score DESC LIMIT 10`
+                ).all(),
+                env.METRICS_DB.prepare(
+                    `SELECT player_name AS name, SUM(duration_s) AS score
+                     FROM sessions WHERE player_name != 'Anonym'
+                     GROUP BY player_name ORDER BY score DESC LIMIT 10`
+                ).all(),
+            ]);
+            return json({
+                blocks:      blocks.results      || [],
+                discoveries: discoveries.results  || [],
+                time:        time.results         || [],
+            });
+        } catch (e) {
+            // D1 Fehler — Fallback unten
+        }
+    }
+
+    // Fallback: leere Listen
+    return json({ blocks: [], discoveries: [], time: [] });
 }
 
 // --- Metrics Endpoint ---
