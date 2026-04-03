@@ -1394,6 +1394,10 @@
                     document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
                     document.querySelector('[data-tool="build"]').classList.add('active');
                 });
+                // Palette als Instrument: Hovern spielt Materialton (#71)
+                btn.addEventListener('mouseenter', () => {
+                    playMaterialSound(mat);
+                });
             }
         }
         showToast(`✨ Neues Artefakt: ${info.emoji} ${info.label}!`);
@@ -3458,6 +3462,11 @@
 
         btn.addEventListener('click', () => {
             selectMaterial(btn.dataset.material);
+        });
+
+        // Palette als Instrument: Hovern spielt Materialton (#71)
+        btn.addEventListener('mouseenter', () => {
+            playMaterialSound(btn.dataset.material);
         });
 
         // Palette als Drop-Target: Inventar-Item auf Palette-Element droppen = Craft
