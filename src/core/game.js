@@ -328,21 +328,48 @@
         krabs:     { emoji: '🦀', name: 'Mr. Krabs' },
         tommy:     { emoji: '🦞', name: 'Tommy' },
         mephisto:  { emoji: '😈', name: 'Mephisto' },
+        // Lummerland-NPCs (nur auf Lummerland sichtbar)
+        waas:      { emoji: '👩‍🍳', name: 'Frau Waas', lummerland: true },
+        lukas:     { emoji: '🚂', name: 'Lukas', lummerland: true },
     };
 
     // NPCs im Kreis um die Inselmitte verteilen
     // Positionen werden nach Grid-Init berechnet (siehe unten)
     let npcPositions = {};
 
+    const _isLummerland = new URLSearchParams(location.search).has('lummerland');
+
     function initNpcPositions() {
         const cx = Math.floor(COLS / 2);
         const cy = Math.floor(ROWS / 2);
         const rx = Math.floor(COLS * 0.3);
         const ry = Math.floor(ROWS * 0.3);
-        const ids = Object.keys(NPC_DEFS);
+        const ids = Object.keys(NPC_DEFS).filter(id => {
+            // Lummerland-NPCs nur auf Lummerland
+            if (NPC_DEFS[id].lummerland && !_isLummerland) return false;
+            return true;
+        });
         npcPositions = {};
-        ids.forEach((id, i) => {
-            const angle = (i / ids.length) * Math.PI * 2 - Math.PI / 2;
+
+        // Lummerland-NPCs bekommen feste Positionen bei ihren Gebäuden
+        if (_isLummerland) {
+            // Lukas: vor dem Lokschuppen (1 Zeile darunter)
+            const schuppenR = cy + Math.floor(ry * 0.1) + 1;
+            const schuppenC = cx - Math.floor(rx * 0.1);
+            npcPositions['lukas'] = { r: schuppenR, c: schuppenC };
+            if (grid[schuppenR] && grid[schuppenR][schuppenC]) grid[schuppenR][schuppenC] = null;
+
+            // Frau Waas: vor dem Laden (1 Zeile darunter)
+            const ladenR = cy + 1;
+            const ladenC = cx + Math.floor(rx * 0.15);
+            npcPositions['waas'] = { r: ladenR, c: ladenC };
+            if (grid[ladenR] && grid[ladenR][ladenC]) grid[ladenR][ladenC] = null;
+        }
+
+        // Alle anderen NPCs im Kreis um die Inselmitte
+        const circleIds = ids.filter(id => !npcPositions[id]);
+        circleIds.forEach((id, i) => {
+            const angle = (i / circleIds.length) * Math.PI * 2 - Math.PI / 2;
             let r = Math.min(ROWS - 3, Math.max(2, cy + Math.round(Math.sin(angle) * ry)));
             let c = Math.min(COLS - 3, Math.max(2, cx + Math.round(Math.cos(angle) * rx)));
             // Freie Zelle suchen falls besetzt
@@ -408,6 +435,27 @@
         } else if (npcId === 'krabs') {
             // Krabs: Kein Quest? Dann HANDEL! 🦀💰
             showKrabsShop();
+        } else if (npcId === 'waas') {
+            // Frau Waas: Muscheln für den Laden annehmen
+            const shells = getInventoryCount('shell');
+            if (shells > 0) {
+                removeFromInventory('shell', shells);
+                showToast(`👩‍🍳 Frau Waas: ${shells} Muschel${shells > 1 ? 'n' : ''}! Die kommen ins Regal. Danke, Schatz! 🐚`, 4000);
+                updateInventoryDisplay();
+                soundCraft();
+            } else {
+                showToast('👩‍🍳 Frau Waas: Bring mir Muscheln vom Strand! Die verkaufen sich wie warme Semmeln! 🐚', 4000);
+            }
+        } else if (npcId === 'lukas') {
+            // Lukas: Abenteuergeschichten
+            const lukasStories = [
+                '🚂 Lukas: Emma und ich sind einmal bis zum Ende der Welt gefahren! Naja, fast.',
+                '🚂 Lukas: Weißt du was? Die besten Abenteuer fangen auf kleinen Inseln an!',
+                '🚂 Lukas: Jim Knopf und ich haben mal einen Drachen besiegt. Mit Dampf!',
+                '🚂 Lukas: Eine Lokomotive braucht drei Dinge: Kohle, Wasser und einen Freund.',
+                '🚂 Lukas: Hör mal — wenn du genug Holz sammelst, bauen wir ein Boot!',
+            ];
+            showToast(lukasStories[Math.floor(Math.random() * lukasStories.length)], 5000);
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {
@@ -734,6 +782,8 @@
         floriane:  { emoji: '🧚', prefix: 'Floriane:', ticks: ['✨', 'Oh!', 'Ein Wunsch!'], style: 'magic' },
         mephisto:  { emoji: '😈', prefix: 'Mephisto:', ticks: ['Hehehehe...', 'Ein Angebot!', 'Deal?'], style: 'deal' },
         bug:       { emoji: '🐛', prefix: 'Bug:', ticks: ['*mampf*', 'Was ist kaputt?', 'Zeig mal!'], style: 'bug' },
+        waas:      { emoji: '👩‍🍳', prefix: 'Frau Waas:', ticks: ['Willkommen im Laden!', 'Muscheln? Immer her damit!', 'Jim Knopf war auch gerade da!'], style: 'warm' },
+        lukas:     { emoji: '🚂', prefix: 'Lukas:', ticks: ['Emma braucht Kohle!', 'Tschuff tschuff!', 'Eine Insel ist nie zu klein!'], style: 'adventure' },
         // #13: Programmiersprachen-Bewohner
         haskell:   { emoji: '🟣', prefix: 'Haskell:', ticks: ['Rein funktional!', 'Keine Seiteneffekte!', 'Typen lösen alles!'], style: 'careful' },
         lua:       { emoji: '🌙', prefix: 'Lua:', ticks: ['Schnell und leicht!', 'Tables!', '-- Ein Kommentar genügt'], style: 'cute' },
