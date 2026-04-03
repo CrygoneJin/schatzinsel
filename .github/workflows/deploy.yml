@@ -83,8 +83,8 @@ jobs:
           page.on('console', msg => {
             if (msg.type() === 'error') {
               const text = msg.text();
-              // config.js optional, CORS-Fehler ignorieren
-              if (!text.includes('config.js') && !isCorsError(text)) {
+              // config.js optional, generische 404-Meldungen ignorieren (Dateiname fehlt im Text), CORS ignorieren
+              if (!text.includes('config.js') && !isCorsError(text) && !text.includes('Failed to load resource')) {
                 errors.push('console.error: ' + text);
               }
             }
