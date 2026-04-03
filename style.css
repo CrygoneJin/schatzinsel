@@ -241,6 +241,99 @@ body {
     animation: introFadeIn 0.3s ease-out;
 }
 
+/* Big Bang: 1D Singularität — schwarzer Hintergrund */
+#intro-overlay.bigbang-phase-singularity {
+    background: #000;
+}
+
+#intro-overlay.bigbang-phase-singularity .intro-content {
+    background: transparent;
+    box-shadow: none;
+    color: #fff;
+    z-index: 2;
+    position: relative;
+}
+
+#intro-overlay.bigbang-phase-singularity .intro-content h1 {
+    color: #fff;
+    font-size: 64px;
+    animation: singularityPulse 2s ease-in-out infinite;
+}
+
+#intro-overlay.bigbang-phase-singularity .intro-subtitle {
+    color: rgba(255,255,255,0.5);
+}
+
+/* Roter Knopf — Symmetriebrechung */
+.bigbang-red-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ff4444, #cc0000, #880000);
+    border: 4px solid rgba(255,255,255,0.2);
+    color: transparent;
+    font-size: 40px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255,0,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+    animation: redBtnPulse 2s ease-in-out infinite;
+}
+
+.bigbang-red-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(255,0,0,0.6), inset 0 -4px 8px rgba(0,0,0,0.3);
+}
+
+.bigbang-red-btn:active {
+    transform: scale(0.95);
+}
+
+@keyframes redBtnPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,0,0,0.3), inset 0 -4px 8px rgba(0,0,0,0.3); }
+    50% { box-shadow: 0 0 40px rgba(255,0,0,0.6), inset 0 -4px 8px rgba(0,0,0,0.3); }
+}
+
+/* === UNIVERSUM-MODUS — dunkler Raum, nur Teilchen === */
+body.universe-mode {
+    background: #000 !important;
+}
+
+body.universe-mode #game-canvas {
+    background: #050510 !important;
+}
+
+body.universe-mode .sidebar {
+    background: rgba(5, 5, 16, 0.95) !important;
+    color: #aaa;
+}
+
+body.universe-mode .toolbar {
+    background: rgba(5, 5, 16, 0.95) !important;
+}
+
+/* Im Universum: Crafting-Grid verstecken */
+body.universe-mode #craft-tab-content {
+    display: none !important;
+}
+
+/* Im Universum: nur Tao + Teilchen in Palette */
+body.universe-mode .material-btn:not([data-material="tao"]):not([data-material="charm"]):not([data-material="strange"]):not([data-material="antimatter"]):not([data-material="electron"]):not([data-material="muon"]):not([data-material="tau"]):not([data-base="true"]) {
+    display: none !important;
+}
+
+/* Teilchen-Zähler Styling */
+#particle-counter {
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(232, 180, 248, 0.15);
+}
+
+@keyframes singularityPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
 @keyframes introFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

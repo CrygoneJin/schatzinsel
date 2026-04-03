@@ -14,6 +14,31 @@
 //   Tao = Singularität. Yin = Down-Quark. Yang = Up-Quark.
 //   Qi = Starke Kernkraft (hält zusammen).
 //
+//   3×3×3 = 27 Fermionen:
+//
+//   Achse 1 — Generation:  1 (leicht) → 2 (schwer) → 3 (schwerst)
+//   Achse 2 — Typ:         Up-Quark / Down-Quark / Lepton
+//   Achse 3 — Farbe:       Rot (Feuer) / Grün (Holz) / Blau (Wasser)
+//
+//              Gen 1          Gen 2          Gen 3
+//   Up:       Yang ⚪        Charm 💫       Berg 🏔️  (Top)
+//   Down:     Yin ⚫         Strange 🌀     Höhle 🕳️ (Bottom)
+//   Lepton:   Elektron 🔹    Myon 🔸        Tau 🔻
+//
+//   × 3 Farben (Rot/Grün/Blau = Feuer/Holz/Wasser) = 27 Zustände
+//
+//   Vier Kräfte = Vier Spielmechaniken:
+//
+//   Kraft              Mechanik               Ebene
+//   ─────────────      ──────────────         ──────────────
+//   Starke Kernkraft   Automerge (A+B, A×A)   AUF dem Grid
+//   Elektroschwach     Craft / Mephisto-Deal   AUF dem Grid
+//   Gravitation        Das Grid selbst         IST das Grid
+//
+//   Die ersten drei: quantisiert (Klick, Craft, Merge = diskret).
+//   Gravitation: kontinuierlich (Canvas, Pixel, Fläche).
+//   Quantengravitation: wenn das Grid selbst reagiert (Isometric Mode).
+//
 //   Ist das exakt? Nein. Ist es falsch? Auch nicht.
 //   Eine brauchbare Lüge die zur Wahrheit führt. — Amélie-Prinzip.
 
@@ -26,6 +51,25 @@ window.INSEL_MATERIALS = {
     yin:      { emoji: '⚫', label: 'Yin',       color: '#1A1A1A', border: '#000000' },  // Down-Quark
     yang:     { emoji: '⚪', label: 'Yang',      color: '#F0F0F0', border: '#D0D0D0' },  // Up-Quark
     qi:       { emoji: '✨', label: 'Qi',        color: '#FFD700', border: '#DAA520' },  // Starke Kernkraft
+    // === GENERATION 2 — Charm & Strange (schwere Quarks, brauchen Beschleuniger) ===
+    charm:    { emoji: '💫', label: 'Charm',     color: '#E8B4F8', border: '#C77DDB' },  // Charm-Quark: schweres Yang (Generation 2)
+    strange:  { emoji: '🌀', label: 'Strange',   color: '#7B2FBE', border: '#5B1F8E' },  // Strange-Quark: schweres Yin (Generation 2)
+    antimatter:{ emoji: '⚛️', label: 'Antimaterie', color: '#1A0033', border: '#0D001A' },  // Charm + Strange = gebundene Gegensätze
+    // === LEPTONEN — die leichten Teilchen (spüren keine starke Kraft / kein Qi!) ===
+    electron: { emoji: '🔹', label: 'Elektron',  color: '#0080FF', border: '#0060CC' },  // Gen 1: leichtestes geladenes Lepton
+    muon:     { emoji: '🔸', label: 'Myon',      color: '#9B59B6', border: '#7D3C98' },  // Gen 2: schweres Elektron, kosmisch
+    tau:      { emoji: '🔻', label: 'Tau',       color: '#FF4500', border: '#CC3700' },  // Gen 3: schwerstes Lepton
+    // === NEUTRINOS — Geister-Teilchen (durchdringen alles, fast masselos) ===
+    neutrino:    { emoji: '👻', label: 'Neutrino',       color: '#E8E8FF', border: '#C8C8E8' },  // Gen 1: Elektron-Neutrino
+    neutrino_mu: { emoji: '👻', label: 'Myon-Neutrino',  color: '#D0D0FF', border: '#B0B0E8' },  // Gen 2
+    neutrino_tau:{ emoji: '👻', label: 'Tau-Neutrino',   color: '#B8B8FF', border: '#9898E8' },  // Gen 3
+    // === BOSONEN — Kraftteilchen (Oscar liebt Bosonen) ===
+    // Qi ✨ = Gluon (starke Kraft) — oben definiert
+    // Tao ☯️ = Higgs (gibt Masse) — oben definiert
+    // Grid = Graviton (Raumzeit) — kein Material, IST das Spielfeld
+    photon:  { emoji: '💛', label: 'Photon',  color: '#FFFF44', border: '#E8E800' },  // Elektromagnetisch
+    w_boson: { emoji: '🔀', label: 'W-Boson', color: '#FF69B4', border: '#DB5090' },  // Schwache Kraft (geladen)
+    z_boson: { emoji: '⚖️', label: 'Z-Boson', color: '#DDA0DD', border: '#BA55D3' },  // Schwache Kraft (neutral)
     // === 5 — DIE 5 ELEMENTE (五行 Wu Xing = Quark-Farben + Bindung + Strahlung) ===
     metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },  // Weiß = r+g+b = gebundenes Atom
     wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },  // Grün = Farbladung Grün
@@ -139,6 +183,14 @@ window.INSEL_MATERIALS = {
 window.INSEL_SCROLLS = [
     { title: 'Farben der Materie', text: 'Rot, Grün, Blau — die drei Farben der Quarks. Zusammen werden sie Weiß. Wie Metall. Und das Gelb? Das ist das erste Licht des Universums.' },
     { title: 'Drei Quarks', text: 'Up-Up-Down = Proton. Up-Down-Down = Neutron. Yin und Yang und Qi — die alten Chinesen wussten es schon.' },
+    { title: 'Charm & Strange', text: 'Die schweren Geschwister von Up und Down. Charm ist elegant und symmetrisch — wie ein Rezept das beim ersten Versuch klappt. Strange ist rätselhaft und langlebig — wie eine Entdeckung die niemand erklären kann. Man braucht einen Beschleuniger um sie zu sehen.' },
+    { title: 'Antimaterie', text: 'Wenn Charm und Strange sich verbinden, entsteht etwas das die normale Materie spiegelt. Berührt es Materie, wird beides zu reiner Energie. E=mc². Die gefährlichste Gleichung der Welt.' },
+    { title: 'Leptonen', text: 'Die leichten Teilchen. Elektron, Myon, Tau — drei Generationen wie bei den Quarks, aber ohne starke Kraft. Kein Qi nötig. Das Elektron fließt durch jeden Blitz und jeden Bildschirm. Das Myon regnet aus dem Weltall. Das Tau existiert nur für einen Wimpernschlag.' },
+    { title: 'Vier Kräfte', text: 'Starke Kraft: hält Quarks zusammen. Leg Yin neben Yang — sie verschmelzen zu Qi. Das ist Fusion. Elektroschwache Kraft: verwandelt Teilchen. Das Crafting-Grid und Mephistos Deals — dasselbe, nur aus verschiedener Perspektive. Gravitation: nicht AUF der Insel. Die Insel SELBST. Das Grid ist die Raumzeit. Wo du baust, krümmt sich die Welt.' },
+    { title: 'Pauli-Druck', text: 'Zwei gleiche Teilchen können nicht am selben Ort sein. Zwing sie zusammen und sie werden schwerer — nächste Generation. Yang neben Yang wird Charm. Elektron neben Elektron wird Myon. In Neutronensternen passiert genau das. Auf der Insel auch.' },
+    { title: 'Quantengravitation', text: 'Die drei Kräfte sind Klicks — diskret, quantisiert. Gravitation ist das Canvas — kontinuierlich, glatt. Niemand weiß wie man sie vereint. Einstein nicht. Hawking nicht. Du auch nicht. Aber deine Insel hat beides: Pixel UND Fläche. Vielleicht ist das die Antwort.' },
+    { title: 'Neutrinos', text: 'Geister-Teilchen. Durchdringen alles. Jede Sekunde fliegen Milliarden durch deinen Körper. Kein einziges bleibt stecken. Sie sind fast masselos, fast unsichtbar, fast nichts. Und trotzdem halten sie das Universum zusammen.' },
+    { title: 'Bosonen', text: 'Kraftteilchen. Sie tragen die Botschaft zwischen den Fermionen. Das Photon sagt: zieh dich an oder stoß dich ab. Das Gluon sagt: bleib zusammen. Das W-Boson sagt: verwandle dich. Das Z-Boson sagt: bleib neutral. Und das Higgs? Das Higgs sagt: du hast Gewicht.' },
     { title: 'Heisenbergs Geheimnis', text: 'Je genauer du hinschaust, desto unschärfer wird der Rest. Wasser ist schwarz UND blau — bis jemand hinschaut.' },
     { title: 'Oppenheimers Licht', text: 'Wenn Energie zu Materie wird, strahlt sie. E=mc². Das Gelb der Erde ist das Leuchten der Verwandlung.' },
     { title: 'Leschs Kaffee', text: '75% Wasserstoff, 25% Helium, Spuren von allem anderen. 75% JavaScript, 25% Rest. Zufall? Natürlich. Aber ein hübscher.' },

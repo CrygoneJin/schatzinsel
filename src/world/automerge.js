@@ -11,6 +11,42 @@
         // === Genesis ===
         { a: 'yin', b: 'yang', result: 'qi', msg: '✨ Yin + Yang → Qi!' },
 
+        // === Teilchenphysik (Pauli-Prinzip & Confinement) ===
+
+        // Meson-Bildung: Charm + Strange → Antimaterie
+        { a: 'charm', b: 'strange', result: 'antimatter', msg: '⚛️ Charm + Strange → Antimaterie!' },
+
+        // Paarproduktion: Antimaterie + Quark → Lepton (β-Zerfall-Analogon)
+        { a: 'antimatter', b: 'yang', result: 'electron', msg: '🔹 Antimaterie + Yang → Elektron! (Paarproduktion)' },
+
+        // === Pauli-Prinzip: A×A → nächste Generation (Multiplikation) ===
+        // Identische Fermionen können nicht am selben Ort sein.
+        // Pauli-Druck → höhere Energie → schwerer → nächste Generation.
+        //
+        // Up-type:   Yang → Charm → Berg (Top)
+        // Down-type: Yin → Strange → Höhle (Bottom)
+        // Lepton:    Elektron → Myon → Tau
+        { a: 'yang', b: 'yang', result: 'charm', msg: '💫 Yang × Yang → Charm! (Pauli-Druck: Gen1→2)' },
+        { a: 'yin', b: 'yin', result: 'strange', msg: '🌀 Yin × Yin → Strange! (Pauli-Druck: Gen1→2)' },
+        { a: 'charm', b: 'charm', result: 'mountain', msg: '🏔️ Charm × Charm → Berg! (Pauli-Druck: Gen2→3, Top-Quark)' },
+        { a: 'strange', b: 'strange', result: 'cave', msg: '🕳️ Strange × Strange → Höhle! (Pauli-Druck: Gen2→3, Bottom-Quark)' },
+        { a: 'electron', b: 'electron', result: 'muon', msg: '🔸 Elektron × Elektron → Myon! (Pauli-Druck: Gen1→2)' },
+        { a: 'muon', b: 'muon', result: 'tau', msg: '🔻 Myon × Myon → Tau! (Pauli-Druck: Gen2→3)' },
+
+        // === Neutrinos: Geister-Teilchen (schwache Wechselwirkung) ===
+        // Elektron-Einfang: Elektron + Down-Quark → Neutrino (β⁺-Zerfall)
+        { a: 'electron', b: 'yin', result: 'neutrino', msg: '👻 Elektron + Yin → Neutrino! (Geist-Teilchen!)' },
+        { a: 'neutrino', b: 'neutrino', result: 'neutrino_mu', msg: '👻 Neutrino × Neutrino → Myon-Neutrino! (Pauli-Druck)' },
+        { a: 'neutrino_mu', b: 'neutrino_mu', result: 'neutrino_tau', msg: '👻 Myon-ν × Myon-ν → Tau-Neutrino! (Pauli-Druck)' },
+
+        // === Bosonen: Kraftteilchen ===
+        // Gluon-Fusion → Photon (wie am LHC: gg → γγ)
+        { a: 'qi', b: 'qi', result: 'photon', msg: '💛 Qi × Qi → Photon! (Licht aus Energie!)' },
+        // W-Boson vermittelt Lepton-Neutrino-Umwandlung
+        { a: 'electron', b: 'neutrino', result: 'w_boson', msg: '🔀 Elektron + Neutrino → W-Boson! (Schwache Kraft!)' },
+        // Z-Boson: neutraler Partner des W
+        { a: 'w_boson', b: 'antimatter', result: 'z_boson', msg: '⚖️ W-Boson + Antimaterie → Z-Boson! (Neutral!)' },
+
         // === Wu Xing Erzeugungszyklus (相生 xiāng shēng) ===
         // Holz nährt Feuer, Feuer erzeugt Erde (Asche),
         // Erde birgt Metall, Metall sammelt Wasser (Kondensation),

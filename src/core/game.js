@@ -1645,6 +1645,7 @@
         }
         showToast(`✨ Neues Artefakt: ${info.emoji} ${info.label}!`);
         updateDiscoveryCounter();
+        checkParticleProgress();
     }
 
     function updatePaletteVisibility() {
@@ -1674,6 +1675,8 @@
     // Qi erscheint sobald Qi im Inventar. Wu Xing erscheinen mit Qi.
     let _genesisYinYangShown = false;
     let _genesisQiShown = false;
+    let _genesisQuarksShown = false;
+    let _genesisLeptonsShown = false;
 
     function updateGenesisVisibility() {
         // Tao irgendwo auf dem Grid?
@@ -1722,6 +1725,32 @@
                 }
             }
         }
+
+        // Stufe 3: Teilchen (Charm/Strange/Antimatter/Leptonen)
+        const QUARK_MATS = ['charm', 'strange', 'antimatter'];
+        const LEPTON_MATS = ['electron', 'muon', 'tau'];
+        const hasAnyQuark = QUARK_MATS.some(m => unlockedMaterials.has(m) || (inventory[m] || 0) > 0);
+        const hasAnyLepton = LEPTON_MATS.some(m => unlockedMaterials.has(m) || (inventory[m] || 0) > 0);
+
+        if (hasAnyQuark || hasAnyLepton) {
+            const heading = document.getElementById('quarks-heading');
+            if (heading) heading.style.display = '';
+            [...QUARK_MATS, ...LEPTON_MATS].forEach(mat => {
+                if (unlockedMaterials.has(mat) || (inventory[mat] || 0) > 0) {
+                    const btn = document.querySelector(`.material-btn[data-material="${mat}"]`);
+                    if (btn) { btn.style.display = ''; btn.classList.remove('craft-locked'); }
+                }
+            });
+            if (hasAnyQuark && !_genesisQuarksShown) {
+                _genesisQuarksShown = true;
+                showToast('⚛️ Generation-2-Quarks entdeckt! Der Beschleuniger funktioniert!');
+            }
+            if (hasAnyLepton && !_genesisLeptonsShown) {
+                _genesisLeptonsShown = true;
+                showToast('🔹 Leptonen! Teilchen ohne starke Kraft!');
+            }
+        }
+
         updateGenesisBadge();
     }
 
@@ -2019,8 +2048,8 @@
             }
         }
 
-        // Spielfigur zeichnen
-        if (playerName) {
+        // Spielfigur zeichnen (nur als Teilnehmer — nach Symmetriebrechung)
+        if (playerName && isParticipant()) {
             const px = (playerPos.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
             const py = (playerPos.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
             // Schatten
@@ -2217,7 +2246,7 @@
 
     // === SPIELFIGUR — Zeichnen + Bewegen ===
     function drawPlayer() {
-        if (!playerName) return;
+        if (!playerName || !isParticipant()) return;
         const px = (playerPos.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
         const py = (playerPos.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
 
@@ -2241,8 +2270,89 @@
         ctx.restore();
     }
 
+    // === SPIELWELT + SPIELPHASEN ===
+    //
+    // Welt 1: UNIVERSUM (dunkel, Draufsicht, nur Tao platzieren)
+    //   Spieler schaut von oben auf sein Universum.
+    //   Tao zerfällt spontan → Automerge + Pauli erzeugen alle Teilchen.
+    //   Kein Crafting-Grid. Kein NPC. Nur Physik.
+    //   → Alle 11 Standardteilchen freigespielt → Welt wechselt zur Insel.
+    //
+    // Welt 2: INSEL (hell, Bauspiel, NPCs, Crafting)
+    //   Chemie-Erweiterung: Wu Xing Elemente, Crafting-Grid, Rezepte.
+    //   Bug (Vergangenheit), Floriane (Zukunft), Bernd (Jetzt) — immer da.
+    //   Weitere Wesen erscheinen in 3D (Voxel).
+    //
+    // Phase observer: Spieler klickt, bricht Symmetrie. Cursor = Wille. Kein Avatar.
+    // Phase participant: Avatar materialisiert. WASD. Interaktion mit Wesen.
+
+    const STANDARD_PARTICLES = [
+        // Quarks (6 Flavors)
+        'yang', 'yin', 'charm', 'strange', 'mountain', 'cave',
+        // Leptonen (3 geladen + 3 Neutrinos)
+        'electron', 'muon', 'tau', 'neutrino', 'neutrino_mu', 'neutrino_tau',
+        // Bosonen (Qi/Gluon + Tao/Higgs schon da, Grid/Graviton = kein Material)
+        'photon', 'w_boson', 'z_boson',
+        // Antimaterie
+        'antimatter',
+    ]; // 16 Teilchen + Qi(Gluon) + Tao(Higgs) + Grid(Graviton) = Standardmodell komplett
+    let gameWorld = localStorage.getItem('insel-game-world') || 'universe';
+    let gamePhase = localStorage.getItem('insel-game-phase') || 'observer';
+
+    function checkParticleProgress() {
+        const discovered = STANDARD_PARTICLES.filter(p => unlockedMaterials.has(p));
+        const counter = document.getElementById('particle-counter');
+        if (counter) counter.textContent = `⚛️ ${discovered.length} / ${STANDARD_PARTICLES.length}`;
+
+        if (discovered.length >= STANDARD_PARTICLES.length && gameWorld === 'universe') {
+            transitionToIsland();
+        }
+    }
+
+    function transitionToIsland() {
+        gameWorld = 'island';
+        localStorage.setItem('insel-game-world', 'island');
+        showToast('🏝️ Alle Teilchen entdeckt! Die Insel erscheint...');
+        soundCraft();
+
+        // Palette: alle Materialien freischalten
+        document.querySelectorAll('.material-btn.craft-locked').forEach(btn => {
+            btn.style.display = '';
+        });
+        // Crafting-Grid sichtbar machen
+        const craftArea = document.getElementById('craft-area');
+        if (craftArea) craftArea.style.display = '';
+        // Hintergrund aufhellen
+        document.body.classList.remove('universe-mode');
+        document.body.classList.add('island-mode');
+        requestRedraw();
+    }
+
+    function isUniverse() { return gameWorld === 'universe'; }
+    function isIsland() { return gameWorld === 'island'; }
+
+    function breakSymmetry() {
+        if (gamePhase === 'participant') return;
+        gamePhase = 'participant';
+        localStorage.setItem('insel-game-phase', 'participant');
+        showToast('🔴 Du bist jetzt Teil der Welt. Bewege dich mit den Pfeiltasten.');
+        soundCraft();
+        // Avatar materialisiert — Spielfigur erscheint
+        requestRedraw();
+        // Roter Knopf ausblenden
+        const btn = document.getElementById('symmetry-break-btn');
+        if (btn) btn.style.display = 'none';
+    }
+
+    // Öffentlich machen für den Button
+    window.breakSymmetry = breakSymmetry;
+
+    function isParticipant() {
+        return gamePhase === 'participant';
+    }
+
     function movePlayer(dr, dc) {
-        if (!playerName) return;
+        if (!playerName || !isParticipant()) return;
         const nr = playerPos.r + dr;
         const nc = playerPos.c + dc;
         // Spieler bleibt auf bebaubarem Bereich (kein Wasser-Rand)
@@ -2366,8 +2476,8 @@
             }
         }
 
-        // Spielfigur
-        if (playerName) {
+        // Spielfigur (nur als Teilnehmer)
+        if (playerName && isParticipant()) {
             ISO.drawIsoEntity(ctx, playerPos.r, playerPos.c, '\uD83E\uDDD2', playerName,
                 WATER_BORDER, COLS, CELL_SIZE, time, { shadow: true, fontSize: 0.65 });
         }
@@ -3061,6 +3171,27 @@
     // Alle 1 Sekunde prüfen
     setInterval(tickTaoDecay, 1000);
 
+    // Kosmologischer Zeitstrahl: Spielereignis → Epoche des Universums
+    const COSMIC_EPOCHS = [
+        { result: 'qi',         epoch: 't = 10⁻¹²s',   label: 'Quark-Gluon-Plasma' },
+        { result: 'charm',      epoch: 't = 10⁻⁶s',    label: 'Quark-Ära' },
+        { result: 'strange',    epoch: 't = 10⁻⁶s',    label: 'Quark-Ära' },
+        { result: 'antimatter', epoch: 't = 1s',        label: 'Annihilation' },
+        { result: 'electron',   epoch: 't = 10s',       label: 'Lepton-Ära' },
+        { result: 'muon',       epoch: 't = 10s',       label: 'Lepton-Ära' },
+        { result: 'tau',        epoch: 't = 10s',       label: 'Lepton-Ära' },
+        { result: 'metal',      epoch: 't = 3min',      label: 'Nukleosynthese' },
+        { result: 'mountain',   epoch: 't = 380.000y',  label: 'Erste Sterne' },
+        { result: 'cave',       epoch: 't = 380.000y',  label: 'Dunkle Materie' },
+    ];
+
+    function getCosmicEpoch(event) {
+        if (event.type === 'decay') return 't = 10⁻³⁶s';
+        const match = COSMIC_EPOCHS.find(e => e.result === event.result);
+        if (match) return match.epoch;
+        return `+${((event.time - (genesisLog[0]?.time || event.time)) / 1000).toFixed(1)}s`;
+    }
+
     // Genesis-Replay: Urknall in Zeitlupe abspielen
     function playGenesisReplay() {
         if (genesisLog.length === 0) {
@@ -3073,7 +3204,7 @@
         overlay.className = 'genesis-replay-overlay';
         overlay.innerHTML = `
             <div class="genesis-replay-modal">
-                <h2>🌌 Genesis — Der Urknall in Zeitlupe</h2>
+                <h2>🌌 Genesis — Vom Urknall zur Insel</h2>
                 <div class="genesis-timeline" id="genesis-timeline"></div>
                 <button class="genesis-replay-close" id="genesis-replay-close">Schließen</button>
             </div>
@@ -3093,16 +3224,19 @@
                 step.className = 'genesis-step';
                 const elapsed = ((event.time - startTime) / 1000).toFixed(1);
 
+                // Kosmologische Epoche bestimmen
+                const epoch = getCosmicEpoch(event);
+
                 if (event.type === 'decay') {
                     step.innerHTML = `
-                        <span class="genesis-time">+${elapsed}s</span>
+                        <span class="genesis-time">${epoch}</span>
                         <span class="genesis-icon">☯️ → ⚫⚪</span>
-                        <span class="genesis-text">Aus Eins wird Zwei! Hell und Dunkel.</span>
+                        <span class="genesis-text">Symmetriebrechung! Aus Eins wird Zwei.</span>
                     `;
                 } else if (event.type === 'merge') {
                     const emoji = MATERIALS[event.result]?.emoji || '?';
                     step.innerHTML = `
-                        <span class="genesis-time">+${elapsed}s</span>
+                        <span class="genesis-time">${epoch}</span>
                         <span class="genesis-icon">${event.from.map(m => MATERIALS[m]?.emoji || '?').join(' + ')} → ${emoji}</span>
                         <span class="genesis-text">${event.msg || event.result}</span>
                     `;
@@ -3335,14 +3469,33 @@
             playerEmoji = activeAvatar.dataset.avatar;
             localStorage.setItem('insel-player-emoji', playerEmoji);
         }
+
+        // Big Bang Countdown — nur für Erstbesucher
+        const isFirstVisit = !localStorage.getItem('insel-grid');
+        const BB = window.INSEL_BIGBANG;
+        if (isFirstVisit && BB) {
+            BB.startCountdown();
+            // Warten bis Countdown fertig, dann Grid zeigen
+            const checkDone = setInterval(() => {
+                if (!BB.isActive()) {
+                    clearInterval(checkDone);
+                    finishIntro(isFirstVisit);
+                }
+            }, 100);
+        } else {
+            finishIntro(isFirstVisit);
+        }
+    }
+
+    function finishIntro(isFirstVisit) {
         introOverlay.classList.add('hiding');
         setTimeout(() => {
             introOverlay.style.display = 'none';
             // Pulse nur wenn noch kein Block platziert wurde
             const hasBlocks = grid.some(row => row && row.some(cell => cell !== null));
             if (!hasBlocks) startTutorialPulse();
-            // Tutorial-Onboarding nur für Erstbesucher (noch kein Grid gespeichert)
-            if (!localStorage.getItem('insel-grid')) showTutorialOnboarding();
+            // Tutorial-Onboarding nur für Erstbesucher
+            if (isFirstVisit) showTutorialOnboarding();
         }, 300);
         window.startSessionClock();
     }
@@ -3368,6 +3521,11 @@
     }
 
     startButton.addEventListener('click', startGame);
+
+    // Big Bang Canvas initialisieren für Erstbesucher
+    if (!localStorage.getItem('insel-grid') && window.INSEL_BIGBANG) {
+        window.INSEL_BIGBANG.init(introOverlay);
+    }
 
     // Werkzeug-Buttons
     document.querySelectorAll('.tool-btn').forEach(btn => {
@@ -3436,18 +3594,27 @@
     function updateGenesisBadge() {
         const badge = document.getElementById('genesis-badge');
         if (!badge) return;
-        const crafted = unlockedMaterials.size; // alles außer BASE_MATERIALS
+        const crafted = unlockedMaterials.size;
+        const hasQuarks = ['charm', 'strange'].some(m => unlockedMaterials.has(m));
+        const hasLeptons = ['electron', 'muon', 'tau'].some(m => unlockedMaterials.has(m));
+        const hasAntimatter = unlockedMaterials.has('antimatter');
         let label, tip;
         if (!_genesisYinYangShown) {
-            label = '道'; tip = 'Genesis: Tao — Der Anfang aller Dinge';
+            label = '道'; tip = 'Singularität (t=0) — Lege ☯️ auf die Insel';
         } else if (!_genesisQiShown) {
-            label = '⚫⚪'; tip = 'Genesis: Yin & Yang — Zwei Kräfte erwachen';
-        } else if (crafted < 5) {
-            label = '五行'; tip = 'Genesis: Die 5 Elemente — Die Welt entfaltet sich';
+            label = '⚫⚪'; tip = 'Symmetriebrechung (t=10⁻³⁶s) — Yin + Yang';
+        } else if (!hasQuarks && crafted < 10) {
+            label = '五行'; tip = 'Nukleosynthese (t=3min) — Die 5 Elemente';
+        } else if (hasQuarks && !hasLeptons) {
+            label = '⚛️'; tip = 'Quark-Ära — Charm & Strange entdeckt!';
+        } else if (hasLeptons && !hasAntimatter) {
+            label = '🔹'; tip = 'Lepton-Ära — Teilchen ohne starke Kraft';
+        } else if (hasAntimatter) {
+            label = '💥'; tip = `Materie-Antimaterie — E=mc² (${crafted} entdeckt)`;
         } else if (crafted < 20) {
             label = `✨${crafted}`; tip = `Genesis: ${crafted} Dinge erschaffen`;
         } else {
-            label = '万+'; tip = `Genesis: 万物 — 10.000 Dinge (${crafted} entdeckt)`;
+            label = '万+'; tip = `万物 — 10.000 Dinge (${crafted} entdeckt)`;
         }
         badge.textContent = label;
         badge.title = tip;
@@ -3581,7 +3748,7 @@
             openDungeon(); return;
         }
         // Spielfigur-Drag: Berühre die Spieler-Zelle → Figur ziehen
-        if (playerName && cell.r === playerPos.r && cell.c === playerPos.c) {
+        if (playerName && isParticipant() && cell.r === playerPos.r && cell.c === playerPos.c) {
             playerDragging = true;
             return;
         }
