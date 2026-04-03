@@ -33,6 +33,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-03 | Sprint 25 — Piano-Mode + NPC-Memory-Extraktion + NPC-Begrüßungs-Toast | soundPianoNote() mit ADSR-Profil (Sine + Triangle-Resonanz). Piano-Mode baut automatisch Blöcke neben Spieler — Melodie = Bauwerk. npc-memory.js als eigenes Modul (91 LOC). NPC-Gedächtnis-Greeting 4s nach Spielstart. Alle 3 Items in einer Session. |
 | 2026-04-02 | Programmier-Tutorial (PR #149) — 5 Lektionen, sandboxed Code-Editor, NPC-Guides | Function-Constructor + Whitelist fuer sichere Ausfuehrung. SpongeBob/Haskell/Scratch/Lua/SQL als Lehrer. Fortschritt in localStorage. Backlog #23. |
 | 2026-04-01 | Tao-Feld-Theorie + Iso-Renderer + Fraktale Bäume (PR #129) | Physik-Frage → Essay → Game-Feature in einer Session. iso-renderer.js (348 LOC) + fractal-trees.js (203 LOC). 5D-Tensor (3×3×2×2×2=72) als Strukturmodell. |
 | 2026-04-01 | Sprint 24 Retro — max 3 Items, game.js teilweise aufgeteilt, Tutorial ohne Text live | Sprint 25 Empfehlung: easter-eggs.js, Dungeon-Framework, Palette als Instrument |

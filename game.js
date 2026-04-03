@@ -586,125 +586,43 @@
         (npc, mat, n) => `${npc.emoji} ${npc.prefix} ${n} ${mat}! Jemand hat einen Plan!`,
     ];
 
-    // === NPC-SESSION-GEDÄCHTNIS ===
-    // Speichert pro NPC: letztes Lieblingsmaterial, abgeschlossene Quests, letzter Besuch
-    // Key: 'insel-npc-memory'
-    // Format: { [npcId]: { lastMaterial, lastMaterialKey, lastVisit, questsDone: [] } }
+    // === NPC-SESSION-GEDÄCHTNIS → npc-memory.js (Zellteilung #11, Backlog #96) ===
+    const _mem = window.INSEL_NPC_MEMORY || {};
+    function loadNpcMemory()                { return _mem.loadNpcMemory ? _mem.loadNpcMemory() : {}; }
+    function saveNpcMemory(m)               { if (_mem.saveNpcMemory) _mem.saveNpcMemory(m); }
+    function getNpcMem(id)                  { return _mem.getNpcMem ? _mem.getNpcMem(id) : null; }
+    function touchNpcMemory(id)             { if (_mem.touchNpcMemory) _mem.touchNpcMemory(id); }
+    function recordNpcQuestDone(id, title)  { if (_mem.recordNpcQuestDone) _mem.recordNpcQuestDone(id, title); }
 
-    const NPC_MEMORY_KEY = 'insel-npc-memory';
-
-    function loadNpcMemory() {
-        try { return JSON.parse(localStorage.getItem(NPC_MEMORY_KEY) || '{}'); }
-        catch { return {}; }
+    function getNpcMemoryComment(npc, npcId) {
+        if (!_mem.getNpcMemoryComment) return null;
+        return _mem.getNpcMemoryComment(npc, npcId, playerName);
     }
 
-    function saveNpcMemory(mem) {
-        localStorage.setItem(NPC_MEMORY_KEY, JSON.stringify(mem));
-    }
-
-    function getNpcMem(npcId) {
-        return loadNpcMemory()[npcId] || null;
-    }
-
-    // Letzten Besuch für diesen NPC aktualisieren
-    function touchNpcMemory(npcId) {
-        const mem = loadNpcMemory();
-        if (!mem[npcId]) mem[npcId] = { lastVisit: null, lastMaterial: null, lastMaterialKey: null, questsDone: [] };
-        mem[npcId].lastVisit = Date.now();
-        saveNpcMemory(mem);
-    }
-
-    // Quest-Abschluss für diesen NPC vermerken
-    function recordNpcQuestDone(npcId, questTitle) {
-        const mem = loadNpcMemory();
-        if (!mem[npcId]) mem[npcId] = { lastVisit: null, lastMaterial: null, lastMaterialKey: null, questsDone: [] };
-        if (!mem[npcId].questsDone.includes(questTitle)) mem[npcId].questsDone.push(questTitle);
-        mem[npcId].lastVisit = Date.now();
-        saveNpcMemory(mem);
-    }
-
-    // Nach jeder Session: Lieblingsmaterial (meistgenutzt) in alle NPC-Memory-Einträge schreiben
-    // Wird bei beforeunload aufgerufen
     function flushNpcSessionMemory() {
         const raw = localStorage.getItem('insel-mat-usage');
         if (!raw) return;
-        /** @type {Record<string, number>} */
         let usage;
         try { usage = JSON.parse(raw); } catch { return; }
         const sorted = Object.entries(usage).sort((a, b) => b[1] - a[1]);
         const favKey = sorted.length > 0 ? sorted[0][0] : null;
-        if (!favKey) return;
-        const favLabel = MATERIALS[favKey]?.label || favKey;
-        const mem = loadNpcMemory();
-        for (const id of Object.keys(NPC_VOICES)) {
-            if (!mem[id]) mem[id] = { lastVisit: null, lastMaterial: null, lastMaterialKey: null, questsDone: [] };
-            mem[id].lastMaterial = favLabel;
-            mem[id].lastMaterialKey = favKey;
-        }
-        saveNpcMemory(mem);
-
-        // Session-Snapshot: Top 3 Materialien, Block-Count, Quests, Baustil
-        saveSessionSnapshot(sorted);
-    }
-
-    /**
-     * Speichert einen Session-Snapshot in localStorage (max 1KB).
-     * Wird von flushNpcSessionMemory aufgerufen.
-     * @param {Array<[string, number]>} sortedMats - Materialien sortiert nach Nutzung
-     */
-    function saveSessionSnapshot(sortedMats) {
+        const favLabel = favKey ? (MATERIALS[favKey]?.label || favKey) : null;
         const stats = getGridStats();
-        const baustil = localStorage.getItem('insel-baustil') || 'Insel-Architekt';
-        const topMaterials = sortedMats.slice(0, 3).map(function (entry) {
-            return MATERIALS[entry[0]]?.label || entry[0];
-        });
+        const topMaterials = sorted.slice(0, 3).map(([k]) => MATERIALS[k]?.label || k);
         const questTitles = (typeof completedQuests !== 'undefined' && Array.isArray(completedQuests))
-            ? completedQuests.slice(-5)  // letzte 5 Quests reichen
-            : [];
-        const name = localStorage.getItem('insel-player-name') || 'Spieler';
-
-        /** @type {{ timestamp: number, playerName: string, baustil: string, topMaterials: string[], blocksPlaced: number, questsCompleted: string[], lastChatNpc: string|null }} */
+            ? completedQuests.slice(-5) : [];
         const snapshot = {
             timestamp: Date.now(),
-            playerName: name,
-            baustil: baustil,
-            topMaterials: topMaterials,
+            playerName: localStorage.getItem('insel-player-name') || 'Spieler',
+            baustil: localStorage.getItem('insel-baustil') || 'Insel-Architekt',
+            topMaterials,
             blocksPlaced: stats.total,
             questsCompleted: questTitles,
             lastChatNpc: window._lastChatNpcId || null,
         };
-
-        // Max 1KB Check — wenn zu groß, Quests kürzen
-        let json = JSON.stringify(snapshot);
-        if (json.length > 1024) {
-            snapshot.questsCompleted = questTitles.slice(-2);
-            json = JSON.stringify(snapshot);
+        if (_mem.flushNpcMemory) {
+            _mem.flushNpcMemory(Object.keys(NPC_VOICES), favKey, favLabel, snapshot);
         }
-        localStorage.setItem('insel-session-snapshot', json);
-    }
-
-    // Gedächtnis-Kommentar für NPC erzeugen (gibt null zurück wenn nichts sinnvolles da)
-    function getNpcMemoryComment(npc, npcId) {
-        const m = getNpcMem(npcId);
-        if (!m) return null;
-        const hasName = playerName && playerName !== 'Spieler' && playerName !== 'Anonym';
-        const nameStr = hasName ? ` ${playerName}` : '';
-        const daysSince = m.lastVisit ? Math.floor((Date.now() - m.lastVisit) / 86400000) : null;
-
-        if (m.lastMaterial && m.questsDone && m.questsDone.length > 0) {
-            return `${npc.emoji} ${npc.prefix} Hey${nameStr}! Letztes Mal hast du viel mit ${m.lastMaterial} gebaut. Und ${m.questsDone.length} Quest${m.questsDone.length > 1 ? 's' : ''} geschafft!`;
-        }
-        if (m.lastMaterial) {
-            return `${npc.emoji} ${npc.prefix} Hey${nameStr}! Letztes Mal hast du viel mit ${m.lastMaterial} gebaut...`;
-        }
-        if (daysSince !== null && daysSince >= 1) {
-            const dayText = daysSince === 1 ? 'gestern' : `vor ${daysSince} Tagen`;
-            return `${npc.emoji} ${npc.prefix} Schon ${dayText} warst du zuletzt hier${nameStr}!`;
-        }
-        if (m.questsDone && m.questsDone.length > 0) {
-            return `${npc.emoji} ${npc.prefix} Erinnerst du dich${nameStr}? Wir haben schon ${m.questsDone.length} Quest${m.questsDone.length > 1 ? 's' : ''} zusammen gemacht!`;
-        }
-        return null;
     }
 
     // beforeunload: Session-Memory sichern
@@ -3306,6 +3224,26 @@
             if (!localStorage.getItem('insel-grid')) showTutorialOnboarding();
         }, 300);
         window.startSessionClock();
+
+        // NPC-Begrüßungs-Toast (#96): zufälliger NPC erinnert sich an letzte Session
+        setTimeout(() => {
+            const npcIds = Object.keys(NPC_VOICES);
+            // bevorzuge den NPC mit dem Oscar zuletzt geredet hat
+            const lastNpc = window._lastChatNpcId;
+            const candidates = lastNpc && NPC_VOICES[lastNpc]
+                ? [lastNpc]
+                : npcIds.filter(id => {
+                    const m = getNpcMem(id);
+                    return m && (m.lastMaterial || (m.questsDone && m.questsDone.length > 0) || m.lastVisit);
+                });
+            const npcId = candidates.length > 0
+                ? candidates[Math.floor(Math.random() * candidates.length)]
+                : npcIds[Math.floor(Math.random() * npcIds.length)];
+            const voice = NPC_VOICES[npcId];
+            if (!voice) return;
+            const greeting = getNpcMemoryComment(voice, npcId);
+            if (greeting) showToast(greeting, 4000);
+        }, 4000);
     }
 
     // Avatar-Picker: Klick = auswählen
@@ -3422,10 +3360,47 @@
         const taoBtn = document.querySelector('.material-btn[data-material="tao"]');
         if (taoBtn) taoBtn.classList.add('tao-clicked');
         currentMaterial = mat;
-        soundSelect(currentMaterial);
+
+        if (_snd.isPianoMode && _snd.isPianoMode()) {
+            // Piano-Mode: musikalischer Ton + Block automatisch neben Spieler setzen
+            if (_snd.soundPianoNote) _snd.soundPianoNote(mat);
+            pianoBuildNearPlayer(mat);
+        } else {
+            soundSelect(currentMaterial);
+        }
+
         currentTool = 'build';
         document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('[data-tool="build"]').classList.add('active');
+    }
+
+    // Piano-Mode: nächste freie Zelle neben Spieler bebauen
+    function pianoBuildNearPlayer(mat) {
+        if (!playerPos) return;
+        // Richtungen: rechts, unten, links, oben — in Spirale suchen
+        const dirs = [[0,1],[1,0],[0,-1],[-1,0],[0,2],[-2,0],[0,-2],[1,1],[-1,1],[1,-1]];
+        for (const [dr, dc] of dirs) {
+            const r = playerPos.r + dr, c = playerPos.c + dc;
+            if (r < 0 || r >= ROWS || c < 0 || c >= COLS) continue;
+            if (grid[r] && !grid[r][c]) {
+                // BASE_MATERIALS brauchen kein Inventar
+                if (!BASE_MATERIALS.includes(mat)) {
+                    if ((inventory[mat] || 0) <= 0) return; // Kein Inventar
+                    inventory[mat]--;
+                    if (inventory[mat] <= 0) delete inventory[mat];
+                    updateInventoryDisplay();
+                }
+                pushUndo();
+                grid[r][c] = mat;
+                if (window.INSEL_BUS) {
+                    window.INSEL_BUS.emit('block:placed', { r, c, material: mat });
+                }
+                checkAutomerge(r, c);
+                checkBlueprintMatch(r, c);
+                requestRedraw();
+                return;
+            }
+        }
     }
 
     // Material-Buttons — Klick = Ton spielen (Palette als Klavier)
@@ -4058,6 +4033,28 @@
                 }
             }
             updateGenreBtn();
+        });
+    }
+
+    // === PIANO-MODE — Palette als Instrument (#71) ===
+    const pianoBtn = document.getElementById('piano-btn');
+    if (pianoBtn && _snd.setPianoMode) {
+        function updatePianoBtn() {
+            const active = _snd.isPianoMode && _snd.isPianoMode();
+            pianoBtn.textContent = active ? '🎹' : '🎹';
+            pianoBtn.style.opacity = active ? '1' : '0.5';
+            pianoBtn.style.outline = active ? '2px solid #fff' : 'none';
+            pianoBtn.title = active
+                ? 'Klavier-Modus aktiv — Palette tippt Noten und baut!'
+                : 'Klavier-Modus — Palette als Instrument spielen';
+        }
+        updatePianoBtn();
+
+        pianoBtn.addEventListener('click', () => {
+            const nowActive = !(_snd.isPianoMode && _snd.isPianoMode());
+            _snd.setPianoMode(nowActive);
+            updatePianoBtn();
+            showToast(nowActive ? '🎹 Klavier-Modus an — tippe auf Materialien!' : '🎹 Klavier-Modus aus');
         });
     }
 

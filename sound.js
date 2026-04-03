@@ -755,6 +755,76 @@
         ambientNodes = null;
     }
 
+    // === PIANO-MODE — Palette als Instrument (#71) ===
+    // C-Dur Pentatonik: C, D, E, G, A — jedem Material eine Note
+    const PIANO_FREQS = {
+        earth:     261.63, // C4 — geerdet, warm
+        water:     293.66, // D4 — fließend
+        wood:      329.63, // E4 — organisch
+        fire:      392.00, // G4 — leuchtend
+        metal:     440.00, // A4 — klar, glockenartig
+        sand:      523.25, // C5 — hell, offen
+        stone:     293.66, // D4
+        palm:      369.99, // F#4
+        flower:    415.30, // G#4
+        tree:      349.23, // F4
+        small_tree:311.13, // Eb4
+        path:      233.08, // Bb3
+        mountain:  196.00, // G3 — tief, massiv
+        lava:      466.16, // Bb4
+        ice:       587.33, // D5
+        mushroom:  554.37, // C#5
+        cactus:    523.25, // C5
+        glass:     659.25, // E5 — hoch, klar
+        lamp:      622.25, // Eb5
+        door:      349.23, // F4
+        roof:      311.13, // Eb4
+        tao:       261.63, // C4
+        yin:       220.00, // A3
+        yang:      329.63, // E4
+        qi:        246.94, // B3
+    };
+
+    let pianoMode = false;
+
+    function soundPianoNote(material) {
+        if (isMuted()) return;
+        const freq = PIANO_FREQS[material] || 261.63;
+        try {
+            const ctx = ensureAudio();
+            const t = ctx.currentTime;
+            // Saubere Sinuswelle — musikalisch, nicht aggressiv
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            // Attack → Sustain → Release (klassisches ADSR-Profil)
+            gain.gain.setValueAtTime(0.0, t);
+            gain.gain.linearRampToValueAtTime(0.28, t + 0.02);   // Attack: 20ms
+            gain.gain.setValueAtTime(0.22, t + 0.1);             // Decay → Sustain
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.55); // Release: 550ms
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.55);
+            // Oktave drunter als Resonanz (leise, wärmt den Ton)
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'triangle';
+            osc2.frequency.value = freq / 2;
+            gain2.gain.setValueAtTime(0.0, t);
+            gain2.gain.linearRampToValueAtTime(0.07, t + 0.03);
+            gain2.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.start(t);
+            osc2.stop(t + 0.4);
+        } catch (_) {}
+    }
+
+    function setPianoMode(active) { pianoMode = !!active; }
+    function isPianoMode() { return pianoMode; }
+
     window.INSEL_SOUND = {
         soundBuild,
         soundDemolish,
@@ -782,6 +852,10 @@
         playAmbient,
         stopAmbient,
         setOnGenreChange: (fn) => { onGenreChange = fn; },
+        // Piano-Mode: Palette als Instrument (#71)
+        soundPianoNote,
+        setPianoMode,
+        isPianoMode,
         // Low-level für Erweiterungen
         playTone,
         playRichTone,

@@ -1,3 +1,30 @@
+# Sprint 25 — "Oscar spielt Musik"
+
+**Sprint Goal:** Palette als Instrument (Piano-Mode) + NPC-Memory extrahieren + NPCs begrüßen Oscar.
+**Start:** 2026-04-03
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S25-1 | **#71 Palette als Instrument** — 🎹 Piano-Mode Button. Materialien spielen Pentatonik-Töne. Oscar tippt Melodie ohne zu bauen. | Engineer | ✅ Done |
+| S25-2 | **#11 Zellteilung NPC-Memory** — loadNpcMemory/saveNpcMemory/getNpcMem etc. → npc-memory.js. game.js 4972→4949 (-23 Delegate-LOC, +91 in npc-memory.js). | Engineer | ✅ Done |
+| S25-3 | **#96 NPC Begrüßungs-Toast** — NPCs begrüßen Oscar beim Spielstart mit Erinnerung an letzte Session. | Engineer + Artist | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-03 (Sprint 25 Planning)
+
+**Kontext:** Sprint 24 vollständig abgeschlossen (Review + Retro done). Retro empfahl: #71 Palette/Instrument, #50 Dungeon, #11 Zellteilung. Viele offene PRs aus früheren Sessions (PR #139–#177) — werden separat behandelt. Sprint 25 fokussiert auf Oscar-sichtbare Musik-Feature + technische Schulden.
+
+**Blocker:** Smoke Test weiterhin blockiert durch Sandbox-Proxy (bekannt). Keine Blocking Issues.
+
+---
+
 # Sprint 24 — "Oscar hört die Welt"
 
 **Sprint Goal:** Musik beim Bauen (Genre-Sequenzen) + technische Schulden (game.js aufteilen) + Tutorial ohne Text.
