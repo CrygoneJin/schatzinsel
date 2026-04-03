@@ -694,6 +694,26 @@
         playRichTone(varFreq, genre.dur + Math.random() * 0.03, genre.wave, genre.vol);
     }
 
+    // === Musik on demand (#18) ===
+    let musicLoopTimer = null;
+    const MUSIC_LOOP_INTERVAL_MS = 350;
+
+    function startMusicLoop() {
+        if (musicLoopTimer) return;
+        musicLoopTimer = setInterval(function() {
+            if (!isMuted()) soundGenreNote();
+        }, MUSIC_LOOP_INTERVAL_MS);
+    }
+
+    function stopMusicLoop() {
+        if (musicLoopTimer) {
+            clearInterval(musicLoopTimer);
+            musicLoopTimer = null;
+        }
+    }
+
+    function isMusicLoopActive() { return !!musicLoopTimer; }
+
     // === Stille-Momente: Wellen-Ambient (#57) ===
     let ambientNodes = null;
 
@@ -811,6 +831,10 @@
         playAmbient,
         stopAmbient,
         setOnGenreChange: (fn) => { onGenreChange = fn; },
+        // Musik on demand (#18)
+        startMusicLoop,
+        stopMusicLoop,
+        isMusicLoopActive,
         // Low-level für Erweiterungen
         playTone,
         playRichTone,
