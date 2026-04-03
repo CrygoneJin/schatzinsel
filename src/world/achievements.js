@@ -75,6 +75,7 @@
     };
 
     // Alle Achievements zusammenbauen (fest + dynamisch)
+    /** @type {Record<string, {emoji: string, title: string, desc: string, check: function(Object): boolean}>} */
     var all = {};
     var id;
     for (id in FIXED) { all[id] = FIXED[id]; }
