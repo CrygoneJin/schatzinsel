@@ -14,28 +14,15 @@
     "skipLibCheck": true
   },
   "include": [
-    "types.d.ts",
-    "insel.js",
-    "materials.js",
-    "storage.js",
-    "tts.js",
-    "save.js",
-    "sound.js",
-    "achievements.js",
-    "quests.js",
-    "recipes.js",
-    "healthcheck.js",
-    "nature.js",
-    "effects.js",
-    "game.js",
-    "chat.js",
-    "automerge.js",
-    "blueprints.js",
-    "screensaver.js"
+    "src/types.d.ts",
+    "src/core/**/*.js",
+    "src/world/**/*.js",
+    "src/infra/**/*.js"
   ],
   "exclude": [
+    "src/infra/worker.js",
+    "src/infra/gemini-voice-worker.js",
     "sw.js",
-    "worker.js",
     "node_modules"
   ]
 }
