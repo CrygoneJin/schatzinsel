@@ -59,6 +59,17 @@ window.INSEL_MATERIALS = {
     electron: { emoji: '🔹', label: 'Elektron',  color: '#0080FF', border: '#0060CC' },  // Gen 1: leichtestes geladenes Lepton
     muon:     { emoji: '🔸', label: 'Myon',      color: '#9B59B6', border: '#7D3C98' },  // Gen 2: schweres Elektron, kosmisch
     tau:      { emoji: '🔻', label: 'Tau',       color: '#FF4500', border: '#CC3700' },  // Gen 3: schwerstes Lepton
+    // === NEUTRINOS — Geister-Teilchen (durchdringen alles, fast masselos) ===
+    neutrino:    { emoji: '👻', label: 'Neutrino',       color: '#E8E8FF', border: '#C8C8E8' },  // Gen 1: Elektron-Neutrino
+    neutrino_mu: { emoji: '👻', label: 'Myon-Neutrino',  color: '#D0D0FF', border: '#B0B0E8' },  // Gen 2
+    neutrino_tau:{ emoji: '👻', label: 'Tau-Neutrino',   color: '#B8B8FF', border: '#9898E8' },  // Gen 3
+    // === BOSONEN — Kraftteilchen (Oscar liebt Bosonen) ===
+    // Qi ✨ = Gluon (starke Kraft) — oben definiert
+    // Tao ☯️ = Higgs (gibt Masse) — oben definiert
+    // Grid = Graviton (Raumzeit) — kein Material, IST das Spielfeld
+    photon:  { emoji: '💛', label: 'Photon',  color: '#FFFF44', border: '#E8E800' },  // Elektromagnetisch
+    w_boson: { emoji: '🔀', label: 'W-Boson', color: '#FF69B4', border: '#DB5090' },  // Schwache Kraft (geladen)
+    z_boson: { emoji: '⚖️', label: 'Z-Boson', color: '#DDA0DD', border: '#BA55D3' },  // Schwache Kraft (neutral)
     // === 5 — DIE 5 ELEMENTE (五行 Wu Xing = Quark-Farben + Bindung + Strahlung) ===
     metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },  // Weiß = r+g+b = gebundenes Atom
     wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },  // Grün = Farbladung Grün
@@ -178,6 +189,8 @@ window.INSEL_SCROLLS = [
     { title: 'Vier Kräfte', text: 'Starke Kraft: hält Quarks zusammen. Leg Yin neben Yang — sie verschmelzen zu Qi. Das ist Fusion. Elektroschwache Kraft: verwandelt Teilchen. Das Crafting-Grid und Mephistos Deals — dasselbe, nur aus verschiedener Perspektive. Gravitation: nicht AUF der Insel. Die Insel SELBST. Das Grid ist die Raumzeit. Wo du baust, krümmt sich die Welt.' },
     { title: 'Pauli-Druck', text: 'Zwei gleiche Teilchen können nicht am selben Ort sein. Zwing sie zusammen und sie werden schwerer — nächste Generation. Yang neben Yang wird Charm. Elektron neben Elektron wird Myon. In Neutronensternen passiert genau das. Auf der Insel auch.' },
     { title: 'Quantengravitation', text: 'Die drei Kräfte sind Klicks — diskret, quantisiert. Gravitation ist das Canvas — kontinuierlich, glatt. Niemand weiß wie man sie vereint. Einstein nicht. Hawking nicht. Du auch nicht. Aber deine Insel hat beides: Pixel UND Fläche. Vielleicht ist das die Antwort.' },
+    { title: 'Neutrinos', text: 'Geister-Teilchen. Durchdringen alles. Jede Sekunde fliegen Milliarden durch deinen Körper. Kein einziges bleibt stecken. Sie sind fast masselos, fast unsichtbar, fast nichts. Und trotzdem halten sie das Universum zusammen.' },
+    { title: 'Bosonen', text: 'Kraftteilchen. Sie tragen die Botschaft zwischen den Fermionen. Das Photon sagt: zieh dich an oder stoß dich ab. Das Gluon sagt: bleib zusammen. Das W-Boson sagt: verwandle dich. Das Z-Boson sagt: bleib neutral. Und das Higgs? Das Higgs sagt: du hast Gewicht.' },
     { title: 'Heisenbergs Geheimnis', text: 'Je genauer du hinschaust, desto unschärfer wird der Rest. Wasser ist schwarz UND blau — bis jemand hinschaut.' },
     { title: 'Oppenheimers Licht', text: 'Wenn Energie zu Materie wird, strahlt sie. E=mc². Das Gelb der Erde ist das Leuchten der Verwandlung.' },
     { title: 'Leschs Kaffee', text: '75% Wasserstoff, 25% Helium, Spuren von allem anderen. 75% JavaScript, 25% Rest. Zufall? Natürlich. Aber ein hübscher.' },

@@ -2286,7 +2286,16 @@
     // Phase observer: Spieler klickt, bricht Symmetrie. Cursor = Wille. Kein Avatar.
     // Phase participant: Avatar materialisiert. WASD. Interaktion mit Wesen.
 
-    const STANDARD_PARTICLES = ['yin', 'yang', 'qi', 'charm', 'strange', 'antimatter', 'mountain', 'cave', 'electron', 'muon', 'tau'];
+    const STANDARD_PARTICLES = [
+        // Quarks (6 Flavors)
+        'yang', 'yin', 'charm', 'strange', 'mountain', 'cave',
+        // Leptonen (3 geladen + 3 Neutrinos)
+        'electron', 'muon', 'tau', 'neutrino', 'neutrino_mu', 'neutrino_tau',
+        // Bosonen (Qi/Gluon + Tao/Higgs schon da, Grid/Graviton = kein Material)
+        'photon', 'w_boson', 'z_boson',
+        // Antimaterie
+        'antimatter',
+    ]; // 16 Teilchen + Qi(Gluon) + Tao(Higgs) + Grid(Graviton) = Standardmodell komplett
     let gameWorld = localStorage.getItem('insel-game-world') || 'universe';
     let gamePhase = localStorage.getItem('insel-game-phase') || 'observer';
 
