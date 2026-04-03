@@ -1,42 +1,54 @@
-# MMX 80/20 Split — Farmer Cronjob
-# 80% bleibt (Burn-Budget), 20% geht an API-Budget-Wallet
+# MMX Zehnt — Der Farmer gibt ein Zehntel
 #
-# Einrichtung:
-#   1. API-Budget-Adresse unten eintragen
-#   2. Task Scheduler:
-#      schtasks /create /tn "MMX-Split" /tr "powershell -File C:\scripts\mmx-split.ps1" /sc DAILY /st 12:00
-#   3. Oder alle 6h:
-#      schtasks /create /tn "MMX-Split" /tr "powershell -File C:\scripts\mmx-split.ps1" /sc MINUTE /mo 360
+# 10% der täglichen Ernte → Schwarzes Loch (Burn)
+# 90% bleibt → davon geht ein Teil ans API-Budget (manuell oder nonkyc.io)
+#
+# "Alle Zehnten des Landes, vom Ertrag des Landes, gehören dem Herrn."
+# — Levitikus 27:30 (nur dass der Herr hier ein 8-Jähriger ist)
+#
+# Einrichtung: Claude Code auf W11 macht das.
 
-$MMX_CLI = "mmx"  # oder voller Pfad: "C:\Program Files\MMX\mmx.exe"
-$API_WALLET = "mmx1_DEINE_API_BUDGET_ADRESSE_HIER"  # zweite Wallet auf nonkyc.io oder lokal
-$SPLIT = 0.20  # 20% ans API-Budget
-$MIN_BALANCE = 1.0  # Unter 1 MMX: nichts senden
+$MMX_CLI = "mmx"
+$BURN_ADDR = "mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn"
+$ZEHNT = 0.10
+$MIN_BALANCE = 0.5  # Unter 0.5 MMX: nichts brennen
+
+$LOG = "C:\mmx-zehnt.log"
+
+function Log($msg) {
+    $line = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') $msg"
+    Write-Host $line
+    Add-Content -Path $LOG -Value $line
+}
 
 # Balance abfragen
 try {
     $info = & $MMX_CLI wallet show --json 2>&1 | ConvertFrom-Json
-    $balance = $info.balance / 10000  # MMX hat 4 Dezimalstellen
+    $balance = $info.balance / 10000
 } catch {
-    Write-Host "$(Get-Date) FEHLER: MMX Wallet nicht erreichbar"
+    Log "FEHLER: MMX Wallet nicht erreichbar"
     exit 1
 }
 
-Write-Host "$(Get-Date) Balance: $balance MMX"
+Log "Balance: $balance MMX"
 
 if ($balance -lt $MIN_BALANCE) {
-    Write-Host "$(Get-Date) Unter Minimum ($MIN_BALANCE MMX). Nichts zu tun."
+    Log "Unter Minimum ($MIN_BALANCE MMX). Kein Zehnt heute."
     exit 0
 }
 
-$amount = [math]::Floor($balance * $SPLIT * 10000) / 10000  # 20%, auf 4 Dezimalen gerundet
+# Zehnt berechnen — proportional zur Ernte, nicht fest
+$tithe = [math]::Floor($balance * $ZEHNT * 10000) / 10000
 
-Write-Host "$(Get-Date) Sende $amount MMX (20%) an API-Budget"
+Log "Zehnt: $tithe MMX (10% von $balance)"
 
-& $MMX_CLI wallet send -a $amount -t $API_WALLET -m "api-budget-20pct-$(Get-Date -Format yyyy-MM-dd)"
+$tag = (Get-Date).DayOfYear
+$memo = "Zehnt Tag $tag/365"
+
+& $MMX_CLI wallet send -a $tithe -t $BURN_ADDR -m $memo
 
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "$(Get-Date) OK: $amount MMX gesendet"
+    Log "Gebrannt: $tithe MMX — $memo"
 } else {
-    Write-Host "$(Get-Date) FEHLER beim Senden"
+    Log "FEHLER beim Senden"
 }
