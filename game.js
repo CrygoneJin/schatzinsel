@@ -4376,7 +4376,7 @@
 
     // Burn-Panel als eigene Funktion — auch ohne Code-View nutzbar
     function drawBurnPanel(ctx, x, y, w) {
-        const mmxAddr = window.INSEL_MMX_BURN || 'mmx1zl2dxckqyuegpcprazrpcq8ptgzqnur02sse2ns06na0uuz5a85qeehjd5';
+        const mmxAddr = window.INSEL_MMX_BURN || 'mmx1dvufsshkk2vyujjs2uwarsk99as8qp4he7srf529yu0ulhm904jskmthxq';
         const mmxBal = window._mmxBurnBalance || '?';
         const panelH = 48;
 
