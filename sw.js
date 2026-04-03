@@ -24,6 +24,7 @@ const STATIC_ASSETS = [
     '/src/core/hex-marble.js',
     '/src/core/game.js',
     // world
+    '/src/world/npc-data.js',
     '/src/world/npc-events.js',
     '/src/world/materials.js',
     '/src/world/achievements.js',

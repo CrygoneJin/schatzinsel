@@ -10,12 +10,26 @@
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
 | S25-1 | **#71 Palette = Instrument** — mouseenter auf Palette-Buttons spielt playMaterialSound(mat). Oscar spielt Melodien durch Hovern. Kein Klick nötig. | Engineer | ✅ Done |
-| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | 🔲 Offen |
-| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 4975 → ~4800. | Engineer | 🔲 Offen |
+| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | ✅ Done (Phantom-Open — war bereits in Commit #181) |
+| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 5196 → 5133 (−63). | Engineer | ✅ Done |
 
 ---
 
 ## Standup Log
+
+### 2026-04-03 (Daily Scrum — Session 2)
+
+**Gestern:** S25-1 (Palette = Instrument) ✅. S25-2 war Phantom-Open — Dungeon in #181 bereits implementiert.
+
+**Heute:** S25-3 implementiert — NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS → `src/world/npc-data.js`. game.js: 5196 → 5133 (−63 LOC). sw.js Cache ergänzt. Typecheck grün.
+
+**Befund:** 6 Duplikat-PRs für S25-3 (PR #200, #202, #205, #207, #209, #210) von parallelen Sessions — alle offen auf main, keine gemergt. Dieser PR (#feat/s25-3-npc-data-final) ist die finale Umsetzung. Duplikate bitte schließen.
+
+**Sprint 25: alle Items Done.** → Sprint Review folgt in nächster Session.
+
+**Blocker:** Keine.
+
+---
 
 ### 2026-04-03 (Sprint 25 Planning)
 
