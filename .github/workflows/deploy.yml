@@ -44,8 +44,11 @@ jobs:
           # Lokalen HTTP-Server starten (verhindert CORS-Fehler bei file://)
           npx serve . -p 8080 &
           SERVER_PID=$!
-          # Kurz warten bis der Server bereit ist
-          sleep 2
+          # Warten bis der Server antwortet (max 30s)
+          for i in $(seq 1 30); do
+            curl -s http://localhost:8080 > /dev/null 2>&1 && break
+            sleep 1
+          done
           node --input-type=module <<'SMOKE'
           import puppeteer from 'puppeteer';
 
