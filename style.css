@@ -2594,3 +2594,84 @@ body.code-view-active #chat-settings-btn {
         text-align: center;
     }
 }
+
+/* === DUNGEON-DIALOG (#50) === */
+.dungeon-content {
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #e0e0e0;
+    border: 2px solid #533483;
+    max-width: 440px;
+}
+
+.dungeon-content h2 {
+    color: #e94560;
+    text-shadow: 0 0 12px rgba(233, 69, 96, 0.5);
+}
+
+.dungeon-intro {
+    text-align: center;
+    color: #a0a0c0;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.dungeon-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.dungeon-level {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dungeon-level-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.dungeon-level-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dungeon-level-text strong {
+    color: #e0e0ff;
+    font-size: 15px;
+}
+
+.dungeon-level-text span {
+    color: #9090b0;
+    font-size: 13px;
+}
+
+.dungeon-secret {
+    background: rgba(233, 69, 96, 0.15);
+    border: 1px solid rgba(233, 69, 96, 0.4);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    color: #e94560;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.dungeon-content .action-btn {
+    background: #533483;
+    border-color: #7a55c5;
+    color: white;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.dungeon-content .action-btn:hover {
+    background: #7a55c5;
+}

@@ -362,6 +362,41 @@
 
     </div>
 
+    <!-- Dungeon-Dialog (#50 Höhle = Dungeon) -->
+    <div id="dungeon-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dungeon-title">
+        <div class="dialog-content dungeon-content">
+            <h2 id="dungeon-title">🕳️ Du bist in der Höhle!</h2>
+            <p class="dungeon-intro">Tief unter der Insel liegt die Welt der Computer. Kannst du alle Ebenen erkunden?</p>
+            <div class="dungeon-levels">
+                <div class="dungeon-level" data-level="bits">
+                    <div class="dungeon-level-icon">⚡</div>
+                    <div class="dungeon-level-text">
+                        <strong>Ebene 1: Bits</strong>
+                        <span>An oder Aus. 0 oder 1. Alles fängt mit Strom an.</span>
+                    </div>
+                </div>
+                <div class="dungeon-level" data-level="kernel">
+                    <div class="dungeon-level-icon">⚙️</div>
+                    <div class="dungeon-level-text">
+                        <strong>Ebene 2: Betriebssystem</strong>
+                        <span>Der Kern des Computers. Er verteilt die Aufgaben.</span>
+                    </div>
+                </div>
+                <div class="dungeon-level" data-level="browser">
+                    <div class="dungeon-level-icon">🌐</div>
+                    <div class="dungeon-level-text">
+                        <strong>Ebene 3: Browser</strong>
+                        <span>Hier läuft Schatzinsel! HTML, CSS und JavaScript bauen deine Insel.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="dungeon-secret hidden" id="dungeon-secret">
+                <p>🏆 Du hast alle Ebenen entdeckt! Du bist ein echter Computer-Archäologe!</p>
+            </div>
+            <button class="action-btn" id="close-dungeon-dialog">🚪 Höhle verlassen</button>
+        </div>
+    </div>
+
     <!-- Eltern-Dashboard Modal -->
     <div id="dashboard-overlay" class="dashboard-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dashboard-title">
         <div class="dashboard-modal">
@@ -465,6 +500,7 @@
     <script src="automerge.js"></script>
     <script src="blueprints.js"></script>
     <script src="screensaver.js"></script>
+    <script src="island-generators.js"></script>
     <script src="stories.js"></script>
     <script src="sound.js"></script>
     <script src="analytics.js"></script>
