@@ -4387,12 +4387,12 @@
         ctx.lineWidth = 1;
         ctx.strokeRect(x, y, w, panelH);
 
-        // Zeile 1: MMX
+        // Zeile 1: MMX (Nerd-Ebene — kein Goldstandard, nur Energiebeweis)
         ctx.fillStyle = '#FF6B00';
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
-        ctx.fillText('\uD83D\uDD25 MMX  ' + mmxAddr.slice(0, 12) + '...' + mmxAddr.slice(-6) + '  ' + mmxBal + ' MMX', x + 5, y + 5);
+        ctx.fillText('\uD83D\uDD25 ' + mmxBal + ' MMX gefarmt  [nerd easter egg]', x + 5, y + 5);
 
         // Zeile 2: Wu Xing Kreislauf
         ctx.fillStyle = '#666';
