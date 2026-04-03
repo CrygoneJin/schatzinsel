@@ -104,5 +104,34 @@ für jemanden hier".
 
 ---
 
+## Wirtschaft & Wertschöpfung
+
+### Photosynthese-Modell (Schwarzes Loch)
+- **Für:** Alle
+- **Quelle:** Eigenes Konzept (Session 2026-04-03)
+- **Kern:** Sonne → Solarpanels → Farmer (255 TB) → MMX → Burn → Information. Grenzkosten null. Farmer = Baum, Schwarzes Loch = Waldboden, Oscar = Setzling. Energie fließt in eine Richtung — rein, nie raus. Wie Gravitation.
+
+### Donut-Ökonomie (Kate Raworth)
+- **Für:** Alle
+- **Quelle:** Kate Raworth, "Doughnut Economics" (2017)
+- **Kern:** Wirtschaft zwischen sozialem Fundament (Oscar spielt) und ökologischer Decke (Strom aus Sonne). Kein Wachstum, kein Profit, keine Extraktion. Burn statt Akkumulation.
+
+### Potlatch (Kwakiutl)
+- **Für:** Leader, Scientist
+- **Quelle:** Marcel Mauss, "Die Gabe" (1925)
+- **Kern:** Status durch Vernichtung von Reichtum. Burn = Potlatch. Du hättest die Token verkaufen können, aber du verbrennst sie. Was bleibt ist der Beweis.
+
+### Fractional Reserve für Muscheln
+- **Für:** Engineer, Scientist
+- **Quelle:** Bankwesen 101, angewandt auf Spielwährung
+- **Kern:** 10.000 Spieler × 42 Muscheln ≠ 420.000 MMX Deckung. Kein Spieler löst ein. Mr. Crabs ist die Bundesbank. Deckung ist philosophisch, nicht vertraglich.
+
+### Steuerliche Implikation (Burn)
+- **Für:** Leader, Engineer
+- **Quelle:** §22 Nr. 3 EStG, §23 EStG (Haltefrist)
+- **Kern:** Farming-Rewards = steuerbares Einkommen bei Zufluss. Burn = Verlust durch Untergang, nicht absetzbar. Gesellschaft profitiert (Steuer), Projekt profitiert (Spielspaß), Markt profitiert (Deflation). Burn pro Sprint, nicht pro Spieler-Transaktion.
+
+---
+
 *Hypatia kuratiert. Einträge vorschlagen: einfach PR mit neuem Eintrag.*
 *Letztes Update: 2026-04-03*
