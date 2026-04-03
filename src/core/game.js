@@ -328,21 +328,48 @@
         krabs:     { emoji: '🦀', name: 'Mr. Krabs' },
         tommy:     { emoji: '🦞', name: 'Tommy' },
         mephisto:  { emoji: '😈', name: 'Mephisto' },
+        // Bonusfamilie (nur auf Startinsel sichtbar, Spieler benennt sie selbst)
+        kraemerin: { emoji: '👩‍🍳', name: 'Krämerin', lummerland: true },
+        lokfuehrer:{ emoji: '🚂', name: 'Lokführer', lummerland: true },
     };
 
     // NPCs im Kreis um die Inselmitte verteilen
     // Positionen werden nach Grid-Init berechnet (siehe unten)
     let npcPositions = {};
 
+    const _isLummerland = new URLSearchParams(location.search).has('lummerland');
+
     function initNpcPositions() {
         const cx = Math.floor(COLS / 2);
         const cy = Math.floor(ROWS / 2);
         const rx = Math.floor(COLS * 0.3);
         const ry = Math.floor(ROWS * 0.3);
-        const ids = Object.keys(NPC_DEFS);
+        const ids = Object.keys(NPC_DEFS).filter(id => {
+            // Lummerland-NPCs nur auf Lummerland
+            if (NPC_DEFS[id].lummerland && !_isLummerland) return false;
+            return true;
+        });
         npcPositions = {};
-        ids.forEach((id, i) => {
-            const angle = (i / ids.length) * Math.PI * 2 - Math.PI / 2;
+
+        // Lummerland-NPCs bekommen feste Positionen bei ihren Gebäuden
+        if (_isLummerland) {
+            // Lukas: vor dem Lokschuppen (1 Zeile darunter)
+            const schuppenR = cy + Math.floor(ry * 0.1) + 1;
+            const schuppenC = cx - Math.floor(rx * 0.1);
+            npcPositions['lokfuehrer'] = { r: schuppenR, c: schuppenC };
+            if (grid[schuppenR] && grid[schuppenR][schuppenC]) grid[schuppenR][schuppenC] = null;
+
+            // Frau Waas: vor dem Laden (1 Zeile darunter)
+            const ladenR = cy + 1;
+            const ladenC = cx + Math.floor(rx * 0.15);
+            npcPositions['kraemerin'] = { r: ladenR, c: ladenC };
+            if (grid[ladenR] && grid[ladenR][ladenC]) grid[ladenR][ladenC] = null;
+        }
+
+        // Alle anderen NPCs im Kreis um die Inselmitte
+        const circleIds = ids.filter(id => !npcPositions[id]);
+        circleIds.forEach((id, i) => {
+            const angle = (i / circleIds.length) * Math.PI * 2 - Math.PI / 2;
             let r = Math.min(ROWS - 3, Math.max(2, cy + Math.round(Math.sin(angle) * ry)));
             let c = Math.min(COLS - 3, Math.max(2, cx + Math.round(Math.cos(angle) * rx)));
             // Freie Zelle suchen falls besetzt
@@ -408,6 +435,27 @@
         } else if (npcId === 'krabs') {
             // Krabs: Kein Quest? Dann HANDEL! 🦀💰
             showKrabsShop();
+        } else if (npcId === 'kraemerin') {
+            // Krämerin: Muscheln für den Laden annehmen
+            const shells = getInventoryCount('shell');
+            if (shells > 0) {
+                removeFromInventory('shell', shells);
+                showToast(`👩‍🍳 Krämerin: ${shells} Muschel${shells > 1 ? 'n' : ''}! Die kommen ins Regal. Danke, Schatz! 🐚`, 4000);
+                updateInventoryDisplay();
+                soundCraft();
+            } else {
+                showToast('👩‍🍳 Krämerin: Bring mir Muscheln vom Strand! Die verkaufen sich wie warme Semmeln! 🐚', 4000);
+            }
+        } else if (npcId === 'lokfuehrer') {
+            // Lokführer: Abenteuergeschichten
+            const stories = [
+                '🚂 Lokführer: Meine Lok und ich sind einmal bis zum Ende der Welt gefahren! Naja, fast.',
+                '🚂 Lokführer: Weißt du was? Die besten Abenteuer fangen auf kleinen Inseln an!',
+                '🚂 Lokführer: Eine Lokomotive braucht drei Dinge: Kohle, Wasser und einen Freund.',
+                '🚂 Lokführer: Hör mal — wenn du genug Holz sammelst, bauen wir ein Boot!',
+                '🚂 Lokführer: Tschuff tschuff! Steig ein, wir fahren einmal um die Insel!',
+            ];
+            showToast(stories[Math.floor(Math.random() * stories.length)], 5000);
         } else {
             const voice = NPC_VOICES[npcId];
             if (voice) {
@@ -734,6 +782,8 @@
         floriane:  { emoji: '🧚', prefix: 'Floriane:', ticks: ['✨', 'Oh!', 'Ein Wunsch!'], style: 'magic' },
         mephisto:  { emoji: '😈', prefix: 'Mephisto:', ticks: ['Hehehehe...', 'Ein Angebot!', 'Deal?'], style: 'deal' },
         bug:       { emoji: '🐛', prefix: 'Bug:', ticks: ['*mampf*', 'Was ist kaputt?', 'Zeig mal!'], style: 'bug' },
+        kraemerin: { emoji: '👩‍🍳', prefix: 'Krämerin:', ticks: ['Willkommen im Laden!', 'Muscheln? Immer her damit!', 'Schön dass du da bist!'], style: 'warm' },
+        lokfuehrer:{ emoji: '🚂', prefix: 'Lokführer:', ticks: ['Die Lok braucht Kohle!', 'Tschuff tschuff!', 'Eine Insel ist nie zu klein!'], style: 'adventure' },
         // #13: Programmiersprachen-Bewohner
         haskell:   { emoji: '🟣', prefix: 'Haskell:', ticks: ['Rein funktional!', 'Keine Seiteneffekte!', 'Typen lösen alles!'], style: 'careful' },
         lua:       { emoji: '🌙', prefix: 'Lua:', ticks: ['Schnell und leicht!', 'Tables!', '-- Ein Kommentar genügt'], style: 'cute' },

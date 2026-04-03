@@ -1,46 +1,98 @@
-// === ACHIEVEMENTS — Meilensteine die sich verdient anfühlen ===
+// === ACHIEVEMENTS — Progressiv schwerer, offen nach oben ===
 // Exportiert als window.INSEL_ACHIEVEMENTS (Vanilla JS, kein Build-Tool)
 //
-// Design-Prinzip (Molyneux/RCT):
-//   - Wenige Achievements, jedes ein echter Meilenstein
-//   - Gebunden an Spieler-Aktionen, nicht Generator-Blöcke
-//   - stats.playerPlaced = nur vom Spieler gesetzte Blöcke
-//   - Blueprints, Quests, Rezepte = echte Leistungen
+// Design:
+//   - 5 Kategorien mit festen Meilensteinen (Stufe 1-4)
+//   - Danach: dynamische Achievements die sich selbst generieren
+//   - Fibonacci-ähnliche Progression: 1, 3, 10, 25, 50, 100, 250, ...
+//   - Kein Cap. Unendliche Materialien = unendliche Achievements.
+//
+// Stats aus getGridStats():
+//   playerPlaced, questsDone, blueprintsDone, recipesFound,
+//   uniqueMats, percent, total
 
-window.INSEL_ACHIEVEMENTS = {
-    // --- Erste Schritte ---
-    firstBuild:     { emoji: '🔨', title: 'Grundstein!', desc: 'Deinen allerersten Block selbst gebaut!', check: (s) => s.playerPlaced >= 1 },
-    homeBuilder:    { emoji: '🛖', title: 'Eigene Hütte!', desc: 'Einen Bauplan fertig gebaut — dein erstes Gebäude!', check: (s) => s.blueprintsDone >= 1 },
+(function () {
+    'use strict';
 
-    // --- Crafting & Entdecken ---
-    firstRecipe:    { emoji: '⚗️', title: 'Erster Mix!', desc: 'Dein erstes Crafting-Rezept entdeckt!', check: (s) => s.recipesFound >= 1 },
-    alchemist:      { emoji: '🧪', title: 'Alchemist!', desc: '10 verschiedene Rezepte entdeckt — du kennst die Geheimnisse!', check: (s) => s.recipesFound >= 10 },
-    masterCrafter:  { emoji: '🔮', title: 'Meister-Mixer!', desc: '25 Rezepte! Die Insel hat keine Geheimnisse mehr vor dir!', check: (s) => s.recipesFound >= 25 },
+    // Feste Meilensteine (die ersten 20 — handgeschrieben, mit Charakter)
+    var FIXED = {
 
-    // --- Quests ---
-    questHelper:    { emoji: '📜', title: 'Guter Freund!', desc: 'Deine erste Quest für einen Insel-Bewohner geschafft!', check: (s) => s.questsDone >= 1 },
-    questHero:      { emoji: '🦸', title: 'Insel-Held!', desc: '5 Quests erledigt — alle Bewohner lieben dich!', check: (s) => s.questsDone >= 5 },
-    questLegend:    { emoji: '👑', title: 'Legende!', desc: '10 Quests geschafft — Schnipsel ist stolz auf dich!', check: (s) => s.questsDone >= 10 },
+        // 🔨 BAUEN
+        bau1: { emoji: '🔨', title: 'Grundstein',      desc: 'Deinen allerersten Block gebaut!',                    check: function (s) { return s.playerPlaced >= 1; } },
+        bau2: { emoji: '🛖', title: 'Huettenbauer',     desc: '25 Bloecke gebaut — das wird was!',                  check: function (s) { return s.playerPlaced >= 25; } },
+        bau3: { emoji: '🏗️', title: 'Architekt',        desc: '100 Bloecke! Eine richtige Siedlung!',               check: function (s) { return s.playerPlaced >= 100; } },
+        bau4: { emoji: '🏰', title: 'Burgherr',          desc: '500 Bloecke — deine Insel ist legendaer!',          check: function (s) { return s.playerPlaced >= 500; } },
 
-    // --- Bauen ---
-    fleissig:       { emoji: '🏗️', title: 'Fleißige Hände!', desc: '50 Blöcke selbst gebaut — das sieht man!', check: (s) => s.playerPlaced >= 50 },
-    architect:      { emoji: '🏛️', title: 'Architekt!', desc: '3 verschiedene Gebäude per Bauplan gebaut!', check: (s) => s.blueprintsDone >= 3 },
-    stadtplaner:    { emoji: '🏙️', title: 'Stadtplaner!', desc: '200 Blöcke selbst platziert — eine richtige Stadt!', check: (s) => s.playerPlaced >= 200 },
-    burgherr:       { emoji: '🏰', title: 'Burgherr!', desc: 'Alle 8 Baupläne gebaut — die Insel ist komplett!', check: (s) => s.blueprintsDone >= 8 },
+        // ⚗️ CRAFTEN
+        mix1: { emoji: '⚗️', title: 'Erster Mix',       desc: 'Dein erstes Rezept entdeckt!',                       check: function (s) { return s.recipesFound >= 1; } },
+        mix2: { emoji: '🧪', title: 'Tueftler',          desc: '5 Rezepte — du experimentierst gerne!',             check: function (s) { return s.recipesFound >= 5; } },
+        mix3: { emoji: '🔮', title: 'Alchemist',          desc: '15 Rezepte! Du kennst die Geheimnisse!',           check: function (s) { return s.recipesFound >= 15; } },
+        mix4: { emoji: '🌟', title: 'Meister-Mixer',     desc: '30 Rezepte — nichts ist dir fremd!',                check: function (s) { return s.recipesFound >= 30; } },
 
-    // --- Entdecken & Sammeln ---
-    orcaGrossmutter: { emoji: '🐋', title: 'Orca-Großmutter!', desc: '50 verschiedene Materialien entdeckt — Weisheit der Tiefe!', check: (s) => s.materialsFound >= 50 },
-    entdecker:       { emoji: '🧭', title: 'Entdecker!', desc: 'Alle 5 Wu Xing Elemente benutzt — Holz, Feuer, Erde, Metall, Wasser!', check: (s) => s.wuXingUsed >= 5 },
-    verwandler:      { emoji: '⚗️', title: 'Verwandler!', desc: '20 verschiedene Crafting-Rezepte benutzt — Meister der Verwandlung!', check: (s) => s.recipesUsed >= 20 },
+        // 📜 QUESTS
+        quest1: { emoji: '📜', title: 'Guter Freund',    desc: 'Deine erste Quest geschafft!',                      check: function (s) { return s.questsDone >= 1; } },
+        quest2: { emoji: '🤝', title: 'Helfer',           desc: '3 Quests — die Bewohner moegen dich!',             check: function (s) { return s.questsDone >= 3; } },
+        quest3: { emoji: '🦸', title: 'Insel-Held',       desc: '10 Quests! Alle kennen deinen Namen!',             check: function (s) { return s.questsDone >= 10; } },
+        quest4: { emoji: '👑', title: 'Legende',           desc: '25 Quests — du bist die Legende der Insel!',      check: function (s) { return s.questsDone >= 25; } },
 
-    // --- NPCs & Interaktion ---
-    pythia:          { emoji: '🔮', title: 'Pythia!', desc: '10 Wünsche bei Floriane gewünscht — sie kennt dich schon!', check: (s) => s.florianeWishes >= 10 },
-    bugJaeger:       { emoji: '🐛', title: 'Bug-Jäger!', desc: '5 Bugs bei Bug gemeldet — die Insel wird besser dank dir!', check: (s) => s.bugsReported >= 5 },
-    geschichtenerzaehler: { emoji: '📖', title: 'Geschichtenerzähler!', desc: 'Alle NPCs angesprochen — jeder kennt dich!', check: (s) => s.npcsSpokenTo >= s.npcCount },
+        // 📐 BAUPLÄNE
+        plan1: { emoji: '📐', title: 'Bauplan-Finder',   desc: 'Deinen ersten Bauplan gebaut!',                     check: function (s) { return s.blueprintsDone >= 1; } },
+        plan2: { emoji: '🏠', title: 'Haeuslebauer',      desc: '3 Gebaeude — ein kleines Dorf!',                   check: function (s) { return s.blueprintsDone >= 3; } },
+        plan3: { emoji: '🏘️', title: 'Stadtplaner',      desc: '5 Gebaeude stehen — eine Siedlung!',               check: function (s) { return s.blueprintsDone >= 5; } },
+        plan4: { emoji: '🏙️', title: 'Grossstadt',        desc: 'Alle 8 Bauplaene gebaut — Insel komplett!',       check: function (s) { return s.blueprintsDone >= 8; } },
 
-    // --- Spielverhalten ---
-    nachtwaechter:   { emoji: '🌙', title: 'Nachtwächter!', desc: 'Im Dark Mode gespielt — die dunkle Seite der Insel!', check: (s) => s.darkModeUsed === true },
-    stilleInsel:     { emoji: '🧘', title: 'Stille Insel!', desc: '5 Minuten nichts gebaut — manchmal ist Pause das Beste!', check: (s) => s.idleMinutes >= 5 },
-    rekordhalter:    { emoji: '🏆', title: 'Rekordhalter!', desc: '200 Blöcke in einer einzigen Session — unaufhaltbar!', check: (s) => s.sessionPlaced >= 200 },
-    baumeister:      { emoji: '📐', title: 'Baumeister!', desc: '5 Baupläne gebaut — du denkst in Strukturen!', check: (s) => s.blueprintsDone >= 5 },
-};
+        // 🧭 ENTDECKEN
+        mat1: { emoji: '🧭', title: 'Neugierig',         desc: '5 verschiedene Materialien benutzt!',               check: function (s) { return s.uniqueMats >= 5; } },
+        mat2: { emoji: '🗺️', title: 'Entdecker',         desc: '15 verschiedene Materialien — bunt!',              check: function (s) { return s.uniqueMats >= 15; } },
+        mat3: { emoji: '🌈', title: 'Sammler',            desc: '30 verschiedene Materialien entdeckt!',            check: function (s) { return s.uniqueMats >= 30; } },
+        mat4: { emoji: '🐋', title: 'Orca-Grossmutter',   desc: '50 Materialien — Weisheit der Tiefe!',            check: function (s) { return s.uniqueMats >= 50; } },
+    };
+
+    // Dynamische Achievements: generieren sich selbst bei wachsenden Zahlen
+    // Schwelle-Folge: 100, 250, 500, 1000, 2500, 5000, 10000, ...
+    // Für jede Kategorie ab Stufe 5+
+    var DYN_CATEGORIES = [
+        { key: 'bau',  stat: 'playerPlaced', emoji: '⭐', titleFn: function (n) { return n + ' Bloecke!'; },     descFn: function (n) { return n + ' Bloecke gebaut — unglaublich!'; } },
+        { key: 'mix',  stat: 'recipesFound', emoji: '💫', titleFn: function (n) { return n + ' Rezepte!'; },     descFn: function (n) { return n + ' Rezepte entdeckt — Infinite Craft!'; } },
+        { key: 'mat',  stat: 'uniqueMats',   emoji: '🌌', titleFn: function (n) { return n + ' Materialien!'; }, descFn: function (n) { return n + ' verschiedene Materialien — kein Ende in Sicht!'; } },
+    ];
+
+    // Fibonacci-artige Schwellen ab dem festen Cap: 100, 250, 500, 1k, 2.5k, 5k, 10k, ...
+    function dynamicThresholds(start) {
+        var t = [];
+        var v = start;
+        for (var i = 0; i < 20; i++) {
+            t.push(v);
+            v = (i % 2 === 0) ? Math.round(v * 2.5) : Math.round(v * 2);
+        }
+        return t;
+    }
+
+    var DYN_THRESHOLDS = {
+        playerPlaced: dynamicThresholds(1000),
+        recipesFound: dynamicThresholds(50),
+        uniqueMats:   dynamicThresholds(100),
+    };
+
+    // Alle Achievements zusammenbauen (fest + dynamisch)
+    /** @type {Record<string, {emoji: string, title: string, desc: string, check: function(Object): boolean}>} */
+    var all = {};
+    var id;
+    for (id in FIXED) { all[id] = FIXED[id]; }
+
+    DYN_CATEGORIES.forEach(function (cat) {
+        var thresholds = DYN_THRESHOLDS[cat.stat];
+        if (!thresholds) return;
+        thresholds.forEach(function (threshold, i) {
+            var dynId = cat.key + '_dyn_' + threshold;
+            all[dynId] = {
+                emoji: cat.emoji,
+                title: cat.titleFn(threshold),
+                desc: cat.descFn(threshold),
+                check: (function (s, t) { return function (stats) { return stats[s] >= t; }; })(cat.stat, threshold),
+            };
+        });
+    });
+
+    window.INSEL_ACHIEVEMENTS = all;
+})();
