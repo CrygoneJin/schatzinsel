@@ -731,6 +731,23 @@ Du: "Ah, willkommen, verehrter Baumeister! Ich bin Mephisto. Man sagt ich sei ei
             addMessage(`${char.emoji} Drei Wünsche für heute! Morgen gibt es neue. ✨`, 'system');
             return;
         }
+        // Floriane: Fibonacci-Preis pro Wunsch [1,1,2,3,5] — 40% billig, Fee-Ökonomie
+        const FIB_PREISE = [1, 1, 2, 3, 5];
+        const florianePreis = (charId === 'floriane')
+            ? FIB_PREISE[Math.floor(Math.random() * FIB_PREISE.length)]
+            : 0;
+
+        if (charId === 'floriane' && florianePreis > 0) {
+            const shells = (typeof window.getInselShells === 'function') ? window.getInselShells() : 0;
+            if (shells < florianePreis) {
+                addMessage(`🧚 Floriane: Du brauchst noch ${florianePreis - shells} 🐚... bau mehr am Strand!`, 'system');
+                return;
+            }
+            if (typeof window.removeInselShells === 'function') {
+                window.removeInselShells(florianePreis);
+            }
+        }
+
         chatHistory.push({ role: 'user', content: userMessage });
 
         // Max 10 Nachrichten History
