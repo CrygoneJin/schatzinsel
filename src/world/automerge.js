@@ -11,6 +11,19 @@
         // === Genesis ===
         { a: 'yin', b: 'yang', result: 'qi', msg: '✨ Yin + Yang → Qi!' },
 
+        // === Teilchenphysik (Pauli-Prinzip & Confinement) ===
+
+        // Meson-Bildung: Charm + Strange → Antimaterie
+        { a: 'charm', b: 'strange', result: 'antimatter', msg: '⚛️ Charm + Strange → Antimaterie!' },
+
+        // E=mc²: Antimaterie trifft Materie → Energie
+        { a: 'antimatter', b: 'qi', result: 'fire', msg: '💥 Antimaterie + Energie → Feuer! (E=mc²)' },
+
+        // === Pauli-Prinzip: Identische Fermionen → Druck → nächste Generation ===
+        // Zwei gleiche Leptonen nebeneinander = Pauli-Druck → schwerer
+        { a: 'electron', b: 'electron', result: 'muon', msg: '🔸 Elektron + Elektron → Myon! (Pauli-Druck)' },
+        { a: 'muon', b: 'muon', result: 'tau', msg: '🔻 Myon + Myon → Tau! (Pauli-Druck)' },
+
         // === Wu Xing Erzeugungszyklus (相生 xiāng shēng) ===
         // Holz nährt Feuer, Feuer erzeugt Erde (Asche),
         // Erde birgt Metall, Metall sammelt Wasser (Kondensation),
