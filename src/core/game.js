@@ -2223,6 +2223,8 @@
             { emoji: '🍄', name: 'Pilz', material: 'mushroom' },
             { emoji: '🔮', name: 'Kristall', material: 'crystal' },
             { emoji: '⭐', name: 'Stern', material: 'star' },
+            { emoji: '🐚', name: 'Muschel', material: 'shell' },
+            { emoji: '🐚', name: 'Muschel', material: 'shell' },
         ];
         // Zufällige freie Zelle finden
         for (let attempt = 0; attempt < 50; attempt++) {
