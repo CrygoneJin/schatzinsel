@@ -128,12 +128,13 @@ jobs:
       - name: Version berechnen und stempeln
         id: version
         run: |
+          # Commit-Count (monoton steigend, auch fuer SW Cache-Version)
+          COUNT=$(git rev-list --count HEAD)
           # SemVer aus Tags oder Fallback
           if git describe --tags --match 'v*' HEAD 2>/dev/null; then
             VERSION=$(git describe --tags --match 'v*' HEAD)
           else
             # Kein Tag: v0.COMMIT_COUNT.SHORT_SHA
-            COUNT=$(git rev-list --count HEAD)
             SHA=$(git rev-parse --short HEAD)
             VERSION="v0.${COUNT}.${SHA}"
           fi
@@ -145,6 +146,9 @@ jobs:
 
           # Stempel in index.html einsetzen
           sed -i "s|<!--VERSION-->.*<!--/VERSION-->|<!--VERSION-->${STAMP}<!--/VERSION-->|g" index.html
+
+          # SW Cache-Version = Commit-Count (steigt monoton bei jedem Deploy)
+          sed -i "s|const CACHE_VERSION = [0-9]*;|const CACHE_VERSION = ${COUNT};|g" sw.js
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
