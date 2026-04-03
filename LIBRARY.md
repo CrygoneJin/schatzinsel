@@ -157,5 +157,24 @@ für jemanden hier".
 
 ---
 
+## Spielmechanik & NPCs
+
+### Bug 🐛 — Raupe Nimmersatt als Lebenszyklus
+- **Für:** Engineer, Designer, Artist
+- **Quelle:** Eigenes Konzept (Session 2026-04-03)
+- **Kern:** Bug ist eine Spielfigur mit Metamorphose-Zyklus: Raupe → frisst Bugs → wird dicker → Kokon → Schmetterling → wieder Raupe. Während Kokon: Bug-Queue baut sich auf. Release-Zyklus als Spielmechanik. Oscar lernt: Verwandlung braucht eine hässliche Phase.
+
+### Bernd 🍞 — Stimmung = Bug-Report-Dicke
+- **Für:** Artist, Designer
+- **Quelle:** Tommy Krapweis / Bernd das Brot + Session 2026-04-03
+- **Kern:** Bernd ist nicht Bug. Bernd kommentiert. Seine Laune entspricht der Anzahl offener Bugs. 0 Bugs = gelangweilt. 10 Bugs = sprachlos vor Genervtheit. Zwei getrennte Entitäten: Bug (Tier) und Bernd (Brot).
+
+### Floriane 🧚 — Wünsche kosten Muscheln
+- **Für:** Engineer, Scientist
+- **Quelle:** Sams (Wunschpunkte), Djinn (3 Wünsche) + Session 2026-04-03
+- **Kern:** Floriane craftet per LLM was Oscar wünscht, aber jeder Wunsch kostet Muscheln. SHELL_CAP=42 = endliche Wünsche. Reibung erzwingt Entscheidung: ist der Vulkan 5 Muscheln wert? Muscheln fließen zurück an Mr. Crabs (Kreislauf geschlossen).
+
+---
+
 *Hypatia kuratiert. Einträge vorschlagen: einfach PR mit neuem Eintrag.*
 *Letztes Update: 2026-04-03*
