@@ -765,7 +765,7 @@ async function createMarketTable(env) {
 
 async function handleBurnBalance(request, env) {
     const url = new URL(request.url);
-    const mmxAddr = url.searchParams.get('mmx') || 'mmx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq5tuzzn';
+    const mmxAddr = url.searchParams.get('mmx') || 'mmx1zl2dxckqyuegpcprazrpcq8ptgzqnur02sse2ns06na0uuz5a85qeehjd5';
     const xchAddr = url.searchParams.get('xch') || 'xch1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdlkwut';
 
     const results = { mmx: null, xch: null, ts: Date.now() };
