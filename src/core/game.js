@@ -1645,6 +1645,7 @@
         }
         showToast(`✨ Neues Artefakt: ${info.emoji} ${info.label}!`);
         updateDiscoveryCounter();
+        checkParticleProgress();
     }
 
     function updatePaletteVisibility() {
@@ -2269,12 +2270,57 @@
         ctx.restore();
     }
 
-    // === SPIELPHASEN ===
-    // Phase 1 (observer): Spieler klickt, bricht Symmetrie. Jeder Klick = Tao ins Wasser.
-    //   Der Spieler IST der Urknall. Cursor = Wille. Kein Avatar.
-    // Phase 2 (participant): Roter Knopf → Spieler wird selbst zum Teilchen.
-    //   Avatar materialisiert. WASD. Interaktion mit Wesen.
+    // === SPIELWELT + SPIELPHASEN ===
+    //
+    // Welt 1: UNIVERSUM (dunkel, Draufsicht, nur Tao platzieren)
+    //   Spieler schaut von oben auf sein Universum.
+    //   Tao zerfällt spontan → Automerge + Pauli erzeugen alle Teilchen.
+    //   Kein Crafting-Grid. Kein NPC. Nur Physik.
+    //   → Alle 11 Standardteilchen freigespielt → Welt wechselt zur Insel.
+    //
+    // Welt 2: INSEL (hell, Bauspiel, NPCs, Crafting)
+    //   Chemie-Erweiterung: Wu Xing Elemente, Crafting-Grid, Rezepte.
+    //   Bug (Vergangenheit), Floriane (Zukunft), Bernd (Jetzt) — immer da.
+    //   Weitere Wesen erscheinen in 3D (Voxel).
+    //
+    // Phase observer: Spieler klickt, bricht Symmetrie. Cursor = Wille. Kein Avatar.
+    // Phase participant: Avatar materialisiert. WASD. Interaktion mit Wesen.
+
+    const STANDARD_PARTICLES = ['yin', 'yang', 'qi', 'charm', 'strange', 'antimatter', 'mountain', 'cave', 'electron', 'muon', 'tau'];
+    let gameWorld = localStorage.getItem('insel-game-world') || 'universe';
     let gamePhase = localStorage.getItem('insel-game-phase') || 'observer';
+
+    function checkParticleProgress() {
+        const discovered = STANDARD_PARTICLES.filter(p => unlockedMaterials.has(p));
+        const counter = document.getElementById('particle-counter');
+        if (counter) counter.textContent = `⚛️ ${discovered.length} / ${STANDARD_PARTICLES.length}`;
+
+        if (discovered.length >= STANDARD_PARTICLES.length && gameWorld === 'universe') {
+            transitionToIsland();
+        }
+    }
+
+    function transitionToIsland() {
+        gameWorld = 'island';
+        localStorage.setItem('insel-game-world', 'island');
+        showToast('🏝️ Alle Teilchen entdeckt! Die Insel erscheint...');
+        soundCraft();
+
+        // Palette: alle Materialien freischalten
+        document.querySelectorAll('.material-btn.craft-locked').forEach(btn => {
+            btn.style.display = '';
+        });
+        // Crafting-Grid sichtbar machen
+        const craftArea = document.getElementById('craft-area');
+        if (craftArea) craftArea.style.display = '';
+        // Hintergrund aufhellen
+        document.body.classList.remove('universe-mode');
+        document.body.classList.add('island-mode');
+        requestRedraw();
+    }
+
+    function isUniverse() { return gameWorld === 'universe'; }
+    function isIsland() { return gameWorld === 'island'; }
 
     function breakSymmetry() {
         if (gamePhase === 'participant') return;

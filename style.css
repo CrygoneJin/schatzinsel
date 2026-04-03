@@ -293,6 +293,42 @@ body {
     50% { box-shadow: 0 0 40px rgba(255,0,0,0.6), inset 0 -4px 8px rgba(0,0,0,0.3); }
 }
 
+/* === UNIVERSUM-MODUS — dunkler Raum, nur Teilchen === */
+body.universe-mode {
+    background: #000 !important;
+}
+
+body.universe-mode #game-canvas {
+    background: #050510 !important;
+}
+
+body.universe-mode .sidebar {
+    background: rgba(5, 5, 16, 0.95) !important;
+    color: #aaa;
+}
+
+body.universe-mode .toolbar {
+    background: rgba(5, 5, 16, 0.95) !important;
+}
+
+/* Im Universum: Crafting-Grid verstecken */
+body.universe-mode #craft-tab-content {
+    display: none !important;
+}
+
+/* Im Universum: nur Tao + Teilchen in Palette */
+body.universe-mode .material-btn:not([data-material="tao"]):not([data-material="charm"]):not([data-material="strange"]):not([data-material="antimatter"]):not([data-material="electron"]):not([data-material="muon"]):not([data-material="tau"]):not([data-base="true"]) {
+    display: none !important;
+}
+
+/* Teilchen-Zähler Styling */
+#particle-counter {
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(232, 180, 248, 0.15);
+}
+
 @keyframes singularityPulse {
     0%, 100% { opacity: 0.6; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.1); }

@@ -16,8 +16,8 @@
         // Meson-Bildung: Charm + Strange → Antimaterie
         { a: 'charm', b: 'strange', result: 'antimatter', msg: '⚛️ Charm + Strange → Antimaterie!' },
 
-        // E=mc²: Antimaterie trifft Materie → Energie
-        { a: 'antimatter', b: 'qi', result: 'fire', msg: '💥 Antimaterie + Energie → Feuer! (E=mc²)' },
+        // Paarproduktion: Antimaterie + Quark → Lepton (β-Zerfall-Analogon)
+        { a: 'antimatter', b: 'yang', result: 'electron', msg: '🔹 Antimaterie + Yang → Elektron! (Paarproduktion)' },
 
         // === Pauli-Prinzip: A×A → nächste Generation (Multiplikation) ===
         // Identische Fermionen können nicht am selben Ort sein.
