@@ -10,6 +10,8 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-03 | CI kaputt seit 31.3 — `sleep 2` reicht nicht für `npx serve` | Race Condition: Server startet nach Puppeteer | `curl`-Retry-Loop statt `sleep`, SW Cache-Version auto per Commit-Count |
 | 2026-04-03 | NPCs nicht sichtbar auf Live-Site | CI kaputt → kein Deploy → alte game.js ohne NPC-Grid-Code | Root Cause war CI, nicht NPC-Code. Immer CI-Status prüfen bei "Feature fehlt auf Prod" |
 | 2026-04-03 | Root Cleanup 1·3·5·10000 + Isidor-Modell | 42 JS-Dateien + 13 MD im Root = Chaos | src/(core,world,infra), docs/, ops/. archive/library nur wenn befüllt. tsconfig: nur typsichere Dateien includen (nicht alles per Glob) |
+| 2026-04-03 | Copyright-Check bei NPC-Namen | Michael Ende Figuren (Frau Waas, Lukas, Lummerland) = urheberrechtlich geschützt | Generische Rollen (Krämerin, Lokführer), Oscar benennt selbst. Nie Figuren-Namen aus Büchern direkt verwenden. |
+| 2026-04-03 | Achievements: alte Phantom-Stats | wuXingUsed, florianeWishes etc. existierten nie in getGridStats() | Nur Stats verwenden die tatsächlich geliefert werden. Dynamische Achievements für ∞-Systeme. |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
