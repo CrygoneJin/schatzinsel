@@ -10,8 +10,8 @@
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
 | S25-1 | **#71 Palette = Instrument** — mouseenter auf Palette-Buttons spielt playMaterialSound(mat). Oscar spielt Melodien durch Hovern. Kein Klick nötig. | Engineer | ✅ Done |
-| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | 🔲 Offen |
-| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 4975 → ~4800. | Engineer | 🔲 Offen |
+| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | ✅ Done (Phantom-Open — bereits in Commit #181) |
+| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 5196 → 5136. | Engineer | ✅ Done |
 
 ---
 
@@ -26,6 +26,18 @@
 **Blocker:** Keine.
 
 **State nach Pull:** game.js = 4975 LOC. Hexvoxel-Engine neu (hex-grid.js, hex-renderer.js, hex-marble.js). Burn-Detektor live.
+
+### 2026-04-03 (Daily Scrum)
+
+**Gestern:** S25-1 Palette = Instrument ✅ bereits done (Commit #196 d17f875).
+
+**Heute:**
+- S25-2 Phantom-Open erkannt: Dungeon vollständig implementiert in Commit #181 (HTML, CSS, JS, close-handler). Backlog #50 wird als Done markiert.
+- S25-3 implementiert: NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → `src/world/npc-data.js`. game.js: 5196 → 5136 Zeilen. Typecheck grün.
+
+**Blocker:** Keine.
+
+**Sprint Goal:** Alle 3 Items Done. Sprint 25 abgeschlossen.
 
 ---
 
