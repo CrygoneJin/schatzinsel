@@ -7,6 +7,9 @@ Persistent team log. Append-only. Read by all agents.
 ## Bugs (so we don't repeat them)
 
 | 2026-03-30 | Backlog-Drift: 14 Items waren in Code done aber Backlog zeigte 🔲 | Keine Session-übergreifende Backlog-Pflege | Am Ende jeder Session: Backlog-Zeilen updaten, bevor MEMORY geschrieben wird |
+| 2026-04-03 | CI kaputt seit 31.3 — `sleep 2` reicht nicht für `npx serve` | Race Condition: Server startet nach Puppeteer | `curl`-Retry-Loop statt `sleep`, SW Cache-Version auto per Commit-Count |
+| 2026-04-03 | NPCs nicht sichtbar auf Live-Site | CI kaputt → kein Deploy → alte game.js ohne NPC-Grid-Code | Root Cause war CI, nicht NPC-Code. Immer CI-Status prüfen bei "Feature fehlt auf Prod" |
+| 2026-04-03 | Root Cleanup 1·3·5·10000 + Isidor-Modell | 42 JS-Dateien + 13 MD im Root = Chaos | src/(core,world,infra), docs/, ops/. archive/library nur wenn befüllt. tsconfig: nur typsichere Dateien includen (nicht alles per Glob) |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
