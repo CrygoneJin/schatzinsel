@@ -2594,3 +2594,18 @@ body.code-view-active #chat-settings-btn {
         text-align: center;
     }
 }
+
+/* === INSTRUMENT-MODUS (#71) — Palette als Klavier === */
+#palette.instrument-active {
+    outline: 2px solid #ffcc00;
+    border-radius: 6px;
+}
+#palette.instrument-active .material-btn {
+    box-shadow: 0 0 6px 2px rgba(255, 204, 0, 0.5);
+    border-color: #ffcc00;
+    transition: box-shadow 0.1s, border-color 0.1s;
+}
+#palette.instrument-active .material-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 12px 4px rgba(255, 204, 0, 0.9);
+}

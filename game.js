@@ -3439,7 +3439,19 @@
         });
 
         btn.addEventListener('click', () => {
-            selectMaterial(btn.dataset.material);
+            const mat = btn.dataset.material;
+            if (instrumentMode) {
+                // Instrument-Modus: Ton spielen + Block bei Spielerposition platzieren
+                playMaterialSound(mat);
+                const prev = currentMaterial, prevTool = currentTool;
+                currentMaterial = mat;
+                currentTool = 'build';
+                applyTool(playerPos.r, playerPos.c);
+                currentMaterial = prev;
+                currentTool = prevTool;
+                return;
+            }
+            selectMaterial(mat);
         });
 
         // Palette als Drop-Target: Inventar-Item auf Palette-Element droppen = Craft
@@ -4058,6 +4070,22 @@
                 }
             }
             updateGenreBtn();
+        });
+    }
+
+    // === INSTRUMENT-MODUS (#71) — Palette als Klavier ===
+    // Links spielen = rechts bauen: Palette-Tap → Ton + Block bei Spielerposition
+    let instrumentMode = false;
+    const instrumentBtn = document.getElementById('instrument-btn');
+    if (instrumentBtn) {
+        instrumentBtn.addEventListener('click', () => {
+            instrumentMode = !instrumentMode;
+            instrumentBtn.classList.toggle('active', instrumentMode);
+            instrumentBtn.title = instrumentMode
+                ? 'Instrument-Modus AN — tippe Palette, Blöcke erscheinen!'
+                : 'Instrument-Modus: Palette als Klavier — tippe Noten, Blöcke erscheinen!';
+            document.getElementById('palette')?.classList.toggle('instrument-active', instrumentMode);
+            showToast(instrumentMode ? '🎹 Instrument-Modus — tippe Noten!' : '🎹 Instrument-Modus aus');
         });
     }
 
