@@ -27,6 +27,18 @@
 //
 //   × 3 Farben (Rot/Grün/Blau = Feuer/Holz/Wasser) = 27 Zustände
 //
+//   Vier Kräfte = Vier Spielmechaniken:
+//
+//   Kraft              Mechanik               Ebene
+//   ─────────────      ──────────────         ──────────────
+//   Starke Kernkraft   Automerge (A+B, A×A)   AUF dem Grid
+//   Elektroschwach     Craft / Mephisto-Deal   AUF dem Grid
+//   Gravitation        Das Grid selbst         IST das Grid
+//
+//   Die ersten drei: quantisiert (Klick, Craft, Merge = diskret).
+//   Gravitation: kontinuierlich (Canvas, Pixel, Fläche).
+//   Quantengravitation: wenn das Grid selbst reagiert (Isometric Mode).
+//
 //   Ist das exakt? Nein. Ist es falsch? Auch nicht.
 //   Eine brauchbare Lüge die zur Wahrheit führt. — Amélie-Prinzip.
 
@@ -163,6 +175,9 @@ window.INSEL_SCROLLS = [
     { title: 'Charm & Strange', text: 'Die schweren Geschwister von Up und Down. Charm ist elegant und symmetrisch — wie ein Rezept das beim ersten Versuch klappt. Strange ist rätselhaft und langlebig — wie eine Entdeckung die niemand erklären kann. Man braucht einen Beschleuniger um sie zu sehen.' },
     { title: 'Antimaterie', text: 'Wenn Charm und Strange sich verbinden, entsteht etwas das die normale Materie spiegelt. Berührt es Materie, wird beides zu reiner Energie. E=mc². Die gefährlichste Gleichung der Welt.' },
     { title: 'Leptonen', text: 'Die leichten Teilchen. Elektron, Myon, Tau — drei Generationen wie bei den Quarks, aber ohne starke Kraft. Kein Qi nötig. Das Elektron fließt durch jeden Blitz und jeden Bildschirm. Das Myon regnet aus dem Weltall. Das Tau existiert nur für einen Wimpernschlag.' },
+    { title: 'Vier Kräfte', text: 'Starke Kraft: hält Quarks zusammen. Leg Yin neben Yang — sie verschmelzen zu Qi. Das ist Fusion. Elektroschwache Kraft: verwandelt Teilchen. Das Crafting-Grid und Mephistos Deals — dasselbe, nur aus verschiedener Perspektive. Gravitation: nicht AUF der Insel. Die Insel SELBST. Das Grid ist die Raumzeit. Wo du baust, krümmt sich die Welt.' },
+    { title: 'Pauli-Druck', text: 'Zwei gleiche Teilchen können nicht am selben Ort sein. Zwing sie zusammen und sie werden schwerer — nächste Generation. Yang neben Yang wird Charm. Elektron neben Elektron wird Myon. In Neutronensternen passiert genau das. Auf der Insel auch.' },
+    { title: 'Quantengravitation', text: 'Die drei Kräfte sind Klicks — diskret, quantisiert. Gravitation ist das Canvas — kontinuierlich, glatt. Niemand weiß wie man sie vereint. Einstein nicht. Hawking nicht. Du auch nicht. Aber deine Insel hat beides: Pixel UND Fläche. Vielleicht ist das die Antwort.' },
     { title: 'Heisenbergs Geheimnis', text: 'Je genauer du hinschaust, desto unschärfer wird der Rest. Wasser ist schwarz UND blau — bis jemand hinschaut.' },
     { title: 'Oppenheimers Licht', text: 'Wenn Energie zu Materie wird, strahlt sie. E=mc². Das Gelb der Erde ist das Leuchten der Verwandlung.' },
     { title: 'Leschs Kaffee', text: '75% Wasserstoff, 25% Helium, Spuren von allem anderen. 75% JavaScript, 25% Rest. Zufall? Natürlich. Aber ein hübscher.' },
