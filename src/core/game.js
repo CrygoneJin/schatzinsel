@@ -2047,8 +2047,8 @@
             }
         }
 
-        // Spielfigur zeichnen
-        if (playerName) {
+        // Spielfigur zeichnen (nur als Teilnehmer — nach Symmetriebrechung)
+        if (playerName && isParticipant()) {
             const px = (playerPos.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
             const py = (playerPos.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
             // Schatten
@@ -2245,7 +2245,7 @@
 
     // === SPIELFIGUR — Zeichnen + Bewegen ===
     function drawPlayer() {
-        if (!playerName) return;
+        if (!playerName || !isParticipant()) return;
         const px = (playerPos.c + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
         const py = (playerPos.r + WATER_BORDER) * CELL_SIZE + CELL_SIZE / 2;
 
@@ -2269,8 +2269,35 @@
         ctx.restore();
     }
 
+    // === SPIELPHASEN ===
+    // Phase 1 (observer): Spieler klickt, bricht Symmetrie. Jeder Klick = Tao ins Wasser.
+    //   Der Spieler IST der Urknall. Cursor = Wille. Kein Avatar.
+    // Phase 2 (participant): Roter Knopf → Spieler wird selbst zum Teilchen.
+    //   Avatar materialisiert. WASD. Interaktion mit Wesen.
+    let gamePhase = localStorage.getItem('insel-game-phase') || 'observer';
+
+    function breakSymmetry() {
+        if (gamePhase === 'participant') return;
+        gamePhase = 'participant';
+        localStorage.setItem('insel-game-phase', 'participant');
+        showToast('🔴 Du bist jetzt Teil der Welt. Bewege dich mit den Pfeiltasten.');
+        soundCraft();
+        // Avatar materialisiert — Spielfigur erscheint
+        requestRedraw();
+        // Roter Knopf ausblenden
+        const btn = document.getElementById('symmetry-break-btn');
+        if (btn) btn.style.display = 'none';
+    }
+
+    // Öffentlich machen für den Button
+    window.breakSymmetry = breakSymmetry;
+
+    function isParticipant() {
+        return gamePhase === 'participant';
+    }
+
     function movePlayer(dr, dc) {
-        if (!playerName) return;
+        if (!playerName || !isParticipant()) return;
         const nr = playerPos.r + dr;
         const nc = playerPos.c + dc;
         // Spieler bleibt auf bebaubarem Bereich (kein Wasser-Rand)
@@ -2394,8 +2421,8 @@
             }
         }
 
-        // Spielfigur
-        if (playerName) {
+        // Spielfigur (nur als Teilnehmer)
+        if (playerName && isParticipant()) {
             ISO.drawIsoEntity(ctx, playerPos.r, playerPos.c, '\uD83E\uDDD2', playerName,
                 WATER_BORDER, COLS, CELL_SIZE, time, { shadow: true, fontSize: 0.65 });
         }
@@ -3666,7 +3693,7 @@
             openDungeon(); return;
         }
         // Spielfigur-Drag: Berühre die Spieler-Zelle → Figur ziehen
-        if (playerName && cell.r === playerPos.r && cell.c === playerPos.c) {
+        if (playerName && isParticipant() && cell.r === playerPos.r && cell.c === playerPos.c) {
             playerDragging = true;
             return;
         }
