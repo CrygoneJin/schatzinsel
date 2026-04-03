@@ -689,6 +689,18 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 - PR #112: Bewusstsein + Muscheln + MMX + Goldstandard
 ---
 
+## Sprint 25 — 2026-04-03
+
+**S25-1 (In Arbeit):** island-gen.js extrahiert — initGrid + generateStarterIsland + generateLummerland raus aus game.js. 4972 → 4798 LOC (-174). Ziel <4000 noch offen.
+
+**S25-2 (Done):** Höhle = Dungeon — showCaveDungeon() implementiert. 4 Ebenen: Bits→Kernel→Browser→Quelle. localStorage trackt Tiefe pro Zelle. Edelstein-Belohnung bei Level 4.
+
+**S25-3 (Done):** Palette als Instrument — 🎹 Button aktiviert instrumentMode. selectMaterial() prüft hoverCell und ruft applyTool() auf. Ton + Block in einer Geste.
+
+**Learning:** `instrumentMode && hoverCell` ist die eleganteste Möglichkeit Klavier+Bau zu koppeln — kein neues Event-System, kein State-Chaos. Die bestehende selectMaterial-Funktion als Hook reicht.
+
+---
+
 ## Regeln für neue Einträge
 
 1. **Fehler**: Nur wenn es ein echtes Problem verursacht hat (nicht theoretisch)

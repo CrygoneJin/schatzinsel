@@ -1,3 +1,35 @@
+# Sprint 25 — "Oscar gräbt tiefer"
+
+**Sprint Goal:** game.js unter 4000 LOC + Oscar entdeckt die Höhle + Oscar spielt Melodie und baut gleichzeitig.
+**Start:** 2026-04-03
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S25-1 | **#11 game.js → island-gen.js** — initGrid + generateStarterIsland + generateLummerland extrahiert. 4972→4798 LOC (-174). Ziel <4000 noch offen. | Engineer | 🔄 In Arbeit |
+| S25-2 | **#50 Höhle = Dungeon** — Klick auf 🕳️ im ⛏️-Modus = IT-Dungeon (Bits→Kernel→Browser→Quelle). Tieferes Graben = neues Level. Edelstein-Belohnung. | Engineer + Artist | ✅ Done |
+| S25-3 | **#71 Palette als Instrument** — 🎹 Button aktiviert Instrument-Modus. Klick auf Palette-Material = Ton spielen + Block an Mauszeiger-Position setzen. | Engineer + Artist | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-03 (Sprint 25 Planning)
+
+**Kontext:** Sprint 24 Review + Retro abgeschlossen (alle 3 Items Done). Retro empfahl #11 + #50 + #71 für Sprint 25.
+
+**Sprint 25 Fokus:**
+- S25-1: Technische Schulden (game.js Zellteilung) — kein Oscar-Impact aber Fundament für alles weitere
+- S25-2: Höhle = Dungeon — höchster Oscar-Überraschungsmoment
+- S25-3: Palette als Instrument — Melodie + Bauen gleichzeitig
+
+**Blocker:** Keine.
+
+---
+
 # Sprint 24 — "Oscar hört die Welt"
 
 **Sprint Goal:** Musik beim Bauen (Genre-Sequenzen) + technische Schulden (game.js aufteilen) + Tutorial ohne Text.
