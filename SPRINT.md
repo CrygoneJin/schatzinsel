@@ -1,9 +1,74 @@
+# Sprint 26 — "Oscar tippt Melodie"
+
+**Sprint Goal:** Palette wird Instrument (Long-press = Ton) + NPC begrüßt Oscar mit Erinnerung beim Start.
+**Start:** 2026-04-03
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S26-1 | **#71 Palette als Instrument** — Long-press (500ms) auf Palette-Button spielt Genre-Ton ohne Baublock. CSS-Pulse-Animation. Oscar tippt Melodie auf der Palette. | Engineer | ✅ Done |
+| S26-2 | **#96 NPC-Start-Toast** — Beim Laden: zweiter Toast (4s nach Willkommen) vom NPC mit den meisten abgeschlossenen Quests: "Letztes Mal hast du viel 🌳 Baum gebaut." | Engineer + Artist | ✅ Done |
+
+---
+
+## Sprint Review — 2026-04-03
+
+**Sprint Goal erreicht:** ✅ Ja — beide Items Done.
+
+**Was geliefert wurde:**
+- S26-1: Long-press 500ms auf `.material-btn` → `soundBuild(material)` + goldener Pulse-Ring. Kein Baublock wird gesetzt. `pointerup`/`pointerleave` bricht den Timer ab.
+- S26-2: `zeigeWillkommensToast` erweitert — nach 4s prüft sie NPC-Memory (`loadNpcMemory()`), findet den NPC mit den meisten Quest-Abschlüssen und zeigt dessen Erinnerung.
+
+**Oscar-Check:** Oscar kann jetzt Melodien auf der Palette spielen und wird beim Start namentlich vom NPC begrüßt.
+
+---
+
+## Sprint Retrospective — 2026-04-03
+
+### Was lief gut?
+
+- **Parallel-Sprint-Konflikt erkannt.** Remote hatte bereits feat/sprint-25. Kein Merge-Chaos — neuer Sprint-Slot (S26) statt Überschreiben.
+- **Beide Features in einer Session.** Palette-Instrument (~20 LOC) + NPC-Toast (~15 LOC) — minimal, korrekt, Oscar-sichtbar.
+- **NPC-Gedächtnis-Infrastruktur war bereits da.** Kein Neuaufbau — nur die fehlende Start-Toast-Verwendung ergänzt.
+
+### Was lief schlecht?
+
+- **Smoke Test weiterhin blockiert.** Proxy-Sandbox verhindert externe Curl-Calls. Bekannte Einschränkung.
+- **Sprint-Namenskonflikt wieder passiert.** Remote hatte feat/sprint-25 schon. git fetch vor Sprint Planning muss Pflicht sein.
+
+### Was verbessern wir?
+
+1. **git fetch origin main UND alle Branches** vor Sprint Planning.
+2. **Sprint-Nummer aus Remote lesen**, nicht aus lokaler SPRINT.md.
+
+### Sprint 27 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#18 Musik on demand** — 🎵-Button spielt Genre-Loop (nicht nur beim Bauen) | P2 | Stille-Momente + Genre-Musik → nächster Schritt: Oscar wählt Musik |
+| **#16 Premium-Themes** — 3 weitere Themes als optionaler Kauf | P2 | Einfach, Oscar-sichtbar, Monetarisierung-Testballon |
+| **#11 game.js weiter** — NPCDialoge oder Weather-Block extrahieren | P1 | game.js still bei 4764 — Schulden bleiben |
+
+---
+
+## Standup Log
+
+### 2026-04-03 (Sprint 26 Planning + Daily Scrum)
+
+**Kontext:** Sprint 25 Done (3/3). Neuer Branch `feat/sprint-25` auf Remote hatte Sprint 25 bereits abgeschlossen.
+Dieser Sprint = S26 auf demselben Branch.
+
+**Blocker:** Keine.
+
+---
+
 # Sprint 25 — "Die Insel kennt dich"
 
 **Sprint Goal:** Oscar kommt zurück — die Insel begrüßt ihn namentlich. Boot-Rezept als erster Schritt zur Inselkarte. grid.js sauber extrahiert.
 **Start:** 2026-04-02
-
-**Hinweis:** Parallele Branches `feat/dungeon-framework` (Sprint 25 doppelt) und `feat/palette-instrument` (Sprint 26) existieren noch ungemergt. Dieser Sprint arbeitet von main — kein Merge-Konflikt.
 
 ---
 

@@ -3066,6 +3066,24 @@
         localStorage.setItem('insel-baustil', stil);
         const msg = `${emoji} Willkommen zurück, ${name} der ${stil}! Deine Insel hat ${blockCount} Blöcke.`;
         setTimeout(() => showToast(msg, 5000), 800);
+
+        // NPC-Gedächtnis (#96): zweiter Toast vom NPC mit dem meisten Kontakt
+        setTimeout(() => {
+            const mem = loadNpcMemory();
+            const npcIds = Object.keys(mem).filter(id => mem[id] && mem[id].lastMaterial);
+            if (npcIds.length === 0) return;
+            const bestId = npcIds.reduce((a, b) =>
+                (mem[b].questsDone || []).length > (mem[a].questsDone || []).length ? b : a
+            );
+            const m = mem[bestId];
+            const npc = NPC_VOICES[bestId];
+            if (!npc || !m.lastMaterial) return;
+            const matEmoji = MATERIALS[m.lastMaterialKey]?.emoji || '';
+            const questStr = m.questsDone && m.questsDone.length > 0
+                ? ` Und du hast ${m.questsDone.length} Quest${m.questsDone.length > 1 ? 's' : ''} gemeistert!`
+                : '';
+            showToast(`${npc.emoji} ${npc.prefix} Schön, dass du wieder da bist! Letztes Mal hast du viel ${matEmoji} ${m.lastMaterial} gebaut.${questStr}`, 5000);
+        }, 4000);
     }
 
     // Intro — Session-Uhr starten
@@ -3233,6 +3251,19 @@
         btn.addEventListener('click', () => {
             selectMaterial(btn.dataset.material);
         });
+
+        // Palette als Instrument (#71): Long-press 500ms spielt Genre-Ton ohne zu bauen
+        let _lpTimer = null;
+        btn.addEventListener('pointerdown', () => {
+            _lpTimer = setTimeout(() => {
+                _lpTimer = null;
+                soundBuild(btn.dataset.material);
+                btn.classList.add('palette-instrument-pulse');
+                setTimeout(() => btn.classList.remove('palette-instrument-pulse'), 300);
+            }, 500);
+        });
+        btn.addEventListener('pointerup',    () => { clearTimeout(_lpTimer); _lpTimer = null; });
+        btn.addEventListener('pointerleave', () => { clearTimeout(_lpTimer); _lpTimer = null; });
 
         // Palette als Drop-Target: Inventar-Item auf Palette-Element droppen = Craft
         btn.addEventListener('dragover', e => {

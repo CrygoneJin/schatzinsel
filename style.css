@@ -599,6 +599,16 @@ header h1 {
     box-shadow: 0 0 0 2px var(--accent);
 }
 
+/* Palette als Instrument (#71): Long-press-Ton-Pulse */
+.material-btn.palette-instrument-pulse {
+    animation: palette-pulse 0.3s ease-out;
+}
+@keyframes palette-pulse {
+    0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(255,215,0,0.7); }
+    50%  { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(255,215,0,0.3); }
+    100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+}
+
 .material-btn.craft-locked {
     display: flex;
     opacity: 0.4;
