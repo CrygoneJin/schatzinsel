@@ -39,6 +39,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-03 | Sprint 25 vollständig: S25-2 Phantom-Open (Dungeon war bereits implementiert), S25-3 npc-data.js (game.js 5196→5133). Viele veraltete Feature-Branches offen — nicht mergen, direkt schließen. | Vor Implementierung immer `grep -n` in game.js — Feature könnte von früherem Agent bereits existieren. |
 | 2026-04-03 | Bug-NPC (PR #188): Raupe Nimmersatt als Meta-Bug-Melder | Worktree war auf falschem Branch → Commit landete auf feat/floriane-muscheln statt feat/bug-npc. Fix: `git branch -f` + force push. Lektion: In Worktrees immer `git branch --show-current` prüfen vor Commit. |
 | 2026-04-03 | Floriane-Muscheln: Bestätigungsflow statt Silent-Deduction | Vorheriger Agent hatte Fibonacci-Preise die bei sendToApi() still abzogen — Kind sah nur "X 🐚 für diesen Wunsch" als System-Message. Neuer Flow: Wunsch-Erkennung → Preis anzeigen → Kind bestätigt/ablehnt → erst dann abziehen. Wortanzahl-basierte Preise (3/5/8 🐚) statt Zufall. |
 | 2026-04-02 | Oscar am Telefon: "Ich will mit dir spielen." | Nicht um zu spielen. Um zusammen zu sein. Das ist die Wurzel. Alles andere ist Blattwerk. |

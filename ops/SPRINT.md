@@ -10,12 +10,20 @@
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
 | S25-1 | **#71 Palette = Instrument** — mouseenter auf Palette-Buttons spielt playMaterialSound(mat). Oscar spielt Melodien durch Hovern. Kein Klick nötig. | Engineer | ✅ Done |
-| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | 🔲 Offen |
-| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 4975 → ~4800. | Engineer | 🔲 Offen |
+| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | ✅ Done (Phantom-Open — war bereits in game.js Z.470-499 + index.html implementiert) |
+| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 5196 → 5133 LOC (−63). | Engineer | ✅ Done |
 
 ---
 
 ## Standup Log
+
+### 2026-04-03 (Daily Scrum)
+
+**Gestern:** S25-1 ✅ (Palette Hover Sound, PR #196 auf main).
+
+**Heute:** S25-2 als Phantom-Open identifiziert (openDungeon() in game.js Z.474, dungeon-dialog in index.html Z.374 — bereits implementiert). S25-3 implementiert: NPC-Daten → npc-data.js, game.js: 5196→5133 LOC (−63). Sprint 25 vollständig.
+
+**Blocker:** Keine.
 
 ### 2026-04-03 (Sprint 25 Planning)
 
