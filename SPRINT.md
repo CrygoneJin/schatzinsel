@@ -1,3 +1,29 @@
+# Sprint 27 — "Oscar gräbt tiefer"
+
+**Sprint Goal:** Höhle = Dungeon-Erlebnis. Oscar legt cave und entdeckt Edelsteine.
+**Start:** 2026-04-03
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S27-1 | **#50 Höhle = Dungeon** — cave platzieren → Entdeckungs-Toast + nach 2s Edelstein aus Wand. Consequence-Event auf INSEL_BUS. | Engineer | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-03 (Sprint 27 Planning + Daily Scrum)
+
+**Kontext:** Sprint 26 vollständig abgeschlossen. S27-1 (Höhle = Dungeon) sofort implementiert.
+Remote hatte feat/sprint-25 schon belegt — neuer Branch feat/cave-dungeon.
+
+**Blocker:** Keine.
+
+---
+
 # Sprint 26 — "Oscar tippt Melodie"
 
 **Sprint Goal:** Palette wird Instrument (Long-press = Ton) + NPC begrüßt Oscar mit Erinnerung beim Start.

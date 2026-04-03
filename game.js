@@ -2297,6 +2297,30 @@
                         }
                     });
                 }
+                // Konsequenz: Höhle entdeckt → Dungeon-Eingang öffnet sich, Edelstein erscheint
+                if (currentMaterial === 'cave') {
+                    const DUNGEON_MSGS = [
+                        '🕳️ Du hast eine Höhle entdeckt! Tief unten leuchten Edelsteine...',
+                        '🕳️ Eine Höhle! Man hört das Tropfen von Wasser im Dunkel.',
+                        '🕳️ Höhleneingang! Irgendwo da drin glitzert etwas.',
+                    ];
+                    showToast(DUNGEON_MSGS[Math.floor(Math.random() * DUNGEON_MSGS.length)], 4000);
+                    // Nach 2s erscheint ein Edelstein in der Nähe (Dungeon-Belohnung)
+                    setTimeout(() => {
+                        const adj = [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[-1,1],[1,-1],[1,1]];
+                        const empty = adj.map(([dr,dc]) => [r+dr, c+dc])
+                            .filter(([nr,nc]) => nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS && !grid[nr]?.[nc]);
+                        if (empty.length > 0) {
+                            const [gr, gc] = empty[Math.floor(Math.random() * empty.length)];
+                            const treasures = ['gem', 'stalactite', 'crystal', 'diamond'];
+                            const found = treasures.find(t => MATERIALS[t]) || 'gem';
+                            grid[gr][gc] = found;
+                            requestRedraw();
+                            showToast(`✨ ${MATERIALS[found]?.emoji || '💎'} Ein ${MATERIALS[found]?.label || 'Schatz'} bricht aus der Wand!`, 3000);
+                            if (window.INSEL_BUS) window.INSEL_BUS.emit('consequence:dungeon', { r: gr, c: gc, treasure: found });
+                        }
+                    }, 2000);
+                }
                 playerBlocksPlaced++;
                 localStorage.setItem('insel-blocks-placed', playerBlocksPlaced);
                 EFFECTS.addPlaceAnimation(r, c);
