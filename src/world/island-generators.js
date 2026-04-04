@@ -237,5 +237,53 @@
         window.grid = grid;
     }
 
-    window.INSEL_GENERATORS = { generateStarterIsland, generateLummerland };
+    /**
+     * Wüsteninsel: Sand, Kakteen, Oase, Palmen. Heiß und still.
+     * @param {Array<Array<string|null>>} grid
+     * @param {number} ROWS
+     * @param {number} COLS
+     * @param {Record<string, {emoji:string, label:string}>} MATERIALS
+     */
+    function generateWuesteinsel(grid, ROWS, COLS, MATERIALS) {
+        let seed = Date.now() ^ 0xDEAD;
+        function rng() { seed = (seed * 16807 + 0) % 2147483647; return seed / 2147483647; }
+
+        const WE = 2;
+        const cx = COLS / 2, cy = ROWS / 2;
+        const rx = (COLS - WE * 2) * 0.45, ry = (ROWS - WE * 2) * 0.45;
+
+        // Insel-Form: Kreis aus Sand
+        for (let r = WE; r < ROWS - WE; r++) {
+            for (let c = WE; c < COLS - WE; c++) {
+                const dx = (c - cx) / rx, dy = (r - cy) / ry;
+                if (dx * dx + dy * dy < 1.0) {
+                    grid[r][c] = 'sand';
+                }
+            }
+        }
+
+        // Kakteen (statt Bäumen)
+        const cactusCount = Math.max(8, Math.floor((ROWS + COLS) * 0.3));
+        let placed = 0;
+        for (let attempt = 0; attempt < 300 && placed < cactusCount; attempt++) {
+            const r = Math.floor(rng() * ROWS);
+            const c = Math.floor(rng() * COLS);
+            if (grid[r][c] === 'sand' && rng() < 0.6) { grid[r][c] = 'cactus'; placed++; }
+        }
+
+        // Oase in der Mitte: Wasser + Palmen
+        const oR = Math.round(cy), oC = Math.round(cx);
+        for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+                const r = oR + dr, c = oC + dc;
+                if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+                    if (Math.abs(dr) + Math.abs(dc) <= 2) {
+                        grid[r][c] = (Math.abs(dr) + Math.abs(dc) <= 1) ? 'water' : 'palm';
+                    }
+                }
+            }
+        }
+    }
+
+    window.INSEL_GENERATORS = { generateStarterIsland, generateLummerland, generateWuesteinsel };
 })();

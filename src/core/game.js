@@ -498,6 +498,72 @@
         if (closeBtn) closeBtn.focus();
     }
 
+    // === BOOT-NAVIGATION (#54 Jim Knopfs Welt) ===
+    // Boot craften → Insel-Auswahl-Dialog. Oscar segelt.
+
+    const BOAT_ISLANDS = [
+        {
+            id: 'lummerland',
+            emoji: '🏔️',
+            name: 'Lummerland',
+            desc: 'Zwei Berge, ein Lokschuppen, Frau Waas. Jim Knopfs Heimat!',
+            param: 'lummerland',
+        },
+        {
+            id: 'wuesteinsel',
+            emoji: '🏜️',
+            name: 'Wüsteninsel',
+            desc: 'Sand, Kakteen, ein paar Palmen. Heiß aber ruhig.',
+            param: 'wuesteinsel',
+        },
+    ];
+
+    function openBoatDialog() {
+        const dlg = document.getElementById('boat-dialog');
+        if (!dlg) return;
+        const list = document.getElementById('boat-island-list');
+        if (list) {
+            list.innerHTML = '';
+            const currentParam = new URLSearchParams(location.search).get('island') ||
+                (new URLSearchParams(location.search).has('lummerland') ? 'lummerland' : 'start');
+            BOAT_ISLANDS.forEach(function(island) {
+                const isCurrent = island.param === currentParam;
+                const btn = document.createElement('button');
+                btn.className = 'action-btn';
+                btn.style.cssText = 'text-align:left;padding:0.7rem 1rem;line-height:1.4';
+                btn.disabled = isCurrent;
+                btn.innerHTML = `<strong>${island.emoji} ${island.name}</strong>${isCurrent ? ' <em>(hier bist du)</em>' : ''}<br><small style="opacity:.75">${island.desc}</small>`;
+                if (!isCurrent) {
+                    btn.addEventListener('click', function() {
+                        dlg.classList.add('hidden');
+                        // Boot aus Inventar verbrauchen
+                        removeFromInventory('boat', 1);
+                        updateInventoryDisplay();
+                        showToast(`🌊 Du segelst nach ${island.name}...`, 2500);
+                        setTimeout(function() {
+                            const url = new URL(location.href);
+                            // Alte island-params entfernen
+                            url.searchParams.delete('lummerland');
+                            url.searchParams.delete('island');
+                            if (island.param === 'lummerland') {
+                                url.searchParams.set('lummerland', '1');
+                            } else {
+                                url.searchParams.set('island', island.param);
+                            }
+                            // Insel-Fortschritt nicht mitnehmen (neue Insel = leeres Grid)
+                            url.searchParams.delete('insel');
+                            location.href = url.toString();
+                        }, 2600);
+                    });
+                }
+                list.appendChild(btn);
+            });
+        }
+        dlg.classList.remove('hidden');
+    }
+
+    // close-boat-dialog wird nach DOM-Init verdrahtet (unten)
+
     // === KRABS SHOP — Muschelhandel ===
     // 1 Muschel = 0.001 MMX (Nerd-Ebene, Easter Egg). Kinder sehen 🐚.
     const SHELL_TO_MMX = 0.001;
@@ -1851,6 +1917,10 @@
     // Delegiert an island-generators.js (#11)
     function generateLummerland() {
         window.INSEL_GENERATORS.generateLummerland(grid, ROWS, COLS, MATERIALS);
+    }
+
+    function generateWuesteinsel() {
+        window.INSEL_GENERATORS.generateWuesteinsel(grid, ROWS, COLS, MATERIALS);
     }
 
     // --- Zeichnen ---
@@ -3970,6 +4040,26 @@
         });
     }
 
+    // Boot-Dialog verdrahten
+    const boatDialog = document.getElementById('boat-dialog');
+    if (boatDialog) {
+        document.getElementById('close-boat-dialog').addEventListener('click', () => {
+            boatDialog.classList.add('hidden');
+        });
+        boatDialog.addEventListener('click', (e) => {
+            if (e.target === boatDialog) boatDialog.classList.add('hidden');
+        });
+    }
+
+    // Boot-Crafting-Hook: Bei craft:success mit result='boat' → Dialog öffnen
+    if (window.INSEL_BUS) {
+        window.INSEL_BUS.on('craft:success', function(data) {
+            if (data && data.result === 'boat') {
+                setTimeout(openBoatDialog, 1500);
+            }
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
         if (window.resetIdleTimer) window.resetIdleTimer();
         if (e.key === 'Escape' && !loadDialog.classList.contains('hidden')) {
@@ -4750,10 +4840,13 @@
             showToast('🔄 Letzte Insel wiederhergestellt');
         }
     } else {
-        // Lummerland oder Zufalls-Insel
+        // Insel nach URL-Parameter auswählen
         if (new URLSearchParams(location.search).has('lummerland')) {
             generateLummerland();
             setTimeout(() => showToast('🏝️ Willkommen auf Lummerland! Eine kleine Insel mit zwei Bergen...', 4000), 1000);
+        } else if (new URLSearchParams(location.search).get('island') === 'wuesteinsel') {
+            generateWuesteinsel();
+            setTimeout(() => showToast('🏜️ Die Wüsteninsel! Sand, Kakteen und eine Oase...', 4000), 1000);
         } else {
             generateStarterIsland();
             setTimeout(() => showToast('🏝️ Deine Insel wartet... Bau los!', 3500), 2000);

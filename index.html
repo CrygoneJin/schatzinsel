@@ -405,6 +405,16 @@
         </div>
     </div>
 
+    <!-- Boot-Navigation Dialog (#54 Jim Knopfs Welt) -->
+    <div id="boat-dialog" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="boat-dialog-title">
+        <div class="dialog-content" style="max-width:440px">
+            <h2 id="boat-dialog-title">🚢 Wohin willst du segeln?</h2>
+            <p style="margin:0 0 1rem;color:#b9860a;">Du hast ein Boot! Such dir eine Insel aus.</p>
+            <div id="boat-island-list" style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.2rem;"></div>
+            <button class="action-btn" id="close-boat-dialog">⚓ Hier bleiben</button>
+        </div>
+    </div>
+
     <!-- Eltern-Dashboard Modal -->
     <div id="dashboard-overlay" class="dashboard-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dashboard-title">
         <div class="dashboard-modal">
