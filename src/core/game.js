@@ -3429,6 +3429,10 @@
             if (!hasBlocks) startTutorialPulse();
             // Tutorial-Onboarding nur für Erstbesucher
             if (isFirstVisit) showTutorialOnboarding();
+            // Danke-Toast nach Stripe PWYW Payment
+            if (new URLSearchParams(location.search).has('danke')) {
+                setTimeout(() => showToast('💛 Danke! Du machst die Insel möglich.'), 800);
+            }
         }, 300);
         window.startSessionClock();
     }
