@@ -23,6 +23,8 @@ Minimum iOS: **iOS 16+** (Safari 16+). Entscheidung: Einstein/Feynman/Torvalds, 
 | **Android < 10** | variiert | variiert | Chrome <80 | — | ❌ Nein | Minimum: Android 10+ / Chrome 80+. Entscheidung Jobs. Android 4.4 hat kein ES6. Android 7-9 technisch möglich aber nicht supported. |
 | **Windows Desktop** (Farming Rig) | 27"+ variabel | Intel i3 Gen10+ | Chrome/Edge/Firefox | 32×18 (Landscape) | ✅ Perfekt | Desktop-Grid, Maus+Tastatur, maximaler Canvas. Keinerlei Einschränkungen. |
 | **Tesla Screen** (Oscar) | 15.4" 1920×1200 | Intel Atom | Tesla Browser (Chromium) | 32×18 (Landscape) | ⚠️ Eingeschränkt | Tesla-Browser ist ein alter Chromium-Fork. Funktioniert grundsätzlich, aber Performance und Touch-Verhalten variieren. |
+| **Steam Deck** | 7" 1280×800 @60Hz | AMD Zen 2 | Firefox/Chrome (SteamOS) | 32×18 (Landscape) | ✅ Perfekt | Desktop-Grid auf 7 Zoll + Touchscreen. Als Non-Steam-Game einbindbar: `firefox --kiosk https://schatzinsel.app`. Besser als iPhone — volles Desktop-Grid. |
+| **Nintendo Switch** | 6.2" 1280×720 @60Hz | Tegra X1 | Kein offizieller Browser | — | ❌ Nein | Kein Browser-Zugang ohne Homebrew. Nintendo sperrt aktiv. Mit Homebrew-Chromium theoretisch möglich (⚠️ auf eigenes Risiko), aber nicht supported. |
 
 ---
 
