@@ -170,14 +170,19 @@
     function updateCharSelect() {
         const select = document.getElementById('chat-character');
         if (!select) return;
+        const nextId = getNextUnlock();
         Array.from(select.options).forEach(opt => {
             const id = opt.value;
+            // Strip old lock/hint suffixes
+            opt.textContent = opt.textContent.replace(/\s*🔒.*$/, '');
             if (STARTER_CHARS.includes(id) || LUMMERLAND_CHARS.includes(id) || isUnlocked(id)) {
                 opt.disabled = false;
-                opt.textContent = opt.textContent.replace(' 🔒', '');
             } else {
                 opt.disabled = true;
-                if (!opt.textContent.includes('🔒')) opt.textContent += ' 🔒';
+                const hint = id === nextId
+                    ? ' 🔒 (schließe Quests ab!)'
+                    : ' 🔒 (gesperrt — spiel weiter!)';
+                opt.textContent += hint;
             }
         });
     }
