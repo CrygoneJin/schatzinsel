@@ -10,8 +10,8 @@
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
 | S25-1 | **#71 Palette = Instrument** — mouseenter auf Palette-Buttons spielt playMaterialSound(mat). Oscar spielt Melodien durch Hovern. Kein Klick nötig. | Engineer | ✅ Done |
-| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | 🔲 Offen |
-| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 4975 → ~4800. | Engineer | 🔲 Offen |
+| S25-2 | **#50 Höhle = Dungeon** — Berg+Wasser=Höhle-Tile. Klick auf Höhle öffnet Dungeon-Schicht (Code-Ebene). Oscar entdeckt neue Welt. | Engineer + Artist | ✅ Done (Phantom-Open — war bereits in main seit Commit #181) |
+| S25-3 | **#11 game.js Zellteilung** — NPC-Kommentardaten (NPC_VOICES, MAT_ADJECTIVES, REACTIONS, TEMPLATES, STREAK_COMMENTS) → npc-data.js. game.js: 5196 → 5128 (−68). | Engineer | ✅ Done (PR #212) |
 
 ---
 
@@ -26,6 +26,12 @@
 **Blocker:** Keine.
 
 **State nach Pull:** game.js = 4975 LOC. Hexvoxel-Engine neu (hex-grid.js, hex-renderer.js, hex-marble.js). Burn-Detektor live.
+
+### 2026-04-03 (Daily Scrum)
+
+**Heute:** S25-2 als Phantom-Open identifiziert (Dungeon-Dialog in main seit #181). S25-3 implementiert: npc-data.js (77 LOC) extrahiert, game.js 5196→5128. REACTIONS um 'magic'/'warm'/'adventure' ergänzt (fehlten für Floriane, Krämerin, Lokführer). 6 Duplikat-PRs für S25-3 (PRs #200, #202, #205, #207, #209, #210, #211) offen — bitte User schließen. Sprint 25 vollständig.
+
+**Blocker:** Duplikat-PRs müssen vom User geschlossen werden.
 
 ---
 

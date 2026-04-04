@@ -12,6 +12,8 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-03 | Root Cleanup 1·3·5·10000 + Isidor-Modell | 42 JS-Dateien + 13 MD im Root = Chaos | src/(core,world,infra), docs/, ops/. archive/library nur wenn befüllt. tsconfig: nur typsichere Dateien includen (nicht alles per Glob) |
 | 2026-04-03 | Copyright-Check bei NPC-Namen | Michael Ende Figuren (Frau Waas, Lukas, Lummerland) = urheberrechtlich geschützt | Generische Rollen (Krämerin, Lokführer), Oscar benennt selbst. Nie Figuren-Namen aus Büchern direkt verwenden. |
 | 2026-04-03 | Achievements: alte Phantom-Stats | wuXingUsed, florianeWishes etc. existierten nie in getGridStats() | Nur Stats verwenden die tatsächlich geliefert werden. Dynamische Achievements für ∞-Systeme. |
+| 2026-04-03 | 6 Duplikat-PRs für S25-3 (npc-data.js) | Multiple Sessions starteten ohne zu prüfen was bereits als offene PRs existiert | Session-Start: `gh pr list` auf offene PRs prüfen. Kein neuer Branch für Feature das schon als PR existiert. |
+| 2026-04-03 | REACTIONS fehlten 3 Styles: magic, warm, adventure | Floriane/Krämerin/Lokführer haben Styles die nicht in REACTIONS-Map definiert waren — würde undefined ergeben | Wenn neuer NPC-Style definiert wird, sofort REACTIONS-Eintrag mitliefern. |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
