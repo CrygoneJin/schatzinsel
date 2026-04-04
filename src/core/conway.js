@@ -7,19 +7,19 @@
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const bus = window.INSEL_BUS;
 
-    // Terrain-Kreaturen
-    const CONWAY_WATER   = ['🐟','🐠','🐡','🦑','🪼','🐙','🦐','🐬','🐳'];
-    const CONWAY_BEACH   = ['🦀','🐚','🐸','🦎','🦭','🦞','🐊'];
-    const CONWAY_LAND    = ['🦋','🐝','🐛','🐇','🦔','🐿️','🌸','🍄','🦜','🦊'];
-    const CONWAY_MIGRANT = ['🐋','🦅','🐦‍⬛','🦢']; // erscheinen überall, kurz
+    // Terrain-Kreaturen — klein und stimmig, kein Zoo
+    const CONWAY_WATER   = ['🐟','🐠','🦀'];
+    const CONWAY_BEACH   = ['🦀','🐚','🐸'];
+    const CONWAY_LAND    = ['🦋','🐝','🌸'];
+    const CONWAY_MIGRANT = ['🦅','🦢']; // erscheinen überall, kurz
 
     // State
     let conwayOverlay  = null; // 2D String-Array ('' = leer, sonst Emoji)
     let conwayInterval = null;
     let conwayFading   = false;
     let lastInteraction = Date.now();
-    const CONWAY_IDLE_MS   = 30000;
-    const AMBIENT_IDLE_MS  = 10000; // Stille-Momente nach 10s Idle (#57)
+    const CONWAY_IDLE_MS   = 120000; // 2 Minuten Idle → Screensaver
+    const AMBIENT_IDLE_MS  = 30000;  // Ambient-Sound nach 30s Idle
 
     // Lazy-Accessor — game.js muss window.INSEL_DIMS gesetzt haben
     function dims() { return window.INSEL_DIMS || { ROWS: 18, COLS: 32 }; }
@@ -177,7 +177,7 @@
         conwayOverlay = Array.from({ length: ROWS }, () => Array(COLS).fill(''));
         for (let r = 0; r < ROWS; r++)
             for (let c = 0; c < COLS; c++)
-                if (grid[r][c] === null && Math.random() < 0.18)
+                if (grid[r][c] === null && Math.random() < 0.04)
                     conwayOverlay[r][c] = conwayCreature(r, c);
         initGameplayTracking(ROWS, COLS);
         conwayInterval = setInterval(conwayStep, 650);
@@ -202,7 +202,7 @@
                     next[r][c] = (alive >= 2 && alive <= 4 && !(isMigrant && Math.random() < 0.35))
                         ? conwayOverlay[r][c] : '';
                 } else {
-                    if (alive === 3 || (alive >= 1 && Math.random() < 0.008))
+                    if (alive === 3)
                         next[r][c] = conwayCreature(r, c);
                 }
             }
