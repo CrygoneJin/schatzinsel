@@ -54,28 +54,55 @@ könnte. Respektiere das.
 
 ## On startup — read this first
 
-At the start of every session, scan the project for these documents and read any
-that exist before doing anything else:
+### Speicher-Hierarchie (3 Level, Harvard)
 
 ```
-docs/PROJECT.md       — What the product is and why it exists
-docs/USERS.md         — Who the primary users are
-docs/ARCHITECTURE.md  — Stack, structure, data models, integrations
-docs/DESIGN.md        — Visual principles, component conventions, accessibility
-docs/DECISIONS.md     — Why it's built this way, known debt, open questions
-ops/BACKLOG.md        — Product Backlog + Product Goal (what we're building)
-ops/SPRINT.md         — Current Sprint Backlog + Sprint Goal (what we're building now)
-docs/DONE.md          — Definition of Done (the quality bar for every increment)
-ops/MEMORY.md         — Fehler, Erfolge, Learnings (persistent across sessions)
+L1  Persönlich (Instructions | Data)
+    .claude/commands/*.md          — Was der Agent TUN kann (Skills, Routinen)
+    docs/masters/<rolle>.md        — Wer der Master IST + was er gelernt hat
+    docs/padawans/<rolle>-padawan.md — Wer der Padawan IST + was er gelernt hat
+
+L2  Team-shared
+    ops/MEMORY.md                  — Cross-cutting: Bugs, Org-Learnings
+    ops/SPRINT.md                  — Aktueller Sprint + Standup Log
+
+L3  Org-weit (on-demand)
+    docs/*.md                      — PROJECT, ARCHITECTURE, DESIGN, USERS, DECISIONS, DONE
+    ops/BACKLOG.md                 — Product Backlog + Product Goal
+    src/ + ops/tests/              — Codebase (Grep/Read bei Bedarf)
 ```
 
-Padawan-Codexe:
+**L1 = Harvard-Architektur.** Instructions (commands/) und Data (masters/, padawans/)
+sind getrennte Speicher mit verschiedenen Zugriffsmustern. Commands: lazy (bei
+Skill-Aufruf). Codizes: eager (bei Session-Start).
+
+**Regel:** Jeder Sprint → Codex-Update im zuständigen Master + beteiligten Padawans.
+Kein Sprint-Abschluss ohne Codex-Eintrag.
+
+### Session-Start: Ladereihenfolge
+
+Scan diese Dateien und lies was existiert:
+
 ```
-docs/padawans/leader-padawan.md
-docs/padawans/artist-padawan.md
-docs/padawans/designer-padawan.md
-docs/padawans/scientist-padawan.md
-docs/padawans/engineer-padawan.md
+L1 — Codex des aktiven Agents:
+docs/masters/leader.md          docs/padawans/leader-padawan.md
+docs/masters/artist.md          docs/padawans/artist-padawan.md
+docs/masters/designer.md        docs/padawans/designer-padawan.md
+docs/masters/scientist.md       docs/padawans/scientist-padawan.md
+docs/masters/engineer.md        docs/padawans/engineer-padawan.md
+
+L2 — Team-Status:
+ops/SPRINT.md                   — Was bauen wir gerade?
+ops/MEMORY.md                   — Was ist zuletzt schiefgegangen?
+
+L3 — Org-Kontext (bei Bedarf):
+docs/PROJECT.md                 — Was das Produkt ist
+docs/USERS.md                   — Wer die User sind
+docs/ARCHITECTURE.md            — Stack, Struktur, Datenmodelle
+docs/DESIGN.md                  — Visuelle Prinzipien, Accessibility
+docs/DECISIONS.md               — Warum so und nicht anders
+docs/DONE.md                    — Definition of Done
+ops/BACKLOG.md                  — Was wir insgesamt bauen
 ```
 
 Ordnerstruktur: 1·3·5·10000 + Isidor-Modell.
