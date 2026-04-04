@@ -6,6 +6,7 @@ Stand: 2026-04-04
 
 schatzinsel.app ist ein Canvas-2D-Browserspiel ohne Build-Dependencies (Vanilla JS).
 Minimale Anforderungen: ES6-fähiger Browser, Canvas 2D, Touch- oder Maus-Events.
+Minimum Android: **Android 10+** (Chrome 80+). Entscheidung: Jobs, 2026-04-04.
 
 ---
 
@@ -18,7 +19,7 @@ Minimale Anforderungen: ES6-fähiger Browser, Canvas 2D, Touch- oder Maus-Events
 | **iPhone 7** | 4.7" 1334×750 @60Hz | A10 Fusion | Safari 15 (max iOS 15) | 18×28 (Portrait) | ⚠️ Eingeschränkt | Kleines Display — Touch-Targets (48px min) werden eng. A10 reicht für Canvas, aber iOS 15 = letztes Update. ES6 ✅, `env(safe-area-inset)` ✅ (kein Notch). localStorage ✅. |
 | **iPhone SE** (Oscar) | 4.7" 1334×750 @60Hz | A15 | Safari 18 | 18×28 (Portrait) | ✅ Gut | Gleiche Displaygröße wie iPhone 7, aber moderner Chip + aktuelles iOS. Referenzgerät. |
 | **iPad** (Oscar) | 10.2" 2160×1620 @60Hz | A13+ | Safari 18 | 28×21 (Landscape) | ✅ Perfekt | Tablet-Grid, großer Canvas, Touch-Targets komfortabel. |
-| **Android 4.4 (KitKat)** | variiert | variiert | Chrome 37 | — | ❌ Nein | Kein ES6 (let/const, arrow functions, template literals). Kein `env()`. Kein Service Worker. Spiel startet nicht. Minimum: Android 7+ / Chrome 60+. |
+| **Android < 10** | variiert | variiert | Chrome <80 | — | ❌ Nein | Minimum: Android 10+ / Chrome 80+. Entscheidung Jobs. Android 4.4 hat kein ES6. Android 7-9 technisch möglich aber nicht supported. |
 | **Windows Desktop** (Farming Rig) | 27"+ variabel | Intel i3 Gen10+ | Chrome/Edge/Firefox | 32×18 (Landscape) | ✅ Perfekt | Desktop-Grid, Maus+Tastatur, maximaler Canvas. Keinerlei Einschränkungen. |
 | **Tesla Screen** (Oscar) | 15.4" 1920×1200 | Intel Atom | Tesla Browser (Chromium) | 32×18 (Landscape) | ⚠️ Eingeschränkt | Tesla-Browser ist ein alter Chromium-Fork. Funktioniert grundsätzlich, aber Performance und Touch-Verhalten variieren. |
 
@@ -56,6 +57,6 @@ Minimale Anforderungen: ES6-fähiger Browser, Canvas 2D, Touch- oder Maus-Events
 
 - **Oscar (8)**: iPhone SE oder iPad bleiben die besten Geräte. iPad > iPhone wegen Displaygröße.
 - **iPhone 7**: Geht noch, aber knapp. Display ist klein für 48px Touch-Targets. iOS 15 bekommt keine Updates mehr.
-- **Android 4.4**: Nicht unterstützt. Minimum Android 7+.
+- **Android < 10**: Nicht unterstützt. Minimum Android 10+ (Jobs-Entscheidung 2026-04-04).
 - **Desktop (Farming Rig)**: Perfekt. Bester Modus mit 32×18 Grid und voller Tastatur.
 - **iPhone 16 vs 17 Pro**: Egal. Beide überdimensioniert für Canvas 2D. Geld sparen → iPhone 16.
