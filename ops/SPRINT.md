@@ -248,7 +248,7 @@
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
 | S28-1 | **#100 Energie vs Geld trennen** — Muscheln: goldene Summary-Box oben im Inventar. NPC-Energie: blaue Box im Chat mit Label "💬 Rede-Energie:". | Designer + Engineer | 🔄 In Progress (PR #238) |
-| S28-2 | **#101 Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar (max 20 pro Material). Kein Holz → kein Verkauf. | Engineer | 🔲 Offen |
+| S28-2 | **#101 Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar (max 20 pro Material). Kein Holz → kein Verkauf. | Engineer | ✅ Done (PR #239) |
 | S28-3 | **PR #236 reviewen + mergen** — i18n DE/HE/AR + RTL + Spieler-Bug-Fix (breakSymmetry nie aufgerufen → Spieler unsichtbar). | Engineer | 🔲 Offen |
 
 ---
@@ -262,6 +262,12 @@
 **Fokus:** S28-1 zuerst (Oscar-sichtbar). Dann S28-3 (Bug-Fix + i18n). Dann S28-2 (Krabbs-Mechanik).
 
 **Blocker:** Keine.
+
+### 2026-04-04 (Daily Scrum)
+
+**Heute:** S28-2 implementiert — KRABS_STOCK_MAX=20, Lager-Indikator (🔴/🟡/🟢), Sell-Cap, PR #239. S28-1 in PR #238 (andere Session). S28-3 in PR #236.
+
+**Blocker:** S28-1 + S28-3 brauchen Merge durch Till.
 
 ---
 
