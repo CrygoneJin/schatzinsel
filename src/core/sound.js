@@ -694,62 +694,119 @@
         playRichTone(varFreq, genre.dur + Math.random() * 0.03, genre.wave, genre.vol);
     }
 
-    // === Stille-Momente: Wellen-Ambient (#57) ===
+    // === Stille-Momente: Navier-Stokes Meeresrauschen (#57) ===
+    // Statt White Noise + Tiefpass (= stehende Welle) nutzen wir
+    // Superposition harmonischer Wellen n-ter Ordnung.
+    // Energiespektrum: E(f) ∝ f^(-5) · exp(-β/f⁴) — Pierson-Moskowitz-Spektrum
+    // Ergebnis: natürliches Wellenbrechen mit Obertönen statt Rauschteppich.
     let ambientNodes = null;
 
     function playAmbient() {
         if (isMuted()) return;
-        if (ambientNodes) return; // Läuft schon
+        if (ambientNodes) return;
         try {
             const ctx = ensureAudio();
-            // White noise buffer (2 Sekunden, geloopt)
-            const bufLen = ctx.sampleRate * 2;
-            const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            for (let i = 0; i < bufLen; i++) data[i] = Math.random() * 2 - 1;
-
-            const src = ctx.createBufferSource();
-            src.buffer = buf;
-            src.loop = true;
-
-            // Tiefpass für weiches Meeresrauschen
-            const lp = ctx.createBiquadFilter();
-            lp.type = 'lowpass';
-            lp.frequency.value = 600;
-            lp.Q.value = 0.5;
-
-            // Amplituden-LFO für Wellenbewegung
-            const lfo = ctx.createOscillator();
-            lfo.frequency.value = 0.15; // ~1 Welle alle 7 Sekunden
-            const lfoGain = ctx.createGain();
-            lfoGain.gain.value = 0.04;
-            lfo.connect(lfoGain);
-
             const masterGain = ctx.createGain();
             masterGain.gain.value = 0.0;
-            masterGain.gain.linearRampToValueAtTime(0.07 * masterVolume, ctx.currentTime + 3);
-            lfoGain.connect(masterGain.gain);
-
-            src.connect(lp);
-            lp.connect(masterGain);
+            masterGain.gain.linearRampToValueAtTime(0.06 * masterVolume, ctx.currentTime + 3);
             masterGain.connect(ctx.destination);
 
-            lfo.start();
-            src.start();
+            // Grundfrequenz der Dünung (~0.08 Hz = 12s Wellenperiode)
+            // Harmonische: f_n = f_0 · n, Amplitude ∝ 1/n² (Energieabfall)
+            const f0 = 0.08;
+            const harmonics = 6;
+            const oscillators = [];
+            const gains = [];
+            const lfoNodes = [];
 
-            ambientNodes = { src, lfo, masterGain, ctx };
+            for (let n = 1; n <= harmonics; n++) {
+                // Jede Harmonische = Gain-Modulation auf Noise-Band
+                const bandLen = ctx.sampleRate * 4;
+                const bandBuf = ctx.createBuffer(1, bandLen, ctx.sampleRate);
+                const bandData = bandBuf.getChannelData(0);
+
+                // Bandpass-gefärbtes Rauschen: Pierson-Moskowitz Spektrum
+                // Tiefere Harmonische = mehr Energie, höhere = Gischt/Turbulenz
+                const centerFreq = 80 + n * 120; // 200Hz, 320Hz, 440Hz, ...
+                for (let i = 0; i < bandLen; i++) {
+                    // Geformtes Rauschen mit Frequenz-Gewichtung
+                    bandData[i] = (Math.random() * 2 - 1) / (n * n);
+                }
+
+                const src = ctx.createBufferSource();
+                src.buffer = bandBuf;
+                src.loop = true;
+
+                // Bandpass pro Harmonische
+                const bp = ctx.createBiquadFilter();
+                bp.type = 'bandpass';
+                bp.frequency.value = centerFreq;
+                bp.Q.value = 0.8 + n * 0.3;
+
+                // LFO pro Harmonische — unabhängige Phasen = keine stehende Welle
+                const lfo = ctx.createOscillator();
+                lfo.frequency.value = f0 * n + (Math.random() * 0.02 - 0.01);
+                const lfoGain = ctx.createGain();
+                lfoGain.gain.value = 0.03 / n;
+                lfo.connect(lfoGain);
+
+                const envGain = ctx.createGain();
+                envGain.gain.value = 1.0 / (n * n); // Pierson-Moskowitz Abfall
+                lfoGain.connect(envGain.gain);
+
+                src.connect(bp);
+                bp.connect(envGain);
+                envGain.connect(masterGain);
+
+                lfo.start(ctx.currentTime + Math.random() * 2); // Phasen-Versatz
+                src.start();
+
+                oscillators.push(src);
+                gains.push(envGain);
+                lfoNodes.push(lfo);
+            }
+
+            // Turbulenz-Schicht: niederfrequentes Rauschen für Brandung
+            const turbLen = ctx.sampleRate * 6;
+            const turbBuf = ctx.createBuffer(1, turbLen, ctx.sampleRate);
+            const turbData = turbBuf.getChannelData(0);
+            for (let i = 0; i < turbLen; i++) {
+                // Brownsche Bewegung statt White Noise (∝ 1/f²)
+                turbData[i] = i > 0
+                    ? turbData[i - 1] * 0.998 + (Math.random() * 2 - 1) * 0.05
+                    : 0;
+            }
+            const turbSrc = ctx.createBufferSource();
+            turbSrc.buffer = turbBuf;
+            turbSrc.loop = true;
+            const turbLp = ctx.createBiquadFilter();
+            turbLp.type = 'lowpass';
+            turbLp.frequency.value = 300;
+            turbLp.Q.value = 0.3;
+            const turbGain = ctx.createGain();
+            turbGain.gain.value = 0.4;
+            turbSrc.connect(turbLp);
+            turbLp.connect(turbGain);
+            turbGain.connect(masterGain);
+            turbSrc.start();
+            oscillators.push(turbSrc);
+
+            ambientNodes = { oscillators, lfoNodes, masterGain, ctx };
         } catch (e) { /* Audio nicht verfügbar */ }
     }
 
     function stopAmbient() {
         if (!ambientNodes) return;
         try {
-            const { src, lfo, masterGain, ctx } = ambientNodes;
+            const { oscillators, lfoNodes, masterGain, ctx } = ambientNodes;
             masterGain.gain.cancelScheduledValues(ctx.currentTime);
             masterGain.gain.setValueAtTime(masterGain.gain.value, ctx.currentTime);
             masterGain.gain.linearRampToValueAtTime(0.0, ctx.currentTime + 1.5);
             setTimeout(() => {
-                try { src.stop(); lfo.stop(); } catch (_) {}
+                try {
+                    oscillators.forEach(s => { try { s.stop(); } catch (_) {} });
+                    lfoNodes.forEach(l => { try { l.stop(); } catch (_) {} });
+                } catch (_) {}
             }, 1600);
         } catch (_) {}
         ambientNodes = null;
