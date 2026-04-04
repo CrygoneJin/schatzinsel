@@ -2392,7 +2392,8 @@
         drawBlueprintOverlay();
 
         // Conway overlay
-        if (conwayOverlay) {
+        const _conwayOverlayIso = window.INSEL_CONWAY && window.INSEL_CONWAY.getOverlay();
+        if (_conwayOverlayIso) {
             const totalColsN = COLS + WATER_BORDER * 2;
             const originX = (totalColsN * CELL_SIZE) / 2;
             const originY = CELL_SIZE * 2;
@@ -2401,9 +2402,9 @@
             ctx.textBaseline = 'middle';
             for (let r = 0; r < ROWS; r++) {
                 for (let c = 0; c < COLS; c++) {
-                    if (!conwayOverlay[r][c]) continue;
+                    if (!_conwayOverlayIso[r][c]) continue;
                     const pos = ISO.gridToIso(r + WATER_BORDER, c + WATER_BORDER, CELL_SIZE, originX, originY);
-                    ctx.fillText(conwayOverlay[r][c], pos.x, pos.y - CELL_SIZE * 0.4);
+                    ctx.fillText(_conwayOverlayIso[r][c], pos.x, pos.y - CELL_SIZE * 0.4);
                 }
             }
         }

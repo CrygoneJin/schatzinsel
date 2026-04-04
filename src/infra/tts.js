@@ -181,6 +181,7 @@
         localStorage.setItem('insel-hoerspiele', JSON.stringify(playedHoerspiele));
 
         var lines = HOERSPIELE[key];
+        if (!lines || !lines.length) return;
         speakLines(lines);
         if (window.trackEvent) window.trackEvent('hoerspiel', { scene: key, blocks: stats.total });
     }

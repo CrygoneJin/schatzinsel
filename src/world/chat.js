@@ -993,7 +993,10 @@ ${budgetInfo}${florianePreisHint}`;
     function getElizaReply(input, npcId) {
         if (window.INSEL_ELIZA) {
             const eliza = window.INSEL_ELIZA.getEliza(npcId);
-            if (eliza) return eliza.reply(input);
+            if (eliza) {
+                const result = eliza.transform(input);
+                return result ? result.reply : null;
+            }
         }
         return 'Ähm... ja... okay!';
     }
