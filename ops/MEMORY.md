@@ -18,6 +18,9 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-04 | Wu-Xing NPC-Events waren bereits komplett — nur Limiter fehlte | npc-events.js hatte alle 9 Event-Typen, 15s Cooldown, Reactions. Nur max 3x/Session fehlte. | Backlog-Items gegen Code abgleichen. "Offen" heißt nicht "nicht angefangen". |
 | 2026-04-04 | Heidegger als Zuhandenheit-Auditor im Beirat | "Die Zahl ist nie das Kind" — Messung verwandelt Zuhandenheit in Vorhandenheit | Essay docs/essays/beschreibung-und-messung.md dokumentiert die Epistemologie des Projekts. |
 
+| 2026-04-04 | Sprint 27 Review/Retro in SPRINT.md fehlte auf main obwohl Arbeit in Branch done war | Parallele Session hat Sprint 27 Review/Retro in Branch gemacht, aber nicht auf main gemergt | Ceremony-Einträge in SPRINT.md gehören auf main, nicht in Feature-Branches. |
+| 2026-04-04 | Smoke Test Netzwerk blockiert (Sandbox-Proxy) — extern nicht erreichbar | CI-Umgebung hat keinen Outbound-Zugang zu schatzinsel.app oder workers.dev | Smoke Tests lokal durch Playwright in CI ersetzen, nicht via curl im Agent. |
+
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
 | 2026-04-01 | Session startete ohne `git fetch` — planned Sprint 23 which already existed on remote with different content | feat/sprint-23 Branch war schon 5 Commits weiter (Sprint 23+24 done) | `git fetch origin && git log origin/feat/sprint-23 -5` als ERSTE Aktion nach Branch-Checkout — IMMER |
