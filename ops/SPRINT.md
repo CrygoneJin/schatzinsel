@@ -177,9 +177,9 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S27-1 | **Taschentücher + Ogilvy-Copy** — 5 One-Pager mit 3-Akt-Struktur (Kubrick/Spielberg/Goethe), mehrdimensional (Baby→Greis, Spielegeschichte, Accessibility/Mandela) | Sales + Artist | 🔄 In Arbeit |
-| S27-2 | **Metrik-Audit Feynman×Heidegger** — Jede Metrik prüfen: was messen wir, lügt es, was ist zuhanden vs. vorhanden? | Scientist + Beirat | 🔄 In Arbeit |
-| S27-3 | **Sprint 26 Backlog-Sync** — Erledigte Items (#54, #95, #96) im Backlog als Done markieren. Distribution-Items erfassen. | Leader | 🔲 Offen |
+| S27-1 | **Taschentücher + Ogilvy-Copy** — 5 One-Pager mit 3-Akt-Struktur (Kubrick/Spielberg/Goethe), mehrdimensional (Baby→Greis, Spielegeschichte, Accessibility/Mandela) | Sales + Artist | ✅ Done (commit 77dbd16) |
+| S27-2 | **Metrik-Audit Feynman×Heidegger** — Jede Metrik prüfen: was messen wir, lügt es, was ist zuhanden vs. vorhanden? | Scientist + Beirat | ✅ Done (docs/essays/beschreibung-und-messung.md) |
+| S27-3 | **Sprint 26 Backlog-Sync** — Erledigte Items (#54, #95, #96) im Backlog als Done markieren. Distribution-Items erfassen. | Leader | ✅ Done (PR dieses Commits) |
 
 ---
 
@@ -192,6 +192,14 @@
 **Sprint 27 Fokus:** Kein neuer Code. Substanz für Sales + Metriken. Zwei Agenten arbeiten parallel.
 
 **Blocker:** Keine.
+
+### 2026-04-04 (Daily Scrum)
+
+**Heute:** S27-1 + S27-2 als Done erkannt (Commits bereits in main). S27-3 implementiert: Distribution-Items (#103 itch.io, #104 Stripe PWYW, #105 Anchor-Pricing) in Backlog erfasst. Sprint 27 vollständig.
+
+**Offene PRs:** #226 (feat/sprint-27-economy — Muschel-Counter, Screensaver, alte Base) + #227 (itch.io Deploy, wartet auf User-Setup).
+
+**Blocker:** PR #227 braucht User: itch.io Projekt anlegen + BUTLER_API_KEY Secret setzen.
 
 ---
 

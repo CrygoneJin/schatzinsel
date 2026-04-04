@@ -14,6 +14,7 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 78 | **Tesla-Nutzertest auswerten** — 1h Video von Oscar im Tesla. Echte Nutzerdaten. Da ist Gold drin. | Scientist + Leader | 🔲 Offen |
 | 27 | **Cloudflare Worker CORS** — User muss worker.js im Dashboard deployen | User | 🔲 Human Input |
 | 92 | **Requesty Key rotieren** — Alter Key im Git-Verlauf. Sicherheitsrisiko. | Engineer | 🔲 Human Input |
+| 103 | **itch.io live schalten** — Projekt auf itch.io anlegen (HTML5) + GitHub Secret `BUTLER_API_KEY` setzen. CI-Job (PR #227) ist bereit, wartet auf User. | User | 🔲 Human Input |
 
 ## 🟡 P1 — Vor Spielplatz-Phase (10 Kinder)
 
@@ -28,12 +29,14 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 100 | **Energie vs Geld trennen** — NPC-Currencies (Burger, Noten, Glut) visuell von Muscheln trennen. Zwei Orte, zwei Konzepte. (Ricardo) | Designer | 🔲 Offen | Oscar versteht sofort: Burger = Reden, Muschel = Kaufen. |
 | 101 | **Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar. Kein Holz → kein Verkauf. Angebot und Nachfrage ohne Erklärung. (Ricardo) | Engineer | 🔲 Offen | Oscar lernt: wenn Krabbs kein Holz hat, muss er warten. |
 | 102 | **MMX = Nerd-Easter-Egg** — Burn-Panel ehrlich labeln. Keine Goldstandard-Behauptung. (Ricardo) | Designer + Engineer | 🔲 Offen | Nerds freuen sich. Oscar merkt nichts. |
+| 104 | **Stripe PWYW Button** — "Was ist dir das wert?" auf schatzinsel.app. Stripe MCP Integration. Kein "Spende"-Wort. | Engineer + Designer | 🔲 Offen | Eltern können das Spiel unterstützen. |
 
 ## 🟢 P2 — Irgendwann, aber mit Oscar-Outcome
 
 | # | Item | Owner | Status | Oscar-Outcome |
 |---|------|-------|--------|---------------|
 | 17 | **Eltern-Dashboard** — Bernd zeigt Spielstatistiken für Eltern | Engineer | 🔲 Offen | Mama sieht was Oscar gebaut hat. |
+| 105 | **Anchor-Pricing** — Über-Ø-Zahler auf itch.io schaltet Lummerland-Easter-Egg frei. Supporter (>5€) bekommt NPC-Gruß. Erst nach ersten itch.io-Daten. | Engineer + Scientist | 🔲 Offen | Supporter fühlen sich erkannt. |
 | 33 | **Header-Title "Schatzinsel"** | Designer | 🔲 Offen | Kosmetik. 5 Minuten. |
 | 34 | **NPCs in User-Sprache** — Eingabe Englisch → Antwort Englisch | Scientist | 🔲 Offen | Oscars englischsprachige Freunde können mitspielen. |
 | 37 | **Schöpfungsgeschichte als Tutorial** — 7 Level, Insel beginnt als Wasser | Leader | 🔲 Offen | Oscar erlebt wie seine Insel entsteht. |
