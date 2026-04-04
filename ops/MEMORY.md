@@ -17,6 +17,8 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-04 | NPC-Session-Gedächtnis war zu 80% fertig — nur _sessionGreeted Set fehlte | getNpcMemoryComment() existierte, wurde aber nur bei 30% Zufall oder Quest-Annahme gezeigt | Vor Feature-Implementierung immer prüfen was schon da ist. Oft reicht ein kleiner Eingriff. |
 | 2026-04-04 | Wu-Xing NPC-Events waren bereits komplett — nur Limiter fehlte | npc-events.js hatte alle 9 Event-Typen, 15s Cooldown, Reactions. Nur max 3x/Session fehlte. | Backlog-Items gegen Code abgleichen. "Offen" heißt nicht "nicht angefangen". |
 | 2026-04-04 | Heidegger als Zuhandenheit-Auditor im Beirat | "Die Zahl ist nie das Kind" — Messung verwandelt Zuhandenheit in Vorhandenheit | Essay docs/essays/beschreibung-und-messung.md dokumentiert die Epistemologie des Projekts. |
+| 2026-04-04 | S27-1 war Done aber als "In Progress" markiert — smoke.spec.js war seit mind. einer Session in main | Tests existierten schon in ops/tests/, SPRINT.md war nicht synchron | Phantom-Progress: Vor Implementierung immer prüfen ob Feature schon in main ist (grep + Glob statt blind implementieren). |
+| 2026-04-04 | 5 offene PRs (#226–#231) — parallele Sessions haben unabhängig denselben Sprint bearbeitet | Kein Session-Start-Check auf offene PRs | gh pr list --state open als Pflichtschritt vor jeder Implementierung. Nie doppelt bauen. |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
