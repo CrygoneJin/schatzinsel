@@ -107,8 +107,9 @@ ops/BACKLOG.md                  — Was wir insgesamt bauen
 
 Ordnerstruktur: 1·3·5·10000 + Isidor-Modell.
 - `src/` = Code (core, world, infra)
-- `docs/` = Dokumentation, Essays, Padawans, Stories
+- `docs/` = Kern-Docs (L3) + Codizes (L1d). Keine Essays, keine Bücher.
 - `ops/` = Operations, Backlog, Sprint, Tests, Scripts
+- `archive/` = L5 Kalter Speicher (Foucault-Taxonomie: theorie/, narrativ/, technik/)
 
 If none of these files exist, ask the user:
 > "Can you give me a one-line description of this project and who the primary

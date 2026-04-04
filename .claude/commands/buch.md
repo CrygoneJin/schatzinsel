@@ -42,7 +42,7 @@ description: "/buch — Buch oder Kapitel schreiben. Ogilvy textet, Schiller for
    - Adams: wo lacht jemand?
 5. **Revision** — Ogilvy arbeitet ein
 6. **Anti-Cringe** — `/anti-cringe` als letzter Check
-7. **Ablage** — `docs/buch/YYYY-MM-DD-titel/` mit Kapiteln als einzelne .md
+7. **Ablage** — `archive/narrativ/buch/` mit Kapiteln als einzelne .md
 
 ## Format
 

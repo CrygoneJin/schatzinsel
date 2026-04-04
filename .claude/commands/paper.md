@@ -33,7 +33,7 @@ description: "/paper — Wissenschaftliches Paper schreiben. Feynman misst, Darw
 5. **Review-Runde** — Darwin + Pascal + Sokrates prüfen parallel
 6. **Revision** — Feynman arbeitet Feedback ein
 7. **Copy** — Ogilvy poliert Abstract und Titel
-8. **Ablage** — `docs/papers/YYYY-MM-DD-kurztitel.md`
+8. **Ablage** — `archive/theorie/YYYY-MM-DD-kurztitel.md`
 
 ## Regeln
 

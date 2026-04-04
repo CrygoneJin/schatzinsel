@@ -35,3 +35,4 @@ iPad versteht ohne dass ihm jemand erklärt wie.
 - 2026-04-03: Floriane am Ufer (magisch), Bug im Wald (Natur). Feste Positionen statt generischer Kreis.
 - 2026-04-03: QuotaExceeded-Toast: "⚠️ Speicher voll!" — stummer Fehler ist das Gegenteil von Barrierefreiheit.
 - 2026-04-04: NPC-Session-Gedächtnis ist unsichtbares UX: der Spieler wird erkannt ohne explizites UI-Element. Bestes UX: keins das man sieht, eins das man fühlt.
+- 2026-04-04: Foucault-Taxonomie für Archiv — nicht nach Format (Essay/Podcast) sondern nach Episteme (theorie/narrativ/technik). docs/ von 60+ auf 9 Einträge reduziert. Rams Prinzip 10: So wenig wie möglich.

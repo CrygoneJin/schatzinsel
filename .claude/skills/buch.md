@@ -24,7 +24,7 @@ Der aktuelle Chatverlauf. Keine externe Datei nötig — der Kontext ist das Mat
 4. **Ende-Check** — Was liegt unter der Oberfläche? Welche Schicht
    sieht man erst beim zweiten Lesen?
 
-5. **Ausgabe** — Markdown-Datei unter `docs/buch/kapitel-NN.md`
+5. **Ausgabe** — Markdown-Datei unter `archive/narrativ/buch/kapitel-NN.md`
 
 ## Ausgabe-Format
 
