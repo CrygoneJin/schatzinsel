@@ -59,6 +59,30 @@ Procedural tree generation via Lindenmayer grammars.
 Three complexity levels (sapling, small_tree, tree).
 Deterministic per-cell hash for variation.
 
+## ADR-012: Bus / Threads / Token Ring (Harvard Communication)
+
+Drei Kommunikationsmuster für verschiedene Zwecke:
+
+```
+Bus        = pub/sub broadcast (INSEL_BUS.emit/on)
+             Game events: block:placed, craft:success, element:*
+             Horizontal. Jeder hört, wer will reagiert.
+
+Threads    = Agent-Tool delegation (Leader→Engineer→Padawan)
+             Vertikal. Kontext bleibt pro Hop. Max 2 Hops tief.
+             Extern (Claude Code), nicht in bus.js.
+
+Token Ring = Mutex für shared resources (INSEL_BUS.acquire/release)
+             Temporal. Einer schreibt, Rest wartet.
+             Verhindert: Duplikat-PRs, MEMORY.md-Konflikte, Race Conditions.
+```
+
+Session Lock via localStorage + Heartbeat (30s TTL-Renewal, 2min Stale-Detection).
+Verhindert parallele Browser-Tabs die gleichzeitig Auto-Saven.
+
+Harvard: Instructions (.claude/commands/) und Data (docs/masters/) getrennt.
+Bus transportiert Events (Data), nicht Commands (Instructions).
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled

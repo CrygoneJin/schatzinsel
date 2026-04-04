@@ -13,6 +13,42 @@ Browser (Vanilla JS + Canvas 2D)
 
 No framework. No build tool. No npm for frontend.
 
+## Communication Layer
+
+```
+┌──────────────────────────────────────────────────┐
+│                   INSEL_BUS                      │
+│                                                  │
+│  Event Bus (pub/sub)     Token Ring (mutex)       │
+│  ─────────────────────   ──────────────────────  │
+│  emit('craft:success')   acquire('memory.md')    │
+│  on('element:fire', fn)  → Promise<release>      │
+│  off(event, fn)          release('memory.md')    │
+│                                                  │
+│  Session Lock (localStorage heartbeat)           │
+│  ─────────────────────────────────────           │
+│  acquireSessionLock() / releaseSessionLock()     │
+│  30s heartbeat, 2min stale detection             │
+└──────────────────────────────────────────────────┘
+
+Events (9 Emitter → 3+ Subscriber):
+  block:placed, craft:success, element:*, merge:result,
+  consequence:*, tts:start/end, token:acquired/released/waiting,
+  session:conflict/stale-lock
+
+Threads (extern, Agent-Tool):
+  User → Leader → Engineer/Artist/Designer/Scientist
+  Max 2 Hops. Kontext pro Hop. Kein Multi-Hop-Routing.
+```
+
+### Speicher-Hierarchie (3 Level, Harvard)
+
+```
+L1  Persönlich  .claude/commands/ (Instructions) | docs/masters/, docs/padawans/ (Data)
+L2  Team        ops/MEMORY.md, ops/SPRINT.md (shared, append-only)
+L3  Org         docs/*.md, src/, ops/tests/ (on-demand)
+```
+
 ## Files
 
 ### Frontend

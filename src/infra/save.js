@@ -88,6 +88,9 @@
     // --- Auto-Save ---
     function autoSave() {
         if (!_ctx) return;
+        // Session Lock prüfen — andere Tabs dürfen nicht gleichzeitig saven
+        var bus = window.INSEL_BUS;
+        if (bus && bus.acquireSessionLock && !bus.acquireSessionLock()) return;
         var grid = _ctx.getGrid();
         if (!grid || !grid.length) return;
         var hasContent = grid.some(function (row) { return row.some(function (cell) { return cell !== null; }); });
