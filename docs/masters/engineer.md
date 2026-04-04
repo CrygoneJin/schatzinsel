@@ -39,3 +39,4 @@ elegant ist, sondern weil ein Vater mit 30 Minuten kein Webpack debuggen will.
 - 2026-04-03: CORS `*` → Origin-Whitelist. _currentRequest als Module-Level-Ref (70 json()-Calls nicht umbauen).
 - 2026-04-03: sound.js isMuted() 15× localStorage pro Sound. Cache-Variable + setMuted()-Sync.
 - 2026-04-04: Sprint-Doku ist Teil der Arbeit. Zwei SPRINT.md-Definitionen gleichzeitig = niemand weiß den Stand.
+- 2026-04-04: bus.js von 7 auf 140 Zeilen aufgeblasen (Token Ring). Im /meeting zurückgebaut auf 70 Zeilen (Bus + Session Lock). Token Ring löste ein Problem das im Browser nicht existiert — Agent-Schreibkonflikte passieren auf git-Ebene. Overengineering erkannt und revertiert.

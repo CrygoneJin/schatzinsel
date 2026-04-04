@@ -35,3 +35,4 @@ Wenn der Task mehrere Agents betrifft → ich zerteile.
 - 2026-04-03: 7 Duplikat-PRs (#200-#211) für S25-3. Root Cause: Sessions prüften nicht auf offene PRs. Session-Start-Regel eingeführt.
 - 2026-04-04: Parallele Sessions = parallele Sprint-Definitionen. Sprint 26 hatte zwei Goals. Konsolidiert: Feature-Items + Hardening-Items getrennt nummeriert (S26-1/2/3 + S26-V1/V2/V3/V4).
 - 2026-04-04: Routing paralleler Sessions ist ein Leader-Problem. Wenn zwei Sessions laufen, muss klar sein wer was macht — sonst Duplikate.
+- 2026-04-04: /meeting-Entscheidung: Token Ring raus, bus.js schlank (70 statt 140 LOC). Architektur-Doku trennt Ist vs. Soll. Drei Level reichen — der Rest ist Denkmodell, nicht Code.

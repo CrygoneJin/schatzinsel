@@ -59,29 +59,34 @@ Procedural tree generation via Lindenmayer grammars.
 Three complexity levels (sapling, small_tree, tree).
 Deterministic per-cell hash for variation.
 
-## ADR-012: Bus / Threads / Token Ring (Harvard Communication)
+## ADR-012: Communication Layer + Speicher-Hierarchie
 
-Drei Kommunikationsmuster für verschiedene Zwecke:
-
+**Communication:**
 ```
-Bus        = pub/sub broadcast (INSEL_BUS.emit/on)
-             Game events: block:placed, craft:success, element:*
-             Horizontal. Jeder hört, wer will reagiert.
-
-Threads    = Agent-Tool delegation (Leader→Engineer→Padawan)
-             Vertikal. Kontext bleibt pro Hop. Max 2 Hops tief.
-             Extern (Claude Code), nicht in bus.js.
-
-Token Ring = Mutex für shared resources (INSEL_BUS.acquire/release)
-             Temporal. Einer schreibt, Rest wartet.
-             Verhindert: Duplikat-PRs, MEMORY.md-Konflikte, Race Conditions.
+Bus      = pub/sub (INSEL_BUS.emit/on). Game events. Im Code.
+Threads  = Agent-Delegation (Leader→Engineer→Padawan). Extern (Agent-Tool).
+Lock     = Session Lock (localStorage heartbeat). Verhindert Multi-Tab Konflikte.
 ```
 
-Session Lock via localStorage + Heartbeat (30s TTL-Renewal, 2min Stale-Detection).
-Verhindert parallele Browser-Tabs die gleichzeitig Auto-Saven.
+Token Ring wurde implementiert und nach /meeting-Review entfernt.
+Begründung: löst ein Problem das im Browser nicht existiert (Agent-Schreibkonflikte
+passieren auf git-Ebene, nicht auf JS-Ebene). Die 7 Duplikat-PRs von S25-3
+wären mit Token Ring genauso passiert. Lösung dort: `gh pr list` am Session-Start.
 
-Harvard: Instructions (.claude/commands/) und Data (docs/masters/) getrennt.
-Bus transportiert Events (Data), nicht Commands (Instructions).
+**Speicher-Hierarchie (Harvard, 3 Level):**
+```
+L1  Persönlich  Instructions (.claude/commands/) | Data (docs/masters/, padawans/)
+L2  Team        ops/MEMORY.md, ops/SPRINT.md (shared, Session Lock geschützt)
+L3  Alles       docs/*.md, src/, ops/tests/, archive, git history
+```
+
+L1 = Harvard-Architektur (Instructions und Data getrennt).
+Innerhalb L3 existiert ein Latenz-Spektrum (Org-Docs → Codebase → Archiv → Git-History)
+— aber das sind keine separaten Level, sondern unterschiedliche Suchtiefen.
+
+**Vollständiges Spektrum (Denkmodell, nicht implementiert):** L0 (Kontext-Fenster)
+bis L∞ (Git-History). Beschreibt Latenz ↔ Größe Tradeoff. Dokumentiert in
+ARCHITECTURE.md als Referenz, nicht als Spezifikation.
 
 ## Known debt
 

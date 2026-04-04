@@ -38,3 +38,4 @@ einschließlich meiner eigenen (via Padawan-Gegen-Check).
 - 2026-04-04: save.js Tests deckten auf: safeParse/safeSet nicht exportiert → intern korrekt, extern unsichtbar. Modul das nicht testbar ist, ist nicht verifizierbar.
 - 2026-04-04: isMuted()-Test brach nach Cache-Refactor. Nicht weil Code falsch — weil Test Implementation testete statt Verhalten.
 - 2026-04-04: Zwei Sprint-26-Definitionen = zwei Messlatten. Ein Sprint = ein Goal = eine Messung. Konsolidiert.
+- 2026-04-04: /meeting-Review der Speicher-Hierarchie. Entlarvt: 7 Level waren 3 Level + Prosa. Token Ring löste kein reales Problem. Branch Prediction war Spezifikation ohne Implementation. ECC "Feynman prüft" ist manueller Prozess, kein System. ARCHITECTURE.md trennt jetzt Ist von Soll.
