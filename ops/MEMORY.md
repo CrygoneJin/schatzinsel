@@ -41,6 +41,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-04 | S26-1+S26-2 — NPC-Session-Gedächtnis + Wu-Xing-Event-Limit in einer Session (PR #213) | _sessionGreeted Set in chat.js verhindert Wiederholung. buildSessionGreeting() liest insel-session-snapshot (>60s alt). SESSION_MAX = 3 in npc-events.js. |
 | 2026-04-04 | 7 Duplikat-PRs für S25-3 — parallele Sessions implementierten dasselbe unabhängig | Vor jeder Session: `gh pr list --state open` prüfen. Wenn Feature schon in PR → Review + Merge statt Neuimplementierung. PR #212 (sauberste Base) gemergt, 7 andere geschlossen. |
 | 2026-04-03 | Bug-NPC (PR #188): Raupe Nimmersatt als Meta-Bug-Melder | Worktree war auf falschem Branch → Commit landete auf feat/floriane-muscheln statt feat/bug-npc. Fix: `git branch -f` + force push. Lektion: In Worktrees immer `git branch --show-current` prüfen vor Commit. |
 | 2026-04-03 | Floriane-Muscheln: Bestätigungsflow statt Silent-Deduction | Vorheriger Agent hatte Fibonacci-Preise die bei sendToApi() still abzogen — Kind sah nur "X 🐚 für diesen Wunsch" als System-Message. Neuer Flow: Wunsch-Erkennung → Preis anzeigen → Kind bestätigt/ablehnt → erst dann abziehen. Wortanzahl-basierte Preise (3/5/8 🐚) statt Zufall. |
