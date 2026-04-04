@@ -77,9 +77,39 @@
         <!-- Header -->
         <header>
             <h1>🏝️ Schatzinsel</h1>
-            <a href="https://donate.stripe.com/test_7sY9AMcTD6wQ7e9flD1ZS00" target="_blank" rel="noopener"
-               class="donate-btn" title="Projekt unterstützen" aria-label="Projekt unterstützen — Kaffee spendieren">☕</a>
+            <button class="donate-btn" onclick="document.getElementById('donate-modal').style.display='flex'"
+                    title="Projekt unterstützen" aria-label="Projekt unterstützen">☕</button>
         </header>
+
+        <!-- Donation-Modal (S27-3) -->
+        <!-- TODO S27-2: echte Stripe Payment Links hier eintragen (5€/10€/25€ aus Stripe Dashboard) -->
+        <div id="donate-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9500; align-items:center; justify-content:center;" onclick="if(event.target===this)this.style.display='none'" role="dialog" aria-modal="true" aria-label="Projekt unterstützen">
+            <div class="donate-modal-box">
+                <button class="donate-modal-close" onclick="document.getElementById('donate-modal').style.display='none'" aria-label="Schließen">✕</button>
+                <h2 style="margin:0 0 6px; font-size:20px;">Schatzinsel unterstützen</h2>
+                <p style="margin:0 0 20px; opacity:0.7; font-size:13px;">Hilft Oscar und all seinen Freunden.</p>
+                <div class="donate-tiers">
+                    <!-- TODO S27-2: href auf echten Stripe Payment Link (5€) setzen -->
+                    <a href="https://donate.stripe.com/test_7sY9AMcTD6wQ7e9flD1ZS00" target="_blank" rel="noopener" class="donate-tier">
+                        <span class="donate-tier-icon">☕</span>
+                        <span class="donate-tier-amount">5 €</span>
+                        <span class="donate-tier-label">Kaffee</span>
+                    </a>
+                    <!-- TODO S27-2: href auf echten Stripe Payment Link (10€) setzen -->
+                    <a href="https://donate.stripe.com/test_7sY9AMcTD6wQ7e9flD1ZS00" target="_blank" rel="noopener" class="donate-tier donate-tier-highlight">
+                        <span class="donate-tier-icon">🧁</span>
+                        <span class="donate-tier-amount">10 €</span>
+                        <span class="donate-tier-label">Kuchen</span>
+                    </a>
+                    <!-- TODO S27-2: href auf echten Stripe Payment Link (25€) setzen -->
+                    <a href="https://donate.stripe.com/test_7sY9AMcTD6wQ7e9flD1ZS00" target="_blank" rel="noopener" class="donate-tier">
+                        <span class="donate-tier-icon">🏴‍☠️</span>
+                        <span class="donate-tier-amount">25 €</span>
+                        <span class="donate-tier-label">Pirat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <!-- Toolbar -->
         <div id="toolbar" role="toolbar" aria-label="Werkzeuge und Aktionen">

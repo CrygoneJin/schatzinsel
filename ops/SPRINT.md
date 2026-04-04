@@ -177,9 +177,9 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S27-1 | **Playwright Smoke Tests** — 7 Tests: Load, Intro, Start, Play, Palette, Console, SW. Ersetzt Puppeteer. | Engineer | 🔄 In Progress |
+| S27-1 | **Playwright Smoke Tests** — 6 Tests in `ops/tests/smoke.spec.js`. Ersetzt Puppeteer. | Engineer | ✅ Done (in main) |
 | S27-2 | **Stripe Payment Links im Dashboard erstellen** — 3 Stufen: 5€/10€/25€. Produkt existiert (prod_UH8GIdCYDVu1H5). | User (Till) | 🔲 Human Input |
-| S27-3 | **Donation-Button in index.html** — Nach Intro, dezent. Verlinkt auf Stripe Payment Links. | Designer + Engineer | 🔲 Offen |
+| S27-3 | **Donation-Button in index.html** — ☕-Button im Header öffnet 3-Stufen-Modal (5€/10€/25€). Test-URLs drin — echte Links werden nach S27-2 eingetragen. | Designer + Engineer | ✅ Done (PR #233) |
 | S27-4 | **itch.io Upload via Butler** — Zweiter Distributionskanal. Butler Key nötig. | User (Till) | 🔲 Human Input |
 
 ---
@@ -191,6 +191,17 @@
 **Kontext:** Sprint 25+26 done. Einstein-Entscheidung: Live Launch. Stripe Produkt angelegt. Playwright wird aufgesetzt.
 
 **Blocker:** Payment Links brauchen Stripe Dashboard (Till). itch.io Butler Key (Till).
+
+### 2026-04-04 (Daily Scrum — Session 2)
+
+**Heute:**
+- S27-1 als Done erkannt — `ops/tests/smoke.spec.js` + `burn-panel.spec.js` + `playwright.config.js` bereits in main.
+- S27-3 implementiert: ☕-Button öffnet jetzt 3-Stufen-Modal (Kaffee 5€ / Kuchen 10€ / Pirat 25€). Dezent im Header, sichtbar nach Intro. Test-URLs bis S27-2 echte Links liefert.
+- 5 offene PRs (#226, #227, #228, #230, #231) — Duplikate aus parallelen Sessions. Brauchen User-Entscheidung.
+
+**Blocker:**
+- S27-2: Stripe Payment Links (Till: Stripe Dashboard → 3 Payment Links erstellen, dann TODO-Kommentare in index.html ersetzen)
+- S27-4: itch.io Butler Key (Till)
 
 ---
 
