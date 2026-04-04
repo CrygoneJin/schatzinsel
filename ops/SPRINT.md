@@ -94,8 +94,8 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S26-1 | **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich via localStorage. Beim ersten Chat-Klick nach Pause: "Hey Oscar, gestern hast du viel [Material] gebaut!" `_sessionGreeted` Set verhindert Wiederholung. | Engineer + Artist | 🔲 Offen |
-| S26-2 | **#95 Wu-Xing→NPC-Events** — `INSEL_BUS.on('element:fire')` etc. NPCs kommentieren wenn Oscar Feuer/Wasser/Holz/Metall/Erde platziert. 15s Throttle, max 3x/Session. | Engineer + Artist | 🔲 Offen |
+| S26-1 | **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich via localStorage. Beim ersten Chat-Klick nach Pause: "Hey Oscar, gestern hast du viel [Material] gebaut!" `_sessionGreeted` Set verhindert Wiederholung. | Engineer + Artist | ✅ Done |
+| S26-2 | **#95 Wu-Xing→NPC-Events** — `INSEL_BUS.on('element:fire')` etc. NPCs kommentieren wenn Oscar Feuer/Wasser/Holz/Metall/Erde platziert. 15s Throttle, max 3x/Session. | Engineer + Artist | ✅ Done |
 | S26-3 | **#54 Jim Knopfs Welt** — Boot craften (Planks + Seil + Mast) → neue Insel-Auswahl. Mindestens 1 neue erreichbare Insel. Oscar segelt. | Engineer | 🔲 Offen |
 
 ---
@@ -107,6 +107,14 @@
 **Kontext:** Sprint 25 vollständig (alle 3 Items Done, PR #212 gemergt). Retro: Duplikat-PR-Problem identifiziert und gelöst.
 
 **Sprint 26 Fokus:** Oscar-sichtbare Änderungen. NPCs werden lebendig (#96 Session-Gedächtnis). Welt reagiert (#95 Wu-Xing). Dann Expansion (#54 Boot/Insel).
+
+**Blocker:** Keine.
+
+### 2026-04-04 (Daily Scrum)
+
+**Heute:** S26-1 + S26-2 implementiert.
+- S26-1: `_sessionGreeted` Set in chat.js. `buildSessionGreeting()` baut NPC-typische Begrüßung aus `insel-session-snapshot`. Trigger: Snapshot älter als 60s + blocksPlaced > 0. Jeder NPC hat eigene Stimme (SpongeBob überdreht, Bernd resigniert, etc.).
+- S26-2: `sessionReactionCount` Counter in npc-events.js. Max 3 Reaktionen/Session. Bestehende Throttle (15s) + 30% Chance bleiben. Public API um `getSessionCount()` + `resetSession()` erweitert.
 
 **Blocker:** Keine.
 

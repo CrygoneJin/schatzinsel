@@ -461,6 +461,7 @@ Du: "HOLZ! Lok, hörst du das? HOLZ! *tschuff tschuff* Das ist wie Weihnachten u
     let currentNpcId = 'bernd'; // Chat-Bubble öffnet immer Bernd (Support)
     let chatHistory = [];
     let _pendingWish = null; // Floriane: ausstehender Wunsch wartet auf Bestätigung
+    const _sessionGreeted = new Set(); // NPCs die in dieser Session bereits gegrüßt haben
 
     function updateChatHeader() {
         const char = CHARACTERS[currentNpcId];
@@ -483,6 +484,14 @@ Du: "HOLZ! Lok, hörst du das? HOLZ! *tschuff tschuff* Das ist wie Weihnachten u
             while (messages.firstChild) messages.removeChild(messages.firstChild);
             const char = CHARACTERS[npcId];
             addMessage(char.emoji + ' ' + char.name + ' ist da!', 'system');
+            // Session-Gedächtnis: erster Besuch bei diesem NPC in dieser Session
+            if (!_sessionGreeted.has(npcId)) {
+                _sessionGreeted.add(npcId);
+                const greeting = buildSessionGreeting(npcId);
+                if (greeting) {
+                    addMessage(char.emoji + ' ' + greeting, 'npc');
+                }
+            }
             updateTokenDisplay(npcId);
         }
         panel.classList.remove('hidden');
@@ -702,6 +711,47 @@ Du: "HOLZ! Lok, hörst du das? HOLZ! *tschuff tschuff* Das ist wie Weihnachten u
             return '\nErinnerung an letztes Mal: ' + parts.join(' ');
         } catch {
             return '';
+        }
+    }
+
+    // --- Session-Begrüßung (erster Chat pro NPC pro Session) ---
+    /**
+     * Liest Session-Snapshot und baut eine NPC-typische Begrüßung.
+     * Gibt null zurück wenn kein Snapshot vorhanden oder Spieler neu.
+     * @param {string} npcId
+     * @returns {string|null}
+     */
+    function buildSessionGreeting(npcId) {
+        try {
+            const raw = localStorage.getItem('insel-session-snapshot');
+            if (!raw) return null;
+            const snap = JSON.parse(raw);
+            // Nur wenn Snapshot älter als 60s (= neue Session, nicht Reload)
+            if (Date.now() - snap.timestamp < 60000) return null;
+            if (!snap.blocksPlaced || snap.blocksPlaced === 0) return null;
+
+            const name = snap.playerName || null;
+            const mat = snap.topMaterials && snap.topMaterials.length > 0 ? snap.topMaterials[0] : null;
+            const nameStr = name && name !== 'Spieler' && name !== 'Anonym' ? ` ${name}` : '';
+            const matStr = mat ? ` ${snap.blocksPlaced} Blöcke ${mat}` : ` ${snap.blocksPlaced} Blöcke`;
+
+            const greetings = {
+                spongebob: `ICH BIN BEREIT! Du warst schon hier?! MEGA!${nameStr ? ' Hey ' + nameStr + '!' : ''} Letzte Runde hast du${matStr} gebaut — das ist REKORD!`,
+                krabs:     `Ohh,${nameStr || ' Spieler'}! ${snap.blocksPlaced} Blöcke letztes Mal — das sind mindestens ${snap.blocksPlaced * 3} Krabben-Taler Grundstückswert, Junge!`,
+                elefant:   `Törööö!${nameStr ? ' ' + nameStr + '!' : ''} Du warst schon hier! Ich vergesse nie — du hast${matStr} gebaut. Sehr gut.`,
+                maus:      `Hallo${nameStr ? ' ' + nameStr : ''}! Du kennst mich schon! Letzte Runde${matStr}... toll.`,
+                neinhorn:  `NEIN! ...warte, ich kenne dich.${nameStr ? ' ' + nameStr + ',' : ''} du hast${matStr} gebaut. NEIN das war gut.`,
+                bernd:     `Oh. Du wieder.${nameStr ? ' ' + nameStr + '.' : ''} Letztes Mal ${snap.blocksPlaced} Blöcke. Läuft. Oder so.`,
+                tommy:     `Klick-Klack!${nameStr ? ' ' + nameStr + '!' : ''} Du warst schon da! ${snap.blocksPlaced} Blöcke — nicht schlecht! Klick!`,
+                mephisto:  `Ahhh...${nameStr ? ' ' + nameStr + '...' : ' du wieder...'} Ich erinnere mich. ${snap.blocksPlaced} Blöcke. Die Insel wächst. Interessant. 😈`,
+                floriane:  `Oh!${nameStr ? ' ' + nameStr + '!' : ''} Du bist zurück! 🧚 Letztes Mal hast du${matStr} gebaut — ich hab's mir gewünscht, dass du wiederkommst! ✨`,
+                lokfuehrer: `Toot toot!${nameStr ? ' ' + nameStr + '!' : ''} Die Lok erinnert sich — ${snap.blocksPlaced} Blöcke! Volle Fahrt!`,
+                kraemerin:  `Willkommen zurück, Schatz!${nameStr ? ' ' + nameStr + '!' : ''} ${snap.blocksPlaced} Blöcke letzte Runde — ich hab noch was im Regal für dich! ✨`,
+            };
+
+            return greetings[npcId] || null;
+        } catch {
+            return null;
         }
     }
 

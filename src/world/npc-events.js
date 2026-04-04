@@ -7,9 +7,12 @@
 
     var COOLDOWN_MS = 15000;
     var TRIGGER_CHANCE = 0.3;
+    var SESSION_MAX = 3; // max 3 Reaktionen pro Session
 
     /** @type {number} */
     var lastReactionTime = 0;
+    /** @type {number} */
+    var sessionReactionCount = 0;
 
     /**
      * NPC-Reaktions-Tabelle: Event → Array von {npc, emoji, text}
@@ -64,6 +67,7 @@
     function maybeReact(eventName, data) {
         var now = Date.now();
         if (now - lastReactionTime < COOLDOWN_MS) return;
+        if (sessionReactionCount >= SESSION_MAX) return;
         if (Math.random() > TRIGGER_CHANCE) return;
 
         var pool = REACTIONS[eventName];
@@ -71,6 +75,7 @@
 
         var pick = pool[Math.floor(Math.random() * pool.length)];
         lastReactionTime = now;
+        sessionReactionCount++;
 
         if (typeof window.showToast === 'function') {
             window.showToast(pick.emoji + ' ' + pick.npc.charAt(0).toUpperCase() + pick.npc.slice(1) + ': ' + pick.text, 3500);
@@ -104,5 +109,8 @@
         REACTIONS: REACTIONS,
         COOLDOWN_MS: COOLDOWN_MS,
         TRIGGER_CHANCE: TRIGGER_CHANCE,
+        SESSION_MAX: SESSION_MAX,
+        getSessionCount: function() { return sessionReactionCount; },
+        resetSession: function() { sessionReactionCount = 0; },
     };
 })();
