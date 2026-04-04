@@ -40,6 +40,7 @@ Python redet.
 - 2026-04-03: save.js hatte 6× `JSON.parse(localStorage.getItem(...) || '{}')` und 4× nacktes `setItem` — Copy-Paste-Muster ohne Absicherung. safeParse() + safeSet() als Paar eingeführt. QuotaExceededError zeigt jetzt Toast statt stummem Crash.
 - 2026-04-03: CORS `Access-Control-Allow-Origin: *` ist nie OK für Produktions-APIs. Origin-basiert mit Whitelist, _currentRequest als Module-Level-Ref weil 70 json()-Aufrufe nicht umgebaut werden.
 - 2026-04-03: sound.js isMuted() las 15× pro Sound-Call localStorage. Cache-Variable + setMuted()-Sync. Einfachste Performance-Optimierung die man machen kann.
+- 2026-04-04: Sprint-Zyklen dokumentieren ist Teil der Arbeit, nicht Nacharbeit. Wenn SPRINT.md nicht aktuell ist, weiß niemand was der Stand ist. Zwei parallele Sessions hatten zwei verschiedene Sprint-26-Definitionen — konsolidiert statt ignoriert.
 
 ## Feynman-Notiz
 

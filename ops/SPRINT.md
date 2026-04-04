@@ -1,7 +1,7 @@
-# Sprint 26 — "Putztag. V-Modell. Alles muss raus."
+# Sprint 26 — "Oscar wird erkannt"
 
-**Sprint Goal:** V-Modell konsequent einführen. Tests schreiben, Bugs finden, fixen. Kein Feature — nur Qualität.
-**Start:** 2026-04-03
+**Sprint Goal:** NPCs kennen Oscar (Session-Gedächtnis) + NPCs reagieren auf Elemente (Wu-Xing-Events). V-Modell Hardening parallel.
+**Start:** 2026-04-04
 
 ---
 
@@ -9,18 +9,27 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S26-1 | **V-Modell Unit Tests** — 103 Tests für Achievements, Automerge, ELIZA, Recipes, Quests, Blueprints, Integration | Scientist + Engineer | ✅ Done |
-| S26-2 | **Floriane/Bug sichtbar + anklickbar** — Feste Grid-Positionen, Grid-Klick→Chat für alle NPCs | Designer + Engineer | ✅ Done |
-| S26-3 | **10 Bugs gefixt** — addWish(), ELIZA-Scripts, Race Condition, SQL Injection, JSON.parse, Test-Pfade, Phantom-Types | Engineer | ✅ Done |
-| S26-4 | **Padawan-Codizes** — Learnings aus V-Modell-Sprint in 3 Codizes eingetragen | Alle | ✅ Done |
+| S26-1 | **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich via localStorage. `_sessionGreeted` Set, `buildSessionGreeting()` liest Session-Snapshot. | Engineer + Artist | ✅ Done |
+| S26-2 | **#95 Wu-Xing→NPC-Events** — Max 3 NPC-Event-Reaktionen pro Session. `sessionReactionCount` Counter + `SESSION_MAX = 3`. | Engineer + Artist | ✅ Done |
+| S26-3 | **#54 Jim Knopfs Welt** — Boot craften → neue Insel-Auswahl. Oscar segelt. | Engineer | 🔲 Offen |
+| S26-V1 | **V-Modell Unit Tests** — 111 Tests (Achievements, Automerge, ELIZA, Recipes, Quests, Blueprints, Integration, Save) | Scientist + Engineer | ✅ Done |
+| S26-V2 | **15 Bugs gefixt** — addWish, ELIZA-Scripts, Race Condition, SQL Injection, JSON.parse, CORS Hardening, save.js QuotaExceeded, sound.js Cache | Engineer | ✅ Done |
+| S26-V3 | **Hardening** — save.js safeParse/safeSet, worker.js Origin-CORS + /metrics/ingest Auth, sound.js isMuted-Cache | Engineer | ✅ Done |
+| S26-V4 | **Padawan-Codizes** — Learnings in Kernighan, Popper, Hick. 15 MEMORY-Einträge. | Alle | ✅ Done |
 
 ---
 
 ## Standup Log
 
-### 2026-04-03 (Sprint 26 — V-Modell Marathon)
+### 2026-04-04 (Sprint 26 Planning)
 
-**Gefundene Bugs (10):**
+**Kontext:** Sprint 25 vollständig (alle 3 Items Done, PR #212 gemergt). Retro: Duplikat-PR-Problem identifiziert und gelöst.
+
+**Sprint 26 Fokus:** Oscar-sichtbare Änderungen. NPCs werden lebendig (#96 Session-Gedächtnis). Welt reagiert (#95 Wu-Xing). Parallel: V-Modell Hardening (Tests, Bugfixes, Sicherheit).
+
+### 2026-04-04 (V-Modell Marathon)
+
+**Gefundene Bugs (15):**
 1. `addWish()` nie aufgerufen → Floriane 3-Wünsche-Limit kaputt
 2. Mephisto/Krämerin/Lokführer ohne ELIZA-Script → offline stumm
 3. NPC Grid-Klick = nur Toast, nie Chat → NPCs unerreichbar
@@ -28,11 +37,16 @@
 5. Double loadingDiv.remove() → DOM-Exception
 6. SQL Injection in worker.js handleMetrics → Template-Literal
 7. handleBurnSet ohne try/catch → 500 bei kaputtem JSON
-8. JSON.parse ohne Error Handling an 12 Stellen → App-Crash bei corrupted localStorage
+8. JSON.parse ohne Error Handling an 12 Stellen in game.js
 9. Test-Pfade falsch seit Zellteilung → Tests liefen nie
-10. Phantom-Types in types.d.ts → versprechen was Code nicht hält
+10. Phantom-Types in types.d.ts
+11. save.js 6× JSON.parse ohne try/catch → Crash bei corrupted localStorage
+12. save.js 4× setItem ohne QuotaExceeded → stummer Datenverlust
+13. /metrics/ingest ohne Auth → Metrics spoofbar
+14. CORS `*` Wildcard → jede Origin erlaubt
+15. sound.js 15× localStorage.getItem pro Sound-Call → Performance
 
-**Tests:** 103 Unit + Integration Tests. 16 Test-Suites. Alle grün. tsc grün.
+**Tests:** 111 Unit + Integration Tests. 17 Test-Suites. Alle grün.
 
 **Blocker:** Keine.
 
@@ -120,35 +134,6 @@
 | **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich an letzte Session | P1 | "Hey Oscar, gestern hast du viel Holz gebaut!" — Oscar fühlt sich erkannt. |
 | **#95 Wu-Xing→NPC-Events** — NPCs reagieren auf Element-Events | P1 | Feuer platzieren → Mephisto flüstert. Wasser → Elefant kommentiert. Lebendige Welt. |
 | **#54 Jim Knopfs Welt** — Boot craften = nächste Insel | P1 | Oscar segelt. Neue Welt. Größter Discovery-Impact seit Dungeon. |
-
----
-
-# Sprint 26 — "Oscar wird erkannt"
-
-**Sprint Goal:** NPCs kennen Oscar (Session-Gedächtnis) + NPCs reagieren auf Elemente (Wu-Xing-Events).
-**Start:** 2026-04-04
-
----
-
-## Sprint Backlog
-
-| # | Item | Owner(s) | Status |
-|---|------|----------|--------|
-| S26-1 | **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich via localStorage. Beim ersten Chat-Klick nach Pause: "Hey Oscar, gestern hast du viel [Material] gebaut!" `_sessionGreeted` Set verhindert Wiederholung. | Engineer + Artist | 🔲 Offen |
-| S26-2 | **#95 Wu-Xing→NPC-Events** — `INSEL_BUS.on('element:fire')` etc. NPCs kommentieren wenn Oscar Feuer/Wasser/Holz/Metall/Erde platziert. 15s Throttle, max 3x/Session. | Engineer + Artist | 🔲 Offen |
-| S26-3 | **#54 Jim Knopfs Welt** — Boot craften (Planks + Seil + Mast) → neue Insel-Auswahl. Mindestens 1 neue erreichbare Insel. Oscar segelt. | Engineer | 🔲 Offen |
-
----
-
-## Standup Log
-
-### 2026-04-04 (Sprint 26 Planning)
-
-**Kontext:** Sprint 25 vollständig (alle 3 Items Done, PR #212 gemergt). Retro: Duplikat-PR-Problem identifiziert und gelöst.
-
-**Sprint 26 Fokus:** Oscar-sichtbare Änderungen. NPCs werden lebendig (#96 Session-Gedächtnis). Welt reagiert (#95 Wu-Xing). Dann Expansion (#54 Boot/Insel).
-
-**Blocker:** Keine.
 
 ---
 

@@ -75,6 +75,15 @@ war der Beweis dass der alte Test falsch war.
 Offene Frage: Sind 5 Hypothesen zu viele für eine Session? Feynman würde sagen:
 "Lieber 2 echte als 5 halbgare." Iteration 3 sollte radikaler priorisieren.
 
+### 2026-04-04 — Sprint-Dokumentation als Messinstrument
+
+Gelernt: Zwei parallele Sessions hatten zwei verschiedene Sprint-26-Definitionen.
+Das ist nicht nur ein Git-Problem — es ist ein Messproblem. Wenn Sprint 26 "V-Modell
+Putztag" und gleichzeitig "Oscar wird erkannt" ist, misst man Geschwindigkeit gegen
+zwei verschiedene Ziele. Ein Sprint = ein Goal = eine Messlatte. Konsolidiert:
+Feature-Items + V-Modell-Items in einem Sprint, aber klar getrennte Nummern (S26-1/2/3
+für Features, S26-V1/V2/V3/V4 für Hardening). So kann Feynman beides messen.
+
 ## Feynman-Notiz
 
 Mein eigener Padawan. Ich werde befangen sein. Darwin soll die Ratio

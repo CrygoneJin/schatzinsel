@@ -34,6 +34,7 @@ Er ist Rams' Messinstrument. Rams sagt "Weniger ist mehr." Hick sagt
 - 2026-04-03: NPC-Klick öffnet jetzt Chat statt nur Toast — das Dropdown existiert nicht mehr. Grid-Klick ist der einzige Weg zu NPCs. UX-Implikation: NPCs müssen sichtbar und anklickbar sein, Quest-Indikator (❗) ist jetzt kritischer denn je.
 - 2026-04-03: Floriane (🧚) und Bug (🐛) haben feste Positionen statt generischer Kreis. Floriane am Ufer (magisch), Bug im Wald (Natur). Positionierung ist UX — wo ein NPC steht, sagt was er ist.
 - 2026-04-03: QuotaExceeded-Toast ist UX-Feedback: "⚠️ Speicher voll! Alte Projekte löschen." — stummer Fehler ist das Gegenteil von Barrierefreiheit. Der User muss wissen warum Speichern nicht klappt.
+- 2026-04-04: NPC-Session-Gedächtnis (S26-1) ist unsichtbares UX-Design: "Hey Oscar, gestern hast du viel Holz gebaut!" — der Spieler wird erkannt ohne explizites UI-Element. Bestes UX: keins das man sieht, eins das man fühlt.
 
 ## Feynman-Notiz
 
