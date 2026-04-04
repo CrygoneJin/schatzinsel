@@ -29,9 +29,86 @@
 
 ### 2026-04-03 (Daily Scrum)
 
-**Heute:** S25-2 als Phantom-Open identifiziert (Dungeon-Dialog in main seit #181). S25-3 implementiert: npc-data.js (77 LOC) extrahiert, game.js 5196→5128. REACTIONS um 'magic'/'warm'/'adventure' ergänzt (fehlten für Floriane, Krämerin, Lokführer). 6 Duplikat-PRs für S25-3 (PRs #200, #202, #205, #207, #209, #210, #211) offen — bitte User schließen. Sprint 25 vollständig.
+**Heute:** S25-2 als Phantom-Open identifiziert (Dungeon-Dialog in main seit #181). S25-3 implementiert: npc-data.js (77 LOC) extrahiert, game.js 5196→5128. REACTIONS um 'magic'/'warm'/'adventure' ergänzt (fehlten für Floriane, Krämerin, Lokführer). Sprint 25 vollständig.
 
-**Blocker:** Duplikat-PRs müssen vom User geschlossen werden.
+**Blocker:** Keine.
+
+### 2026-04-04 (Daily Scrum)
+
+**Heute:** PR #212 gemergt. 7 Duplikat-PRs (#200, #202, #205, #207, #209, #210, #211) geschlossen. Sprint 25 Review + Retro. Sprint 26 geplant.
+
+---
+
+## Sprint Review — 2026-04-04
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S25-1: Palette = Instrument — mouseenter spielt `playMaterialSound()`. Oscar hört Töne beim Hovern über Palette. Beide Pfade gepatcht (initiales Setup + dynamisch generierte Buttons).
+- S25-2: Höhle = Dungeon — war Phantom-Open. Dungeon-Dialog (3 IT-Ebenen: Bits → Kernel → Browser) war bereits in main seit Commit #181. `openDungeon()` in game.js:474, Dialog in index.html:373.
+- S25-3: NPC-Daten → npc-data.js — `NPC_VOICES`, `MAT_ADJECTIVES`, `REACTIONS`, `TEMPLATES`, `STREAK_COMMENTS` extrahiert. game.js: 5196→5128 (−68 LOC). Bonus: fehlende REACTIONS-Styles für Floriane/Krämerin/Lokführer ergänzt.
+
+**Nicht geliefert:** Nichts.
+
+**Oscar-Check:** Palette klingt. Höhle öffnet Computer-Welt. NPCs reagieren jetzt korrekt (Floriane kein undefined).
+
+---
+
+## Sprint Retrospective — 2026-04-04
+
+### Was lief gut?
+
+- **Sprint 25 vollständig.** Alle 3 Items Done.
+- **Phantom-Open erkannt.** S25-2 war seit Wochen fertig, nur Backlog nicht aktualisiert. Session-übergreifende Backlog-Pflege hat funktioniert.
+- **npc-data.js sauber.** Gleiches Muster wie stories.js. REACTIONS-Bug (fehlende Styles) mitbehoben.
+
+### Was lief schlecht?
+
+- **7 Duplikat-PRs.** Parallele Sessions haben unabhängig denselben S25-3 implementiert. Merge-Chaos. Lösung: PR #212 (sauberste Base, aktuellem main) gemergt, 7 andere geschlossen.
+- **Duplikat-PRs verhindern:** Vor jeder Session `gh pr list --state open` prüfen. Wenn Feature schon in PR → Review statt Neuimplementierung.
+
+### Was verbessern wir?
+
+1. **Session-Start: offene PRs prüfen.** `gh pr list` als Teil des Smoke Tests — nie wieder 7 Duplikate.
+2. **game.js weiter zerteilen.** 5128 LOC. Nächster Kandidat: Grid-Initialisierung oder draw*()-Funktionen.
+3. **NPC-Events + Session-Gedächtnis** — Oscar merkt dass NPCs ihn kennen. Höchster Emotional-Impact.
+
+### Sprint 26 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich an letzte Session | P1 | "Hey Oscar, gestern hast du viel Holz gebaut!" — Oscar fühlt sich erkannt. |
+| **#95 Wu-Xing→NPC-Events** — NPCs reagieren auf Element-Events | P1 | Feuer platzieren → Mephisto flüstert. Wasser → Elefant kommentiert. Lebendige Welt. |
+| **#54 Jim Knopfs Welt** — Boot craften = nächste Insel | P1 | Oscar segelt. Neue Welt. Größter Discovery-Impact seit Dungeon. |
+
+---
+
+# Sprint 26 — "Oscar wird erkannt"
+
+**Sprint Goal:** NPCs kennen Oscar (Session-Gedächtnis) + NPCs reagieren auf Elemente (Wu-Xing-Events).
+**Start:** 2026-04-04
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S26-1 | **#96 NPC-Session-Gedächtnis** — NPCs erinnern sich via localStorage. Beim ersten Chat-Klick nach Pause: "Hey Oscar, gestern hast du viel [Material] gebaut!" `_sessionGreeted` Set verhindert Wiederholung. | Engineer + Artist | 🔲 Offen |
+| S26-2 | **#95 Wu-Xing→NPC-Events** — `INSEL_BUS.on('element:fire')` etc. NPCs kommentieren wenn Oscar Feuer/Wasser/Holz/Metall/Erde platziert. 15s Throttle, max 3x/Session. | Engineer + Artist | 🔲 Offen |
+| S26-3 | **#54 Jim Knopfs Welt** — Boot craften (Planks + Seil + Mast) → neue Insel-Auswahl. Mindestens 1 neue erreichbare Insel. Oscar segelt. | Engineer | 🔲 Offen |
+
+---
+
+## Standup Log
+
+### 2026-04-04 (Sprint 26 Planning)
+
+**Kontext:** Sprint 25 vollständig (alle 3 Items Done, PR #212 gemergt). Retro: Duplikat-PR-Problem identifiziert und gelöst.
+
+**Sprint 26 Fokus:** Oscar-sichtbare Änderungen. NPCs werden lebendig (#96 Session-Gedächtnis). Welt reagiert (#95 Wu-Xing). Dann Expansion (#54 Boot/Insel).
+
+**Blocker:** Keine.
 
 ---
 
