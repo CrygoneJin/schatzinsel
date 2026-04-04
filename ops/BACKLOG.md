@@ -12,6 +12,7 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | # | Item | Owner | Status |
 |---|------|-------|--------|
 | 78 | **Tesla-Nutzertest auswerten** — 1h Video von Oscar im Tesla. Echte Nutzerdaten. Da ist Gold drin. | Scientist + Leader | 🔲 Offen |
+| 104 | **itch.io live schalten** — CI (Butler) ist bereit (commit 3dcd294). User: itch.io Projekt anlegen (HTML5) + GitHub Secret `BUTLER_API_KEY` setzen. Dann läuft Deploy automatisch. | User | 🔲 Human Input |
 | 27 | **Cloudflare Worker CORS** — User muss worker.js im Dashboard deployen | User | 🔲 Human Input |
 | 92 | **Requesty Key rotieren** — Alter Key im Git-Verlauf. Sicherheitsrisiko. | Engineer | 🔲 Human Input |
 
@@ -28,6 +29,7 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 100 | **Energie vs Geld trennen** — NPC-Currencies (Burger, Noten, Glut) visuell von Muscheln trennen. Zwei Orte, zwei Konzepte. (Ricardo) | Designer | 🔲 Offen | Oscar versteht sofort: Burger = Reden, Muschel = Kaufen. |
 | 101 | **Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar. Kein Holz → kein Verkauf. Angebot und Nachfrage ohne Erklärung. (Ricardo) | Engineer | 🔲 Offen | Oscar lernt: wenn Krabbs kein Holz hat, muss er warten. |
 | 102 | **MMX = Nerd-Easter-Egg** — Burn-Panel ehrlich labeln. Keine Goldstandard-Behauptung. (Ricardo) | Designer + Engineer | 🔲 Offen | Nerds freuen sich. Oscar merkt nichts. |
+| 105 | **Stripe PWYW Button** — "Zahle was dir das wert ist" auf schatzinsel.app. 3 Vorschläge (5/10/25 EUR), alles geht. Stripe Payment Link reicht für MVP. | Engineer | 🔲 Offen | Papa zahlt. Oscar ist stolz. |
 
 ## 🟢 P2 — Irgendwann, aber mit Oscar-Outcome
 
@@ -44,6 +46,7 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 19 | **Conway→Gameplay** — Lebende Zellen → Blumen, Glider → Wolken | Engineer + Scientist | 🔲 Offen | Die Insel lebt auch wenn Oscar nicht baut. |
 | 32 | **Code-Ebenen per Touch** — Swipe statt Rechtsklick | Engineer | ✅ Done |
 | 103 | **Insel-Archipel** — Heimatinsel bleibt erhalten wenn Oscar segelt. Jede neue Insel ist ein Kapitel. Wissen (Rezepte, NPCs, Materialien) wird mitgenommen. Schatzkarte mit drei Worten = Adresse jeder Insel. Tommy erzählt abends davon. | alle | 🔲 Offen | Oscar entdeckt mit dem Gelernten immer neue Welten — und findet immer den Weg nach Hause. |
+| 106 | **Anchor-Pricing** — Lummerland-Zugang für Über-Ø-Zahler. Erst nach itch.io-Daten (was zahlen Leute tatsächlich?). | Designer + Engineer | 🔲 Offen | Wer mehr zahlt, segelt weiter. |
 
 ---
 

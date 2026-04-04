@@ -179,7 +179,7 @@
 |---|------|----------|--------|
 | S27-1 | **Taschentücher + Ogilvy-Copy** — 5 One-Pager mit 3-Akt-Struktur (Kubrick/Spielberg/Goethe), mehrdimensional (Baby→Greis, Spielegeschichte, Accessibility/Mandela) | Sales + Artist | 🔄 In Arbeit |
 | S27-2 | **Metrik-Audit Feynman×Heidegger** — Jede Metrik prüfen: was messen wir, lügt es, was ist zuhanden vs. vorhanden? | Scientist + Beirat | 🔄 In Arbeit |
-| S27-3 | **Sprint 26 Backlog-Sync** — Erledigte Items (#54, #95, #96) im Backlog als Done markieren. Distribution-Items erfassen. | Leader | 🔲 Offen |
+| S27-3 | **Sprint 26 Backlog-Sync** — Erledigte Items (#54, #95, #96) im Backlog als Done markieren. Distribution-Items erfassen. | Leader | ✅ Done |
 
 ---
 
@@ -190,6 +190,14 @@
 **Kontext:** Sprint 26 vollständig. User-Aufträge: Sales-Material, Metrik-Audit. "Alles in sprints, backlog features on hold."
 
 **Sprint 27 Fokus:** Kein neuer Code. Substanz für Sales + Metriken. Zwei Agenten arbeiten parallel.
+
+**Blocker:** Keine.
+
+### 2026-04-04 (Daily Scrum)
+
+**Heute:** S27-3 abgeschlossen. #54, #95, #96 waren bereits Done auf origin/main. Distribution-Items ergänzt: #104 (itch.io-Setup, P0 Human Input), #105 (Stripe PWYW, P1), #106 (Anchor-Pricing, P2). PR #228 hatte #103-Nummernkonflikt gegen origin/main — sauber neu implementiert. PR #229 (Live Launch Sprint 27) liegt als offene Frage beim User.
+
+**S27-1 + S27-2:** Sales-Material — liegt beim User (kein Agent-Output sichtbar in main).
 
 **Blocker:** Keine.
 
