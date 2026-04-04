@@ -7,6 +7,7 @@ Stand: 2026-04-04
 schatzinsel.app ist ein Canvas-2D-Browserspiel ohne Build-Dependencies (Vanilla JS).
 Minimale Anforderungen: ES6-fähiger Browser, Canvas 2D, Touch- oder Maus-Events.
 Minimum Android: **Android 10+** (Chrome 80+). Entscheidung: Jobs, 2026-04-04.
+Minimum iOS: **iOS 16+** (Safari 16+). Entscheidung: Einstein/Feynman/Torvalds, 2026-04-04.
 
 ---
 
@@ -16,7 +17,7 @@ Minimum Android: **Android 10+** (Chrome 80+). Entscheidung: Jobs, 2026-04-04.
 |-------|---------|------|---------|------|------------|-------------|
 | **iPhone 17 Pro** | 6.3" 2796×1290 @120Hz | A19 Pro | Safari 20 | 18×28 (Portrait) | ✅ Perfekt | ProMotion 120Hz, beste Performance. Dynamic Island — kein Einfluss auf Canvas. |
 | **iPhone 16** | 6.1" 2556×1179 @60Hz | A18 | Safari 19 | 18×28 (Portrait) | ✅ Perfekt | Sehr gut. 60Hz reicht für Canvas 2D locker. Kein ProMotion. |
-| **iPhone 7** | 4.7" 1334×750 @60Hz | A10 Fusion | Safari 15 (max iOS 15) | 18×28 (Portrait) | ⚠️ Eingeschränkt | Kleines Display — Touch-Targets (48px min) werden eng. A10 reicht für Canvas, aber iOS 15 = letztes Update. ES6 ✅, `env(safe-area-inset)` ✅ (kein Notch). localStorage ✅. |
+| **iPhone 7 / SE 1. Gen** | 4.0-4.7" 1334×750 @60Hz | A9/A10 | Safari 15 (max iOS 15) | 18×28 (Portrait) | ❌ Nein | iOS 16+ Regel. Kein Support für iOS 15. iPhone 7 (2016), SE 1. Gen (2016) sind raus. |
 | **iPhone SE** (Oscar) | 4.7" 1334×750 @60Hz | A15 | Safari 18 | 18×28 (Portrait) | ✅ Gut | Gleiche Displaygröße wie iPhone 7, aber moderner Chip + aktuelles iOS. Referenzgerät. |
 | **iPad** (Oscar) | 10.2" 2160×1620 @60Hz | A13+ | Safari 18 | 28×21 (Landscape) | ✅ Perfekt | Tablet-Grid, großer Canvas, Touch-Targets komfortabel. |
 | **Android < 10** | variiert | variiert | Chrome <80 | — | ❌ Nein | Minimum: Android 10+ / Chrome 80+. Entscheidung Jobs. Android 4.4 hat kein ES6. Android 7-9 technisch möglich aber nicht supported. |
@@ -56,7 +57,7 @@ Minimum Android: **Android 10+** (Chrome 80+). Entscheidung: Jobs, 2026-04-04.
 ## Empfehlung
 
 - **Oscar (8)**: iPhone SE oder iPad bleiben die besten Geräte. iPad > iPhone wegen Displaygröße.
-- **iPhone 7**: Geht noch, aber knapp. Display ist klein für 48px Touch-Targets. iOS 15 bekommt keine Updates mehr.
+- **iPhone 7 / SE 1. Gen**: Nicht unterstützt. Minimum iOS 16+ (Einstein/Feynman/Torvalds-Entscheidung 2026-04-04).
 - **Android < 10**: Nicht unterstützt. Minimum Android 10+ (Jobs-Entscheidung 2026-04-04).
 - **Desktop (Farming Rig)**: Perfekt. Bester Modus mit 32×18 Grid und voller Tastatur.
 - **iPhone 16 vs 17 Pro**: Egal. Beide überdimensioniert für Canvas 2D. Geld sparen → iPhone 16.
