@@ -43,6 +43,7 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 23 | **Programmier-Tutorial** — NPCs bringen JavaScript bei | Scientist + Engineer | 🔲 Offen | Oscar lernt coden durch Spielen. |
 | 19 | **Conway→Gameplay** — Lebende Zellen → Blumen, Glider → Wolken | Engineer + Scientist | 🔲 Offen | Die Insel lebt auch wenn Oscar nicht baut. |
 | 32 | **Code-Ebenen per Touch** — Swipe statt Rechtsklick | Engineer | ✅ Done |
+| 103 | **Insel-Archipel** — Heimatinsel bleibt erhalten wenn Oscar segelt. Jede neue Insel ist ein Kapitel. Wissen (Rezepte, NPCs, Materialien) wird mitgenommen. Schatzkarte mit drei Worten = Adresse jeder Insel. Tommy erzählt abends davon. | alle | 🔲 Offen | Oscar entdeckt mit dem Gelernten immer neue Welten — und findet immer den Weg nach Hause. |
 
 ---
 
