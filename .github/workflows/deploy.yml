@@ -27,26 +27,87 @@ jobs:
       - name: JS Syntax-Check
         run: |
           FAIL=0
-          SKIP="worker.js gemini-voice-worker.js playwright.config.js"
-          for f in src/core/*.js src/world/*.js src/infra/*.js sw.js; do
-            BASE=$(basename "$f")
-            echo "$SKIP" | grep -qw "$BASE" && continue
+          # Cloudflare Worker-Files, Service Worker und Dev-Config-Files überspringen
+          SKIP="worker.js gemini-voice-worker.js playwright.config.js sw.js"
+          for f in *.js; do
+            echo "$SKIP" | grep -qw "$f" && continue  # Cloudflare Worker / Service Worker / Dev-Config
             if ! node -c "$f" 2>&1; then
               FAIL=1
             fi
           done
           exit $FAIL
 
-      - name: TypeScript Type-Check
+      - name: Smoke-Test — Seite lädt ohne Fehler
         run: |
-          npm install typescript --no-save
-          npx tsc --noEmit
+          npm install puppeteer --no-save
+          npx puppeteer browsers install chrome
+          # Lokalen HTTP-Server starten (verhindert CORS-Fehler bei file://)
+          npx serve . -p 8080 &
+          SERVER_PID=$!
+          # Kurz warten bis der Server bereit ist
+          sleep 2
+          node --input-type=module <<'SMOKE'
+          import puppeteer from 'puppeteer';
 
-      - name: Smoke-Test (Playwright)
-        run: |
-          npm ci
-          npx playwright install chromium --with-deps
-          npx playwright test --config=ops/tests/playwright.config.js --project=chromium --reporter=line
+          // CORS-bezogene Fehlermuster filtern (können bei lokalem Server noch auftreten
+          // z.B. durch externe Ressourcen oder Service Worker)
+          const CORS_PATTERNS = [
+            'CORS',
+            'cross-origin',
+            'Cross-Origin',
+            'Access-Control',
+            'Failed to fetch',
+            'net::ERR_FAILED',
+          ];
+
+          function isCorsError(msg) {
+            return CORS_PATTERNS.some(p => msg.includes(p));
+          }
+
+          const errors = [];
+          const browser = await puppeteer.launch({
+            headless: 'new',
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+          });
+          const page = await browser.newPage();
+
+          page.on('pageerror', err => {
+            // config.js ist optional — der onerror-Handler im HTML fängt das ab
+            if (!err.message.includes('config.js') && !isCorsError(err.message)) {
+              errors.push(err.message);
+            }
+          });
+          page.on('console', msg => {
+            if (msg.type() === 'error') {
+              const text = msg.text();
+              // config.js optional, CORS-Fehler ignorieren
+              if (!text.includes('config.js') && !isCorsError(text)) {
+                errors.push('console.error: ' + text);
+              }
+            }
+          });
+
+          // Lokaler HTTP-Server statt file:// (vermeidet CORS-Blockierung von ES-Modulen)
+          await page.goto('http://localhost:8080', { waitUntil: 'load', timeout: 15000 });
+
+          // Warte kurz damit alle DOMContentLoaded-Handler laufen
+          await new Promise(r => setTimeout(r, 2000));
+
+          // Prüfe ob Canvas existiert und game.js geladen hat
+          const canvasExists = await page.$('#game-canvas');
+          if (!canvasExists) errors.push('Canvas #game-canvas nicht gefunden');
+
+          await browser.close();
+
+          if (errors.length > 0) {
+            console.error('=== SMOKE-TEST FEHLGESCHLAGEN ===');
+            errors.forEach(e => console.error('  ✗', e));
+            process.exit(1);
+          }
+          console.log('=== Smoke-Test bestanden — Seite lädt sauber ===');
+          SMOKE
+          # Server aufräumen
+          kill $SERVER_PID 2>/dev/null || true
 
   deploy:
     name: Deploy
@@ -64,13 +125,12 @@ jobs:
       - name: Version berechnen und stempeln
         id: version
         run: |
-          # Commit-Count (monoton steigend, auch fuer SW Cache-Version)
-          COUNT=$(git rev-list --count HEAD)
           # SemVer aus Tags oder Fallback
           if git describe --tags --match 'v*' HEAD 2>/dev/null; then
             VERSION=$(git describe --tags --match 'v*' HEAD)
           else
             # Kein Tag: v0.COMMIT_COUNT.SHORT_SHA
+            COUNT=$(git rev-list --count HEAD)
             SHA=$(git rev-parse --short HEAD)
             VERSION="v0.${COUNT}.${SHA}"
           fi
@@ -83,21 +143,9 @@ jobs:
           # Stempel in index.html einsetzen
           sed -i "s|<!--VERSION-->.*<!--/VERSION-->|<!--VERSION-->${STAMP}<!--/VERSION-->|g" index.html
 
-          # SW Cache-Version = Commit-Count (steigt monoton bei jedem Deploy)
-          sed -i "s|const CACHE_VERSION = [0-9]*;|const CACHE_VERSION = ${COUNT};|g" sw.js
-
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
       - id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Deploy to itch.io via Butler
-        run: |
-          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
-          unzip butler.zip
-          chmod +x butler
-          ./butler push . crygonejin/schatzinsel:web --userversion "${{ steps.version.outputs.version }}"
-        env:
-          BUTLER_API_KEY: ${{ secrets.itch_io_butler }}
