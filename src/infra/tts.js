@@ -59,37 +59,15 @@
         return { voice: 'default', lang: 'de' };
     }
 
-    // Cloud TTS: Text -> MP3 via Worker
+    // TTS via Cartesia (primär)
     function speakCloudTTS(text, voiceInfo) {
-        var proxy = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
-        return fetch(proxy + '/tts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang, speed: 1.0 }),
-        }).then(function (r) {
-            if (!r.ok) throw new Error('TTS ' + r.status);
-            return r.blob();
-        }).then(function (blob) {
-            return new Promise(function (resolve, reject) {
-                var url = URL.createObjectURL(blob);
-                var audio = new Audio(url);
-                hoerspielAudio = audio;
-                audio.onended = function () { URL.revokeObjectURL(url); hoerspielAudio = null; resolve(); };
-                audio.onerror = function () { URL.revokeObjectURL(url); hoerspielAudio = null; reject(); };
-                audio.play().catch(reject);
-            });
-        });
-    }
-
-    // Fallback: Cartesia TTS via Worker
-    function speakCartesiaTTS(text, voiceInfo) {
         var proxy = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
         return fetch(proxy + '/tts-cartesia', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang }),
         }).then(function (r) {
-            if (!r.ok) throw new Error('Cartesia TTS ' + r.status);
+            if (!r.ok) throw new Error('TTS ' + r.status);
             return r.blob();
         }).then(function (blob) {
             return new Promise(function (resolve, reject) {
@@ -132,9 +110,9 @@
 
             if (!text || (window.INSEL_SOUND && window.INSEL_SOUND.isMuted())) { setTimeout(speakNext, 500); return; }
 
-            speakCloudTTS(text, voice).catch(function () {
-                return speakCartesiaTTS(text, voice);
-            }).then(function () {
+            speakCloudTTS(text, voice).then(function () {
+                setTimeout(speakNext, 400);
+            }).catch(function () {
                 setTimeout(speakNext, 400);
             });
         }
@@ -176,7 +154,6 @@
         stopHoerspiel: stopHoerspiel,
         detectVoice: detectVoice,
         speakCloudTTS: speakCloudTTS,
-        speakCartesiaTTS: speakCartesiaTTS,
         speakLines: speakLines,
         maybeHoerspiel: maybeHoerspiel,
     };
@@ -186,7 +163,6 @@
     window.stopHoerspiel = stopHoerspiel;
     window.detectVoice = detectVoice;
     window.speakCloudTTS = speakCloudTTS;
-    window.speakCartesiaTTS = speakCartesiaTTS;
     window.speakLines = speakLines;
     window.maybeHoerspiel = maybeHoerspiel;
 

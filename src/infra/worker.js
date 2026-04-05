@@ -41,10 +41,7 @@ export default {
         if (pathname === '/bugs') {
             return handleBugs(request, env);
         }
-        if (pathname === '/tts') {
-            return handleTTS(request, env);
-        }
-        if (pathname === '/tts-cartesia') {
+        if (pathname === '/tts-cartesia' || pathname === '/tts') {
             return handleTTSCartesia(request, env);
         }
         if (pathname === '/metrics') {
@@ -596,71 +593,7 @@ async function logAirtable(body, meta, env) {
     });
 }
 
-// --- TTS (Text-to-Speech via Requesty → OpenAI) ---
-
-async function handleTTS(request, env) {
-    if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
-
-    // OpenAI TTS direkt (Requesty hat kein /audio/speech)
-    const apiKey = env.OPENAI_TTS_KEY || env.OPENAI_API_KEY;
-    if (!apiKey) return json({ error: 'Kein OpenAI TTS-Key (OPENAI_TTS_KEY) konfiguriert' }, 500);
-
-    let body;
-    try { body = await request.json(); } catch (e) {
-        return json({ error: 'Ungültiger Body' }, 400);
-    }
-
-    const text = (body.text || '').slice(0, 500); // Max 500 Zeichen pro Request
-    if (!text) return json({ error: 'text benötigt' }, 400);
-
-    // Stimmen-Mapping: Charakter → OpenAI Voice
-    // alloy=neutral, echo=tief, fable=britisch/warm, onyx=dunkel, nova=warm, shimmer=hell
-    const voiceMap = {
-        lanz: 'onyx',       // tief, seriös — der Moderator
-        precht: 'fable',    // eloquent, nachdenklich — der Philosoph
-        merz: 'echo',       // sachlich, tief — der Kanzler
-        trump: 'alloy',     // neutral (accent kommt aus dem Text)
-        musk: 'shimmer',    // hell, technisch — der Disruptor
-        mephisto: 'onyx',   // dunkel, samtig — der Teufel
-        default: 'nova',    // warm, freundlich — Erzähler
-    };
-    const voice = voiceMap[body.voice] || voiceMap.default;
-    const speed = body.speed || 1.0;
-
-    try {
-        const response = await fetch('https://api.openai.com/v1/audio/speech', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify({
-                model: 'tts-1',
-                input: text,
-                voice: voice,
-                speed: Math.max(0.5, Math.min(2.0, speed)),
-                response_format: 'mp3',
-            }),
-        });
-
-        if (!response.ok) {
-            const err = await response.text();
-            return json({ error: 'TTS fehlgeschlagen: ' + err }, response.status);
-        }
-
-        // Audio direkt durchreichen
-        return new Response(response.body, {
-            headers: {
-                'Content-Type': 'audio/mpeg',
-                ...corsHeaders(),
-            },
-        });
-    } catch (e) {
-        return json({ error: 'TTS-Fehler: ' + e.message }, 500);
-    }
-}
-
-// --- TTS Cartesia Fallback ---
+// --- TTS Cartesia (primär) ---
 
 // Cartesia Voice-IDs
 // Weiblich: 9b4d08b6, d1cbea67
