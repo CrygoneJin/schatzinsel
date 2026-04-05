@@ -44,8 +44,8 @@ export default {
         if (pathname === '/tts') {
             return handleTTS(request, env);
         }
-        if (pathname === '/tts-gemini') {
-            return handleTTSGemini(request, env);
+        if (pathname === '/tts-cartesia') {
+            return handleTTSCartesia(request, env);
         }
         if (pathname === '/metrics') {
             return handleMetrics(request, env);
@@ -660,13 +660,37 @@ async function handleTTS(request, env) {
     }
 }
 
-// --- TTS Gemini Fallback ---
+// --- TTS Cartesia Fallback ---
 
-async function handleTTSGemini(request, env) {
+// Cartesia Voice-IDs
+// Weiblich: 9b4d08b6, d1cbea67
+// Männlich: 40e0f496 (Bernd), 4ad22058
+const CARTESIA_VOICES = {
+    bernd:       '40e0f496-a220-46bb-975a-7ef465b3d92b', // männlich — Bernd das Brot
+    mephisto:    '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich — dunkel
+    lanz:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    precht:      '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    merz:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    trump:       '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    spongebob:   'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich — hell/witzig
+    elefant:     '9b4d08b6-0494-4301-ab92-9150f4ee2718', // weiblich
+    floriane:    'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich
+    neinhorn:    'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich
+    // OpenAI voice names → Cartesia
+    onyx:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich, tief
+    echo:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    fable:       '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    nova:        '9b4d08b6-0494-4301-ab92-9150f4ee2718', // weiblich, warm
+    shimmer:     'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich, hell
+    alloy:       '62bced3c-08a9-4345-8602-39640d6b6194', // neutral
+    default:     '62bced3c-08a9-4345-8602-39640d6b6194',
+};
+
+async function handleTTSCartesia(request, env) {
     if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
 
-    const apiKey = env.GEMINI_API_KEY;
-    if (!apiKey) return json({ error: 'Kein GEMINI_API_KEY konfiguriert' }, 500);
+    const apiKey = env.CARTESIA_API_KEY;
+    if (!apiKey) return json({ error: 'Kein CARTESIA_API_KEY konfiguriert' }, 500);
 
     let body;
     try { body = await request.json(); } catch (e) {
@@ -676,95 +700,43 @@ async function handleTTSGemini(request, env) {
     const text = (body.text || '').slice(0, 500);
     if (!text) return json({ error: 'text benötigt' }, 400);
 
-    // Voice-Mapping: Charakter → Gemini Prebuilt Voice
-    const voiceMap = {
-        lanz: 'Charon',     // tief, seriös
-        precht: 'Fenrir',   // nachdenklich
-        merz: 'Charon',     // sachlich, tief
-        trump: 'Fenrir',
-        musk: 'Puck',
-        mephisto: 'Charon', // dunkel
-        echo: 'Fenrir',
-        alloy: 'Aoede',
-        nova: 'Kore',
-        shimmer: 'Puck',
-        fable: 'Fenrir',
-        onyx: 'Charon',
-        default: 'Kore',
-    };
-    const voice = voiceMap[body.voice] || voiceMap.default;
+    const voiceId = CARTESIA_VOICES[body.voice] || CARTESIA_VOICES.default;
 
     try {
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text }] }],
-                    generationConfig: {
-                        responseModalities: ['AUDIO'],
-                        speechConfig: {
-                            voiceConfig: {
-                                prebuiltVoiceConfig: { voiceName: voice },
-                            },
-                        },
-                    },
-                }),
-            }
-        );
+        const response = await fetch('https://api.cartesia.ai/tts/bytes', {
+            method: 'POST',
+            headers: {
+                'Cartesia-Version': '2025-04-16',
+                'X-API-Key': apiKey,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                model_id: 'sonic-3',
+                transcript: text,
+                voice: { mode: 'id', id: voiceId },
+                output_format: {
+                    container: 'wav',
+                    encoding: 'pcm_f32le',
+                    sample_rate: 44100,
+                },
+                language: body.lang || 'de',
+            }),
+        });
 
         if (!response.ok) {
             const err = await response.text();
-            return json({ error: 'Gemini TTS fehlgeschlagen: ' + err }, response.status);
+            return json({ error: 'Cartesia TTS fehlgeschlagen: ' + err }, response.status);
         }
 
-        const data = await response.json();
-        const audioData = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
-        if (!audioData) return json({ error: 'Keine Audiodaten von Gemini' }, 502);
-
-        // Gemini liefert PCM (L16, 24kHz) als base64 — in WAV wrappen
-        const pcmBuffer = base64ToBuffer(audioData);
-        const wavBuffer = pcmToWav(pcmBuffer, 24000, 1, 16);
-
-        return new Response(wavBuffer, {
+        return new Response(response.body, {
             headers: {
                 'Content-Type': 'audio/wav',
                 ...corsHeaders(),
             },
         });
     } catch (e) {
-        return json({ error: 'Gemini TTS-Fehler: ' + e.message }, 500);
+        return json({ error: 'Cartesia TTS-Fehler: ' + e.message }, 500);
     }
-}
-
-function base64ToBuffer(base64) {
-    const binary = atob(base64);
-    const buf = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) buf[i] = binary.charCodeAt(i);
-    return buf;
-}
-
-function pcmToWav(pcmData, sampleRate, numChannels, bitDepth) {
-    const dataSize = pcmData.length;
-    const buffer = new ArrayBuffer(44 + dataSize);
-    const view = new DataView(buffer);
-    const writeStr = (offset, str) => { for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i)); };
-    writeStr(0, 'RIFF');
-    view.setUint32(4, 36 + dataSize, true);
-    writeStr(8, 'WAVE');
-    writeStr(12, 'fmt ');
-    view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true); // PCM
-    view.setUint16(22, numChannels, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * numChannels * (bitDepth / 8), true);
-    view.setUint16(32, numChannels * (bitDepth / 8), true);
-    view.setUint16(34, bitDepth, true);
-    writeStr(36, 'data');
-    view.setUint32(40, dataSize, true);
-    new Uint8Array(buffer).set(pcmData, 44);
-    return buffer;
 }
 
 // --- Marketplace ---

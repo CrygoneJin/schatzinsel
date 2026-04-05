@@ -81,15 +81,15 @@
         });
     }
 
-    // Fallback: Gemini TTS via Worker
-    function speakGeminiTTS(text, voiceInfo) {
+    // Fallback: Cartesia TTS via Worker
+    function speakCartesiaTTS(text, voiceInfo) {
         var proxy = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
-        return fetch(proxy + '/tts-gemini', {
+        return fetch(proxy + '/tts-cartesia', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang }),
         }).then(function (r) {
-            if (!r.ok) throw new Error('Gemini TTS ' + r.status);
+            if (!r.ok) throw new Error('Cartesia TTS ' + r.status);
             return r.blob();
         }).then(function (blob) {
             return new Promise(function (resolve, reject) {
@@ -133,7 +133,7 @@
             if (!text || (window.INSEL_SOUND && window.INSEL_SOUND.isMuted())) { setTimeout(speakNext, 500); return; }
 
             speakCloudTTS(text, voice).catch(function () {
-                return speakGeminiTTS(text, voice);
+                return speakCartesiaTTS(text, voice);
             }).then(function () {
                 setTimeout(speakNext, 400);
             });
@@ -176,7 +176,7 @@
         stopHoerspiel: stopHoerspiel,
         detectVoice: detectVoice,
         speakCloudTTS: speakCloudTTS,
-        speakGeminiTTS: speakGeminiTTS,
+        speakCartesiaTTS: speakCartesiaTTS,
         speakLines: speakLines,
         maybeHoerspiel: maybeHoerspiel,
     };
@@ -186,7 +186,7 @@
     window.stopHoerspiel = stopHoerspiel;
     window.detectVoice = detectVoice;
     window.speakCloudTTS = speakCloudTTS;
-    window.speakGeminiTTS = speakGeminiTTS;
+    window.speakCartesiaTTS = speakCartesiaTTS;
     window.speakLines = speakLines;
     window.maybeHoerspiel = maybeHoerspiel;
 
