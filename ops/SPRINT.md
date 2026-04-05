@@ -1,3 +1,101 @@
+# Sprint 34 — "Oscar fliegt zum Mond"
+
+**Sprint Goal:** Weltraum-Insel + vollständiger Backlog-Audit + Playwright Smoke Test in CI.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S34-1 | **Weltraum-Insel** — Vierte Insel im Archipel. Thema: Rakete/Mond/Mars/Alien. Genesis: "🚀 Eine Rakete landet auf dem Mond..." Sail-Dialog: `mond.staub.stille`. NPCs: Alien 👽 begrüßt Oscar. Kein Segel-Button bis Rakete 🚀 im Inventar. | Engineer + Artist | 🔲 Offen |
+| S34-2 | **Backlog vollständig auditieren** — git log prüfen für #34, #18, #42, #23. Done-Status korrekt setzen. Keine offenen Items die eigentlich fertig sind. | Leader | 🔲 Offen |
+| S34-3 | **Playwright Smoke Test in CI** — ops/tests/smoke.spec.js als echten CI-Job registrieren (deploy.yml). Baseline: Seite lädt, Canvas existiert, kein JS-Fehler. (#103 partial) | Engineer | 🔲 Offen |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 34 Planning)
+
+**Kontext:** Sprint 33 vollständig (Review + Retro). Genesis-Bug gefixt. Heimatinsel sieht Oscar nur einmal. Backlog teilweise aufgeräumt. Retro-Empfehlungen: Weltraum-Insel (Oscar-sichtbar), vollständiger Backlog-Audit, CI-Smoke-Test.
+
+**Sprint 34 Fokus:** Weltraum-Insel zuerst — Oscar-sichtbar, max Impact. Dann Backlog sauber. Dann CI stabiler.
+
+**Blocker:** PR #246 (Sprint 33) noch offen — feat/sprint-34 basiert auf feat/sprint-33.
+
+---
+
+# Sprint 33 — "Oscar sieht wie alles beginnt"
+
+**Sprint Goal:** Heimatinsel-Genesis + Genesis-Bug fix + Backlog sauber.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S33-1 | **Genesis-Fix + Heimatinsel-Genesis** — `_showIslandGenesis()` prüft localStorage nie (Bug). Fix + `home`-Eintrag. Beim allerersten Start: "🌊 Das Wasser weicht zurück... 🏝️ Eine Insel entsteht! 🌳 Der erste Baum wächst." | Engineer | ✅ Done |
+| S33-2 | **Backlog-Audit** — BACKLOG.md: #34, #62, #37 Phase 1, #18, #42, #23 als Done markieren. #103 Archipel-Status dokumentieren. | Leader | ✅ Done |
+| S33-3 | **MEMORY.md update** — Learnings aus Sprint 30–32 und dieser Session festhalten. | Scientist | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 33 Planning)
+
+**Kontext:** Sprint 30–32 gemergt (PRs #243, #244, #245). Review + Retro dokumentiert. Genesis-Bug identifiziert: `_showIslandGenesis()` definiert `key` aber prüft ihn nie — Genesis zeigt sich jedes Mal. Heimatinsel hat keine Genesis.
+
+**Fokus:** Bug fix zuerst (Oscar-sichtbar), dann Housekeeping.
+
+**Blocker:** Keine.
+
+### 2026-04-05 (Daily Scrum)
+
+**Heute:** Alle 3 Sprint 33 Items implementiert.
+- S33-1: Genesis-Bug fix — `localStorage.getItem(key)` Check + `setItem` eingebaut. `home`-Eintrag in `_ISLAND_GENESIS`. `finishIntro()` ruft `_showIslandGenesis('home')` auf. Nur beim allerersten Spiel.
+- S33-2: BACKLOG.md — #62 und #103 als Done markiert. #37 Status auf "Phase 1 Done" korrigiert.
+- S33-3: MEMORY.md — Genesis-Bug, gestapelte PRs, Session-Akkumulation als Lernpunkte eingetragen.
+
+**Blocker:** Keine.
+
+---
+
+## Sprint Review — 2026-04-05
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S33-1: Genesis-Bug gefixt. `localStorage.getItem(key)` wird jetzt korrekt geprüft. Heimatinsel bekommt Genesis beim allerersten Start. Oscar sieht wie seine Welt beginnt — einmalig, unvergesslich.
+- S33-2: BACKLOG.md aufgeräumt. #62 (Mehrsprachige NPCs) und #103 (Archipel) als Done. #37 auf "Phase 1 Done" korrigiert.
+- S33-3: MEMORY.md um 4 Lernpunkte erweitert: Genesis-Bug-Muster, gestapelte PRs, Session-Akkumulation, Material-Key-Check.
+
+**Oscar-Check:** Beim nächsten Neustart sieht Oscar: "🌊 Das Wasser weicht zurück... 🏝️ Eine Insel entsteht! 🌳 Der erste Baum wächst." Danach nie wieder. Der Moment ist kostbar weil er selten ist.
+
+---
+
+## Sprint Retrospective — 2026-04-05
+
+### Was lief gut?
+- **Bug-First-Approach.** S33-1 war ein echter Bug (key definiert, nie genutzt). Zuerst reparieren, dann hinzufügen — richtige Reihenfolge.
+- **Backlog-Audit als Sprint-Item.** Technische Schulden im Backlog (falsche Status) haben jetzt einen Platz. Kein separates Ticket — Teil des Sprints.
+- **Memory-Eintrag sofort.** S33-3 wurde im gleichen Sprint geschrieben statt am Session-Ende gesammelt. Learnings sind frischer.
+
+### Was lief schlecht?
+- **Sprint 33 hat keinen Review/Retro-Eintrag gehabt.** Der Daily Scrum sagte "alle Items Done" — aber kein Review, kein Retro. Erst diese Session schreibt beides nach. Pattern: Ceremony nicht vergessen.
+- **Backlog-Audit unvollständig.** S33-2 hat nur #62 und #103 markiert. #34, #18, #42, #23 stehen noch auf Offen im Backlog obwohl Done. Partial-Done ist kein Done.
+
+### Was verbessern wir?
+1. **Review + Retro sind Pflicht.** Kein Sprint ohne Review+Retro im SPRINT.md. Daily Scrum "alle Done" ≠ Sprint geschlossen.
+2. **Backlog-Audit vollständig.** Nächste Session: alle Items im Backlog gegen git log prüfen. Was implementiert ist → Done markieren.
+3. **Weltraum-Insel als nächstes.** Oscar hat Rakete, Mond, Mars, Alien. Er braucht eine Insel dafür — wie Dino-Bucht für Dinos. Sprint 34.
+
+---
+
 # Sprint 32 — "Oscar erkundet den Weltraum"
 
 **Sprint Goal:** Weltraum-Pfad (Rakete→Mond→Mars→Alien) + Schatzkarte im Sail-Dialog + NPC-Texte auf Englisch.
@@ -587,68 +685,6 @@
 ### Was verbessern wir?
 1. **Jeden Sprint direkt auf main mergen.** Keine gestapelten Branches.
 2. **Genesis für Heimatinsel** — Oscar sieht noch keine Genesis auf seiner Heimatinsel (Phase 2).
-
----
-
-# Sprint 32 — "Oscar erkundet den Weltraum"
-
-**Sprint Goal:** Weltraum-Pfad (Mars) + Schatzkarte im Sail-Dialog + NPC-Texte auf Englisch.
-**Start:** 2026-04-05
-
----
-
-## Sprint Backlog
-
-| # | Item | Owner(s) | Status |
-|---|------|----------|--------|
-| S32-1 | **Schatzkarte im Sail-Dialog** — 3-Wort-Adressen (`wellen.sand.zuhause` etc.), Entdeckt-Badge, Fortschrittszähler. `showSailDialog()` rebuild. | Engineer | ✅ Done (PR #245) |
-| S32-2 | **Weltraum-Pfad** — Mars 🪐 als neues Material. Mond+Eis=Mars, Mars+Rakete=Alien. Dinos→Weltraum-Progression. | Engineer | ✅ Done (PR #245) |
-| S32-3 | **#62 NPC-Texte auf Englisch** — `detectedLang` nach erster Nachricht in localStorage. Englische Greetings wenn `insel-player-lang === 'en'`. | Engineer | ✅ Done (PR #245) |
-
----
-
-## Standup Log
-
-### 2026-04-05 (Sprint 32 Planning)
-
-**Kontext:** Sprint 31 vollständig. Archipel braucht Orientierung (Schatzkarte). Weltraum als natürliche Progression nach Dinos. #62 Englisch fertigstellen.
-
-**Blocker:** Keine.
-
-### 2026-04-05 (Daily Scrum)
-
-**Heute:** Alle 3 Sprint 32 Items implementiert (PR #245, basiert auf feat/sprint-31). Schatzkarte rebuild, Weltraum-Pfad, englische Greetings.
-
-**Blocker:** PR #245 wartet auf Merge #243→#244 zuerst.
-
----
-
-## Sprint Review — 2026-04-05
-
-**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
-
-**Was geliefert wurde:**
-- S32-1: Schatzkarte — `showSailDialog()` rebuild. 3-Wort-Adressen pro Insel. Entdeckt-Badge via localStorage. "2 von 3 Inseln entdeckt". Oscar sieht sein Archipel auf einen Blick.
-- S32-2: Weltraum-Pfad — Mars 🪐 (#FFCCBC). Mond+Eis=Mars, Mars+Rakete=Alien. Natürliche Progression Dinos→Weltraum.
-- S32-3: #62 NPC-Englisch — `detectedLang` gespeichert. Englische Greetings ("Hey! Last time you built a lot with Wood."). Oscars englischer Spielplatz-Freund wird erkannt.
-
-**Oscar-Check:** Sail-Dialog: "2 von 3 Inseln entdeckt". Englischer Freund schreibt "hello" → Bernd antwortet auf Englisch.
-
----
-
-## Sprint Retrospective — 2026-04-05
-
-### Was lief gut?
-- **Drei Sprints in Kaskade.** 30→31→32 sauber aufeinandergestapelt, kein Konflikt im Code.
-- **Schatzkarte rebuild > patch.** Cleaner Code, besseres UX in einem Schritt.
-- **#62 komplett.** Mehrsprachigkeit war seit S30-2 angefangen — jetzt mit englischen NPC-Greetings fertig.
-
-### Was lief schlecht?
-- **Gestapelte PRs.** #243→#244→#245 in Reihenfolge mergebar. Risiko wenn einer failt.
-
-### Was verbessern wir?
-1. **Direkt auf main.** Jeder Sprint in eigenem Atomic-PR, nicht auf vorigen Sprint basierend.
-2. **Sprint Planning am Anfang, nicht am Ende.** Nächster Sprint 33 im Planning-Meeting definieren.
 
 ---
 
