@@ -540,6 +540,9 @@
                     <button class="sail-dest" data-dest="lummerland" style="padding:12px;font-size:16px;border-radius:8px;border:2px solid #2E86C1;background:#EBF5FB;cursor:pointer;">
                         🏝️ Lummerland<br><small>Eine kleine Insel mit zwei Bergen</small>
                     </button>
+                    <button class="sail-dest" data-dest="home" style="padding:12px;font-size:16px;border-radius:8px;border:2px solid #27AE60;background:#EAFAF1;cursor:pointer;">
+                        🏠 Heimatinsel<br><small>Deine Insel wartet auf dich</small>
+                    </button>
                 </div>
                 <button id="sail-cancel" style="margin-top:8px;padding:8px 16px;border:none;background:#eee;border-radius:6px;cursor:pointer;">Noch nicht</button>
             </div>
@@ -556,21 +559,57 @@
         });
     }
 
+    // --- Archipel: Insel-State speichern/laden (#103 Phase 1) ---
+    function saveIslandState(islandId) {
+        const snapshot = [];
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (grid[r][c]) snapshot.push({ r, c, mat: grid[r][c] });
+            }
+        }
+        localStorage.setItem('insel-archipel-' + islandId, JSON.stringify(snapshot));
+    }
+
+    function loadIslandState(islandId) {
+        const raw = localStorage.getItem('insel-archipel-' + islandId);
+        if (!raw) return false;
+        const snapshot = JSON.parse(raw);
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) grid[r][c] = null;
+        }
+        for (const { r, c, mat } of snapshot) {
+            if (r >= 0 && r < ROWS && c >= 0 && c < COLS) grid[r][c] = mat;
+        }
+        return true;
+    }
+
     function sailToIsland(dest) {
         showToast('⛵ Du segelst los...', 2000);
         soundCraft();
 
-        setTimeout(() => {
-            // Grid leeren
-            for (let r = 0; r < ROWS; r++) {
-                for (let c = 0; c < COLS; c++) {
-                    grid[r][c] = null;
-                }
-            }
+        // Aktuelle Insel vor dem Verlassen speichern
+        const currentIsland = localStorage.getItem('insel-current-island') || 'home';
+        saveIslandState(currentIsland);
 
-            if (dest === 'lummerland') {
-                generateLummerland();
-                showToast('🏝️ Willkommen auf Lummerland! Eine kleine Insel mit zwei Bergen...', 4000);
+        setTimeout(() => {
+            // Ziel-Insel laden oder generieren
+            const restored = loadIslandState(dest);
+
+            if (!restored) {
+                // Erste Reise: Insel generieren
+                for (let r = 0; r < ROWS; r++) {
+                    for (let c = 0; c < COLS; c++) grid[r][c] = null;
+                }
+                if (dest === 'lummerland') {
+                    generateLummerland();
+                    showToast('🏝️ Willkommen auf Lummerland! Eine kleine Insel mit zwei Bergen...', 4000);
+                } else if (dest === 'home') {
+                    showToast('🏠 Du bist wieder zuhause!', 3000);
+                }
+            } else {
+                const label = dest === 'home' ? '🏠 Du bist wieder zuhause — deine Insel wartet!' :
+                              dest === 'lummerland' ? '🏝️ Lummerland — wieder da!' : '⛵ Angekomm!';
+                showToast(label, 3000);
             }
 
             // NPCs neu platzieren
@@ -659,7 +698,7 @@
             <p style="text-align:center;margin:0 0 4px;font-size:1.1em;">Dein Vermögen: <strong>${shells} / ${SHELL_CAP} 🐚</strong></p>
             <div style="background:#333;border-radius:4px;height:6px;margin:0 20px 8px;"><div style="background:${capPct >= 90 ? '#FF6B00' : '#2E7D32'};border-radius:4px;height:6px;width:${capPct}%;transition:width 0.3s;"></div></div>
             <p style="text-align:center;margin:0 0 4px;font-size:0.8em;color:#aaa;">Darwin sagt: Handel ist Evolution! Muscheln findest du am Strand!</p>
-            <p style="text-align:center;margin:0 0 12px;font-size:0.65em;color:#FF6B00;cursor:help;" title="1 🐚 = ${SHELL_TO_MMX} MMX · Max ${mmxMax} MMX · Goldstandard · mmx.network">≈ ${mmxValue} / ${mmxMax} MMX</p>
+            <p style="text-align:center;margin:0 0 12px;font-size:0.65em;color:#FF6B00;cursor:help;" title="nerd easter egg · 1 🐚 = ${SHELL_TO_MMX} MMX · mmx.network">≈ ${mmxValue} / ${mmxMax} MMX</p>
             ${shopHTML}
             <p style="text-align:center;margin:12px 0 0;font-size:0.7em;color:#666;">Klick außerhalb zum Schließen</p>
         </div>`;
