@@ -247,7 +247,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S28-1 | **#100 Energie vs Geld trennen** — Muscheln: goldene Summary-Box oben im Inventar. NPC-Energie: blaue Box im Chat mit Label "💬 Rede-Energie:". | Designer + Engineer | 🔄 In Progress (PR #238) |
+| S28-1 | **#100 Energie vs Geld trennen** — Muscheln: goldene Summary-Box oben im Inventar. NPC-Energie: blaue Box im Chat mit Label "💬 Rede-Energie:". | Designer + Engineer | ✅ Done (PR #238, gemergt 2026-04-05) |
 | S28-2 | **#101 Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar (max 20 pro Material). Kein Holz → kein Verkauf. | Engineer | ✅ Done (PR #239) |
 | S28-3 | **PR #236 reviewen + mergen** — i18n DE/HE/AR + RTL + Spieler-Bug-Fix (breakSymmetry nie aufgerufen → Spieler unsichtbar). | Engineer | ✅ Done (PR #236, gemergt 2026-04-04) |
 
