@@ -128,5 +128,15 @@ Feynman misst ob es sich gelohnt hat.
 
 ---
 
+---
+
+## ❄️ Icebox — bewusst zurückgestellt
+
+| # | Item | Grund |
+|---|------|-------|
+| 108 | **ES/IT NPC-Strings** — Spanische + Italienische NPC-Gedächtnis-Texte | Kein Native Speaker Review. ES/IT aus Code entfernt bis Qualität gesichert. Supported: DE/EN/FR/AR/HE. |
+
+---
+
 *Pereira-Audit: 2026-04-02. Backlog von 99 auf 18 aktive Items reduziert.*
 *Archivierte Items: siehe `ARCHIVE.md`*

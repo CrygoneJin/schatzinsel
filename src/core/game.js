@@ -1130,39 +1130,30 @@
         const q = m.questsDone ? m.questsDone.length : 0;
         const qs = q === 1;
 
+        // Supported langs: DE, EN, FR, AR, HE — ES/IT icebox
         if (m.lastMaterial && q > 0) {
             if (lang === 'en') return `${p} Hey${nameStr}! Last time you built a lot with ${m.lastMaterial}. And you finished ${q} quest${qs ? '' : 's'}!`;
             if (lang === 'fr') return `${p} Hey${nameStr}! La dernière fois tu as beaucoup construit avec ${m.lastMaterial}. Et tu as fini ${q} quête${qs ? '' : 's'}!`;
-            if (lang === 'es') return `${p} ¡Hola${nameStr}! La última vez construiste mucho con ${m.lastMaterial}. ¡Y terminaste ${q} misión${qs ? '' : 'es'}!`;
-            if (lang === 'it') return `${p} Ciao${nameStr}! L'ultima volta hai costruito tanto con ${m.lastMaterial}. E hai completato ${q} ${qs ? 'missione' : 'missioni'}!`;
             return `${p} Hey${nameStr}! Letztes Mal hast du viel mit ${m.lastMaterial} gebaut. Und ${q} Quest${qs ? '' : 's'} geschafft!`;
         }
         if (m.lastMaterial) {
             if (lang === 'en') return `${p} Hey${nameStr}! Last time you built a lot with ${m.lastMaterial}...`;
             if (lang === 'fr') return `${p} Hey${nameStr}! La dernière fois tu as beaucoup construit avec ${m.lastMaterial}...`;
-            if (lang === 'es') return `${p} ¡Hola${nameStr}! La última vez construiste mucho con ${m.lastMaterial}...`;
-            if (lang === 'it') return `${p} Ciao${nameStr}! L'ultima volta hai costruito tanto con ${m.lastMaterial}...`;
             return `${p} Hey${nameStr}! Letztes Mal hast du viel mit ${m.lastMaterial} gebaut...`;
         }
         if (daysSince !== null && daysSince >= 1) {
             const dayText = {
                 en: daysSince === 1 ? 'yesterday' : `${daysSince} days ago`,
                 fr: daysSince === 1 ? 'hier' : `il y a ${daysSince} jours`,
-                es: daysSince === 1 ? 'ayer' : `hace ${daysSince} días`,
-                it: daysSince === 1 ? 'ieri' : `${daysSince} giorni fa`,
                 de: daysSince === 1 ? 'gestern' : `vor ${daysSince} Tagen`,
             }[lang] || (daysSince === 1 ? 'gestern' : `vor ${daysSince} Tagen`);
             if (lang === 'en') return `${p} You were last here ${dayText}${nameStr}!`;
             if (lang === 'fr') return `${p} Tu étais ici ${dayText}${nameStr}!`;
-            if (lang === 'es') return `${p} ¡Estuviste aquí ${dayText}${nameStr}!`;
-            if (lang === 'it') return `${p} Eri qui ${dayText}${nameStr}!`;
             return `${p} Schon ${dayText} warst du zuletzt hier${nameStr}!`;
         }
         if (q > 0) {
             if (lang === 'en') return `${p} Remember${nameStr}? We already did ${q} quest${qs ? '' : 's'} together!`;
             if (lang === 'fr') return `${p} Tu te souviens${nameStr}? On a déjà fait ${q} quête${qs ? '' : 's'} ensemble!`;
-            if (lang === 'es') return `${p} ¿Recuerdas${nameStr}? ¡Ya hicimos ${q} misión${qs ? '' : 'es'} juntos!`;
-            if (lang === 'it') return `${p} Ti ricordi${nameStr}? Abbiamo già fatto ${q} ${qs ? 'missione' : 'missioni'} insieme!`;
             return `${p} Erinnerst du dich${nameStr}? Wir haben schon ${q} Quest${qs ? '' : 's'} zusammen gemacht!`;
         }
         return null;
