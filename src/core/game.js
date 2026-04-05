@@ -4911,6 +4911,63 @@
     // Collectibles + NPCs animieren (Glitzern/Wippen)
     setInterval(() => { if (collectibles.length > 0) requestRedraw(); }, 200);
 
+    // === Progressive Disclosure (Hick's Law) ===
+    // Toolbar, Sidebar, Chat erscheinen mit Spielfortschritt.
+    // Kein Button ohne Funktion. Kein Menü ohne Inhalt.
+    function updateProgressiveDisclosure() {
+        const blocksPlaced = playerBlocksPlaced || 0;
+        const matCount = unlockedMaterials.size;
+        const hasRecipe = discoveredRecipes && discoveredRecipes.size > 0;
+        const hasQuest = activeQuests && activeQuests.length > 0;
+        const completedQuestCount = completedQuests ? completedQuests.length : 0;
+
+        // Stufe 1: Erstbesuch — nur Malen-Button
+        // Stufe 2: Tao platziert (1+ Blöcke) — + Bernd Chat
+        // Stufe 3: Qi entdeckt (Wu Xing da) — + Insel-Info Sidebar
+        // Stufe 4: Erstes Rezept — + Werkbank, Inventar
+        // Stufe 5: Erste Quest — + Quests-Tab, NPCs
+        // Stufe 6: 10+ Materialien — + Rest
+
+        const stufe = blocksPlaced === 0 ? 1
+            : !hasRecipe && matCount < 5 ? 2
+            : !hasRecipe ? 3
+            : completedQuestCount === 0 && !hasQuest ? 4
+            : matCount < 10 ? 5
+            : 6;
+
+        // Toolbar
+        const harvest = document.querySelector('[data-tool="harvest"]');
+        const fill = document.querySelector('[data-tool="fill"]');
+        const craftBtn = document.getElementById('craft-btn');
+        const craftGroup = document.getElementById('craft-group');
+        const viewGroup = document.getElementById('view-group');
+        const overflowGroup = document.getElementById('overflow-group');
+        const discoveryGroup = document.getElementById('discovery-group');
+
+        if (harvest) harvest.style.display = stufe >= 2 ? '' : 'none';
+        if (fill) fill.style.display = stufe >= 3 ? '' : 'none';
+        if (craftGroup) craftGroup.style.display = stufe >= 4 ? '' : 'none';
+        if (viewGroup) viewGroup.style.display = stufe >= 4 ? '' : 'none';
+        if (overflowGroup) overflowGroup.style.display = stufe >= 5 ? '' : 'none';
+        if (discoveryGroup) discoveryGroup.style.display = stufe >= 3 ? '' : 'none';
+
+        // Chat-Bubble
+        const chatBubble = document.getElementById('chat-bubble');
+        if (chatBubble) chatBubble.style.display = stufe >= 2 ? '' : 'none';
+
+        // Sidebar-Tabs — nur zeigen wenn Inhalt da
+        const sidebarTabs = document.querySelectorAll('.sidebar-tab');
+        sidebarTabs.forEach(tab => {
+            const target = tab.dataset.tab;
+            if (target === 'quests') tab.style.display = stufe >= 5 ? '' : 'none';
+            if (target === 'achievements') tab.style.display = stufe >= 6 ? '' : 'none';
+        });
+    }
+
+    // Alle 2s Fortschritt prüfen (leichtgewichtig)
+    updateProgressiveDisclosure();
+    setInterval(updateProgressiveDisclosure, 2000);
+
     // Wiederkehrende Spieler: Intro JETZT ausblenden — Canvas ist bereit
     if (isReturningPlayer && introOverlay) {
         // Ersten Frame zeichnen bevor Overlay weg ist

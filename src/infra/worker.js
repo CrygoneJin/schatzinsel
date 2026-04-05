@@ -41,8 +41,8 @@ export default {
         if (pathname === '/bugs') {
             return handleBugs(request, env);
         }
-        if (pathname === '/tts') {
-            return handleTTS(request, env);
+        if (pathname === '/tts-cartesia' || pathname === '/tts') {
+            return handleTTSCartesia(request, env);
         }
         if (pathname === '/metrics') {
             return handleMetrics(request, env);
@@ -593,67 +593,83 @@ async function logAirtable(body, meta, env) {
     });
 }
 
-// --- TTS (Text-to-Speech via Requesty → OpenAI) ---
+// --- TTS Cartesia (primär) ---
 
-async function handleTTS(request, env) {
+// Cartesia Voice-IDs
+// Weiblich: 9b4d08b6, d1cbea67
+// Männlich: 40e0f496 (Bernd), 4ad22058
+const CARTESIA_VOICES = {
+    bernd:       '40e0f496-a220-46bb-975a-7ef465b3d92b', // männlich — Bernd das Brot
+    mephisto:    '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich — dunkel
+    lanz:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    precht:      '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    merz:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    trump:       '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    musk:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    spongebob:   'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich — hell/witzig
+    elefant:     '9b4d08b6-0494-4301-ab92-9150f4ee2718', // weiblich
+    floriane:    'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich
+    neinhorn:    'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich
+    // OpenAI voice names → Cartesia
+    onyx:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich, tief
+    echo:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    fable:       '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    nova:        '9b4d08b6-0494-4301-ab92-9150f4ee2718', // weiblich, warm
+    shimmer:     'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich, hell
+    alloy:       '62bced3c-08a9-4345-8602-39640d6b6194', // neutral
+    default:     '62bced3c-08a9-4345-8602-39640d6b6194',
+};
+
+async function handleTTSCartesia(request, env) {
     if (request.method !== 'POST') return json({ error: 'POST only' }, 405);
 
-    // OpenAI TTS direkt (Requesty hat kein /audio/speech)
-    const apiKey = env.OPENAI_TTS_KEY || env.OPENAI_API_KEY;
-    if (!apiKey) return json({ error: 'Kein OpenAI TTS-Key (OPENAI_TTS_KEY) konfiguriert' }, 500);
+    const apiKey = env.CARTESIA_API_KEY;
+    if (!apiKey) return json({ error: 'Kein CARTESIA_API_KEY konfiguriert' }, 500);
 
     let body;
     try { body = await request.json(); } catch (e) {
         return json({ error: 'Ungültiger Body' }, 400);
     }
 
-    const text = (body.text || '').slice(0, 500); // Max 500 Zeichen pro Request
+    const text = (body.text || '').slice(0, 500);
     if (!text) return json({ error: 'text benötigt' }, 400);
 
-    // Stimmen-Mapping: Charakter → OpenAI Voice
-    // alloy=neutral, echo=tief, fable=britisch/warm, onyx=dunkel, nova=warm, shimmer=hell
-    const voiceMap = {
-        lanz: 'onyx',       // tief, seriös — der Moderator
-        precht: 'fable',    // eloquent, nachdenklich — der Philosoph
-        merz: 'echo',       // sachlich, tief — der Kanzler
-        trump: 'alloy',     // neutral (accent kommt aus dem Text)
-        musk: 'shimmer',    // hell, technisch — der Disruptor
-        mephisto: 'onyx',   // dunkel, samtig — der Teufel
-        default: 'nova',    // warm, freundlich — Erzähler
-    };
-    const voice = voiceMap[body.voice] || voiceMap.default;
-    const speed = body.speed || 1.0;
+    const voiceId = CARTESIA_VOICES[body.voice] || CARTESIA_VOICES.default;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/audio/speech', {
+        const response = await fetch('https://api.cartesia.ai/tts/bytes', {
             method: 'POST',
             headers: {
+                'Cartesia-Version': '2025-04-16',
+                'X-API-Key': apiKey,
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-                model: 'tts-1',
-                input: text,
-                voice: voice,
-                speed: Math.max(0.5, Math.min(2.0, speed)),
-                response_format: 'mp3',
+                model_id: 'sonic-3',
+                transcript: text,
+                voice: { mode: 'id', id: voiceId },
+                output_format: {
+                    container: 'wav',
+                    encoding: 'pcm_f32le',
+                    sample_rate: 44100,
+                },
+                language: body.lang || 'de',
             }),
         });
 
         if (!response.ok) {
             const err = await response.text();
-            return json({ error: 'TTS fehlgeschlagen: ' + err }, response.status);
+            return json({ error: 'Cartesia TTS fehlgeschlagen: ' + err }, response.status);
         }
 
-        // Audio direkt durchreichen
         return new Response(response.body, {
             headers: {
-                'Content-Type': 'audio/mpeg',
+                'Content-Type': 'audio/wav',
                 ...corsHeaders(),
             },
         });
     } catch (e) {
-        return json({ error: 'TTS-Fehler: ' + e.message }, 500);
+        return json({ error: 'Cartesia TTS-Fehler: ' + e.message }, 500);
     }
 }
 

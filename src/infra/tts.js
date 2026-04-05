@@ -33,7 +33,7 @@
         if (window.INSEL_BUS) window.INSEL_BUS.emit('tts:end', { aborted: true });
     }
 
-    // Stimme + Sprache aus Zeile extrahieren
+    // Stimme + Sprache aus Zeile extrahieren (Charakter → Cartesia Voice-Key)
     function detectVoice(line) {
         if (line.indexOf('Lanz:') >= 0) return { voice: 'lanz', lang: 'de' };
         if (line.indexOf('Precht:') >= 0) return { voice: 'precht', lang: 'de' };
@@ -41,31 +41,31 @@
         if (line.indexOf('Trump:') >= 0) return { voice: 'trump', lang: 'en' };
         if (line.indexOf('Musk:') >= 0) return { voice: 'musk', lang: 'en' };
         if (line.indexOf('Mephisto:') >= 0) return { voice: 'mephisto', lang: 'de' };
-        if (line.indexOf('Kr\u00F6mer:') >= 0) return { voice: 'echo', lang: 'de' };
-        if (line.indexOf('B\u00FCker:') >= 0) return { voice: 'alloy', lang: 'de' };
-        if (line.indexOf('K\u00FCckens:') >= 0) return { voice: 'nova', lang: 'de' };
-        if (line.indexOf('Tommy:') >= 0) return { voice: 'shimmer', lang: 'de' };
-        if (line.indexOf('Lesch:') >= 0) return { voice: 'nova', lang: 'de' };
-        if (line.indexOf('Feynman:') >= 0) return { voice: 'fable', lang: 'de' };
-        if (line.indexOf('Sartre:') >= 0) return { voice: 'fable', lang: 'fr' };
-        if (line.indexOf('Machiavelli:') >= 0) return { voice: 'onyx', lang: 'it' };
-        if (line.indexOf('SpongeBob:') >= 0) return { voice: 'default', lang: 'de' };
+        if (line.indexOf('Kr\u00F6mer:') >= 0) return { voice: 'mephisto', lang: 'de' };
+        if (line.indexOf('B\u00FCker:') >= 0) return { voice: 'elefant', lang: 'de' };
+        if (line.indexOf('K\u00FCckens:') >= 0) return { voice: 'floriane', lang: 'de' };
+        if (line.indexOf('Tommy:') >= 0) return { voice: 'spongebob', lang: 'de' };
+        if (line.indexOf('Lesch:') >= 0) return { voice: 'elefant', lang: 'de' };
+        if (line.indexOf('Feynman:') >= 0) return { voice: 'precht', lang: 'de' };
+        if (line.indexOf('Sartre:') >= 0) return { voice: 'precht', lang: 'fr' };
+        if (line.indexOf('Machiavelli:') >= 0) return { voice: 'mephisto', lang: 'it' };
+        if (line.indexOf('SpongeBob:') >= 0) return { voice: 'spongebob', lang: 'de' };
         if (line.indexOf('Python:') >= 0) return { voice: 'default', lang: 'de' };
-        if (line.indexOf('JavaScript:') >= 0) return { voice: 'shimmer', lang: 'de' };
-        if (line.indexOf('TypeScript:') >= 0) return { voice: 'echo', lang: 'de' };
-        if (line.indexOf('Bernd:') >= 0) return { voice: 'echo', lang: 'de' };
-        if (line.indexOf('Elefant:') >= 0) return { voice: 'nova', lang: 'de' };
-        if (line.indexOf('Neinhorn:') >= 0) return { voice: 'shimmer', lang: 'de' };
+        if (line.indexOf('JavaScript:') >= 0) return { voice: 'spongebob', lang: 'de' };
+        if (line.indexOf('TypeScript:') >= 0) return { voice: 'mephisto', lang: 'de' };
+        if (line.indexOf('Bernd:') >= 0) return { voice: 'bernd', lang: 'de' };
+        if (line.indexOf('Elefant:') >= 0) return { voice: 'elefant', lang: 'de' };
+        if (line.indexOf('Neinhorn:') >= 0) return { voice: 'neinhorn', lang: 'de' };
         return { voice: 'default', lang: 'de' };
     }
 
-    // Cloud TTS: Text -> MP3 via Worker
+    // TTS via Cartesia (primär)
     function speakCloudTTS(text, voiceInfo) {
         var proxy = (window.INSEL_CONFIG && window.INSEL_CONFIG.proxy) || 'https://schatzinsel.hoffmeyer-zlotnik.workers.dev';
-        return fetch(proxy + '/tts', {
+        return fetch(proxy + '/tts-cartesia', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang, speed: 1.0 }),
+            body: JSON.stringify({ text: text, voice: voiceInfo.voice, lang: voiceInfo.lang }),
         }).then(function (r) {
             if (!r.ok) throw new Error('TTS ' + r.status);
             return r.blob();
@@ -78,46 +78,6 @@
                 audio.onerror = function () { URL.revokeObjectURL(url); hoerspielAudio = null; reject(); };
                 audio.play().catch(reject);
             });
-        });
-    }
-
-    // Fallback: Web Speech API
-    var _cachedVoices = {};
-
-    function getBestVoice(langCode) {
-        if (_cachedVoices[langCode]) return _cachedVoices[langCode];
-        var voices = window.speechSynthesis.getVoices();
-        if (!voices.length) return null;
-        // Bevorzuge lokale (nicht-Remote) Stimmen, dann nach Sprache filtern
-        var matching = voices.filter(function (v) { return v.lang.indexOf(langCode.substring(0, 2)) === 0; });
-        var best = matching.find(function (v) { return v.localService; }) || matching[0];
-        if (best) _cachedVoices[langCode] = best;
-        return best || null;
-    }
-
-    // Voices vorladen (Chrome liefert sie asynchron)
-    if (window.speechSynthesis) {
-        window.speechSynthesis.getVoices();
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
-            window.speechSynthesis.onvoiceschanged = function () {
-                _cachedVoices = {};
-            };
-        }
-    }
-
-    function speakBrowserTTS(text, lang) {
-        return new Promise(function (resolve) {
-            if (!window.speechSynthesis) { resolve(); return; }
-            var utter = new SpeechSynthesisUtterance(text);
-            var langCode = (lang === 'en') ? 'en-US' : (lang === 'fr') ? 'fr-FR' : (lang === 'it') ? 'it-IT' : 'de-DE';
-            utter.lang = langCode;
-            var voice = getBestVoice(langCode);
-            if (voice) utter.voice = voice;
-            utter.rate = 0.92;
-            utter.pitch = 1.05;
-            utter.onend = function () { resolve(); };
-            utter.onerror = function () { resolve(); };
-            window.speechSynthesis.speak(utter);
         });
     }
 
@@ -150,9 +110,9 @@
 
             if (!text || (window.INSEL_SOUND && window.INSEL_SOUND.isMuted())) { setTimeout(speakNext, 500); return; }
 
-            speakCloudTTS(text, voice).catch(function () {
-                return speakBrowserTTS(text, voice.lang);
-            }).then(function () {
+            speakCloudTTS(text, voice).then(function () {
+                setTimeout(speakNext, 400);
+            }).catch(function () {
                 setTimeout(speakNext, 400);
             });
         }
@@ -194,7 +154,6 @@
         stopHoerspiel: stopHoerspiel,
         detectVoice: detectVoice,
         speakCloudTTS: speakCloudTTS,
-        speakBrowserTTS: speakBrowserTTS,
         speakLines: speakLines,
         maybeHoerspiel: maybeHoerspiel,
     };
@@ -204,7 +163,6 @@
     window.stopHoerspiel = stopHoerspiel;
     window.detectVoice = detectVoice;
     window.speakCloudTTS = speakCloudTTS;
-    window.speakBrowserTTS = speakBrowserTTS;
     window.speakLines = speakLines;
     window.maybeHoerspiel = maybeHoerspiel;
 
