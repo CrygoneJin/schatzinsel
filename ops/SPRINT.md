@@ -17,6 +17,19 @@
 
 ## Standup Log
 
+### 2026-04-06 — Nacht-Session-Merge ✅
+
+**Kontext:** Till hat während der Nacht geschlafen. Nacht-Session (2026-04-05 nach 22 Uhr) hat Sprints 34+35+36 vollständig implementiert. PRs #247 und #248 wurden in feat/sprint-34-Branch gemergt aber nicht in main. Heute morgen: PR #250 (feat/sprint-34 → main) erstellt und gemergt.
+
+**Ergebnis:** main ist jetzt auf Sprint-36-Stand:
+- Mondstation (4. Insel) + Mars (5. Insel) = Archipel vollständig
+- Alien-NPC auf Mondstation
+- 5 Weltraum-Quests
+- FR/ES/IT NPC-Gedächtnis
+- Archipel-Celebration-Toast
+
+**Nächste Empfehlung (Sprint 37):** Tesla-Nutzertest #78 auswerten. Echte Oscar-Daten vor mehr Features. Feynman-Regel.
+
 ### 2026-04-05 (Sprint 35 Retro → Sprint 36 Planning)
 
 **Sprint 35 Retro:**
