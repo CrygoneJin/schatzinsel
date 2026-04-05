@@ -605,6 +605,7 @@ const CARTESIA_VOICES = {
     precht:      '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
     merz:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
     trump:       '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
+    musk:        '4ad22058-7cb6-402c-a115-196cbfc25dce', // männlich
     spongebob:   'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich — hell/witzig
     elefant:     '9b4d08b6-0494-4301-ab92-9150f4ee2718', // weiblich
     floriane:    'd1cbea67-e4d3-47cd-be2a-2bd4e646b002', // weiblich

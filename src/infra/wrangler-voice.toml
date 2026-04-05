@@ -7,4 +7,4 @@ bindings = [{ name = "VOICE_PROXY", class_name = "VoiceProxy" }]
 
 [[migrations]]
 tag = "v1"
-new_classes = ["VoiceProxy"]
+new_sqlite_classes = ["VoiceProxy"]

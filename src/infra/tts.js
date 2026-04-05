@@ -33,7 +33,7 @@
         if (window.INSEL_BUS) window.INSEL_BUS.emit('tts:end', { aborted: true });
     }
 
-    // Stimme + Sprache aus Zeile extrahieren
+    // Stimme + Sprache aus Zeile extrahieren (Charakter → Cartesia Voice-Key)
     function detectVoice(line) {
         if (line.indexOf('Lanz:') >= 0) return { voice: 'lanz', lang: 'de' };
         if (line.indexOf('Precht:') >= 0) return { voice: 'precht', lang: 'de' };
@@ -41,21 +41,21 @@
         if (line.indexOf('Trump:') >= 0) return { voice: 'trump', lang: 'en' };
         if (line.indexOf('Musk:') >= 0) return { voice: 'musk', lang: 'en' };
         if (line.indexOf('Mephisto:') >= 0) return { voice: 'mephisto', lang: 'de' };
-        if (line.indexOf('Kr\u00F6mer:') >= 0) return { voice: 'echo', lang: 'de' };
-        if (line.indexOf('B\u00FCker:') >= 0) return { voice: 'alloy', lang: 'de' };
-        if (line.indexOf('K\u00FCckens:') >= 0) return { voice: 'nova', lang: 'de' };
-        if (line.indexOf('Tommy:') >= 0) return { voice: 'shimmer', lang: 'de' };
-        if (line.indexOf('Lesch:') >= 0) return { voice: 'nova', lang: 'de' };
-        if (line.indexOf('Feynman:') >= 0) return { voice: 'fable', lang: 'de' };
-        if (line.indexOf('Sartre:') >= 0) return { voice: 'fable', lang: 'fr' };
-        if (line.indexOf('Machiavelli:') >= 0) return { voice: 'onyx', lang: 'it' };
-        if (line.indexOf('SpongeBob:') >= 0) return { voice: 'default', lang: 'de' };
+        if (line.indexOf('Kr\u00F6mer:') >= 0) return { voice: 'mephisto', lang: 'de' };
+        if (line.indexOf('B\u00FCker:') >= 0) return { voice: 'elefant', lang: 'de' };
+        if (line.indexOf('K\u00FCckens:') >= 0) return { voice: 'floriane', lang: 'de' };
+        if (line.indexOf('Tommy:') >= 0) return { voice: 'spongebob', lang: 'de' };
+        if (line.indexOf('Lesch:') >= 0) return { voice: 'elefant', lang: 'de' };
+        if (line.indexOf('Feynman:') >= 0) return { voice: 'precht', lang: 'de' };
+        if (line.indexOf('Sartre:') >= 0) return { voice: 'precht', lang: 'fr' };
+        if (line.indexOf('Machiavelli:') >= 0) return { voice: 'mephisto', lang: 'it' };
+        if (line.indexOf('SpongeBob:') >= 0) return { voice: 'spongebob', lang: 'de' };
         if (line.indexOf('Python:') >= 0) return { voice: 'default', lang: 'de' };
-        if (line.indexOf('JavaScript:') >= 0) return { voice: 'shimmer', lang: 'de' };
-        if (line.indexOf('TypeScript:') >= 0) return { voice: 'echo', lang: 'de' };
-        if (line.indexOf('Bernd:') >= 0) return { voice: 'echo', lang: 'de' };
-        if (line.indexOf('Elefant:') >= 0) return { voice: 'nova', lang: 'de' };
-        if (line.indexOf('Neinhorn:') >= 0) return { voice: 'shimmer', lang: 'de' };
+        if (line.indexOf('JavaScript:') >= 0) return { voice: 'spongebob', lang: 'de' };
+        if (line.indexOf('TypeScript:') >= 0) return { voice: 'mephisto', lang: 'de' };
+        if (line.indexOf('Bernd:') >= 0) return { voice: 'bernd', lang: 'de' };
+        if (line.indexOf('Elefant:') >= 0) return { voice: 'elefant', lang: 'de' };
+        if (line.indexOf('Neinhorn:') >= 0) return { voice: 'neinhorn', lang: 'de' };
         return { voice: 'default', lang: 'de' };
     }
 
