@@ -304,7 +304,6 @@ interface InselTTS {
     stopHoerspiel(): void;
     detectVoice(line: string): VoiceInfo;
     speakCloudTTS(text: string, voiceInfo: VoiceInfo): Promise<void>;
-    speakBrowserTTS(text: string, lang: string): Promise<void>;
     speakLines(lines: string[], onDone?: () => void): void;
     maybeHoerspiel(stats: GridStats): void;
 }
@@ -478,7 +477,6 @@ interface Window {
     stopHoerspiel(): void;
     detectVoice(line: string): VoiceInfo;
     speakCloudTTS(text: string, voiceInfo: VoiceInfo): Promise<void>;
-    speakBrowserTTS(text: string, lang: string): Promise<void>;
     speakLines(lines: string[], onDone?: () => void): void;
     maybeHoerspiel(stats: GridStats): void;
 
