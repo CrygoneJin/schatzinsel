@@ -735,3 +735,9 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 3. **Learnings**: Nur wenn es aus Erfahrung kommt (nicht aus einem Blogpost)
 4. **Datum immer angeben** — damit wir wissen wie alt die Erkenntnis ist
 5. **Feynman kuratiert** — löscht Duplikate, hinterfragt Kausalität, feiert Falsifizierbarkeit
+| 2026-04-06 | SW skipWaiting() → mid-game Reload bei jedem Deploy | SW aktivierte sich sofort (skipWaiting im install), postMessage cache-update → location.reload() | Apple-Ansatz: skipWaiting entfernt. SW wartet auf Tab-Neustart. cache-update → sw-version umbenannt. CACHE_VERSION 9. ADR-012. |
+| 2026-04-06 | touchstart + pointerdown feuerten beide auf Touch-Geräten → doppeltes applyTool() → Töne/Blocks 2x | mousedown→pointerdown Migration ohne pointerType-Guard | pointerdown/move/up/leave: if (e.pointerType !== 'mouse') return. Touch läuft weiter über touchstart. |
+| 2026-04-06 | role="img" auf Canvas → VoiceOver schluckte Clicks → nichts platzierbar | Canvas als Bild deklariert = nicht-interaktiv für Screenreader | role="application" + tabindex="0". Oscars Bruder konnte danach spielen. |
+| 2026-04-06 | isReturningPlayer prüfte insel-projekte — Spieler ohne manuelles Speichern hatten gamePhase=observer → keine Spielfigur | Zwei verschiedene localStorage-Keys für "hat gespielt" | insel-grid als Fallback. breakSymmetry() im returning-Player-Pfad ergänzt. |
+| 2026-04-06 | ES/IT NPC-Strings: "missionei" statt "missioni" + Weltraum-Observatorium bei spongebob statt alien | Copy-Paste + Suffix-Logik statt vollständige Wörter | Plurale immer als vollständige Wörter. ES/IT in Icebox bis Native Speaker Review. |
+| 2026-04-06 | Review-Agent (code-reviewer subagent_type) = Reviewer, kein Executor | Falscher Subagent-Typ für Implementation-Tasks | Implementation → general-purpose oder feature-dev:code-reviewer nur für Reviews. Nie für Merges oder Code-Schreiben. |

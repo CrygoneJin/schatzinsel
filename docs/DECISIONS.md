@@ -59,6 +59,19 @@ Procedural tree generation via Lindenmayer grammars.
 Three complexity levels (sapling, small_tree, tree).
 Deterministic per-cell hash for variation.
 
+## ADR-012: Service Worker — Apple-Ansatz (kein skipWaiting)
+
+Der SW ruft `skipWaiting()` nicht im `install`-Handler auf. Neuer SW
+wartet bis alle Tabs der App geschlossen + neu geöffnet werden.
+Kein `location.reload()` mitten im Spiel. Update ist unsichtbar.
+
+Aktivierung nur auf expliziten `SKIP_WAITING` message (für späteres
+Dev-Tool). `cache-update` → `sw-version` umbenannt. CACHE_VERSION
+manuell gebumpt bei jedem Deploy der Assets ändert.
+
+Entscheidung: Team-Meeting 2026-04-06. Einstimmig. Apple > Android
+für 8-jährige Spieler die nicht interrupted werden wollen.
+
 ## Known debt
 
 - `game.js` monolith: grid rendering + game state still coupled
