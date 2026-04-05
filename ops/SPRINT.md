@@ -1,3 +1,94 @@
+# Sprint 36 — "Oscar baut Brücken"
+
+**Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S36-1 | **#62 FR/ES/IT NPC-Gedächtnis** — `getNpcMemoryComment()` in game.js um FR, ES, IT Varianten erweitern. Oscar spielt mit Alexis (FR), Pablo (ES), Luca (IT) → jeder bekommt seine Sprache. Sprint 32 Retro-Schuld endgültig tilgen. | Engineer | ✅ Done |
+| S36-2 | **Weltraum-Quests** — 5 neue Quests: Raketenstart-Pad, Mondstation, Weltraum-Observatorium, Botschaft der Sterne, Weltraum-Forscher (alle 4 Weltraum-Materialien). Oscar hat einen klaren Fortschrittspfad durch das Weltraum-Kapitel. | Engineer | ✅ Done |
+| S36-3 | **Archipel-Toast** — Wenn alle 5 Inseln entdeckt: einmaliger Celebration-Toast via localStorage-Flag `insel-all-discovered`. In `_showIslandGenesis()` nach jedem Insel-Erstbesuch gecheckt. | Engineer + Artist | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 35 Retro → Sprint 36 Planning)
+
+**Sprint 35 Retro:**
+- ✅ Alien-NPC + Mars in einer Session. Content-Stacking funktioniert. 5 Inseln = Schatzkarte voll.
+- ⚠️ S35-3 blocked (Stripe Production Links) — Human Input liegt bei Till.
+- ⚠️ PR-Chain (#246→#247) wird lang. Merging-Risiko steigt.
+- **Verbesserungen:** FR/ES/IT in getNpcMemoryComment (Sprint 32 Schuld). Neues Quests-System für Weltraum. Abschluss-Moment wenn alle Inseln discovered.
+
+**Sprint 36 Fokus:** S36-1 zuerst (Schuld tilgen), dann S36-2 (Oscar-sichtbar), dann S36-3 (Belohnung).
+
+**Blocker:** PRs #246 + #247 noch offen (warten auf Till). feat/sprint-36 basiert auf feat/sprint-35.
+
+### 2026-04-05 (Daily Scrum)
+
+**Heute:** Alle 3 Sprint 36 Items implementiert.
+- S36-1: FR/ES/IT in `getNpcMemoryComment()` — `isEN`-Ternary durch `lang`-Switch ersetzt. Alle 4 Sprachpfade (EN/FR/ES/IT) für alle 4 Kommentar-Typen (Material+Quest, Material, Tage, Quests). DE als Fallback bleibt.
+- S36-2: 5 Weltraum-Quests in quests.js — Alien als neuer Quest-NPC. Progression: Raketenstart-Pad → Mondstation → Weltraum-Observatorium → Botschaft der Sterne → Weltraum-Forscher. Letzte Quest braucht rocket+moon+mars+alien.
+- S36-3: Archipel-Toast in `_showIslandGenesis()` — nach jedem Erstbesuch werden alle 5 Inseln gecheckt. Wenn alle discovered: `insel-all-discovered` gesetzt + 2 Celebration-Toasts mit Verzögerung nach den Genesis-Msgs.
+
+**Blocker:** Keine.
+
+---
+
+# Sprint 35 — "Oscar trifft den Alien"
+
+**Sprint Goal:** Alien-NPC mit Dialog + Mars-Insel + #103 Live Launch Vorbereitung.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S35-1 | **Alien-NPC Dialog** | Artist + Engineer | ✅ Done |
+| S35-2 | **Mars-Oberfläche** | Engineer | ✅ Done |
+| S35-3 | **Live Launch Checkliste** | Engineer | 🔲 Blocked (Human Input: Stripe Production Links) |
+
+---
+
+## Sprint Review — 2026-04-05
+
+**Sprint Goal erreicht:** ⚠️ Teilweise — 2 von 3 Items Done, 1 Blocked.
+
+**Was geliefert wurde:**
+- S35-1: Alien-NPC — 7 rotierende Dialoge, platziert an Mondlandschaft-Position, `moon: true` Flag.
+- S35-2: Mars-Insel — 5. Insel im Archipel. Rote Oberfläche, Staubsturm, Krater, Rover-Easter-Egg. Adresse: `roter.staub.einsamkeit`. Schatzkarte: 5 von 5.
+
+**Nicht geliefert:** S35-3 — Stripe Production Links fehlen. Till muss sie aus dem Stripe-Dashboard eintragen (5€/10€/25€ in index.html Zeilen 100, 106, 112).
+
+**Oscar-Check:** Mond+Eis → Mars. Segel-Klick → Mars-Insel erscheint. Rover steht da. Zurück zum Mond: Alien "Ihr seid nicht die Einzigen, die bauen."
+
+---
+
+## Sprint Retrospective — 2026-04-05
+
+### Was lief gut?
+- **Alien-NPC + Mars-Insel in einem Zug.** `_isMoon`-Flag als elegante Lösung für NPC-Positionierung. island-generators.js sauber erweiterbar.
+- **5 von 5 Inseln.** Schatzkarte ist jetzt "full". Milestones für Oscar sichtbar.
+- **deploy.yml Bug gefixt.** Doppelter Butler-Step entfernt. CI robuster.
+
+### Was lief schlecht?
+- **S35-3 extern blockiert.** Stripe Production Links — kein autonomer Fix möglich. Hätte als "Human Input" im Planning markiert werden sollen.
+- **PR-Stacking (#246 → #247).** Merges hängen aneinander. Wenn Till #246 merged, muss #247 rebased werden.
+
+### Was verbessern wir?
+1. **Human-Input-Items früh kennzeichnen.** Im Planning: wenn Item externe Accounts/Keys braucht → sofort als "Human Input" markieren, nicht als normales Item.
+2. **FR/ES/IT tilgen.** Sprint 32 Retro hat das gefordert. Sprint 33/34/35 haben es nicht gemacht. Jetzt Sprint 36.
+3. **Abschluss-Momente.** 5 Inseln verdienen einen Celebration-Moment. Oscar braucht Feedback dass er "es geschafft hat".
+
+---
+
 # Sprint 34 — "Oscar fliegt zum Mond"
 
 **Sprint Goal:** Weltraum-Insel + vollständiger Backlog-Audit + Playwright Smoke Test in CI.
