@@ -1,3 +1,32 @@
+# Sprint 34 — "Oscar fliegt zum Mond"
+
+**Sprint Goal:** Weltraum-Insel + vollständiger Backlog-Audit + Playwright Smoke Test in CI.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S34-1 | **Weltraum-Insel** — Vierte Insel im Archipel. Thema: Rakete/Mond/Mars/Alien. Genesis: "🚀 Eine Rakete landet auf dem Mond..." Sail-Dialog: `mond.staub.stille`. NPCs: Alien 👽 begrüßt Oscar. Kein Segel-Button bis Rakete 🚀 im Inventar. | Engineer + Artist | 🔲 Offen |
+| S34-2 | **Backlog vollständig auditieren** — git log prüfen für #34, #18, #42, #23. Done-Status korrekt setzen. Keine offenen Items die eigentlich fertig sind. | Leader | 🔲 Offen |
+| S34-3 | **Playwright Smoke Test in CI** — ops/tests/smoke.spec.js als echten CI-Job registrieren (deploy.yml). Baseline: Seite lädt, Canvas existiert, kein JS-Fehler. (#103 partial) | Engineer | 🔲 Offen |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 34 Planning)
+
+**Kontext:** Sprint 33 vollständig (Review + Retro). Genesis-Bug gefixt. Heimatinsel sieht Oscar nur einmal. Backlog teilweise aufgeräumt. Retro-Empfehlungen: Weltraum-Insel (Oscar-sichtbar), vollständiger Backlog-Audit, CI-Smoke-Test.
+
+**Sprint 34 Fokus:** Weltraum-Insel zuerst — Oscar-sichtbar, max Impact. Dann Backlog sauber. Dann CI stabiler.
+
+**Blocker:** PR #246 (Sprint 33) noch offen — feat/sprint-34 basiert auf feat/sprint-33.
+
+---
+
 # Sprint 33 — "Oscar sieht wie alles beginnt"
 
 **Sprint Goal:** Heimatinsel-Genesis + Genesis-Bug fix + Backlog sauber.
@@ -9,9 +38,9 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S33-1 | **Genesis-Fix + Heimatinsel-Genesis** — `_showIslandGenesis()` prüft localStorage nie (Bug). Fix + `home`-Eintrag. Beim allerersten Start: "🌊 Das Wasser weicht zurück... 🏝️ Eine Insel entsteht! 🌳 Der erste Baum wächst." | Engineer | 🔲 Offen |
-| S33-2 | **Backlog-Audit** — BACKLOG.md: #34, #62, #37 Phase 1, #18, #42, #23 als Done markieren. #103 Archipel-Status dokumentieren. | Leader | 🔲 Offen |
-| S33-3 | **MEMORY.md update** — Learnings aus Sprint 30–32 und dieser Session festhalten. | Scientist | 🔲 Offen |
+| S33-1 | **Genesis-Fix + Heimatinsel-Genesis** — `_showIslandGenesis()` prüft localStorage nie (Bug). Fix + `home`-Eintrag. Beim allerersten Start: "🌊 Das Wasser weicht zurück... 🏝️ Eine Insel entsteht! 🌳 Der erste Baum wächst." | Engineer | ✅ Done |
+| S33-2 | **Backlog-Audit** — BACKLOG.md: #34, #62, #37 Phase 1, #18, #42, #23 als Done markieren. #103 Archipel-Status dokumentieren. | Leader | ✅ Done |
+| S33-3 | **MEMORY.md update** — Learnings aus Sprint 30–32 und dieser Session festhalten. | Scientist | ✅ Done |
 
 ---
 
@@ -33,6 +62,37 @@
 - S33-3: MEMORY.md — Genesis-Bug, gestapelte PRs, Session-Akkumulation als Lernpunkte eingetragen.
 
 **Blocker:** Keine.
+
+---
+
+## Sprint Review — 2026-04-05
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S33-1: Genesis-Bug gefixt. `localStorage.getItem(key)` wird jetzt korrekt geprüft. Heimatinsel bekommt Genesis beim allerersten Start. Oscar sieht wie seine Welt beginnt — einmalig, unvergesslich.
+- S33-2: BACKLOG.md aufgeräumt. #62 (Mehrsprachige NPCs) und #103 (Archipel) als Done. #37 auf "Phase 1 Done" korrigiert.
+- S33-3: MEMORY.md um 4 Lernpunkte erweitert: Genesis-Bug-Muster, gestapelte PRs, Session-Akkumulation, Material-Key-Check.
+
+**Oscar-Check:** Beim nächsten Neustart sieht Oscar: "🌊 Das Wasser weicht zurück... 🏝️ Eine Insel entsteht! 🌳 Der erste Baum wächst." Danach nie wieder. Der Moment ist kostbar weil er selten ist.
+
+---
+
+## Sprint Retrospective — 2026-04-05
+
+### Was lief gut?
+- **Bug-First-Approach.** S33-1 war ein echter Bug (key definiert, nie genutzt). Zuerst reparieren, dann hinzufügen — richtige Reihenfolge.
+- **Backlog-Audit als Sprint-Item.** Technische Schulden im Backlog (falsche Status) haben jetzt einen Platz. Kein separates Ticket — Teil des Sprints.
+- **Memory-Eintrag sofort.** S33-3 wurde im gleichen Sprint geschrieben statt am Session-Ende gesammelt. Learnings sind frischer.
+
+### Was lief schlecht?
+- **Sprint 33 hat keinen Review/Retro-Eintrag gehabt.** Der Daily Scrum sagte "alle Items Done" — aber kein Review, kein Retro. Erst diese Session schreibt beides nach. Pattern: Ceremony nicht vergessen.
+- **Backlog-Audit unvollständig.** S33-2 hat nur #62 und #103 markiert. #34, #18, #42, #23 stehen noch auf Offen im Backlog obwohl Done. Partial-Done ist kein Done.
+
+### Was verbessern wir?
+1. **Review + Retro sind Pflicht.** Kein Sprint ohne Review+Retro im SPRINT.md. Daily Scrum "alle Done" ≠ Sprint geschlossen.
+2. **Backlog-Audit vollständig.** Nächste Session: alle Items im Backlog gegen git log prüfen. Was implementiert ist → Done markieren.
+3. **Weltraum-Insel als nächstes.** Oscar hat Rakete, Mond, Mars, Alien. Er braucht eine Insel dafür — wie Dino-Bucht für Dinos. Sprint 34.
 
 ---
 
