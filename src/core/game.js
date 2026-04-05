@@ -4978,12 +4978,21 @@
         for (let i = 0; i < 3; i++) spawnCollectibles();
     }
 
-    // Dirty-flag statt rAF-Loop — CPU 20%→<5%
-    // var (nicht let) damit requestRedraw() via hoisting schon in resizeCanvas() nutzbar ist
+    // rAF-Loop mit Throttle: max 10fps für Animation, pausiert bei Tab-Wechsel (iOS-freundlich)
+    // Wellen/NPC-Wippen/Collectibles: brauchen ~10fps, nicht 60fps
+    // prefersReducedMotion: nur bei dirty-flag zeichnen, kein kontinuierliches Polling
     needsRedraw = true;
-    setInterval(draw, 100);
-    // Collectibles + NPCs animieren (Glitzern/Wippen)
-    setInterval(() => { if (collectibles.length > 0) requestRedraw(); }, 200);
+    var _lastDrawTime = 0;
+    var _DRAW_INTERVAL = prefersReducedMotion ? 500 : 100; // ms zwischen Frames
+    (function rafLoop(ts) {
+        if (ts - _lastDrawTime >= _DRAW_INTERVAL) {
+            if (!prefersReducedMotion || needsRedraw) {
+                draw();
+                _lastDrawTime = ts;
+            }
+        }
+        requestAnimationFrame(rafLoop);
+    })(0);
 
     // === Progressive Disclosure (Hick's Law) ===
     // Toolbar, Sidebar, Chat erscheinen mit Spielfortschritt.

@@ -149,7 +149,11 @@
         updateWorldConsequences: updateWorldConsequences,
         /** Timer starten — wird von game.js nach Grid-Init aufgerufen */
         start: function(grid, ROWS, COLS, MATERIALS, callbacks) {
-            setInterval(function() { updateTreeGrowth(grid, ROWS, COLS, MATERIALS, callbacks); }, 5000);
+            setInterval(function() {
+                if (Object.keys(treeGrowth).length > 0) {
+                    updateTreeGrowth(grid, ROWS, COLS, MATERIALS, callbacks);
+                }
+            }, 5000);
             setInterval(function() { updateWorldConsequences(grid, ROWS, COLS, MATERIALS, callbacks); }, 8000);
         }
     };

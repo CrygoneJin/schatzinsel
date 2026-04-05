@@ -11,7 +11,7 @@
     let animationInterval = null;
     let savedGrid = null;
     let active = false;
-    const IDLE_TIMEOUT = 120000; // 2 Minuten
+    const IDLE_TIMEOUT = 300000; // 5 Minuten (war 2min — zu aggressiv auf iOS)
 
     function resetIdleTimer() {
         if (idleTimer) clearTimeout(idleTimer);
