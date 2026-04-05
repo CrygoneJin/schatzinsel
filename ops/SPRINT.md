@@ -456,6 +456,131 @@
 
 ---
 
+# Sprint 31 — "Oscar segelt zur Dino-Bucht"
+
+**Sprint Goal:** Dritte Insel (Dino-Bucht) + Genesis-Toasts + NPCs reagieren auf Dinos.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S31-1 | **Dino-Bucht als dritte Insel** — `generateDinoIsland()` in island-generators.js. Seed 66000000. T-Rex auf Gipfel, Meteorit-Krater, Dino-Herde. | Engineer | ✅ Done (PR #244) |
+| S31-2 | **#37 Schöpfungsgeschichte Phase 1** — Genesis-Toasts beim ersten Betreten einer Insel. `_showIslandGenesis()` + `_ISLAND_GENESIS` Map. | Engineer | ✅ Done (PR #244) |
+| S31-3 | **NPC-Dino-Events** — `material:dino` + `island:arrived` Bus-Events in npc-events.js. Mephisto/Bernd/Elefant reagieren auf Fossil/Dino/T-Rex. | Engineer | ✅ Done (PR #244) |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 31 Planning)
+
+**Kontext:** Sprint 30 vollständig. Dino-Pfad ist da — jetzt braucht er eine Insel. Genesis-Toasts als Discovery-Moment. NPCs müssen reagieren.
+
+**Blocker:** Keine.
+
+### 2026-04-05 (Daily Scrum)
+
+**Heute:** Alle 3 Sprint 31 Items implementiert (PR #244). Fix: speakBrowserTTS aus types.d.ts entfernt. Backlog-Audit: #23 als Phantom-Open bereinigt (war PR #149).
+
+**Blocker:** PR #244 wartet auf Merge von #243 zuerst.
+
+---
+
+## Sprint Review — 2026-04-05
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S31-1: Dino-Bucht — `generateDinoIsland()` deterministisch (Seed 66000000). Strandring, Fossilien-Einschlüsse, Urwald, Dino-Herde, T-Rex auf Gipfel, Meteorit-Krater. Sail-Dialog: Dino-Bucht als Option (lila).
+- S31-2: Genesis-Toasts — `_showIslandGenesis()` mit Toasts à 2.2s (🌊→🦴→🦕). Lummerland hat eigene Sequenz. Nur beim ersten Betreten.
+- S31-3: NPC-Dino-Events — `material:dino` wenn Fossil/Dino/T-Rex/Meteorit platziert. `island:arrived` wenn Oscar segelt.
+
+**Bonus:** speakBrowserTTS aus types.d.ts entfernt. #23 als Phantom-Open bereinigt (war PR #149).
+
+**Oscar-Check:** Oscar segelt zur Dino-Bucht. Toasts: "Das Urmeer weicht zurück..." Er sieht Fossilien, Dino-Herde, T-Rex auf dem Gipfel. Mephisto flüstert: "Urzeitliche Energie..."
+
+---
+
+## Sprint Retrospective — 2026-04-05
+
+### Was lief gut?
+- **Deterministischer Island-Generator.** Seed 66000000 = immer dieselbe Dino-Bucht. Reproduzierbar.
+- **Genesis-Toasts.** #37 Schöpfungsgeschichte Phase 1 in ~20 LOC. Großer Effekt, kleiner Code.
+
+### Was lief schlecht?
+- **Gestapelte Branches.** feat/sprint-31 basiert auf feat/sprint-30 — Merge-Reihenfolge zwingend.
+
+### Was verbessern wir?
+1. **Jeden Sprint direkt auf main mergen.** Keine gestapelten Branches.
+2. **Genesis für Heimatinsel** — Oscar sieht noch keine Genesis auf seiner Heimatinsel (Phase 2).
+
+---
+
+# Sprint 32 — "Oscar erkundet den Weltraum"
+
+**Sprint Goal:** Weltraum-Pfad (Mars) + Schatzkarte im Sail-Dialog + NPC-Texte auf Englisch.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S32-1 | **Schatzkarte im Sail-Dialog** — 3-Wort-Adressen (`wellen.sand.zuhause` etc.), Entdeckt-Badge, Fortschrittszähler. `showSailDialog()` rebuild. | Engineer | ✅ Done (PR #245) |
+| S32-2 | **Weltraum-Pfad** — Mars 🪐 als neues Material. Mond+Eis=Mars, Mars+Rakete=Alien. Dinos→Weltraum-Progression. | Engineer | ✅ Done (PR #245) |
+| S32-3 | **#62 NPC-Texte auf Englisch** — `detectedLang` nach erster Nachricht in localStorage. Englische Greetings wenn `insel-player-lang === 'en'`. | Engineer | ✅ Done (PR #245) |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 32 Planning)
+
+**Kontext:** Sprint 31 vollständig. Archipel braucht Orientierung (Schatzkarte). Weltraum als natürliche Progression nach Dinos. #62 Englisch fertigstellen.
+
+**Blocker:** Keine.
+
+### 2026-04-05 (Daily Scrum)
+
+**Heute:** Alle 3 Sprint 32 Items implementiert (PR #245, basiert auf feat/sprint-31). Schatzkarte rebuild, Weltraum-Pfad, englische Greetings.
+
+**Blocker:** PR #245 wartet auf Merge #243→#244 zuerst.
+
+---
+
+## Sprint Review — 2026-04-05
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S32-1: Schatzkarte — `showSailDialog()` rebuild. 3-Wort-Adressen pro Insel. Entdeckt-Badge via localStorage. "2 von 3 Inseln entdeckt". Oscar sieht sein Archipel auf einen Blick.
+- S32-2: Weltraum-Pfad — Mars 🪐 (#FFCCBC). Mond+Eis=Mars, Mars+Rakete=Alien. Natürliche Progression Dinos→Weltraum.
+- S32-3: #62 NPC-Englisch — `detectedLang` gespeichert. Englische Greetings ("Hey! Last time you built a lot with Wood."). Oscars englischer Spielplatz-Freund wird erkannt.
+
+**Oscar-Check:** Sail-Dialog: "2 von 3 Inseln entdeckt". Englischer Freund schreibt "hello" → Bernd antwortet auf Englisch.
+
+---
+
+## Sprint Retrospective — 2026-04-05
+
+### Was lief gut?
+- **Drei Sprints in Kaskade.** 30→31→32 sauber aufeinandergestapelt, kein Konflikt im Code.
+- **Schatzkarte rebuild > patch.** Cleaner Code, besseres UX in einem Schritt.
+- **#62 komplett.** Mehrsprachigkeit war seit S30-2 angefangen — jetzt mit englischen NPC-Greetings fertig.
+
+### Was lief schlecht?
+- **Gestapelte PRs.** #243→#244→#245 in Reihenfolge mergebar. Risiko wenn einer failt.
+
+### Was verbessern wir?
+1. **Direkt auf main.** Jeder Sprint in eigenem Atomic-PR, nicht auf vorigen Sprint basierend.
+2. **Sprint Planning am Anfang, nicht am Ende.** Nächster Sprint 33 im Planning-Meeting definieren.
+
+---
+
 # Sprint 24 — "Oscar hört die Welt"
 
 **Sprint Goal:** Musik beim Bauen (Genre-Sequenzen) + technische Schulden (game.js aufteilen) + Tutorial ohne Text.
