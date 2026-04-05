@@ -58,10 +58,31 @@ Inventory | Quests (max 2 active) | Achievements
 - WCAG AA contrast minimum
 - No typing required — emoji over text
 
-## Hick's Law
+## Progressive Disclosure (Hick's Law)
 
-Max 7 options visible. Palette shows unlocked materials
-progressively. Less choice, faster decision, more building.
+Max 7 options visible pro Bereich. Alles wird durch Spielfortschritt
+freigeschaltet — nicht nur Materialien, sondern auch Toolbar, Sidebar
+und Chat. Kein Button ohne Funktion. Kein Menü ohne Inhalt.
+
+### Freischaltungsstufen
+
+| Stufe | Trigger | Toolbar | Palette | Sidebar | Chat |
+|-------|---------|---------|---------|---------|------|
+| 1 | Erstbesuch | Malen | Tao | — | — |
+| 2 | Tao platziert | — | + Yin, Yang | — | + Bernd |
+| 3 | Qi entdeckt | — | + Qi, Wu Xing | Insel-Info | — |
+| 4 | Erstes Rezept | + Werkbank | + gecraftete | + Inventar | — |
+| 5 | Erste Quest | — | — | + Quests | + NPCs |
+| 6 | 10+ Materialien | + Karte, Musik, Wetter | — | + Achievements | — |
+
+### Regeln
+
+- Toolbar-Buttons erscheinen mit sanftem Fade (300ms)
+- Neue Buttons pulsieren 3× dann normal (Aufmerksamkeit ohne Stress)
+- Sidebar-Tabs erscheinen nur wenn sie Inhalt haben
+- Chat-Bubble erst ab Stufe 2 (Bernd wartet bis Oscar gebaut hat)
+- Werkbank erst wenn mindestens 1 Rezept entdeckbar ist
+- Kein Tooltip nötig wenn der Button selbsterklärend ist (Emoji reicht)
 
 ## Typography
 
