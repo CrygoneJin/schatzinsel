@@ -26,23 +26,23 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 54 | **Jim Knopfs Welt** — Segelboot craften → Insel-Auswahl. Lummerland erreichbar. | alle | ✅ Done (S26-3, PR #220) | Oscar segelt zu neuen Inseln. |
 | 95 | **Wu-Xing→NPC-Events** — NPCs reagieren auf Element-Events. Max 3x/Session, 15s Throttle. | Engineer + Artist | ✅ Done (S26-2, PR #219) | Mephisto flüstert wenn Oscar Feuer macht. |
 | 96 | **NPC-Session-Gedächtnis** — NPCs erinnern sich an letzte Session via localStorage. | Engineer + Scientist | ✅ Done (S26-1, PR #218) | "Hey Oscar, gestern hast du viel Holz gebaut!" |
-| 100 | **Energie vs Geld trennen** — NPC-Currencies (Burger, Noten, Glut) visuell von Muscheln trennen. Zwei Orte, zwei Konzepte. (Ricardo) | Designer | 🔲 Offen | Oscar versteht sofort: Burger = Reden, Muschel = Kaufen. |
-| 101 | **Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar. Kein Holz → kein Verkauf. Angebot und Nachfrage ohne Erklärung. (Ricardo) | Engineer | 🔲 Offen | Oscar lernt: wenn Krabbs kein Holz hat, muss er warten. |
+| 100 | **Energie vs Geld trennen** — NPC-Currencies (Burger, Noten, Glut) visuell von Muscheln trennen. Zwei Orte, zwei Konzepte. (Ricardo) | Designer | ✅ Done (S28-1, PR #238) | Oscar versteht sofort: Burger = Reden, Muschel = Kaufen. |
+| 101 | **Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar. Kein Holz → kein Verkauf. Angebot und Nachfrage ohne Erklärung. (Ricardo) | Engineer | ✅ Done (S28-2, PR #239) | Oscar lernt: wenn Krabbs kein Holz hat, muss er warten. |
 | 102 | **MMX = Nerd-Easter-Egg** — Burn-Panel ehrlich labeln. Keine Goldstandard-Behauptung. (Ricardo) | Designer + Engineer | 🔲 Offen | Nerds freuen sich. Oscar merkt nichts. |
 
 ## 🟢 P2 — Irgendwann, aber mit Oscar-Outcome
 
 | # | Item | Owner | Status | Oscar-Outcome |
 |---|------|-------|--------|---------------|
-| 17 | **Eltern-Dashboard** — Bernd zeigt Spielstatistiken für Eltern | Engineer | 🔲 Offen | Mama sieht was Oscar gebaut hat. |
-| 33 | **Header-Title "Schatzinsel"** | Designer | 🔲 Offen | Kosmetik. 5 Minuten. |
+| 17 | **Eltern-Dashboard** — Bernd zeigt Spielstatistiken für Eltern | Engineer | ✅ Done (📊-Button + Bernd-NPC-Klick + Schatzkarte 🗺️) | Mama sieht was Oscar gebaut hat. |
+| 33 | **Header-Title "Schatzinsel"** | Designer | ✅ Done (h1 + title-Tag existieren) | Kosmetik. 5 Minuten. |
 | 34 | **NPCs in User-Sprache** — Eingabe Englisch → Antwort Englisch | Scientist | 🔲 Offen | Oscars englischsprachige Freunde können mitspielen. |
 | 37 | **Schöpfungsgeschichte als Tutorial** — 7 Level, Insel beginnt als Wasser | Leader | 🔲 Offen | Oscar erlebt wie seine Insel entsteht. |
 | 42 | **Werkbank als Canvas-Drag** — Infinite Craft Pattern | Engineer | 🔲 Offen | Oscar zieht Feuer auf Wasser statt Modal. |
 | 62 | **Mehrsprachige NPCs** | Scientist | 🔲 Offen | Spielplatz-Phase mit nicht-deutschen Kindern. |
 | 18 | **Musik on demand** | Artist + Engineer | 🔲 Offen | Oscar wählt seinen Soundtrack. |
 | 23 | **Programmier-Tutorial** — NPCs bringen JavaScript bei | Scientist + Engineer | 🔲 Offen | Oscar lernt coden durch Spielen. |
-| 19 | **Conway→Gameplay** — Lebende Zellen → Blumen, Glider → Wolken | Engineer + Scientist | 🔲 Offen | Die Insel lebt auch wenn Oscar nicht baut. |
+| 19 | **Conway→Gameplay** — Lebende Zellen → Blumen, Glider → Wolken | Engineer + Scientist | ✅ Done (conway.js: bloom/stone/glider Events → Blöcke auf Grid) | Die Insel lebt auch wenn Oscar nicht baut. |
 | 32 | **Code-Ebenen per Touch** — Swipe statt Rechtsklick | Engineer | ✅ Done |
 | 103 | **Insel-Archipel** — Heimatinsel bleibt erhalten wenn Oscar segelt. Jede neue Insel ist ein Kapitel. Wissen (Rezepte, NPCs, Materialien) wird mitgenommen. Schatzkarte mit drei Worten = Adresse jeder Insel. Tommy erzählt abends davon. | alle | 🔲 Offen | Oscar entdeckt mit dem Gelernten immer neue Welten — und findet immer den Weg nach Hause. |
 

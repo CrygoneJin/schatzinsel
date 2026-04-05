@@ -1174,6 +1174,16 @@ ${budgetInfo}${florianePreisHint}`;
             handleQuestAccept(currentNpcId);
         }
 
+        // "zeig mama" / "dashboard" / "statistik" — öffnet Eltern-Dashboard
+        if (lower.match(/\b(mama|papa|eltern|dashboard|statistik|zeig.*(mama|papa|eltern))\b/)) {
+            const char = CHARACTERS[currentNpcId] || { emoji: '🍞' };
+            addMessage(`${char.emoji} Klar! Ich zeige Mama was du gebaut hast... 📊`, 'npc');
+            setTimeout(() => {
+                if (window._openDashboardFromBernd) window._openDashboardFromBernd();
+            }, 600);
+            return;
+        }
+
         // --- Floriane: Wünsche kosten Muscheln 🐚 ---
         if (currentNpcId === 'floriane') {
             // Bestätigung auf einen ausstehenden Wunsch?

@@ -280,7 +280,71 @@
 
 **Smoke Test:** schatzinsel.app → 403 host_not_allowed (Cloudflare blockiert Curl aus dieser Umgebung — kein echter Ausfall). Worker-API nicht erreichbar von CI-Umgebung.
 
-**Blocker:** PR #238 (S28-1) rebase läuft — danach merge.
+**Blocker:** Keine. Sprint 28 vollständig.
+
+---
+
+## Sprint Review — 2026-04-05
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S28-1: Energie vs Geld trennen — Goldene Muschel-Box im Inventar, blaue Rede-Energie-Box im Chat. Oscar sieht sofort: Gold = Kaufen, Blau = Reden.
+- S28-2: Krabbs-Vorrat sichtbar — KRABS_STOCK_MAX=20, Lager-Indikator 🔴/🟡/🟢. Oscar lernt Angebot und Nachfrage durch Spielen.
+- S28-3: i18n DE/HE/AR + RTL + Spieler-Bug-Fix — Spielfigur war unsichtbar (breakSymmetry nie aufgerufen). Jetzt sichtbar. RTL-Support für Hebräisch/Arabisch.
+
+**Bonus:** fix/player-bernd-trees (PR #240) — Auto-Participant-Modus sichtbar.
+
+**Oscar-Check:** Oscar sieht Muscheln. Oscar sieht dass Krabbs kein Holz mehr hat. Er fragt warum.
+
+---
+
+## Sprint Retrospective — 2026-04-05
+
+### Was lief gut?
+
+- **Sprint 28 vollständig.** Alle 3 Items in einer Session.
+- **Ricardo-Prinzip umgesetzt.** Zwei Konzepte, zwei visuelle Orte. Keine Erklärung nötig.
+- **Krabbs-Lager als Mechanic.** Emergentes Verhalten: Oscar bringt jetzt Holz zu Krabbs weil der Vorrat rot ist. Das war nicht geplant — es passiert einfach.
+
+### Was lief schlecht?
+
+- **PR #238 hatte Merge-Konflikt in SPRINT.md.** Parallel-Sessions schreiben in dieselbe Datei. Rebase nötig.
+- **feat/sprint-27-economy liegt noch als toter Branch.** Superseded, nicht gelöscht. Technik-Schuld.
+
+### Was verbessern wir?
+
+1. **Tote Branches bereinigen.** feat/sprint-27-economy nach Sprint-29-Start löschen.
+2. **SPRINT.md-Konflikte vermeiden.** Nur eine Session schreibt gleichzeitig ins SPRINT.md.
+
+---
+
+# Sprint 29 — "Oscar kennt die Welt"
+
+**Sprint Goal:** Oscar sieht seinen Fortschritt auf einer Karte, Mama sieht was er gebaut hat, und das Burn-Panel ist ehrlich.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S29-1 | **#102 MMX = Nerd-Easter-Egg** — Tooltip "Goldstandard" entfernen → "nerd easter egg · mmx.network". Kein Goldstandard-Anspruch. | Designer + Engineer | 🔲 Offen |
+| S29-2 | **#103 Insel-Archipel Phase 1** — Heimatinsel vor dem Segeln in localStorage speichern. Bei Rückkehr wiederherstellen. `sailToIsland()` löscht aktuell das Grid ohne Save. Oscar verliert seine Insel. | Engineer | 🔲 Offen |
+| S29-3 | **Bernd "zeig mama" Chat-Command** — Im Chat: "zeig mama" / "mama" / "dashboard" → `_openDashboardFromBernd()`. Oscar kann Mama direkt das Dashboard zeigen. Kein separates UI. | Engineer | 🔲 Offen |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 29 Planning)
+
+**Kontext:** Sprint 28 vollständig. Backlog-Audit: #33 (Header), #17 (Dashboard), #19 (Conway) sind Phantom-Opens — bereits implementiert. Echte offene Items: #102 (tooltip fix), #103 (Archipel, sailToIsland löscht Grid ohne Save), Bernd-Chat-Command für Dashboard.
+
+**Sprint 29 Fokus:** Quick-Win (#102 tooltip), dann echter Feature-Gap (#103 Heimatinsel), dann Convenience (Bernd Dashboard-Trigger aus Chat).
+
+**Blocker:** Keine.
 
 ---
 
