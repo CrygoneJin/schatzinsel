@@ -92,7 +92,7 @@
 |---|------|----------|--------|
 | S35-1 | **Alien-NPC Dialog** — Mondlandschaft hat Alien 👽 aber keinen NPC-Chat. Alien zu NPC_VOICES in npc-data.js hinzufügen. Reagiert auf Weltraum-Materialien (Rakete, Mond, Mars). 3 Stimmen: neugierig, staunend, philosophisch. | Artist + Engineer | ✅ Done |
 | S35-2 | **Mars-Oberfläche** — 5. Insel. Rezept: Mond+Eis=Mars (existiert in materials.js). Freischaltung: Mars im Inventar. Rote Oberfläche, Staubstürme, Rover-Easter-Egg. Genesis: "🪐 Roter Staub überall..." | Engineer | ✅ Done |
-| S35-3 | **Live Launch Checkliste** — #103: Playwright CI grün verifizieren + itch.io Butler-Key prüfen + Stripe-Donation testen. Keine Implementierung, nur Verifikation. Issue #103 updaten. | Engineer | 🔲 Offen |
+| S35-3 | **Live Launch Checkliste** — #103: Playwright CI grün verifizieren + itch.io Butler-Key prüfen + Stripe-Donation testen. Keine Implementierung, nur Verifikation. Issue #103 updaten. | Engineer | 🔲 Blocked |
 
 ---
 
@@ -114,6 +114,15 @@
 - S35-3: Noch offen — braucht Human Input (#103 extern).
 
 **Blocker:** S35-3 erfordert externen Zugriff (itch.io, Stripe). Human Input nötig.
+
+### 2026-04-05 (Daily Scrum #2)
+
+**Heute:** S35-3 teilweise bearbeitet — deploy.yml Bug gefixt.
+- **Playwright CI**: ✅ Verifiziert. deploy.yml Zeilen 45–49, smoke.spec.js vorhanden.
+- **itch.io Butler**: Bug gefunden + gefixt. `deploy-itch` Job hatte zwei doppelte Butler-Steps mit verschiedenen Secret-Namen (`BUTLER_API_KEY` vs `itch_io_butler`). Alter Step (pusht ganzes Repo `.` auf `html5`-Channel) entfernt. Nur `_itchio`-Bundle bleibt. `id: version` + Output in Version-Step ergänzt damit `steps.version.outputs.version` nicht fehlschlägt.
+- **Stripe**: ⛔ Alle 3 Donation-Links in index.html (Zeilen 100, 106, 112) zeigen auf denselben Test-Link `donate.stripe.com/test_7sY9AMcTD6wQ7e9flD1ZS00`. Production-Links fehlen — **Human Input nötig**.
+
+**Blocker:** Stripe Production-Links fehlen. Till muss echte Links aus Stripe-Dashboard eintragen (5€/10€/25€).
 
 ---
 
