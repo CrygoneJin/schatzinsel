@@ -1967,7 +1967,7 @@
 
     // Wiederkehrende Spieler: Intro wird NACH Canvas-Init ausgeblendet (siehe unten)
     // Hier nur merken, damit kein Flash of unready content auf dem iPhone entsteht
-    const isReturningPlayer = !!(localStorage.getItem('insel-projekte') && playerName);
+    const isReturningPlayer = !!(playerName && (localStorage.getItem('insel-projekte') || localStorage.getItem('insel-grid')));
     const statsContent = document.getElementById('stats-content');
     const projectNameInput = document.getElementById('project-name');
     const loadDialog = document.getElementById('load-dialog');
@@ -5053,8 +5053,10 @@
 
     // Wiederkehrende Spieler: Intro JETZT ausblenden — Canvas ist bereit
     if (isReturningPlayer && introOverlay) {
+        // Spieler ist immer Teilnehmer — Figur sichtbar
+        breakSymmetry();
         // Ersten Frame zeichnen bevor Overlay weg ist
-        draw();
+        requestRedraw();
         introOverlay.style.display = 'none';
         if (window.startSessionClock) window.startSessionClock();
         // Pulse nur wenn noch kein Block platziert wurde (leere Insel)
