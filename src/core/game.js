@@ -1323,6 +1323,23 @@
         // Alle Items außer Muscheln (Muscheln werden im Header angezeigt)
         const otherItems = items.filter(([mat]) => mat !== 'shell');
 
+        // S37-3: Palette-Counter — Inventar-Anzahl direkt auf den Palette-Buttons anzeigen
+        document.querySelectorAll('.material-btn[data-material]').forEach(btn => {
+            const mat = btn.dataset.material;
+            const count = inventory[mat] || 0;
+            let badge = btn.querySelector('.mat-inv-count');
+            if (count > 0 && !BASE_MATERIALS.includes(mat)) {
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'mat-inv-count';
+                    btn.appendChild(badge);
+                }
+                badge.textContent = count;
+            } else if (badge) {
+                badge.remove();
+            }
+        });
+
         container.innerHTML = shellHeader + otherItems.map(([mat, count]) => {
             const info = MATERIALS[mat];
             if (!info) return '';
@@ -3588,6 +3605,9 @@
             current++;
             if (current >= steps.length) {
                 overlay.style.display = 'none';
+                // S37-1: Zeige kurzen Hinweis wo die Insel ist (#104)
+                localStorage.setItem('onboarding-done', '1');
+                setTimeout(() => showToast('👆 Tippe auf die Insel!', 3500), 200);
                 return;
             }
             showStep(current);
@@ -3602,6 +3622,9 @@
             overlay.removeEventListener('click', onTap);
             current = steps.length; // direkt beenden
             overlay.style.display = 'none';
+            // S37-1: Auch beim Tap-Skip den Insel-Hinweis zeigen
+            localStorage.setItem('onboarding-done', '1');
+            setTimeout(() => showToast('👆 Tippe auf die Insel!', 3500), 200);
         }, { once: true });
     }
 
@@ -3903,6 +3926,10 @@
     // Beim Start die Leiste füllen
     updateRecentBar();
 
+    // S37-2: Long-Press Timer für Fill-Tool
+    let longPressTimer = null;
+    function cancelLongPress() { clearTimeout(longPressTimer); longPressTimer = null; }
+
     // Canvas Maus-Events (nur Maus — Touch läuft über touchstart unten)
     canvas.addEventListener('pointerdown', (e) => {
         if (e.pointerType !== 'mouse') return;
@@ -3930,12 +3957,18 @@
             if (grid[cell.r]?.[cell.c] === 'cave' && currentTool === 'build') {
                 openDungeon(); isMouseDown = false; return;
             }
+            // S37-2: Long-Press (500ms) = Fill-Tool aktivieren
+            longPressTimer = setTimeout(() => {
+                selectTool('fill');
+                applyTool(cell.r, cell.c);
+            }, 500);
             applyTool(cell.r, cell.c);
         }
     });
 
     canvas.addEventListener('pointermove', (e) => {
         if (e.pointerType !== 'mouse') return;
+        cancelLongPress();
         hoverCell = getGridCell(e);
         requestRedraw();
         if (isMouseDown && hoverCell && currentTool !== 'fill') {
@@ -3945,15 +3978,28 @@
 
     canvas.addEventListener('pointerup', (e) => {
         if (e.pointerType !== 'mouse') return;
+        cancelLongPress();
         isMouseDown = false;
     });
 
     canvas.addEventListener('pointerleave', (e) => {
         if (e.pointerType !== 'mouse') return;
+        cancelLongPress();
         isMouseDown = false;
         hoverCell = null;
         requestRedraw();
     });
+
+    // S37-2: Mausrad = nächstes / vorheriges Material in der Palette
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const visibleBtns = Array.from(document.querySelectorAll('.material-btn[data-material]'))
+            .filter(b => b.offsetWidth > 0 && b.offsetHeight > 0);
+        if (visibleBtns.length === 0) return;
+        const idx = visibleBtns.findIndex(b => b.dataset.material === currentMaterial);
+        const next = ((idx < 0 ? 0 : idx) + (e.deltaY > 0 ? 1 : -1) + visibleBtns.length) % visibleBtns.length;
+        selectMaterial(visibleBtns[next].dataset.material);
+    }, { passive: false });
 
     // Touch-Events für Tablet
     // Swipe-Tracking für Code-Layer-Wechsel (S21-2)
@@ -3984,6 +4030,11 @@
             playerDragging = true;
             return;
         }
+        // S37-2: Long-Press (500ms) auf Touch = Fill-Tool
+        longPressTimer = setTimeout(() => {
+            selectTool('fill');
+            applyTool(cell.r, cell.c);
+        }, 500);
         isMouseDown = true;
         touchWasPainting = true;
         applyTool(cell.r, cell.c);
@@ -3991,6 +4042,7 @@
 
     canvas.addEventListener('touchmove', (e) => {
         e.preventDefault();
+        cancelLongPress();
         const touch = e.touches[0];
         touchEndX = touch.clientX;
         touchEndY = touch.clientY;
@@ -4013,6 +4065,7 @@
     });
 
     canvas.addEventListener('touchend', () => {
+        cancelLongPress();
         // Swipe → Code-Layer wechseln (nur wenn nicht gemalt und nicht Figur gezogen)
         if (!touchWasPainting && !playerDragging) {
             const dx = touchEndX - touchStartX;

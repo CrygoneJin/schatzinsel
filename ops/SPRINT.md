@@ -1,3 +1,33 @@
+# Sprint 37 — "Oscars Bruder findet den Einstieg"
+
+**Sprint Goal:** Oscar's Bruder-Feedback umsetzen — Onboarding, Fill-Shortcut, Palette aufräumen.
+**Start:** 2026-04-05
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S37-1 | **#104 Onboarding "Wo spielen?"** — Toast "👆 Tippe auf die Insel!" nach Tutorial-Onboarding (localStorage-Flag `onboarding-done`). Oscars Bruder beim Erstbesuch: kein Einstieg → jetzt klarer Hinweis auf Canvas. | Designer + Artist | ✅ Done |
+| S37-2 | **#105 Long-Press = Fill, Mausrad = Tool-Wechsel** — Long-press auf Canvas (500ms) = Fill-Tool aktivieren. Mausrad auf Canvas = nächstes Material in der Palette. Echtes Feedback von Oscars Bruder. | Engineer | ✅ Done |
+| S37-3 | **#106 Palette-Counter** — Inventar-Anzahl direkt als Badge auf Palette-Buttons. Kein Wechsel zur Sidebar mehr nötig um Vorrat zu sehen. | Designer | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-05 (Sprint 37 Delivery)
+
+**Heute:** Alle 3 Sprint 37 Items implementiert.
+- S37-1: Toast "👆 Tippe auf die Insel!" nach Tutorial-Onboarding (advance + onTap-Pfad). localStorage-Flag `onboarding-done`.
+- S37-2: Long-Press (500ms) auf Mouse + Touch = Fill-Tool. Mausrad auf Canvas = nächstes/vorheriges Material.  `cancelLongPress()` bei `pointermove`/`pointerup`/`pointerleave`/`touchmove`/`touchend`.
+- S37-3: `updateInventoryDisplay()` schreibt `.mat-inv-count`-Badge auf alle Palette-Buttons mit Inventar > 0.
+
+**Blocker:** Keine.
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
