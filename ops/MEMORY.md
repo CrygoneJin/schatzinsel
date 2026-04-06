@@ -45,6 +45,7 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-06 | Genesis Phase 2 — Wasser-Start für absolute Neuspieler via localStorage-Flag `insel-genesis-shown` | `generateStarterIsland()` zeigte immer eine ausgebaute Insel — kein Schöpfungsmoment | `generateWaterStart()`: 3×3 Sandinsel + Palme. Neuspieler sehen Ozean, müssen selbst bauen. Bestehende Spieler unberührt (haben `insel-genesis-shown` bereits). |
 | 2026-04-06 | Tetris Easter Egg als isoliertes IIFE — Konami-Code sauber ohne game.js-Coupling | Konami-Sequenz mit Index-Tracking und Reset bei Fehleingabe; Modal-Pattern analog zu krabs-shop-modal | Easter Eggs gehören in eigene Datei. Kein Touching von game.js nötig wenn DOM-Level Event-Listener reichen. |
 | 2026-04-06 | Snake Easter Egg — Wort-Trigger "snake" tippen statt Konami-Code | Tetris = Konami (Sequenz aus Richtungstasten), Snake = Wort (s-n-a-k-e). Zwei verschiedene Patterns. | Easter Egg Trigger differenzieren: Konami für Konsolen-Nostalgiker, Wort-Sequenz für Kinder. Beide mit Index-Reset bei Fehleingabe. |
+| 2026-04-06 | Sprint 41 Planning: Alle P0-Items blocked (Human Input). Kein autonomer Sprint möglich. | #78 (Tesla-Video), #103 (Stripe-Links), #108 (Muttersprachler) warten alle auf Till oder externen Input. | Wenn alle implementierbaren Items done sind: Ceremony dokumentieren, Blocked-State klar kommunizieren, warten. Kein Gold-Plating statt echter Arbeit. |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|

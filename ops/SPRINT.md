@@ -1,3 +1,41 @@
+# Sprint 41 — "Warten auf Till"
+
+**Sprint Goal:** Blocked. Alle P0-Items brauchen Human Input. Kein autonomer Fortschritt möglich bis Till #78 (Tesla-Video) oder #103 (Stripe-Links) freigibt.
+**Start:** 2026-04-06
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S41-1 | **#78 Tesla-Nutzertest auswerten** — Oscar-Video analysieren. Echte Nutzerdaten. | Scientist + Leader | 🔲 Blocked (Human Input: Till schickt Video) |
+| S41-2 | **#103 Live Launch** — Stripe Production Links in index.html Zeilen 100/106/112 eintragen. | Engineer | 🔲 Blocked (Human Input: Stripe-Links von Till) |
+| S41-3 | **#108 Native Speaker Review** — FR/ES/IT Strings von Muttersprachlern prüfen. | Artist | 🔲 Blocked (Human Input: Muttersprachler) |
+
+---
+
+## Standup Log
+
+### 2026-04-06 (Sprint 41 Planning)
+
+**Kontext:** Sprint 40 fertig (Snake ✅, PR #254). 4 offene PRs (#251 S37, #252 S38, #253 S39, #254 S40) warten auf Till. Alle autonomen P0-Items (#104 ✅ S37, #105 ✅ S37, #106 ✅ S37, #107 ✅ S39+S40, #37 ✅ S38) sind erledigt.
+
+**Blocked Items:**
+- #78: Till muss Tesla-Video schicken (1h Oscar-Session). Fünfter Sprint ohne dieses Video.
+- #103: Stripe Production Links. Till hat Zugang zum Stripe-Dashboard.
+- #27: CORS Worker. Till deployt.
+- #92: Requesty Key rotieren. Till rotiert.
+- #108: Native Speaker Review FR/ES/IT. Externer Kontakt nötig.
+
+**Empfehlung an Till:**
+1. PRs #251 + #252 + #253 + #254 mergen (feat/sprint-37 bis feat/sprint-40 → main)
+2. Tesla-Video oder Stripe-Links schicken damit Sprint 42 autonome Arbeit hat
+
+**Nächster autonomer Sprint:** nur wenn neue implementierbare Items erscheinen.
+
+---
+
 # Sprint 40 — "Oscar findet die Schlange"
 
 **Sprint Goal:** Snake Easter Egg — zweites verstecktes Spiel. Oscars Bruder hat Tetris. Jetzt kommt Snake.
