@@ -1,3 +1,38 @@
+# Sprint 38 — "Weltraum klingt nach Weltraum"
+
+**Sprint Goal:** Weltraum-Materialien kriegen eigene Töne + Genesis-Tutorial Phase 2.
+**Start:** 2026-04-06
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S38-1 | **#78 Tesla-Nutzertest auswerten** — 1h Oscar-Video analysieren. P0 seit Sprint 36, zweimal übergangen. | Scientist | 🔲 Blocked (Human Input: Video liegt bei Till) |
+| S38-2 | **Sound-Polishing Weltraum** — `rocket` 🚀 / `moon` 🌙 / `mars` 🪐 / `alien` 👽 kriegen eigene Töne in `ELEMENT_TONES`, `KLONK_FREQS`, `DRUM_MAP`, `playMaterialSound`. Rakete klingt jetzt wie Triebwerk, Mond wie Stille, Alien wie Alien. | Engineer | ✅ Done |
+| S38-3 | **#37 Genesis-Tutorial Phase 2** — Wasser-Start für Neuspieler (`generateWaterStart`) + 4 neue Genesis-Milestones (Stufe 4–7: Natur/Zivilisation/Wetter/Weltraum). | Engineer + Designer | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-06 (Sprint 38 Planning)
+
+**Kontext:** Sprint 37 fertig (PR #251 offen). Retro hat #78 als zweimal übergangenen P0 markiert. #78 bleibt Blocked (Human Input), daher S38-2 + S38-3 als implementierbare Items.
+
+**Blocker:** S38-1 wartet auf Till.
+
+### 2026-04-06 (Sprint 38 Delivery)
+
+**Heute:** S38-2 + S38-3 implementiert.
+- S38-2: Sound-Polishing — 4 neue Drum-Funktionen (drumRocket/Moon/Mars/Alien) + ELEMENT_TONES + KLONK_FREQS + playMaterialSound-Cases für alle 4 Weltraum-Materialien. Rakete gleidet aufwärts. Mond schwebt. Mars ist staubig. Alien beept.
+- S38-3: Genesis Phase 2 — `generateWaterStart()` in island-generators.js (3×3 Sandinsel, eine Palme). In game.js: absoluter Neuspieler (kein `insel-genesis-shown`) → Wasser-Start statt Zufalls-Insel. Genesis-Stufen 4–7 in `updateGenesisVisibility()`: Natur (stone+plant), Zivilisation (door/roof), Wetter (cloud/sun/rain/lightning), Weltraum (rocket).
+
+**Blocker:** S38-1 bleibt offen (Human Input: Till muss das Tesla-Video schicken).
+
+---
+
 # Sprint 37 — "Oscars Bruder findet den Einstieg"
 
 **Sprint Goal:** Oscar's Bruder-Feedback umsetzen — Onboarding, Fill-Shortcut, Palette aufräumen.
