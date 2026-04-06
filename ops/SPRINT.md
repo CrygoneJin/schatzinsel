@@ -28,6 +28,46 @@
 
 ---
 
+## Sprint Review — 2026-04-06
+
+**Sprint Goal erreicht:** ✅ Ja — alle 3 Items Done.
+
+**Was geliefert wurde:**
+- S37-1: Onboarding-Toast "👆 Tippe auf die Insel!" — erscheint einmalig nach dem Tutorial. Oscars Bruder beim Erstbesuch wusste nicht wo er clicken soll. Jetzt weiß er es.
+- S37-2: Long-Press (500ms) = Fill-Tool, Mausrad = Materialwechsel — zwei versteckte Power-User-Gesten jetzt zugänglich. Fill war vorher 3 Klicks entfernt.
+- S37-3: Inventar-Badge direkt auf Palette-Buttons — Bestand sichtbar ohne Sidebar. Oscar sieht sofort "ich habe noch 3 Holz".
+
+**Oscar-Check:** Erstbesuch ohne localStorage → Toast erscheint nach Tutorial. Mausrad auf Canvas → Material wechselt ohne Klick. 5 Holz ernten → Badge "5" auf Holz-Button.
+
+**PR:** #251 offen, wartet auf Merge.
+
+---
+
+## Sprint Retrospective — 2026-04-06
+
+### Was lief gut?
+- **Echtes Feedback umgesetzt.** Oscars Bruder hat 3 konkrete UX-Probleme gezeigt. Alle 3 in einem Sprint gelöst. Das ist der kürzeste Feedback-Loop den wir hatten.
+- **Minimal invasiv.** Alle 3 Items nutzen bestehende Strukturen: Toast-System, Event-Handler, `updateInventoryDisplay()`. Kein neues System eingeführt.
+- **PR-Disziplin.** Sprint 37 ist ein sauberer atomarer Branch — kein PR-Stacking.
+
+### Was lief schlecht?
+- **#78 Tesla-Nutzertest noch offen.** Sprint 36 Retro hat ihn als P0 empfohlen. Sprint 37 hat ihn ignoriert. Das ist kein Fehler — Oscars Bruder-Feedback war dringender. Aber #78 darf nicht nochmal übergangen werden.
+- **Stripe S35-3 weiterhin blockiert.** Kein Update. Liegt bei Till.
+
+### Was verbessern wir?
+1. **Sprint 38 = Tesla-Nutzertest.** #78 ist Pflicht, kein Optional. Feynman-Regel greift.
+2. **Live Launch #103** braucht Stripe-Links von Till. Explizit ansprechen.
+
+### Sprint 38 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#78 Tesla-Nutzertest auswerten** | P0 | Zweimal übergangen. Jetzt. Echte Daten. |
+| **Sound-Polishing Weltraum** — Rakete/Mond/Mars/Alien eigene Töne | P1 | Rocket klingt wie Stein. Das fühlt sich falsch an. |
+| **#37 Genesis-Tutorial Phase 2** — 7-Stufen-Progression | P1 | Oscar erlebt Schöpfung von Anfang an. |
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
