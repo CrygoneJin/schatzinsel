@@ -39,6 +39,16 @@
 
 ## Standup Log
 
+### 2026-04-06 — Daily Scrum (Session 8)
+
+**Status:** Blocked. 7 PRs (#251–#257) + PR #258 warten auf Till.
+
+**Smoke Tests:** Container-Proxy blockiert externe Verbindungen — kein App-Fehler, bekanntes Sandbox-Muster.
+
+**Keine autonome Arbeit möglich.** Oscar sieht erst Fortschritt wenn #251 gemergt ist.
+
+---
+
 ### 2026-04-06 — Daily Scrum (Session 7)
 
 **Status:** Unverändert blocked. 7 PRs (#251–#257) warten auf Till.
