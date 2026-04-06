@@ -8,6 +8,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | 2026-04-05 | NTP-Fetch im `beforeunload`-Handler funktioniert nicht zuverlässig | `beforeunload` gibt kein Promise-Warten — NTP-Fetch muss bei Session-Start passieren, nicht beim Ende. Ende nimmt `Date.now()` als approximativen Endpunkt (Drift <2s akzeptabel). |
 | 2026-04-05 | Token-Schätzung ohne API-Zugang | Client hat keinen Zugriff auf echte Usage-Daten außer wenn der Provider `data.usage` mitschickt. Schätzung via Zeichenlänge ÷ 3.5 ist reproduzierbar und ehrlich markiert ("~"). Requesty liefert `completion_tokens` — wenn vorhanden, für NPC-Budget weiter verwenden. |
+| 2026-04-06 | Zwei falsche Repos (particle-physics-simulator, philosophy-of-science) als unmodifizierte schatzinsel-Klone erstellt | Repos ohne klares Projektziel geforkt, keine divergierenden Inhalte | Vor Fork: ein Satz Projektziel + Zielgruppe formulieren. Kein Repo ohne docs/PROJECT.md Bootstrap-Commit. |
 
 ## Bugs (so we don't repeat them)
 
@@ -67,6 +68,7 @@ Persistent team log. Append-only. Read by all agents.
 
 | Datum | Was | Warum gut |
 |-------|-----|-----------|
+| 2026-04-06 | Zwei-Repo-Struktur: schatzinsel (Oscar/Kinder) + philosophy-of-quantum-field-theory (QFT/Erwachsene) | Klare Trennung Zielgruppe + Technik. schatzinsel-Canvas als Basis wiederverwendet. |
 | 2026-04-04 | PR #229 gemergt ohne MEMORY-Eintrag. Regel verletzt: "Memory nach jedem PR." | Immer direkt nach Merge MEMORY updaten. Nicht am Session-Ende sammeln. |
 | 2026-04-04 | Designer+Artist Audit → 11 Fixes in 3 parallelen Agents. Toolbar 25→7 Buttons, Touch Targets 44px, Model-Tags gefiltert, Copy kindgerecht, NPC-Unlock-Hints dynamisch. 9/9 Playwright grün. Mobile Canvas 28%→60%. PR #229 gemergt auf main. | Full-throttle Session: Till bemalt Ostereier, Agents arbeiten autonom. Parallele Agents + sofortige Verifikation = 11 Fixes in einer Runde. |
 | 2026-04-04 | Sprint 27 = Release-Sprint geplant. Stripe Produkt live (prod_UH8GIdCYDVu1H5, 3 Preise: 5€/10€/25€). Playwright ersetzt Puppeteer. itch.io als zweiter Kanal. | Einstein-Entscheidung: "Spiel soll live gehen." Alles andere hat Pause. |
