@@ -1,3 +1,81 @@
+# Sprint 40 — "Oscar findet die Schlange"
+
+**Sprint Goal:** Snake Easter Egg — zweites verstecktes Spiel. Oscars Bruder hat Tetris. Jetzt kommt Snake.
+**Start:** 2026-04-06
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S40-1 | **#107 Snake Easter Egg** — Tippe "snake" auf der Tastatur (s-n-a-k-e). Mini-Snake öffnet in einem Modal. Canvas-basiert, Vanilla JS, `easter-snake.js`. Escape schließt. Zweites Spiel aus dem Original-#107-Scope (Tetris + Snake). | Engineer | ✅ Done |
+
+---
+
+## Standup Log
+
+### 2026-04-06 (Sprint 40 Planning)
+
+**Kontext:** Sprint 39 fertig (Tetris ✅, PR #253). Sprint-39-Retro empfahl "Sprint 40 = nach Tesla-Nutzertest" — aber #78 ist Human-Input-blocked (Till schickt Video). Snake ist der zweite Teil von #107 und ohne Human Input implementierbar. Ein Item, atomar.
+
+**Sprint 40 Fokus:** Snake Easter Egg, Trigger: "snake" tippen. Isoliertes IIFE, kein game.js-Coupling.
+
+### 2026-04-06 (Sprint 40 Delivery)
+
+**Heute:** S40-1 implementiert.
+- `src/core/easter-snake.js` — IIFE, identisches Pattern wie easter-tetris.js. Kein game.js-Coupling.
+- Trigger: s-n-a-k-e tippen (case-insensitive). Index-Reset bei Fehleingabe.
+- Modal: `position:fixed`, z-index 20000, click außerhalb = schließen, Escape = schließen.
+- Snake: 20×20 Grid, 20px Zellen (400×400 Canvas). Schlange + Apfel. Score +10 pro Apfel.
+- Steuerung: Pfeiltasten. Kein 180°-Umkehr (keine sofortige Selbstkollision).
+- Kopf-Augen: weiße Pixel in Blickrichtung. Gitter dezent sichtbar.
+- Apfel als Kreis (arc), Schlange als Rechtecke.
+- `setInterval` 150ms. `clearInterval` beim Schließen. Kein Memory Leak.
+- Script in index.html direkt nach easter-tetris.js eingetragen.
+
+**Blocker:** Keine.
+
+---
+
+## Sprint Review — 2026-04-06
+
+**Sprint Goal erreicht:** ✅ Ja — S40-1 Done.
+
+**Was geliefert wurde:**
+- S40-1: Snake Easter Egg. Tippe "snake" auf der Tastatur → Modal mit Mini-Snake. Oscar und Bruder können beide Spiele (Tetris + Snake) entdecken. #107 vollständig abgeschlossen.
+
+**Oscar-Check:** "snake" auf der Tastatur → grüne Schlange auf dunklem Gitter. Äpfel fressen. Punkte sehen. Wand oder sich selbst berühren → Game Over. Esc schließt, Insel ist noch da.
+
+---
+
+## Sprint Retrospective — 2026-04-06
+
+### Was lief gut?
+- **Pattern-Wiederverwendung.** easter-snake.js ist ~200 Zeilen, weil das IIFE-Modal-Pattern von easter-tetris.js 1:1 übertragen werden konnte.
+- **#107 vollständig.** Tetris + Snake. Backlog-Item klar abgeschlossen. Keine halben Sachen.
+- **Trigger-Wahl gut.** "snake" tippen ist direkter als Konami-Code für Kinder. Tetris = Konami, Snake = Wort. Zwei verschiedene Patterns — leichter zu erklären.
+
+### Was lief schlecht?
+- **Vier offene PRs.** #251 (S37) + #252 (S38) + #253 (S39) + S40-PR. Till muss mergen. PR-Chain ist zu lang.
+- **#78 immer noch blockiert.** Fünfter Sprint ohne Tesla-Video.
+
+### Was verbessern wir?
+1. **Till: Bitte PRs #251 + #252 + #253 mergen + Tesla-Video schicken.**
+2. **Sprint 41 = Warten auf Till.** Bis #78 (Video) oder #103 (Stripe) freigegeben wird, keine weiteren Features. Feynman-Regel.
+
+### Sprint 41 — Empfehlung
+
+| Kandidat | Prio | Warum |
+|----------|------|-------|
+| **#78 Tesla-Nutzertest** | P0 | Blocked. Till. |
+| **#103 Live Launch** | P0 | Stripe-Links von Till. |
+| **#108 Native Speaker Review** | P0 | ES/IT. Braucht Muttersprachler. |
+
+**Empfehlung:** Kein Sprint 41 ohne #78 oder #103 freigegeben. Nächster autonomer Sprint nur wenn neue implementierbare Items im Backlog erscheinen.
+
+---
+
 # Sprint 39 — "Oscars geheimes Spiel im Spiel"
 
 **Sprint Goal:** Konami-Code Easter Egg — Tetris versteckt im Spiel. Oscars Bruder wollte Tetris. Er bekommt Tetris.
