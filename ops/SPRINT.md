@@ -1,3 +1,58 @@
+# Sprint 44 — Warten auf Till
+
+**Sprint Goal:** Keine implementierbare Arbeit übrig. PR-Chain (#251–#257) wartet auf Merge.
+**Start:** 2026-04-06
+**Status:** ⛔ Blocked — alle P0-Items brauchen Human Input.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S44-1 | **#78 Tesla-Nutzertest auswerten** — 1h Oscar-Video analysieren. 7 Sprints offen. Echte Daten vor mehr Features. | Scientist + Leader | 🔲 Human Input (Till schickt Video) |
+| S44-2 | **#103 Stripe Production Links** — 5€/10€/25€ eintragen in index.html. Live Launch blockiert. | Engineer | 🔲 Human Input (Stripe-Links von Till) |
+| S44-3 | **#92 Requesty Key rotieren** — Alter Key im Git-Verlauf. Sicherheitsrisiko. | Engineer | 🔲 Human Input (neuer Key von Till) |
+
+**Kein autonomer Sprint ohne Till.** Pause ist besser als Gold-Plating.
+
+---
+
+## ⚠️ PR-Chain — Till: Eine Aktion entsperrt alles
+
+7 fertige Sprints warten in GitHub. Oscar sieht Tetris, Snake, neues Onboarding, Weltraum-Töne —
+**sobald #251 gemergt ist.**
+
+| PR | Sprint | Inhalt | Ziel | Status |
+|----|--------|--------|------|--------|
+| [**#251**](https://github.com/CrygoneJin/schatzinsel/pull/251) | Sprint 37 | Onboarding + Long-Press + Palette-Counter | `main` | ✅ **ZUERST MERGEN** |
+| [#252](https://github.com/CrygoneJin/schatzinsel/pull/252) | Sprint 38 | Weltraum-Töne + Genesis Phase 2 | `feat/sprint-37` | ✅ Ready (nach #251) |
+| [#253](https://github.com/CrygoneJin/schatzinsel/pull/253) | Sprint 39 | Tetris Easter Egg (Konami-Code) | `feat/sprint-38` | ✅ Ready (nach #252) |
+| [#254](https://github.com/CrygoneJin/schatzinsel/pull/254) | Sprint 40 | Snake Easter Egg ("snake" tippen) | `feat/sprint-39` | ✅ Ready (nach #253) |
+| [#255](https://github.com/CrygoneJin/schatzinsel/pull/255) | Sprint 41 | Blocked-Sprint Docs | `feat/sprint-40` | ✅ Ready (nach #254) |
+| [#256](https://github.com/CrygoneJin/schatzinsel/pull/256) | Sprint 42 | Playwright Critical Path E2E Tests | `feat/sprint-41` | ✅ Ready (nach #255) |
+| [#257](https://github.com/CrygoneJin/schatzinsel/pull/257) | Sprint 43 | CI für alle PRs + Backlog auf Stand | `main` | ✅ Unabhängig mergbar |
+
+**Reihenfolge:** #257 kann sofort in main. Dann #251 → #252 → #253 → #254 → #255 → #256.
+
+---
+
+## Standup Log
+
+### 2026-04-06 — Sprint 44 Planning
+
+**Kontext:** Sprints 37–43 vollständig implementiert (7 offene PRs). Sprint 43 Retro war klar:
+"Pause besser als Gold-Plating." Alle autonomen P0/P1-Items sind erledigt.
+
+**Smoke Tests:** schatzinsel.app + Worker-API von der Container-Umgebung aus nicht erreichbar
+(Proxy: `host_not_allowed`). Kein echter Ausfall — GitHub Pages + Cloudflare Workers laufen.
+
+**Nächster autonomer Schritt:** Sobald Till #78 (Tesla-Video) schickt oder #103 (Stripe-Links) freigibt.
+
+---
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
