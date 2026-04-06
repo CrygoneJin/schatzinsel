@@ -9,7 +9,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S39-1 | **#107 Tetris Easter Egg** — Konami-Code (↑↑↓↓←→←→BA) aktiviert Mini-Tetris in einem Modal. Canvas-basiert, Vanilla JS, `easter-tetris.js`. Escape schließt. Oscar und Bruder können es zusammen entdecken. | Engineer | 🔲 Offen |
+| S39-1 | **#107 Tetris Easter Egg** — Konami-Code (↑↑↓↓←→←→BA) aktiviert Mini-Tetris in einem Modal. Canvas-basiert, Vanilla JS, `easter-tetris.js`. Escape schließt. Oscar und Bruder können es zusammen entdecken. | Engineer | ✅ Done |
 
 ---
 
@@ -21,7 +21,53 @@
 
 **Sprint 39 Fokus:** Konami-Code → Mini-Tetris Modal. Ein Item, atomar, sauber.
 
+### 2026-04-06 (Sprint 39 Delivery)
+
+**Heute:** S39-1 implementiert.
+- `src/core/easter-tetris.js` — selbstständiges IIFE, kein game.js-Coupling.
+- Konami-Sequenz tracked via `konamiIndex` im `keydown`-Listener. Nach 10 Tastendrücken: Modal öffnen.
+- Modal: `position:fixed`, z-index 20000 (über allem). Click außerhalb = schließen. Escape = schließen.
+- Tetris: 10×20 Grid, 7 Tetrominoes, COLORS passend zur Insel-Ästhetik. Rotation (↑), Bewegen (←→), Schnell (↓), Hard Drop (Leertaste).
+- `setInterval` 500ms Tick. `clearInterval` beim Schließen. Kein Memory Leak.
+- Script in index.html vor game.js eingetragen.
+
 **Blocker:** Keine.
+
+---
+
+## Sprint Review — 2026-04-06
+
+**Sprint Goal erreicht:** ✅ Ja — S39-1 Done.
+
+**Was geliefert wurde:**
+- S39-1: Tetris Easter Egg via Konami-Code. Oscars Bruder wollte Tetris (Parental Controls). Er findet es wenn er ↑↑↓↓←→←→BA eintippt. Oscar kann es ihm zeigen. Punkte sichtbar. Escape schließt.
+
+**Oscar-Check:** Konami-Code auf der Tastatur → Tetris-Modal erscheint mit "🎮 Tetris — geheimes Easter Egg!". Spielen. Escape schließt. Insel ist noch da.
+
+---
+
+## Sprint Retrospective — 2026-04-06
+
+### Was lief gut?
+- **Atomar und sauber.** easter-tetris.js ist vollständig isoliert — kein Coupling zu game.js. Kein globaler State.
+- **Konami-Code robust.** Index-Reset bei Fehler, kein false positive wenn man mitten in der Sequenz stoppt.
+- **Modal-Pattern konsistent.** Gleiche Mechanik wie krabs-shop-modal und bug-npc-modal.
+
+### Was lief schlecht?
+- **Drei offene PRs.** #251 (Sprint 37) + Sprint 38 PR + Sprint 39 PR. Till muss mergen.
+- **#78 Tesla-Nutzertest weiterhin blockiert.** Vierter Sprint ohne das Video. Explizit an Till.
+
+### Was verbessern wir?
+1. **Till: Bitte PRs mergen + Tesla-Video schicken.** Sonst läuft die PR-Chain aus dem Ruder.
+2. **Sprint 40 = nach Tesla-Nutzertest.** Was Oscar wirklich braucht, nicht was wir vermuten.
+
+### Sprint 40 — Empfehlung
+
+| Kandidat | Prio | Warum |
+|----------|------|-------|
+| **#78 Tesla-Nutzertest** | P0 | Blocked. Till. |
+| **#103 Live Launch** | P0 | Stripe-Links von Till. |
+| **#108 Native Speaker Review** | P0 | ES/IT in Icebox. Braucht Muttersprachler. |
 
 ---
 
