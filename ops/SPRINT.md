@@ -1,3 +1,40 @@
+# Sprint 41 — Blockiert
+
+**Sprint Goal:** Tesla-Nutzertest auswerten + Live Launch Stripe abschließen.
+**Start:** 2026-04-06
+**Status:** ⛔ Blocked — alle P0-Items warten auf Till.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S41-1 | **#78 Tesla-Nutzertest auswerten** — 1h Oscar-Video analysieren. Echte Daten vor mehr Features. | Scientist + Leader | 🔲 Human Input (Till schickt Video) |
+| S41-2 | **#103 Live Launch Stripe** — Production-Links eintragen. | Engineer | 🔲 Human Input (Stripe-Links von Till) |
+| S41-3 | **#108 Native Speaker Review** — ES/IT Strings von Muttersprachlern prüfen. | Artist | 🔲 Human Input (Muttersprachler kontaktieren) |
+
+**Nächster autonomer Schritt:** Sobald Till das Tesla-Video schickt oder die Stripe-Links freigibt.
+
+---
+
+## ⚠️ PR-Chain wartet auf Till
+
+Sprints 37–40 sind **vollständig implementiert** und in GitHub, aber noch nicht in `main`:
+
+| PR | Sprint | Ziel | Status |
+|----|--------|------|--------|
+| [#251](https://github.com/CrygoneJin/schatzinsel/pull/251) | Sprint 37 — Onboarding + Long-Press + Palette-Counter | `main` | ✅ Ready to merge |
+| [#252](https://github.com/CrygoneJin/schatzinsel/pull/252) | Sprint 38 — Weltraum-Töne + Genesis Phase 2 | `feat/sprint-37` | ✅ Ready (nach #251) |
+| [#253](https://github.com/CrygoneJin/schatzinsel/pull/253) | Sprint 39 — Tetris Easter Egg (Konami-Code) | `feat/sprint-38` | ✅ Ready (nach #252) |
+| [#254](https://github.com/CrygoneJin/schatzinsel/pull/254) | Sprint 40 — Snake Easter Egg ("snake" tippen) | `feat/sprint-39` | ✅ Ready (nach #253) |
+
+**Reihenfolge:** #251 → #252 → #253 → #254. Dann ist `main` auf Sprint-40-Stand.
+
+---
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
