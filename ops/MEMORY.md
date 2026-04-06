@@ -39,6 +39,8 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-05 | Stripe Donation-Links alle identisch (Test-URL) — Production-Links nie eingetragen | TODO-Kommentar in index.html seit Sprint 27 unbeachtet | Stripe Production-Links als expliziter Human-Input-Task im Backlog — nicht als TODO-Kommentar vergessen. |
 | 2026-04-05 | Sprint 34: 2 von 3 Items waren Phantom-Opens (S34-2, S34-3 bereits implementiert) | Backlog + deploy.yml nicht vor Sprint Planning geprüft | Vor Sprint Planning: deploy.yml lesen + BACKLOG gegen Code verifizieren. Nie Items planen ohne zu prüfen ob bereits fertig. |
 | 2026-04-05 | Alien auf Mond: als Grid-Block platziert, aber kein NPC-Dialog | island-generators.js platziert Alien als Material, NPC_DEFS kannte kein 'alien' | NPC auf neuer Insel: NPC_DEFS + NPC_VOICES + initNpcPositions() braucht moon/island-Flag. Analog zu lummerland-Flag. |
+| 2026-04-06 | Sprint 37 Review: Smoke Test in Sandbox 403 — kein Produktionsproblem | Sandbox-Proxy blockiert schatzinsel.app + workers.dev (nicht in allowed-hosts) | Smoke Test via curl im Agent ist unzuverlässig. CI/Playwright ist der richtige Ort. Agent-seitig: 403 von Proxy ≠ Site down. |
+| 2026-04-06 | Oscars Bruder-Feedback war konkreter als Tesla-Nutzertest-Video | 3 direkte UX-Probleme von echtem Erstbesucher — alle in einem Sprint lösbar | Direktes Nutzer-Feedback schlägt Video-Analyse wenn konkret und umsetzbar. #78 dennoch als P0 für Sprint 38. |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
