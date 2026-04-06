@@ -19,6 +19,8 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 | 105 | **Long-Press = Fill, Mausrad = Tool-Wechsel** — Oscars Bruder-Feedback: Fill versteckt, Tool-Wechsel unklar. Long-press auf Canvas = Füllen. Mausrad = nächstes Material. | Engineer | ✅ Done (S37-2, PR #251) |
 | 106 | **Palette-Duplikat entfernen** — Inventar-Anzahl als Badge auf Palette-Buttons. | Designer | ✅ Done (S37-3, PR #251) |
 | 107 | **Tetris + Snake als Easter Egg** — Oscars Bruder hat Tetris auf Apple TV entdeckt, konnte es nicht kaufen (Parental Controls). Zwei klassische Spiele als verstecktes Easter Egg (Konami-Code o.ä.). | Engineer | ✅ Done (S39+S40, PR #253+#254) |
+| 106 | **Palette-Duplikat entfernen** — Element links in Palette + nochmal rechts mit Counter = redundant. Nur Counter + Element links. | Designer | ✅ Done (S37-3, PR #251) |
+| 107 | **Tetris + Snake als Easter Egg** — Oscars Bruder hat Tetris auf Apple TV entdeckt, konnte es nicht kaufen (Parental Controls). Zwei klassische Spiele als verstecktes Easter Egg (Konami-Code o.ä.). | Engineer | ✅ Done (S39-1 Tetris PR #253 + S40-1 Snake) |
 
 | 108 | **Native Speaker Review FR/ES/IT** — Alle nicht-DE/EN Strings von Muttersprachlern prüfen lassen. Risiko: falsche Grammatik (gefunden: IT Plural "missionei"). | Artist | 🔲 Human Input |
 
