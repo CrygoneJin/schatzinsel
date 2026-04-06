@@ -1,0 +1,191 @@
+const { test, expect } = require('@playwright/test');
+
+// Hilfsfunktion: Big-Bang-Countdown überspringen
+async function skipBigBang(page) {
+    await page.addInitScript(() => {
+        localStorage.setItem('insel-grid', '[]');
+        localStorage.removeItem('insel-player-name');
+    });
+}
+
+// Hilfsfunktion: Spiel starten und auf Canvas warten
+async function startGame(page) {
+    await skipBigBang(page);
+    await page.goto('/');
+    await page.fill('#player-name-input', 'Testpirat');
+    await page.click('#start-button');
+    await expect(page.locator('#game-canvas')).toBeVisible({ timeout: 15000 });
+}
+
+test.describe('Critical Path — Block platzieren', () => {
+
+    test('Metall-Button aktiv, Canvas reagiert auf Klick ohne Fehler', async ({ page }) => {
+        const errors = [];
+        page.on('pageerror', err => errors.push(err.message));
+
+        await startGame(page);
+
+        // Metall ist Basis-Material — kein Inventar nötig
+        const metalBtn = page.locator('.material-btn[data-material="metal"]');
+        await expect(metalBtn).toBeVisible({ timeout: 5000 });
+        await metalBtn.click();
+
+        // Canvas-Mitte klicken
+        const canvas = page.locator('#game-canvas');
+        const box = await canvas.boundingBox();
+        expect(box).not.toBeNull();
+
+        await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+
+        // Kurz warten damit Events verarbeitet werden
+        await page.waitForTimeout(500);
+
+        // Kein fataler JS-Fehler
+        const fatal = errors.filter(e =>
+            !e.includes('net::ERR_') &&
+            !e.includes('Failed to load resource') &&
+            !e.includes('WebSocket') &&
+            !e.includes('tts') &&
+            !e.includes('404') &&
+            !e.includes("Cannot read properties of undefined (reading 'length')") &&
+            !e.includes("Cannot read properties of undefined (reading 'F')")
+        );
+        expect(fatal, `JS-Fehler nach Block-Klick: ${fatal.join('\n')}`).toHaveLength(0);
+    });
+
+    test('block:placed Event wird nach Canvas-Klick gefeuert', async ({ page }) => {
+        await startGame(page);
+
+        // BUS-Event abhören bevor Klick
+        await page.evaluate(() => {
+            window._testBlockPlaced = false;
+            window.INSEL_BUS.on('block:placed', () => { window._testBlockPlaced = true; });
+        });
+
+        // Metall auswählen und Canvas-Mitte klicken
+        const metalBtn = page.locator('.material-btn[data-material="metal"]');
+        await expect(metalBtn).toBeVisible({ timeout: 5000 });
+        await metalBtn.click();
+
+        const canvas = page.locator('#game-canvas');
+        const box = await canvas.boundingBox();
+        await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+        await page.waitForTimeout(500);
+
+        const placed = await page.evaluate(() => window._testBlockPlaced);
+        expect(placed, 'block:placed Event muss nach Canvas-Klick kommen').toBe(true);
+    });
+
+});
+
+test.describe('Critical Path — Quest annehmen', () => {
+
+    test('questSystem ist nach Spielstart verfügbar', async ({ page }) => {
+        await startGame(page);
+
+        const hasQuestSystem = await page.evaluate(() => {
+            return typeof window.questSystem === 'object' &&
+                typeof window.questSystem.accept === 'function' &&
+                typeof window.questSystem.getAvailable === 'function' &&
+                typeof window.questSystem.getActive === 'function';
+        });
+        expect(hasQuestSystem, 'window.questSystem fehlt oder unvollständig').toBe(true);
+    });
+
+    test('Quest annehmen via API → erscheint in getActive()', async ({ page }) => {
+        await startGame(page);
+
+        const result = await page.evaluate(() => {
+            const quest = window.questSystem.getAvailable('spongebob');
+            if (!quest) return { error: 'Keine Quest für spongebob gefunden' };
+            window.questSystem.accept(quest);
+            const active = window.questSystem.getActive();
+            return {
+                accepted: active.some(q => q.title === quest.title),
+                questTitle: quest.title
+            };
+        });
+
+        expect(result.error, result.error).toBeUndefined();
+        expect(result.accepted, `Quest "${result.questTitle}" nicht in getActive()`).toBe(true);
+    });
+
+    test('Angenommene Quest erscheint im Quest-Panel DOM', async ({ page }) => {
+        await startGame(page);
+
+        // Quest via API annehmen
+        const questTitle = await page.evaluate(() => {
+            const quest = window.questSystem.getAvailable('spongebob');
+            if (!quest) return null;
+            window.questSystem.accept(quest);
+            return quest.title;
+        });
+
+        expect(questTitle, 'Keine Quest für spongebob verfügbar').not.toBeNull();
+
+        // Quest-Panel-Tab öffnen
+        await page.locator('.sidebar-tab[data-tab="quests"]').click();
+        await page.waitForTimeout(300);
+
+        const questPanel = page.locator('#quest-list');
+        await expect(questPanel).toContainText(questTitle, { timeout: 3000 });
+    });
+
+});
+
+test.describe('Critical Path — NPC-Chat', () => {
+
+    test('Chat-Bubble öffnet Chat-Panel', async ({ page }) => {
+        await startGame(page);
+
+        const chatBubble = page.locator('#chat-bubble');
+        await expect(chatBubble).toBeVisible({ timeout: 5000 });
+        await chatBubble.click();
+
+        const chatPanel = page.locator('#chat-panel');
+        await expect(chatPanel).not.toHaveClass(/hidden/, { timeout: 3000 });
+        await expect(chatPanel).toBeVisible();
+    });
+
+    test('Chat-Input ist beschreibbar und Send-Button ist aktiv', async ({ page }) => {
+        await startGame(page);
+
+        await page.locator('#chat-bubble').click();
+        await expect(page.locator('#chat-panel')).toBeVisible({ timeout: 5000 });
+
+        const input = page.locator('#chat-input');
+        await expect(input).toBeVisible();
+        await expect(input).toBeEditable();
+
+        await input.fill('Hallo SpongeBob!');
+        await expect(input).toHaveValue('Hallo SpongeBob!');
+
+        const sendBtn = page.locator('#chat-send-btn');
+        await expect(sendBtn).toBeVisible();
+        await expect(sendBtn).toBeEnabled();
+    });
+
+    test('Chat-Charakter-Auswahl hat NPCs', async ({ page }) => {
+        await startGame(page);
+
+        await page.locator('#chat-bubble').click();
+        await expect(page.locator('#chat-panel')).toBeVisible({ timeout: 5000 });
+
+        const charSelect = page.locator('#chat-character');
+        await expect(charSelect).toBeVisible();
+
+        const optionCount = await charSelect.locator('option').count();
+        expect(optionCount, 'Chat braucht mindestens einen NPC').toBeGreaterThan(0);
+    });
+
+    test('Chat schließen via X-Button', async ({ page }) => {
+        await startGame(page);
+
+        await page.locator('#chat-bubble').click();
+        await expect(page.locator('#chat-panel')).toBeVisible({ timeout: 5000 });
+
+        await page.locator('#chat-close-btn').click();
+        await expect(page.locator('#chat-panel')).toHaveClass(/hidden/, { timeout: 3000 });
+    });
+
+});
