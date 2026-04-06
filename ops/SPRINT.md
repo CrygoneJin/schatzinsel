@@ -17,6 +17,22 @@
 
 ## Standup Log
 
+### 2026-04-06 — Daily Scrum
+
+**Gestern:** Sprint 41 Planning — alle Items als Blocked dokumentiert.
+
+**Heute:** Keine autonome Arbeit möglich. 4 PRs warten auf Till:
+- #251 (Sprint 37: Onboarding + Long-Press + Palette-Counter)
+- #252 (Sprint 38: Weltraum-Töne + Genesis Phase 2)
+- #253 (Sprint 39: Tetris Easter Egg)
+- #254 (Sprint 40: Snake Easter Egg)
+
+Merge-Reihenfolge zwingend: #251 → #252 → #253 → #254 → #255 (diese PR).
+
+**Blocker:** Till. Kein Ticket, kein Code, kein Branch hilft bis der Merge kommt.
+
+---
+
 ### 2026-04-06 (Sprint 41 Planning)
 
 **Kontext:** Sprint 40 fertig (Snake ✅, PR #254). 4 offene PRs (#251 S37, #252 S38, #253 S39, #254 S40) warten auf Till. Alle autonomen P0-Items (#104 ✅ S37, #105 ✅ S37, #106 ✅ S37, #107 ✅ S39+S40, #37 ✅ S38) sind erledigt.
