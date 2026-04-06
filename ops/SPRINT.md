@@ -1,3 +1,30 @@
+# Sprint 39 — "Oscars geheimes Spiel im Spiel"
+
+**Sprint Goal:** Konami-Code Easter Egg — Tetris versteckt im Spiel. Oscars Bruder wollte Tetris. Er bekommt Tetris.
+**Start:** 2026-04-06
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S39-1 | **#107 Tetris Easter Egg** — Konami-Code (↑↑↓↓←→←→BA) aktiviert Mini-Tetris in einem Modal. Canvas-basiert, Vanilla JS, `easter-tetris.js`. Escape schließt. Oscar und Bruder können es zusammen entdecken. | Engineer | 🔲 Offen |
+
+---
+
+## Standup Log
+
+### 2026-04-06 (Sprint 39 Planning)
+
+**Kontext:** Sprint 38 fertig (S38-2 Sound + S38-3 Genesis Phase 2 Done, S38-1 Blocked Human Input). Retro: #78 bleibt offen bis Till das Video schickt. #107 ist der einzige P0-Item ohne Human-Input-Blocker.
+
+**Sprint 39 Fokus:** Konami-Code → Mini-Tetris Modal. Ein Item, atomar, sauber.
+
+**Blocker:** Keine.
+
+---
+
 # Sprint 38 — "Weltraum klingt nach Weltraum"
 
 **Sprint Goal:** Weltraum-Materialien kriegen eigene Töne + Genesis-Tutorial Phase 2.
@@ -30,6 +57,43 @@
 - S38-3: Genesis Phase 2 — `generateWaterStart()` in island-generators.js (3×3 Sandinsel, eine Palme). In game.js: absoluter Neuspieler (kein `insel-genesis-shown`) → Wasser-Start statt Zufalls-Insel. Genesis-Stufen 4–7 in `updateGenesisVisibility()`: Natur (stone+plant), Zivilisation (door/roof), Wetter (cloud/sun/rain/lightning), Weltraum (rocket).
 
 **Blocker:** S38-1 bleibt offen (Human Input: Till muss das Tesla-Video schicken).
+
+---
+
+## Sprint Review — 2026-04-06
+
+**Sprint Goal erreicht:** ⚠️ Teilweise — 2 von 3 Items Done, 1 Blocked (Human Input).
+
+**Was geliefert wurde:**
+- S38-2: Weltraum-Töne — Rakete klingt wie ein Triebwerk, Mond wie Stille, Mars staubig, Alien elektronisch. Bestehende `ELEMENT_TONES`/`KLONK_FREQS`/`playMaterialSound` erweitert.
+- S38-3: Genesis Phase 2 — Neuspieler startet im Wasser, Insel wächst schrittweise. 4 neue Genesis-Meilensteine: Natur, Zivilisation, Wetter, Weltraum.
+
+**Nicht geliefert:** S38-1 — Tesla-Nutzertest liegt bei Till.
+
+**Oscar-Check:** Rakete bauen → hört Triebwerk. Neues Spiel → startet im Wasser, Insel wächst mit.
+
+---
+
+## Sprint Retrospective — 2026-04-06
+
+### Was lief gut?
+- **Sound minimal-invasiv.** Bestehende Strukturen erweitert. Kein neues System.
+- **Genesis Phase 2 elegant.** `generateWaterStart()` in island-generators.js, ein Einstiegspunkt in game.js.
+
+### Was lief schlecht?
+- **#78 Tesla-Nutzertest dreimal übergangen.** Formell Blocked. Kein vierter Sprint ohne das Video.
+- **PR-Chain wächst.** PRs #251 (Sprint 37) + Sprint-38-PR warten auf Merge.
+
+### Was verbessern wir?
+1. **Sprint 39 = #107 Tetris.** Oscars Bruder wollte Tetris. Kein Human Input nötig.
+2. **Till ansprechen:** PRs mergen + Tesla-Video schicken.
+
+### Sprint 39 — Empfehlung
+
+| Kandidat | Prio | Warum jetzt |
+|----------|------|-------------|
+| **#107 Tetris Easter Egg** | P0 | Oscars Bruder wollte Tetris. Konami-Code als Secret. |
+| **#78 Tesla-Nutzertest** | P0 | Blocked auf Till. Kann nicht implementiert werden. |
 
 ---
 
