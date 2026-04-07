@@ -39,6 +39,7 @@ Persistent team log. Append-only. Read by all agents.
 | 2026-04-05 | Stripe Donation-Links alle identisch (Test-URL) — Production-Links nie eingetragen | TODO-Kommentar in index.html seit Sprint 27 unbeachtet | Stripe Production-Links als expliziter Human-Input-Task im Backlog — nicht als TODO-Kommentar vergessen. |
 | 2026-04-05 | Sprint 34: 2 von 3 Items waren Phantom-Opens (S34-2, S34-3 bereits implementiert) | Backlog + deploy.yml nicht vor Sprint Planning geprüft | Vor Sprint Planning: deploy.yml lesen + BACKLOG gegen Code verifizieren. Nie Items planen ohne zu prüfen ob bereits fertig. |
 | 2026-04-05 | Alien auf Mond: als Grid-Block platziert, aber kein NPC-Dialog | island-generators.js platziert Alien als Material, NPC_DEFS kannte kein 'alien' | NPC auf neuer Insel: NPC_DEFS + NPC_VOICES + initNpcPositions() braucht moon/island-Flag. Analog zu lummerland-Flag. |
+| 2026-04-07 | Sprint 44 Session 13 — weiterhin blocked, 8 PRs (#251–#258) warten auf Till | Keine implementierbare Arbeit übrig. Alle P0/P1 Features fertig (S37–S43). | Till: #257 ist unabhängig von Chain und kann sofort gemergt werden. Dann #251→#256 in Reihenfolge. |
 
 | Datum | Was | Warum | Lektion |
 |-------|-----|-------|---------|
