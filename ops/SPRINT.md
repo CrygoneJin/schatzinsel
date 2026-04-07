@@ -1,3 +1,60 @@
+# Sprint 44 — Blocked: Warten auf Till
+
+**Sprint Goal:** PR-Chain (#251–#257) mergen → Oscar sieht Tetris, Snake, neue Töne, neues Onboarding.
+**Start:** 2026-04-06
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S44-1 | **#78 Tesla-Nutzertest auswerten** — 1h Oscar-Video analysieren | Scientist + Leader | 🔲 Blocked (Till schickt Video) |
+| S44-2 | **#103 Stripe Production Links** — 5€/10€/25€ in index.html eintragen, Donation-Button live | Engineer | 🔲 Blocked (Stripe-Links von Till) |
+| S44-3 | **#92 Requesty Key rotieren** — Alter Key im Git-Verlauf, Sicherheitsrisiko | Engineer | 🔲 Blocked (neuer Key von Till) |
+
+---
+
+## Standup Log
+
+### 2026-04-07 — Daily Scrum
+
+**Status:** Unverändert. 8 offene PRs. Alles fertig. Kein neues Coding.
+
+Smoke Tests scheitern am Sandbox-Proxy (host_not_allowed) — kein echter Ausfall.
+
+**PR-Chain — Till: Eine Aktion entsperrt alles:**
+
+| PR | Inhalt | Merge-Ziel | Status |
+|----|--------|------------|--------|
+| **#257** | Sprint 43 — CI für alle PRs + Backlog aktuell | → **main** (unabhängig, sofort mergbar) | ✅ Offen |
+| **#251** | Sprint 37 — Onboarding-Toast + Long-Press = Fill + Palette-Counter-Badge | → **main** (danach zuerst) | ✅ Offen |
+| #252 | Sprint 38 — Weltraum-Töne (Rakete/Mond/Mars/Alien) + Genesis Phase 2 | → feat/sprint-37 | ✅ Offen |
+| #253 | Sprint 39 — Tetris Easter Egg (Konami-Code) | → feat/sprint-38 | ✅ Offen |
+| #254 | Sprint 40 — Snake Easter Egg ("snake" tippen) | → feat/sprint-39 | ✅ Offen |
+| #255 | Sprint 41 — Blocked-Sprint Docs | → feat/sprint-40 | ✅ Offen |
+| #256 | Sprint 42 — Playwright E2E Critical Path Tests | → feat/sprint-41 | ✅ Offen |
+| #258 | Sprint 44 — Planning + Daily Docs | → main | ✅ Offen |
+
+**Oscar sieht nach dem Merge:** neues Onboarding, Weltraum-Töne, Tetris, Snake.
+
+**Nächste autonome Arbeit:** Tesla-Nutzertest #78 — sobald Till Video schickt.
+
+**Empfehlung:** Sprint Review für Sprint 44 sobald Till die Chain entsperrt hat.
+
+---
+
+### 2026-04-06 — Daily Scrum
+
+**Status:** Sprints 37–43 vollständig implementiert. PR-Chain offen.
+
+**Was fertig ist (wartet auf Till):** 7 PRs (#251–#257), alle Ready.
+**Alle Sprint-Items = Human Input.** Kein autonomer Fortschritt möglich.
+
+---
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
