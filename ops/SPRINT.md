@@ -39,6 +39,16 @@
 
 ## Standup Log
 
+### 2026-04-07 — Daily Scrum (Session 18)
+
+**Status:** Blocked. PRs (#251–#257) warten auf Till. Situation unverändert.
+
+**Smoke Tests:** Container-Proxy blockiert externe Verbindungen — kein App-Fehler, bekanntes Sandbox-Muster (MEMORY.md 2026-04-04).
+
+**Keine autonome Arbeit möglich.** Alle implementierbaren Features sind fertig (Sprints 37–43). Till: #257 sofort in main mergbar (CI + Backlog, unabhängig), dann #251 → #252 → #253 → #254 → #255 → #256.
+
+---
+
 ### 2026-04-07 — Daily Scrum (Session 17)
 
 **Status:** Blocked. PRs (#251–#257) warten auf Till. Situation unverändert.
