@@ -39,6 +39,25 @@
 
 ## Standup Log
 
+### 2026-04-07 — Daily Scrum (Session 27)
+
+**Status:** Blocked. PRs (#251–#257) warten auf Till.
+
+**Aktion heute:** PR #257 (`feat/sprint-43` → `main`) hatte Merge-Konflikt in `MEMORY.md` (nach main-Commit `1705254`). Beide MEMORY-Zeilen waren valide Learnings — Konflikt aufgelöst, Branch auf main rebased, force-push erledigt.
+
+**Aktuelle Merge-Bereitschaft:**
+- PR #257 (`feat/sprint-43` → main): ✅ Jetzt `clean` — sofort mergbar
+- PR #251 (`feat/sprint-37` → main): ✅ `clean` — sofort mergbar
+- PRs #252–#256: ✅ warten in Reihenfolge nach #251
+
+**Till: Zwei Aktionen entsperren alles:**
+1. #257 mergen (unabhängig, sofort)
+2. #251 mergen (danach #252 → #253 → #254 → #255 → #256)
+
+Oscar sieht dann: neues Onboarding, Weltraum-Töne, Tetris, Snake.
+
+---
+
 ### 2026-04-07 — Daily Scrum (Session 26)
 
 **Status:** Blocked. PRs (#251–#257) warten auf Till.
