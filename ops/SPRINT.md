@@ -39,6 +39,20 @@
 
 ## Standup Log
 
+### 2026-04-08 — Daily Scrum (Session 29)
+
+**Status:** Blocked. PRs (#251–#257) warten auf Till. Unverändert seit Session 28.
+
+**Smoke Tests:** Container-Proxy blockiert externe Verbindungen — kein App-Fehler, bekanntes Sandbox-Muster.
+
+**PR-Übersicht (keine Änderung):**
+- PR #257 (`feat/sprint-43` → main): ✅ Sofort mergbar (unabhängig)
+- PR #251 (`feat/sprint-37` → main): ✅ Sofort mergbar (danach #252 → #253 → #254 → #255 → #256)
+
+**Keine autonome Arbeit möglich.** Till: #257 und #251 mergen. Oscar sieht dann Tetris, Snake, neues Onboarding, Weltraum-Töne.
+
+---
+
 ### 2026-04-07 — Daily Scrum (Session 28)
 
 **Status:** Blocked. PRs (#251–#257) warten auf Till. Unverändert seit Session 27.
