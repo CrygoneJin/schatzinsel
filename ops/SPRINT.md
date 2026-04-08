@@ -1,3 +1,54 @@
+# Sprint 45 — "Warten auf Till"
+
+**Sprint Goal:** Merge-Chain entsperren. Till merged PR #251 → alles andere folgt.
+**Start:** 2026-04-08
+**Status:** ❌ Blocked — kein autonomes Item verfügbar.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S45-1 | **#78 Tesla-Nutzertest auswerten** — 1h Oscar-Video analysieren. Echte Nutzerdaten. Gold. | Scientist + Leader | 🔲 Blocked (Till schickt Video) |
+| S45-2 | **#103 Stripe Production Links** — 5€/10€/25€ in index.html eintragen (Zeilen 100, 106, 112) | User | 🔲 Blocked (Till trägt Links ein) |
+| S45-3 | **#27 CORS Worker deployen** — worker.js im Cloudflare Dashboard pushen | User | 🔲 Blocked (Till deployed) |
+
+---
+
+## Till: Eine Aktion entsperrt alles
+
+**Merge-Reihenfolge zwingend:**
+
+| PR | Inhalt | Ziel-Branch |
+|----|--------|-------------|
+| **[#257](https://github.com/CrygoneJin/schatzinsel/pull/257)** | CI für alle PRs + Backlog aktuell | → **main** (sofort, unabhängig) |
+| **[#251](https://github.com/CrygoneJin/schatzinsel/pull/251)** | Onboarding + Long-Press + Palette-Counter | → **main** ← ZUERST |
+| [#252](https://github.com/CrygoneJin/schatzinsel/pull/252) | Weltraum-Töne + Genesis Phase 2 | → feat/sprint-37 |
+| [#253](https://github.com/CrygoneJin/schatzinsel/pull/253) | Tetris Easter Egg (Konami-Code) | → feat/sprint-38 |
+| [#254](https://github.com/CrygoneJin/schatzinsel/pull/254) | Snake Easter Egg ("snake" tippen) | → feat/sprint-39 |
+| [#255](https://github.com/CrygoneJin/schatzinsel/pull/255) | Sprint 41 Docs | → feat/sprint-40 |
+| [#256](https://github.com/CrygoneJin/schatzinsel/pull/256) | Playwright E2E Critical Path Tests | → feat/sprint-41 |
+
+**Oscar sieht nach dem Merge:** neues Onboarding, Weltraum-Töne, Tetris (Konami-Code), Snake ("snake" tippen).
+
+---
+
+## Standup Log
+
+### 2026-04-08 — Sprint 45 Planning
+
+Sprint 44 (2026-04-08) war Blocked-Sprint: #78 (Tesla-Video), #103 (Stripe Links), #92 (Requesty Key) — alle External Blocked.
+Sprint 44 Review + Retro: PR #261 (offen, wartet auf Merge).
+
+Sprint 45 = identisches Blocking-Pattern. Alle P0/P1/P2-Items entweder:
+- Fertig gebaut, in offenen PRs (#251–#256) warten auf Till
+- Human Input nötig (#78, #103, #27, #92)
+
+Nächste autonome Arbeit: Tesla-Nutzertest #78 — sobald Till das Video schickt.
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
