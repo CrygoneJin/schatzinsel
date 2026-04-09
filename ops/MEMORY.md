@@ -6,6 +6,7 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-09 | Squash-Merge + gestapelte Branches: Rebase-Strategie | Nach squash-merge von Sprint N: Sprint-N+1-Branch hat duplicate commits von Sprint N. Fix: `git rebase --onto origin/main <letzter-commit-des-alten-sprint-N-branch> feat/sprint-N+1`. Docs-Commits die nur SPRINT.md ändern: `git rebase --skip` + manuell neu schreiben. |
 | 2026-04-06 | **Vierte** Doppelte Implementierung Sprint 37 | main = Sprint 36, aber remote hat Sprints 37–43 in offenen PRs. `list_pull_requests` VOR Sprint Planning ist PFLICHT. Wenn feat/sprint-37 existiert → force-push überschreibt alte Arbeit. Dieses Mal: S37-3 Implementierung abweichend (recent-bar entfernt statt Palette-Counter). PR #251 Beschreibung aktualisiert. |
 | 2026-04-06 | Dritte Doppelte Implementierung Sprint 37 | main = Sprint 36, aber remote hat Sprints 37–43 in offenen PRs. Fehlender Pflichtschritt: `list_pull_requests` VOR jedem Sprint Planning. Wenn offene PRs existieren → stopp, kein neues Coding. |
 | 2026-04-06 | PR-Chain-CI-Lücke: `pull_request: branches: [main]` schützt nur main-PRs | Wenn Sprint-Branches aufeinander aufbauen, laufen keine CI-Checks für Zwischen-PRs. Fix: `branches`-Filter aus `pull_request`-Trigger entfernen. Deploy-Jobs brauchen eigene `if`-Guards (waren bereits vorhanden). |
