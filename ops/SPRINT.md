@@ -1,3 +1,46 @@
+# Sprint 45 — Blocked, warten auf Till
+
+**Sprint Goal:** Blocked — alle P0-Items brauchen Human Input.
+**Start:** 2026-04-08
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S45-1 | **#78 Tesla-Nutzertest auswerten** — 1h Oscar-Video analysieren | Scientist + Leader | 🔲 Blocked (Till schickt Video) |
+| S45-2 | **#103 Stripe Production Links** — 5€/10€/25€ in index.html | Engineer | 🔲 Blocked (Till trägt ein) |
+| S45-3 | **#92 Requesty Key rotieren** — Alter Key im Git-Verlauf | Engineer | 🔲 Blocked (Till rotiert) |
+
+---
+
+## Standup Log
+
+### 2026-04-09 — Daily Scrum (Tag 2 Sprint 45)
+
+**Status:** Blocked. Gleiche Situation wie 2026-04-08. Alle autonomen Items sind erledigt (Sprints 37–43). PR-Chain wartet auf Till.
+
+**Kein neuer Code möglich.** Alle offenen P0-Items brauchen Human Input.
+
+**PR-Chain — Till: Eine Aktion entsperrt alles**
+
+| PR | Inhalt | Merge-Ziel |
+|----|--------|------------|
+| **#257** | Sprint 43 — CI für alle PRs + Backlog aktuell | → **main** (unabhängig, sofort mergbar) |
+| **#251** | Sprint 37 — Onboarding + Long-Press + Palette-Counter | → **main** (danach zuerst) |
+| #252 | Sprint 38 — Weltraum-Töne + Genesis Phase 2 | → feat/sprint-37 |
+| #253 | Sprint 39 — Tetris Easter Egg (Konami-Code) | → feat/sprint-38 |
+| #254 | Sprint 40 — Snake Easter Egg ("snake" tippen) | → feat/sprint-39 |
+| #255 | Sprint 41 — Blocked-Sprint Docs | → feat/sprint-40 |
+| #256 | Sprint 42 — Playwright E2E Tests | → feat/sprint-41 |
+
+Oscar sieht nach dem Merge: neues Onboarding, Weltraum-Töne, Tetris, Snake.
+
+**Nach dem Merge:** Sprint 46 = Tesla-Nutzertest #78 (wenn Till Video schickt).
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
