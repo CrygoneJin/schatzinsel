@@ -107,6 +107,20 @@ Oscar sieht nach dem Merge: neues Onboarding, Weltraum-Töne, Tetris, Snake.
 
 ---
 
+## Standup Log
+
+### 2026-04-09 — Daily Scrum (Sprint 46, Tag 1)
+
+**Neue Information heute:** Till hat `main` force-updated — er ist aktiv.
+
+**Status:** Blocked. Kein autonomer Code übrig. PR-Chain wartet.
+
+**Eine Aktion:** PR #257 mergen (CI fix, unabhängig), dann #251 (feat/sprint-37 → main). Danach läuft die Chain (#252→#253→#254→#255→#256) automatisch.
+
+**Oscar wartet auf:** Tetris (Konami-Code), Snake ("snake" tippen), neues Onboarding, Weltraum-Töne.
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.
