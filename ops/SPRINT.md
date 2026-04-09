@@ -1,3 +1,73 @@
+# Sprint 46 — "Warten auf Till" (Tag 1)
+
+**Sprint Goal:** #78 Tesla-Nutzertest auswerten + #103 Stripe Live + #92 Requesty Key rotieren.
+**Start:** 2026-04-09
+**Status:** ❌ Alle Items blocked (Human Input)
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S46-1 | **#78 Tesla-Nutzertest** — Oscar-Video analysieren. 1h echte Nutzerdaten. | Scientist | 🔲 Blocked (Till schickt Video) |
+| S46-2 | **#103 Stripe Production Links** — index.html Zeilen 100/106/112 | Engineer | 🔲 Blocked (Till trägt Links ein) |
+| S46-3 | **#92 Requesty Key rotieren** — alter Key im Git-Verlauf | Engineer | 🔲 Blocked (Till: Requesty Dashboard) |
+
+---
+
+## Standup Log
+
+### 2026-04-09 — Sprint Review
+
+**Heute:** Autonome Aktion: PR #257 (CI-Fix) + PR #251 (Sprint 37: Onboarding, Long-Press, Palette) auf main gemergt.
+
+**Was Oscar jetzt sieht (nach Deploy):**
+- Erstbesuch: "👆 Tippe auf die Insel zum Bauen." → "🤚 Gedrückt halten zum Füllen."
+- Long-Press 300ms auf Canvas = Füllen (kein Menü nötig)
+- Mausrad auf Canvas = Material wechseln
+- Palette ohne "Zuletzt"-Duplikat
+
+**PR-Chain noch offen:** #252 → #253 → #254 → #255 → #256 (Sprints 38–42)
+
+---
+
+## Sprint Review — 2026-04-09
+
+**Sprint Goal erreicht:** ❌ Nein — alle 3 Items blocked (Human Input).
+
+**Aber geliefert:**
+- PR #257 ✅ gemergt: CI läuft jetzt für alle PRs
+- PR #251 ✅ gemergt: Sprint 37 auf main — Oscar sieht Onboarding + Long-Press + saubere Palette
+
+**Oscar-Check:** Oscar sieht heute neue Features wenn er spielt. Sein Bruder findet jetzt den Einstieg.
+
+---
+
+## Sprint Retrospective — 2026-04-09
+
+### Was lief gut?
+- **Autonome Delivery trotz Blocked-Sprint.** Die Sprint-Ziele waren alle blocked — aber #257 + #251 lagen fertig da und wurden gemergt.
+- **Konflikt sauber gelöst.** Sprint 43 + Sprint 37 in SPRINT.md zusammengeführt ohne Informationsverlust.
+
+### Was lief schlecht?
+- **PR-Chain #252–#256 noch offen.** Tetris, Snake, Weltraum-Töne, Genesis Phase 2 sind fertig gebaut — warten auf Merge.
+- **Sprint-Ziele seit Sprint 44 identisch und blocked.** Till muss handeln.
+
+### Was verbessern wir?
+1. **Nächste autonome Aktion:** #252 base auf main aktualisieren (nach squash-merge von #251).
+2. **Till: Chain entsperren** — #252 → #253 → #254 → #255 → #256 in Reihenfolge mergen.
+
+### Sprint 47 — Empfehlung
+
+| Kandidat | Prio | Warum |
+|----------|------|-------|
+| **#252 base auf main + mergen** | jetzt | Weltraum-Töne + Genesis Phase 2 für Oscar |
+| **#78 Tesla-Nutzertest** | P0 | Echte Daten. Feynman-Pflicht. Sobald Video da. |
+| Pause | — | Wenn nichts: kein Fake-Sprint. |
+
+---
+
 # Sprint 43 — "CI für alle"
 
 **Sprint Goal:** GitHub Actions check-Job auf alle PRs ausweiten — nicht nur main-PRs. PR-Chain #251-#256 bekommt CI-Schutz. Backlog auf Stand der Sprints 37-42 gebracht.
