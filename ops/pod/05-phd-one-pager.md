@@ -75,7 +75,7 @@ Pianist seit 6 | Unabhängig seit 19 | 3 Kinder
 Antrieb: Neugier. Ziel: selbst Professor werden.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-schatzinsel.app
+isibane.app
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

@@ -46,7 +46,7 @@ Digitale Links vergisst man. QR-Codes scannt man auf Parties nicht. Eine Karte b
 │  398€. Kein Glas.               │
 │  Kein Gesicht. Kein Bullshit.   │
 │                                 │
-│  schatzinsel.app                │
+│  isibane.app                │
 │                                 │
 └─────────────────────────────────┘
 ```
@@ -72,7 +72,7 @@ Digitale Links vergisst man. QR-Codes scannt man auf Parties nicht. Eine Karte b
 
 ### Option C: Handgeschrieben
 
-- Wenn kein Drucker: 器 qì + Pod + schatzinsel.app auf leere Visitenkarten
+- Wenn kein Drucker: 器 qì + Pod + isibane.app auf leere Visitenkarten
 - Handschrift ist ehrlicher als Druck
 
 -----
@@ -121,7 +121,7 @@ Digitale Links vergisst man. QR-Codes scannt man auf Parties nicht. Eine Karte b
     <p><strong>Pod gibt dir Zeit zurück.</strong></p>
     <p>398€. Kein Glas.<br>
     Kein Gesicht. Kein Bullshit.</p>
-    <p class="url">schatzinsel.app</p>
+    <p class="url">isibane.app</p>
   </div>
 </body>
 </html>
@@ -141,7 +141,7 @@ Wenn du mehr als 5 Karten an einem Abend verteilst, verteilst du zu viele. Jede 
 
 ## /ogilvy's Anmerkung
 
-Kein Name auf der Karte. Kein "Till, KSB SupremeServ." Das ist keine Selbstdarstellung. Das ist ein Produkt. Wer Till finden will, geht auf schatzinsel.app.
+Kein Name auf der Karte. Kein "Till, KSB SupremeServ." Das ist keine Selbstdarstellung. Das ist ein Produkt. Wer Till finden will, geht auf isibane.app.
 
 -----
 
