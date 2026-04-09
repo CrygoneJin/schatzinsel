@@ -6,6 +6,7 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-09 | Sprint 47 Sprint Review: Till hat PR #256 selbstständig gemergt — Playwright auf main. Smoke Tests im Claude Code Web nicht verifizierbar (Proxy blockiert schatzinsel.app + *.workers.dev via `x-deny-reason: host_not_allowed`). Kein Produktionsausfall — nur Umgebungsbeschränkung. |
 | 2026-04-09 | Chat-Bubble-Toggle-Bug: openChat() + toggleChat() hebt sich auf | openChat() entfernt 'hidden', dann toggleChat() fügt es sofort wieder hinzu → Bubble öffnete das Panel nie. Fix: toggleChat() nur aufrufen wenn Panel NICHT hidden ist (zum Schließen). Tests enthüllten den Bug. |
 | 2026-04-09 | Genesis-Material-Sichtbarkeit in Playwright-Tests | metal ist erst sichtbar nach Qi-Unlock (Genesis Stufe 2). Immer tao für Block-Tests verwenden — tao ist das erste sichtbare Material ohne Voraussetzungen. insel-genesis-shown setzen um water-start zu überspringen. |
 | 2026-04-09 | Squash-Merge + gestapelte Branches: Rebase-Strategie | Nach squash-merge von Sprint N: Sprint-N+1-Branch hat duplicate commits von Sprint N. Fix: `git rebase --onto origin/main <letzter-commit-des-alten-sprint-N-branch> feat/sprint-N+1`. Docs-Commits die nur SPRINT.md ändern: `git rebase --skip` + manuell neu schreiben. |
@@ -761,3 +762,4 @@ KINDERSICHERHEIT-Block von 40 auf 2 Zeilen. Persönlichkeit stärker UND billige
 | 2026-04-06 | isReturningPlayer prüfte insel-projekte — Spieler ohne manuelles Speichern hatten gamePhase=observer → keine Spielfigur | Zwei verschiedene localStorage-Keys für "hat gespielt" | insel-grid als Fallback. breakSymmetry() im returning-Player-Pfad ergänzt. |
 | 2026-04-06 | ES/IT NPC-Strings: "missionei" statt "missioni" + Weltraum-Observatorium bei spongebob statt alien | Copy-Paste + Suffix-Logik statt vollständige Wörter | Plurale immer als vollständige Wörter. ES/IT in Icebox bis Native Speaker Review. |
 | 2026-04-06 | Review-Agent (code-reviewer subagent_type) = Reviewer, kein Executor | Falscher Subagent-Typ für Implementation-Tasks | Implementation → general-purpose oder feature-dev:code-reviewer nur für Reviews. Nie für Merges oder Code-Schreiben. |
+| 2026-04-09 | Sprint 47 abgeschlossen — Playwright auf main (PR #256), Retro done | Autonome Kapazität erschöpft nach S47. Keine neuen P0/P1-Items ohne Human Input. | Sprint 48 erst wenn: Video für #78 OR Requesty-Zugang für #92. Pause > Fake-Sprint. |
