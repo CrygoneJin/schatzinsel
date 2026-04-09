@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>isibane — Pod 器 qì</title>
+<style>
+  :root {
+    --safran: #C17E0D;
+    --black: #111;
+    --white: #fafafa;
+    --gray: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--white);
+    color: var(--black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .qi {
+    font-size: clamp(3rem, 10vw, 6rem);
+    color: var(--safran);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .pod {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+
+  .leds {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  .led {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+  }
+  .led.r { background: #CC0000; }
+  .led.y { background: var(--safran); }
+  .led.g { background: #228B22; }
+
+  .tagline {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-weight: normal;
+    color: var(--black);
+    max-width: 600px;
+    line-height: 1.4;
+  }
+
+  .tagline strong {
+    color: var(--safran);
+  }
+
+  /* ── Divider ── */
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    width: 60px;
+  }
+
+  /* ── Product ── */
+  .product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    color: var(--safran);
+    letter-spacing: 0.05em;
+  }
+
+  .bullets {
+    list-style: none;
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 2;
+  }
+
+  .bullets li::before {
+    content: "— ";
+    color: var(--safran);
+  }
+
+  /* ── Research ── */
+  .research {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border-top: 1px solid #eee;
+  }
+
+  .research h2 {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+  }
+
+  .research p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 1rem;
+  }
+
+  .research .highlight {
+    font-style: italic;
+    color: var(--black);
+    border-left: 2px solid var(--safran);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--gray);
+    border-top: 1px solid #eee;
+  }
+
+  footer a {
+    color: var(--safran);
+    text-decoration: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 1.5rem; }
+    .research { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="qi">器 qì</div>
+  <div class="pod">Pod</div>
+
+  <div class="leds">
+    <div class="led r"></div>
+    <div class="led y"></div>
+    <div class="led g"></div>
+  </div>
+
+  <p class="tagline">
+    Pod gibt dir <strong>Zeit zurück</strong>.
+  </p>
+
+  <hr>
+
+  <!-- Product -->
+  <div class="product">
+    <div class="price">398 €</div>
+    <ul class="bullets">
+      <li>Kein Glas</li>
+      <li>Kein Gesicht</li>
+      <li>Kein Bullshit</li>
+      <li>Drei LEDs. Offline-first. IP67.</li>
+      <li>LiFePO₄ · Victron MPPT · RPi CM4</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Research -->
+<section class="research">
+  <h2>Forschung</h2>
+
+  <p>
+    685 Millionen Menschen leben ohne zuverlässige Elektrizität.
+    Alle Off-Grid-Systeme unter 500&nbsp;€ optimieren Effizienz.
+    Keines optimiert Priorität.
+  </p>
+
+  <p class="highlight">
+    Kann ein System lernen, was du wirklich brauchst —
+    ohne dass du es ihm sagst?
+  </p>
+
+  <p>
+    Pod rekonstruiert menschliche Prioritäten aus Nutzungsmustern.
+    Hidden Markov Model, vier Zustände. Reinforcement Learning.
+    Keine Konfiguration. Keine App. Kein Internet nötig.
+  </p>
+
+  <p>
+    Promotionsprojekt. Angestrebte Betreuung: Prof. Nicole Ludwig,
+    Climate, Energy &amp; ML Systems — Universität Tübingen / Cyber Valley.
+  </p>
+</section>
+
+<footer>
+  isibane — Zulu für Licht &nbsp;·&nbsp;
+  <a href="mailto:till@isibane.app">till@isibane.app</a>
+</footer>
+
+</body>
+</html>
