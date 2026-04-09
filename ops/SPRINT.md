@@ -1,3 +1,48 @@
+# Sprint 46 — "Warten auf Till"
+
+**Sprint Goal:** PR-Chain mergen. Till ist heute aktiv (force-push auf main 2026-04-09).
+**Start:** 2026-04-09
+
+---
+
+## Status: ⛔ Blocked — kein neuer Code sinnvoll
+
+Alle autonomen Items erledigt (Sprints 37–43). Code wartet in PR-Chain.
+
+## Till: 2 Klicks entsperren alles
+
+| Schritt | PR | Inhalt | Ziel |
+|---------|-----|--------|------|
+| 1 | **#257** | CI für alle PRs (unabhängig, sofort) | → main |
+| 2 | **#251** | Sprint 37 — Onboarding + Long-Press + Palette | → main |
+
+Danach der Reihe nach: #252 → #253 → #254 → #255 → #256
+
+Oscar sieht danach: neues Onboarding, Weltraum-Töne, Tetris (Konami-Code), Snake ("snake" tippen).
+
+## Human Input offen
+
+| # | Was | Wer |
+|---|-----|-----|
+| #78 | Tesla-Video schicken | Till |
+| #103 | Stripe Production Links in index.html | Till |
+| #92 | Requesty Key rotieren | Till |
+| #27 | Cloudflare Worker deployen | Till |
+
+---
+
+## Standup Log
+
+### 2026-04-09 — Sprint 46 Daily Scrum
+
+**Neue Information:** Till hat `main` force-updated → aktiv heute.
+
+**Status:** Blocked. Sprints 37–43 fertig gebaut, PR-Chain offen.
+
+**Fehler heute:** Session hat wieder Sprint 37 geplant ohne erst `list_pull_requests` zu prüfen. Dritter Fehler dieser Art. MEMORY-Regel gilt: **Kein Sprint Planning ohne PR-Check.**
+
+---
+
 # Sprint 36 — "Oscar baut Brücken"
 
 **Sprint Goal:** #62 abschließen (FR/ES/IT NPC-Gedächtnis) + Weltraum-Quests + Archipel-Abschluss.

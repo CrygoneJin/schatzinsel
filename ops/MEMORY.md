@@ -6,6 +6,7 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-09 | Viertes Sprint-37-Duplikat — PR-Check kommt VOR Planning | Session startete mit Sprint Planning ohne `list_pull_requests`. Sprints 37–43 bereits fertig als PR-Chain #251–#257. Pflicht-Reihenfolge: (1) git fetch, (2) list_pull_requests open, (3) wenn PRs offen → Daily Scrum, kein neues Coding. |
 | 2026-04-06 | Dritte Doppelte Implementierung Sprint 37 | main = Sprint 36, aber remote hat Sprints 37–43 in offenen PRs. Fehlender Pflichtschritt: `list_pull_requests` VOR jedem Sprint Planning. Wenn offene PRs existieren → stopp, kein neues Coding. |
 | 2026-04-05 | NTP-Fetch im `beforeunload`-Handler funktioniert nicht zuverlässig | `beforeunload` gibt kein Promise-Warten — NTP-Fetch muss bei Session-Start passieren, nicht beim Ende. Ende nimmt `Date.now()` als approximativen Endpunkt (Drift <2s akzeptabel). |
 | 2026-04-05 | Token-Schätzung ohne API-Zugang | Client hat keinen Zugriff auf echte Usage-Daten außer wenn der Provider `data.usage` mitschickt. Schätzung via Zeichenlänge ÷ 3.5 ist reproduzierbar und ehrlich markiert ("~"). Requesty liefert `completion_tokens` — wenn vorhanden, für NPC-Budget weiter verwenden. |
