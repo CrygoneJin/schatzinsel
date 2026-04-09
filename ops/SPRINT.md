@@ -9,7 +9,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S47-1 | **#103 Playwright E2E Tests** — PR #256 ist rebased auf main. 9 Critical Path Tests + Smoke Tests. Till: einmal klicken. | Engineer | 🔲 Blocked (Till: PR #256 mergen) |
+| S47-1 | **#103 Playwright E2E Tests** — PR #256 gemergt (2026-04-09T18:45). 9 Critical Path Tests + Smoke Tests auf main. | Engineer | ✅ Done |
 | S47-2 | **#78 Tesla-Nutzertest auswerten** — Echte Oscar-Daten. Seit Sprint 38 offen. | Scientist + Leader | 🔲 Blocked (Till: Video schicken) |
 | S47-3 | **#92 Requesty Key rotieren** — Alter Key im Git-Verlauf. | Engineer | 🔲 Blocked (Till: Requesty Dashboard) |
 
@@ -31,6 +31,25 @@
 |--------|-----|-------|
 | **PR #256 mergen** | Playwright E2E Tests → main | 9 Critical Path Tests im CI. Sofort mergbar (base = current main). |
 | **Video schicken** | Tesla-Nutzertest #78 | Echte Oscar-Daten. Seit Sprint 38 blockiert. |
+
+### 2026-04-09 — Sprint Review
+
+**Sprint Goal "Playwright auf main": ✅ Erreicht.**
+
+Till hat PR #256 heute (18:45 UTC) gemergt. 9 Critical Path E2E Tests + Smoke Tests laufen jetzt im CI bei jedem PR.
+
+**Geliefert:**
+- `ops/tests/critical-path.spec.js` — 9 Tests: Block platzieren, Quest annehmen, NPC-Chat
+- `ops/tests/smoke.spec.js` — bereits vorher vorhanden
+- `npm run test:e2e` ausführbar
+
+**Nicht geliefert (blocked):**
+- #78 Tesla-Nutzertest: wartet auf Video von Till
+- #92 Requesty Key: wartet auf Dashboard-Zugang
+
+**Was Oscar sieht:** unverändert — Playwright läuft im CI, nicht im Spiel.
+
+**Sprint 47: Done.**
 
 ---
 

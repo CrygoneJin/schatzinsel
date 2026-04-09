@@ -6,6 +6,7 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-09 | Sprint 47 Sprint Review: Till hat PR #256 selbstständig gemergt — Playwright auf main. Smoke Tests im Claude Code Web nicht verifizierbar (Proxy blockiert schatzinsel.app + *.workers.dev via `x-deny-reason: host_not_allowed`). Kein Produktionsausfall — nur Umgebungsbeschränkung. |
 | 2026-04-09 | Chat-Bubble-Toggle-Bug: openChat() + toggleChat() hebt sich auf | openChat() entfernt 'hidden', dann toggleChat() fügt es sofort wieder hinzu → Bubble öffnete das Panel nie. Fix: toggleChat() nur aufrufen wenn Panel NICHT hidden ist (zum Schließen). Tests enthüllten den Bug. |
 | 2026-04-09 | Genesis-Material-Sichtbarkeit in Playwright-Tests | metal ist erst sichtbar nach Qi-Unlock (Genesis Stufe 2). Immer tao für Block-Tests verwenden — tao ist das erste sichtbare Material ohne Voraussetzungen. insel-genesis-shown setzen um water-start zu überspringen. |
 | 2026-04-09 | Squash-Merge + gestapelte Branches: Rebase-Strategie | Nach squash-merge von Sprint N: Sprint-N+1-Branch hat duplicate commits von Sprint N. Fix: `git rebase --onto origin/main <letzter-commit-des-alten-sprint-N-branch> feat/sprint-N+1`. Docs-Commits die nur SPRINT.md ändern: `git rebase --skip` + manuell neu schreiben. |
