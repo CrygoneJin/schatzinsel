@@ -17,6 +17,16 @@
 
 ## Standup Log
 
+### 2026-04-12 — Daily Scrum (Session 26)
+
+**S47-1:** ✅ Done.
+**S47-2 + S47-3:** Blockiert — unverändert.
+**PRs wartend:** #270 → #271 → #273–#275 schließen. Alles wartet auf Tills Merge von #270.
+**Smoke Test:** Sandbox-Proxy 403 — bekanntes Problem, kein App-Fehler.
+**Nächste Aktion:** Till merge #270. Rest folgt automatisch.
+
+---
+
 ### 2026-04-12 — Daily Scrum (Session 22)
 
 **S47-1:** ✅ Done.
