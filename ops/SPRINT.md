@@ -17,6 +17,20 @@
 
 ## Standup Log
 
+### 2026-04-13 — Daily Scrum — Unverändert (Session 28)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Umgebungseinschränkung, kein App-Problem.
+
+**S48-1:** 🔲 Blocked (Till: Tesla-Video)
+**S48-2:** 🔲 Blocked (Till: Requesty Dashboard) ⚠️ Sicherheitsrisiko
+**S48-3:** 🔲 Blocked (Till: Stripe Payment-Links)
+
+**Offen:** #270 (Sprint 47 Review) + #271 (dieser Branch) — beide warten auf Tills Merge.
+
+**Till: #270 mergen → #271 mergen → Sprint 48 läuft.**
+
+---
+
 ### 2026-04-13 — Daily Scrum — Unverändert
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Umgebungseinschränkung. Beide URLs (`schatzinsel.app` + `workers.dev`) von Claude Code Web nicht erreichbar. Kein App-Problem.
