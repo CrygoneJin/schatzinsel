@@ -6,6 +6,7 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-14 | Sprint 47 bleibt eingefroren (Session 28). PRs #270 + #271 seit 5 Tagen offen. Systemzustand: vollständig blockiert auf Human Input. Keine autonome Arbeit möglich. |
 | 2026-04-13 | Standup-PRs werden von Till geschlossen (PR #282: "Standup gehört in SPRINT.md, nicht als PR"). Standups direkt auf main pushen — kein eigener PR. |
 | 2026-04-09 | Sprint-Review ohne Merge: Wenn alle Sprint-Items auf Human Input blocked sind → Review + Retro sofort schreiben. Kein Fake-Sprint. Pause ist besser als Gold-Plating. Sandbox-Proxy blockt externe URLs (403 host_not_allowed) — Smoke-Tests in dieser Umgebung nicht möglich. |
 | 2026-04-09 | Chat-Bubble-Toggle-Bug: openChat() + toggleChat() hebt sich auf | openChat() entfernt 'hidden', dann toggleChat() fügt es sofort wieder hinzu → Bubble öffnete das Panel nie. Fix: toggleChat() nur aufrufen wenn Panel NICHT hidden ist (zum Schließen). Tests enthüllten den Bug. |
