@@ -6,6 +6,9 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-15 | Sprint 51 S51 (Session 51): Sprint Review-Branch nicht auf main pushen ist ein Anti-Pattern — Session 47 hat Review geschrieben aber Branch vergessen zu mergen → 3 Sessions wiederholten Daily Standups unnötig. Fix: nach Sprint Review sofort `git checkout main && git commit` (kein eigener Branch für Docs). |
+| 2026-04-15 | quests.js Divergenz S51: S50-5 (Quests Runde 9) war in S45 direkt auf main committed, aber SPRINT.md sagte "PR #289". Vor Sprint Review immer diff main vs Branch machen — was ist wirklich noch offen? |
+| 2026-04-15 | Neue NPCs ohne Quests: Lokführer, Krämerin, Bernd, Haskell, Lua, SQL, Scratch haben Stimmen aber null Quests. Potenzial für mehrere Sprint-Runden. Priorität: Lokführer + Krämerin (Oscar-nah). |
 | 2026-04-15 | CI-Durchbruch S49: PR #293 Check ✅ success. Root-Cause critical-path: skipBigBang() setzte blocksPlaced=0 → Stufe 1 → chat-bubble+quest-tab per CSS versteckt → NPC+Quest Tests schlugen fehl. Fix: 3 localStorage-Einträge (blocks-placed:5, discovered-recipes:[tao], quests-done:[__ci_init__]) → Stufe 5 ab Frame 1. PR #289 auf main rebasiert. |
 | 2026-04-15 | CI-Diagnose S48: PR #292 burn-panel-Fix korrekt verifiziert — test.skip(!!process.env.CI) im describe-Scope funktioniert (lokal: 2 skipped). Fehler liegt in smoke.spec.js oder critical-path.spec.js. Reproduktion blockiert: Browser 1208 nicht in Sandbox installierbar. Fix-Pfad: CI-Logs in GitHub Actions prüfen, spezifischen Test + Fehler identifizieren. |
 | 2026-04-15 | CI-Befund S45: deploy.yml `check`-Job nicht in GitHub Check-Runs für PR #289 sichtbar (nur preview.yml-Jobs). Lokal 22/22 + tsc grün. Ursache unklar (sandbox-Limit oder concurrency-Gruppe `pages` blockiert). Till muss via GitHub UI prüfen. |

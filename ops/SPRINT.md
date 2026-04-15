@@ -9,7 +9,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S51-1 | **Quests Runde 10** — 10 neue Quests (96→106): Lokführer (3), Krämerin (2), Bug-Metamorphose, Tommy, Neinhorn, Elefant, Community-Drachenfest | Artist | 🔲 Offen |
+| S51-1 | **Quests Runde 10** — 10 neue Quests (96→106): Lokführer (3), Krämerin (2), Bug-Metamorphose, Tommy, Neinhorn, Elefant, Community-Drachenfest | Artist | 🔄 PR #294 |
 | S51-2 | **Rebase feat/sprint-50** — nach PR #293-Merge auf neuem main rebased, CI läuft durch | Engineer | ⏳ wartet auf Till/PR #293-Merge |
 | S51-3 | **Sprint 50 Carry-Over** — OG Tags + CI-Changes landen auf main wenn PR #289 gemergt | Engineer | ⏳ wartet auf Till/PR #289-Merge |
 
