@@ -6,6 +6,12 @@ async function skipBigBang(page) {
         localStorage.setItem('insel-grid', '[]');
         localStorage.setItem('insel-genesis-shown', '1'); // water-start überspringen
         localStorage.removeItem('insel-player-name');
+        // Spielfortschritt auf Stufe 5 setzen, damit chat-bubble + quest-tab sichtbar sind.
+        // Stufe-Logik (game.js): blocksPlaced>0 + hasRecipe + completedQuest>0 → Stufe 5.
+        // Ohne diese Werte bleibt stufe=1 (leeres Grid) und die UI-Elemente bleiben versteckt.
+        localStorage.setItem('insel-blocks-placed', '5');
+        localStorage.setItem('insel-discovered-recipes', '["tao"]');
+        localStorage.setItem('insel-quests-done', '["__ci_init__"]');
     });
 }
 
