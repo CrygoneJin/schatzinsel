@@ -1,3 +1,136 @@
+# Sprint 53 — "Programmierer-Insel Tiefer"
+
+**Sprint Goal:** Bernd, Haskell, Lua, SQL und Scratch bekommen ihre zweiten Quests. Oscar vertieft heute die Beziehungen zu den fünf Programmierern.
+**Start:** 2026-04-15
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S53-1 | **Quests Runde 12** — 10 neue Quests (106→116): Bernd (2), Haskell (2), Lua (2), SQL (2), Scratch (2) — zweite Runde für alle Programmierer | Artist | 🔲 |
+| S53-2 | **Carry-Over Merges** — PRs #293, #289, #294, #295 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-15 — Sprint Planning (Session 53)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**PR-Status:**
+- PR #293: CI ✅ grün — merge-ready
+- PR #289: merge-ready nach #293
+- PR #294 (Sprint 51): merge-ready nach #289
+- PR #295 (Sprint 52): CI-Fix `734e196` gepusht — critical-path + burn-panel gefixt
+
+**Sprint 52 abgeschlossen:** Review + Retro siehe unten.
+
+**Sprint 53:** S53-1 (Quests Runde 12) wird diese Session implementiert.
+
+**Till: Aktionen:**
+1. **PR #293 mergen** — CI ✅ grün
+2. **PR #289 mergen** — S50 live (nach #293)
+3. **PR #294 mergen** — S51 live (nach #289)
+4. **PR #295 mergen** — S52 live (nach #294)
+5. **PRs #292, #291, #290, #288 schließen**
+
+---
+
+---
+
+# Sprint 52 — "Programmierer-Insel"
+
+**Sprint Goal:** Bernd, Haskell, Lua, SQL und Scratch bekommen ihre ersten Quests. Oscar lernt heute fünf neue Bewohner kennen.
+**Start:** 2026-04-15
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S52-1 | **Quests Runde 11** — 10 neue Quests (96→106): Bernd (2), Haskell (2), Lua (2), SQL (2), Scratch (2) | Artist | ✅ PR #295 |
+| S52-2 | **Carry-Over Merges** — PRs #293, #289, #294 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Sprint Review + Retro (2026-04-15 Session 53)
+
+### Review
+
+**Sprint Goal:** Bernd, Haskell, Lua, SQL und Scratch bekommen ihre ersten Quests.
+**Ergebnis:** ✅ Sprint Goal erreicht — S52-1 implementiert, PR #295 erstellt, CI-Fix gepatcht.
+
+| Item | Ergebnis |
+|------|----------|
+| S52-1 Quests Runde 11 | ✅ 10 neue Quests (96→106): Bernd 2 + Haskell 2 + Lua 2 + SQL 2 + Scratch 2 (PR #295) |
+| S52-2 Carry-Over Merges | ⏳ Blocked — wartet auf Till |
+
+**CI-Fix:** PR #295 hatte CI failure (fehlende CI-Fixes aus PR #293 nicht geerbt). Diese Session gefixt: `critical-path.spec.js` + `burn-panel.spec.js` → commit `734e196`.
+
+**Sprint Goal erreicht?** Ja — code-seitig 100%. Live-Gang blocked auf Till's Merge.
+
+### Retro
+
+**Was lief gut:**
+- 10 Quests mit starken Programmiererpersönlichkeiten in einer Session
+- CI-Root-Cause sofort erkannt (gleiche Ursache wie PR #293)
+
+**Was lief schlecht:**
+- feat/sprint-52 ohne CI-Fix gebrancht → PR #295 rot bei erstem Push
+- Muster wiederholt sich: jeder Branch von main erbt nicht die CI-Fixes aus pending PRs
+
+**Learning:** Neuer Branch von main = CI-Patch-Check! Vor jedem Branch: `critical-path.spec.js` auf skipBigBang()-Vollständigkeit prüfen. Ein Copy-Paste aus dem letzten Feature-Branch spart 5 Minuten CI-Debugging.
+
+---
+
+## Standup Log
+
+### 2026-04-15 — Sprint Planning (Session 52)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**PR-Status:** PR #294 (Sprint 51 Quests) + PR #293 (CI-Fix) + PR #289 (Sprint 50) — alle offen, warten auf Till.
+
+**Sprint 51 abgeschlossen:** Review + Retro in Session 52 geschrieben.
+
+**Sprint 52:** S52-1 (Quests Runde 11 — Bernd, Haskell, Lua, SQL, Scratch) implementiert.
+
+**Till: Aktionen:**
+1. **PR #293 mergen** — CI ✅ grün
+2. **PR #289 mergen** — alle 6 S50-Items live (nach #293)
+3. **PR #294 mergen** — S51 live (nach #289)
+4. **PRs #292, #291, #290, #288 schließen**
+
+---
+
+---
+
 # Sprint 51 — "Neue Bewohner"
 
 **Sprint Goal:** Lokführer und Krämerin bekommen ihre ersten Quests. Bug transformiert sich. Oscar trifft heute zwei neue Charaktere.

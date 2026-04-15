@@ -6,6 +6,8 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-15 | CI-Patch-Pflicht (S53): Neuer Branch von main = skipBigBang() in critical-path.spec.js prüfen + burn-panel.spec.js CI-Skip-Guard prüfen. Sonst CI rot bei erstem Push. Betrifft jeden Branch bis PR #293 auf main ist. |
+| 2026-04-15 | Sprint 52 S52 (Session 52): Quests Runde 11 (10 Quests für Bernd/Haskell/Lua/SQL/Scratch) implementiert. PR #295. CI initial rot, diese Session gefixt (734e196). |
 | 2026-04-15 | Sprint 51 S51 (Session 51): Sprint Review-Branch nicht auf main pushen ist ein Anti-Pattern — Session 47 hat Review geschrieben aber Branch vergessen zu mergen → 3 Sessions wiederholten Daily Standups unnötig. Fix: nach Sprint Review sofort `git checkout main && git commit` (kein eigener Branch für Docs). |
 | 2026-04-15 | quests.js Divergenz S51: S50-5 (Quests Runde 9) war in S45 direkt auf main committed, aber SPRINT.md sagte "PR #289". Vor Sprint Review immer diff main vs Branch machen — was ist wirklich noch offen? |
 | 2026-04-15 | Neue NPCs ohne Quests: Lokführer, Krämerin, Bernd, Haskell, Lua, SQL, Scratch haben Stimmen aber null Quests. Potenzial für mehrere Sprint-Runden. Priorität: Lokführer + Krämerin (Oscar-nah). |
