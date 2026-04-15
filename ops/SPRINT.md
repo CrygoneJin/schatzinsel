@@ -1,6 +1,6 @@
-# Sprint 50 — "Launch-Qualität"
+# Sprint 51 — "Neue Bewohner"
 
-**Sprint Goal:** CI komplett grün, Social Preview für WhatsApp/Discord/itch.io, 10 neue Quests für Oscar, Playwright ausgebaut.
+**Sprint Goal:** Lokführer und Krämerin bekommen ihre ersten Quests. Bug transformiert sich. Oscar trifft heute zwei neue Charaktere.
 **Start:** 2026-04-15
 
 ---
@@ -9,12 +9,9 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S50-1 | **Unit Tests in CI** — `npm run test:unit` läuft im Check-Job vor Playwright | Engineer | 🔄 PR #289 |
-| S50-2 | **Butler Secret-Guard** — `deploy-itch` crasht nicht wenn `itch_io_butler` Secret fehlt | Engineer | 🔄 PR #289 |
-| S50-3 | **Easter Egg Tests** — Konami→Tetris, "snake"→Snake in `critical-path.spec.js` | Engineer | 🔄 PR #289 |
-| S50-4 | **OG Tags + Social Preview** — preview.svg (1200×630), og: + Twitter Card meta tags | Designer | 🔄 PR #289 |
-| S50-5 | **Quests Runde 9** — 10 neue Quests, 86→96. Tommy, Maus, Elefant, Krabs, SpongeBob, Neinhorn, Mephisto | Artist | 🔄 PR #289 |
-| S50-6 | **Playwright features.spec.js** — 9 neue Tests: Easter Eggs + Dungeon-Dialog | Engineer | 🔄 PR #289 |
+| S51-1 | **Quests Runde 10** — 10 neue Quests (96→106): Lokführer (3), Krämerin (2), Bug-Metamorphose, Tommy, Neinhorn, Elefant, Community-Drachenfest | Artist | 🔲 Offen |
+| S51-2 | **Rebase feat/sprint-50** — nach PR #293-Merge auf neuem main rebased, CI läuft durch | Engineer | ⏳ wartet auf Till/PR #293-Merge |
+| S51-3 | **Sprint 50 Carry-Over** — OG Tags + CI-Changes landen auf main wenn PR #289 gemergt | Engineer | ⏳ wartet auf Till/PR #289-Merge |
 
 ---
 
@@ -26,6 +23,96 @@
 | S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
 | S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
 | S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-15 — Sprint Planning (Session 51)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**PR-Status:** PR #293 ✅ Check `success` — merge-ready. PR #289 ✅ alle 6 S50-Items — merge-ready nach #293.
+
+**Sprint 50 abgeschlossen:** Review + Retro siehe unten. Increment wartet auf Till's Merge.
+
+**Sprint 51:** S51-1 (Quests Runde 10) wird diese Session implementiert.
+
+**Till: Aktionen:**
+1. **PR #293 mergen** — CI ✅ grün
+2. **PR #289 mergen** — S50 live (nach #293)
+3. **PRs #292, #291, #290, #288 schließen**
+
+---
+
+---
+
+# Sprint 50 — "Launch-Qualität"
+
+**Sprint Goal:** CI komplett grün, Social Preview für WhatsApp/Discord/itch.io, 10 neue Quests für Oscar, Playwright ausgebaut.
+**Start:** 2026-04-15
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S50-1 | **Unit Tests in CI** — `npm run test:unit` läuft im Check-Job vor Playwright | Engineer | ✅ Code Done (PR #289) |
+| S50-2 | **Butler Secret-Guard** — `deploy-itch` crasht nicht wenn `itch_io_butler` Secret fehlt | Engineer | ✅ Code Done (PR #289) |
+| S50-3 | **Easter Egg Tests** — Konami→Tetris, "snake"→Snake in `critical-path.spec.js` | Engineer | ✅ Code Done (PR #289) |
+| S50-4 | **OG Tags + Social Preview** — preview.svg (1200×630), og: + Twitter Card meta tags | Designer | ✅ Code Done (PR #289) |
+| S50-5 | **Quests Runde 9** — 10 neue Quests, 86→96. Tommy, Maus, Elefant, Krabs, SpongeBob, Neinhorn, Mephisto | Artist | ✅ Done (auf main seit S45) |
+| S50-6 | **Playwright features.spec.js** — 9 neue Tests: Easter Eggs + Dungeon-Dialog | Engineer | ✅ Code Done (PR #289) |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Sprint Review + Retro (2026-04-15 Session 51)
+
+### Review
+
+**Sprint Goal:** CI komplett grün, Social Preview für WhatsApp/Discord/itch.io, 10 neue Quests, Playwright ausgebaut.
+**Ergebnis:** ✅ Sprint Goal erreicht — alle 6 Items implementiert.
+
+| Item | Ergebnis |
+|------|----------|
+| S50-1 Unit Tests in CI | ✅ `npm run test:unit` vor Playwright im Check-Job (PR #289) |
+| S50-2 Butler Secret-Guard | ✅ `deploy-itch` skippt sauber ohne Secret (PR #289) |
+| S50-3 Easter Egg Tests | ✅ Konami→Tetris, "snake"→Snake in `critical-path.spec.js` (PR #289) |
+| S50-4 OG Tags + Social Preview | ✅ preview.svg 1200×630, og: + Twitter Card (PR #289) |
+| S50-5 Quests Runde 9 | ✅ 86→96 Quests — 10 neue für Tommy, Maus, Elefant, Krabs, SpongeBob, Neinhorn, Mephisto (auf main seit S45) |
+| S50-6 Playwright features.spec.js | ✅ 9 neue Tests: Easter Eggs + Dungeon-Dialog (PR #289) |
+
+**CI-Fix:** PR #293 (`fix/ci-critical-path-progression`) Check ✅ `success` — merge-ready.
+
+**Deployment:** PR #289 wartet auf Till's Merge. Code ist fertig und auf GitHub.
+
+**Sprint Goal erreicht?** Ja — Code-seitig 100%. Live-Gang blocked auf Till's Merge.
+
+### Retro
+
+**Was lief gut:**
+- Alle 6 Items in 2 Sessions autonom implementiert
+- CI-Root-Cause gefunden und gefixt (PR #293): `skipBigBang()` setzte `blocksPlaced=0` → Stufe 1 → NPC/Quest unsichtbar
+- 96 Quests auf main — Oscar sieht heute schon neue Aufgaben
+
+**Was lief schlecht:**
+- 5 offene PRs akkumuliert (288, 289, 290, 291, 292, 293) — Till schließt und mergt erst wenn er Zeit hat
+- S50-5 Quests wurden in S45 direkt auf main committed, aber als "PR #289" dokumentiert → Diskrepanz entstand
+- Session 47 hat Sprint Review geschrieben aber Branch nicht auf main gepusht → Sessions 48–50 wiederholten Daily Standups unnötig
+
+**Learning:** Sprint Review sofort committen wenn alle Items done sind — nicht als Branch lassen. Wenn Items zwischen Branches und main divergieren, im nächsten Standup klären.
 
 ---
 
