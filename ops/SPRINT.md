@@ -1,3 +1,50 @@
+# Sprint 50 — "Launch-Qualität"
+
+**Sprint Goal:** CI komplett grün, Social Preview für WhatsApp/Discord/itch.io, 10 neue Quests für Oscar, Playwright ausgebaut.
+**Start:** 2026-04-15
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S50-1 | **Unit Tests in CI** — `npm run test:unit` läuft im Check-Job vor Playwright | Engineer | 🔄 PR #289 |
+| S50-2 | **Butler Secret-Guard** — `deploy-itch` crasht nicht wenn `itch_io_butler` Secret fehlt | Engineer | 🔄 PR #289 |
+| S50-3 | **Easter Egg Tests** — Konami→Tetris, "snake"→Snake in `critical-path.spec.js` | Engineer | 🔄 PR #289 |
+| S50-4 | **OG Tags + Social Preview** — preview.svg (1200×630), og: + Twitter Card meta tags | Designer | 🔄 PR #289 |
+| S50-5 | **Quests Runde 9** — 10 neue Quests, 86→96. Tommy, Maus, Elefant, Krabs, SpongeBob, Neinhorn, Mephisto | Artist | 🔄 PR #289 |
+| S50-6 | **Playwright features.spec.js** — 9 neue Tests: Easter Eggs + Dungeon-Dialog | Engineer | 🔄 PR #289 |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-15 — Daily Scrum (Session 44)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Umgebungseinschränkung, kein App-Problem.
+
+**S50-1 bis S50-6:** 🔄 Alle in PR #289 — warten auf Till's Merge.
+
+**Ceremony heute (S44):** S49 Retro geschrieben. S50 Planning in SPRINT.md dokumentiert.
+
+**Till: Zwei Aktionen:**
+1. **PR #289 mergen** (feat/sprint-50) → 6 Items live: CI, OG Tags, 10 Quests, Playwright-Tests
+2. **PR #290 schließen** (docs/sprint-49-review) → Inhalt bereits auf main (Commit f1a3e71)
+
+---
+
 # Sprint 49 — "itch.io + Autonomous Quality"
 
 **Sprint Goal:** itch.io-Seite live, Übersetzungs-Coverage geprüft, Codebase bereit für Launch.
@@ -64,6 +111,16 @@
 | S49-3 Unit + Typecheck | ✅ Done — 22/22 Tests grün, CI-Stand sauber |
 
 **Value delivered:** Codebase ist launch-ready. itch.io-Text steht. Übersetzungen vollständig. Alles was autonom lösbar war ist erledigt. Der Rest liegt bei Till.
+
+### Retro
+
+**Was lief gut:** 3/3 autonome Items Done. Codebase ship-ready. Sprint vollständig ohne Human-Input-Abhängigkeiten abgeschlossen — das war die Konsequenz aus der S48-Lesson.
+
+**Was lief schlecht:** Sprint 50 wurde in Session 43 geplant + implementiert BEVOR S49 Retro geschrieben war. Ceremony-Reihenfolge nicht eingehalten.
+
+**Learning:** Retro vor Planning — auch wenn die Arbeit schon erledigt ist. Ceremony-Ordnung ist kein Bürokratismus: sie verhindert dass Learnings aus S49 nicht in S50-Planning fließen können.
+
+**Action:** Retro schreiben ist erstes Item jeder neuen Session wenn der vorige Sprint auf Review steht.
 
 ---
 
