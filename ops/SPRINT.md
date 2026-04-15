@@ -822,6 +822,35 @@ Lokal verifiziert: `test.skip(!!process.env.CI, ...)` im describe-Scope **funkti
 
 ---
 
+## Sprint 49 — Retro (2026-04-15)
+
+**Was lief gut:** Alle 3 Items autonom, kein Blocker, Sprint Goal erreicht. S49 beweist: autonome Sprints funktionieren.
+
+**Was lief schlecht:** Tests laufen lokal grün, aber Unit Tests (`npm run test:unit`) laufen noch nicht in CI. Das ist ein stiller Gap.
+
+**Learning:** "Tests grün" ≠ "Tests in CI". CI-Integration ist eigener Schritt. S50 schließt diese Lücke.
+
+**Action:** S50 Goal: CI vollständig und robust für Launch.
+
+---
+
+# Sprint 50 — "CI Complete"
+
+**Sprint Goal:** Unit Tests in CI, itch.io Butler absichern, Easter Egg Tests automatisch.
+**Start:** 2026-04-15
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S50-1 | **Unit Tests in CI** — `npm run test:unit` zum Check-Job in deploy.yml hinzufügen. S49-3 hat sie grün gemacht, CI prüft sie noch nicht. | Engineer | ✅ Done — deploy.yml Check-Job erweitert |
+| S50-2 | **Butler Secret-Guard** — `itch_io_butler` Secret fehlt → CI-Job schlägt hart fehl. `if: secrets.itch_io_butler != ''` hinzufügen damit CI ohne den Key trotzdem grün bleibt. | Engineer | ✅ Done — deploy-itch Job abgesichert |
+| S50-3 | **Easter Egg Tests** — Playwright Tests für Tetris (Konami-Code) + Snake ("snake" eingeben). critical-path.spec.js erweitern. | Engineer | ✅ Done — 2 neue Tests in critical-path.spec.js |
+
+---
+
 ## Carry-Over aus S48 (auf Human Input blockiert)
 
 | # | Item | Blocker |

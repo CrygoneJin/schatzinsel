@@ -201,3 +201,39 @@ test.describe('Critical Path — NPC-Chat', () => {
     });
 
 });
+
+test.describe('Easter Eggs', () => {
+
+    test('Konami-Code → Tetris-Modal öffnet sich', async ({ page }) => {
+        await startGame(page);
+
+        // Konami-Sequenz: ↑ ↑ ↓ ↓ ← → ← → b a
+        const sequence = [
+            'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+            'b', 'a'
+        ];
+        for (const key of sequence) {
+            await page.keyboard.press(key);
+        }
+
+        const tetrisModal = page.locator('#tetris-modal');
+        await expect(tetrisModal).toBeVisible({ timeout: 3000 });
+    });
+
+    test('"snake" tippen → Snake-Modal öffnet sich', async ({ page }) => {
+        await startGame(page);
+
+        // Canvas fokussieren damit keydown-Events ankommen
+        await page.locator('#game-canvas').click();
+
+        // "snake" Buchstabe für Buchstabe tippen
+        for (const char of ['s', 'n', 'a', 'k', 'e']) {
+            await page.keyboard.press(char);
+        }
+
+        const snakeModal = page.locator('#snake-modal');
+        await expect(snakeModal).toBeVisible({ timeout: 3000 });
+    });
+
+});

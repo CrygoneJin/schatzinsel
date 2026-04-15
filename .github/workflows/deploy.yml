@@ -41,9 +41,13 @@ jobs:
           npm install typescript --no-save
           npx tsc --noEmit
 
-      - name: Smoke-Test (Playwright)
+      - name: Unit Tests
         run: |
           npm ci
+          npm run test:unit
+
+      - name: Smoke-Test (Playwright)
+        run: |
           npx playwright install chromium --with-deps
           npx playwright test --config=ops/tests/playwright.config.js --project=chromium --reporter=line
 
@@ -125,6 +129,7 @@ jobs:
           cp -r src/ _itchio/src/
 
       - name: Deploy to itch.io via Butler
+        if: secrets.itch_io_butler != ''
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
@@ -132,3 +137,7 @@ jobs:
           ./butler push _itchio crygonejim/schatzinsel-treasure-island-le-des-merveilles:web --userversion "${{ steps.version.outputs.version }}"
         env:
           BUTLER_API_KEY: ${{ secrets.itch_io_butler }}
+
+      - name: Butler Secret fehlt (kein Deploy)
+        if: secrets.itch_io_butler == ''
+        run: echo "itch_io_butler Secret nicht gesetzt — itch.io Deploy uebersprungen"
