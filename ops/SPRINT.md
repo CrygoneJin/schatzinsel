@@ -31,6 +31,28 @@
 
 ## Standup Log
 
+### 2026-04-15 — Daily Scrum (Session 49)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Haupt-Befund: PR #293 CI ✅ GRÜN**
+
+PR #293 (`fix/ci-critical-path-progression`) hat CI ✅ `Check: success`. Erster vollständig grüner Check-Job seit Wochen:
+- `critical-path.spec.js`: Stufe 5 via localStorage ab Frame 1 → alle Tests grün
+- `burn-panel.spec.js`: externe URLs in CI übersprungen
+
+**PR-Status:**
+- PR #293: Check ✅ — mergeable
+- PR #289: rebasiert auf `c80bea4` — bereit nach #293-Merge
+- PR #292, #291, #290, #288: schließen
+
+**Till: Aktionen:**
+1. **PR #293 mergen** — CI ✅ grün
+2. **PR #289 mergen** — alle 6 S50-Items (nach #293)
+3. **PRs #292, #291, #290, #288 schließen**
+
+---
+
 ### 2026-04-15 — Daily Scrum (Session 48)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
