@@ -17,6 +17,23 @@
 
 ## Standup Log
 
+### 2026-04-15 — Daily Scrum (Session 43)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Umgebungseinschränkung, kein App-Problem.
+
+**S48-1:** 🔲 Blocked (Till: Tesla-Video)
+**S48-2:** 🔲 Blocked (Till: Requesty Dashboard) ⚠️ Sicherheitsrisiko
+**S48-3:** 🔲 Blocked (Till: Stripe Payment-Links)
+
+**Autonome Arbeit:** Keine. Alle drei Items auf Human Input blockiert.
+
+**Till: Drei Aktionen:**
+1. Tesla-Video schicken → S48-1 startet sofort
+2. Requesty Dashboard öffnen → S48-2 (⚠️ Alter Key im Git-Verlauf)
+3. Stripe Dashboard → S48-3 → Donation-Button live
+
+---
+
 ### 2026-04-14 — Daily Scrum (Session 42)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Umgebungseinschränkung, kein App-Problem.
