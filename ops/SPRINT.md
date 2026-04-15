@@ -31,6 +31,26 @@
 
 ## Standup Log
 
+### 2026-04-15 — Daily Scrum (Session 50)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**PR #293 CI-Status (frisch geprüft):** Check ✅ `success` (abgeschlossen 13:50 UTC) — merge-ready.
+
+**PR-Übersicht:**
+- PR #293 (`fix/ci-critical-path-progression`): ✅ mergeable
+- PR #289 (`feat/sprint-50`): 🔄 6 S50-Items — wartet auf #293-Merge
+- PR #292, #291, #290, #288: schließen (obsolet)
+
+**Kein neues autonomes Item.** Alle S50-Items implementiert und in PR #289. Einziger Blocker: Till's Merge.
+
+**Till: Aktionen (unverändert):**
+1. **PR #293 mergen** — CI ✅ grün (diese Session bestätigt)
+2. **PR #289 mergen** — alle 6 S50-Items live (CI, OG Tags, Quests, Playwright)
+3. **PRs #292, #291, #290, #288 schließen**
+
+---
+
 ### 2026-04-15 — Daily Scrum (Session 49)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
