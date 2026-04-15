@@ -31,6 +31,30 @@
 
 ## Standup Log
 
+### 2026-04-15 — Daily Scrum (Session 47)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Neuer Befund — PR #291 `check`-Job schlägt fehl:**
+Der Concurrency-Fix in PR #291 wirkt: `check`-Job läuft jetzt bei PRs.
+Aber: `Check` → `failure`. TypeScript ✅, Unit Tests 22/22 ✅ lokal.
+Ursache: `burn-panel.spec.js` ruft externe URLs auf (`schatzinsel.app`, `workers.dev/burn`) —
+externe Integration-Tests die in GitHub Actions CI nicht zuverlässig laufen.
+Fix: **PR #292** — `burn-panel.spec.js` in CI skippen (`test.skip(!!process.env.CI)`).
+
+**PR-Status:**
+- PR #289 (feat/sprint-50): `mergeable_state: clean` — bereit
+- PR #291 (fix/ci-check-concurrency): Check FAILURE → PR #292 behebt Ursache
+- PR #292 (fix/ci-burn-panel-external-tests): Neu — CI-Fix für burn-panel
+
+**Till: Aktionen (aktualisiert):**
+1. **PR #292 mergen** — fix burn-panel externe Tests in CI (1 Datei, minimal)
+2. **PR #291 mergen** — Concurrency-Fix, nach #292 sollte Check grün sein
+3. **PR #289 mergen** — alle 6 S50-Items: CI, OG Tags, 10 Quests, Playwright
+4. **PR #290 schließen** — Inhalt bereits auf main
+
+---
+
 ### 2026-04-15 — Daily Scrum (Session 46)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
