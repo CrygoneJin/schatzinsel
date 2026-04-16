@@ -1,7 +1,49 @@
+# Sprint 60 — "Nacht, Honig, Stille"
+
+**Sprint Goal:** Lokführer fährt durch Nacht und Wolken, Krämerin entdeckt Bienen und Konzerte, Bernd hütet drei neue Geheimnisse. Oscar trifft alte Freunde von einer neuen Seite.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S60-1 | **Quests Runde 20** — 10 neue Quests (196→206): Lokführer (3), Krämerin (4), Bernd (3) — Nachtzug, Wolkenbahn, Fischmarkt, Honigfarm, Marktkonzert, Vogelhaus | Artist | ✅ PR #308 |
+| S60-2 | **Carry-Over Merges** — PRs #293, #289, #294–#307 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S59 + Planning S60 (Session 60)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 59 Review + Retro:** siehe Sprint-59-Block unten.
+
+**Sprint 60:** S60-1 (Quests Runde 20 — Lokführer/Krämerin/Bernd) implementiert, PR #308.
+
+---
+
+---
+
 # Sprint 59 — "Mondmagie, Verwandlung, Ewiger Pakt, Sternenwunder"
 
 **Sprint Goal:** Floriane träumt größer, Bug verwandelt sich, Mephisto schließt ewige Deals, Alien forscht im Garten. Oscar entdeckt neue Seiten alter Freunde.
 **Start:** 2026-04-16
+**Ende:** 2026-04-16
 
 ---
 
@@ -14,14 +56,29 @@
 
 ---
 
-## Carry-Over (Human Input blockiert)
+## Sprint Review + Retro (2026-04-16 Session 60)
 
-| # | Item | Blocker |
-|---|------|---------|
-| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
-| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
-| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
-| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+### Review
+
+**Sprint Goal:** Floriane träumt größer, Bug verwandelt sich, Mephisto schließt ewige Deals, Alien forscht im Garten.
+**Ergebnis:** ✅ Sprint Goal erreicht
+
+| Item | Ergebnis |
+|------|----------|
+| S59-1 Quests Runde 18 | ✅ 10 Quests: Floriane 3 (Mondlicht-Ballett, Sternschnuppen-Werkstatt, Wolken-Palast) + Bug 3 (Blätter-Bibliothek, Spinnrad-Werkstatt, Große Verwandlung) + Mephisto 2 (Ewiger Vertrag, Orkus-Opernhaus) + Alien 2 (Schwarzes-Loch-Labor, Interstellarer Garten) — PR #303 |
+| S59-2 Carry-Over Merges | ⏳ Blocked — wartet auf Till |
+
+**Quest-Stack:** PRs #293–#307 offen. Auf main: 196 Quests (PR #307 Batch Runden 13-19 gemergt). Gestapelt: 206+ (nach S60).
+
+**Sprint Goal erreicht?** Ja — code-seitig 100%. Live-Gang blocked auf Till's Merge.
+
+### Retro
+
+**Was lief gut:** Bugs "Große Verwandlung" ("Das ist es. Der Moment. Der KOKON.") + Mephistos Orkus-Opernhaus ("Publikum das keine Wahl hat") — emotional stärkste Quests der Runde.
+
+**Was besser laufen könnte:** Lokführer/Krämerin/Bernd nach S56 seit 4 Sprints ohne neue Quests.
+
+**Learning:** S60 zurück zu Lokführer/Krämerin/Bernd — Lücke schließen. PR #307 Batch hat Runden 13-19 sauber auf main gebracht; 196 Quests als solide Basis.
 
 ---
 
