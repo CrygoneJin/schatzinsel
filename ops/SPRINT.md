@@ -1,3 +1,62 @@
+# Sprint 54 — "Magie & Mysterien"
+
+**Sprint Goal:** Floriane, Mephisto, Alien und Bug bekommen neue Quests. Oscar taucht tiefer in die magische Seite der Insel ein.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S54-1 | **Quests Runde 13** — 10 neue Quests (116→126): Floriane (3), Mephisto (3), Alien (2), Bug (2) — Magie, Pakte, Erstkontakt, Verwandlung | Artist | ✅ PR #298 |
+| S54-2 | **Carry-Over Merges** — PRs #293, #289, #294, #295, #296 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Planning (Session 54)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**PR-Status:**
+- PR #293: CI ✅ grün — merge-ready
+- PR #289: merge-ready nach #293
+- PR #294 (Sprint 51): merge-ready nach #289
+- PR #295 (Sprint 52): merge-ready nach #294
+- PR #296 (Sprint 53): merge-ready nach #295
+- PR #298 (Sprint 54): merge-ready nach #296
+
+**Sprint 53 abgeschlossen:** Review + Retro siehe unten.
+
+**Sprint 54:** S54-1 (Quests Runde 13 — Floriane/Mephisto/Alien/Bug) bereits implementiert, PR #298 erstellt.
+
+**Till: Aktionen:**
+1. **PR #297 schließen** — Review/Retro direkt in SPRINT.md auf main (kein Docs-PR nötig)
+2. **PR #293 mergen** — CI ✅ grün
+3. **PR #289 mergen** — S50 live (nach #293)
+4. **PR #294 mergen** — S51 live (nach #289)
+5. **PR #295 mergen** — S52 live (nach #294)
+6. **PR #296 mergen** — S53 live (nach #295)
+7. **PR #298 mergen** — S54 live (nach #296)
+8. **PRs #292, #291, #290, #288 schließen**
+
+---
+
+---
+
 # Sprint 53 — "Programmierer-Insel Tiefer"
 
 **Sprint Goal:** Bernd, Haskell, Lua, SQL und Scratch bekommen ihre zweiten Quests. Oscar vertieft heute die Beziehungen zu den fünf Programmierern.
@@ -22,6 +81,34 @@
 | S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
 | S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
 | S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 54)
+
+### Review
+
+**Sprint Goal:** Bernd, Haskell, Lua, SQL und Scratch bekommen ihre zweiten Quests.
+**Ergebnis:** ✅ Sprint Goal erreicht
+
+| Item | Ergebnis |
+|------|----------|
+| S53-1 Quests Runde 12 | ✅ 10 neue Quests (106→116): Bernd 2 + Haskell 2 + Lua 2 + SQL 2 + Scratch 2 (PR #296) |
+| S53-2 Carry-Over Merges | ⏳ Blocked — wartet auf Till |
+
+**Sprint Goal erreicht?** Ja — code-seitig 100%. Live-Gang blocked auf Till's Merge.
+
+### Retro
+
+**Was lief gut:**
+- Programmierer-Quests haben starke Persönlichkeiten: Bernd grumpy-herzlich, Haskell funktional-präzise, Lua leicht-weise, SQL lakonisch, Scratch begeistert-laut
+- Sprint 54 wurde noch in derselben Session implementiert (PR #298) — kein Leerstand
+
+**Was lief schlecht:**
+- PR #297 (Sprint 53 Review) als Docs-PR erstellt — Ceremony-Docs gehören direkt auf main, nicht als PR
+- PR #298 Titel enthält falschen Quest-Zähler ("86→96" statt "116→126")
+
+**Learning:** Ceremony-Docs (Review, Retro, Standup) direkt auf main committen — nie als PR. PRs sind für Produktcode. Docs-PRs erzeugen unnötige Merge-Queue-Tiefe bei Till.
 
 ---
 

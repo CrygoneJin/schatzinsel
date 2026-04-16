@@ -6,6 +6,8 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-16 | Sprint 54 S54 (Session 54): Sprint 53 Review+Retro + Sprint 54 Planning. Quests Runde 13 bereits in vorheriger Session implementiert (PR #298 — Floriane 3 + Mephisto 3 + Alien 2 + Bug 2). Ceremony-Docs direkt auf main. |
+| 2026-04-16 | Docs-PR Anti-Pattern bestätigt: PR #297 (Sprint 53 Review) war ein Docs-PR — wurde nicht gemergt, SPRINT.md auf main nicht aktuell. Fix: Ceremony-Docs immer direkt committen auf main, NIE als PR. |
 | 2026-04-15 | Sprint 53 S53 (Session 53): Quests Runde 12 — 10 Quests für Bernd/Haskell/Lua/SQL/Scratch (zweite Runde). PR #296. CI-Fix direkt mitgeliefert. |
 | 2026-04-15 | CI-Patch-Pflicht (S53): Neuer Branch von main = skipBigBang() in critical-path.spec.js prüfen + burn-panel.spec.js CI-Skip-Guard prüfen. Sonst CI rot bei erstem Push. Betrifft jeden Branch bis PR #293 auf main ist. |
 | 2026-04-15 | Sprint 52 S52 (Session 52): Quests Runde 11 (10 Quests für Bernd/Haskell/Lua/SQL/Scratch) implementiert. PR #295. CI initial rot, diese Session gefixt (734e196). |
