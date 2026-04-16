@@ -9,7 +9,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S61-1 | **Quests Runde 21** — 10 neue Quests (216→226): Tommy (3), Neinhorn (3), Elefant (4) — Pol, Grotte, Flötenwald | Artist | 🔲 |
+| S61-1 | **Quests Runde 21** — 10 neue Quests (216→226): Tommy (3), Neinhorn (3), Elefant (4) — Pol, Grotte, Flötenwald | Artist | ✅ PR #316 |
 | S61-2 | **Carry-Over Merges** — PRs #314, #315 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
 
 ---
@@ -38,7 +38,7 @@
 
 **Sprint 60 Retro:** Quest-Stack wächst auf 8 PRs. Sauberer Stack (#314→#315) ist der Weg. Runde 21 wird auf clean stack gestackt.
 
-**Sprint 61:** S61-1 (Quests Runde 21 — Tommy/Neinhorn/Elefant) wird implementiert.
+**Sprint 61:** S61-1 ✅ (Quests Runde 21 — Tommy/Neinhorn/Elefant, PR #316 stacked auf #315). 226 Quests auf Branch.
 
 ---
 
