@@ -1,6 +1,59 @@
-# Sprint 60 — "Bernd findet Ruhe, Lokführer baut weiter, Floriane fliegt"
+# Sprint 64 — "Tommy forscht, Neinhorn zieht sich zurück, Elefant dirigiert das Meer"
 
-**Sprint Goal:** Bernd entdeckt seine geheimen Rückzugsorte, Lokführer erweitert das Schienennetz, Floriane hebt ab. Oscar trifft drei Freunde von ihrer stillen Seite.
+**Sprint Goal:** Tommy erkundet das Unmögliche, Neinhorn entdeckt Schönheit in der Stille, Elefant lässt das Meer singen. Oscar trifft drei alte Freunde von ihrer tiefsten Seite.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S64-1 | **Quests Runde 24** — 10 neue Quests (246→256): Tommy (3), Neinhorn (3), Elefant (4) — Polarlicht, Spiegelgrotte, Meeresorgel | Artist | ✅ feat/quests-runde-24 |
+| S64-2 | **Carry-Over Merges** — feat/quests-runde-24 stacked auf #318. Till mergt clean stack | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S63 + Planning S64 (Session 64)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 63 Review:**
+
+| Item | Ergebnis |
+|------|----------|
+| S63-1 | ✅ 10 Quests: Bernd 3 (Bienenhaus, Aussichtsturm, Stille-Kammer) + Alien 3 (Quantenfeld-Labor, UFO-Landezone, Neutrinodetektor) + Kraemerin 4 (Fischräucherei, Imkerstand, Obstbaumgarten, Seeblick-Marktstand) — PR #318 |
+| S63-2 | ⏳ Blocked — wartet auf Till |
+
+**Sprint Goal:** ✅ Bernd summt, Alien forscht, Kraemerin expandiert.
+
+**Sprint 63 Retro:**
+- Was gut lief: Alien-Quests mit echter Physik (Neutrinos, Quantenmechanik) — klingen wie echte Wissenschaft für Kinder.
+- Learning: Alte stale branches (feat/sprint-XX) ignorieren — nur feat/quests-runde-XX ist der clean stack.
+- Nächste NPCs: Tommy/Neinhorn/Elefant haben noch keine Quests im clean stack (Runde 21-23 war anderen NPCs).
+
+**Sprint 64 Planning:** S64-1 (Quests Runde 24 — Tommy/Neinhorn/Elefant) wird implementiert.
+
+---
+
+---
+
+# Sprint 63 — "Bernd summt, Alien forscht, Kraemerin expandiert"
+
+**Sprint Goal:** Bernd entdeckt die Stille im Bienenhaus und auf dem Aussichtsturm, das Alien vermisst Quantenfelder und landet endlich offiziell, die Kraemerin eröffnet Fischräucherei und Obstgarten. Oscar trifft drei alte Freunde mit neuen Seiten.
 **Start:** 2026-04-16
 
 ---
