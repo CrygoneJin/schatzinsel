@@ -101,6 +101,8 @@ jobs:
     needs: check
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    env:
+      BUTLER_KEY: ${{ secrets.itch_io_butler }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -129,7 +131,7 @@ jobs:
           cp -r src/ _itchio/src/
 
       - name: Deploy to itch.io via Butler
-        if: secrets.itch_io_butler != ''
+        if: env.BUTLER_KEY != ''
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
@@ -139,5 +141,5 @@ jobs:
           BUTLER_API_KEY: ${{ secrets.itch_io_butler }}
 
       - name: Butler Secret fehlt (kein Deploy)
-        if: secrets.itch_io_butler == ''
+        if: env.BUTLER_KEY == ''
         run: echo "itch_io_butler Secret nicht gesetzt — itch.io Deploy uebersprungen"
