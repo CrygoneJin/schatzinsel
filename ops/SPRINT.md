@@ -10,7 +10,7 @@
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
 | S60-1 | **Quests Runde 19** — 10 neue Quests (196→206): Bernd (3), Kraemerin (3), Lokführer (4) — Sauna, Käserei, Rangierbahnhof | Artist | ✅ PR #314 |
-| S60-2 | **Quests Runde 20** — 10 neue Quests (206→216): Floriane (3), Bug (3), Mephisto (2), Alien (2) — stacked auf Runde 19 | Artist | ✅ PR folgt |
+| S60-2 | **Quests Runde 20** — 10 neue Quests (206→216): Floriane (3), Bug (3), Mephisto (2), Alien (2) — stacked auf Runde 19 | Artist | ✅ PR #315 |
 | S60-3 | **Carry-Over Merges** — PRs #314, #308–#313 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
 
 ---
@@ -38,7 +38,7 @@
 
 **Sprint 59 Retro:** PR-Stack auf 7 offene PRs (#308–#314) gewachsen. PRs #308–#313 auf altem main (vor CI-Fix), nur #314 frisch auf aktuellem HEAD. MEMORY-Learning gilt: neue Branches von feat/quests-runde-N statt main um Stack-Konflikte zu vermeiden.
 
-**Sprint 60:** S60-1 ✅ (PR #314 offen). S60-2 ✅ (10 neue Quests: Floriane/Bug/Mephisto/Alien, PR folgt). 206 Quests auf Branch.
+**Sprint 60:** S60-1 ✅ (PR #314 offen). S60-2 ✅ (10 neue Quests: Floriane/Bug/Mephisto/Alien, PR #315). 206 Quests auf Branch.
 
 ---
 
