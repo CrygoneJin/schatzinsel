@@ -1,3 +1,31 @@
+# Sprint 64 — "Tommy forscht, Neinhorn zieht sich zurück, Elefant dirigiert das Meer"
+
+**Sprint Goal:** Tommy erkundet das Unmögliche, Neinhorn entdeckt Schönheit in der Stille, Elefant lässt das Meer singen. Oscar trifft drei alte Freunde von ihrer tiefsten Seite.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S64-1 | **Quests Runde 24** — 10 neue Quests (246→256): Tommy (3), Neinhorn (3), Elefant (4) — stacked auf #318 | Artist | ✅ PR #320 |
+| S64-2 | **Carry-Over Merges** — PRs #314–#320 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Daily Scrum + Sprint 64 PR erstellt (Session 65)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 64:** S64-1 ✅ (PR #320, Runde 24 — Tommy/Neinhorn/Elefant, 256 Quests auf Branch). PR war von Session 64 implementiert aber nicht gepusht — diese Session hat PR #320 erstellt. S64-2 ⏳ (wartet auf Till). Sauberer Stack: #314→#315→#316→#317→#318→#320.
+
+---
+
+---
+
 # Sprint 63 — "Bernd summt, Alien forscht, Kraemerin expandiert"
 
 **Sprint Goal:** Bernd entdeckt die Stille im Bienenhaus und auf dem Aussichtsturm, das Alien vermisst Quantenfelder und landet endlich offiziell, die Kraemerin eröffnet Fischräucherei und Obstgarten. Oscar trifft drei alte Freunde mit neuen Seiten.
@@ -14,16 +42,16 @@
 
 ---
 
-## Sprint Review + Retro (2026-04-16 Session 63)
+## Sprint Review + Retro (2026-04-16 Session 64)
 
 **Sprint Goal erreicht:** ✅
 
 | Item | Ergebnis |
 |------|----------|
-| S62-1 | ✅ Runde 22 (Maus/Krabs/Spongebob): Windmühlen-Turm, Goldschmiede, Laternenfest + 7 weitere — PR #317 |
-| S62-2 | ⏳ Blocked — wartet auf Till (PRs #314–#317) |
+| S63-1 | ✅ Runde 23 (Bernd/Alien/Kraemerin): Bienenhaus, Aussichtsturm, Quantenfeld-Labor + 7 weitere — PR #318 |
+| S63-2 | ⏳ Blocked — wartet auf Till |
 
-**Retro:** Sauberer Stack wächst weiter: #314→#315→#316→#317→#318, kein Konflikt. 10 offene PRs total (alter Stack #308–#313 + sauberer Stack #314–#318). Nächste NPCs nach Quest-Count: Lokführer (14), Bernd (15), Alien (16) — Runde 24 hat schon Namen.
+**Retro:** Alien-Quests mit echter Physik (Neutrinos, Quantenmechanik) — klingen wie echte Wissenschaft für Kinder. Stale branches (feat/sprint-XX) ignorieren — nur feat/quests-runde-XX ist canonical. Nächste NPCs: Tommy/Neinhorn/Elefant → Runde 24.
 
 ---
 
