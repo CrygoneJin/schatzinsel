@@ -1,7 +1,49 @@
+# Sprint 63 — "Jahreszeiten, Weite, Schatten, Kosmos"
+
+**Sprint Goal:** Floriane feiert alle Jahreszeiten, Bug erkundet die Welt als Schmetterling, Mephisto spielt mit Schatten, Alien wartet auf kosmische Antworten. Oscar entdeckt vier alte Freunde von ihrer weitesten Seite.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S63-1 | **Quests Runde 23** — 10 neue Quests (226→236): Floriane (3), Bug (3), Mephisto (2), Alien (2) — Frühlingserwachen, Wanderflug, Schattentheater, Sternenkarte | Artist | ✅ PR #311 |
+| S63-2 | **Carry-Over Merges** — PRs #308, #309, #310 + ältere landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S62 + Planning S63 (Session 63)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 62 Review + Retro:** siehe Sprint-62-Block unten.
+
+**Sprint 63:** S63-1 (Quests Runde 23 — Floriane/Bug/Mephisto/Alien) implementiert, PR #311.
+
+---
+
+---
+
 # Sprint 62 — "Vogelruf, Mondlicht, Gleis ans Meer"
 
 **Sprint Goal:** Bernd entdeckt die Stille, Lokführer baut ans Meer, Krämerin feiert das Jahr. Oscar begegnet drei vertrauten Gesichtern von einer neuen Seite.
 **Start:** 2026-04-16
+**Ende:** 2026-04-16
 
 ---
 
@@ -14,14 +56,23 @@
 
 ---
 
-## Carry-Over (Human Input blockiert)
+## Sprint Review + Retro (2026-04-16 Session 63)
 
-| # | Item | Blocker |
-|---|------|---------|
-| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
-| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
-| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
-| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+### Review
+
+**Sprint Goal:** Bernd entdeckt die Stille, Lokführer baut ans Meer, Krämerin feiert das Jahr.
+**Ergebnis:** ✅ Sprint Goal erreicht
+
+| Item | Ergebnis |
+|------|----------|
+| S62-1 | ✅ 10 Quests: Bernd 3 (Vogelbeobachtung, Stille Bibliothek, Nachtsternwarte) + Lokführer 3 (Nachtexpress, Strandbahnhof, Hochgeschwindigkeitsstrecke) + Krämerin 3 (Blumenmarkt am See, Käserei, Großer Jahrmarkt) + Spongebob 1 (Unterwasser-Observatorium) — PR #310 |
+| S62-2 | ⏳ Blocked — wartet auf Till |
+
+### Retrospektive
+
+**Was gut lief:** Bernd's leise Melancholie ("Vögel antworten nicht zurück") und Lokführer's Energie-Kontrast ("TSCHUFF TSCHUFF!") machen die Quests lebendiger als je zuvor. Starke Charakterstimmen = Oscar versteht sofort wer spricht.
+
+**Offen:** PR-Stack wächst (jetzt #308–#311). Till muss baldig mergen — Konfliktpotenzial steigt mit jeder Runde.
 
 ---
 
