@@ -1,6 +1,6 @@
-# Sprint 59 — "Mondmagie, Verwandlung, Ewiger Pakt, Sternenwunder"
+# Sprint 60 — "Mondthron, Schmetterling erwacht, Flüsternde Galerie, Wurmloch"
 
-**Sprint Goal:** Floriane träumt größer, Bug verwandelt sich, Mephisto schließt ewige Deals, Alien forscht im Garten. Oscar entdeckt neue Seiten alter Freunde.
+**Sprint Goal:** Floriane erhält ihren Thron, Bug hebt ab, Mephisto flüstert Geheimnisse, Alien öffnet Wurmlöcher. Oscar trifft alte Freunde mit neuen Kräften.
 **Start:** 2026-04-16
 
 ---
@@ -9,8 +9,74 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S59-1 | **Quests Runde 18** — 10 neue Quests (106→116): Floriane (3), Bug (3), Mephisto (2), Alien (2) — Mondballett, Verwandlung, Ewiger Pakt, Forschung | Artist | ✅ PR #303 |
-| S59-2 | **Carry-Over Merges** — PRs #293, #289, #294–#303 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+| S60-1 | **Quests Runde 20** — 10 neue Quests (196→206): Floriane (3), Bug (3), Mephisto (2), Alien (2) — Mondthron, Erster Flug, Flüsternde Galerie, Wurmloch | Artist | ✅ feat/sprint-60-runde-20 |
+| S60-2 | **Carry-Over Merges** — PRs landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S59 + Planning S60 (Session 60)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 59 Review + Retro:** siehe Sprint-59-Block unten.
+
+**Sprint 60:** S60-1 (Quests Runde 20 — Floriane/Bug/Mephisto/Alien) implementiert.
+
+---
+
+---
+
+# Sprint 59 — "Mondmagie, Verwandlung, Ewiger Pakt, Sternenwunder"
+
+**Sprint Goal:** Floriane träumt größer, Bug verwandelt sich, Mephisto schließt ewige Deals, Alien forscht im Garten. Oscar entdeckt neue Seiten alter Freunde.
+**Start:** 2026-04-16
+**Ende:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S59-1 | **Quests Runde 18** — 10 neue Quests (196→206 gestapelt): Floriane (3), Bug (3), Mephisto (2), Alien (2) — Mondballett, Verwandlung, Ewiger Pakt, Forschung | Artist | ✅ PR #303 → main via #307 |
+| S59-2 | **Carry-Over Merges** — PRs #293, #289, #294–#307 → via Cleanup PR #307 alle auf main | Engineer | ✅ PR #307 gemergt |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 60)
+
+### Review
+
+**Sprint Goal:** Floriane träumt größer, Bug verwandelt sich, Mephisto schließt ewige Deals, Alien forscht im Garten.
+**Ergebnis:** ✅ Sprint Goal erreicht
+
+| Item | Ergebnis |
+|------|----------|
+| S59-1 | ✅ 10 Quests: Floriane 3 (Mondlicht-Ballett, Sternschnuppen-Werkstatt, Wolken-Palast der Träume) + Bug 3 (Blätter-Bibliothek, Spinnrad-Werkstatt, Große Verwandlung) + Mephisto 2 (Ewiger Vertrag, Orkus-Opernhaus) + Alien 2 (Schwarzes-Loch-Labor, Interstellarer Garten) — PR #303 → Cleanup PR #307 → main |
+| S59-2 | ✅ PR #307 (Cleanup) hat alle gestapelten Quest-PRs inklusive Runde 19 (Tommy/Neinhorn/Elefant) auf main gelandet |
+
+**Quest-Stand:** Auf main: 196 Quests (nach PR #307 Cleanup). 0 offene Quest-PRs.
+
+### Retro
+
+**Was lief gut:** Bug's Große Verwandlung ("Das ist es. Der Moment. Der KOKON.") emotionalster Quest bisher. Mephistos Orkus-Opernhaus passt perfekt zum Charakter. PR-Cleanup hat 17 PRs auf 0 reduziert.
+
+**Was besser laufen könnte:** Sprint-60-Branch enthielt Runde 19 ohne Planning — Runde 19 war dann Teil des Cleanup-PRs. Zähler in SPRINT.md stimmten nach Cleanup nicht mehr.
+
+**Learning:** Nach jedem Cleanup-PR: `grep -c '{ npc:'` auf main ausführen und Zähler neu setzen. Aktuell: 196 Quests auf main.
 
 ---
 
