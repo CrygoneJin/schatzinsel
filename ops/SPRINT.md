@@ -1,7 +1,49 @@
+# Sprint 62 — "Vogelruf, Mondlicht, Gleis ans Meer"
+
+**Sprint Goal:** Bernd entdeckt die Stille, Lokführer baut ans Meer, Krämerin feiert das Jahr. Oscar begegnet drei vertrauten Gesichtern von einer neuen Seite.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S62-1 | **Quests Runde 22** — 10 neue Quests (216→226): Bernd (3), Lokführer (3), Krämerin (3), Spongebob (1) — Vogelbeobachtung, Nachtexpress, Blumenmarkt am See, Großer Jahrmarkt | Artist | ✅ PR #310 |
+| S62-2 | **Carry-Over Merges** — PRs #308, #309 + ältere landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Carry-Over (Human Input blockiert)
+
+| # | Item | Blocker |
+|---|------|---------|
+| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
+| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
+| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
+| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S61 + Planning S62 (Session 62)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 61 Review + Retro:** siehe Sprint-61-Block unten.
+
+**Sprint 62:** S62-1 (Quests Runde 22 — Bernd/Lokführer/Krämerin/Spongebob) implementiert, PR #310.
+
+---
+
+---
+
 # Sprint 61 — "Vulkan, Stille, Festmusik"
 
 **Sprint Goal:** Tommy bewacht den Vulkan, Neinhorn entdeckt die Bibliothek, Elefant feiert mit allen. Oscar erlebt drei neue Seiten alter Freunde.
 **Start:** 2026-04-16
+**Ende:** 2026-04-16
 
 ---
 
@@ -22,6 +64,30 @@
 | S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
 | S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
 | S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 62)
+
+### Review
+
+**Sprint Goal:** Tommy bewacht den Vulkan, Neinhorn entdeckt die Bibliothek, Elefant feiert mit allen.
+**Ergebnis:** ✅ Sprint Goal erreicht
+
+| Item | Ergebnis |
+|------|----------|
+| S61-1 | ✅ 10 Quests: Tommy 3 (Vulkan-Wächter, Schatzsucher-Lager, Wolkenkratzer) + Neinhorn 3 (Geheime Bibliothek, Unterwasser-Salon, Sternenhütte) + Elefant 4 (Flüstersee, Chor-Hügel, Eisenbahn-Serenade, Freuden-Festival) — PR #309 |
+| S61-2 | ⏳ Blocked — wartet auf Till |
+
+**Quest-Stack:** PRs #308 + #309 offen. Auf main: 196 Quests. Nach Merge beider: 216.
+
+### Retro
+
+**Was lief gut:** Tommy's Vulkan-Wächter + Elefants Freuden-Festival — emotionales Finale des Tripletons. Elefants 4-Quest-Rhythmus bleibt.
+
+**Was besser laufen könnte:** PR-Stack (#308 + #309) wächst. Bernd/Lokführer/Krämerin haben die wenigsten Quests — S62 holt sie auf.
+
+**Learning:** Neinhorns Widerspruchsstruktur (NEIN aber dann doch) funktioniert auch für private Räume (Bibliothek, Sternenhütte). Muster beibehalten.
 
 ---
 
