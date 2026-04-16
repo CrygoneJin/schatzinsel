@@ -1,3 +1,49 @@
+# Sprint 61 — "Tommy entdeckt den Pol, Neinhorn findet seine Grotte, Elefant flötet"
+
+**Sprint Goal:** Tommy kämpft sich durch Eis und Dschungel, Neinhorn versteckt sich in seiner geheimen Grotte, Elefant dirigiert den Flötenwald. Oscar erlebt Abenteuer, Heimlichkeit und Natur-Musik.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S61-1 | **Quests Runde 21** — 10 neue Quests (216→226): Tommy (3), Neinhorn (3), Elefant (4) — Pol, Grotte, Flötenwald | Artist | 🔲 |
+| S61-2 | **Carry-Over Merges** — PRs #314, #315 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 61)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S60-1 | ✅ Runde 19 (Bernd/Kraemerin/Lokführer): Sauna-Hütte, Käserei, Rangierbahnhof + 7 weitere — PR #314 |
+| S60-2 | ✅ Runde 20 (Floriane/Bug/Mephisto/Alien): Mondfee-Thron, Erster Flug 🦋, Flüsternde Galerie, Gedanken-Observatorium + 6 weitere — PR #315 |
+| S60-3 | ⏳ Blocked — wartet auf Till (PRs #308–#315) |
+
+**Retro:** 8 offene PRs (#308–#315). Sauberer Stack: #314→#315 auf aktuellem main-HEAD. Alter Stack (#308–#313) auf 54e8197 — wird beim Mergen Konflikte geben. Pattern für S61: Runde 21 auf feat/sprint-60-runde-20-fresh stacken, nicht auf main.
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S60 + Planning S61 (Session 61)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 60 Review:** S60-1 ✅ (PR #314, Runde 19). S60-2 ✅ (PR #315, Runde 20). S60-3 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 60 Retro:** Quest-Stack wächst auf 8 PRs. Sauberer Stack (#314→#315) ist der Weg. Runde 21 wird auf clean stack gestackt.
+
+**Sprint 61:** S61-1 (Quests Runde 21 — Tommy/Neinhorn/Elefant) wird implementiert.
+
+---
+
+---
+
 # Sprint 60 — "Bernd findet Ruhe, Lokführer baut weiter, Floriane fliegt"
 
 **Sprint Goal:** Bernd entdeckt seine geheimen Rückzugsorte, Lokführer erweitert das Schienennetz, Floriane hebt ab. Oscar trifft drei Freunde von ihrer stillen Seite.
