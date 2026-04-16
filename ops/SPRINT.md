@@ -582,6 +582,24 @@
 
 ## Standup Log
 
+### 2026-04-15 — Daily Scrum (Session 52)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**S51-1 PR #294:** 10 Quests implementiert (96→106). `tsc --noEmit` ✅, Unit Tests 22/22 ✅. CI: `deploy-preview` ✅, kein `check`-Job (PR #293 noch nicht auf main — bekannte Einschränkung).
+
+**S51-2 + S51-3:** weiterhin blocked auf Till's Merge.
+
+**Kein neues implementierbares Item.** Sprint-Goal wartet auf Till.
+
+**Till: Aktionen (unverändert):**
+1. **PR #293 mergen** — CI ✅ grün
+2. **PR #289 mergen** — S50 live (nach #293)
+3. **PR #294 mergen** — S51 live (nach #289)
+4. **PRs #292, #291, #290, #288 schließen**
+
+---
+
 ### 2026-04-15 — Sprint Planning (Session 51)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
