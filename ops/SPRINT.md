@@ -1,3 +1,44 @@
+# Sprint 73 — "Floriane schickt Wünsche in den Himmel, Bug spinnt sein feinstes Netz, Maus baut den Bunker, Krabs eröffnet das Museum"
+
+**Sprint Goal:** Floriane schickt Wünsche mit Laternen in den Nachthimmel, Bug kommt seiner Verwandlung ein Stück näher, Maus sichert sich gegen das Unbekannte ab, Krabs zeigt seinen Schatz — aber nur durch Glas. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S73-1 | **Quests Runde 33** — 10 neue Quests (336→346): Floriane (3), Bug (3), Maus (2), Krabs (2) — stacked auf #328 | Artist | ✅ PR #329 |
+| S73-2 | **Carry-Over Merges** — PRs #314–#329 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S72 (2026-04-17 Session 74)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S72-1 | ✅ Runde 32 (Mephisto/Lokführer/Bernd/Alien): Seelenwage, Viadukt, Stilles Gewächshaus, Meteoriten-Labor + 6 weitere — PR #328 |
+| S72-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Floriane/Bug bei 22 Quests → niedrigste Zählung → klar die Nächsten. Maus/Krabs bei 23, zuletzt in R31 (2 Runden her) → sinnvolle Ergänzung. Stack: #314→…→#328→#329.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S72 + Planning S73 + S73-1 implementiert (Session 74)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 72 Review:** S72-1 ✅ (PR #328, Runde 32 — Mephisto/Lokführer/Bernd/Alien, 336 Quests). S72-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 73:** S73-1 ✅ (PR #329, Runde 33 — Floriane/Bug/Maus/Krabs, 346 Quests auf Branch). Stack: #314→…→#328→#329.
+
+---
+
 # Sprint 72 — "Mephisto wägt Seelen, Lokführer baut das Viadukt, Bernd findet sein stilles Gewächshaus, Alien analysiert Meteore"
 
 **Sprint Goal:** Mephisto hält Gericht über Träume und Seelen, Lokführer baut das Viadukt des Jahrhunderts, Bernd pflanzt im Verborgenen, Alien analysiert was vom Himmel fällt. Oscar trifft vier alte Freunde in neuen Rollen.
