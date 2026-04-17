@@ -1,3 +1,44 @@
+# Sprint 85 — "Spongebob backt Brot unter Wasser und züchtet Quallen, Lokführer baut das Nacht-Weichen-Netz und sein Museum, Kraemerin spinnt Leinen und legt den Saatgut-Tresor an, Bug kartiert alle Nektarpunkte, Alien verschränkt Quantenteilchen und empfängt 47 Jahre alte Bilder"
+
+**Sprint Goal:** Spongebob erschließt die Unterwasser-Kulinarik und hält seine Quallen in Schuss, Lokführer löst das Nacht-Routing und bewahrt Eisenbahngeschichte, Kraemerin gibt dem Dorf Stoff und Saatgut für den nächsten Winter, Bug legt die erste vollständige Nektar-Karte der Insel an, Alien öffnet die erste Quantenleitung ins All und bekommt Bilder von damals. Oscar trifft fünf alte Freunde mit neuen Projekten.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S85-1 | **Quests Runde 45** — 10 neue Quests (456→466): Spongebob (2), Lokführer (2), Kraemerin (2), Bug (2), Alien (2) — stacked auf #341 | Artist | ✅ feat/quests-runde-45 |
+| S85-2 | **Carry-Over Merges** — PRs #314–#342 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S84 (2026-04-17 Session 86)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S84-1 | ✅ Runde 44 (Elefant/Bernd/Mephisto/Maus): Eisglocken-Konzert, Vulkan-Sinfonie, Morgenchor-Station, Laubarchiv, Erste-Schnee-Station, Mitternachts-Inventur, Auktionshaus der Hoffnungen, Vergessens-Labyrinth, Vulkan-Forschungsposten, Tiefsee-Tauchkapsel — PR #341 |
+| S84-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob/Lokführer/Kraemerin/Bug/Alien bei 32 (niedrigste Zählung) → klar für Runde 45. Spongebob 2 (Unterwasser-Bäckerei + Quallen-Zucht-Station), Lokführer 2 (Nacht-Weiche + Lokomotiv-Museum), Kraemerin 2 (Leinwand-Atelier + Saatgut-Kammer), Bug 2 (Nektar-Kartographie + Windstille-Pavillon), Alien 2 (Quantenverschränkungs-Station + Raumsonden-Leitzentrale). Stack wächst sauber (#314→…→#341→#342). Mephisto/Maus/Krabs/Floriane bei 34 → nächste Kandidaten nach S85.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S84 + Planning S85 + S85-1 implementiert (Session 86)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 84 Review:** S84-1 ✅ (PR #341, Runde 44 — Elefant/Bernd/Mephisto/Maus, 456 Quests). S84-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 85:** S85-1 ✅ (feat/quests-runde-45, Runde 45 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 466 Quests auf Branch). Stack: #314→…→#341→#342.
+
+---
+
 # Sprint 84 — "Elefant baut Konzerte aus Eis, Feuer und Morgenrot, Bernd archiviert Laub und Schnee und macht Mitternachts-Inventur, Mephisto eröffnet das Auktionshaus der Hoffnungen, Maus erforscht Vulkan und Tiefsee"
 
 **Sprint Goal:** Elefant findet drei neue Bühnen (Eisglocken, Vulkan-Sinfonie, Morgenchor), Bernd dokumentiert Herbst und Winter und schreibt nachts achtzehn Seiten, Mephisto eröffnet das erste Auktionshaus für Hoffnungen und legt sein erstes Labyrinth an, Maus beobachtet den Vulkan mit Doppelflagge und taucht in die Tiefsee. Oscar trifft vier alte Freunde in sehr verschiedenen Stimmungen.
@@ -9,7 +50,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S84-1 | **Quests Runde 44** — 10 neue Quests (446→456): Elefant (3), Bernd (3), Mephisto (2), Maus (2) — stacked auf feat/quests-runde-43 | Artist | ✅ feat/quests-runde-44 |
+| S84-1 | **Quests Runde 44** — 10 neue Quests (446→456): Elefant (3), Bernd (3), Mephisto (2), Maus (2) — stacked auf feat/quests-runde-43 | Artist | ✅ PR #341 |
 | S84-2 | **Carry-Over Merges** — PRs #314–#341 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
 
 ---
