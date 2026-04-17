@@ -1,3 +1,44 @@
+# Sprint 77 — "Spongebob baut Sandy's Kuppel, Mephisto öffnet den Nacht-Basar, Bernd kartiert seine Pilze"
+
+**Sprint Goal:** Spongebob entdeckt dass Kuppeln und Kelp-Wälder das beste Zuhause sind, Mephisto eröffnet einen Marktplatz für Geständnisse, Bernd archiviert Regen und Pilze und sitzt um Mitternacht auf seiner Veranda. Oscar trifft drei Freunde in sehr verschiedenen Stimmungen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S77-1 | **Quests Runde 37** — 10 neue Quests (376→386): Spongebob (3), Mephisto (3), Bernd (4) — stacked auf #332 | Artist | ✅ PR #334 |
+| S77-2 | **Carry-Over Merges** — PRs #314–#334 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S76 (2026-04-17 Session 78)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S76-1 | ✅ Runde 36 (Maus/Bug/Alien): Flaschenpost-Anker, Kompass-Station, Seestern-Teich, Piraten-Ausguck, Süd-Etappenstation, Blüten-Kartographie, Schmetterlings-Akademie, Plasma-Forschungsstation, Parallelwelten-Observatorium, Zeitanomalie-Monitor — PR #332 |
+| S76-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob/Mephisto/Bernd bei 26 (niedrigste Zählung) → klar für Runde 37. Runde 37 liefert Sandy's Kuppel + Gary's Rennen + Kelp-Kabine (Spongebob), Vergessens-Kammer + Vertragsstein-Galerie + Nacht-Basar (Mephisto), Regen-Messpunkt + Mitternachts-Veranda + Pilz-Kartierung + Saatgut-Archiv (Bernd). Stack wächst sauber (#314→…→#332→#334). Tommy/Neinhorn/Elefant bei 28 → nächste Kandidaten nach S77.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S76 + Planning S77 + S77-1 implementiert (Session 78)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 76 Review:** S76-1 ✅ (PR #332, Runde 36 — Maus/Bug/Alien, 376 Quests). S76-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 77:** S77-1 ✅ (PR #334, Runde 37 — Spongebob/Mephisto/Bernd, 386 Quests auf Branch). Stack: #314→…→#332→#334.
+
+---
+
 # Sprint 76 — "Maus schickt Flaschenpost, Bug eröffnet die Akademie, Alien erforscht Plasma"
 
 **Sprint Goal:** Maus entdeckt Seesterne und winkt Piraten zu, Bug lehrt in der Schmetterlings-Akademie, Alien misst Zeitanomalien und beobachtet Parallelwelten. Oscar trifft drei Freunde in neuen Welten.
