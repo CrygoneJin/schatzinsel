@@ -1,3 +1,44 @@
+# Sprint 78 — "Lokführer räumt Schnee, Kraemerin eröffnet den Versammlungsplatz, Krabs versenkt seinen Tresor, Floriane bewacht Mondblumen"
+
+**Sprint Goal:** Lokführer fährt den Nachtpost-Express und baut die Drehscheibe, Kraemerin betreibt Blumenmarkt und Dorf-Versammlungsplatz, Krabs versenkt seinen Tresor dreihundert Meter tief, Floriane schließt ein Abkommen mit dem Mond. Oscar trifft vier alte Freunde mit neuen Aufgaben.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S78-1 | **Quests Runde 38** — 10 neue Quests (386→396): Lokführer (3), Kraemerin (3), Krabs (2), Floriane (2) — stacked auf #334 | Artist | ✅ PR #335 |
+| S78-2 | **Carry-Over Merges** — PRs #314–#335 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S77 (2026-04-17 Session 79)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S77-1 | ✅ Runde 37 (Spongebob/Mephisto/Bernd): Unterwasser-Bibliothek, Schnecken-Postamt, Krabbenburger-Akademie, Mondscheindisko, Schweige-Galerie, Vertragsmuseum, Schattengarten, Herbarium, Regenstation, Stilles Klavierzimmer — PR #334 |
+| S77-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Lokführer/Kraemerin/Krabs/Floriane bei 27 (niedrigste Zählung) → klar für Runde 38. Lokführer 3 (Nachtpost + Drehscheibe + Schneeräumer), Kraemerin 3 (Blumenmarkt + Werkzeughandel + Versammlungsplatz), Krabs 2 (Muschelwaage + Tiefsee-Tresor), Floriane 2 (Mondblumen + Wunsch-Archiv). Stack wächst sauber (#314→…→#334→#335). Tommy/Neinhorn/Bug/Alien bei 28 → nächste Kandidaten nach S78.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S77 + Planning S78 + S78-1 implementiert (Session 79)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 77 Review:** S77-1 ✅ (PR #334, Runde 37 — Spongebob/Mephisto/Bernd, 386 Quests). S77-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 78:** S78-1 ✅ (PR #335, Runde 38 — Lokführer/Kraemerin/Krabs/Floriane, 396 Quests auf Branch). Stack: #314→…→#334→#335.
+
+---
+
 # Sprint 77 — "Spongebob eröffnet die Unterwasser-Bibliothek, Mephisto kuratiert Stille, Bernd presst Blumen"
 
 **Sprint Goal:** Spongebob tanzt unter dem Mond und kocht Krabbenburger, Mephisto bewahrt Versprechen und Schatten, Bernd misst Regen und spielt Klavier wenn keiner hört. Oscar trifft drei alte Freunde mit neuen Überraschungen.
