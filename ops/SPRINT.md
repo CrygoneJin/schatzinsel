@@ -1,3 +1,44 @@
+# Sprint 71 — "Spongebob leuchtet, Kraemerin eröffnet die Markthalle, Maus und Ente messen die Zeit, Krabs baut Fort Knox"
+
+**Sprint Goal:** Spongebob entdeckt dass Nacht aus sich selbst leuchten kann, Kraemerin bringt Händler von überall zusammen, Maus und Ente philosophieren über Sand und Stille, Krabs sperrt alles ein was er liebt. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S71-1 | **Quests Runde 31** — 10 neue Quests (316→326): Spongebob (3), Kraemerin (3), Maus (2), Krabs (2) — stacked auf #326 | Artist | ✅ PR #327 |
+| S71-2 | **Carry-Over Merges** — PRs #314–#327 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S70 (2026-04-17 Session 72)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S70-1 | ✅ Runde 30 (Bernd/Lokführer/Mephisto/Alien): Kompost-Labor, Güterpostbahn, Spiegelpalast, Ozean-Sonde + 6 weitere — PR #326 |
+| S70-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob (20) hatte die wenigsten Quests → klar der Nächste. Kraemerin/Maus/Krabs je 21, alle zuletzt in R26/R29 → Rotation stimmt. Fort Knox der Meere (Krabs) hat das richtige Energielevel nach dem Mondmarkt.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S70 + Planning S71 + S71-1 implementiert (Session 72)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 70 Review:** S70-1 ✅ (PR #326, Runde 30 — Bernd/Lokführer/Mephisto/Alien, 316 Quests). S70-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 71:** S71-1 ✅ (PR #327, Runde 31 — Spongebob/Kraemerin/Maus/Krabs, 326 Quests auf Branch). Stack: #314→…→#326→#327.
+
+---
+
 # Sprint 70 — "Bernd kartiert Sterne, Lokführer taucht ab, Mephisto baut Spiegel, Alien lauscht"
 
 **Sprint Goal:** Bernd entdeckt heimlich den Kosmos, Lokführer fährt durch den Ozean, Mephisto zeigt uns unser Wunsch-Ich, Alien hört endlich offiziell unsere Musik. Oscar trifft vier alte Freunde in neuen Rollen.
