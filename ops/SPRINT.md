@@ -1,3 +1,44 @@
+# Sprint 70 — "Bernd kartiert Sterne, Lokführer taucht ab, Mephisto baut Spiegel, Alien lauscht"
+
+**Sprint Goal:** Bernd entdeckt heimlich den Kosmos, Lokführer fährt durch den Ozean, Mephisto zeigt uns unser Wunsch-Ich, Alien hört endlich offiziell unsere Musik. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S70-1 | **Quests Runde 30** — 10 neue Quests (306→316): Bernd (3), Lokführer (3), Mephisto (2), Alien (2) — stacked auf #325 | Artist | ✅ PR #326 |
+| S70-2 | **Carry-Over Merges** — PRs #314–#326 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S69 (2026-04-17 Session 71)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S69-1 | ✅ Runde 29 (Maus/Krabs/Spongebob): Flussbad, Mondmarkt, Korallenriff + 7 weitere — PR #325 |
+| S69-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Mondmarkt (Krabs) trifft Ton perfekt — "Mondlicht ist UMSONST!" ist Krabs in Reinform. Spongebob-Regenbogen-Spielplatz als Abschluss stark. Bernd/Lokführer/Mephisto/Alien als Nächste war logisch (niedrigste Zählung: 18-19).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S69 + Planning S70 + S70-1 implementiert (Session 71)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 69 Review:** S69-1 ✅ (PR #325, Runde 29 — Maus/Krabs/Spongebob, 306 Quests). S69-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 70:** S70-1 ✅ (PR #326, Runde 30 — Bernd/Lokführer/Mephisto/Alien, 316 Quests auf Branch). Stack: #314→…→#325→#326.
+
+---
+
 # Sprint 69 — "Maus bewacht die Stille, Krabs eröffnet den Mondmarkt, Spongebob baut Korallenriffe"
 
 **Sprint Goal:** Maus philosophiert über Nacht-Dienst, Krabs schläft nie wenn Mondlicht kostenlos ist, Spongebob findet Farben die nicht existieren dürften. Oscar trifft drei alte Freunde in neuen Rollen.
