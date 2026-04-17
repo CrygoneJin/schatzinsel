@@ -1,3 +1,44 @@
+# Sprint 68 — "Floriane wacht über Mondblumen, Bug baut Netzwerke, Mephisto hält Gericht, Lokführer fährt ans Meer"
+
+**Sprint Goal:** Floriane schützt ihre Blumen vor dem Winter, Bug baut Schmetterlingsinfrastruktur, Mephisto richtet über gebrochene Pakte, Lokführer überquert Wasser. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S68-1 | **Quests Runde 28** — 10 neue Quests (286→296): Floriane (3), Bug (3), Mephisto (2), Lokführer (2) — stacked auf #323 | Artist | ✅ PR #324 |
+| S68-2 | **Carry-Over Merges** — PRs #314–#324 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S67 (2026-04-17 Session 69)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S67-1 | ✅ Runde 27 (Tommy/Neinhorn/Elefant): Vulkan-Beobachtungsposten, Verbotene Schlucht, Walgesang-Bühne + 7 weitere — PR #323 |
+| S67-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Floriane/Bug/Mephisto/Lokführer jetzt dran (Runde 28). Stack wächst sauber (#314→…→#324). Rotation stimmt.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S67 + Planning S68 + S68-1 implementiert (Session 69)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 67 Review:** S67-1 ✅ (PR #323, Runde 27 — Tommy/Neinhorn/Elefant, 286 Quests). S67-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 68:** S68-1 ✅ (PR #324, Runde 28 — Floriane/Bug/Mephisto/Lokführer, 296 Quests auf Branch). Stack: #314→…→#323→#324.
+
+---
+
 # Sprint 67 — "Tommy forscht am Vulkan, Neinhorn entdeckt die Schlucht, Elefant dirigiert Wale"
 
 **Sprint Goal:** Tommy erkundet Vulkan, Wüste und Eiszeit, Neinhorn findet verbotene Orte nur für sich, Elefant baut Bühnen für die Natur selbst. Oscar trifft drei alte Freunde an ihren wildesten Orten.
