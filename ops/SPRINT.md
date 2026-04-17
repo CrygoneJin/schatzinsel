@@ -1,3 +1,44 @@
+# Sprint 82 — "Spongebob kocht Gelee und findet das Unterwasser-Orchester, Lokführer baut den Dampf-Hangar und die Akademie, Kraemerin eröffnet den Tee-Salon und das Obstgarten-Depot, Bug beobachtet Schmetterlinge und spinnt Seide, Alien archiviert Sterne und misst das Unsichtbare"
+
+**Sprint Goal:** Spongebob entdeckt Fabrikation und Orchestermusik unter Wasser, Lokführer sorgt für Ruhe und Nachwuchs, Kraemerin öffnet Salon und Depot, Bug macht Berufsforschung (und ist ok), Alien sammelt Sterngeschichten und misst was 27% des Universums ausmacht. Oscar trifft fünf alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S82-1 | **Quests Runde 42** — 10 neue Quests (426→436): Spongebob (2), Lokführer (2), Kraemerin (2), Bug (2), Alien (2) — stacked auf feat/quests-runde-41 | Artist | ✅ feat/quests-runde-42 |
+| S82-2 | **Carry-Over Merges** — PRs #314–#339 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S81 (2026-04-17 Session 83)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S81-1 | ✅ Runde 41 (Krabs/Floriane): Piraten-Schatzmuseum, Schnell-Dock, Muschelzins-Kasse, Ebbe-Nutzen-Station, Dreifacher Tresor, Mondrose-Station, Sternwunsch-Turm, Schmetterlings-Botschaft, Elfenrat-Platz, Nacht-Blüten-Galerie — feat/quests-runde-41 |
+| S81-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Nach R41: Krabs/Floriane bei 34, Elefant/Bernd bei 33, Mephisto/Maus bei 32, Tommy/Neinhorn bei 31, alle anderen (Spongebob/Lokführer/Kraemerin/Bug/Alien) bei 30. Rotation beginnt neu — Spongebob/Lokführer/Kraemerin/Bug/Alien (alle 30) als nächste Runde. 2 Quests je NPC = 10 total. Stack wächst sauber (#314→…→#338→#339). Tommy/Neinhorn bei 31 → nächste Kandidaten nach S82.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S81 + Planning S82 + S82-1 implementiert (Session 83)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 81 Review:** S81-1 ✅ (feat/quests-runde-41, Runde 41 — Krabs/Floriane, 426 Quests). S81-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 82:** S82-1 ✅ (feat/quests-runde-42, Runde 42 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 436 Quests auf Branch). Stack: #314→…→#338→#339.
+
+---
+
 # Sprint 81 — "Krabs baut seinen Dreifach-Tresor und den Schnell-Hafen, Floriane eröffnet die Nacht-Blüten-Galerie und den Elfenrat"
 
 **Sprint Goal:** Krabs perfektioniert seine Infrastruktur (Hafen, Kasse, Ebbe-Turbine, Museum, Tresor), Floriane öffnet Räume die nur nachts existieren (Mondrosen, Sternwünsche, Elfenrat, Schmetterlinge, Nachtblüten). Oscar trifft zwei alte Freunde in ihrer vollen Pracht.
