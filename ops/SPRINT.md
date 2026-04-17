@@ -1,3 +1,44 @@
+# Sprint 69 — "Maus bewacht die Stille, Krabs eröffnet den Mondmarkt, Spongebob baut Korallenriffe"
+
+**Sprint Goal:** Maus philosophiert über Nacht-Dienst, Krabs schläft nie wenn Mondlicht kostenlos ist, Spongebob findet Farben die nicht existieren dürften. Oscar trifft drei alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S69-1 | **Quests Runde 29** — 10 neue Quests (296→306): Maus (3), Krabs (4), Spongebob (3) — stacked auf #324 | Artist | ✅ PR #325 |
+| S69-2 | **Carry-Over Merges** — PRs #314–#325 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S68 (2026-04-17 Session 70)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S68-1 | ✅ Runde 28 (Floriane/Bug/Mephisto/Lokführer): Mondblumen-Gewächshaus, Traumfänger-Turm, Pollenarchiv, Tribunal + 6 weitere — PR #324 |
+| S68-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Klimazonen-Express (Lokführer) ist die epischste Quest bisher — 13 🚂 als Reward. Tribunal (Mephisto) trifft genau den Ton. Maus/Krabs/Spongebob waren dran (niedrigste Zählung: 17-18).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S68 + Planning S69 + S69-1 implementiert (Session 70)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 68 Review:** S68-1 ✅ (PR #324, Runde 28 — Floriane/Bug/Mephisto/Lokführer, 296 Quests). S68-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 69:** S69-1 ✅ (PR #325, Runde 29 — Maus/Krabs/Spongebob, 306 Quests auf Branch). Stack: #314→…→#324→#325.
+
+---
+
 # Sprint 68 — "Floriane wacht über Mondblumen, Bug baut Netzwerke, Mephisto hält Gericht, Lokführer fährt ans Meer"
 
 **Sprint Goal:** Floriane schützt ihre Blumen vor dem Winter, Bug baut Schmetterlingsinfrastruktur, Mephisto richtet über gebrochene Pakte, Lokführer überquert Wasser. Oscar trifft vier alte Freunde in neuen Rollen.
