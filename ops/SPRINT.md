@@ -1,3 +1,44 @@
+# Sprint 81 — "Krabs baut seinen Dreifach-Tresor und den Schnell-Hafen, Floriane eröffnet die Nacht-Blüten-Galerie und den Elfenrat"
+
+**Sprint Goal:** Krabs perfektioniert seine Infrastruktur (Hafen, Kasse, Ebbe-Turbine, Museum, Tresor), Floriane öffnet Räume die nur nachts existieren (Mondrosen, Sternwünsche, Elfenrat, Schmetterlinge, Nachtblüten). Oscar trifft zwei alte Freunde in ihrer vollen Pracht.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S81-1 | **Quests Runde 41** — 10 neue Quests (416→426): Krabs (5), Floriane (5) — stacked auf #337 | Artist | ✅ feat/quests-runde-41 |
+| S81-2 | **Carry-Over Merges** — PRs #314–#338 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S80 (2026-04-17 Session 82)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S80-1 | ✅ Runde 40 (Mephisto/Bernd/Maus): Ewige Bibliothek der Absichten, Observatorium des Bedauerns, Schatten-Amphitheater, Barometer-Turm, Abend-Steg, Insektenhotel, Herbst-Veranda, Geheimes Baumhaus, Wellenbrecher-Posten, Musik-Pavillon — feat/quests-runde-40 |
+| S80-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Krabs/Floriane nach S80 bei 29 (alle anderen 30+). Krabs bekommt 5 Quests (Piraten-Schatzmuseum + Schnell-Dock + Muschelzins-Kasse + Ebbe-Nutzen-Station + Dreifacher Tresor), Floriane 5 (Mondrose-Station + Sternwunsch-Turm + Schmetterlings-Botschaft + Elfenrat-Platz + Nacht-Blüten-Galerie). Stack wächst sauber (#314→…→#337→#338). Nach S81 beginnt die Rotation neu — alle NPCs auf ähnlichem Level.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S80 + Planning S81 + S81-1 implementiert (Session 82)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 80 Review:** S80-1 ✅ (feat/quests-runde-40, Runde 40 — Mephisto/Bernd/Maus, 416 Quests). S80-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 81:** S81-1 ✅ (feat/quests-runde-41, Runde 41 — Krabs/Floriane, 426 Quests auf Branch). Stack: #314→…→#337→#338.
+
+---
+
 # Sprint 80 — "Mephisto eröffnet das Observatorium des Bedauerns, Bernd sitzt allein auf dem Abend-Steg, Maus errichtet das Baumhaus"
 
 **Sprint Goal:** Mephisto dokumentiert was Menschen wollten und was sie bereuten, Bernd misst Regen und sitzt auf dem Steg bis die letzte Biene weg ist, Maus baut hoch oben und wartet auf Stürme. Oscar trifft drei alte Freunde in sehr verschiedenen Stimmungen.
