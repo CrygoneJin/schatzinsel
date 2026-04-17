@@ -1,3 +1,44 @@
+# Sprint 75 — "Lokführer kämpft den Gebirgspass, Kraemerin eröffnet Trüffelmarkt und Kontor, Krabs gründet sein Imperium, Floriane erweckt den Frühling"
+
+**Sprint Goal:** Lokführer überwindet den Alpenpass mit Stahlwillen, Kraemerin baut ihr Handelskontor am Hafen, Krabs erklärt seine Tiefsee-Investition zum Statement, Floriane schickt Wünsche lichtschnell durch ihr Feenpost-Netz. Oscar trifft vier alte Freunde in neuen Abenteuern.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S75-1 | **Quests Runde 35** — 10 neue Quests (356→366): Lokführer (3), Kraemerin (3), Krabs (2), Floriane (2) — stacked auf #330 | Artist | ✅ PR #331 |
+| S75-2 | **Carry-Over Merges** — PRs #314–#331 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S74 (2026-04-17 Session 76)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S74-1 | ✅ Runde 34 (Spongebob/Bernd/Alien/Mephisto): Tiefsee-Zirkus, Quallen-Wanderung, Seifenblasenstadion, Nebelteich, Vogelfutterhaus-Garten, Frühmorgen-Kräutergarten, Raumstation-Andockplatz, Xenobotanischer Garten, Theater der Träume, Archiv der gebrochenen Versprechen — PR #330 |
+| S74-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Lokführer/Kraemerin bei 24 (niedrigste Zählung) → klar für Runde 35. Krabs/Floriane bei 25 (2 Runden her) → sinnvolle Ergänzung. Stack wächst sauber (#314→…→#330→#331). Alien/Maus/Bug bei 25 → nächste Kandidaten nach S75.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S74 + Planning S75 + S75-1 implementiert (Session 76)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 74 Review:** S74-1 ✅ (PR #330, Runde 34 — Spongebob/Bernd/Alien/Mephisto, 356 Quests). S74-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 75:** S75-1 ✅ (PR #331, Runde 35 — Lokführer/Kraemerin/Krabs/Floriane, 366 Quests auf Branch). Stack: #314→…→#330→#331.
+
+---
+
 # Sprint 74 — "Spongebob baut den Tiefsee-Zirkus, Bernd sitzt am Nebelteich, Alien wartet auf den Andock-Besuch, Mephisto archiviert gebrochene Versprechen"
 
 **Sprint Goal:** Spongebob entdeckt dass der Ozean ein Zirkus ist, Bernd findet Stille am Nebelteich, Alien wartet geduldig auf den Besuch der nie kommt, Mephisto baut ein Theater für Träume und ein Archiv für alles was man vergessen wollte. Oscar trifft vier alte Freunde in neuen Rollen.
