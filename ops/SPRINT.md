@@ -1,3 +1,44 @@
+# Sprint 104 — "Spongebob entdeckt Quallen-Kommunikation, Lokführer kämpft den Winter, Kraemerin macht Limonade und Konserven, Bug archiviert Pollen, Alien misst Meteore und Biorhythmen"
+
+**Sprint Goal:** Spongebob beweist dass Quallen leuchten und kartiert den Meeresgrund, Lokführer rüstet den Schneepflug aus und baut einen neuen Bahnsteig, Kraemerin verkauft Sommerlimonade und macht Winterkonserven, Bug archiviert Pollen und übt Nacht-Fliegen, Alien untersucht Meteoriten-Einschläge und vermisst Biorhythmen. Oscar trifft fünf alte Freunde mit neuen Entdeckungen.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S104-1 | **Quests Runde 64** — 10 neue Quests (646→656): Spongebob (2), Lokführer (2), Kraemerin (2), Bug (2), Alien (2) — stacked auf #360 | Artist | ✅ feat/quests-runde-64 |
+| S104-2 | **Carry-Over Merges** — PRs #314–#361 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S103 (2026-04-18 Session 105)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S103-1 | ✅ Runde 63 (Tommy/Neinhorn/Elefant/Bernd/Maus): Kältekammer-Labor, Lava-Messkanal, Nein-Bibliothek, Verbotene Brücke, Regen-Xylophon, Echo-Garten, Nebel-Teich, Herbst-Archiv, Nacht-Laternen-Pfad, Tausch-Tunnel — PR #360 |
+| S103-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Nach Runde 63: Tommy/Neinhorn/Elefant/Bernd/Maus je 48. Spongebob/Lokführer/Kraemerin/Bug/Alien bei 46 (niedrigste Zählung) → dran für Runde 64. Quallen-Aquarium + Meeresgrund-Karten-Studio (Spongebob), Schneepflug-Bereitschaft + Erweiterter Bahnsteig (Lokführer), Sommer-Limonaden-Tresen + Einmach-Werkstatt (Kraemerin), Pollen-Archiv + Nacht-Flug-Übungspfad (Bug), Meteoriten-Aufschlagfeld + Biorhythmus-Messstation (Alien). Stack: #314→…→#360→#361.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S103 + Planning S104 + S104-1 implementiert (Session 105)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 103 Review:** S103-1 ✅ (PR #360, Runde 63 — Tommy/Neinhorn/Elefant/Bernd/Maus, 646 Quests). S103-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 104:** S104-1 ✅ (feat/quests-runde-64, Runde 64 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 656 Quests auf Branch). Stack: #314→…→#360→#361.
+
+---
+
 # Sprint 103 — "Tommy misst Lava und Eis, Neinhorn baut doch, Elefant spielt im Regen, Bernd sitzt im Nebel, Maus streitet mit sich selbst"
 
 **Sprint Goal:** Tommy beweist Kältephysik und kartiert Lavafluss, Neinhorn baut verbotene Brücken und geheime Bibliotheken (NEIN er liest nicht), Elefant macht Regenmusik und Echo-Konzerte, Bernd archiviert Herbstlicht und Nebel, Maus beleuchtet die Nacht und gräbt Tunnel. Oscar trifft fünf alte Freunde mit neuen Projekten.
