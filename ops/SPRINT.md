@@ -1,3 +1,44 @@
+# Sprint 100 — "Tommy baut den Aquädukt, Neinhorn gräbt seinen Geheimtunnel, Elefant eröffnet das Mondschein-Konzerthaus, Bernd sitzt im Regen, Maus baut Windflöte"
+
+**Sprint Goal:** Tommy verbindet Römer und Dampf, Neinhorn entdeckt dass Tunnel Geheimnisse brauchen, Elefant öffnet das Konzerthaus nur wenn der Mond stimmt, Bernd findet Ruhe im Regen und in Sternen, Maus lernt dass Stille auch Musik ist. Oscar trifft fünf alte Freunde mit neuen Einsichten.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S100-1 | **Quests Runde 60** — 10 neue Quests (606→616): Tommy (2), Neinhorn (2), Elefant (2), Bernd (2), Maus (2) — stacked auf #356 | Artist | ✅ feat/quests-runde-60 |
+| S100-2 | **Carry-Over Merges** — PRs #314–#357 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S99 (2026-04-18 Session 101)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S99-1 | ✅ Runde 59 (Krabs/Mephisto/Floriane): Muschel-Börse, Unterwasser-Patentamt, Schatz-Kataster, Tauschbörse der Wünsche, Kammer des Zwischen, Absichtsarchiv, Schaukel der Entscheidungen, Sternenstaub-Labor, Regenbogen-Brücke, Fee-Sommer-Fest — feat/quests-runde-59 |
+| S99-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Tommy/Neinhorn/Elefant/Bernd/Maus bei 44 (niedrigste Zählung) → klar für Runde 60. Tommy 2 (Eisenbahn-Aquädukt + Magnetbahn-Testfeld), Neinhorn 2 (Unterwasser-Aussichtsplattform + Geheimtunnel), Elefant 2 (Salzwasser-Orgel + Mondschein-Konzerthaus), Bernd 2 (Regenwetter-Pavillon + Stiller Aussichtsturm), Maus 2 (Tauschladen + Windflöte). Stack wächst sauber (#314→…→#356→#357). Spongebob/Lokführer/Kraemerin/Bug/Alien bei 44 → nächste Kandidaten nach S100.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S99 + Planning S100 + S100-1 implementiert (Session 101)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 99 Review:** S99-1 ✅ (feat/quests-runde-59, Runde 59 — Krabs/Mephisto/Floriane, 606 Quests). S99-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 100:** S100-1 ✅ (feat/quests-runde-60, Runde 60 — Tommy/Neinhorn/Elefant/Bernd/Maus, 616 Quests auf Branch). Stack: #314→…→#356→#357.
+
+---
+
 # Sprint 99 — "Krabs eröffnet die Muschel-Börse, Mephisto baut die Schaukel der Entscheidungen, Floriane öffnet ihr Sternenstaub-Labor"
 
 **Sprint Goal:** Krabs macht Handel zur Wissenschaft und patentiert alles was er kann, Mephisto baut Räume für Wünsche und Entscheidungen die er selbst manchmal benutzt, Floriane forscht an Sternenstaub und eröffnet das größte Feenfest der Insel. Oscar trifft drei alte Freunde von einer Seite die er noch nicht kannte.
