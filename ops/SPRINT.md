@@ -1,3 +1,44 @@
+# Sprint 93 — "Krabs plant die perfekte Passiveinnahmequelle, Mephisto eröffnet das Theater der Konsequenzen, Floriane entdeckt dass Mondtau Wünsche verstärkt"
+
+**Sprint Goal:** Krabs baut seinen Muschelzähler-Turm, versteckt den zweiten Tresor und erfindet den automatischen Muschelgenerator, Mephisto archiviert menschliche Widersprüche, tauscht was man liebt gegen was man braucht, und inszeniert Entscheidungen als Theaterstück, Floriane sammelt Mondtau für starke Wünsche, horcht auf Bäume die Wünsche hören, misst die Jahreszeiten und baut ein Flüsternetz. Oscar trifft drei alte Freunde an ihren produktivsten Tagen.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S93-1 | **Quests Runde 53** — 10 neue Quests (536→546): Krabs (3), Mephisto (3), Floriane (4) — stacked auf #349 | Artist | ✅ feat/quests-runde-53 |
+| S93-2 | **Carry-Over Merges** — PRs #314–#350 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S92 (2026-04-18 Session 94)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S92-1 | ✅ Runde 52 (Spongebob/Lokführer/Kraemerin/Bug/Alien): Tiefseefisch-Forschungsstation, Starfish-Gelehrten-Saal, Vollmond-Nachtfahrt, Bahnhofs-Bücherschrank, Kerzenlicht-Markt, Honig-Manufaktur, Larven-Forschungskammer, Unsichtbarer Aussichtspunkt, Dunkelmaterie-Kartierung, Interstellare Ruhestation — PR #349 |
+| S92-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** MEILENSTEIN — alle 13 NPCs haben jetzt genau 40 Quests. Nächste Runde: Krabs/Mephisto/Floriane (alle bei 40, alphabetisch nächste Gruppe). Krabs 3 (Muschelzähler-Turm + Geheimtresor Nr.2 + Automatischer Muschelgenerator), Mephisto 3 (Widerspruchs-Archiv + Ewiger Tauschplatz + Theater der Konsequenzen), Floriane 4 (Mondtau-Quelle + Wunschbaum-Heiligtum + Saison-Sanduhr + Flüster-Postnetz). Stack wächst sauber (#314→…→#349→#350). Tommy/Neinhorn/Elefant/Bernd/Maus bei 40 → nächste Kandidaten nach S93.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S92 + Planning S93 + S93-1 implementiert (Session 94)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 92 Review:** S92-1 ✅ (PR #349, Runde 52 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 536 Quests). S92-2 ⏳ (wartet auf Till). Sprint Goal erreicht. MEILENSTEIN: alle 13 NPCs auf 40 Quests.
+
+**Sprint 93:** S93-1 ✅ (feat/quests-runde-53, Runde 53 — Krabs/Mephisto/Floriane, 546 Quests auf Branch). Stack: #314→…→#349→#350.
+
+---
+
 # Sprint 92 — "Spongebob forscht an Tiefseefischen, Lokführer fährt bei Vollmond, Kraemerin eröffnet den Kerzenmarkt, Bug beobachtet Larven, Alien sucht Dunkelmaterie"
 
 **Sprint Goal:** Spongebob entdeckt was im Dunkeln der Tiefsee lebt und baut Patrick einen würdigen Gelehrten-Saal, Lokführer fährt seinen schönsten Zug bei Vollmond und stellt Bücher für Wartende auf, Kraemerin verkauft was bei Kerzenlicht am besten leuchtet und lernt die Bienen kennen, Bug beobachtet wo Larven Geduld lernen und findet einen Platz von dem man alles sieht ohne gesehen zu werden, Alien kartiert was 27% des Universums ausmacht und findet Ruhe.
@@ -9,7 +50,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S92-1 | **Quests Runde 52** — 10 neue Quests (526→536): Spongebob (2), Lokführer (2), Kraemerin (2), Bug (2), Alien (2) — stacked auf #348 | Artist | ✅ feat/quests-runde-52 |
+| S92-1 | **Quests Runde 53** — 10 neue Quests (526→536): Spongebob (2), Lokführer (2), Kraemerin (2), Bug (2), Alien (2) — stacked auf #348 | Artist | ✅ feat/quests-runde-52 |
 | S92-2 | **Carry-Over Merges** — PRs #314–#349 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
 
 ---
