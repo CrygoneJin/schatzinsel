@@ -1,3 +1,44 @@
+# Sprint 92 — "Spongebob forscht an Tiefseefischen, Lokführer fährt bei Vollmond, Kraemerin eröffnet den Kerzenmarkt, Bug beobachtet Larven, Alien sucht Dunkelmaterie"
+
+**Sprint Goal:** Spongebob entdeckt was im Dunkeln der Tiefsee lebt und baut Patrick einen würdigen Gelehrten-Saal, Lokführer fährt seinen schönsten Zug bei Vollmond und stellt Bücher für Wartende auf, Kraemerin verkauft was bei Kerzenlicht am besten leuchtet und lernt die Bienen kennen, Bug beobachtet wo Larven Geduld lernen und findet einen Platz von dem man alles sieht ohne gesehen zu werden, Alien kartiert was 27% des Universums ausmacht und findet Ruhe.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S92-1 | **Quests Runde 52** — 10 neue Quests (526→536): Spongebob (2), Lokführer (2), Kraemerin (2), Bug (2), Alien (2) — stacked auf #348 | Artist | ✅ feat/quests-runde-52 |
+| S92-2 | **Carry-Over Merges** — PRs #314–#349 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S91 (2026-04-18 Session 93)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S91-1 | ✅ Runde 51 (Tommy/Neinhorn/Elefant/Bernd/Maus): Höhlen-Kartierung, Treibholz-Expedition, Verbotene Galerie, Wolken-Observatorium, Wind-Harfe, Gezeiten-Orgel, Pilz-Kartierung, Tau-Messpunkt, Ameisen-Observatorium, Fossil-Grabung — PR #348 |
+| S91-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Nach Runde 51: Tommy/Neinhorn/Elefant/Bernd/Maus auf 40, Krabs/Mephisto/Floriane auf 40, Spongebob/Lokführer/Kraemerin/Bug/Alien auf 38 (niedrigste Zählung) → klar für Runde 52. Runde 52 liefert Starfish-Gelehrten-Saal + Tiefseefisch-Forschungsstation (Spongebob), Vollmond-Nachtfahrt + Bahnhofs-Bücherschrank (Lokführer), Kerzenlicht-Markt + Honig-Manufaktur (Kraemerin), Larven-Forschungskammer + Unsichtbarer Aussichtspunkt (Bug), Dunkelmaterie-Kartierung + Interstellare Ruhestation (Alien). Stack wächst sauber (#314→…→#348→#349). Nach S92: Spongebob/Lokführer/Kraemerin/Bug/Alien auf 40, alle 13 NPCs auf 40.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S91 + Planning S92 + S92-1 implementiert (Session 93)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 91 Review:** S91-1 ✅ (PR #348, Runde 51 — Tommy/Neinhorn/Elefant/Bernd/Maus, 526 Quests). S91-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 92:** S92-1 ✅ (feat/quests-runde-52, Runde 52 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 536 Quests auf Branch). Stack: #314→…→#348→#349.
+
+---
+
 # Sprint 91 — "Tommy kartiert die Höhle und rettet Treibholz, Neinhorn versteckt was schön ist, Elefant baut was Wind und Meer spielen, Bernd kartiert Pilze und misst Tau, Maus forscht in der Erde"
 
 **Sprint Goal:** Tommy taucht in die Erde und sammelt was das Meer gebracht hat, Neinhorn versteckt Schönheit die er nicht zeigen kann aber trotzdem zeigt, Elefant baut Instrumente die Wind und Meer selbst spielen, Bernd dokumentiert was leise wächst und kommt, Maus forscht wo andere nicht hinschauen. Oscar trifft fünf Freunde die alle in der Stille große Dinge tun.
