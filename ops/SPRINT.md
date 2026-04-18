@@ -1,3 +1,44 @@
+# Sprint 79 — "Tommy baut Dampf-Fabrik und Tornado-Bunker, Neinhorn wünscht sich GAR NICHTS, Bug hält den ersten Schmetterlingsball, Alien öffnet das Wormhole"
+
+**Sprint Goal:** Tommy bezwingt Tornado und Wüste mit Ingenieurskunst, Neinhorn wünscht sich offiziell gar nichts (und baut trotzdem einen Sternschnuppen-Turm), Bug veranstaltet den ersten Schmetterlingsball der Geschichte, Alien verbindet die Insel mit einer anderen Galaxie. Oscar trifft vier alte Freunde in neuen Abenteuern.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S79-1 | **Quests Runde 39** — 10 neue Quests (396→406): Tommy (3), Neinhorn (3), Bug (2), Alien (2) — stacked auf #335 | Artist | ✅ PR #336 |
+| S79-2 | **Carry-Over Merges** — PRs #314–#336 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S78 (2026-04-18 Session 81)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S78-1 | ✅ Runde 38 (Lokführer/Kraemerin/Krabs/Floriane): Nachtpost-Express, Drehscheibe, Schneeräumer-Depot, Blumenmarkt, Werkzeughandel, Dorf-Versammlungsplatz, Muschelwaage, Tiefsee-Tresor, Mondblumen-Garten, Wunsch-Archiv — PR #335 |
+| S78-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Tommy/Neinhorn/Bug/Alien bei 28 (niedrigste Zählung) → klar für Runde 39. Alle anderen: Elefant 33, Lokführer/Kraemerin/Bernd 30, restliche NPCs 29. Stack: #314→…→#335→#336.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S78 + Planning S79 + S79-1 implementiert (Session 81)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 78 Review:** S78-1 ✅ (PR #335, Runde 38 — Lokführer/Kraemerin/Krabs/Floriane, 396 Quests). S78-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 79:** S79-1 ✅ (PR #336, Runde 39 — Tommy/Neinhorn/Bug/Alien, 406 Quests auf Branch). Stack: #314→…→#335→#336. Neue Materialien: steam, tornado, cactus, snow, shootingstar, butterfly+music+crystal combo, antimatter, wormhole.
+
+---
+
 # Sprint 78 — "Lokführer fährt Nachtpost, Kraemerin eröffnet den Versammlungsplatz, Krabs versenkt seinen Tresor, Floriane schließt Abkommen mit dem Mond"
 
 **Sprint Goal:** Lokführer dreht die Drehscheibe und räumt Schnee bevor er fällt, Kraemerin betreibt Blumenmarkt und Dorf-Versammlungsplatz, Krabs versenkt seinen Tresor dreihundert Meter tief, Floriane schließt ein Abkommen mit dem Mond. Oscar trifft vier alte Freunde mit neuen Aufgaben.
