@@ -1,3 +1,44 @@
+# Sprint 103 — "Tommy misst Lava und Eis, Neinhorn baut doch, Elefant spielt im Regen, Bernd sitzt im Nebel, Maus streitet mit sich selbst"
+
+**Sprint Goal:** Tommy beweist Kältephysik und kartiert Lavafluss, Neinhorn baut verbotene Brücken und geheime Bibliotheken (NEIN er liest nicht), Elefant macht Regenmusik und Echo-Konzerte, Bernd archiviert Herbstlicht und Nebel, Maus beleuchtet die Nacht und gräbt Tunnel. Oscar trifft fünf alte Freunde mit neuen Projekten.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S103-1 | **Quests Runde 63** — 10 neue Quests (636→646): Tommy (2), Neinhorn (2), Elefant (2), Bernd (2), Maus (2) — stacked auf #359 | Artist | ✅ PR #360 |
+| S103-2 | **Carry-Over Merges** — PRs #314–#360 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S102 (2026-04-18 Session 104)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S102-1 | ✅ Runde 62 (Krabs/Mephisto/Floriane): Krabben-Zoll-Turm, Versicherungskontor, Produktionskette, Prophezeiungsamt, Spiegelkabinett, Schweige-Kontrakt-Archiv, Mondlicht-Wunschspeicher, Wolkenpost-Station, Feenrechts-Kanzlei, Wunsch-Zeitkapsel — PR #359 |
+| S102-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Nach Runde 62: Krabs 52, Mephisto 53, Floriane 55. Tommy/Neinhorn/Elefant/Bernd/Maus auf 46 (alle gleich, niedrigste Zählung) → dran für Runde 63. Kältekammer+Lava (Tommy), Bibliothek+Brücke (Neinhorn), Regen-Xylophon+Echo-Garten (Elefant), Nebel-Teich+Herbst-Archiv (Bernd), Laternen-Pfad+Tausch-Tunnel (Maus). Stack: #314→…→#359→#360.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S102 + Planning S103 + S103-1 implementiert (Session 104)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 102 Review:** S102-1 ✅ (PR #359, Runde 62 — Krabs/Mephisto/Floriane, 636 Quests). S102-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 103:** S103-1 ✅ (PR #360, Runde 63 — Tommy/Neinhorn/Elefant/Bernd/Maus, 646 Quests auf Branch). Stack: #314→…→#359→#360.
+
+---
+
 # Sprint 102 — "Krabs eröffnet Zoll und Versicherung, Mephisto prophezeit im Spiegelkabinett, Floriane kämpft für Wunschgerechtigkeit"
 
 **Sprint Goal:** Krabs industrialisiert (Zoll, Versicherung, Produktionskette), Mephisto eröffnet Prophezeiungsamt und Spiegelkabinett, Floriane sammelt Mondlicht und kämpft für Wunschrechte. Oscar trifft drei Freunde die gerade sehr beschäftigt sind.
