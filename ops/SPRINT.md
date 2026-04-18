@@ -1,3 +1,44 @@
+# Sprint 94 — "Tommy vermisst Meeresströmungen und baut ein Seezeichen-Netz, Neinhorn findet seinen verborgenen Weiher und ein stilles Turmzimmer, Elefant entdeckt Regen-Perkussion und Waldecho, Bernd beobachtet neunzehn Vögel und findet eine Bank unter klarem Himmel, Maus kartiert was unter der Erde liegt und lernt Wolkensprache"
+
+**Sprint Goal:** Tommy misst Strömungen und markiert den Heimweg, Neinhorn entdeckt Stille auf zwei Arten (Wasser und Höhe), Elefant komponiert mit Regen und lässt den Wald antworten, Bernd beobachtet neunzehn Vogelarten und sitzt unter dem besten Himmel, Maus kartiert das Unsichtbare unter der Erde und liest Wolken wie Nachrichten. Oscar trifft fünf alte Freunde in ruhigeren Momenten.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S94-1 | **Quests Runde 54** — 10 neue Quests (546→556): Tommy (2), Neinhorn (2), Elefant (2), Bernd (2), Maus (2) — stacked auf #350 | Artist | ✅ feat/quests-runde-54 |
+| S94-2 | **Carry-Over Merges** — PRs #314–#351 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S93 (2026-04-18 Session 95)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S93-1 | ✅ Runde 53 (Krabs/Mephisto/Floriane): Muschelzähler-Turm, Geheimtresor Nummer Zwei, Automatischer Muschelgenerator, Widerspruchs-Archiv, Ewiger Tauschplatz, Theater der Konsequenzen, Mondtau-Quelle, Wunschbaum-Heiligtum, Saison-Sanduhr, Flüster-Postnetz — PR #350 |
+| S93-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** MEILENSTEIN bestätigt: alle 13 NPCs auf 40 Quests nach Runde 53. Nächste Gruppe: Tommy/Neinhorn/Elefant/Bernd/Maus (alle bei 40), je 2 Quests, 546→556. Stack wächst sauber (#314→…→#350→#351). Krabs/Mephisto/Floriane/Spongebob/Lokführer/Kraemerin/Bug/Alien alle bei 40 → nächste Kandidaten nach S94.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S93 + Planning S94 + S94-1 implementiert (Session 95)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 93 Review:** S93-1 ✅ (PR #350, Runde 53 — Krabs/Mephisto/Floriane, 546 Quests). S93-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 94:** S94-1 ✅ (feat/quests-runde-54, Runde 54 — Tommy/Neinhorn/Elefant/Bernd/Maus, 556 Quests auf Branch). Stack: #314→…→#350→#351.
+
+---
+
 # Sprint 93 — "Krabs plant die perfekte Passiveinnahmequelle, Mephisto eröffnet das Theater der Konsequenzen, Floriane entdeckt dass Mondtau Wünsche verstärkt"
 
 **Sprint Goal:** Krabs baut seinen Muschelzähler-Turm, versteckt den zweiten Tresor und erfindet den automatischen Muschelgenerator, Mephisto archiviert menschliche Widersprüche, tauscht was man liebt gegen was man braucht, und inszeniert Entscheidungen als Theaterstück, Floriane sammelt Mondtau für starke Wünsche, horcht auf Bäume die Wünsche hören, misst die Jahreszeiten und baut ein Flüsternetz. Oscar trifft drei alte Freunde an ihren produktivsten Tagen.
