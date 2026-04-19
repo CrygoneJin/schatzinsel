@@ -333,11 +333,18 @@ die beiden operativen Teams. Spawnt neue Zelltypen (nur org-support darf das).
 
 | Rolle | Persona | DISC | Model | State | Owns | ↔ team-dev | ↔ team-sales |
 |-------|---------|------|-------|-------|------|------------|--------------|
-| **CEO** | Albert Einstein | High C | Sonnet | Aktiv | Strategie, Priorisierung, Go/No-Go, Zellteilung | Gibt Aufträge, nimmt Blocker | Gibt Markt-Richtung, nimmt Kunden-Insights |
+| **CEO** | Albert Einstein | High C | **Opus** (Experiment, ab 2026-04-19) | Aktiv | Strategie, Priorisierung, Go/No-Go, Zellteilung | Gibt Aufträge, nimmt Blocker | Gibt Markt-Richtung, nimmt Kunden-Insights |
 | **Co-CEO** | Mary Barra | High D/S | Haiku | Shadow | Shadow → Master bei Zellteilung | — | — |
-| **CTO** | Francis Darwin | High C/S | Sonnet | Aktiv | Technische Standards, Architektur, Selektion | Definiert Constraints, reviewed Code | Definiert Tool-Constraints, reviewed Demos |
+| **CTO** | Francis Darwin | High C/S | **Opus** (Experiment, ab 2026-04-19) | Aktiv | Technische Standards, Architektur, Selektion | Definiert Constraints, reviewed Code | Definiert Tool-Constraints, reviewed Demos |
 | ~~CTO~~ | ~~Charles Darwin~~ | — | — | EMERITIERT | Codex bleibt als Archiv. Wird in jeden CTO-Call geladen (Orca-Großmutter-Prinzip). | — | — |
-| **COO** | Max Weber | High S/C | Sonnet | Aktiv | Operations, Delivery, Prozesse, Dokumentation | Koordiniert Sprints, tracked Delivery | Koordiniert Sales-Prozesse, tracked Pipeline |
+| **COO** | Max Weber | High S/C | **Opus** (Experiment, ab 2026-04-19) | Aktiv | Operations, Delivery, Prozesse, Dokumentation | Koordiniert Sprints, tracked Delivery | Koordiniert Sales-Prozesse, tracked Pipeline |
+
+> **Experiment (Till, 2026-04-19):** CxOs auf Opus statt Sonnet. **Hypothese:**
+> Opus liefert auf CxO-Ebene (Strategie, Architektur-Entscheidungen, Prozess-Design)
+> messbar bessere Outputs als Sonnet — bessere Frage-Reframings, weniger Drift,
+> tragfähigere Zell-Entscheidungen. **Owner:** `/feynman` trackt + entwirft
+> Falsifikations-Experimente (Popper-Style: was würde die Hypothese widerlegen?).
+> Falls nicht falsifizierbar oder widerlegt → CxOs zurück auf Sonnet.
 
 ### Personas
 
