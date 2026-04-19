@@ -1,6 +1,6 @@
-# Sprint 81 — "Floriane baut Wunschkristalle, Tommy erforscht den Mond und den Vulkan, Neinhorn erklärt die Halbinsel für verboten, Alien kartiert die Galaxie"
+# Sprint 82 — "Bug kartiert die Blüten, Neinhorn baut das verbotene Tor, Alien schickt die erste Botschaft ins All"
 
-**Sprint Goal:** Floriane konserviert Wünsche und baut Infrastruktur für Feenkönigreich-Diplomatie, Tommy misst Mondgravitation und beobachtet Vulkane aus sicherer Entfernung, Neinhorn schafft verbotene Einsamkeit auf einer Halbinsel und einem Berggipfel, Alien entdeckt Dunkle Materie und kartiert 400 Milliarden Sterne. Oscar trifft vier alte Freunde mit neuen Projekten.
+**Sprint Goal:** Bug erkundet die Welt als Schmetterling und besucht die wartenden Raupen, Neinhorn gibt seiner Verbotenen Halbinsel Struktur (und baut heimlich ein Willkommen), Alien sendet die offizielle Erster-Kontakt-Botschaft und öffnet ein Fenster ins Paralleluniversum. Oscar trifft drei alte Freunde in neuen Kapiteln.
 **Start:** 2026-04-19
 
 ---
@@ -9,27 +9,35 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S81-1 | **Quests Runde 41** — 10 neue Quests (416→426): Floriane (3), Tommy (3), Neinhorn (2), Alien (2) — stacked auf #337 | Artist | ✅ PR #338 |
-| S81-2 | **Carry-Over Merges** — PRs #314–#338 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+| S82-1 | **Quests Runde 42** — 10 neue Quests (426→436): Bug (4), Neinhorn (3), Alien (3) — stacked auf #338 | Artist | ✅ PR #365 |
+| S82-2 | **Carry-Over Merges** — PRs #314–#365 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
 
 ---
 
-## Sprint Review + Retro S80 (2026-04-19 Session 83)
+## Sprint Review + Retro S81 (2026-04-19 Session 84)
 
 **Sprint Goal erreicht:** ✅
 
 | Item | Ergebnis |
 |------|----------|
-| S80-1 | ✅ Runde 40 (Spongebob/Mephisto/Maus/Krabs): Neptun-Tempel, Blasen-Forschungslabor, Quallen-Nationalpark, Ewige Bibliothek der Absichten, Observatorium des Bedauerns, Schatten-Amphitheater, Geheimes Baumhaus, Wellenbrecher-Posten, Kristall-Tresor, Schatz-Galerie — PR #337 |
-| S80-2 | ⏳ Blocked — wartet auf Till |
+| S81-1 | ✅ Runde 41 (Floriane/Tommy/Neinhorn/Alien): Wunschkristall-Garten, Regenbogenbrücke der Botschaft, Wunschspeicher-Turm, Mondgravitations-Labor, Vulkan-Beobachtungsposten, Polarnacht-Forschungsstation, Verbotene Halbinsel, Schweigender Berggipfel, Dunkle-Materie-Detektor, Galaxienatlas-Station — PR #338 |
+| S81-2 | ⏳ Blocked — wartet auf Till |
 
-**Retro:** Floriane/Tommy/Neinhorn/Bug/Alien alle bei 29 nach Runde 40. Gewählt für Runde 41: Floriane (3), Tommy (3), Neinhorn (2), Alien (2) — Bug folgt S82. Nächste Kandidaten S82: Bug (29) + ggf. Neinhorn/Alien (dann 31). Stack: #314→…→#337→#338.
+**Retro S81:** Bug (29, niedrigste) → S82 mit 4 Quests. Neinhorn/Alien (31 nach S81) je 3 Quests. Maus/Krabs ebenfalls 31 → nächste Kandidaten S83. Stack: #314→…→#338→#365. Remote feat/quests-runde-42 war belegt (anderer Stack) → Branch feat/quests-runde-42-s82 verwendet.
 
 ---
 
 ## Standup Log
 
-### 2026-04-19 — Sprint Review S80 + Planning S81 + S81-1 implementiert (Session 83)
+### 2026-04-19 — Sprint Review S81 + Planning S82 + S82-1 implementiert (Session 84)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 81 Review:** S81-1 ✅ (PR #338, Runde 41 — Floriane/Tommy/Neinhorn/Alien, 426 Quests). S81-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 82:** S82-1 ✅ (PR #365, Runde 42 — Bug/Neinhorn/Alien, 436 Quests auf Branch). Bug: Blütenkartenwerk, Regentropfen-Dach, Raupen-Besuch, Zugvogel-Frage. Neinhorn: Verbotenes Tor, Nein-Archiv, Heimliches Willkommen. Alien: Neutronenstern-Uhr, Erster-Kontakt-Botschaft, Paralleluniversum-Fenster. Stack: #314→…→#338→#365. Branch-Konflikt gelöst mit feat/quests-runde-42-s82.
+
+---
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
 
