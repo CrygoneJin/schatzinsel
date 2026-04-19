@@ -1,3 +1,44 @@
+# Sprint 88 — "Lokführer baut die Hochbrücke, Krämerin eröffnet Tee-Stube und Einmach-Keller, Elefant lauscht dem Donner"
+
+**Sprint Goal:** Lokführer überspannt die tiefste Schlucht, eröffnet sein Museum und sichert den Kohlevorrat, Krämerin lädt Händler zum Tee ein und füllt den Einmach-Keller, Elefant entdeckt Donner als Percussion und lauscht Eisresonanzen. Oscar trifft drei alte Freunde in neuen Projekten.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S88-1 | **Quests Runde 48** — 10 neue Quests (486→496): Lokführer (4), Krämerin (3), Elefant (3) — stacked auf #344, PR #345 | Artist | 🔲 |
+| S88-2 | **Carry-Over Merges** — PRs #314–#345 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S87 (2026-04-19 Session 90)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S87-1 | ✅ Runde 47 (Spongebob/Mephisto): Ananas-Palast-Erweiterung, Quallen-Sinfonie-Saal, Patrick-Gedenkstein, Meeres-Akademie, Bikini-Bottom-Erinnerungsturm, Seelenmühle, Nachtwächter-Turm, Düsteres Amphitheater, Pakt-Archiv-Kammer, Verdammnis-Garten — PR #344 |
+| S87-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S87:** Tatsächliche Quest-Counts nach Runde 47: Tommy/Bug/Bernd bei 34 (niedrigste!), Alien 35, Neinhorn/Maus/Krämerin/Krabs/Floriane/Elefant bei 36, Lokführer 37, Spongebob/Mephisto 40. Nächste Kandidaten S88 (wie geplant): Lokführer (4 Quests →41), Krämerin (3 →39), Elefant (3 →39). Nächste Kandidaten S89: Tommy/Bug/Bernd bei 34. Stack: #314→…→#343→#344→#345.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S87 + Planning S88 + S88-1 implementiert (Session 90)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 87 Review:** S87-1 ✅ (PR #344, Runde 47 — Spongebob/Mephisto, 486 Quests). S87-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 88:** S88-1 🔲 (Runde 48 — Lokführer/Krämerin/Elefant, 486→496 Quests). Lokführer: Hochbrücke, Dampflok-Museum, Kohlevorrat-Bunker, Internationale Station. Krämerin: Tee-Stube, Einmach-Keller, Kunsthandwerk-Stand. Elefant: Blitz-Observatorium, Eishöhle, Vulkan-Trommel. Stack: #314→…→#344→#345.
+
+---
+
 # Sprint 87 — "Spongebob lehrt die Meeres-Akademie, Mephisto baut die Seelenmühle"
 
 **Sprint Goal:** Spongebob eröffnet Akademie, Sinfonie-Saal und Erinnerungsturm, Mephisto errichtet Mühle, Amphitheater und Verdammnis-Garten. Oscar trifft zwei alte Freunde in neuen Kapiteln.
