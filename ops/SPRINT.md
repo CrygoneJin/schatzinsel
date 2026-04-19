@@ -1,3 +1,44 @@
+# Sprint 89 — "Alien erforscht die Urerde, Maus erfindet Physik, Neinhorn sagt NEIN zum Frühling"
+
+**Sprint Goal:** Alien dokumentiert 4 Milliarden Jahre Erdgeschichte in vier Stationen, Maus entdeckt Schwerkraft und Echo als persönliche Wissenschaft, Neinhorn baut ein verbotenes Frühlingsareal (mit Rosen — aber das zählt nicht). Oscar trifft drei alte Freunde in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S89-1 | **Quests Runde 49** — 10 neue Quests (496→506): Alien (4), Maus (3), Neinhorn (3) — stacked auf #370, PR #371 | Artist | ✅ implementiert |
+| S89-2 | **Carry-Over Merges** — PRs #314–#371 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S88 (2026-04-19 Session 91)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S88-1 | ✅ Runde 48 (Bug/Tommy/Bernd): Hochsommerwiese, Nebel-Beobachtungsposten, Mondmotten-Horst, Druckluft-Katapult, Unterwasser-Brücke, Magnetismus-Labor, Geysir-Kraftwerk, Advent-Laterne, Stiller Ofen, Nebelbank — PR #370 |
+| S88-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S88:** Alien bei 35 (niedrigste nach S88) → S89. Maus/Neinhorn bei 36 je 3 Quests. Alien 4 Quests (→39), Maus 3 (→39), Neinhorn 3 (→39). Stack: #314→…→#370→#371. Nächste Kandidaten S90: Kraemerin/Krabs/Floriane/Elefant bei 36.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S88 + Planning S89 + S89-1 implementiert (Session 91)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 88 Review:** S88-1 ✅ (PR #370, Runde 48 — Bug/Tommy/Bernd, 496 Quests). S88-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 89:** S89-1 ✅ (Runde 49 — Alien/Maus/Neinhorn, 506 Quests auf Branch). Alien: Ur-Ozean-Tiefenbohrung, Tektonik-Messstation, Photosynthese-Reaktor, Magnetfeld-Observatorium. Maus: Gravitationslabor, Mondphasen-Kalender, Echo-Labor. Neinhorn: Frühlings-Verbotenes-Areal, Stiller Berggipfel, Anti-Geburtstags-Bibliothek. Stack: #314→…→#370→#371.
+
+---
+
 # Sprint 88 — "Bug zählt Nachtfalter, Tommy baut unter Druck, Bernd stellt eine Laterne hin"
 
 **Sprint Goal:** Bug kartiert die Hochsommerwiese, beobachtet Nebel als Wissenschaft und misst Mondmotten-Trigonometrie. Tommy feuert Druckluft-Katapult ab, baut eine Brücke unter Wasser, kartiert Magnetismus und zapft Geotherme. Bernd bringt Licht in die dunkle Jahreszeit, backt vor Sonnenaufgang und sitzt im Nebel neben einem Fremden. Oscar trifft drei alte Freunde in neuen Kapiteln.
