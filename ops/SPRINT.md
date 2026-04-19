@@ -1,6 +1,6 @@
-# Sprint 86 — "Lokführer fährt nachts, Krämerin öffnet das Lager, Elefant hört den Regen"
+# Sprint 87 — "Spongebob lehrt die Meeres-Akademie, Mephisto baut die Seelenmühle"
 
-**Sprint Goal:** Lokführer baut den Nacht-Express und feiert tausend Fahrten, Krämerin füllt das Gewürzlager und eröffnet die Jahresmarkt-Bühne, Elefant entdeckt Regen als Perkussion und Wind als Harfe. Oscar trifft drei Charaktere in neuen Kapiteln.
+**Sprint Goal:** Spongebob eröffnet Akademie, Sinfonie-Saal und Erinnerungsturm, Mephisto errichtet Mühle, Amphitheater und Verdammnis-Garten. Oscar trifft zwei alte Freunde in neuen Kapiteln.
 **Start:** 2026-04-19
 
 ---
@@ -9,8 +9,33 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S86-1 | **Quests Runde 46** — 10 neue Quests (466→476): Lokführer (4), Krämerin (3), Elefant (3) — stacked auf #368, PR #343 | Artist | ✅ implementiert |
-| S86-2 | **Carry-Over Merges** — PRs #314–#343 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+| S87-1 | **Quests Runde 47** — 10 neue Quests (476→486): Spongebob (5), Mephisto (5) — stacked auf #343, PR #344 | Artist | ✅ implementiert |
+| S87-2 | **Carry-Over Merges** — PRs #314–#344 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S86 (2026-04-19 Session 89)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S86-1 | ✅ Runde 46 (Lokführer/Krämerin/Elefant): Nacht-Express, Stellwerk, Schneepflug-Depot, Tausend-Fahrten-Fest, Gewürzlager, Jahresmarkt-Bühne, Händler-Herberge, Regenwald-Trommel, Wind-Harfe, Gezeiten-Sinfonie — PR #343 |
+| S86-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S86:** Mephisto/Spongebob beide bei 35 (niedrigste nach S86) → S87. Spongebob 5 Quests (→40), Mephisto 5 Quests (→40). Stack: #314→…→#368→#343→#344. Nächste Kandidaten S88: Lokführer/Krämerin/Elefant bei 37/36/36.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S86 + Planning S87 + S87-1 implementiert (Session 89)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 86 Review:** S86-1 ✅ (PR #343, Runde 46 — Lokführer/Krämerin/Elefant, 476 Quests). S86-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 87:** S87-1 ✅ (Runde 47 — Spongebob/Mephisto, 486 Quests auf Branch). Spongebob: Ananas-Palast-Erweiterung, Quallen-Sinfonie-Saal, Patrick-Gedenkstein, Meeres-Akademie, Bikini-Bottom-Erinnerungsturm. Mephisto: Seelenmühle, Nachtwächter-Turm, Düsteres Amphitheater, Pakt-Archiv-Kammer, Verdammnis-Garten. Stack: #314→…→#343→#344.
 
 ---
 
