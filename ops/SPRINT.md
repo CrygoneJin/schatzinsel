@@ -1,3 +1,44 @@
+# Sprint 85 — "Floriane misst Mondwünsche, Spongebob sichert das Geheimrezept, Mephisto baut ein Paradox"
+
+**Sprint Goal:** Floriane destilliert Mondphysik in Atelier, Teich, Protokoll und Resonanzkammer, Spongebob baut Gary eine Hochschule und sichert das heiligste Geheimnis der Unterwasserwelt, Mephisto schafft Orte wo Entscheidungen physisch werden. Oscar trifft drei Charaktere in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S85-1 | **Quests Runde 45** — 10 neue Quests (456→466): Floriane (4), Spongebob (3), Mephisto (3) — stacked auf #367 | Artist | ✅ implementiert |
+| S85-2 | **Carry-Over Merges** — PRs #314–#368 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S84 (2026-04-19 Session 87)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S84-1 | ✅ Runde 44 (Maus/Krabs): Pilz-Dorf, Eiswunderland, Sternschnuppen-Aussicht, Drachen-Freundschaft, Regenbogen-Rutsche, Diamanten-Vitrine, Tiefsee-Expeditions-Deck, Krabben-Bank, Muschel-Markt, Fossil-Auktion — PR #367 |
+| S84-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S84:** Floriane/Spongebob/Mephisto alle bei 32 (niedrigste nach S84) → S85. Floriane 4 Quests (→36), Spongebob 3 (→35), Mephisto 3 (→35). Stack: #314→…→#366→#367→#368. Nächste Kandidaten S86: Lokführer/Krämerin/Elefant bei 33.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S84 + Planning S85 + S85-1 implementiert (Session 87)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 84 Review:** S84-1 ✅ (PR #367, Runde 44 — Maus/Krabs, 456 Quests). S84-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 85:** S85-1 ✅ (Runde 45 — Floriane/Spongebob/Mephisto, 466 Quests auf Branch). Floriane: Mondspiegelteich, Feenflügel-Atelier, Sternschnuppen-Protokoll, Wunsch-Resonanz-Kammer. Spongebob: Gary-Hochschule, Krabby-Patty-Geheimrezept-Tresor, Sandburg-Weltmeisterschaft. Mephisto: Paradox-Garten, Schatten-Destillerie, Labyrinth der Entscheidungen. Stack: #314→…→#367→#368.
+
+---
+
 # Sprint 84 — "Maus baut das Pilz-Dorf, Krabs eröffnet seine Privatbank"
 
 **Sprint Goal:** Maus entdeckt Drachen-Freundschaft und Regenbogen-Rutschen, Krabs gründet seine eigene Bank und versteigert Fossilien. Oscar trifft zwei alte Freunde mit großen Plänen.
