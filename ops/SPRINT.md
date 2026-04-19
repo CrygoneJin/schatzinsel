@@ -1,3 +1,44 @@
+# Sprint 84 — "Maus baut das Pilz-Dorf, Krabs eröffnet seine Privatbank"
+
+**Sprint Goal:** Maus entdeckt Drachen-Freundschaft und Regenbogen-Rutschen, Krabs gründet seine eigene Bank und versteigert Fossilien. Oscar trifft zwei alte Freunde mit großen Plänen.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S84-1 | **Quests Runde 44** — 10 neue Quests (446→456): Maus (5), Krabs (5) — stacked auf #366 | Artist | ✅ PR #367 |
+| S84-2 | **Carry-Over Merges** — PRs #314–#367 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S83 (2026-04-19 Session 86)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S83-1 | ✅ Runde 43 (Bernd/Lokführer/Krämerin): Erster-Schnee-Protokoll, Kompost-Station, Mondphasen-Wartepunkt, Stilles Teichufer, Dampf-Werkstatt, Aussichtswagen, Rangier-Bahnhof, Gewürzmarkt, Buchhandlung, Kräutergarten-Apotheke — PR #366 |
+| S83-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S83:** maus/krabs beide bei 31 (niedrigste nach S83) → S84. Maus 5 Quests, Krabs 5 Quests. Remote feat/quests-runde-44 war durch anderen Stack belegt → feat/quests-runde-44-s84 verwendet. Stack: #314→…→#365→#366→#367. Nächste Kandidaten S85: Floriane/Spongebob/Mephisto bei 32.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S83 + Planning S84 + S84-1 implementiert (Session 86)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 83 Review:** S83-1 ✅ (PR #366, Runde 43 — Bernd/Lokführer/Krämerin, 446 Quests). S83-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 84:** S84-1 ✅ (PR #367, Runde 44 — Maus/Krabs, 456 Quests auf Branch). Maus: Pilz-Dorf, Eiswunderland, Sternschnuppen-Aussicht, Drachen-Freundschaft, Regenbogen-Rutsche. Krabs: Diamanten-Vitrine, Tiefsee-Expeditions-Deck, Krabben-Bank, Muschel-Markt, Fossil-Auktion. Stack: #314→…→#366→#367.
+
+---
+
 # Sprint 83 — "Bernd protokolliert den ersten Schnee, Lokführer baut die ultimative Infrastruktur, Krämerin eröffnet drei neue Läden"
 
 **Sprint Goal:** Bernd dokumentiert stille Momente in der Natur mit neuer Sorgfalt, der Lokführer rüstet seine Eisenbahn mit Werkstatt, Aussichtswagen und Rangier-Bahnhof aus, die Krämerin eröffnet Gewürzmarkt, Buchhandlung und Kräuterapotheke. Oscar trifft drei alte Bekannte in neuen Projekten.
