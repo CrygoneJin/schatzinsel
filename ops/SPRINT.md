@@ -1,3 +1,710 @@
+# Sprint 83 — "Bernd protokolliert den ersten Schnee, Lokführer baut die ultimative Infrastruktur, Krämerin eröffnet drei neue Läden"
+
+**Sprint Goal:** Bernd dokumentiert stille Momente in der Natur mit neuer Sorgfalt, der Lokführer rüstet seine Eisenbahn mit Werkstatt, Aussichtswagen und Rangier-Bahnhof aus, die Krämerin eröffnet Gewürzmarkt, Buchhandlung und Kräuterapotheke. Oscar trifft drei alte Bekannte in neuen Projekten.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S83-1 | **Quests Runde 43** — 10 neue Quests (436→446): Bernd (4), Lokführer (3), Krämerin (3) — stacked auf #365 | Artist | ✅ PR #366 |
+| S83-2 | **Carry-Over Merges** — PRs #314–#366 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S82 (2026-04-19 Session 85)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S82-1 | ✅ Runde 42 (Bug/Neinhorn/Alien): Blütenkartenwerk, Regentropfen-Dach, Raupen-Besuch, Zugvogel-Frage, Verbotenes Tor, Nein-Archiv, Heimliches Willkommen, Neutronenstern-Uhr, Erster-Kontakt-Botschaft, Paralleluniversum-Fenster — PR #365 |
+| S82-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S82:** bernd/lokfuehrer/kraemerin alle bei 30 (niedrigste nach S82) → S83. Bernd 4 Quests, Lokführer 3, Krämerin 3. Stack: #314→…→#338→#365→#366.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S82 + Planning S83 + S83-1 implementiert (Session 85)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 82 Review:** S82-1 ✅ (PR #365, Runde 42 — Bug/Neinhorn/Alien, 436 Quests). S82-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 83:** S83-1 ✅ (PR #366, Runde 43 — Bernd/Lokführer/Krämerin, 446 Quests auf Branch). Bernd: Erster-Schnee-Protokoll, Kompost-Station, Mondphasen-Wartepunkt, Stilles Teichufer. Lokführer: Dampf-Werkstatt, Aussichtswagen, Rangier-Bahnhof. Krämerin: Gewürzmarkt, Buchhandlung, Kräuterapotheke. Stack: #314→…→#365→#366.
+
+---
+
+# Sprint 82 — "Bug kartiert die Blüten, Neinhorn baut das verbotene Tor, Alien schickt die erste Botschaft ins All"
+
+**Sprint Goal:** Bug erkundet die Welt als Schmetterling und besucht die wartenden Raupen, Neinhorn gibt seiner Verbotenen Halbinsel Struktur (und baut heimlich ein Willkommen), Alien sendet die offizielle Erster-Kontakt-Botschaft und öffnet ein Fenster ins Paralleluniversum. Oscar trifft drei alte Freunde in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S82-1 | **Quests Runde 42** — 10 neue Quests (426→436): Bug (4), Neinhorn (3), Alien (3) — stacked auf #338 | Artist | ✅ PR #365 |
+| S82-2 | **Carry-Over Merges** — PRs #314–#365 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S81 (2026-04-19 Session 84)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S81-1 | ✅ Runde 41 (Floriane/Tommy/Neinhorn/Alien): Wunschkristall-Garten, Regenbogenbrücke der Botschaft, Wunschspeicher-Turm, Mondgravitations-Labor, Vulkan-Beobachtungsposten, Polarnacht-Forschungsstation, Verbotene Halbinsel, Schweigender Berggipfel, Dunkle-Materie-Detektor, Galaxienatlas-Station — PR #338 |
+| S81-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S81:** Bug (29, niedrigste) → S82 mit 4 Quests. Neinhorn/Alien (31 nach S81) je 3 Quests. Maus/Krabs ebenfalls 31 → nächste Kandidaten S83. Stack: #314→…→#338→#365. Remote feat/quests-runde-42 war belegt (anderer Stack) → Branch feat/quests-runde-42-s82 verwendet.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S81 + Planning S82 + S82-1 implementiert (Session 84)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 81 Review:** S81-1 ✅ (PR #338, Runde 41 — Floriane/Tommy/Neinhorn/Alien, 426 Quests). S81-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 82:** S82-1 ✅ (PR #365, Runde 42 — Bug/Neinhorn/Alien, 436 Quests auf Branch). Bug: Blütenkartenwerk, Regentropfen-Dach, Raupen-Besuch, Zugvogel-Frage. Neinhorn: Verbotenes Tor, Nein-Archiv, Heimliches Willkommen. Alien: Neutronenstern-Uhr, Erster-Kontakt-Botschaft, Paralleluniversum-Fenster. Stack: #314→…→#338→#365. Branch-Konflikt gelöst mit feat/quests-runde-42-s82.
+
+---
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 80 Review:** S80-1 ✅ (PR #337, Runde 40 — Spongebob/Mephisto/Maus/Krabs, 416 Quests). S80-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 81:** S81-1 ✅ (PR #338, Runde 41 — Floriane/Tommy/Neinhorn/Alien, 426 Quests auf Branch). Stack: #314→…→#337→#338. Keine neuen Materialien in Runde 41 — alle needs aus bekannten Typen.
+
+---
+
+# Sprint 80 — "Spongebob baut den Neptun-Tempel, Mephisto eröffnet die Bibliothek der Absichten, Maus bezieht das Baumhaus, Krabs sichert seine Kristalle"
+
+**Sprint Goal:** Vier alte Bekannte, neue Projekte. Spongebob erforscht Blasen und empfängt König Neptun, Mephisto sammelt Absichten und zeigt Silhouetten, Maus wacht vom Baumhaus aus über den Horizont, Krabs versiegelt seinen Kristall-Tresor und eröffnet eine Galerie. Oscar trifft alte Freunde in neuen Ecken der Insel.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S80-1 | **Quests Runde 40** — 10 neue Quests (406→416): Spongebob (3), Mephisto (3), Maus (2), Krabs (2) — stacked auf #336 | Artist | ✅ PR #337 |
+| S80-2 | **Carry-Over Merges** — PRs #314–#337 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S79 (2026-04-19 Session 82)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S79-1 | ✅ Runde 39 (Tommy/Neinhorn/Bug/Alien): Dampf-Fabrik, Tornado-Bunker, Wüstenposten, Schnee-Labyrinth, Glas-Aussichtsturm, Sternschnuppen-Turm, Nektarroute, Schmetterlingsball, Antimaterie-Kammer, Wormhole-Station — PR #336 |
+| S79-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob/Mephisto/Maus/Krabs/Floriane bei 29 (niedrigste Zählung) → klar für Runde 40. Gewählt: Spongebob (3), Mephisto (3), Maus (2), Krabs (2). Floriane bleibt bei 29 → nächste Kandidaten S81: Floriane + Tommy/Neinhorn/Bug/Alien (beide bei 29). Stack: #314→…→#336→#337.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S79 + Planning S80 + S80-1 implementiert (Session 82)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 79 Review:** S79-1 ✅ (PR #336, Runde 39 — Tommy/Neinhorn/Bug/Alien, 406 Quests). S79-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 80:** S80-1 ✅ (PR #337, Runde 40 — Spongebob/Mephisto/Maus/Krabs, 416 Quests auf Branch). Stack: #314→…→#336→#337. Neue Materialien: tree (Baumhaus), rope (Wellenbrecher — schon in R39 eingeführt).
+
+---
+
+# Sprint 79 — "Tommy baut Dampf-Fabrik und Tornado-Bunker, Neinhorn wünscht sich GAR NICHTS, Bug hält den ersten Schmetterlingsball, Alien öffnet das Wormhole"
+
+**Sprint Goal:** Tommy bezwingt Tornado und Wüste mit Ingenieurskunst, Neinhorn wünscht sich offiziell gar nichts (und baut trotzdem einen Sternschnuppen-Turm), Bug veranstaltet den ersten Schmetterlingsball der Geschichte, Alien verbindet die Insel mit einer anderen Galaxie. Oscar trifft vier alte Freunde in neuen Abenteuern.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S79-1 | **Quests Runde 39** — 10 neue Quests (396→406): Tommy (3), Neinhorn (3), Bug (2), Alien (2) — stacked auf #335 | Artist | ✅ PR #336 |
+| S79-2 | **Carry-Over Merges** — PRs #314–#336 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S78 (2026-04-18 Session 81)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S78-1 | ✅ Runde 38 (Lokführer/Kraemerin/Krabs/Floriane): Nachtpost-Express, Drehscheibe, Schneeräumer-Depot, Blumenmarkt, Werkzeughandel, Dorf-Versammlungsplatz, Muschelwaage, Tiefsee-Tresor, Mondblumen-Garten, Wunsch-Archiv — PR #335 |
+| S78-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Tommy/Neinhorn/Bug/Alien bei 28 (niedrigste Zählung) → klar für Runde 39. Alle anderen: Elefant 33, Lokführer/Kraemerin/Bernd 30, restliche NPCs 29. Stack: #314→…→#335→#336.
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S78 + Planning S79 + S79-1 implementiert (Session 81)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 78 Review:** S78-1 ✅ (PR #335, Runde 38 — Lokführer/Kraemerin/Krabs/Floriane, 396 Quests). S78-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 79:** S79-1 ✅ (PR #336, Runde 39 — Tommy/Neinhorn/Bug/Alien, 406 Quests auf Branch). Stack: #314→…→#335→#336. Neue Materialien: steam, tornado, cactus, snow, shootingstar, butterfly+music+crystal combo, antimatter, wormhole.
+
+---
+
+# Sprint 78 — "Lokführer fährt Nachtpost, Kraemerin eröffnet den Versammlungsplatz, Krabs versenkt seinen Tresor, Floriane schließt Abkommen mit dem Mond"
+
+**Sprint Goal:** Lokführer dreht die Drehscheibe und räumt Schnee bevor er fällt, Kraemerin betreibt Blumenmarkt und Dorf-Versammlungsplatz, Krabs versenkt seinen Tresor dreihundert Meter tief, Floriane schließt ein Abkommen mit dem Mond. Oscar trifft vier alte Freunde mit neuen Aufgaben.
+**Start:** 2026-04-18
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S78-1 | **Quests Runde 38** — 10 neue Quests (386→396): Lokführer (3), Kraemerin (3), Krabs (2), Floriane (2) — stacked auf #334 | Artist | ✅ PR #335 |
+| S78-2 | **Carry-Over Merges** — PRs #314–#335 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S77 (2026-04-18 Session 80)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S77-1 | ✅ Runde 37 (Spongebob/Mephisto/Bernd): Sandy's Kuppel, Gary's Schnecken-Rennen, Kelp-Wald-Kabine, Vergessens-Kammer, Vertragsstein-Galerie, Nacht-Basar der Geständnisse, Regen-Messpunkt, Mitternachts-Veranda, Pilz-Kartierung, Saatgut-Archiv — PR #334 |
+| S77-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Lokführer/Kraemerin/Krabs/Floriane bei 27 (niedrigste Zählung, bestätigt per Zählung) → klar für Runde 38. Tommy/Neinhorn/Bug/Alien bei 28. Hinweis: Retro S77 hatte "Elefant bei 28" falsch — Elefant ist bei 33. Stack wächst sauber (#314→…→#332→#334→#335).
+
+---
+
+## Standup Log
+
+### 2026-04-18 — Sprint Review S77 + Planning S78 + S78-1 implementiert (Session 80)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 77 Review:** S77-1 ✅ (PR #334, Runde 37 — Spongebob/Mephisto/Bernd, 386 Quests). S77-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 78:** S78-1 ✅ (PR #335, Runde 38 — Lokführer/Kraemerin/Krabs/Floriane, 396 Quests auf Branch). Stack: #314→…→#334→#335.
+
+---
+
+# Sprint 77 — "Spongebob baut Sandy's Kuppel, Mephisto öffnet den Nacht-Basar, Bernd kartiert seine Pilze"
+
+**Sprint Goal:** Spongebob entdeckt dass Kuppeln und Kelp-Wälder das beste Zuhause sind, Mephisto eröffnet einen Marktplatz für Geständnisse, Bernd archiviert Regen und Pilze und sitzt um Mitternacht auf seiner Veranda. Oscar trifft drei Freunde in sehr verschiedenen Stimmungen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S77-1 | **Quests Runde 37** — 10 neue Quests (376→386): Spongebob (3), Mephisto (3), Bernd (4) — stacked auf #332 | Artist | ✅ PR #334 |
+| S77-2 | **Carry-Over Merges** — PRs #314–#334 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S76 (2026-04-17 Session 78)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S76-1 | ✅ Runde 36 (Maus/Bug/Alien): Flaschenpost-Anker, Kompass-Station, Seestern-Teich, Piraten-Ausguck, Süd-Etappenstation, Blüten-Kartographie, Schmetterlings-Akademie, Plasma-Forschungsstation, Parallelwelten-Observatorium, Zeitanomalie-Monitor — PR #332 |
+| S76-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob/Mephisto/Bernd bei 26 (niedrigste Zählung) → klar für Runde 37. Runde 37 liefert Sandy's Kuppel + Gary's Rennen + Kelp-Kabine (Spongebob), Vergessens-Kammer + Vertragsstein-Galerie + Nacht-Basar (Mephisto), Regen-Messpunkt + Mitternachts-Veranda + Pilz-Kartierung + Saatgut-Archiv (Bernd). Stack wächst sauber (#314→…→#332→#334). Tommy/Neinhorn/Elefant bei 28 → nächste Kandidaten nach S77.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S76 + Planning S77 + S77-1 implementiert (Session 78)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 76 Review:** S76-1 ✅ (PR #332, Runde 36 — Maus/Bug/Alien, 376 Quests). S76-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 77:** S77-1 ✅ (PR #334, Runde 37 — Spongebob/Mephisto/Bernd, 386 Quests auf Branch). Stack: #314→…→#332→#334.
+
+---
+
+# Sprint 76 — "Maus schickt Flaschenpost, Bug eröffnet die Akademie, Alien erforscht Plasma"
+
+**Sprint Goal:** Maus entdeckt Seesterne und winkt Piraten zu, Bug lehrt in der Schmetterlings-Akademie, Alien misst Zeitanomalien und beobachtet Parallelwelten. Oscar trifft drei Freunde in neuen Welten.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S76-1 | **Quests Runde 36** — 10 neue Quests (366→376): Maus (4), Bug (3), Alien (3) — stacked auf #331 | Artist | ✅ PR #332 |
+| S76-2 | **Carry-Over Merges** — PRs #314–#332 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S75 (2026-04-17 Session 77)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S75-1 | ✅ Runde 35 (Lokführer/Kraemerin/Krabs/Floriane): Gebirgspass-Express, Bahnhofshotel, Stellwerksturm, Trüffelmarkt, Handelskontor, Hafenmarkt, Tiefsee-Investition, Krabben-Hauptquartier, Frühlings-Erweckung, Feenpost-Netz — PR #331 |
+| S75-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Maus/Bug/Alien bei 25 (niedrigste Zählung) → klar für Runde 36. Runde 36 liefert Flaschenpost-Abenteuer (Maus), Schmetterlings-Akademie (Bug), Plasma und Parallelwelten (Alien). Stack wächst sauber (#314→…→#331→#332). Spongebob/Mephisto/Bernd bei 26 → nächste Kandidaten nach S76.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S75 + Planning S76 + S76-1 implementiert (Session 77)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 75 Review:** S75-1 ✅ (PR #331, Runde 35 — Lokführer/Kraemerin/Krabs/Floriane, 366 Quests). S75-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 76:** S76-1 ✅ (PR #332, Runde 36 — Maus/Bug/Alien, 376 Quests auf Branch). Stack: #314→…→#331→#332.
+
+---
+
+# Sprint 75 — "Lokführer kämpft den Gebirgspass, Kraemerin eröffnet Trüffelmarkt und Kontor, Krabs gründet sein Imperium, Floriane erweckt den Frühling"
+
+**Sprint Goal:** Lokführer überwindet den Alpenpass mit Stahlwillen, Kraemerin baut ihr Handelskontor am Hafen, Krabs erklärt seine Tiefsee-Investition zum Statement, Floriane schickt Wünsche lichtschnell durch ihr Feenpost-Netz. Oscar trifft vier alte Freunde in neuen Abenteuern.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S75-1 | **Quests Runde 35** — 10 neue Quests (356→366): Lokführer (3), Kraemerin (3), Krabs (2), Floriane (2) — stacked auf #330 | Artist | ✅ PR #331 |
+| S75-2 | **Carry-Over Merges** — PRs #314–#331 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S74 (2026-04-17 Session 76)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S74-1 | ✅ Runde 34 (Spongebob/Bernd/Alien/Mephisto): Tiefsee-Zirkus, Quallen-Wanderung, Seifenblasenstadion, Nebelteich, Vogelfutterhaus-Garten, Frühmorgen-Kräutergarten, Raumstation-Andockplatz, Xenobotanischer Garten, Theater der Träume, Archiv der gebrochenen Versprechen — PR #330 |
+| S74-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Lokführer/Kraemerin bei 24 (niedrigste Zählung) → klar für Runde 35. Krabs/Floriane bei 25 (2 Runden her) → sinnvolle Ergänzung. Stack wächst sauber (#314→…→#330→#331). Alien/Maus/Bug bei 25 → nächste Kandidaten nach S75.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S74 + Planning S75 + S75-1 implementiert (Session 76)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 74 Review:** S74-1 ✅ (PR #330, Runde 34 — Spongebob/Bernd/Alien/Mephisto, 356 Quests). S74-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 75:** S75-1 ✅ (PR #331, Runde 35 — Lokführer/Kraemerin/Krabs/Floriane, 366 Quests auf Branch). Stack: #314→…→#330→#331.
+
+---
+
+# Sprint 74 — "Spongebob baut den Tiefsee-Zirkus, Bernd sitzt am Nebelteich, Alien wartet auf den Andock-Besuch, Mephisto archiviert gebrochene Versprechen"
+
+**Sprint Goal:** Spongebob entdeckt dass der Ozean ein Zirkus ist, Bernd findet Stille am Nebelteich, Alien wartet geduldig auf den Besuch der nie kommt, Mephisto baut ein Theater für Träume und ein Archiv für alles was man vergessen wollte. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S74-1 | **Quests Runde 34** — 10 neue Quests (346→356): Spongebob (3), Bernd (3), Alien (2), Mephisto (2) — stacked auf #329 | Artist | ✅ PR #330 |
+| S74-2 | **Carry-Over Merges** — PRs #314–#330 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S73 (2026-04-17 Session 75)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S73-1 | ✅ Runde 33 (Floriane/Bug/Maus/Krabs): Wunsch-Laterne, Feenpost-Station, Nacht-Observatorium, Kokonseide-Atelier, Bug's Geheimgarten, Metamorphose-Monument, Nebelhorn-Turm, Mondschein-Café, Edelstein-Auktion, Museum für unveräußerlichen Besitz — PR #329 |
+| S73-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob/Bernd/Alien bei 23, Mephisto bei 24 → nächste Runde klar. Stack wächst sauber (#314→…→#329→#330). Runde-34-Quests: Tiefsee-Zirkus (Spongebob), Nebelteich/Vögel/Frühgarten (Bernd), Raumstation/Xenobotanik (Alien), Traumtheater/Versprechen-Archiv (Mephisto).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S73 + Planning S74 + S74-1 implementiert (Session 75)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 73 Review:** S73-1 ✅ (PR #329, Runde 33 — Floriane/Bug/Maus/Krabs, 346 Quests). S73-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 74:** S74-1 ✅ (PR #330, Runde 34 — Spongebob/Bernd/Alien/Mephisto, 356 Quests auf Branch). Stack: #314→…→#329→#330.
+
+---
+
+# Sprint 73 — "Floriane schickt Wünsche in den Himmel, Bug spinnt sein feinstes Netz, Maus baut den Bunker, Krabs eröffnet das Museum"
+
+**Sprint Goal:** Floriane schickt Wünsche mit Laternen in den Nachthimmel, Bug kommt seiner Verwandlung ein Stück näher, Maus sichert sich gegen das Unbekannte ab, Krabs zeigt seinen Schatz — aber nur durch Glas. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S73-1 | **Quests Runde 33** — 10 neue Quests (336→346): Floriane (3), Bug (3), Maus (2), Krabs (2) — stacked auf #328 | Artist | ✅ PR #329 |
+| S73-2 | **Carry-Over Merges** — PRs #314–#329 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S72 (2026-04-17 Session 74)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S72-1 | ✅ Runde 32 (Mephisto/Lokführer/Bernd/Alien): Seelenwage, Viadukt, Stilles Gewächshaus, Meteoriten-Labor + 6 weitere — PR #328 |
+| S72-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Floriane/Bug bei 22 Quests → niedrigste Zählung → klar die Nächsten. Maus/Krabs bei 23, zuletzt in R31 (2 Runden her) → sinnvolle Ergänzung. Stack: #314→…→#328→#329.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S72 + Planning S73 + S73-1 implementiert (Session 74)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 72 Review:** S72-1 ✅ (PR #328, Runde 32 — Mephisto/Lokführer/Bernd/Alien, 336 Quests). S72-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 73:** S73-1 ✅ (PR #329, Runde 33 — Floriane/Bug/Maus/Krabs, 346 Quests auf Branch). Stack: #314→…→#328→#329.
+
+---
+
+# Sprint 72 — "Mephisto wägt Seelen, Lokführer baut das Viadukt, Bernd findet sein stilles Gewächshaus, Alien analysiert Meteore"
+
+**Sprint Goal:** Mephisto hält Gericht über Träume und Seelen, Lokführer baut das Viadukt des Jahrhunderts, Bernd pflanzt im Verborgenen, Alien analysiert was vom Himmel fällt. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S72-1 | **Quests Runde 32** — 10 neue Quests (326→336): Mephisto (3), Lokführer (3), Bernd (2), Alien (2) — stacked auf #327 | Artist | ✅ PR #328 |
+| S72-2 | **Carry-Over Merges** — PRs #314–#328 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S71 (2026-04-17 Session 73)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S71-1 | ✅ Runde 31 (Spongebob/Kraemerin/Maus/Krabs): Biolumineszenz-Labor, Reisemarkt, Sanduhren-Turm, Fort Knox der Meere + 6 weitere — PR #327 |
+| S71-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Mephisto/Lokführer/Bernd/Alien alle bei 21 Quests nach R31 → niedrigste Zählung → klar die Nächsten. Floriane/Bug bei 22. Stack wächst sauber (#314→…→#327→#328).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S71 + Planning S72 + S72-1 implementiert (Session 73)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 71 Review:** S71-1 ✅ (PR #327, Runde 31 — Spongebob/Kraemerin/Maus/Krabs, 326 Quests). S71-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 72:** S72-1 ✅ (PR #328, Runde 32 — Mephisto/Lokführer/Bernd/Alien, 336 Quests auf Branch). Stack: #314→…→#327→#328.
+
+---
+
+# Sprint 71 — "Spongebob leuchtet, Kraemerin eröffnet die Markthalle, Maus und Ente messen die Zeit, Krabs baut Fort Knox"
+
+**Sprint Goal:** Spongebob entdeckt dass Nacht aus sich selbst leuchten kann, Kraemerin bringt Händler von überall zusammen, Maus und Ente philosophieren über Sand und Stille, Krabs sperrt alles ein was er liebt. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S71-1 | **Quests Runde 31** — 10 neue Quests (316→326): Spongebob (3), Kraemerin (3), Maus (2), Krabs (2) — stacked auf #326 | Artist | ✅ PR #327 |
+| S71-2 | **Carry-Over Merges** — PRs #314–#327 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S70 (2026-04-17 Session 72)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S70-1 | ✅ Runde 30 (Bernd/Lokführer/Mephisto/Alien): Kompost-Labor, Güterpostbahn, Spiegelpalast, Ozean-Sonde + 6 weitere — PR #326 |
+| S70-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob (20) hatte die wenigsten Quests → klar der Nächste. Kraemerin/Maus/Krabs je 21, alle zuletzt in R26/R29 → Rotation stimmt. Fort Knox der Meere (Krabs) hat das richtige Energielevel nach dem Mondmarkt.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S70 + Planning S71 + S71-1 implementiert (Session 72)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 70 Review:** S70-1 ✅ (PR #326, Runde 30 — Bernd/Lokführer/Mephisto/Alien, 316 Quests). S70-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 71:** S71-1 ✅ (PR #327, Runde 31 — Spongebob/Kraemerin/Maus/Krabs, 326 Quests auf Branch). Stack: #314→…→#326→#327.
+
+---
+
+# Sprint 70 — "Bernd kartiert Sterne, Lokführer taucht ab, Mephisto baut Spiegel, Alien lauscht"
+
+**Sprint Goal:** Bernd entdeckt heimlich den Kosmos, Lokführer fährt durch den Ozean, Mephisto zeigt uns unser Wunsch-Ich, Alien hört endlich offiziell unsere Musik. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S70-1 | **Quests Runde 30** — 10 neue Quests (306→316): Bernd (3), Lokführer (3), Mephisto (2), Alien (2) — stacked auf #325 | Artist | ✅ PR #326 |
+| S70-2 | **Carry-Over Merges** — PRs #314–#326 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S69 (2026-04-17 Session 71)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S69-1 | ✅ Runde 29 (Maus/Krabs/Spongebob): Flussbad, Mondmarkt, Korallenriff + 7 weitere — PR #325 |
+| S69-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Mondmarkt (Krabs) trifft Ton perfekt — "Mondlicht ist UMSONST!" ist Krabs in Reinform. Spongebob-Regenbogen-Spielplatz als Abschluss stark. Bernd/Lokführer/Mephisto/Alien als Nächste war logisch (niedrigste Zählung: 18-19).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S69 + Planning S70 + S70-1 implementiert (Session 71)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 69 Review:** S69-1 ✅ (PR #325, Runde 29 — Maus/Krabs/Spongebob, 306 Quests). S69-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 70:** S70-1 ✅ (PR #326, Runde 30 — Bernd/Lokführer/Mephisto/Alien, 316 Quests auf Branch). Stack: #314→…→#325→#326.
+
+---
+
+# Sprint 69 — "Maus bewacht die Stille, Krabs eröffnet den Mondmarkt, Spongebob baut Korallenriffe"
+
+**Sprint Goal:** Maus philosophiert über Nacht-Dienst, Krabs schläft nie wenn Mondlicht kostenlos ist, Spongebob findet Farben die nicht existieren dürften. Oscar trifft drei alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S69-1 | **Quests Runde 29** — 10 neue Quests (296→306): Maus (3), Krabs (4), Spongebob (3) — stacked auf #324 | Artist | ✅ PR #325 |
+| S69-2 | **Carry-Over Merges** — PRs #314–#325 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S68 (2026-04-17 Session 70)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S68-1 | ✅ Runde 28 (Floriane/Bug/Mephisto/Lokführer): Mondblumen-Gewächshaus, Traumfänger-Turm, Pollenarchiv, Tribunal + 6 weitere — PR #324 |
+| S68-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Klimazonen-Express (Lokführer) ist die epischste Quest bisher — 13 🚂 als Reward. Tribunal (Mephisto) trifft genau den Ton. Maus/Krabs/Spongebob waren dran (niedrigste Zählung: 17-18).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S68 + Planning S69 + S69-1 implementiert (Session 70)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 68 Review:** S68-1 ✅ (PR #324, Runde 28 — Floriane/Bug/Mephisto/Lokführer, 296 Quests). S68-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 69:** S69-1 ✅ (PR #325, Runde 29 — Maus/Krabs/Spongebob, 306 Quests auf Branch). Stack: #314→…→#324→#325.
+
+---
+
+# Sprint 68 — "Floriane wacht über Mondblumen, Bug baut Netzwerke, Mephisto hält Gericht, Lokführer fährt ans Meer"
+
+**Sprint Goal:** Floriane schützt ihre Blumen vor dem Winter, Bug baut Schmetterlingsinfrastruktur, Mephisto richtet über gebrochene Pakte, Lokführer überquert Wasser. Oscar trifft vier alte Freunde in neuen Rollen.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S68-1 | **Quests Runde 28** — 10 neue Quests (286→296): Floriane (3), Bug (3), Mephisto (2), Lokführer (2) — stacked auf #323 | Artist | ✅ PR #324 |
+| S68-2 | **Carry-Over Merges** — PRs #314–#324 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S67 (2026-04-17 Session 69)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S67-1 | ✅ Runde 27 (Tommy/Neinhorn/Elefant): Vulkan-Beobachtungsposten, Verbotene Schlucht, Walgesang-Bühne + 7 weitere — PR #323 |
+| S67-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Floriane/Bug/Mephisto/Lokführer jetzt dran (Runde 28). Stack wächst sauber (#314→…→#324). Rotation stimmt.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S67 + Planning S68 + S68-1 implementiert (Session 69)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 67 Review:** S67-1 ✅ (PR #323, Runde 27 — Tommy/Neinhorn/Elefant, 286 Quests). S67-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 68:** S68-1 ✅ (PR #324, Runde 28 — Floriane/Bug/Mephisto/Lokführer, 296 Quests auf Branch). Stack: #314→…→#323→#324.
+
+---
+
+# Sprint 67 — "Tommy forscht am Vulkan, Neinhorn entdeckt die Schlucht, Elefant dirigiert Wale"
+
+**Sprint Goal:** Tommy erkundet Vulkan, Wüste und Eiszeit, Neinhorn findet verbotene Orte nur für sich, Elefant baut Bühnen für die Natur selbst. Oscar trifft drei alte Freunde an ihren wildesten Orten.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S67-1 | **Quests Runde 27** — 10 neue Quests (276→286): Tommy (3), Neinhorn (3), Elefant (4) — stacked auf #322 | Artist | ✅ PR #323 |
+| S67-2 | **Carry-Over Merges** — PRs #314–#323 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S66 (2026-04-17 Session 68)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S66-1 | ✅ Runde 26 (Bernd/Alien/Kraemerin): Wintergarten, Spracharchiv, Auktionshaus + 7 weitere — PR #322 |
+| S66-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Tommy/Neinhorn/Elefant zuletzt in Runde 24 — Rotation stimmt. Stack wächst sauber weiter (#314→…→#323). Keine Überraschungen.
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S66 + Planning S67 + S67-1 implementiert (Session 68)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 66 Review:** S66-1 ✅ (PR #322, Runde 26 — Bernd/Alien/Kraemerin, 276 Quests). S66-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 67:** S67-1 ✅ (PR #323, Runde 27 — Tommy/Neinhorn/Elefant, 286 Quests auf Branch). Stack: #314→…→#322→#323.
+
+---
+
+# Sprint 65 — "Floriane schmiedet Sterne, Bug forscht, Mephisto baut Dunkel, Lokführer tunnelt"
+
+**Sprint Goal:** Floriane erschafft neue Sterne und Mondblumen, Bug eröffnet ihr Kokon-Museum, Mephisto baut das Schattenkabinett, Lokführer bohrt durch den Berg. Oscar trifft vier alte Freunde von ihrer tiefsten Seite.
+**Start:** 2026-04-17
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S65-1 | **Quests Runde 25** — 10 neue Quests (256→266): Floriane (3), Bug (3), Mephisto (2), Lokführer (2) — stacked auf #320 | Artist | ✅ PR #321 |
+| S65-2 | **Carry-Over Merges** — PRs #314–#321 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S64 (2026-04-17 Session 66)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S64-1 | ✅ Runde 24 (Tommy/Neinhorn/Elefant): Polarlicht-Observatorium, Spiegelgrotte, Meeresorgel + 7 weitere — PR #320 |
+| S64-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Sauberer Stack wächst weiter (#314→…→#320→#321). Floriane/Bug/Mephisto/Lokführer 5 Runden pausiert → klar die nächsten. Lokführer kriegt Tunnelbahn + Seilbahn statt Schienen (mehr Abwechslung).
+
+---
+
+## Standup Log
+
+### 2026-04-17 — Sprint Review S64 + Planning S65 + S65-1 implementiert (Session 66)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 64 Review:** S64-1 ✅ (PR #320, Runde 24 — Tommy/Neinhorn/Elefant, 256 Quests). S64-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 65:** S65-1 ✅ (PR #321, Runde 25 — Floriane/Bug/Mephisto/Lokführer, 266 Quests auf Branch). Sauberer Stack: #314→#315→#316→#317→#318→#320→#321.
+
+---
+
+---
+
 # Sprint 64 — "Tommy forscht, Neinhorn zieht sich zurück, Elefant dirigiert das Meer"
 
 **Sprint Goal:** Tommy erkundet das Unmögliche, Neinhorn entdeckt Schönheit in der Stille, Elefant lässt das Meer singen. Oscar trifft drei alte Freunde von ihrer tiefsten Seite.
@@ -9,43 +716,18 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S64-1 | **Quests Runde 24** — 10 neue Quests (246→256): Tommy (3), Neinhorn (3), Elefant (4) — Polarlicht, Spiegelgrotte, Meeresorgel | Artist | ✅ feat/quests-runde-24 |
-| S64-2 | **Carry-Over Merges** — feat/quests-runde-24 stacked auf #318. Till mergt clean stack | Engineer | ⏳ wartet auf Till |
-
----
-
-## Carry-Over (Human Input blockiert)
-
-| # | Item | Blocker |
-|---|------|---------|
-| S48-1 | Tesla-Nutzertest auswerten | ⏳ Till: Video schicken |
-| S48-2 | Requesty Key rotieren ⚠️ | ⏳ Till: Requesty Dashboard |
-| S48-3 | Stripe Production-Links | ⏳ Till: Stripe Dashboard |
-| S49-itch | itch.io Upload | ⏳ Till: Butler-Deploy mit `docs/ITCH-IO-COPY.md` |
+| S64-1 | **Quests Runde 24** — 10 neue Quests (246→256): Tommy (3), Neinhorn (3), Elefant (4) — stacked auf #318 | Artist | ✅ PR #320 |
+| S64-2 | **Carry-Over Merges** — PRs #314–#320 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
 
 ---
 
 ## Standup Log
 
-### 2026-04-16 — Sprint Review + Retro S63 + Planning S64 (Session 64)
+### 2026-04-16 — Daily Scrum + Sprint 64 PR erstellt (Session 65)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
 
-**Sprint 63 Review:**
-
-| Item | Ergebnis |
-|------|----------|
-| S63-1 | ✅ 10 Quests: Bernd 3 (Bienenhaus, Aussichtsturm, Stille-Kammer) + Alien 3 (Quantenfeld-Labor, UFO-Landezone, Neutrinodetektor) + Kraemerin 4 (Fischräucherei, Imkerstand, Obstbaumgarten, Seeblick-Marktstand) — PR #318 |
-| S63-2 | ⏳ Blocked — wartet auf Till |
-
-**Sprint Goal:** ✅ Bernd summt, Alien forscht, Kraemerin expandiert.
-
-**Sprint 63 Retro:**
-- Was gut lief: Alien-Quests mit echter Physik (Neutrinos, Quantenmechanik) — klingen wie echte Wissenschaft für Kinder.
-- Learning: Alte stale branches (feat/sprint-XX) ignorieren — nur feat/quests-runde-XX ist der clean stack.
-- Nächste NPCs: Tommy/Neinhorn/Elefant haben noch keine Quests im clean stack (Runde 21-23 war anderen NPCs).
-
-**Sprint 64 Planning:** S64-1 (Quests Runde 24 — Tommy/Neinhorn/Elefant) wird implementiert.
+**Sprint 64:** S64-1 ✅ (PR #320, Runde 24 — Tommy/Neinhorn/Elefant, 256 Quests auf Branch). PR war von Session 64 implementiert aber nicht gepusht — diese Session hat PR #320 erstellt. S64-2 ⏳ (wartet auf Till). Sauberer Stack: #314→#315→#316→#317→#318→#320.
 
 ---
 
@@ -54,6 +736,142 @@
 # Sprint 63 — "Bernd summt, Alien forscht, Kraemerin expandiert"
 
 **Sprint Goal:** Bernd entdeckt die Stille im Bienenhaus und auf dem Aussichtsturm, das Alien vermisst Quantenfelder und landet endlich offiziell, die Kraemerin eröffnet Fischräucherei und Obstgarten. Oscar trifft drei alte Freunde mit neuen Seiten.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S63-1 | **Quests Runde 23** — 10 neue Quests (236→246): Bernd (3), Alien (3), Kraemerin (4) — stacked auf #317 | Artist | ✅ PR #318 |
+| S63-2 | **Carry-Over Merges** — PRs #314–#317 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 64)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S63-1 | ✅ Runde 23 (Bernd/Alien/Kraemerin): Bienenhaus, Aussichtsturm, Quantenfeld-Labor + 7 weitere — PR #318 |
+| S63-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Alien-Quests mit echter Physik (Neutrinos, Quantenmechanik) — klingen wie echte Wissenschaft für Kinder. Stale branches (feat/sprint-XX) ignorieren — nur feat/quests-runde-XX ist canonical. Nächste NPCs: Tommy/Neinhorn/Elefant → Runde 24.
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S62 + Planning S63 (Session 63)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 62 Review:** S62-1 ✅ (PR #317, Runde 22 — Maus/Krabs/Spongebob, 236 Quests auf Branch). S62-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 62 Retro:** Sauberer Stack (#314→#315→#316→#317) wächst ohne Konflikt. Alter Stack (#308–#313) bleibt problematisch aber unberührt. Quest-Count nach Runde 22: Bernd (12), Alien (13), Kraemerin (13) niedrigste → Runde 23 an der Reihe.
+
+**Sprint 63:** S63-1 ✅ (PR #318, Runde 23 — Bernd/Alien/Kraemerin, 246 Quests auf Branch). S63-2 ⏳ (wartet auf Till).
+
+---
+
+---
+
+# Sprint 62 — "Maus werkelt, Krabs handelt, Spongebob erfindet"
+
+**Sprint Goal:** Maus baut ihre geheimsten Projekte, Krabs verhandelt hart am Pier, Spongebob erfindet das Unmögliche. Oscar trifft die Küstenbewohner seiner Insel von ihrer besten Seite.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S62-1 | **Quests Runde 22** — 10 neue Quests (226→236): Maus (4), Krabs (3), Spongebob (3) — stacked auf #316 | Artist | ✅ PR #317 |
+| S62-2 | **Carry-Over Merges** — PRs #314, #315, #316 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 62)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S61-1 | ✅ Runde 21 (Tommy/Neinhorn/Elefant): Polarstern-Station, Geheime Grotte, Flöten-Wald + 7 weitere — PR #316 |
+| S61-2 | ⏳ Blocked — wartet auf Till (PRs #314–#316) |
+
+**Retro:** Sauberer Stack wächst sauber: #314→#315→#316 alle offen, kein Konflikt. 9 offene PRs total (alter Stack #308–#313 + sauberer Stack #314–#316). Runde 22 wird auf #316 gestacked.
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S61 + Planning S62 (Session 62)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 61 Review:** S61-1 ✅ (PR #316, Runde 21 — Tommy/Neinhorn/Elefant, 226 Quests auf Branch). S61-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 61 Retro:** Sauberer Stack (#314→#315→#316) wächst ohne Konflikt. Alter Stack (#308–#313) bleibt problematisch. Quest-Count-Analyse: Maus/Krabs/Spongebob bei 14 (niedrigste reguläre NPCs nach Stack) → Runde 22 an der Reihe.
+
+**Sprint 62:** S62-1 ✅ (PR #317, Runde 22 — Maus/Krabs/Spongebob, 236 Quests auf Branch). S62-2 ⏳ (wartet auf Till).
+
+---
+
+---
+
+# Sprint 61 — "Tommy entdeckt den Pol, Neinhorn findet seine Grotte, Elefant flötet"
+
+**Sprint Goal:** Tommy kämpft sich durch Eis und Dschungel, Neinhorn versteckt sich in seiner geheimen Grotte, Elefant dirigiert den Flötenwald. Oscar erlebt Abenteuer, Heimlichkeit und Natur-Musik.
+**Start:** 2026-04-16
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S61-1 | **Quests Runde 21** — 10 neue Quests (216→226): Tommy (3), Neinhorn (3), Elefant (4) — Pol, Grotte, Flötenwald | Artist | ✅ PR #316 |
+| S61-2 | **Carry-Over Merges** — PRs #314, #315 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro (2026-04-16 Session 61)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S60-1 | ✅ Runde 19 (Bernd/Kraemerin/Lokführer): Sauna-Hütte, Käserei, Rangierbahnhof + 7 weitere — PR #314 |
+| S60-2 | ✅ Runde 20 (Floriane/Bug/Mephisto/Alien): Mondfee-Thron, Erster Flug 🦋, Flüsternde Galerie, Gedanken-Observatorium + 6 weitere — PR #315 |
+| S60-3 | ⏳ Blocked — wartet auf Till (PRs #308–#315) |
+
+**Retro:** 8 offene PRs (#308–#315). Sauberer Stack: #314→#315 auf aktuellem main-HEAD. Alter Stack (#308–#313) auf 54e8197 — wird beim Mergen Konflikte geben. Pattern für S61: Runde 21 auf feat/sprint-60-runde-20-fresh stacken, nicht auf main.
+
+---
+
+## Standup Log
+
+### 2026-04-16 — Sprint Review + Retro S60 + Planning S61 (Session 61)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 60 Review:** S60-1 ✅ (PR #314, Runde 19). S60-2 ✅ (PR #315, Runde 20). S60-3 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 60 Retro:** Quest-Stack wächst auf 8 PRs. Sauberer Stack (#314→#315) ist der Weg. Runde 21 wird auf clean stack gestackt.
+
+**Sprint 61:** S61-1 ✅ (Quests Runde 21 — Tommy/Neinhorn/Elefant, PR #316 stacked auf #315). 226 Quests auf Branch.
+
+---
+
+---
+
+# Sprint 60 — "Bernd findet Ruhe, Lokführer baut weiter, Floriane fliegt"
+
+**Sprint Goal:** Bernd entdeckt seine geheimen Rückzugsorte, Lokführer erweitert das Schienennetz, Floriane hebt ab. Oscar trifft drei Freunde von ihrer stillen Seite.
 **Start:** 2026-04-16
 
 ---
