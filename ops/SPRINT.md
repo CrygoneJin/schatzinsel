@@ -1,6 +1,6 @@
-# Sprint 85 — "Floriane misst Mondwünsche, Spongebob sichert das Geheimrezept, Mephisto baut ein Paradox"
+# Sprint 86 — "Lokführer fährt nachts, Krämerin öffnet das Lager, Elefant hört den Regen"
 
-**Sprint Goal:** Floriane destilliert Mondphysik in Atelier, Teich, Protokoll und Resonanzkammer, Spongebob baut Gary eine Hochschule und sichert das heiligste Geheimnis der Unterwasserwelt, Mephisto schafft Orte wo Entscheidungen physisch werden. Oscar trifft drei Charaktere in neuen Kapiteln.
+**Sprint Goal:** Lokführer baut den Nacht-Express und feiert tausend Fahrten, Krämerin füllt das Gewürzlager und eröffnet die Jahresmarkt-Bühne, Elefant entdeckt Regen als Perkussion und Wind als Harfe. Oscar trifft drei Charaktere in neuen Kapiteln.
 **Start:** 2026-04-19
 
 ---
@@ -9,8 +9,35 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S85-1 | **Quests Runde 45** — 10 neue Quests (456→466): Floriane (4), Spongebob (3), Mephisto (3) — stacked auf #367 | Artist | ✅ implementiert |
-| S85-2 | **Carry-Over Merges** — PRs #314–#368 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+| S86-1 | **Quests Runde 46** — 10 neue Quests (466→476): Lokführer (4), Krämerin (3), Elefant (3) — stacked auf #368, PR #343 | Artist | ✅ implementiert |
+| S86-2 | **Carry-Over Merges** — PRs #314–#343 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S85 (2026-04-19 Session 88)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S85-1 | ✅ Runde 45 (Floriane/Spongebob/Mephisto): Mondspiegelteich, Feenflügel-Atelier, Sternschnuppen-Protokoll, Wunsch-Resonanz-Kammer, Gary-Hochschule, Krabby-Patty-Tresor, Sandburg-WM, Paradox-Garten, Schatten-Destillerie, Labyrinth der Entscheidungen — PR #368 |
+| S85-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S85:** Lokführer/Krämerin/Elefant alle bei 33 (niedrigste nach S85) → S86. Lokführer 4 Quests (→37), Krämerin 3 (→36), Elefant 3 (→36). Stack: #314→…→#367→#368→#343. Nächste Kandidaten S87: Mephisto/Spongebob bei 35.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S85 + Planning S86 + S86-1 implementiert (Session 88)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 85 Review:** S85-1 ✅ (PR #368, Runde 45 — Floriane/Spongebob/Mephisto, 466 Quests). S85-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 86:** S86-1 ✅ (Runde 46 — Lokführer/Krämerin/Elefant, 476 Quests auf Branch). Lokführer: Nacht-Express, Stellwerk, Schneepflug-Depot, Tausend-Fahrten-Fest. Krämerin: Gewürzlager, Jahresmarkt-Bühne, Händler-Herberge. Elefant: Regenwald-Trommel, Wind-Harfe, Gezeiten-Sinfonie. Stack: #314→…→#368→#343.
+
+**Parallel-PRs entdeckt:** PRs #359–#364 (Runde 62–67, Sprints 104–107) stammen aus früherer autonomer Session die von falschem Branch-Ursprung gestartet hatte. Kanonischer Stack endet bei #343 (Runde 46). Phantom-Rundes ignoriert.
 
 ---
 
