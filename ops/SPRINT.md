@@ -1,3 +1,44 @@
+# Sprint 105 — "Tommy misst Gezeiten und navigiert mit der Sonne, Neinhorn sagt NEIN zum Frühling (baut ihn trotzdem), Elefant hört das Vogelquartett und das Bergecho, Bernd findet seine Morgenruhe, Maus erklärt Licht und erfindet die Wasseruhr"
+
+**Sprint Goal:** Tommy beweist dass der Mond Wasser zieht und findet Süden ohne Gerät, Neinhorn baut einen Frühlingsgarten und einen verbotenen Drachen (NEIN!), Elefant erlebt das früheste Konzert des Jahres und entdeckt Stereo-Echo, Bernd sitzt alleine auf seiner Morgen-Terrasse und packt den Notfall-Schrank, Maus bricht Licht in Regenbögen und baut eine Uhr aus Wasser. Oscar trifft fünf alte Freunde mit neuen Abenteuern.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S105-1 | **Quests Runde 65** — 10 neue Quests (656→666): Tommy (2), Neinhorn (2), Elefant (2), Bernd (2), Maus (2) — stacked auf #361 | Artist | ✅ feat/quests-runde-65 |
+| S105-2 | **Carry-Over Merges** — PRs #314–#362 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S104 (2026-04-19 Session 106)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S104-1 | ✅ Runde 64 (Spongebob/Lokführer/Kraemerin/Bug/Alien): Quallen-Aquarium, Meeresgrund-Karten-Studio, Schneepflug-Bereitschaft, Erweiterter Bahnsteig, Sommer-Limonaden-Tresen, Einmach-Werkstatt, Pollen-Archiv, Nacht-Flug-Übungspfad, Meteoriten-Aufschlagfeld, Biorhythmus-Messstation — feat/quests-runde-64 |
+| S104-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Nach Runde 64: alle 10 NPCs jetzt bei 48 Quests (beide Gruppen gleichauf). Runde 65 = Tommy/Neinhorn/Elefant/Bernd/Maus (Gruppe A dran). Neue Materialien in R64 genutzt: snow, sun — kommen gut an. Quests-Stil (langer, tiefer in Charakter-Stimme) funktioniert. Stack: #314→…→#361→#362.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S104 + Planning S105 + S105-1 implementiert (Session 106)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 104 Review:** S104-1 ✅ (feat/quests-runde-64, Runde 64 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 656 Quests). S104-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 105:** S105-1 ✅ (feat/quests-runde-65, Runde 65 — Tommy/Neinhorn/Elefant/Bernd/Maus, 666 Quests auf Branch). Stack: #314→…→#361→#362.
+
+---
+
 # Sprint 104 — "Spongebob entdeckt Quallen-Kommunikation, Lokführer kämpft den Winter, Kraemerin macht Limonade und Konserven, Bug archiviert Pollen, Alien misst Meteore und Biorhythmen"
 
 **Sprint Goal:** Spongebob beweist dass Quallen leuchten und kartiert den Meeresgrund, Lokführer rüstet den Schneepflug aus und baut einen neuen Bahnsteig, Kraemerin verkauft Sommerlimonade und macht Winterkonserven, Bug archiviert Pollen und übt Nacht-Fliegen, Alien untersucht Meteoriten-Einschläge und vermisst Biorhythmen. Oscar trifft fünf alte Freunde mit neuen Entdeckungen.
