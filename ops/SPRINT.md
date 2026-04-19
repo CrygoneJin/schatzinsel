@@ -1,3 +1,43 @@
+# Sprint 89 — "Tommy misst den Frost, Bug kartiert die Blüten, Bernd backt Brot"
+
+**Sprint Goal:** Tommy baut vier Messanlagen (Frost, Baromter, Erosion, Mond), Bug erforscht Blütenzeiten, Tautropfen-Prismen und Herbst-Flugachsen, Bernd baut Backofenkammer, Balkon und Winterlager. Oscar trifft drei alte Freunde in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S89-1 | **Quests Runde 69** — 10 neue Quests (696→706): Tommy (4), Bug (3), Bernd (3) | Artist | ✅ implementiert |
+
+---
+
+## Sprint Review S88 (2026-04-19)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S88-1 | ✅ Runde 48 (Lokführer/Krämerin/Elefant): Hochbrücke, Dampflok-Museum, Kohlevorrat-Bunker, Internationale Station, Tee-Stube, Einmach-Keller, Kunsthandwerk-Stand, Blitz-Observatorium, Eishöhle, Vulkan-Trommel — via Konsolidierungs-PR #381 auf main |
+| S88-2 | ✅ Alle PRs #314–#381 auf main via Konsolidierungs-PR #381 |
+
+**Retro S88:** Nach Konsolidierung alle Haupt-NPCs bei 52 Quests (Tommy/Bug/Bernd, etc.) — kein "Niedrigster" mehr, alle gleich. Floriane (55) und Mephisto (53) leicht vorne. Nächste Kandidaten S89: Tommy (4), Bug (3), Bernd (3) wie geplant.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S88 + Planning S89 + S89-1 implementiert (Session 91)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 88 Review:** S88-1 ✅ (Runde 48 via Konsolidierungs-PR #381). S88-2 ✅ (alle PRs auf main). Sprint Goal erreicht.
+
+**Sprint 89:** S89-1 ✅ (Runde 69 — Tommy/Bug/Bernd, 706 Quests auf Branch). Tommy: Frost-Versuchsfeld, Barometer-Bastion, Erosions-Messkanal, Mondphasen-Observatorium. Bug: Blüten-Zeitlinie, Tautropfen-Prisma, Herbst-Flugachse. Bernd: Brotback-Kammer, Abend-Balkon, Winterlager.
+
+---
+
 # Sprint N0 (Nacht 2026-04-19/20) — "Audio + Backlog-Clearance"
 
 **Sprint Goal:** Oscar-Audio-Wünsche umgesetzt, 696 Quests auf main, alle non-Human-Input Items abgehakt, Backlog clean für Morgen-Triage.
