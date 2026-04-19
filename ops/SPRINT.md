@@ -1,3 +1,44 @@
+# Sprint 80 — "Spongebob baut den Neptun-Tempel, Mephisto eröffnet die Bibliothek der Absichten, Maus bezieht das Baumhaus, Krabs sichert seine Kristalle"
+
+**Sprint Goal:** Vier alte Bekannte, neue Projekte. Spongebob erforscht Blasen und empfängt König Neptun, Mephisto sammelt Absichten und zeigt Silhouetten, Maus wacht vom Baumhaus aus über den Horizont, Krabs versiegelt seinen Kristall-Tresor und eröffnet eine Galerie. Oscar trifft alte Freunde in neuen Ecken der Insel.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S80-1 | **Quests Runde 40** — 10 neue Quests (406→416): Spongebob (3), Mephisto (3), Maus (2), Krabs (2) — stacked auf #336 | Artist | ✅ PR #337 |
+| S80-2 | **Carry-Over Merges** — PRs #314–#337 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S79 (2026-04-19 Session 82)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S79-1 | ✅ Runde 39 (Tommy/Neinhorn/Bug/Alien): Dampf-Fabrik, Tornado-Bunker, Wüstenposten, Schnee-Labyrinth, Glas-Aussichtsturm, Sternschnuppen-Turm, Nektarroute, Schmetterlingsball, Antimaterie-Kammer, Wormhole-Station — PR #336 |
+| S79-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Spongebob/Mephisto/Maus/Krabs/Floriane bei 29 (niedrigste Zählung) → klar für Runde 40. Gewählt: Spongebob (3), Mephisto (3), Maus (2), Krabs (2). Floriane bleibt bei 29 → nächste Kandidaten S81: Floriane + Tommy/Neinhorn/Bug/Alien (beide bei 29). Stack: #314→…→#336→#337.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S79 + Planning S80 + S80-1 implementiert (Session 82)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 79 Review:** S79-1 ✅ (PR #336, Runde 39 — Tommy/Neinhorn/Bug/Alien, 406 Quests). S79-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 80:** S80-1 ✅ (PR #337, Runde 40 — Spongebob/Mephisto/Maus/Krabs, 416 Quests auf Branch). Stack: #314→…→#336→#337. Neue Materialien: tree (Baumhaus), rope (Wellenbrecher — schon in R39 eingeführt).
+
+---
+
 # Sprint 79 — "Tommy baut Dampf-Fabrik und Tornado-Bunker, Neinhorn wünscht sich GAR NICHTS, Bug hält den ersten Schmetterlingsball, Alien öffnet das Wormhole"
 
 **Sprint Goal:** Tommy bezwingt Tornado und Wüste mit Ingenieurskunst, Neinhorn wünscht sich offiziell gar nichts (und baut trotzdem einen Sternschnuppen-Turm), Bug veranstaltet den ersten Schmetterlingsball der Geschichte, Alien verbindet die Insel mit einer anderen Galaxie. Oscar trifft vier alte Freunde in neuen Abenteuern.
