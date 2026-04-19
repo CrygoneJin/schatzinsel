@@ -1,3 +1,51 @@
+# Sprint 90 — "Tommy misst das Unsichtbare, Bug erinnert sich an die Raupe, Bernd baut für die schlechten Tage"
+
+**Sprint Goal:** Tommy vermisst Schall, Magnetismus und Sterne, Bug legt sein Verwandlungs-Archiv an, Bernd baut die Orte die er braucht wenn alles zu viel wird. Oscar trifft drei alte Freunde in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S90-1 | **Quests Runde 70** — 10 neue Quests (696→706): Tommy (4), Bug (3), Bernd (3) | Artist | ✅ PR #384 |
+
+---
+
+## Sprint Review + Retro N0 (2026-04-19 Session 91)
+
+**Sprint Goal N0 erreicht:** ✅ (7/8 Items done, 1 ⏳ Till)
+
+| Item | Ergebnis |
+|------|---------|
+| N0 | ✅ Audio: Insel-Musik durchgehend — PR #377 |
+| N0b | ✅ Audio: Element-Tonlängen (BPM 180) — PR #378 |
+| N1 | ✅ Merge-Marathon — 696 Quests via Konsolidierungs-PR #381 |
+| N3 | ✅ Live-Launch Dry-Run Checkliste erstellt |
+| F | ✅ Feynman-Tracking Setup |
+| R | ✅ Railway Snapshot — nicht auf Railway |
+| Sweep | ✅ Backlog Sweep — P0/P1/P2 100% Done |
+| Triage | ⏳ Blocked — wartet auf Till |
+
+**Retro N0:** Nacht-Sprint erfolgreich. Kritischer Fund: Stack-PRs hatten falschen Base-Branch — Lösung via Konsolidierungs-PR (#381). NPC-Counts nach Konsolidierung: alle 12 Haupt-NPCs bei 52 (Floriane 55, Mephisto 53). Sprint 89 (Runde 69, Group A Tommy/Neinhorn/Elefant/Bernd/Maus, PR #383) von Phantom-Session bereits geöffnet. Sprint 90 = Runde 70 (Tommy/Bug/Bernd, fokussiert).
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review N0 + Planning S90 + S90-1 implementiert (Session 91)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint N0 Review:** Alle Items ✅ außer Triage (⏳ Till). Sprint Goal erreicht.
+
+**Sprint 89 (Phantom PR #383):** Runde 69 — Tommy/Neinhorn/Elefant/Bernd/Maus (2 je, 706 Quests). Bereits offen.
+
+**Sprint 90:** S90-1 ✅ (Runde 70 — Tommy/Bug/Bernd, 706 Quests auf Branch). Tommy: Wolkenhöhen-Messung, Schall-Messanlage, Sternwarte-Kuppel, Magnetfeld-Station. Bug: Spiegelbild-Teich, Erste-Wärme-Station, Metamorphose-Archiv. Bernd: Regenmesser-Ecke, Stille-Zimmer, Jahresbaum-Protokoll. PR #384.
+
+---
+
 # Sprint N0 (Nacht 2026-04-19/20) — "Audio + Backlog-Clearance"
 
 **Sprint Goal:** Oscar-Audio-Wünsche umgesetzt, 696 Quests auf main, alle non-Human-Input Items abgehakt, Backlog clean für Morgen-Triage.
