@@ -2210,7 +2210,12 @@
 
         // === ISOMETRISCHER MODUS ===
         if (isoMode && window.ISO_RENDERER) {
-            drawIso();
+            try {
+                drawIso();
+            } catch (err) {
+                if (!draw._isoErrLogged) { console.warn('[render] drawIso failed:', err); draw._isoErrLogged = true; }
+                needsRedraw = true; // nächsten Frame nochmal versuchen
+            }
             return;
         }
 

@@ -167,7 +167,7 @@
 
                 // Material — isometric cube!
                 if (grid[r][c]) {
-                    const mat = MATERIALS[grid[r][c]];
+                    const mat = MATERIALS[grid[r][c]] || { emoji: '❓', label: grid[r][c], color: '#888', border: '#666' };
                     let topColor;
 
                     if (grid[r][c] === 'tao') {
@@ -270,7 +270,7 @@
         const pos = gridToIso(gr, gc, cellSize, originX, originY);
 
         if (currentTool === 'build') {
-            const mat = MATERIALS[currentMaterial];
+            const mat = MATERIALS[currentMaterial] || { emoji: '❓', label: currentMaterial, color: '#888', border: '#666' };
             const topColor = mat.color;
             const leftColor = adjustColor(topColor, -30);
             const rightColor = adjustColor(topColor, -55);
