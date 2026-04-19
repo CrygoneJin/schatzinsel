@@ -1,3 +1,44 @@
+# Sprint 83 — "Lokführer baut die Dampfpfeifen-Werkstatt, Kraemerin lagert Käse in der Dunkelheit, Bernd kartiert seine Würmer"
+
+**Sprint Goal:** Lokführer sichert den Bahnbetrieb (Bahnwärter, Güter, Pfeife), Kraemerin erweitert das Sortiment in die Tiefe (Bäcker, Gewürze, Käse), Bernd fügt seiner Stille ein Herbarium, eine Wurmfarm, eine Windstation und ein Zimmer das er nicht erklärt. Oscar trifft drei alte Freunde in zehn neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S83-1 | **Quests Runde 43** — 10 neue Quests (436→446): Lokführer (3), Kraemerin (3), Bernd (4) — stacked auf #365 | Artist | ✅ PR #366 |
+| S83-2 | **Carry-Over Merges** — PRs #314–#366 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S82 (2026-04-19 Session 85)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S82-1 | ✅ Runde 42 (Bug/Neinhorn/Alien): Blütenkartenwerk, Regentropfen-Dach, Raupen-Besuch, Zugvogel-Frage, Verbotenes Tor, Nein-Archiv, Heimliches Willkommen, Neutronenstern-Uhr, Erster-Kontakt-Botschaft, Paralleluniversum-Fenster — PR #365 |
+| S82-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S82:** Lokführer/Kraemerin/Bernd (je 30, niedrigste nach S82) → S83. Maus/Krabs (31) → S84. Stack: #314→…→#365→#366.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S82 + Planning S83 + S83-1 implementiert (Session 85)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 82 Review:** S82-1 ✅ (PR #365, Runde 42 — Bug/Neinhorn/Alien, 436 Quests). S82-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 83:** S83-1 ✅ (PR #366, Runde 43 — Lokführer/Kraemerin/Bernd, 446 Quests auf Branch). Lokführer: Bahnwärterhäuschen, Güterwaggon-Depot, Dampfpfeifen-Werkstatt. Kraemerin: Bäckerei-Stand, Gewürzlager, Käse-Keller. Bernd: Herbarium, Regenwurm-Farm, Windmessstation, Stilles Arbeitszimmer. Stack: #314→…→#365→#366.
+
+---
+
 # Sprint 82 — "Bug kartiert die Blüten, Neinhorn baut das verbotene Tor, Alien schickt die erste Botschaft ins All"
 
 **Sprint Goal:** Bug erkundet die Welt als Schmetterling und besucht die wartenden Raupen, Neinhorn gibt seiner Verbotenen Halbinsel Struktur (und baut heimlich ein Willkommen), Alien sendet die offizielle Erster-Kontakt-Botschaft und öffnet ein Fenster ins Paralleluniversum. Oscar trifft drei alte Freunde in neuen Kapiteln.
