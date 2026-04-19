@@ -1,3 +1,44 @@
+# Sprint 107 — "Tommy erforscht Treibgut und Vulkane, Neinhorn entdeckt Mondsteine und Eis, Elefant dirigiert Regen und Strand, Bernd beobachtet Spatzen und lagert Äpfel, Maus baut Dachgarten und Unterwasser-Fenster"
+
+**Sprint Goal:** Tommy beweist dass der Ozean Post schickt und richtet ein Frühwarnsystem ein, Neinhorn misst Phosphoreszenz (keine Magie!) und konserviert alles in Eis (heizt es aber heimlich auf), Elefant entdeckt das Regenwald-Orchester und eröffnet das Strandkonzert, Bernd baut seinen ersten richtigen Beobachtungsstand und lagert Äpfel für das ganze Jahr, Maus baut einen Dachgarten und ein Fenster unter Wasser. Oscar trifft fünf alte Freunde mit neuen Abenteuern.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S107-1 | **Quests Runde 67** — 10 neue Quests (676→686): Tommy (2), Neinhorn (2), Elefant (2), Bernd (2), Maus (2) — stacked auf #363 | Artist | ✅ feat/quests-runde-67 |
+| S107-2 | **Carry-Over Merges** — PRs #314–#364 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S106 (2026-04-19 Session 108)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|----------|
+| S106-1 | ✅ Runde 66 (Spongebob/Lokführer/Kraemerin/Bug/Alien): Quallen-Wanderung, Muschelkonzert-Station, Nacht-Signalwerk, Gleisbett-Instandsetzung, Trockenblumen-Atelier, Gewürzmühle, Chrysaliden-Beobachtungsturm, Windströmungs-Kompass, Eisbohrstation, Quantenrauschen-Detektor — feat/quests-runde-66 |
+| S106-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro:** Nach Runde 66: Gruppe A (Tommy/Neinhorn/Elefant/Bernd/Maus) und Gruppe B (Spongebob/Lokführer/Kraemerin/Bug/Alien) beide auf 50 → Gruppe A dran für Runde 67. Krabs 52, Mephisto 53, Floriane 55 weiterhin voraus. Stack: #314→…→#363→#364.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S106 + Planning S107 + S107-1 implementiert (Session 108)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 106 Review:** S106-1 ✅ (feat/quests-runde-66, Runde 66 — Spongebob/Lokführer/Kraemerin/Bug/Alien, 676 Quests). S106-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 107:** S107-1 ✅ (feat/quests-runde-67, Runde 67 — Tommy/Neinhorn/Elefant/Bernd/Maus, 686 Quests auf Branch). Stack: #314→…→#363→#364.
+
+---
+
 # Sprint 106 — "Spongebob verfolgt Quallen, Lokführer baut das Nacht-Signalwerk, Kraemerin trocknet Blumen und mahlt Gewürze, Bug beobachtet Kokons, Alien bohrt ins Eis und lauscht dem Universum"
 
 **Sprint Goal:** Spongebob dokumentiert Quallen-Navigation und baut eine Muschelkonzert-Station, Lokführer sichert das Nacht-Signalwerk und repariert das Gleisbett, Kraemerin eröffnet ihr Trockenblumen-Atelier und ihre Gewürzmühle, Bug baut einen Chrysaliden-Beobachtungsturm und kartiert Windströmungen, Alien entnimmt Eisproben aus 847.000 Jahren und richtet einen Quantenrauschen-Detektor ein. Oscar trifft fünf alte Freunde mit neuen Entdeckungen.
