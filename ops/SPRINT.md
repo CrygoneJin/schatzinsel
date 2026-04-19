@@ -1,3 +1,44 @@
+# Sprint 90 — "Kraemerin öffnet Keller und Handelshaus, Krabs erfindet die Fluss-Maut, Floriane baut ein Sternenstaub-Labor"
+
+**Sprint Goal:** Kraemerin legt Wintervorräte an, eröffnet das Handelshaus und bringt den Saisonmarkt. Krabs erfindet Perlen-Börse, Schatz-Vermietung und die Fluss-Maut. Floriane destilliert Sternenstaub und baut einen Wunsch-Verstärker-Turm. Elefant gibt dem Morgenrot ein Konzert und spielt die Savannen-Gedächtnis-Noten. Oscar trifft vier alte Freunde in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S90-1 | **Quests Runde 50** — 10 neue Quests (506→516): Kraemerin (3), Krabs (3), Floriane (2), Elefant (2) — stacked auf #371, PR offen | Artist | ✅ implementiert |
+| S90-2 | **Carry-Over Merges** — PRs #314–#371+S90-1 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S89 (2026-04-19 Session 92)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S89-1 | ✅ Runde 49 (Alien/Maus/Neinhorn): Ur-Ozean-Tiefenbohrung, Tektonik-Messstation, Photosynthese-Reaktor, Magnetfeld-Observatorium, Gravitationslabor, Mondphasen-Kalender, Echo-Labor, Frühlings-Verbotenes-Areal, Stiller Berggipfel, Anti-Geburtstags-Bibliothek — PR #371 |
+| S89-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S89:** Alien 35→39 (+4), Maus 36→39 (+3), Neinhorn 36→39 (+3). Verbleibende Niedrigsten nach S89: Kraemerin/Krabs/Floriane/Elefant bei 36. → S90 korrekt. NPC-Stand nach S90: Kraemerin=39, Krabs=39, Floriane=38, Elefant=38. Nächste Kandidaten S91: Bug/Bernd/Lokführer bei 37.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S89 + Planning S90 + S90-1 implementiert (Session 92)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 89 Review:** S89-1 ✅ (PR #371, Runde 49 — Alien/Maus/Neinhorn, 506 Quests). S89-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 90:** S90-1 ✅ (Runde 50 — Kraemerin/Krabs/Floriane/Elefant, 516 Quests auf Branch). Kraemerin: Wintervorrat-Keller, Handelshaus, Saisonmarkt. Krabs: Perlen-Börse, Schatz-Vermietung, Fluss-Maut. Floriane: Sternenstaub-Labor, Wunsch-Verstärker-Turm. Elefant: Morgenrot-Konzert, Savannen-Gedächtnis. Stack: #314→…→#371→S90-PR.
+
+---
+
 # Sprint 89 — "Alien erforscht die Urerde, Maus erfindet Physik, Neinhorn sagt NEIN zum Frühling"
 
 **Sprint Goal:** Alien dokumentiert 4 Milliarden Jahre Erdgeschichte in vier Stationen, Maus entdeckt Schwerkraft und Echo als persönliche Wissenschaft, Neinhorn baut ein verbotenes Frühlingsareal (mit Rosen — aber das zählt nicht). Oscar trifft drei alte Freunde in neuen Kapiteln.
