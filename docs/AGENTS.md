@@ -445,8 +445,12 @@ Eigenständige Zelle. Folgt der 5-Ordner-Struktur.
 
 > **Experiment (Till, 2026-04-19):** Master auf Opus statt Sonnet. **Hypothese:**
 > Opus liefert auf Master-Ebene messbar bessere Outputs als Sonnet. **Owner:**
-> `/feynman` trackt + entwirft Falsifikations-Experimente. **Padawans bleiben
-> Haiku** (CLAUDE.md hard rule, Lehrlings-Charakter).
+> `/feynman` trackt + entwirft Falsifikations-Experimente.
+>
+> **Padawan-Override (Nacht 2026-04-19/20, Till explizit):** CLAUDE.md
+> Padawan-Haiku-Regel ist für diese Nacht aufgehoben. Padawans laufen auf
+> Opus mit, Feynman trackt separat: lohnt sich Opus auch für 80/20-Lehrlinge,
+> oder bleibt Haiku die richtige Wahl ab morgen?
 
 ### Generic-Agents pro Master
 
