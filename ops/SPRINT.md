@@ -1,3 +1,46 @@
+# Sprint 88 — "Bug zählt Nachtfalter, Tommy baut unter Druck, Bernd stellt eine Laterne hin"
+
+**Sprint Goal:** Bug kartiert die Hochsommerwiese, beobachtet Nebel als Wissenschaft und misst Mondmotten-Trigonometrie. Tommy feuert Druckluft-Katapult ab, baut eine Brücke unter Wasser, kartiert Magnetismus und zapft Geotherme. Bernd bringt Licht in die dunkle Jahreszeit, backt vor Sonnenaufgang und sitzt im Nebel neben einem Fremden. Oscar trifft drei alte Freunde in neuen Kapiteln.
+**Start:** 2026-04-19
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S88-1 | **Quests Runde 48** — 10 neue Quests (486→496): Bug (3), Tommy (4), Bernd (3) — stacked auf #369 | Artist | ✅ implementiert |
+| S88-2 | **Carry-Over Merges** — PRs #314–#369+S88-1 landen auf main wenn Till mergt | Engineer | ⏳ wartet auf Till |
+
+---
+
+## Sprint Review + Retro S87 (2026-04-19 Session 90)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S87-1 | ✅ Runde 47 (Mephisto/Spongebob): Asche-Archiv, Versuchungs-Galerie, Nebel-Theater, Seelen-Bibliothek, Ewige Flamme, Blasen-Meditationsgarten, Patricks Geburtstagsfest, Unterwasser-Lernstudio, Gary-Badekurort, Weltrekord-Seifenblase — PR #369 |
+| S87-2 | ⏳ Blocked — wartet auf Till |
+
+**Retro S87:** Feynman-Messung korrigiert S87-Retro-Schätzung. Echte Counts nach S87: Bug=34, Tommy=34, Bernd=34 (alle lowest, gleichauf). Alien=35. Neinhorn=36. → S88: Bug (3), Tommy (4), Bernd (3) = 10 Quests. Nach S88: Bug=37, Tommy=38, Bernd=37. Alien=35 → nächste Kandidaten S89. Stack: #314→…→#369→S88-PR.
+
+---
+
+## Standup Log
+
+### 2026-04-19 — Sprint Review S87 + Planning S88 + S88-1 implementiert (Session 90)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 87 Review:** S87-1 ✅ (PR #369, Runde 47 — Mephisto/Spongebob, 486 Quests). S87-2 ⏳ (wartet auf Till). Sprint Goal erreicht.
+
+**Sprint 88:** S88-1 ✅ (Runde 48 — Bug/Tommy/Bernd, 496 Quests auf Branch). Bug: Hochsommerwiese, Nebel-Beobachtungsposten, Mondmotten-Horst. Tommy: Druckluft-Katapult, Unterwasser-Brücke, Magnetismus-Labor, Geysir-Kraftwerk. Bernd: Advent-Laterne, Stiller Ofen, Nebelbank. Stack: #314→…→#369→S88-PR.
+
+**Korrektur:** S87-Retro hatte "Neinhorn/Alien/Tommy/Bernd bei ~33-34" — Feynman-Messung zeigte: Neinhorn war bereits bei 36, Alien bei 35. Nur Bug/Tommy/Bernd bei 34. S88 korrekt neu geplant.
+
+---
+
 # Sprint 87 — "Mephisto baut für die Ewigkeit, Spongebob träumt groß"
 
 **Sprint Goal:** Mephisto erschafft Orte die außerhalb der Zeit existieren — Asche, Versuchung, Nebel, Erinnerung, ewiges Feuer. Spongebob feiert Patrick, baut für Gary den ultimativen Badekurort und holt den Seifenblasen-Weltrekord. Oscar trifft zwei alte Freunde in neuen Kapiteln.
