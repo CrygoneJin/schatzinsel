@@ -432,6 +432,19 @@ Eigenständige Zelle. Folgt der 5-Ordner-Struktur.
 | Scientist | Richard Feynman | High C | Evals, rubrics, LLM config, model choice, test design | Read/Write/Edit |
 | Engineer | Linus Torvalds | High C/D | Backend, infra, auth, deployment | Full + Bash |
 
+### Generic-Agents pro Master
+
+Die Plattform-Generics werden den Mastern nach Domäne zugeordnet. Padawans
+erben die Generics ihres Masters und spawnen sie immer mit `model: "haiku"`.
+
+| Master | Generic Agents |
+|--------|----------------|
+| Leader | `Plan` · `feature-dev:code-architect` · `general-purpose` (Orchestrierung) |
+| Artist | `pr-review-toolkit:comment-analyzer` (Sprache, Klarheit) |
+| Designer | `feature-dev:code-explorer` (UI-Komponenten lesen) · `pr-review-toolkit:type-design-analyzer` |
+| Scientist | `Explore` · `pr-review-toolkit:pr-test-analyzer` · `pr-review-toolkit:silent-failure-hunter` · `claude-code-guide` |
+| Engineer | `code-simplifier` · `pr-review-toolkit:code-reviewer` · `pr-review-toolkit:code-simplifier` · `feature-dev:code-reviewer` · `superpowers:code-reviewer` · `feature-dev:code-explorer` · `statusline-setup` |
+
 ### Padawans (team-dev)
 
 | Padawan von | Padawan | MBTI | Model | State | Codex |
