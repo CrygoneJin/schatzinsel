@@ -1,3 +1,47 @@
+# Sprint 90 — "Live Launch Vorbereitung: Playwright grün, Runde 73 auf main"
+
+**Sprint Goal:** Playwright Test-Suite ist auf main (#394, #395), Quest-Runde 73 (Krabs/Bug/Tommy, 785 Quests) ist auf main.
+**Start:** 2026-04-20
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S90-1 | **Quest-Runde 73** — Krabs×4 + Bug×3 + Tommy×3 (+10, 775→785) | Artist | 🔲 PR #396 |
+| S90-2 | **Playwright Tests mergen** — #394 (Craft-Flow) + #395 (Sailing/Archipel) | Engineer | 🔲 Human Input (Till mergt) |
+
+---
+
+## Sprint Review S89 (2026-04-20 Session 98)
+
+**Sprint Goal erreicht:** ✅ — Alle S89-Items auf main.
+
+| Item | Ergebnis |
+|------|---------|
+| S89-1 | ✅ Tesla-Fix — PR #382 auf main (`b435bca`) |
+| S89-2 | ✅ Quests Runde 69 Tommy/Neinhorn/Elefant/Bernd/Maus — PR #383 auf main (`25d6aa2`) |
+| S89-3 | ✅ PR-Triage — #384/#385/#386/#388/#389 geschlossen; #387/#390/#392/#393 auf main |
+
+**Stand nach S89:** 775 Quests auf main. Krabs/Bug 55, Tommy/Maus 56, Spongebob/Neinhorn 57, Elefant/Alien 58, Floriane/Lokführer 60, Mephisto 61, Kraemerin 62, Bernd 64.
+
+---
+
+## Standup Log
+
+### 2026-04-20 — Daily Scrum S90 (Session 98)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**S90-1 Fortschritt:** Runde 73 implementiert — Krabs (4), Bug (3), Tommy (3). 775→785 Quests. PR #396 offen.
+
+**S90-2:** PRs #394 (Craft-Flow Tests) und #395 (Sailing/Archipel Tests) offen, warten auf CI + Till.
+
+**Quest-Stand nach S90-1 (wenn gemergt):** 785 Quests. Krabs/Bug 59, Tommy 59, Maus 56 (nächste Runde).
+
+---
+
 # Sprint 89 — "Triage: Tesla-Fix landet, Runde 69 auf main"
 
 **Sprint Goal:** PR #382 (Oscars Tesla-Fix) und PR #383 (Runde 69 — Tommy/Neinhorn/Elefant/Bernd/Maus) sind auf main. PR-Chaos ist sortiert.
