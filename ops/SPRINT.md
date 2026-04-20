@@ -1,3 +1,62 @@
+# Sprint 89 — "ISO-Fix für Oscar, Quests wenn Triage durch"
+
+**Sprint Goal:** ISO-Renderer-Fix auf Oscars Tesla live, Quest-PR-Triage erledigt, neue Runde Quests auf main.
+**Start:** 2026-04-20
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S89-1 | **ISO-Renderer Fix** (Tesla-Bug: Insel verschwindet) | Engineer | ✅ PR #382 — wartet auf Merge |
+| S89-2 | **Quest-PR-Triage** — 4 konkurrierende Quests-PRs bereinigen, 1 mergen | Till (Human) | 🔲 Human Input |
+| S89-3 | **Playwright ISO-Renderer Test** (Regression-Absicherung) | Engineer | ✅ PR #386 — wartet auf Merge |
+
+---
+
+## ⚠️ Triage für Till — 4 konkurrierende Quest-PRs
+
+Alle PRs zielen auf main (696 Quests). Nur einer kann direkt mergen, die anderen brauchen Rebase.
+
+| PR | Branch | NPCs | Quests |
+|----|--------|------|--------|
+| **#383** | feat/quests-runde-69 | Tommy/Neinhorn/Elefant/Bernd/Maus (je 2) | 696→706 |
+| **#384** | feat/quests-runde-69-tommy-bug-bernd | Tommy(4)/Bug(3)/Bernd(3) | 696→706 |
+| **#385** | feat/quests-runde-70 | Tommy(4)/Bug(3)/Bernd(3) — andere Quests als #384 | 696→706 |
+| **#387** | feat/sprint-90 | Spongebob(4)/Lokführer(3)/Alien(3) | 696→706 |
+
+**Empfehlung:** #383 mergen (Group-A-Rotation, ausgewogen), dann #387 rebasen und mergen (vermeidet Tommy-Overlap), #384 und #385 schließen.
+
+Nach Merge von #383 + #387 (stacked): 716 Quests, ausgeglichen verteilt.
+
+---
+
+## Sprint Review + Retro N0 (2026-04-20 Session 92)
+
+**Sprint Goal erreicht:** ✅ (Nacht-Sprint)
+
+| Item | Ergebnis |
+|------|---------|
+| N0–N0b | ✅ Audio läuft durchgehend, Tonlängen als Notenwerte |
+| N1 | ✅ 696 Quests auf main (Konsolidierungs-PR #381) |
+| N3–Sweep | ✅ Alle Docs erstellt |
+| Triage | ⏳ Wartet auf Till |
+
+**Retro N0:** Nacht-Sprint erfolgreich. Aber: Morgen-Session hat Sprint-89-Ceremony-Problem aufgedeckt — mehrere autonome Sessions haben parallel konkurrierende Quest-PRs erstellt ohne den Stack-Bug aus dem Merge-Marathon zu beachten. Fix: Triage durch Till nötig, dann klare Merge-Reihenfolge festlegen.
+
+---
+
+## Standup Log
+
+### 2026-04-20 — Sprint Review N0 + Sprint 89 Planning + Triage-Aufruf (Session 92)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem (mehrfach bestätigt).
+
+**Lage:** N0 ✅. Offene PRs #382–#387. Vier Quest-PRs konkurrieren — Triage nötig bevor nächste Quests geschrieben werden. PR #382 (ISO-Fix Tesla) und #386 (Playwright-Test) sind unabhängig und können sofort gemergt werden.
+
+---
+
 # Sprint N0 (Nacht 2026-04-19/20) — "Audio + Backlog-Clearance"
 
 **Sprint Goal:** Oscar-Audio-Wünsche umgesetzt, 696 Quests auf main, alle non-Human-Input Items abgehakt, Backlog clean für Morgen-Triage.
