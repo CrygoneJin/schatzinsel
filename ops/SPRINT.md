@@ -30,6 +30,36 @@
 
 ## Standup Log
 
+### 2026-04-20 — Daily Scrum S89 (Session 95)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung.
+
+**Sprint-Status:** S89-1/S89-2/S89-3 alle noch offen, warten auf Till. Main bei `a99077b`.
+
+**Neue PRs seit Session 92:**
+
+| PR | Inhalt | Empfehlung |
+|----|--------|------------|
+| #391 | Docs-Standup PR (Session 93) — verletzt "kein Docs-PR"-Regel | ❌ Geschlossen |
+| #392 | Runde 72: Mephisto/Floriane (+5/+5) — conflict-free, auf aktuellem main | ✅ Nach #390 mergen |
+
+**Aktualisierte Triage-Reihenfolge für Till:**
+
+| PR | Aktion |
+|----|--------|
+| #382 | ⬅️ Zuerst — Tesla-Fix für Oscar |
+| #383 | Nach #382 |
+| #387 | Nach #383 rebasen + mergen |
+| #390 | Nach #387 rebasen + mergen |
+| #392 | Nach #390 — Mephisto/Floriane, conflict-free |
+| #384, #385, #386, #388, #389, #391 | ❌ Geschlossen/Schließen |
+
+Nach allen 5 Merges: **736 Quests**. Mephisto 58, Floriane 60, andere 54–56.
+
+**Kein neuer Code heute** — PR-Pile ist groß genug. Parallel-Sessions stoppen.
+
+---
+
 ### 2026-04-20 — Sprint Review S88 + Retro + Planning S89 (Session 92)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
