@@ -1,3 +1,44 @@
+# Sprint 89 — "Tommy kartiert die Tiefsee, Bug findet den Weg durch den Nebel, Bernd baut sich einen Keller"
+
+**Sprint Goal:** Tommy misst was kein Mensch je gesehen hat, Bug navigiert wo Augen versagen, Bernd erschafft den einzigen Ort wo er wirklich allein ist. Oscar trifft drei alte Freunde in neuen Projekten.
+**Start:** 2026-04-20
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S89-1 | **Quests Runde 49** — 10 neue Quests (696→706): Tommy (4), Bug (3), Bernd (3) — PR #382 | Artist | 🔲 In Arbeit |
+| S89-2 | **Carry-Over Merges** — neue PRs landen auf main wenn Till mergt | Engineer | ⏳ Till |
+
+---
+
+## Sprint Review + Retro S88 (2026-04-20 Session 91)
+
+**Sprint Goal erreicht:** ✅
+
+| Item | Ergebnis |
+|------|---------|
+| S88-1 | ✅ Runde 48 (Lokführer/Krämerin/Elefant): Hochbrücke, Dampflok-Museum, Kohlevorrat-Bunker, Internationale Station, Tee-Stube, Einmach-Keller, Kunsthandwerk-Stand, Blitz-Observatorium, Eishöhle, Vulkan-Trommel — via Konsolidierungs-PR #381 |
+| S88-2 | ✅ Konsolidierungs-PR #381 — 500 Quests (Runde 20-68) auf main, 696 total |
+
+**Retro S88:** Nach Konsolidierungs-PR #381 sind alle Characters auf ~52 Quests (Floriane 55, Mephisto 53). Tommy/Bug/Bernd waren historisch "niedrigste" → S89. Nächste Kandidaten S90: Alien/Neinhorn/Maus/Krabs/Floriane bei 52/55.
+
+---
+
+## Standup Log
+
+### 2026-04-20 — Sprint Review S88 + Planning S89 + S89-1 implementiert (Session 91)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint 88 Review:** S88-1 ✅ (Runde 48 via #381). S88-2 ✅ (Konsolidierungs-PR #381, 696 Quests auf main).
+
+**Sprint 89:** S89-1 🔄 (Runde 49 — Tommy/Bug/Bernd, 706 Quests). Tommy: Nordlicht-Station, Wetterballon-Station, Kristall-Labor, Tiefsee-Messstation. Bug: Nebelwald-Pfad, Wintergarten-Refugium, Flügel-Reparatur-Station. Bernd: Keller-Atelier, Wetter-Wartehäuschen, Bibliotheks-Ecke.
+
+---
+
 # Sprint N0 (Nacht 2026-04-19/20) — "Audio + Backlog-Clearance"
 
 **Sprint Goal:** Oscar-Audio-Wünsche umgesetzt, 696 Quests auf main, alle non-Human-Input Items abgehakt, Backlog clean für Morgen-Triage.
