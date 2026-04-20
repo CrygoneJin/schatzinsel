@@ -7,119 +7,102 @@ Alles was nicht in eine dieser Kategorien fällt → `ARCHIVE.md`.
 
 ---
 
-## 🔴 P0 — Jetzt
+## 🚨 HITL — Till, max 3
 
-| # | Item | Owner | Status |
-|---|------|-------|--------|
-| 103 | **Live Launch** — Playwright Tests + Stripe Donation + itch.io Upload | alle | 🔄 In Progress |
-| 78 | **Tesla-Nutzertest auswerten** — 1h Video von Oscar im Tesla. Echte Nutzerdaten. Da ist Gold drin. | Scientist + Leader | 🔲 Offen |
-| 27 | **Cloudflare Worker CORS** — User muss worker.js im Dashboard deployen | User | 🔲 Human Input |
-| 92 | **Requesty Key rotieren** — Alter Key im Git-Verlauf. Sicherheitsrisiko. | Engineer | 🔲 Human Input |
-| 104 | **Onboarding "Wo spielen?"** — Neuer User versteht nicht was zu tun ist. Erster Satz muss zeigen wo die Insel ist + was man macht. Oscars Bruder: Erstbesuch, kein Einstieg gefunden. | Designer + Artist | ✅ Done (S37-1, PR #251) |
-| 105 | **Long-Press = Fill, Mausrad = Tool-Wechsel** — Oscars Bruder-Feedback: Fill versteckt, Tool-Wechsel unklar. Long-press auf Canvas = Füllen. Mausrad = nächstes Material. | Engineer | ✅ Done (S37-2, PR #251) |
-| 106 | **Palette-Duplikat entfernen** — Inventar-Anzahl als Badge auf Palette-Buttons. | Designer | ✅ Done (S37-3, PR #251) |
-| 107 | **Tetris + Snake als Easter Egg** — Oscars Bruder hat Tetris auf Apple TV entdeckt, konnte es nicht kaufen (Parental Controls). Zwei klassische Spiele als verstecktes Easter Egg (Konami-Code o.ä.). | Engineer | ✅ Done (S39+S40, PR #253+#254) |
-| 106 | **Palette-Duplikat entfernen** — Element links in Palette + nochmal rechts mit Counter = redundant. Nur Counter + Element links. | Designer | ✅ Done (S37-3, PR #251) |
-| 107 | **Tetris + Snake als Easter Egg** — Oscars Bruder hat Tetris auf Apple TV entdeckt, konnte es nicht kaufen (Parental Controls). Zwei klassische Spiele als verstecktes Easter Egg (Konami-Code o.ä.). | Engineer | ✅ Done (S39-1 Tetris PR #253 + S40-1 Snake) |
+Nur Items die **wirklich** Till brauchen (Credentials, Dashboards, Outreach).
+Alles andere ist delegiert oder im Eis.
 
-| 108 | **Native Speaker Review FR/ES/IT** — Alle nicht-DE/EN Strings von Muttersprachlern prüfen lassen. Risiko: falsche Grammatik (gefunden: IT Plural "missionei"). | Artist | 🔲 Human Input |
+| # | Item | Warum HITL | Zeitbudget |
+|---|------|------------|-----------|
+| 92 | **Requesty Key rotieren** — Alter Key im Git-Verlauf, neuer Key setzen | Credentials-Zugang | 5 Min |
+| 27 | **Cloudflare Worker CORS deployen** — worker.js im CF Dashboard | CF-Dashboard-Login | 5 Min |
+| 108 | **Native Speaker Review FR/ES/IT** — 3 Leute anschreiben, NPC-Strings prüfen lassen | Outreach an echte Menschen | 15 Min |
 
-## 🟡 P1 — Vor Spielplatz-Phase (10 Kinder)
-
-| # | Item | Owner | Status | Oscar-Outcome |
-|---|------|-------|--------|---------------|
-| 11 | **Zellteilung game.js** — NPC-Daten in npc-data.js. game.js: 5196→5128. Grid/Effects noch drin. | Engineer | ✅ Done (S25-3, PR #212) | Oscar merkt nichts. Aber ohne das wird alles langsamer. |
-| 50 | **Höhle = Dungeon** — Berg+Wasser=Höhle. IT-Ebenen Bits→Kernel→Browser im Dialog. | alle | ✅ Done (Commit #181, S25-2) | Oscar entdeckt eine neue Welt unter der Insel. |
-| 71 | **Palette = Instrument** — mouseenter auf Palette-Buttons spielt Ton. Oscar spielt Melodie durch Hovern. | alle | ✅ Done (S25-1, PR #196) | Oscar spielt Musik und baut gleichzeitig. |
-| 54 | **Jim Knopfs Welt** — Segelboot craften → Insel-Auswahl. Lummerland erreichbar. | alle | ✅ Done (S26-3, PR #220) | Oscar segelt zu neuen Inseln. |
-| 95 | **Wu-Xing→NPC-Events** — NPCs reagieren auf Element-Events. Max 3x/Session, 15s Throttle. | Engineer + Artist | ✅ Done (S26-2, PR #219) | Mephisto flüstert wenn Oscar Feuer macht. |
-| 96 | **NPC-Session-Gedächtnis** — NPCs erinnern sich an letzte Session via localStorage. | Engineer + Scientist | ✅ Done (S26-1, PR #218) | "Hey Oscar, gestern hast du viel Holz gebaut!" |
-| 100 | **Energie vs Geld trennen** — NPC-Currencies (Burger, Noten, Glut) visuell von Muscheln trennen. Zwei Orte, zwei Konzepte. (Ricardo) | Designer | ✅ Done (S28-1, PR #238) | Oscar versteht sofort: Burger = Reden, Muschel = Kaufen. |
-| 101 | **Krabbs-Vorrat sichtbar** — Krabbs hat endliches Inventar. Kein Holz → kein Verkauf. Angebot und Nachfrage ohne Erklärung. (Ricardo) | Engineer | ✅ Done (S28-2, PR #239) | Oscar lernt: wenn Krabbs kein Holz hat, muss er warten. |
-| 102 | **MMX = Nerd-Easter-Egg** — Burn-Panel ehrlich labeln. Keine Goldstandard-Behauptung. (Ricardo) | Designer + Engineer | ✅ Done (S29-1, PR #241) | Nerds freuen sich. Oscar merkt nichts. |
-
-## 🟢 P2 — Irgendwann, aber mit Oscar-Outcome
-
-| # | Item | Owner | Status | Oscar-Outcome |
-|---|------|-------|--------|---------------|
-| 17 | **Eltern-Dashboard** — Bernd zeigt Spielstatistiken für Eltern | Engineer | ✅ Done (📊-Button + Bernd-NPC-Klick + Schatzkarte 🗺️) | Mama sieht was Oscar gebaut hat. |
-| 33 | **Header-Title "Schatzinsel"** | Designer | ✅ Done (h1 + title-Tag existieren) | Kosmetik. 5 Minuten. |
-| 34 | **NPCs in User-Sprache** — Eingabe Englisch → Antwort Englisch | Scientist | ✅ Done (S30-2, PR #243) | Oscars englischsprachige Freunde können mitspielen. |
-| 37 | **Schöpfungsgeschichte als Tutorial** — 7 Level, Insel beginnt als Wasser | Leader | ✅ Done (S31-2 Phase 1 + S38-3 Phase 2: Wasser-Start + 7 Genesis-Stufen, PR #252) | Oscar erlebt wie seine Insel entsteht. |
-| 42 | **Werkbank als Canvas-Drag** — Infinite Craft Pattern | Engineer | ✅ Done (Palette→Canvas drag + Inventar drag-drop existieren) | Oscar zieht Feuer auf Wasser statt Modal. |
-| 62 | **Mehrsprachige NPCs** | Scientist | ✅ Done (S30-2 + S32-3: 5 Sprachen DE/EN/FR/ES/IT + englische NPC-Greetings) | Spielplatz-Phase mit nicht-deutschen Kindern. |
-| 18 | **Musik on demand** | Artist + Engineer | ✅ Done (genre-btn + setGenre() existieren) | Oscar wählt seinen Soundtrack. |
-| 23 | **Programmier-Tutorial** — NPCs bringen JavaScript bei | Scientist + Engineer | ✅ Done (PR #149 — 5 Lektionen, sandboxed Code-Editor, NPC-Guides) | Oscar lernt coden durch Spielen. |
-| 19 | **Conway→Gameplay** — Lebende Zellen → Blumen, Glider → Wolken | Engineer + Scientist | ✅ Done (conway.js: bloom/stone/glider Events → Blöcke auf Grid) | Die Insel lebt auch wenn Oscar nicht baut. |
-| 32 | **Code-Ebenen per Touch** — Swipe statt Rechtsklick | Engineer | ✅ Done |
-| 103 | **Insel-Archipel** — Phase 1 (S29): Save/Load. Phase 2 (S31): Dino-Bucht. Phase 3 (S32): Schatzkarte mit 3-Wort-Adressen + Entdeckt-Badge. | alle | ✅ Done (S32-1, PR #245) | Oscar entdeckt mit dem Gelernten immer neue Welten — und findet immer den Weg nach Hause. |
+**Wenn alle 3 erledigt:** Backlog ist HITL-frei. Agenten können autonom weitermachen.
 
 ---
 
-## ✅ Erledigt (kompakt)
+## 🔄 In Progress — delegiert an Agenten
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| 103 | **Live Launch** — Playwright Tests + Stripe Donation + itch.io Upload | Leader | 🤖 In Nacht-Session (2026-04-20) |
+| 78 | **Tesla-Nutzertest auswerten** — 1h Video von Oscar im Tesla | Scientist | 🔲 Wartet auf Video-Upload von Till |
+
+---
+
+## 🟡 P1 — Vor Spielplatz-Phase (10 Kinder)
+
+Alles erledigt. Siehe Archiv unten.
+
+---
+
+## 🟢 P2 — Irgendwann, aber mit Oscar-Outcome
+
+Alles erledigt. Siehe Archiv unten.
+
+---
+
+## ❄️ Icebox — bewusst zurückgestellt
+
+| # | Item | Grund |
+|---|------|-------|
+| — | **ES/IT NPC-Strings** — Spanische + Italienische NPC-Gedächtnis-Texte | Kein Native Speaker Review (siehe HITL #108). Supported: DE/EN/FR/AR/HE. |
+
+---
+
+## ✅ Erledigt — alle historischen P0/P1/P2 Items
 
 <details>
-<summary>66 erledigte Items (klick zum Aufklappen)</summary>
+<summary>85+ Items (klick zum Aufklappen)</summary>
 
-| # | Item |
-|---|------|
-| 1 | Auto-Save |
-| 2 | Accessibility Audit |
-| 3 | Mobile Palette |
-| 4 | Toolbar-Overflow |
-| 5 | ~~Google Sheet~~ → Airtable |
-| 6 | NPC-Stimmen geschärft |
-| 7 | QR-Code auf Postkarte |
-| 8 | Offline-Manifest |
-| 9 | Mehr Quests (45) |
-| 10 | Favicon + Meta-Tags |
-| 12 | Voice-Pipeline (Gemini) |
-| 13 | Programmiersprachen-NPCs |
-| 14 | Haiku-Bauanleitungen |
-| 15 | Tutorial ohne Text |
-| 22 | Projekt-Sharing |
-| 28 | Chat-Sidebar |
-| 29 | NPC-Emoji eindeutig |
-| 30 | Tonhöhe zu Elementen |
-| 31 | Bauen/Ernten/Füllen Icons |
-| 32 | Code-Ebenen per Touch |
-| 40 | Insel-Identität |
-| 41 | Sidebar Tabs |
-| 43 | Save-System |
-| 44 | schatzinsel.app |
-| 45 | Canvas responsive |
-| 46 | Drag & Drop Crafting |
-| 47 | Quest-Balance |
-| 48 | NPCs sichtbar |
-| 49 | Bernd Support-Chat |
-| 51 | Wu Xing im Craft-Prompt |
-| 53 | Echtes Atlantik-Wetter |
-| 55 | Spielfigur auf der Insel |
-| 57 | Stille-Momente |
-| 58 | Unsinn-Rezepte |
-| 59 | 10-Sekunden-Erster-Moment |
-| 61 | Konsequenz-System |
-| 63 | KLONK |
-| 64 | Crafting-Blitz |
-| 66 | Spielfigur-Lag fix |
-| 67 | Automerge wie 2048 |
-| 68 | Tutorial pulsiert |
-| 69 | Genesis-Badge |
-| 70 | KLONK vor erstem Block |
-| 74 | NPC-Persönlichkeiten |
-| 75 | Wunschfee Floriane |
-| 76 | Craft-Ergebnis visuell |
-| 80 | Projekt-Docs |
-| 81 | Inventar-Töne |
-| 82 | Bau-Trommel |
-| 83 | Urknall-Crafting |
-| 84 | Höhlen + Edelsteine |
-| 85 | Genre-Tonsequenzen |
-| 86 | CI/CD Pipeline |
-| 87 | TTS Hörspiele |
-| 88 | Floriane |
-| 94 | Crypto Dust Donations |
-| 97 | Oscar als 7. Schicht |
+**P0 historisch:**
+| # | Item | PR/Commit |
+|---|------|-----------|
+| 104 | Onboarding "Wo spielen?" | S37-1, PR #251 |
+| 105 | Long-Press = Fill, Mausrad = Tool-Wechsel | S37-2, PR #251 |
+| 106 | Palette-Duplikat entfernen | S37-3, PR #251 |
+| 107 | Tetris + Snake Easter Egg | S39-1 PR #253, S40-1 |
+
+**P1 historisch:**
+| # | Item | PR/Commit | Oscar-Outcome |
+|---|------|-----------|---------------|
+| 11 | Zellteilung game.js | S25-3, PR #212 | Merkt Oscar nicht, aber wichtig. |
+| 50 | Höhle = Dungeon | Commit #181, S25-2 | Neue Welt unter der Insel. |
+| 71 | Palette = Instrument | S25-1, PR #196 | Musik + Bauen gleichzeitig. |
+| 54 | Jim Knopfs Welt | S26-3, PR #220 | Segeln zu Lummerland. |
+| 95 | Wu-Xing→NPC-Events | S26-2, PR #219 | Mephisto flüstert bei Feuer. |
+| 96 | NPC-Session-Gedächtnis | S26-1, PR #218 | NPCs erinnern sich. |
+| 100 | Energie vs Geld trennen | S28-1, PR #238 | Burger ≠ Muschel. |
+| 101 | Krabbs-Vorrat sichtbar | S28-2, PR #239 | Kein Holz = kein Verkauf. |
+| 102 | MMX = Nerd-Easter-Egg | S29-1, PR #241 | Nerds freuen sich. |
+
+**P2 historisch:**
+| # | Item | PR/Commit |
+|---|------|-----------|
+| 17 | Eltern-Dashboard (📊 + Bernd + Schatzkarte) | Done |
+| 33 | Header-Title "Schatzinsel" | Done |
+| 34 | NPCs in User-Sprache | S30-2, PR #243 |
+| 37 | Schöpfungsgeschichte als Tutorial | S31-2 + S38-3, PR #252 |
+| 42 | Werkbank als Canvas-Drag | Done |
+| 62 | Mehrsprachige NPCs (5 Sprachen) | S30-2 + S32-3 |
+| 18 | Musik on demand | Done |
+| 23 | Programmier-Tutorial (5 Lektionen) | PR #149 |
+| 19 | Conway→Gameplay | Done |
+| 32 | Code-Ebenen per Touch | Done |
+| 103 (alt) | Insel-Archipel | S32-1, PR #245 |
+
+**Ur-Backlog (66 Items):**
+Auto-Save · Accessibility Audit · Mobile Palette · Toolbar-Overflow · Airtable (ex-Sheet) · NPC-Stimmen · QR-Code · Offline-Manifest · 45 Quests · Favicon+Meta · Voice-Pipeline · Programmiersprachen-NPCs · Haiku-Bauanleitungen · Tutorial ohne Text · Projekt-Sharing · Chat-Sidebar · NPC-Emoji eindeutig · Tonhöhe zu Elementen · Icons (Bauen/Ernten/Füllen) · Code-Ebenen Touch · Insel-Identität · Sidebar Tabs · Save-System · schatzinsel.app · Canvas responsive · Drag & Drop Crafting · Quest-Balance · NPCs sichtbar · Bernd Support-Chat · Wu Xing Craft-Prompt · Atlantik-Wetter · Spielfigur · Stille-Momente · Unsinn-Rezepte · 10s-Erster-Moment · Konsequenz-System · KLONK · Crafting-Blitz · Spielfigur-Lag · Automerge · Tutorial pulsiert · Genesis-Badge · KLONK vor erstem Block · NPC-Persönlichkeiten · Wunschfee Floriane · Craft-Ergebnis visuell · Projekt-Docs · Inventar-Töne · Bau-Trommel · Urknall-Crafting · Höhlen+Edelsteine · Genre-Tonsequenzen · CI/CD · TTS Hörspiele · Floriane · Crypto Dust Donations · Oscar als 7. Schicht
+
+**Quest-Konsolidierung (April 2026):**
+- PR #381 — 196→696 Quests (Runden 20-68)
+- PR #382 — ISO-Renderer Fix (Tesla-Canvas)
+- PR #383 — 696→706 (Runde 69)
+- PR #387 — 706→716 (Runde 70)
+- PR #390 — 716→726 (Runde 69 erweitert)
+- PR #392 — 726→736 (Runde 72)
+- PR #393 — 736→775 (Konsolidierung alter PRs #308-#367)
 
 </details>
 
@@ -134,15 +117,6 @@ Feynman misst ob es sich gelohnt hat.
 
 ---
 
----
-
-## ❄️ Icebox — bewusst zurückgestellt
-
-| # | Item | Grund |
-|---|------|-------|
-| 108 | **ES/IT NPC-Strings** — Spanische + Italienische NPC-Gedächtnis-Texte | Kein Native Speaker Review. ES/IT aus Code entfernt bis Qualität gesichert. Supported: DE/EN/FR/AR/HE. |
-
----
-
-*Pereira-Audit: 2026-04-02. Backlog von 99 auf 18 aktive Items reduziert.*
+*Letzte Reorganisation: 2026-04-20 (Session 98, Nacht-AFK).*
+*Prinzip: HITL-Items sind das was wirklich Till braucht. Alles andere ist delegiert oder im Eis.*
 *Archivierte Items: siehe `ARCHIVE.md`*
