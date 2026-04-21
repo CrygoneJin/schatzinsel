@@ -6,6 +6,7 @@ Persistent team log. Append-only. Read by all agents.
 
 ## Learnings
 
+| 2026-04-21 | Daily Scrum S91 (Session 102): Unverändert — 5 offene PRs (#394/#395/#396/#397/#398), alle auf Till wartend. Max-3-Regel verletzt. Kein neuer Code. Standup in PR #398 Branch eingetragen. |
 | 2026-04-21 | Daily Scrum S91 (Session 101): 5 offene PRs (#394/#395/#396/#397/#398), alle auf Till wartend. Max-3-Regel verletzt. Kein neuer Code. Standup in PR #398 eingetragen und gepusht. |
 | 2026-04-21 | Daily Scrum S91 (Session 100): SPRINT.md auf main zeigte noch Sprint 89 — Sessions 98/99 hatten Sprint 90/91 nur auf Feature-Branches geschrieben (nie in main gemergt). Ceremony: Daily Scrum S91. Kein neuer Code — 4 offene PRs (#394/#395/#396/#397), Max-3-Regel verletzt. Fix: SPRINT.md-Update in separatem PR #398 auf main gebracht. Merge-Reihenfolge für Till: #394 → #395 → #396 → #397. Nach allen Merges: 795 Quests. |
 | 2026-04-20 | Session 98 (Nacht-AFK-Cleanup): Meeting + Backlog-Reorganisation. Meeting-Diagnose: 3 von 5 P0-Items blockieren seit Wochen auf Till. Problem war nicht Backlog-Größe, sondern falsche Kategorisierung — Human-Input-Tasks standen als "P0 Jetzt" statt als "HITL"-Block. Neue Struktur: **🚨 HITL max 3** (Key rotieren, CF Worker Deploy, Native Speaker Outreach) + **🔄 Delegiert** (Live Launch → Leader, Tesla-Video → Scientist). 66+ erledigte Items in kollabiertem Archiv. Parallel: /leader im Hintergrund an Playwright Tests für #103 Live Launch (P0). Nach Meeting-Call: "change it" — Backlog sortiert, nicht reduziert. |
