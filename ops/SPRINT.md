@@ -9,8 +9,8 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S91-1 | **NPC-Dialog Tests reparieren** — 2 failing Tests aus #402 (Chat-Header-Assertions) fixen. DOM-Struktur lokal prüfen, Assertions korrekt machen, neu PR. | Engineer | 🔄 PR #407 rebased + fractal-trees cellHash Vorzeichen-Fix, 27 Tests grün lokal |
-| S91-2 | **Block/Quest Tests konsolidieren** — aus #403/#404 Doppel einen einzigen grünen PR machen. Duplikate entfernen, nur einzigartige Assertions behalten. | Engineer | 🔄 PR #407 rebased + fractal-trees cellHash Vorzeichen-Fix, 27 Tests grün lokal |
+| S91-1 | **NPC-Dialog Tests reparieren** — 2 failing Tests aus #402 (Chat-Header-Assertions) fixen. DOM-Struktur lokal prüfen, Assertions korrekt machen, neu PR. | Engineer | ✅ PR #407 gemergt 2026-04-21 |
+| S91-2 | **Block/Quest Tests konsolidieren** — aus #403/#404 Doppel einen einzigen grünen PR machen. Duplikate entfernen, nur einzigartige Assertions behalten. | Engineer | ✅ PR #407 gemergt 2026-04-21 |
 | S91-3 | **Quest-Runde 77** — 10 neue Quests, Thema "Bedürfnis vs. Wunsch" (Mandela). NPC-Auswahl: Maus/Bernd/Krämerin (tiefste Counter 60/64/66). → 825 Quests | Artist | ✅ PR #406 gemergt |
 | S91-4 | **Palette-Visual-Check** (#405) — Tesla-Browser öffnen, Oscar zeigen, feedback in MEMORY.md loggen | Designer | 🔲 Human Input (Till im Tesla) |
 
@@ -20,8 +20,34 @@
 
 - [x] Planning: 2026-04-21 (Session 99 Nacht-AFK, autonomer Loop nach S90-Retro)
 - [x] Daily Scrum: 2026-04-21 (autonomer Agent, Session 100)
-- [ ] Review: ausstehend
+- [x] Review: 2026-04-21 (autonomer Agent, Session 101)
 - [ ] Retro: ausstehend
+
+---
+
+## Sprint Review S91 (2026-04-21, autonomer Agent, Session 101)
+
+**Sprint Goal:** Drei Test-PRs (#402/#403/#404) wiederbeleben + Quest-Runde 77 + Oscar-Palette-Check.
+**Ergebnis: ✅ Kern-Goal erreicht** (3/4 Items done, S91-4 blocked-by-human)
+
+| Item | Ergebnis |
+|------|---------|
+| S91-1 NPC-Dialog Tests | ✅ PR #407 gemergt — `npc-dialog.spec.js` (9 Tests), `#chat-character-name` HTML-Fix, CI grün |
+| S91-2 Block/Quest Tests | ✅ PR #407 gemergt — `block-quest.spec.js` (18 Tests aus #403/#404 konsolidiert), CI grün |
+| S91-3 Quest-Runde 77 | ✅ PR #406 gemergt — Maus/Bernd/Krämerin +10 Quests, 815→825 gesamt |
+| S91-4 Palette-Check | 🔲 Blocked: Till + Oscar im Tesla ausstehend. Bleibt offen für S92. |
+
+**Bonus (außerhalb Sprint-Scope):**
+- ✅ PR #408 (fix/iso-touch-chat-bugs) — 4 User-Bugs gefixt: Iso-Toggle, Touch Bernd-Wolke, Iso-Scroll, PWA Safe-Area
+
+**Stand nach S91:**
+- **825 Quests** auf main
+- NPC-Counter (niedrigste): Bug 58, Krabs 59, Tommy 59, Neinhorn 60, Spongebob 60
+- Playwright Test-Suite: npc-dialog (9) + block-quest (18) + craft-flow (7) + sailing (7) = **41 Tests** auf main
+
+**PO-Entscheidungen:**
+- Quest-Runde 78 nächster Sprint: Bug/Krabs/Tommy (Counter 58/59/59)
+- S91-4 Palette-Check: Wenn bis S93 kein Tesla-Feedback → schließen
 
 ---
 
