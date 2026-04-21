@@ -376,9 +376,20 @@ interface HexGrid {
     forEach(fn: (cell: HexCell, q: number, r: number) => void): void;
 }
 
+interface Trixel {
+    material: string | null;
+    depth: number;
+    dark: number;
+}
+
 interface InselHex {
     createGrid(radius: number): HexGrid;
     migrateCell(value: string | HexCell | unknown): HexCell;
+    createTrixels(cell: { surface: string | null; height?: number; dark?: number } | null): Trixel[];
+    setTrixel(cell: HexCell, idx: number, material: string | null, depth: number, dark?: number): void;
+    mergeTrixels(cell: HexCell): { merged: boolean; count: number };
+    hasTrixels(cell: HexCell): boolean;
+    emptyTrixel(): Trixel;
     DIRECTIONS: Array<[number, number]>;
     hexKey(q: number, r: number): string;
 }
@@ -387,6 +398,7 @@ interface InselHex {
 interface InselHexRenderer {
     drawHexGrid(ctx: CanvasRenderingContext2D, grid: HexGrid, size: number, offsetX: number, offsetY: number, materials: MaterialMap): void;
     drawHex(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, cell: HexCell, materials: MaterialMap): void;
+    drawTrixelFill(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, cell: HexCell, materials: MaterialMap): void;
     drawTrixelOverlay(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, cell: HexCell): void;
     hitTest(mouseX: number, mouseY: number, grid: HexGrid, size: number, offsetX: number, offsetY: number): { q: number; r: number };
     ISO_FACTOR: number;
