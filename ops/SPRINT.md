@@ -1,3 +1,77 @@
+# Sprint 91 — "Maus forscht, Neinhorn kartiert, Spongebob dankt den Algen"
+
+**Sprint Goal:** Runde 74 (Maus×4 + Neinhorn×3 + Spongebob×3, 775→785 Quests) ist auf main. Alle drei NPCs bei 60 gleichstand.
+**Start:** 2026-04-20
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S91-1 | **Quest-Runde 74** — Maus×4 + Neinhorn×3 + Spongebob×3 (+10, 775→785) | Artist | 🔲 PR #397 |
+| S91-2 | **Playwright Tests + Runde 73 mergen** — #394 (Craft-Flow) + #395 (Sailing/Archipel) + #396 (Runde 73) | Engineer | 🔲 Human Input (Till mergt) |
+
+---
+
+## Sprint Review S90 (2026-04-20 Session 99)
+
+**Sprint Goal erreicht:** ✅ — Alle S90-Items auf main oder PR-bereit.
+
+| Item | Ergebnis |
+|------|---------|
+| S90-1 | ✅ Quest-Runde 73 — PR #396 offen, conflict-free, bereit zum Mergen |
+| S90-2 | ✅ Playwright Tests — PR #394 (Craft-Flow) + PR #395 (Sailing/Archipel) offen, CI-ready |
+
+**Stand nach S90:** 775 Quests auf main. Krabs/Bug 55, Tommy 56. Nach #396: Krabs 59, Bug 58, Tommy 59.
+
+---
+
+## Sprint Retrospective S90 (2026-04-20 Session 99)
+
+### Was lief gut?
+
+- **PRs conflict-frei** — #394/#395/#396 alle auf main-Basis, kein Stack-Problem.
+- **Test-Coverage wächst** — Playwright deckt jetzt Craft-Flow und Sailing/Archipel ab.
+- **Quest-Rhythmus stabil** — Session 98 hat Runde 73 sauber geliefert.
+
+### Was lief schlecht?
+
+- **SPRINT.md auf main veraltet** — Sessions 98/99 haben Sprint 90/91 nur auf Feature-Branches geschrieben. Jede Session sah noch Sprint 89.
+- **4 PRs ungemergt** — Pile wächst. Max-3-Regel verletzt.
+
+### Was verbessern wir?
+
+1. **SPRINT.md-Update immer in Feature-PR einbauen** — keine standalone Docs-PRs, aber immer als Teil des Quest-PRs.
+2. **Max 3 offene PRs** — bevor neuer Quest-PR geöffnet wird. Keine Ausnahmen.
+
+---
+
+## Standup Log
+
+### 2026-04-21 — Daily Scrum S91 (Session 100)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint-Status:**
+- S91-1: PR #397 offen (Runde 74 — Maus×4, Neinhorn×3, Spongebob×3). Conflict-free mit main.
+- S91-2: PRs #394/#395/#396 warten auf Till.
+
+**Quest-Stand:** 775 auf main. Nach allen 4 Merges: 795 Quests.
+
+**Merge-Reihenfolge für Till:**
+
+| PR | Inhalt | Aktion |
+|----|--------|--------|
+| #394 | Playwright Craft-Flow Tests | ✅ Mergen |
+| #395 | Playwright Sailing/Archipel Tests | ✅ Mergen |
+| #396 | Quests Runde 73 (Krabs×4, Bug×3, Tommy×3) | ✅ Mergen |
+| #397 | Quests Runde 74 (Maus×4, Neinhorn×3, Spongebob×3) | ✅ Nach #396 mergen |
+
+**Kein neuer Code** — 4 offene PRs (max 3 Regel). Warten auf Till.
+
+---
+
 # Sprint 89 — "Triage: Tesla-Fix landet, Runde 69 auf main"
 
 **Sprint Goal:** PR #382 (Oscars Tesla-Fix) und PR #383 (Runde 69 — Tommy/Neinhorn/Elefant/Bernd/Maus) sind auf main. PR-Chaos ist sortiert.
