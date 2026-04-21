@@ -410,6 +410,26 @@ interface InselMarble {
     TICK_MS: number;
 }
 
+// --- QuadTrixel (Quad-Grid-Trixel-Bridge, Sidecar-Storage) ---
+interface QuadTrixel {
+    material: string | null;
+    depth: number;
+    dark: number;
+}
+
+interface InselQuadTrixel {
+    hasAt(r: number, c: number): boolean;
+    getAt(r: number, c: number): QuadTrixel[] | null;
+    initAt(r: number, c: number, material?: string | null, depth?: number): void;
+    setTrixel(r: number, c: number, idx: number, material: string | null, depth?: number, dark?: number): void;
+    mergeAt(r: number, c: number): { merged: boolean; count: number };
+    clearAt(r: number, c: number): void;
+    clear(): void;
+    count(): number;
+    drawQuadTrixels(ctx: CanvasRenderingContext2D, x: number, y: number, tileW: number, tileH: number, trixels: QuadTrixel[], materials: MaterialMap): void;
+    snapshot(): Array<{ r: number; c: number; trixels: QuadTrixel[] }>;
+}
+
 // --- Window Extensions ---
 interface Window {
     INSEL: InselNamespace;
@@ -440,6 +460,7 @@ interface Window {
     INSEL_HEX: InselHex;
     INSEL_HEX_RENDERER: InselHexRenderer;
     INSEL_MARBLE: InselMarble;
+    INSEL_QUAD_TRIXEL: InselQuadTrixel;
     INSEL_BUS: InselNamespace;
     INSEL_DIMS: { ROWS: number; COLS: number };
     startSessionClock?(): void;
