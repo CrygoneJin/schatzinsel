@@ -49,6 +49,31 @@
 
 ## Standup Log
 
+### 2026-04-21 — Daily Scrum S91 (Session 101)
+
+**Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
+
+**Sprint-Status:**
+- S91-1: PR #397 offen — wartet auf Till.
+- S91-2: PRs #394/#395/#396 — warten auf Till.
+- PR #398 (SPRINT.md docs) — wartet auf Till.
+
+**Quest-Stand:** 775 auf main. Nach allen 5 Merges: 795 Quests.
+
+**Max-3-Regel:** 5 offene PRs. Kein neuer Code bis Till gemergt hat.
+
+**Merge-Reihenfolge für Till:**
+
+| PR | Inhalt | Aktion |
+|----|--------|--------|
+| #398 | SPRINT.md docs-Update (Sprint 91) | ✅ Zuerst |
+| #394 | Playwright Craft-Flow Tests | ✅ Mergen |
+| #395 | Playwright Sailing/Archipel Tests | ✅ Mergen |
+| #396 | Quests Runde 73 (Krabs×4, Bug×3, Tommy×3) | ✅ Mergen |
+| #397 | Quests Runde 74 (Maus×4, Neinhorn×3, Spongebob×3) | ✅ Nach #396 |
+
+---
+
 ### 2026-04-21 — Daily Scrum S91 (Session 100)
 
 **Smoke Tests:** Sandbox-Proxy 403 — bekannte Einschränkung, kein App-Problem.
