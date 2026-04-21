@@ -5592,4 +5592,7 @@
         }
     });
 
+    // Test-Hook: sail-dialog direkt öffnen ohne sailboat-Platzierung (Playwright E2E)
+    window._showSailDialog = showSailDialog;
+
 })();
