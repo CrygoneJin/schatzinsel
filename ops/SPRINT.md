@@ -1,3 +1,37 @@
+# Sprint 92 — "Health-Endpoint + Quest-Runde 78"
+
+**Sprint Goal:** Smoke-Test hat einen validen Worker-Endpunkt (R3 aus S91). Oscar sieht 10 neue Bug/Krabs/Tommy-Quests — 835 gesamt.
+**Start:** 2026-04-22
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S92-1 | **Worker-Health-Endpoint** — `GET /health` in worker.js → JSON `{status:"ok",ts:<epoch>}` ohne D1-Call. Ersetzt curl-Smoke-Test auf schatzinsel.app (CF blockt bots). (R3 aus S91) | Engineer | 🔲 |
+| S92-2 | **Quest-Runde 78** — Bug(58)/Krabs(59)/Tommy(59) → +10 Quests, 825→835. Thema: "Was ich noch nicht kenne". | Artist | 🔲 |
+| S92-3 | **S91-4 Palette-Check** — Noch 1 Sprint warten (R1: "bis S93 kein Tesla-Feedback → schließen"). | Human (Till) | 🔲 Blocked |
+
+---
+
+## Ceremony-Status S92
+
+- [x] Planning: 2026-04-22 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Retro-Actions aus S91 (in S92 umgesetzt)
+
+- **R1**: S91-4 Palette-Check nicht neu einplanen — wenn bis S93 kein Tesla-Feedback → schließen
+- **R2**: Quest-Runde 78: Bug(58)/Krabs(59)/Tommy(59) → S92-2
+- **R3**: Curl-Smoke-Test → Worker-Health-Endpoint → S92-1
+
+---
+
 # Sprint 91 — "Test-Reparatur + Quest-Runde 77"
 
 **Sprint Goal:** Drei aus S90 geschlossene Test-PRs (#402/#403/#404) wiederbeleben mit grüner CI. Quest-Runde 77 auf main. Oscar-Verifikation des Palette-Changes (#405) live im Tesla.
