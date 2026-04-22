@@ -1,0 +1,38 @@
+name: Deploy Cloudflare Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/infra/worker.js'
+      - 'src/infra/wrangler.toml'
+      - '.github/workflows/worker-deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: wrangler deploy
+    runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Guard — secrets vorhanden
+        if: ${{ env.CF_API_TOKEN == '' || env.CF_ACCOUNT_ID == '' }}
+        run: |
+          echo "::warning::CLOUDFLARE_API_TOKEN oder CLOUDFLARE_ACCOUNT_ID nicht gesetzt — Worker-Deploy übersprungen"
+          exit 0
+
+      - name: Wrangler deploy
+        if: ${{ env.CF_API_TOKEN != '' && env.CF_ACCOUNT_ID != '' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: src/infra
+          command: deploy
