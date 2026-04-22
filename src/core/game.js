@@ -1318,12 +1318,26 @@
     window.getInventoryCount = getInventoryCount;
     window.removeFromInventory = removeFromInventory;
 
+    // Seed-scoped localStorage keys: Wenn wir in einer Seed-Welt sind,
+    // speichern wir Inventar/Unlocks/Rezepte in einem eigenen Slot.
+    // Vorbild: save.js:79 (autoSave nutzt 'insel:' + currentSeed).
+    // Verhindert dass Seed-Spiele globale Autosaves überschreiben.
+    function inventoryKey() {
+        return window.currentSeed ? 'insel-inventar:' + window.currentSeed : 'insel-inventar';
+    }
+    function unlockedKey() {
+        return window.currentSeed ? 'insel-unlocked-materials:' + window.currentSeed : 'insel-unlocked-materials';
+    }
+    function discoveredKey() {
+        return window.currentSeed ? 'insel-discovered-recipes:' + window.currentSeed : 'insel-discovered-recipes';
+    }
+
     function saveInventory() {
-        localStorage.setItem('insel-inventar', JSON.stringify(inventory));
+        localStorage.setItem(inventoryKey(), JSON.stringify(inventory));
     }
 
     function loadInventory() {
-        inventory = JSON.parse(localStorage.getItem('insel-inventar') || '{}');
+        inventory = JSON.parse(localStorage.getItem(inventoryKey()) || '{}');
     }
 
     function updateInventoryDisplay() {
@@ -1514,11 +1528,18 @@
 
     let craftingGrid = Array(9).fill(null); // 3x3 = 9 Slots
 
-    // Entdeckte Rezepte — Spieler sieht nur was er schon gefunden hat
-    let discoveredRecipes = new Set(JSON.parse(localStorage.getItem('insel-discovered-recipes') || '[]'));
+    // Entdeckte Rezepte — Spieler sieht nur was er schon gefunden hat.
+    // Wird via loadDiscoveredRecipes() in der Init-Sequenz befüllt,
+    // erst NACHDEM window.currentSeed gesetzt ist (Seed-Scoped Key).
+    let discoveredRecipes = new Set();
 
     function saveDiscoveredRecipes() {
-        localStorage.setItem('insel-discovered-recipes', JSON.stringify([...discoveredRecipes]));
+        localStorage.setItem(discoveredKey(), JSON.stringify([...discoveredRecipes]));
+    }
+
+    function loadDiscoveredRecipes() {
+        const saved = JSON.parse(localStorage.getItem(discoveredKey()) || '[]');
+        discoveredRecipes = new Set(saved);
     }
 
     function getCraftingIngredients() {
@@ -1817,11 +1838,11 @@
     let playerEmoji = localStorage.getItem('insel-player-emoji') || '🧒';
 
     function saveUnlocked() {
-        localStorage.setItem('insel-unlocked-materials', JSON.stringify([...unlockedMaterials]));
+        localStorage.setItem(unlockedKey(), JSON.stringify([...unlockedMaterials]));
     }
 
     function loadUnlocked() {
-        const saved = JSON.parse(localStorage.getItem('insel-unlocked-materials') || '[]');
+        const saved = JSON.parse(localStorage.getItem(unlockedKey()) || '[]');
         unlockedMaterials = new Set(saved);
     }
 
@@ -5118,16 +5139,22 @@
     // === START ===
     initGrid();
 
-    // Inventar + freigeschaltete Materialien laden
+    // Seed-Pfad: ?seed=X → eigener Welt-Slot. Sonst Auto-Save-Pfad.
+    // WICHTIG: window.currentSeed MUSS vor loadInventory/loadUnlocked/
+    // loadDiscoveredRecipes gesetzt sein, sonst werden die globalen
+    // Keys gelesen und anschließend vom Seed-Init überschrieben.
+    const _activeSeed = window.INSEL_SEED ? window.INSEL_SEED.getSeedFromURL() : null;
+    window.currentSeed = _activeSeed || null;
+
+    // Inventar + freigeschaltete Materialien + entdeckte Rezepte laden
+    // (aus Seed-Slot wenn currentSeed gesetzt, sonst global)
     loadInventory();
     loadUnlocked();
+    loadDiscoveredRecipes();
 
-    // Seed-Pfad: ?seed=X → eigener Welt-Slot. Sonst Auto-Save-Pfad.
-    const _activeSeed = window.INSEL_SEED ? window.INSEL_SEED.getSeedFromURL() : null;
     const savedProjects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
 
     if (_activeSeed && window.INSEL_SEED) {
-        window.currentSeed = _activeSeed;
         const _saved = window.INSEL_SEED.loadSeedWorld(_activeSeed);
         if (_saved && isValidGrid(_saved.grid)) {
             // --- geladene Seed-Welt wiederherstellen ---
