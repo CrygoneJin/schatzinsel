@@ -9,7 +9,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S95-1 | **Quest-Runde 81** — Alien(62)/Lokführer(63)/Tommy(63) → +10 Quests, 855→865. | Artist | 🔲 |
+| S95-1 | **Quest-Runde 81** — Alien(62)/Lokführer(63)/Tommy(63) → +10 Quests, 855→865. | Artist | ✅ 865 Quests |
 
 ---
 
