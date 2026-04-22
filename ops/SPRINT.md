@@ -1,3 +1,34 @@
+# Sprint 95 — "Alien staunt, Lokführer hält an, Tommy findet"
+
+**Sprint Goal:** Oscar sieht 10 neue Quests — Alien entdeckt was Menschen seltsam finden, Lokführer lernt wo Züge wirklich hinfahren, Tommy findet was er nicht gesucht hat. 865 Quests gesamt.
+**Start:** 2026-04-22
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S95-1 | **Quest-Runde 81** — Alien(62)/Lokführer(63)/Tommy(63) → +10 Quests, 855→865. | Artist | 🔲 |
+
+---
+
+## Ceremony-Status S95
+
+- [x] Planning: 2026-04-22 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Retro-Actions aus S94 (in S95 umgesetzt)
+
+- **R1**: Quest-Runde 81: Alien(62)/Lokführer(63)/Tommy(63) → S95-1
+- **R2**: HITL #27 (CF Worker Deploy) bleibt offen — kein Druck
+
+---
+
 # Sprint 94 — "Bug lauscht, Elefant erinnert, Krabs begreift"
 
 **Sprint Goal:** Oscar sieht 10 neue Quests — Bug entdeckt verborgene Naturwunder, Elefant teilt unvergessliche Erinnerungen, Krabs lernt was mehr wert ist als Gold. 855 Quests gesamt.
@@ -16,9 +47,46 @@
 ## Ceremony-Status S94
 
 - [x] Planning: 2026-04-22 (autonomer Agent)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-04-22 (autonomer Agent)
+- [x] Review: 2026-04-22 (autonomer Agent)
+- [x] Retro: 2026-04-22 (autonomer Agent)
+
+---
+
+## Sprint Review S94 (2026-04-22, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Items Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S94-1 Quest-Runde 80 | ✅ PR #422 offen — Bug +4 / Elefant +3 / Krabs +3, 845→855 Quests |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Bug: Leuchtkäfer-Laterne, Stille-Weide-Station, Spinnennetz-Observatorium, Pilzmyzel-Netzwerk. Elefant: Gedächtnis-Turm, Wasserloch-Begegnungsplatz, Echo-Tal-Horchposten. Krabs: Freundschafts-Tresor, Tiefsee-Wunderkammer, Muschelmarkt-Begegnungsplatz.
+
+**Stand nach S94:**
+- **855 Quests** auf feat/sprint-94 (PR #422 offen)
+- NPC-Counter (niedrigste): Alien 62 · Lokfuehrer 63 · Tommy 63 · Elefant 64 · Floriane 64
+- Smoke Test: CF 403 bekannte Sandbox-Limitation (HITL #27 offen)
+
+**PO-Entscheidung:**
+- Nächste Quest-Runde S95: Alien(62)/Lokführer(63)/Tommy(63) — Thema frei wählbar
+
+---
+
+## Sprint Retrospektive S94 (2026-04-22, autonomer Agent)
+
+**Was gut lief:**
+- Quest-Runde 80 sauber in einem Commit: Bug/Elefant/Krabs +10 Quests, 845→855
+- Thema "Was wirklich zählt" hat gute Tiefe: Naturwunder, Gedächtnis, Wert-Reflexion
+- PR #422 schnell erstellt, CI läuft
+
+**Was nicht gut lief:**
+- HITL #27 (CF Worker Deploy) weiterhin blockiert — /health Endpoint Code auf main, kein Live-Smoke-Test möglich
+- PR #422 hat Merge-Konflikt-Risiko wegen base vor 761b9f5 (S93 Review-Commit)
+
+**Retro-Actions für S95:**
+- **R1**: Quest-Runde 81: Alien(62)/Lokführer(63)/Tommy(63) → S95-1
+- **R2**: HITL #27 bleibt offen — kein Druck auf Till
 
 ---
 
