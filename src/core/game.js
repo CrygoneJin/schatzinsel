@@ -1277,6 +1277,7 @@
     let inventory = {};
 
     const SHELL_CAP = 42; // The Answer. 42 🐚 = 0.042 MMX pro Spieler.
+    const INFINITY_SENTINEL = 999999; // inventory[mat] >= SENTINEL → UI zeigt ∞, removeFromInventory ist no-op
 
     function addToInventory(material, count) {
         count = count || 1;
@@ -1299,6 +1300,8 @@
 
     function removeFromInventory(material, count) {
         count = count || 1;
+        // Unendlich-Sentinel: Material ist unerschöpflich (z.B. Tao im Seed-Start)
+        if ((inventory[material] || 0) >= INFINITY_SENTINEL) return true;
         if ((inventory[material] || 0) < count) return false;
         inventory[material] -= count;
         if (inventory[material] <= 0) delete inventory[material];
@@ -1345,9 +1348,10 @@
         container.innerHTML = shellHeader + otherItems.map(([mat, count]) => {
             const info = MATERIALS[mat];
             if (!info) return '';
-            return `<div class="inv-item" data-material="${mat}" title="${info.label}: ${count}" draggable="true">
+            const displayCount = count >= INFINITY_SENTINEL ? '∞' : count;
+            return `<div class="inv-item" data-material="${mat}" title="${info.label}: ${displayCount}" draggable="true">
                 <span class="inv-emoji">${info.emoji}</span>
-                <span class="inv-count">${count}</span>
+                <span class="inv-count">${displayCount}</span>
             </div>`;
         }).join('');
 
