@@ -366,18 +366,27 @@
         }
 
         // Lummerland-NPCs bekommen feste Positionen bei ihren Gebäuden
+        // Positionen matchen generateLummerland: station bei (cy+0.05*ry, cx), shop bei (stationR, cx+0.20*rx)
         if (_isLummerland) {
-            // Lukas: vor dem Lokschuppen (1 Zeile darunter)
-            const schuppenR = cy + Math.floor(ry * 0.1) + 1;
-            const schuppenC = cx - Math.floor(rx * 0.1);
-            npcPositions['lokfuehrer'] = { r: schuppenR, c: schuppenC };
-            if (grid[schuppenR] && grid[schuppenR][schuppenC]) grid[schuppenR][schuppenC] = null;
+            const lummerRx = Math.floor(COLS * 0.40), lummerRy = Math.floor(ROWS * 0.40);
+            const stationR = cy + Math.floor(lummerRy * 0.05);
+            const stationC = cx;
 
-            // Frau Waas: vor dem Laden (1 Zeile darunter)
-            const ladenR = cy + 1;
-            const ladenC = cx + Math.floor(rx * 0.15);
-            npcPositions['kraemerin'] = { r: ladenR, c: ladenC };
-            if (grid[ladenR] && grid[ladenR][ladenC]) grid[ladenR][ladenC] = null;
+            // Lukas: 1 Zeile unter dem Bahnhof
+            const lukasR = stationR + 1;
+            const lukasC = stationC;
+            if (lukasR >= 0 && lukasR < ROWS) {
+                npcPositions['lokfuehrer'] = { r: lukasR, c: lukasC };
+                if (grid[lukasR] && grid[lukasR][lukasC]) grid[lukasR][lukasC] = null;
+            }
+
+            // Frau Waas: 1 Zeile unter dem Laden
+            const waasR = stationR + 1;
+            const waasC = stationC + Math.floor(lummerRx * 0.20);
+            if (waasR >= 0 && waasR < ROWS && waasC < COLS) {
+                npcPositions['kraemerin'] = { r: waasR, c: waasC };
+                if (grid[waasR] && grid[waasR][waasC]) grid[waasR][waasC] = null;
+            }
         }
 
         // Alle anderen NPCs im Kreis um die Inselmitte
@@ -2174,8 +2183,8 @@
     // === LUMMERLAND — handgebaute Tutorial-Insel ===
     // Aktivierung: ?lummerland in der URL oder localStorage
     // Delegiert an island-generators.js (#11)
-    function generateLummerland() {
-        window.INSEL_GENERATORS.generateLummerland(grid, ROWS, COLS, MATERIALS);
+    function generateLummerland(rng) {
+        window.INSEL_GENERATORS.generateLummerland(grid, ROWS, COLS, MATERIALS, rng);
     }
 
     // === GENESIS-TOASTS: Schöpfungsgeschichte Phase 1 (#37) ===
