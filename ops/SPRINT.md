@@ -9,7 +9,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S96-1 | **Quest-Runde 82** — Mephisto(64)/Elefant(64)/Floriane(64) → +10 Quests, 865→875. Thema: "Was man nicht kaufen kann" / "Was die Erde fühlt" / "Wo Wünsche sich sammeln". | Artist | 🔲 |
+| S96-1 | **Quest-Runde 82** — Mephisto(64)/Elefant(64)/Floriane(64) → +10 Quests, 865→875. Thema: "Was man nicht kaufen kann" / "Was die Erde fühlt" / "Wo Wünsche sich sammeln". | Artist | ✅ 875 Quests |
 
 ---
 
