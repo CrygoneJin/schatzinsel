@@ -59,12 +59,27 @@
         // Dies ist eine Triplet-Regel, separat behandelt.
     ];
 
-    // Triplet-Regeln (3 Materialien zusammen)
+    // Triplet-Regeln (3 Materialien zusammen — Multiset, permutation-invariant)
+    // `materials` wird sortiert mit dem Fund sortiert verglichen → Duplikate erlaubt
+    // (Baryonen: Yang+Yang+Yin).
     const TRIPLET_RULES = [
+        // RGB → weiß (Wu Xing: Farbneutralität via starke Kernkraft)
         {
             materials: ['fire', 'wood', 'water'],
             result: 'metal',
             msg: '⚪ Rot + Grün + Blau → Metall! Alle Farben zusammen!'
+        },
+        // Baryonen — gebundene Quark-Tripletts (Farbneutral via drei verschiedene Farbladungen)
+        // Gen1-only: NUR yang/yin, NICHT charm/strange/mountain/cave
+        {
+            materials: ['yang', 'yang', 'yin'],
+            result: 'proton',
+            msg: '🔴 Yang + Yang + Yin → Proton! (uud, Farbneutral)'
+        },
+        {
+            materials: ['yang', 'yin', 'yin'],
+            result: 'neutron',
+            msg: '⭕ Yang + Yin + Yin → Neutron! (udd, Farbneutral)'
         },
     ];
 
@@ -78,11 +93,53 @@
             .filter(([nr,nc]) => nr >= 0 && nr < rows && nc >= 0 && nc < cols);
     }
 
+    // Multiset-Vergleich: zwei sortierte Material-Arrays sind gleich?
+    // Erlaubt Duplikate (Baryonen: ['yang','yang','yin']).
+    function multisetEquals(sortedA, sortedB) {
+        if (sortedA.length !== sortedB.length) return false;
+        for (let i = 0; i < sortedA.length; i++) {
+            if (sortedA[i] !== sortedB[i]) return false;
+        }
+        return true;
+    }
+
     // Check and execute merges after a block is placed at (r,c)
+    //
+    // Rule-Order: TRIPLET vor PAIR.
+    // Grund: Yang+Yang+Yin muss als Proton matchen, nicht als Yang+Yin→Qi
+    // (das fing den dritten Block ab und machte Baryonen unmöglich).
+    // Wu-Xing (fire/wood/water) ist davon unbetroffen, weil diese Materialien
+    // in keiner Pair-Regel vorkommen.
     /** @param {Grid} grid @param {number} r @param {number} c @param {number} rows @param {number} cols @returns {MergeResult | null} */
     function checkMerge(grid, r, c, rows, cols) {
         const cell = grid[r][c];
         if (!cell) return null;
+
+        // Triplet merges (RGB → Metal, Baryonen) — FIRST, damit sie Pair-Merges nicht verlieren
+        const allNeighbors = getAllNeighbors(r, c, rows, cols);
+        for (const rule of TRIPLET_RULES) {
+            if (!rule.materials.includes(cell)) continue;
+            const expectedSorted = [...rule.materials].sort();
+            for (let i = 0; i < allNeighbors.length; i++) {
+                const [nr1, nc1] = allNeighbors[i];
+                const m1 = grid[nr1]?.[nc1];
+                if (!rule.materials.includes(m1)) continue;
+                for (let j = i + 1; j < allNeighbors.length; j++) {
+                    const [nr2, nc2] = allNeighbors[j];
+                    const m2 = grid[nr2]?.[nc2];
+                    if (!rule.materials.includes(m2)) continue;
+                    const found = [cell, m1, m2].sort();
+                    if (multisetEquals(found, expectedSorted)) {
+                        return {
+                            type: 'triplet',
+                            cells: [[r,c],[nr1,nc1],[nr2,nc2]],
+                            result: rule.result,
+                            msg: rule.msg
+                        };
+                    }
+                }
+            }
+        }
 
         // Pair merges
         const neighbors = getNeighbors(r, c, rows, cols);
@@ -105,29 +162,6 @@
                         return {
                             type: 'pair',
                             cells: [[r,c],[nr,nc]],
-                            result: rule.result,
-                            msg: rule.msg
-                        };
-                    }
-                }
-            }
-        }
-
-        // Triplet merges (RGB → Metal)
-        const allNeighbors = getAllNeighbors(r, c, rows, cols);
-        for (const rule of TRIPLET_RULES) {
-            if (!rule.materials.includes(cell)) continue;
-            for (let i = 0; i < allNeighbors.length; i++) {
-                const [nr1, nc1] = allNeighbors[i];
-                if (!rule.materials.includes(grid[nr1]?.[nc1])) continue;
-                for (let j = i + 1; j < allNeighbors.length; j++) {
-                    const [nr2, nc2] = allNeighbors[j];
-                    if (!rule.materials.includes(grid[nr2]?.[nc2])) continue;
-                    const trio = new Set([cell, grid[nr1][nc1], grid[nr2][nc2]]);
-                    if (trio.size === 3) {
-                        return {
-                            type: 'triplet',
-                            cells: [[r,c],[nr1,nc1],[nr2,nc2]],
                             result: rule.result,
                             msg: rule.msg
                         };
