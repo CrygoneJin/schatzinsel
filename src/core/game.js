@@ -335,7 +335,8 @@
     // Positionen werden nach Grid-Init berechnet (siehe unten)
     let npcPositions = {};
 
-    const _isLummerland = new URLSearchParams(location.search).has('lummerland');
+    const _isLummerland = new URLSearchParams(location.search).has('lummerland')
+        || ((window.INSEL_SEED && window.INSEL_SEED.getSeedFromURL() || '').toLowerCase() === 'lummerland');
 
     function initNpcPositions() {
         const cx = Math.floor(COLS / 2);
@@ -3775,6 +3776,17 @@
             playerEmoji = activeAvatar.dataset.avatar;
             localStorage.setItem('insel-player-emoji', playerEmoji);
         }
+        // Seed aus dem Intro-Eingabefeld: URL setzen und reloaden, damit die
+        // Start-Sequenz den Seed-Pfad nimmt. Nur wenn nicht bereits ?seed= in URL.
+        const seedInput = document.getElementById('seed-input');
+        const seedValue = seedInput ? seedInput.value.trim() : '';
+        const alreadyHasSeed = new URLSearchParams(location.search).has('seed');
+        if (seedValue && !alreadyHasSeed && window.INSEL_SEED) {
+            const url = new URL(location.href);
+            url.searchParams.set('seed', seedValue);
+            location.href = url.toString();
+            return;
+        }
 
         // Big Bang Countdown — nur für Erstbesucher
         const isFirstVisit = !localStorage.getItem('insel-grid');
@@ -5110,9 +5122,61 @@
     loadInventory();
     loadUnlocked();
 
-    // Auto-Save wiederherstellen wenn vorhanden
+    // Seed-Pfad: ?seed=X → eigener Welt-Slot. Sonst Auto-Save-Pfad.
+    const _activeSeed = window.INSEL_SEED ? window.INSEL_SEED.getSeedFromURL() : null;
     const savedProjects = JSON.parse(localStorage.getItem('insel-projekte') || '{}');
-    if (savedProjects[AUTOSAVE_KEY] && isValidGrid(savedProjects[AUTOSAVE_KEY].grid)) {
+
+    if (_activeSeed && window.INSEL_SEED) {
+        window.currentSeed = _activeSeed;
+        const _saved = window.INSEL_SEED.loadSeedWorld(_activeSeed);
+        if (_saved && isValidGrid(_saved.grid)) {
+            // --- geladene Seed-Welt wiederherstellen ---
+            const savedGrid = _saved.grid;
+            const sR = savedGrid.length, sC = (savedGrid[0] && savedGrid[0].length) || 0;
+            if (sR !== ROWS || sC !== COLS) {
+                for (let r = 0; r < Math.min(sR, ROWS); r++) {
+                    for (let c = 0; c < Math.min(sC, COLS); c++) {
+                        if (savedGrid[r] && savedGrid[r][c]) grid[r][c] = savedGrid[r][c];
+                    }
+                }
+            } else { grid = savedGrid; }
+            Object.keys(treeGrowth).forEach(function(k) { delete treeGrowth[k]; });
+            Object.assign(treeGrowth, _saved.treeGrowth || {});
+            inventory = _saved.inventory || inventory;
+            if (_saved.unlocked) unlockedMaterials = new Set(_saved.unlocked);
+            if (_saved.discovered) discoveredRecipes = new Set(_saved.discovered);
+            if (_saved.playerPos) playerPos = _saved.playerPos;
+            window.grid = grid;
+            migrateUnlocked();
+            setTimeout(function () {
+                showToast('🏝️ ' + _activeSeed + ' — Willkommen zurück!', 3000);
+            }, 500);
+        } else {
+            // --- neue Seed-Welt generieren ---
+            const _rng = window.INSEL_SEED.seedToRng(_activeSeed);
+            // Lummerland-Seed triggert Jim-Knopf-Insel, sonst Random-Starter mit RNG
+            if (_activeSeed.toLowerCase() === 'lummerland') {
+                window.INSEL_GENERATORS.generateLummerland(grid, ROWS, COLS, MATERIALS, _rng);
+            } else {
+                window.INSEL_GENERATORS.generateStarterIsland(grid, ROWS, COLS, MATERIALS);
+            }
+            inventory = { tao: INFINITY_SENTINEL };
+            saveInventory();
+            setTimeout(function () {
+                window.INSEL_SEED.saveSeedWorld(_activeSeed, {
+                    grid: grid,
+                    inventory: inventory,
+                    treeGrowth: {},
+                    unlocked: Array.from(unlockedMaterials || []),
+                    discovered: Array.from(discoveredRecipes || []),
+                    playerPos: playerPos,
+                });
+            }, 1000);
+            setTimeout(function () {
+                showToast('🌀 Nur Tao. Alles andere entsteht von selbst...', 4000);
+            }, 1500);
+        }
+    } else if (savedProjects[AUTOSAVE_KEY] && isValidGrid(savedProjects[AUTOSAVE_KEY].grid)) {
         const savedGrid = savedProjects[AUTOSAVE_KEY].grid;
         const savedRows = savedGrid.length;
         const savedCols = savedGrid[0] ? savedGrid[0].length : 0;
