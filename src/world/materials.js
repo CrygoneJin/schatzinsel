@@ -64,12 +64,24 @@ window.INSEL_MATERIALS = {
     neutrino_mu: { emoji: '👻', label: 'Myon-Neutrino',  color: '#D0D0FF', border: '#B0B0E8' },  // Gen 2
     neutrino_tau:{ emoji: '👻', label: 'Tau-Neutrino',   color: '#B8B8FF', border: '#9898E8' },  // Gen 3
     // === BOSONEN — Kraftteilchen (Oscar liebt Bosonen) ===
-    // Qi ✨ = Gluon (starke Kraft) — oben definiert
-    // Tao ☯️ = Higgs (gibt Masse) — oben definiert
-    // Grid = Graviton (Raumzeit) — kein Material, IST das Spielfeld
-    photon:  { emoji: '💛', label: 'Photon',  color: '#FFFF44', border: '#E8E800' },  // Elektromagnetisch
-    w_boson: { emoji: '🔀', label: 'W-Boson', color: '#FF69B4', border: '#DB5090' },  // Schwache Kraft (geladen)
-    z_boson: { emoji: '⚖️', label: 'Z-Boson', color: '#DDA0DD', border: '#BA55D3' },  // Schwache Kraft (neutral)
+    // Qi ✨ IST das Gluon (starke Kraft, spin 1, masselos) — Doppel-Name: Dao-Name + Physik-Name.
+    // Tao ☯️ ist NICHT gleich Higgs — Tao = Singularität (Urzustand), Higgs = massives Skalar-Boson.
+    //   Higgs ist ein eigenes Material (siehe unten), spawnt aus Top+Bottom (mountain+cave).
+    // Grid = Graviton (Raumzeit) — kein Material, IST das Spielfeld.
+    photon:  { emoji: '💛', label: 'Photon',  color: '#FFFF44', border: '#E8E800', charge: 0, mass: 0, spin: 1 },  // Elektromagnetisch, masselos
+    w_boson: { emoji: '🔀', label: 'W-Boson', color: '#FF69B4', border: '#DB5090', charge: 1, mass: 80, spin: 1 },  // Schwache Kraft (geladen, 80 GeV)
+    z_boson: { emoji: '⚖️', label: 'Z-Boson', color: '#DDA0DD', border: '#BA55D3', charge: 0, mass: 91, spin: 1 },  // Schwache Kraft (neutral, 91 GeV)
+    higgs_boson: { emoji: '🫧', label: 'Higgs-Boson', color: '#FFE4B5', border: '#DAA520', charge: 0, mass: 125, spin: 0 },  // Skalar-Boson, gibt allem Masse (125 GeV, Top+Bottom-Fusion)
+    // === MESONEN — Quark-Antiquark-Paare (farbneutral, aber kurzlebig) ===
+    // Pion π: up + anti-down (im Spiel: yang + electron als Annihilations-Proxy)
+    // Kaon K: up + anti-strange (im Spiel: strange + electron als Proxy)
+    // Beide spin 0, im echten Standardmodell die leichtesten Mesonen.
+    pion:    { emoji: '🎯', label: 'Pion',    color: '#F4A460', border: '#CD853F', charge: 0, mass: 0.14, spin: 0 },  // π⁰, leichtestes Meson
+    kaon:    { emoji: '🪩', label: 'Kaon',    color: '#C39BD3', border: '#8E44AD', charge: 0, mass: 0.49, spin: 0 },  // K⁰, seltsam-Meson
+    // === ANTIMATERIE-EINZELTEILCHEN ===
+    // Positron e⁺: Anti-Elektron (Dirac 1928 vorhergesagt, Anderson 1932 beobachtet).
+    // Proxy: Antimaterie trifft Elektron → Positron.
+    positron: { emoji: '🟠', label: 'Positron', color: '#FFA500', border: '#E67E22', charge: 1, mass: 0.0005, spin: 0.5 },  // Anti-Elektron
     // === 5 — DIE 5 ELEMENTE (五行 Wu Xing = Quark-Farben + Bindung + Strahlung) ===
     metal:    { emoji: '⬜', label: 'Metall',   color: '#C0C0C0', border: '#A0A0A0' },  // Weiß = r+g+b = gebundenes Atom
     wood:     { emoji: '🟩', label: 'Holz',     color: '#2E7D32', border: '#1B5E20' },  // Grün = Farbladung Grün
