@@ -259,6 +259,87 @@
         ],
     });
 
+    // ── DER RATLOSE — Der NPC der nichts weiß. Krapweis-Auftrag 2026-04-22. ──
+    // Kern-Regel: fast alles liegt in xnone (20 Zeilen Pool). Er geht auf Themen nicht ein —
+    // er wirft zurück. Nur warum/wie/wo bekommen einen dezenten Topic-Hint, alles andere
+    // rotiert durch den Pool. Siehe docs/personas/der-ratlose.md
+    reg('der_ratlose', {
+        initial: 'Hmm. Hallo. Setz dich. Wir gucken aufs Meer.',
+        finale: 'Tschüss. Ich sitz weiter.',
+        quit: ['tschüss', 'bye', 'ciao'],
+        pre: {}, post: {},
+        keywords: [
+            { word: 'warum', rank: 5, rules: [
+                { decomp: '*', reassembly: [
+                    'Warum? Weiß ich nicht. Was denkst du?',
+                    'Gute Frage. Keine Antwort.',
+                    'Hmm. Warum fragst du mich?',
+                ]},
+            ]},
+            { word: 'wie', rank: 4, rules: [
+                { decomp: '* wie geht *', reassembly: ['Keine Ahnung wie das geht. Probier mal.'] },
+                { decomp: '*', reassembly: [
+                    'Wie? Hmm. Frag das Meer.',
+                    'Keine Ahnung. Du?',
+                ]},
+            ]},
+            { word: 'wo', rank: 4, rules: [
+                { decomp: '*', reassembly: [
+                    'Wo? Weiß ich nicht. Ich sitz hier.',
+                    'Hmm. Hast du geguckt?',
+                ]},
+            ]},
+            { word: 'weißt du', rank: 6, rules: [
+                { decomp: '* weißt du *', reassembly: [
+                    'Nein. Ich weiß nicht. Vielleicht weißt du\'s?',
+                    'Hmm. Weiß ich nicht.',
+                ]},
+            ]},
+            { word: 'kannst du', rank: 5, rules: [
+                { decomp: '*', reassembly: [
+                    'Ich kann nix. Aber ich hör zu.',
+                    'Hmm. Ich glaub nicht.',
+                ]},
+            ]},
+            { word: 'hilfe', rank: 4, rules: [
+                { decomp: '*', reassembly: [
+                    'Ich kann dir nicht helfen. Aber ich hör zu.',
+                    'Hmm. Frag Bernd. Der hilft widerwillig. Ich kann nix.',
+                ]},
+            ]},
+            { word: 'ich bin', rank: 3, rules: [
+                { decomp: '* ich bin *', reassembly: [
+                    'Du bist (2)? Oh. Okay.',
+                    'Hmm. (2). Schön.',
+                ]},
+            ]},
+            { word: 'xnone', rank: 0, rules: [
+                { decomp: '*', reassembly: [
+                    'Hmm. Ich schau grad aufs Meer. Hast du das auch schon gemacht?',
+                    'Das ist eine gute Frage. Wirklich. Ich hab keine Antwort.',
+                    'Ich weiß nicht wie Tao zerfällt. Frag mal den Himmel.',
+                    'Warum zwei Berge? Weiß ich nicht. Aber da sind welche.',
+                    'Ich denk manchmal nur so. Ist das okay?',
+                    'Keine Ahnung. Du?',
+                    'Hmm. Hätt ich mal aufgepasst.',
+                    'Weiß ich nicht. Frag die Möwen.',
+                    'Da fragst du den Falschen.',
+                    'Manchmal sitz ich stundenlang. Und dann ist\'s Abend.',
+                    'Vielleicht. Vielleicht auch nicht. Schau mal was du denkst.',
+                    'Ich weiß nicht. Vielleicht weißt du\'s?',
+                    'Hmm. Das ist schwer.',
+                    'Oh. Darüber hab ich noch nie nachgedacht.',
+                    'Ich guck einfach. Das ist genug für heute.',
+                    'Weiß nicht. Klingt aber wichtig.',
+                    'Frag Oscar. Ach. Du bist Oscar. Hmm.',
+                    'Ich kann dir nicht helfen. Aber ich hör zu.',
+                    'Das Meer weiß bestimmt mehr als ich.',
+                    'Setz dich. Wir wissen zusammen nichts. Ist schön.',
+                ]},
+            ]},
+        ],
+    });
+
     // ── BUG DIE RAUPE — Der Bug-Report-Kanal. Mjam! ─────
     reg('bug', {
         initial: '🐛 Hallo! Ich bin Bug die Raupe! Ich fresse Fehler zum Frühstück! Hast du was Kaputtes gefunden?',
