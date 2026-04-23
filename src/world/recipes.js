@@ -137,6 +137,19 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Mars',  result: 'mars', resultCount: 1, ingredients: { moon: 1, ice: 1 }, desc: 'Mond + Eis = Mars (Der rote Planet ist eisig kalt — und der nächste Schritt nach dem Mond!)' },
     { name: 'Marslandung', result: 'alien', resultCount: 1, ingredients: { mars: 1, rocket: 1 }, desc: 'Mars + Rakete = Alien (Eine Rakete auf dem Mars — und plötzlich: Besuch!)' },
 
+    // === BARYONEN — direkte Craft-Rezepte (Pauli-Workaround) ===
+    // Grid-Triplet-Merge (Yang+Yang+Yin → Proton) ist theoretisch da, aber
+    // in der Praxis schwer: der Pair-Merge Yang+Yang → Charm greift sofort,
+    // wenn der User den zweiten Yang auf eine Kante legt. Oscar kommt gar
+    // nicht dazu, den Yin-Baustein zu platzieren.
+    //
+    // Lösung: Craft-Rezept als direkter Weg. Grid-Triplet bleibt als
+    // emergent bonus für Physik-Nerds, die's mit diagonaler Platzierung
+    // schaffen. Ladungs-Bilanz stimmt: 2·(+2/3) + 1·(-1/3) = +1 (Proton),
+    // 1·(+2/3) + 2·(-1/3) = 0 (Neutron). Audit: Till, 2026-04-22.
+    { name: 'Proton',  result: 'proton',  resultCount: 1, ingredients: { yang: 2, yin: 1 }, desc: '2 Yang + 1 Yin = Proton (uud, Kernbaustein, Ladung +1)' },
+    { name: 'Neutron', result: 'neutron', resultCount: 1, ingredients: { yang: 1, yin: 2 }, desc: '1 Yang + 2 Yin = Neutron (udd, Kernbaustein, Ladung 0)' },
+
     // === HAUPTGRUPPEN-ELEMENTE — echte Chemie zum Anfassen ===
     // Direkte Rezepte für Z ≤ 20: Z·Proton + N·Neutron + Z·Elektron → Element
     // Ladungs-Summe immer 0. Massen-Summe = atomicMass = Z+N (Periodensystem).

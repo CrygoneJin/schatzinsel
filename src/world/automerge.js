@@ -92,7 +92,12 @@
             msg: '⚪ Rot + Grün + Blau → Metall! Alle Farben zusammen!'
         },
         // Baryonen — gebundene Quark-Tripletts (Farbneutral via drei verschiedene Farbladungen)
-        // Gen1-only: NUR yang/yin, NICHT charm/strange/mountain/cave
+        // Gen1-only: NUR yang/yin, NICHT charm/strange/mountain/cave.
+        //
+        // Hauptweg für Oscar: Craft-Recipe (src/world/recipes.js) — 2 Yang + 1 Yin.
+        // Grund: der Pair-Merge Yang+Yang → Charm greift sofort auf Kanten-
+        // Nachbarschaft, bevor das dritte Quark platziert werden kann. Der
+        // Grid-Triplet-Match hier ist emergent bonus für diagonale Setups.
         {
             materials: ['yang', 'yang', 'yin'],
             result: 'proton',

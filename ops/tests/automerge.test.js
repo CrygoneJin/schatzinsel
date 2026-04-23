@@ -403,3 +403,47 @@ describe('INSEL_MATERIALS — Baryon-Bauplan-Konsistenz', () => {
     });
 });
 
+// === Baryon-Craft-Rezepte (Pauli-Workaround) ===
+// Grid-Triplet-Merge wird durch Yang+Yang → Charm blockiert. Craft ist
+// der direkte Weg für Oscar. Ladung/Nukleonen physikalisch konsistent.
+describe('INSEL_CRAFTING_RECIPES — Baryon-Craft', () => {
+    let ctx;
+    let recipes;
+    let materials;
+
+    beforeEach(() => {
+        ctx = createBrowserContext();
+        loadScript(path.join(WORLD, 'materials.js'), ctx);
+        loadScript(path.join(WORLD, 'recipes.js'), ctx);
+        recipes = ctx.INSEL_CRAFTING_RECIPES;
+        materials = ctx.INSEL_MATERIALS;
+    });
+
+    it('Proton-Recipe existiert: 2 yang + 1 yin → 1 proton', () => {
+        const r = recipes.find(x => x.result === 'proton');
+        assert.ok(r, 'Proton-Craft-Recipe fehlt');
+        assert.equal(r.ingredients.yang, 2);
+        assert.equal(r.ingredients.yin, 1);
+        assert.equal(r.resultCount, 1);
+    });
+
+    it('Neutron-Recipe existiert: 1 yang + 2 yin → 1 neutron', () => {
+        const r = recipes.find(x => x.result === 'neutron');
+        assert.ok(r, 'Neutron-Craft-Recipe fehlt');
+        assert.equal(r.ingredients.yang, 1);
+        assert.equal(r.ingredients.yin, 2);
+        assert.equal(r.resultCount, 1);
+    });
+
+    // Ladungs-Bilanz Proton: 2·(+2/3) + 1·(-1/3) = +1 ✓
+    // Ladungs-Bilanz Neutron: 1·(+2/3) + 2·(-1/3) = 0 ✓
+    // Symbolisch über Ergebnis-Material verifiziert (yin/yang ohne charge).
+    it('Proton-Ergebnis hat charge=+1 (uud)', () => {
+        assert.equal(materials.proton.charge, 1);
+    });
+
+    it('Neutron-Ergebnis hat charge=0 (udd)', () => {
+        assert.equal(materials.neutron.charge, 0);
+    });
+});
+
