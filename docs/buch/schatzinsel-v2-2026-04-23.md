@@ -1616,17 +1616,6 @@ zu ernst für ein Kind.
 
 **F:** Ich habe mich geirrt.
 
-**Für Oscar:** Tao ist, was du hast, wenn du noch nichts hast. Du klickst drauf,
-und es entscheidet sich — schwarz oder weiß. Wenn du beides hast, und du legst
-sie nebeneinander, kommt was Drittes raus. Das ist die ganze Regel.
-
-**Für den Leser:** Das Vakuum in der Physik ist nicht leer. Es kocht von
-Quantenfluktuationen — Teilchen-Antiteilchen-Paare, die für einen Moment
-erscheinen und wieder verschwinden. Oscar sieht das nicht. Aber das
-Spielfeld selbst verhält sich so: aus einem grauen Punkt werden zwei, dann
-drei, dann fünf. Der Anfang ist immer derselbe. Das, was kommt, ist nie
-vorhersehbar, aber auch nie beliebig.
-
 
 ## III. Yin und Yang — die Quark-Leiter
 
@@ -1636,11 +1625,19 @@ legt einen zweiten Yang direkt neben einen ersten.
 Ein Blitz. Beide Weiße verschwinden. An ihrer Stelle: ein rosa-lila glitzerndes
 💫. Der Bildschirm: **Yang × Yang → Charm! (Pauli-Druck: Gen1→2)**.
 
-Oscar guckt. Dann grinst er.
+Oscar guckt. Dann grinst er. Feynman guckt auch. Dann grinst er auch. Einen
+Moment lang, bevor er etwas erklärt, genießt er, dass gerade ein Achtjähriger
+ein physikalisches Prinzip körperlich verstanden hat, für das er selbst in
+den Vierzigern gebraucht hat, bis er es in einer Bar erklären konnte, ohne
+die Hände in die Hosen zu stecken.
 
-**F:** Da ist es, Max. Das ist Pauli. Für Oscar sieht das so aus: zwei
-gleichfarbige Kreise dürfen nicht zu nah aneinander. Wenn sie es doch werden,
-verwandeln sie sich in ein schwereres, anderes Teilchen.
+**F:** Klassenarbeit gewinnt man mit Bongos, nicht mit Vorträgen.
+
+**P:** Richard, bitte.
+
+**F:** Okay. Jetzt ernsthaft: Da ist es, Max. Das ist Pauli. Für Oscar sieht
+das so aus: zwei gleichfarbige Kreise dürfen nicht zu nah aneinander. Wenn
+sie es doch werden, verwandeln sie sich in ein schwereres, anderes Teilchen.
 
 **P:** Das Pauli-Prinzip. Wolfgang Pauli, 1925. Zwei Fermionen können nicht im
 selben Quantenzustand sein. Zwei Elektronen in einem Atom müssen verschiedene
@@ -1720,20 +1717,6 @@ er gerade einen CERN-Moment hatte.
 **P:** Er wird es wissen, wenn er zwölf ist. Und dann wird er sich daran
 erinnern, wie er als Achtjähriger einen Berg neben eine Höhle legte und der
 Bildschirm Pling machte.
-
-**Für Oscar:** Zwei gleiche Kreise zusammen → die werden zu einem anderen,
-schwereren. Das kannst du drei Stockwerke weit klettern. Ganz oben gibt es
-Berg und Höhle. Die beiden zusammen — das ist das Higgs. Das ist der Boss
-ganz oben.
-
-**Für den Leser:** Die Quark-Leiter im Spiel ist dreistöckig, genau wie die
-im Standardmodell. Oben Top und Bottom. Mitte Charm und Strange. Unten Up
-und Down. Pauli-Druck treibt sie nach oben. Das ist eine didaktische Abstraktion
-des Prinzips, nicht seine exakte Umsetzung. In Atomen füllen Elektronen
-Schalen auf, weil sie nicht alle im tiefsten Zustand sein dürfen. Ohne Pauli
-gäbe es keine Chemie. Kein Wasser, kein Holz, keinen Stein. Jeder Baum auf
-Oscars Insel ist eine Konsequenz davon, dass zwei gleiche Dinge nicht am
-selben Ort sein dürfen.
 
 
 ## IV. Die Kernbausteine — Baryonen
@@ -1841,18 +1824,6 @@ nicken und weiter bauen, und in zwei Jahren wird er einen Text über QCD
 aufschlagen und sagen: ach so, das war das mit den Farben, an das ich mich
 erinnere. Das ist der richtige Weg.
 
-**Für Oscar:** Zwei Weiße und ein Schwarzer ergeben einen roten Kreis. Das
-ist das Proton. Ein Weißer und zwei Schwarze — das Neutron. Das Proton ist
-positiv, das Neutron ist neutral. Merk dir nur das. Alles andere folgt.
-
-**Für den Leser:** Die Baryonen im Spiel sind korrekt zusammengesetzt (uud und
-udd) und haben korrekte Ladungen (+1 und 0). Ihre Massen sind stark gestaucht
-(20 und 21 Spieleinheiten), aber die Tatsache, dass das Neutron geringfügig
-schwerer ist als das Proton — 0,14 Prozent in der Wirklichkeit — wurde im Spiel
-nachgezeichnet. Die Farbladung fehlt bewusst; sie würde die Zweier-Merge-Regel
-brechen, die für die Quark-Leiter nötig ist. Das ist eine didaktische
-Entscheidung, keine ein Fehler.
-
 
 ## V. Atome — wenn aus Kernen Welt wird
 
@@ -1943,22 +1914,6 @@ diese Kette auf seinem Bildschirm.
 **P:** Ohne zu wissen, dass er gerade die Nukleosynthese nachspielt.
 
 **F:** Nukleosynthese in einem Kinderspiel. Nennen wir das Lummerland-Sterne.
-
-**Für Oscar:** Ein Proton und ein Elektron ergeben Wasserstoff. Zwei Protonen,
-zwei Neutronen und zwei Elektronen ergeben Helium. Je mehr davon du nimmst,
-desto schwerer werden die Atome. Kohlenstoff steckt in allem, was lebt.
-Sauerstoff ist das, was du atmest. Neon ist die Reklame. Die Atome sind nicht
-nur Zahlen — sie sind, was die Welt ausmacht.
-
-**Für den Leser:** Der Atom-Recognizer im Spiel ist eine einfache
-Muster-Erkennung über zusammenhängende Cluster. Er erkennt Wasserstoff und
-zwei Heliumvarianten nativ — das reicht, um den Aha-Moment auszulösen. Alle
-anderen Elemente gehen übers Crafting-Menü, mit Rezepten, die die richtige
-Anzahl Protonen, Neutronen und Elektronen verbrauchen. Ab Gallium funktioniert
-das als Fusions-Kette: jedes schwerere Element braucht ein leichteres als
-Zutat. Das spiegelt die Sternennukleosynthese wider — und ist keine blosse
-spielerische Analogie, sondern die Art und Weise, wie die meisten Atome im
-Universum tatsächlich entstanden sind.
 
 
 ## VI. Raumkrümmung — warum Berge Mulden sind
@@ -2057,22 +2012,6 @@ von dem ich am Anfang sprach. Dass er nicht fragen muss, was gemeint ist.
 Dass er sagen kann: *ach ja, das war das mit den Yins, die aus der Blackhole
 zurückkamen*.
 
-**Für Oscar:** Wenn du etwas Schweres baust, wirst du sehen, dass um den Block
-eine dunkle Mulde entsteht. Je schwerer, desto tiefer. Bei einer Blackhole
-ist die Mulde so tief, dass Sachen reinfallen. Aber die Blackhole gibt
-manchmal was zurück. Nichts geht verloren. Nur um.
-
-**Für den Leser:** Die Mass-Map ist eine der interessantesten didaktischen
-Entscheidungen des Spiels. Sie behandelt Higgs und Gravitation als *dieselbe*
-sichtbare Ebene — was physikalisch vereinfacht, aber nicht falsch ist: beide
-hängen von der Masseverteilung ab. Der logarithmische Scale der Tiefe verhindert,
-dass Blackholes den Bildschirm überziehen, und simuliert so grob den
-Ereignishorizont-Charakter der allgemeinen Relativitätstheorie. Die Hawking-Strahlung
-als probabilistischer Teilchen-Return ist eine starke didaktische
-Vereinfachung — die echte Strahlung ist thermisch und inversproportional zur
-Blackhole-Masse — aber sie trifft den Kern: Blackholes geben zurück, was sie
-nehmen. Nichts geht verloren.
-
 
 ## VII. Die vier Kräfte — in einem Satz pro Kraft
 
@@ -2125,10 +2064,6 @@ Oscar hat inzwischen ein ganzes kleines Dorf gebaut. Wasserstoff im Brunnen,
 Sauerstoff in den Pflanzen. Ein Berg, der die Landschaft biegt. Eine Blackhole
 am Rand, die hin und wieder ein Yin zurückspuckt. Ein Proton, das er liebevoll
 direkt unter ein Elektron gesetzt hat, damit das Spiel ihm *H* sagt.
-
-**Für Oscar:** Es gibt vier Kräfte. Die starke hält Quarks zusammen. Das Licht
-ist die elektrische. Die schwache macht, dass Sonnen leuchten. Die Gravitation
-ist das Biegen der Welt. Mehr brauchst du nicht.
 
 
 ## VIII. Coda — was Oscar nicht weiß
