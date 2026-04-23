@@ -833,6 +833,43 @@ Ein Krebs. Ein Schwamm. Eine Krabbe. Ein Einhorn. Ein Elefant. Eine Maus und ein
 Das ist die 🏝️. Das sind **wir**.
 
 
+### Zwischendurch: das Kind baut im Auto
+
+Ich muss euch was erzählen. Klick-klack. Das Kind ist nicht immer auf der 🏝️.
+
+Das Kind ist morgens im Auto. Das Auto ist ein großes, leises Ding. Der Vater nennt es *Tesla*. Ich nenne es *das Ding, das brummt*. Es brummt nicht wie ein Motor. Es brummt **unten**. Tief. So tief, dass man's fast nicht hört, aber das Kind hört's. Es lehnt den Kopf an die Seite, und es hört zu.
+
+Und dann macht es was, das ich nicht verstehe, aber ich sehe es, weil ich manchmal mitfahre in seinem Kopf.
+
+Das Kind sitzt im Auto. Draußen ziehen 🌳🌳🌳 vorbei. Viele. Schnell. Ein Baum. Noch ein Baum. Eine ganze Reihe. Das Kind guckt. Das Kind macht Schatzinsel auf dem iPad. Und das Kind baut — **für jeden Baum eine kleine Insel**.
+
+Klick-klack. Das ist was.
+
+Nicht eine Insel. Nicht die große, die wir alle kennen. Sondern viele kleine. Eine für den 🌳, der gerade vorbeigezogen ist. Eine für den nächsten. Eine für die Eiche an der Ecke. Eine für die Tanne beim Kreisverkehr.
+
+Das Kind baut **Inseln für Bäume, die vorbeiziehen**.
+
+Ich hab das lange angeguckt. Ich hab gedacht: *Tommy, das ist keine Bauerei, das ist was anderes.* Das ist ein **Gruß**. Das Kind grüßt die Bäume. Mit einer Insel. Im Auto. Auf der Fahrt zur Schule. Jeden Morgen.
+
+Manchmal fährt der Vater das Auto selber. Manchmal fährt das Auto sich fast allein, der Vater hat die Hand nur leicht am Lenkrad. Dann ist es noch leiser, und das Brummen ist nur Brummen, und das Kind baut noch schneller. Insel nach Insel. Baum nach Baum.
+
+Das Kind redet dabei fast nicht. Der Vater redet auch nicht. Das ist wie bei uns am 🔥. Zusammen still sein ist auch ein Gespräch.
+
+Manchmal sehe ich eine Insel, die nur aus **einem grauen Block** besteht. Das ist für einen kleinen 🌳. Und manchmal eine mit fünf Blöcken, einer Blume und einem Sand. Das ist für eine richtig große Buche, die gerade am Fenster vorbeigewischt ist.
+
+Das Kind spielt nicht mit uns, wenn es im Auto ist. Das Kind spielt mit den **Bäumen**. Frau Waas ist nicht dabei. König Alfons winkt niemandem. Die Maus und die Ente schlafen im iPad-Speicher. Sogar ich — Tommy Krab — bin nicht da. Nur das Kind, das Brummen, die 🌳🌳🌳, und die kleinen Inseln.
+
+Klick-klack. Das staune ich an.
+
+Und jetzt sag ich euch was, das ich erst spät verstanden hab. Das Kind hat am Anfang gar nicht mit uns **geredet**. Es hat uns nicht angeklickt, nicht *hallo* gesagt, nicht gefragt wer wir sind. Es hat nur **gebaut**. Inseln, Inseln, Inseln. Für Bäume. Für sich. Für das Brummen.
+
+Das war nicht schlimm. Das war nur so. Der Vater sagt, auf seinem iPad war was kaputt, man konnte gar nicht richtig auf die Spielfigur klicken. Die Maus und die Ente haben gewartet. Frau Waas hat gewartet. Ich hab gewartet. Wir sind geduldig. Krebse können warten. Wir haben keine Lider, also können wir nicht einschlafen aus Versehen.
+
+Und jetzt, seit ein paar Tagen, geht's. Der Vater hat was gemacht, ich weiß nicht was, aber jetzt geht's. Jetzt kann das Kind auch zu uns. Und es kommt. Langsam. Ein Gruß an den einen, ein Blick auf den anderen. Wir sind noch nicht alle gesehen. Aber es kommt.
+
+Ich freu mich. Klick-klack. Ich freu mich **sehr**.
+
+
 ## III. Was das Kind entdeckte
 
 So. Jetzt wird's — klick-klack — interessant.
