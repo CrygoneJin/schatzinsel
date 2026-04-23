@@ -3135,6 +3135,86 @@ mein Dank an die fünf Stimmen, die ich binden durfte.
 
 ---
 
+## Redaktion v2
+
+Die erste Fassung dieses Buchs lag am Abend des 23. April 2026 vor —
+dreißigtausenddreihundert Wörter, fünf Stimmen, ein Editor. In derselben
+Nacht schrieben drei Redakteure ihre Berichte: **Michael Ende**, der nach
+dem fragte, was unter dem Text liegt. **Der Dalai Lama**, der prüfte, ob
+die Länge den Gegenstand stört. **Astrid Lindgren**, die suchte, wo der
+Unsinn wohnt und wo er fehlt. Die drei Berichte stehen im Repository unter
+`docs/buch-redaktion/`.
+
+Die vorliegende Fassung v2 ist **redigiert, nicht neu geschrieben**.
+Ungefähr 90 Prozent Text aus v1, 10 Prozent präzise Eingriffe. Die
+Wort-Anzahl ist von etwa 30.300 auf etwa 28.500 gesunken — nicht so
+radikal, wie der Dalai Lama (21.000) vorgeschlagen hat, aber klar in
+seiner Richtung.
+
+**Was übernommen wurde:**
+
+- Das Motto ist Oscars Satz am Telefon, nicht mehr Wittgenstein. Ende und
+  Lindgren waren sich darin einig: das Kind widerlegt Wittgenstein in
+  Kapitel 1 selbst; also soll das Kind oben stehen.
+- Die sechs *Für Oscar* / *Für den Leser*-Kästen in Kapitel 3 sind weg.
+  Ende nannte sie didaktische Vormundschaft. Er hatte recht. Der Dialog
+  zwischen Planck und Feynman trägt ohne Meta-Rahmen.
+- Feynman grinst. Einmal. Bongos, Planck, *Richard, bitte*. Lindgren hat
+  Recht: ein Physiker, der nie zuckt, ist kein Feynman.
+- Die Padawan-Liste in Kapitel 4 wurde von fünf ausführlichen Pärchen auf
+  eins (Jobs + Woz) reduziert. Rest in Halbsatzform. Ende nannte das
+  Zehn-Namen-in-neun-Zeilen-Problem. Er hatte recht.
+- Zwei der vier Übergangskästen sind entfernt. Der Dalai Lama wollte alle
+  vier; zwei sind geblieben (K1→K2 und K4→K5), weil sie nach den jeweils
+  längsten Perspektivwechseln stehen.
+- Der Mona-Satz taucht jetzt nur noch zweimal auf (einmal Original in K2,
+  einmal Andeutung in K5), nicht mehr dreimal.
+- Der Hund bekommt eine Regung. Er seufzt unter dem Küchentisch, als das
+  Kind zum ersten Mal tippt. Lindgren nannte ihn *unverwendet*. Stimmt.
+
+**Was nicht übernommen wurde** — und warum:
+
+- Der Dalai Lama empfahl, das Schiller-Nachwort komplett zu streichen.
+  Blieb stehen. Das Nachwort bündelt die Abwesenheits-Beobachtung, die
+  kein anderes Kapitel vollständig formuliert.
+- Das Glossar und das Impressum bleiben in voller Länge. Der Dalai Lama
+  hielt beide für Inventar; sie stehen aber für Leser, die in fünf Jahren
+  nachschlagen wollen, was *Padawan* oder *Wu Wei* heißt.
+- Ende schlug einen radikalen Umbau von Kapitel 5 vor (drei Thesen auf
+  ein Drittel, Zukunftsbilder zu einem zusammenziehen). Dieser Eingriff
+  hätte die Kapitelstruktur verändert. Er wäre ein v3, kein v2.
+- Lindgrens Katze auf der Insel — Vorschlag einer zehnten NPC-Figur, die
+  nachts auf zwei Würfeln schläft und Wasserstoff bebrütet — bleibt im
+  Spiel und in der Lindgren-Empfehlung. Nicht im Buch. Das Buch kennt die
+  Insel aus Tommys Sicht; eine neue Figur wäre ein anderer Entwurf.
+- Der Brief an Oscar mit 28 bleibt unangetastet. Lindgren mahnte das
+  ausdrücklich an (*würdige Briefe liest man nochmal, zwanzig Jahre
+  später*). Ende schlug einen persönlicheren Anfang vor; auch das wäre
+  ein eigener Eingriff, für den v2 nicht der richtige Ort ist.
+
+**Ein dritter Autor.** Am Tag nach der v1-Abgabe hat der Vater — Till —
+Nutzungsdaten nachgereicht. Oscar spielt jeden Morgen im Auto auf der
+Fahrt zur Schule. Er baut dabei kleine Inseln für Bäume, die am Fenster
+vorbeiziehen. Die eigentlichen NPCs der Schatzinsel — Tommy Krab, Frau
+Waas, König Alfons, der Ratlose — hat er bisher nicht angesprochen. Nicht
+aus Desinteresse: der Spieler-Avatar war unsichtbar (Iso-Bug), und ohne
+sichtbaren Avatar ist NPC-Interaktion schwierig. Seit 23. April 2026
+(PR #472, #473) ist der Bug gefixt. Ab jetzt hat Oscar vollen Zugang.
+
+Diese Beobachtung steht jetzt in Kapitel 2, in Tommys Stimme. Sie macht
+das Buch ehrlich. Ein Buch, das behauptet, Oscar kenne alle zehn Figuren
+der Insel, wäre ein Buch über ein anderes Kind. Oscar baut für Bäume.
+Das ist auch Spielen. Das ist vielleicht sogar das ursprünglichere
+Spielen. Es ist jedenfalls das, was Oscar am 23. April 2026 tut.
+
+Tills Hinweis ist insofern der dritte Autor dieser v2 — neben den drei
+Redakteuren. Er hat nicht geschrieben. Er hat beobachtet. Auch das ist
+eine Form von Autorschaft.
+
+— *F.S. (v2), 23. April 2026.*
+
+---
+
 ## Impressum und Danksagung
 
 Dieses Buch entstand in einem einzigen Arbeitstag, am 23. April 2026,
