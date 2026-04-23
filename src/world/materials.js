@@ -208,13 +208,18 @@ window.INSEL_MATERIALS = {
     shop:    { emoji: '🏪', label: 'Laden',   color: '#E8A020', border: '#C07010', charge: 0, mass: 10 },
     ocean:   { emoji: '🌊', label: 'Meer',    color: '#0D2B6E', border: '#071848', charge: 0, mass: 0, unbaubar: true },
     train:   { emoji: '🚂', label: 'Emma',    color: '#8B0000', border: '#660000', charge: 0, mass: 30 },
-    // === BARYONEN — gebundene Quark-Tripletts (Farbneutral: R+G+B) ===
+    // === BARYONEN — gebundene Quark-Tripletts ===
     // Proton  = uud (Yang+Yang+Yin), Ladung +1, stabil — Kern der Materie
     // Neutron = udd (Yang+Yin+Yin),  Ladung  0, frei instabil (~15 min β⁻).
     //   Reale Massen: Proton 938.272 MeV/c², Neutron 939.565 MeV/c² —
     //   Neutron ist ~0.14% schwerer (down-Quark schwerer als up +
     //   EM-Selbstenergie). Im Spiel grob mit 20/21 abgebildet (+5%);
     //   minimal spürbar in der Curvature-Map, aber nicht verzerrend.
+    // FARBLADUNG: spielerisch abstrahiert. Reale Baryonen brauchen drei
+    //   verschiedene Farbladungen (R/G/B) für Farbneutralität (QCD-
+    //   Confinement). Yang/Yin haben im Spiel keine Farb-Varianten —
+    //   wir modellieren die Dreiheit über Flavor (uud/udd) allein.
+    //   Spielbarkeit vor Vollständigkeit. Siehe docs/metrics/.
     proton:  { emoji: '🔴', label: 'Proton',  color: '#E74C3C', border: '#C0392B', charge: 1, mass: 20, spin: 0.5 },
     neutron: { emoji: '⭕', label: 'Neutron', color: '#ECF0F1', border: '#BDC3C7', charge: 0, mass: 21, spin: 0.5 },
     // === BLACKHOLE — Einsauger + Hawking-Rückgabe (S101) ===
