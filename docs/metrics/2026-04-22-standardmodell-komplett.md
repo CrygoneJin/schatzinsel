@@ -100,3 +100,67 @@ Zwischenschritt zur Atom-Bildung erhöht Oscars Entdeckungspfad.
 - 23 automerge-Tests grün (10 bestehend + 13 neu)
 - 44 verwandte Tests grün (atom-recognizer, mass-map, unit)
 - `tsc --noEmit` grün (Material-Interface um `spin?` erweitert)
+
+---
+
+## Nachtrag 2026-04-22 — Baryon-Bauplan-Audit (Till)
+
+Till hat vier Probleme im Baryon-Bauplan gefunden. Alle vier in
+`fix/baryon-bauplan` gefixt.
+
+### 1. Neutron-Masse leicht größer als Proton
+
+Real: Proton 938.272 MeV/c², Neutron 939.565 MeV/c² (Neutron ~0.14%
+schwerer, wegen schwererem down-Quark + EM-Selbstenergie). Im Spiel
+waren beide bei `mass: 20`. Jetzt: Neutron `mass: 21` (+5%). Effekt
+auf Curvature-Map minimal, Ordnung stimmt.
+
+### 2. Farbladung — ehrlich dokumentiert (nicht modelliert)
+
+Bisheriger Kommentar `"Farbneutral via drei verschiedene Farbladungen"`
+war irreführend: Yang und Yin haben im Spiel keine Farb-Varianten.
+Wir modellieren die Dreiheit nur über Flavor (uud/udd).
+
+Entscheidung: **Abstraktion beibehalten, Kommentar ehrlich machen**.
+Eine Mechanik mit drei Farb-Yangs/-Yins würde die Quark-Ladder
+(Yang² → Charm) komplett umbauen — aus Spielbarkeits-Gründen
+ausgespart. Dokumentiert in `automerge.js` (TRIPLET_RULES-Block) und
+`materials.js` (Proton/Neutron-Definition).
+
+### 3. Spin-Feld für alle Fermionen
+
+Bisher hatten nur Bosonen (γ, W, Z, H) und Mesonen/Positron spin-Felder.
+Baryonen (Proton, Neutron) und alle Quarks/Leptonen fehlten. Alle
+Fermionen haben jetzt `spin: 0.5`:
+
+- Gen-1-Quarks: yin, yang
+- Gen-2-Quarks: charm, strange
+- Gen-3-Quarks: mountain (top), cave (bottom)
+- Leptonen: electron, muon, tau
+- Neutrinos: neutrino, neutrino_mu, neutrino_tau
+- Baryonen: proton, neutron
+
+### 4. Pauli verhindert Baryon-Bildung — Craft-Rezept als Fix
+
+Grid-Triplet-Merge (Yang+Yang+Yin → Proton) wird durch den Pair-Merge
+Yang+Yang → Charm blockiert: sobald der zweite Yang auf einer Kante
+landet, ist Charm da, bevor Yin gelegt werden kann. Oscar kommt nicht
+zum Ziel.
+
+Fix: Baryon als Craft-Recipe.
+```
+2 Yang + 1 Yin → 1 Proton   (uud, Ladung +1)
+1 Yang + 2 Yin → 1 Neutron  (udd, Ladung  0)
+```
+
+Grid-Triplet bleibt als emergent bonus für Physik-Nerds (diagonale
+Platzierung).
+
+### Tests
+
+Neue Suite "Baryon-Bauplan-Konsistenz" + "INSEL_CRAFTING_RECIPES —
+Baryon-Craft" in `ops/tests/automerge.test.js`. `package.json`
+erweitert: automerge.test.js ist jetzt Teil von `npm run test:unit`
+(war vorher nicht eingehängt).
+
+72 Tests grün nach den Fixes. `tsc --noEmit` grün.

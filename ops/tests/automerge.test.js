@@ -338,3 +338,112 @@ describe('INSEL_AUTOMERGE — Standardmodell komplett', () => {
         assert.equal(result.result, 'qi');
     });
 });
+
+// === Baryon-Bauplan-Audit (Till, 2026-04-22) ===
+// Masse-Ordering, Spin-Konsistenz, Farbladungs-Dokumentation.
+describe('INSEL_MATERIALS — Baryon-Bauplan-Konsistenz', () => {
+    let ctx;
+    let materials;
+
+    beforeEach(() => {
+        ctx = createBrowserContext();
+        loadScript(path.join(WORLD, 'materials.js'), ctx);
+        materials = ctx.INSEL_MATERIALS;
+    });
+
+    // Fix 1: Neutron real leicht schwerer als Proton (+0.14% in der Natur).
+    it('neutron.mass > proton.mass (real: 939.565 > 938.272 MeV/c²)', () => {
+        assert.ok(typeof materials.proton.mass === 'number');
+        assert.ok(typeof materials.neutron.mass === 'number');
+        assert.ok(
+            materials.neutron.mass > materials.proton.mass,
+            `neutron.mass (${materials.neutron.mass}) muss > proton.mass (${materials.proton.mass}) sein`
+        );
+    });
+
+    // Fix 3: Alle Fermionen (Quarks, Leptonen, Baryonen) haben spin = 0.5.
+    it('alle Gen1-Quarks haben spin=0.5 (Fermionen)', () => {
+        assert.equal(materials.yin.spin, 0.5, 'yin (down-Quark) ist Fermion');
+        assert.equal(materials.yang.spin, 0.5, 'yang (up-Quark) ist Fermion');
+    });
+
+    it('alle Gen2-Quarks haben spin=0.5 (Fermionen)', () => {
+        assert.equal(materials.charm.spin, 0.5);
+        assert.equal(materials.strange.spin, 0.5);
+    });
+
+    it('alle Gen3-Quarks haben spin=0.5 (mountain=top, cave=bottom)', () => {
+        assert.equal(materials.mountain.spin, 0.5, 'mountain = Top-Quark');
+        assert.equal(materials.cave.spin, 0.5, 'cave = Bottom-Quark');
+    });
+
+    it('alle geladenen Leptonen haben spin=0.5', () => {
+        assert.equal(materials.electron.spin, 0.5);
+        assert.equal(materials.muon.spin, 0.5);
+        assert.equal(materials.tau.spin, 0.5);
+    });
+
+    it('alle Neutrinos haben spin=0.5', () => {
+        assert.equal(materials.neutrino.spin, 0.5);
+        assert.equal(materials.neutrino_mu.spin, 0.5);
+        assert.equal(materials.neutrino_tau.spin, 0.5);
+    });
+
+    it('Baryonen (Proton, Neutron) haben spin=0.5 (Drei-Quark-Fermionen)', () => {
+        assert.equal(materials.proton.spin, 0.5);
+        assert.equal(materials.neutron.spin, 0.5);
+    });
+
+    // Bosonen bleiben bei ihren Spins (Regression).
+    it('Bosonen-Spin intakt (Regression)', () => {
+        assert.equal(materials.photon.spin, 1,   'γ: Vektor-Boson');
+        assert.equal(materials.w_boson.spin, 1,  'W: schwaches Vektor-Boson');
+        assert.equal(materials.z_boson.spin, 1,  'Z: schwaches Vektor-Boson');
+        assert.equal(materials.higgs_boson.spin, 0, 'H: Skalar-Boson');
+    });
+});
+
+// === Baryon-Craft-Rezepte (Pauli-Workaround) ===
+// Grid-Triplet-Merge wird durch Yang+Yang → Charm blockiert. Craft ist
+// der direkte Weg für Oscar. Ladung/Nukleonen physikalisch konsistent.
+describe('INSEL_CRAFTING_RECIPES — Baryon-Craft', () => {
+    let ctx;
+    let recipes;
+    let materials;
+
+    beforeEach(() => {
+        ctx = createBrowserContext();
+        loadScript(path.join(WORLD, 'materials.js'), ctx);
+        loadScript(path.join(WORLD, 'recipes.js'), ctx);
+        recipes = ctx.INSEL_CRAFTING_RECIPES;
+        materials = ctx.INSEL_MATERIALS;
+    });
+
+    it('Proton-Recipe existiert: 2 yang + 1 yin → 1 proton', () => {
+        const r = recipes.find(x => x.result === 'proton');
+        assert.ok(r, 'Proton-Craft-Recipe fehlt');
+        assert.equal(r.ingredients.yang, 2);
+        assert.equal(r.ingredients.yin, 1);
+        assert.equal(r.resultCount, 1);
+    });
+
+    it('Neutron-Recipe existiert: 1 yang + 2 yin → 1 neutron', () => {
+        const r = recipes.find(x => x.result === 'neutron');
+        assert.ok(r, 'Neutron-Craft-Recipe fehlt');
+        assert.equal(r.ingredients.yang, 1);
+        assert.equal(r.ingredients.yin, 2);
+        assert.equal(r.resultCount, 1);
+    });
+
+    // Ladungs-Bilanz Proton: 2·(+2/3) + 1·(-1/3) = +1 ✓
+    // Ladungs-Bilanz Neutron: 1·(+2/3) + 2·(-1/3) = 0 ✓
+    // Symbolisch über Ergebnis-Material verifiziert (yin/yang ohne charge).
+    it('Proton-Ergebnis hat charge=+1 (uud)', () => {
+        assert.equal(materials.proton.charge, 1);
+    });
+
+    it('Neutron-Ergebnis hat charge=0 (udd)', () => {
+        assert.equal(materials.neutron.charge, 0);
+    });
+});
+

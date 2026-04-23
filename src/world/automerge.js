@@ -91,17 +91,32 @@
             result: 'metal',
             msg: '⚪ Rot + Grün + Blau → Metall! Alle Farben zusammen!'
         },
-        // Baryonen — gebundene Quark-Tripletts (Farbneutral via drei verschiedene Farbladungen)
-        // Gen1-only: NUR yang/yin, NICHT charm/strange/mountain/cave
+        // Baryonen — gebundene Quark-Tripletts.
+        // Gen1-only: NUR yang/yin, NICHT charm/strange/mountain/cave.
+        //
+        // Hauptweg für Oscar: Craft-Recipe (src/world/recipes.js) — 2 Yang + 1 Yin.
+        // Grund: der Pair-Merge Yang+Yang → Charm greift sofort auf Kanten-
+        // Nachbarschaft, bevor das dritte Quark platziert werden kann. Der
+        // Grid-Triplet-Match hier ist emergent bonus für diagonale Setups.
+        //
+        // FARBLADUNG — spielerisch abstrahiert.
+        // Reale Baryonen brauchen drei verschiedene Farbladungen (R/G/B),
+        // damit die Kombination farbneutral ist (QCD-Confinement: freie
+        // farbgeladene Teilchen existieren nicht). Yang/Yin haben im Spiel
+        // aber KEINE Farb-Varianten — wir modellieren die Dreiheit allein
+        // über die Flavor-Kombination (uud/udd). Eine Mechanik mit drei
+        // Farb-Yangs/Yins würde die Quark-Ladder (Yang² → Charm) komplett
+        // umbauen — aus Spielbarkeits-Gründen ausgespart. Abstraktion,
+        // nicht Korrektheit. Audit: Till, 2026-04-22.
         {
             materials: ['yang', 'yang', 'yin'],
             result: 'proton',
-            msg: '🔴 Yang + Yang + Yin → Proton! (uud, Farbneutral)'
+            msg: '🔴 Yang + Yang + Yin → Proton! (uud)'
         },
         {
             materials: ['yang', 'yin', 'yin'],
             result: 'neutron',
-            msg: '⭕ Yang + Yin + Yin → Neutron! (udd, Farbneutral)'
+            msg: '⭕ Yang + Yin + Yin → Neutron! (udd)'
         },
     ];
 
