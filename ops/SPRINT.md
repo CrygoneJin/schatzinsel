@@ -1,3 +1,44 @@
+# Sprint 103 — "Was Oscar wirklich tut"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar's Morgen-Ritual im Tesla bleibt stabil — Progress geht nicht mehr verloren, der Vater sieht was das Kind baut, die Quest-Track läuft weiter.
+
+**Start:** 2026-04-24
+**Sprint-Prinzip (Einstein-Linie):** Erkenntnis vor Ausbau. Wir haben jetzt Oscar-Daten — Messinfrastruktur baut drauf auf, nicht drumherum.
+
+---
+
+## Sprint Backlog S103
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S103-1 | **Tesla-localStorage-Persistenz** — Oscar's `blocksPlaced=0` jeden Morgen. Root-Cause finden (Service-Worker? Tesla-Browser-Session?), Fix. Progress darf nicht verloren gehen. | Engineer (Kernighan-Learning #488) | 🔲 |
+| S103-2 | **Analytics-Minimal** — Was Oscar platziert, wie lange, welche NPCs getappt. Till-Dashboard (aggregiert, datenschutzkonform). Input für zukünftige Priorisierung. | Scientist (Feynman) | 🔲 |
+| S103-3 | **Quest-Runde 85** — niedrigste NPC-Counter finden, +10 Quests im gewohnten Pattern. | Artist (autonom) | 🔲 |
+| S103-4 | **Worktree-First im Engineer-Codex enforcen** — bereits dokumentiert, aber Parallel-Agent-Kollisionen häufen sich. Default-Pattern durchsetzen. | Engineer | 🔲 |
+
+---
+
+## Ceremony-Status S103
+
+- [x] Planning: 2026-04-24 (Sprint-Engine, nach Retro S102)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Retro-Actions aus S102 (hier umgesetzt)
+
+- R1 → S103-1
+- R2 → S103-2
+- R3 → S103-4
+- R4 → S103-3
+
+---
+
+---
+
 # Sprint 102 — "Maus entdeckt, Krabs erinnert sich"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -12,16 +53,34 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S102-1 | **Quest-Runde 84** — Maus(64→69)/Krabs(65→70) → +10 Quests, 885→895. Maus: „Kleine Dinge die groß sind" (Sterne, Echo, Boden, Raupen, Vögel). Krabs: „Was Zeit wirklich ist" (Ressourcen, Schönheit, Archiv, Zinseszins, Erinnerung). | Artist | ✅ PR #451 offen |
-| S102-2 | **Oscar-Smoke** — Till legt iPad hin, schaut weg (Paluten-Test). 1 Satz. Rollover aus S98-3. | Till manuell | 🔲 HITL |
-| S102-3 | **Backlog-Update Physik-Epic** — S99–S101 auf ✅ Done setzen. | autonomer Agent | ✅ Commit 8dbf812 |
+| S102-1 | **Quest-Runde 84** — Maus(64→69)/Krabs(65→70) → +10 Quests, 885→895. | Artist | ✅ PR #451 gemergt |
+| S102-2 | **Oscar-Smoke** — Paluten-Test. 1 Satz. | Till manuell | ✅ Till 2026-04-24 |
+| S102-3 | **Backlog-Update Physik-Epic** — S99–S101 auf ✅ Done. | autonomer Agent | ✅ Commit 8dbf812 |
+
+---
+
+## Mid-Sprint Hotfixes (Bonus, durch Scope-Gates genehmigt)
+
+Till-Feedback aus S102-2 (Oscar-Smoke) hat echte Bugs aufgedeckt — alle noch im Sprint-Fenster gefixt:
+
+| # | PR | Was |
+|---|----|-----|
+| — | #472 | Bernd-Chat X-Button sichtbar auf Tesla-Landscape (191px off-screen war) |
+| — | #473 | Spieler-Icon + NPC-Tap-Interaktion (4 Root-Causes) |
+| — | #481 | Buch v2 — Katze + Katzengold (Lindgren-Anregung) |
+| — | #487 | Proton-Spam gestoppt (Baryon-Grid-Triplet entfernt) |
+| — | #488 | 4 Tesla-UI-Regressions (Mute/Code-Ebene/Chat-Overflow/Tastatur) |
+| — | #489 | Baryon-Recipe Progressive Disclosure (erst nach Pauli-Erlebnis sichtbar) |
+
+Gates bestanden: keiner endangered Sprint Goal, keiner reduzierte Quality. Alles Quality-Up.
 
 ---
 
 ## Explizit nicht im Sprint
 
-- **CEO-Input S103-Kette** — Feynman misst erst wenn Oscar-Smoke-Ergebnis vorliegt
-- **Native Speaker Review ES/IT** — HITL #108, wartet auf Till
+- **CEO-Input S103-Kette** — Feynman kann jetzt messen (Oscar-Daten da)
+- **Native Speaker Review ES/IT** — HITL #108 komplett aufgelöst (Wittgenstein-Opus ersetzt)
+- **Tesla-localStorage-Persistenz** — Kernighan-Finding: blocksPlaced=0 jeden Morgen. Separates Ticket.
 
 ---
 
@@ -29,8 +88,53 @@
 
 - [x] Planning: 2026-04-23 (autonomer Agent, PR #450)
 - [x] Daily Scrum: 2026-04-23 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-04-24 (Sprint-Engine)
+- [x] Retro: 2026-04-24 (Sprint-Engine)
+
+---
+
+## Sprint Review S102 (2026-04-24, Sprint-Engine)
+
+**Sprint Goal erfüllt: 3/3 Items ✅ + 6 Mid-Sprint-Bonus-Hotfixes.**
+
+| Item | Ergebnis |
+|------|---------|
+| S102-1 Quest-Runde 84 | ✅ 895 Quests — Maus +5 / Krabs +5 |
+| S102-2 Oscar-Smoke | ✅ **Daten:** Oscar spielt jeden Morgen im Tesla auf dem Schulweg, liebt das Brummen, baut „für die Bäume kleine Inseln". NPC-Interaktion bisher nicht (Bug), Bernd nicht nutzbar (X-Btn weg, Bug), Spieler-Icon fehlte (Bug). **3 Bugs gefunden, 3 gefixt innerhalb des Sprints.** |
+| S102-3 Backlog-Update | ✅ Commit 8dbf812 |
+
+**Oscar-Outcome (echte Nutzung gemessen):**
+- Kind benutzt das Produkt **im Privileg-Zeitfenster** (Tesla-Schulweg, autonome Fahrt, Ruhe)
+- Bau-Modus ist **kreativ-expressiv** (Inseln für Bäume), nicht Quest-Erfüllung
+- UX-Bugs blockierten 3 Kernfeatures (Spieler, NPC, Bernd) — jetzt gefixt
+- Buch-Wette gewonnen (Kind spielt, über Kind kann berichtet werden)
+
+**PO-Entscheidungen S103:**
+- Quest-Track läuft autonom weiter (Quest-Runde 85 bei niedrigstem NPC-Counter)
+- Oscar-Nutzungs-Telemetrie einbauen (Feynman-Scientist) — Analytics: was platziert Oscar, wie lange, welche NPCs getappt
+- Tesla-localStorage-Persistenz fixen (Kernighan-Finding)
+- Buch v2 redigiert auf main, Till kann lesen — keine S103-Aktion nötig
+
+---
+
+## Sprint Retrospective S102 (2026-04-24, Sprint-Engine)
+
+**Was gut lief:**
+- Oscar-Smoke lieferte echte Daten die alles veränderten: Wette auf „Kind spielt" gewonnen, spezifische Bugs sofort identifizierbar
+- Mid-Sprint-Hotfix-Flow funktioniert: 3 Bugs gemeldet → 3 PRs gefixt in <8h, ohne Goal-Gefährdung
+- Progressive-Disclosure-Pattern für Baryon-Rezept elegant (#489) — pädagogisch motiviert, minimal-invasiv
+- Kernighan-Learning „Browser-Verify vor Fix" hat in #488 eine falsche Hypothese verhindert (Bernd-Regression)
+
+**Was nicht gut lief:**
+- Grid-Triplet für Baryonen war ein Design-Fehler den niemand in PR #454 gesehen hat (Till musste nachts seinen Oscar im Tesla sehen)
+- Parallel-Agent-Branch-Kollisionen bleiben ein struktureller Debt (mehrere Reports heute)
+- Deploy-Latenz nicht gemessen — wann kommt Fix auf schatzinsel.app an, wann bei Oscar (Browser-Cache)?
+
+**Retro-Actions für S103:**
+- **R1:** Tesla-localStorage-Persistenz-Fix (Engineer) — Oscar's `blocksPlaced=0` jeden Morgen ist Progress-Verlust
+- **R2:** Analytics-Minimal (Scientist) — was Oscar wirklich macht, für Till-Dashboard
+- **R3:** Worktree-First als Default im Engineer-Codex verankern (bereits dokumentiert, aber noch nicht enforced)
+- **R4:** Quest-Runde 85 bei niedrigsten NPC-Countern (Artist, autonom)
 
 ---
 
