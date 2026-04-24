@@ -1,3 +1,77 @@
+# Sprint 106 — "Kraemerin handelt, Alien sammelt, Bug gräbt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Kraemerin zeigt was ein gutes Geschäft wirklich ausmacht, Alien staunt was Menschen sammeln und aufheben, Bug entdeckt was im Boden verborgen lebt. 935 Quests gesamt.
+
+**Start:** 2026-04-24
+**Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke HITL — kein Druck.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S106-1 | **Quest-Runde 88** — Kraemerin(68→72)/Alien(69→72)/Bug(69→72) → +10 Quests, 925→935. Kraemerin: „Was ein gutes Geschäft ausmacht". Alien: „Was Menschen sammeln". Bug: „Was im Boden lebt". | Artist | 🔲 |
+| S106-2 | **Oscar-Smoke** — Paluten-Test mit iPad. 1 Satz. Rollover seit S98-3. | Till manuell | 🔲 HITL |
+
+---
+
+## Explizit nicht im Sprint
+
+- **CEO-Input S107-Kette** — wartet auf Oscar-Smoke-Ergebnis
+- **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S106
+
+- [x] Planning: 2026-04-24 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Sprint Review S105 (2026-04-24, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/2 Done, 1 HITL.**
+
+| Item | Ergebnis |
+|------|---------|
+| S105-1 Quest-Runde 87 | ✅ PR #466 offen — Neinhorn(68→72 +4) / Spongebob(68→71 +3) / Mephisto(68→71 +3), 915→925 Quests |
+| S105-2 Oscar-Smoke | 🔲 HITL — Paluten-Test wartet auf Till. Rollover seit S98-3 (9 Sprints). |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Neinhorn: Löwenzahn-Forschungsfeld, Widerstand-Messlabor, Fels-Flechten-Archiv, Heimliche-JA-Station. Spongebob: Meeresströmungs-Labor, Seestern-Regenerations-Station, Tiefsee-Gedulds-Observatorium. Mephisto: Zeitgefühl-Labor, Langzeit-Experiment-Archiv, Augenblicks-Kontor.
+
+**Stand nach S105:**
+- **925 Quests** auf feat/sprint-105 (PR #466 offen)
+- NPC-Counter (niedrigste): kraemerin 68 · alien/bug/lokfuehrer/maus je 69
+- Smoke Test: CF 403 bekannte Sandbox-Limitation (HITL #27 offen)
+
+**PO-Entscheidung:**
+- Nächste Quest-Runde S106: Kraemerin(68)/Alien(69)/Bug(69) — Themen: Handel/Sammeln/Boden
+
+---
+
+## Sprint Retrospektive S105 (2026-04-24, autonomer Agent)
+
+**Was gut lief:**
+- Quest-Runde 87 sauber: Neinhorn/Spongebob/Mephisto +10 Quests, 915→925
+- Ops-Branch (PR #465) + Quest-Branch (PR #466) sauber getrennt — kein Merge-Konflikt-Risiko
+- Themen stark: "Was trotz Widerspruch wächst" (Löwenzahn!) / "Was das Meer lehrt" / "Was die Zeit mitbringt"
+- Heimliche-JA-Station für Neinhorn: kontra-intuitiv, kindgerecht, unvergesslich
+
+**Was nicht gut lief:**
+- Oscar-Smoke Rollover: seit S98-3 — 9 Sprints ohne Paluten-Test. Längster Rollover bisher.
+- Ceremony-Branches nicht auf main — erschwertes Tracking für Till. 4 offene PRs (#452/#453/#456/#465/#466) warten auf Merge.
+
+**Retro-Actions für S106:**
+- **R1**: Quest-Runde 88: Kraemerin(68)/Alien(69)/Bug(69) → S106-1, Themen frei wählbar
+- **R2**: Oscar-Smoke HITL bleibt offen — kein Druck, 1 Satz von Till wenn Paluten-Test passiert
+
+---
+
 # Sprint 105 — "Neinhorn wächst, Spongebob taucht, Mephisto wartet"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -12,7 +86,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S105-1 | **Quest-Runde 87** — Neinhorn(68→72)/Spongebob(68→71)/Mephisto(68→71) → +10 Quests, 915→925. Neinhorn: „Was trotz Widerspruch wächst". Spongebob: „Was das Meer lehrt". Mephisto: „Was die Zeit mitbringt". | Artist | 🔲 |
+| S105-1 | **Quest-Runde 87** — Neinhorn(68→72)/Spongebob(68→71)/Mephisto(68→71) → +10 Quests, 915→925. Neinhorn: „Was trotz Widerspruch wächst". Spongebob: „Was das Meer lehrt". Mephisto: „Was die Zeit mitbringt". | Artist | ✅ PR #466 offen |
 | S105-2 | **Oscar-Smoke** — Paluten-Test mit iPad. 1 Satz. Rollover seit S98-3. | Till manuell | 🔲 HITL |
 
 ---
@@ -27,9 +101,8 @@
 ## Ceremony-Status S105
 
 - [x] Planning: 2026-04-23 (autonomer Agent)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-04-24 (autonomer Agent)
+- [x] Retro: 2026-04-24 (autonomer Agent)
 
 ---
 
