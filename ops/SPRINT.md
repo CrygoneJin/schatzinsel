@@ -12,7 +12,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S106-1 | **Quest-Runde 88** — Kraemerin(68→72)/Alien(69→72)/Bug(69→72) → +10 Quests, 925→935. Kraemerin: „Was ein gutes Geschäft ausmacht". Alien: „Was Menschen sammeln". Bug: „Was im Boden lebt". | Artist | 🔲 |
+| S106-1 | **Quest-Runde 88** — Kraemerin(68→72)/Alien(69→72)/Bug(69→72) → +10 Quests, 925→935. Kraemerin: „Was ein gutes Geschäft ausmacht". Alien: „Was Menschen sammeln". Bug: „Was im Boden lebt". | Artist | ✅ PR offen |
 | S106-2 | **Oscar-Smoke** — Paluten-Test mit iPad. 1 Satz. Rollover seit S98-3. | Till manuell | 🔲 HITL |
 
 ---
@@ -27,9 +27,26 @@
 ## Ceremony-Status S106
 
 - [x] Planning: 2026-04-24 (autonomer Agent)
-- [ ] Daily Scrum
+- [x] Daily Scrum: 2026-04-24 (autonomer Agent)
 - [ ] Review
 - [ ] Retro
+
+---
+
+## Daily Scrum S106 (2026-04-24, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- Sprint 106 geplant (PR #476, ops/sprint-review-s105)
+- Smoke: schatzinsel.app CF 403 (Sandbox-Limitation), Worker "Host not in allowlist" — beide bekannte Einschränkungen, kein App-Schaden
+- PRs #452/#453/#456/#457/#465/#466/#475/#476/#477 offen — warten auf Till-Merge
+
+**Was kommt heute?**
+- Quest-Runde 88 implementiert: Kraemerin(68→72)/Alien(66→69)/Bug(69→72) +10 Quests, PR erstellt
+- 905 Quests auf feat/sprint-106 (935 nach Vollmerge aller offenen Quest-PRs)
+
+**Blocker?**
+- S106-2 Oscar-Smoke: HITL seit S98-3 (10 Sprints) — kein Druck, wartet auf Till
+- 8 autonome PRs warten auf Merge-Block durch Till
 
 ---
 
