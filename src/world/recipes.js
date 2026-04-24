@@ -21,6 +21,13 @@ window.INSEL_CRAFTING_RECIPES = [
     { name: 'Elektron',    result: 'electron', resultCount: 1, ingredients: { lightning: 1, metal: 1 },      desc: 'Blitz + Metall = Elektron (Strom ist Elektronenfluss!)' },
     { name: 'Myon',        result: 'muon',     resultCount: 1, ingredients: { electron: 1, star: 1 },        desc: 'Elektron + Stern = Myon (kosmische Strahlung!)' },
     { name: 'Tau',         result: 'tau',      resultCount: 1, ingredients: { electron: 1, antimatter: 1 },  desc: 'Elektron + Antimaterie = Tau (schwerstes Lepton!)' },
+    // Neutrino-Gen-Upgrade (PR #495-Follow-up): Pauli-Selbstaufwertung im
+    // Auto-Merge wurde entfernt (Caves-überall-Bug). Gen2/Gen3-Neutrinos
+    // sind nur noch via Craft erreichbar. Progressive Disclosure: erst
+    // sichtbar, wenn das passende geladene Lepton (muon/tau) bereits
+    // entdeckt wurde — pädagogischer Lernweg.
+    { name: 'Myon-Neutrino', result: 'neutrino_mu',  resultCount: 1, ingredients: { neutrino: 2 },    requires: ['muon'], desc: '2 Neutrinos fusionieren zu Myon-Neutrino (Gen 2, Pauli-Druck)' },
+    { name: 'Tau-Neutrino',  result: 'neutrino_tau', resultCount: 1, ingredients: { neutrino_mu: 2 }, requires: ['tau'],  desc: '2 Myon-Neutrinos fusionieren zu Tau-Neutrino (Gen 3, Pauli-Druck)' },
     // Stufe 5→10.000: Der Kreislauf der 5 Elemente
     // Holz nährt Feuer (Holz brennt)
     { name: 'Glut',     result: 'fire',  resultCount: 3, ingredients: { wood: 2, fire: 1 }, desc: 'Holz brennt! 2 Holz + Feuer = 3 Feuer' },
