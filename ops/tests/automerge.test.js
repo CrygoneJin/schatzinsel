@@ -479,3 +479,106 @@ describe('INSEL_CRAFTING_RECIPES — Baryon-Craft', () => {
     });
 });
 
+// === Neutrino-Gen-Upgrade (PR #495-Follow-up) ===
+// Nach Entfernung der Pauli-Selbstaufwertungs-Regeln im Auto-Merge
+// (neutrino²→neutrino_mu, neutrino_mu²→neutrino_tau, caves-überall-Bug)
+// müssen Craft-Rezepte den Gen-Upgrade-Pfad für Neutrinos abdecken.
+// Progressive Disclosure: Gen2 erst nach muon, Gen3 erst nach tau.
+describe('INSEL_CRAFTING_RECIPES — Neutrino-Gen-Upgrade', () => {
+    let ctx;
+    let recipes;
+    let materials;
+
+    beforeEach(() => {
+        ctx = createBrowserContext();
+        loadScript(path.join(WORLD, 'materials.js'), ctx);
+        loadScript(path.join(WORLD, 'recipes.js'), ctx);
+        recipes = ctx.INSEL_CRAFTING_RECIPES;
+        materials = ctx.INSEL_MATERIALS;
+    });
+
+    it('Myon-Neutrino-Recipe existiert: 2 neutrino → 1 neutrino_mu', () => {
+        const r = recipes.find(x => x.result === 'neutrino_mu');
+        assert.ok(r, 'Myon-Neutrino-Craft-Recipe fehlt');
+        assert.equal(r.ingredients.neutrino, 2);
+        assert.equal(r.resultCount, 1);
+    });
+
+    it('Tau-Neutrino-Recipe existiert: 2 neutrino_mu → 1 neutrino_tau', () => {
+        const r = recipes.find(x => x.result === 'neutrino_tau');
+        assert.ok(r, 'Tau-Neutrino-Craft-Recipe fehlt');
+        assert.equal(r.ingredients.neutrino_mu, 2);
+        assert.equal(r.resultCount, 1);
+    });
+
+    it('Myon-Neutrino-Recipe hat Progressive-Disclosure-Gate: requires=["muon"]', () => {
+        const r = recipes.find(x => x.result === 'neutrino_mu');
+        assert.ok(r);
+        // Cross-vm Array-Prototype: per Element vergleichen statt deepEqual.
+        assert.ok(Array.isArray(r.requires) || r.requires.length !== undefined, 'requires muss Array-ähnlich sein');
+        assert.equal(r.requires.length, 1);
+        assert.equal(r.requires[0], 'muon', 'Gen2-Neutrino erst nach Muon-Erlebnis sichtbar');
+    });
+
+    it('Tau-Neutrino-Recipe hat Progressive-Disclosure-Gate: requires=["tau"]', () => {
+        const r = recipes.find(x => x.result === 'neutrino_tau');
+        assert.ok(r);
+        assert.ok(Array.isArray(r.requires) || r.requires.length !== undefined, 'requires muss Array-ähnlich sein');
+        assert.equal(r.requires.length, 1);
+        assert.equal(r.requires[0], 'tau', 'Gen3-Neutrino erst nach Tau-Erlebnis sichtbar');
+    });
+
+    it('alle Neutrino-Recipe-Ingredients sind gültige Materials', () => {
+        const keys = ['neutrino_mu', 'neutrino_tau'];
+        for (const key of keys) {
+            const r = recipes.find(x => x.result === key);
+            for (const ing of Object.keys(r.ingredients)) {
+                assert.ok(
+                    materials[ing],
+                    `Neutrino-Recipe ${key}: Ingredient "${ing}" ist kein Material`
+                );
+            }
+        }
+    });
+
+    it('Neutrino-Recipes-Ergebnisse sind als Materials definiert (spin=0.5)', () => {
+        assert.ok(materials.neutrino_mu, 'neutrino_mu muss existieren');
+        assert.equal(materials.neutrino_mu.spin, 0.5);
+        assert.ok(materials.neutrino_tau, 'neutrino_tau muss existieren');
+        assert.equal(materials.neutrino_tau.spin, 0.5);
+    });
+});
+
+// === Regression: Neutrino-Pauli-Kaskade bleibt im Auto-Merge deaktiviert ===
+// Sicherstellen, dass die Gen-Upgrade-Rezepte NICHT versehentlich wieder
+// als Auto-Merge-Regel eingeführt werden (Caves-überall-Bug-Klasse).
+describe('INSEL_AUTOMERGE — Neutrino-Pauli-Kaskade bleibt deaktiviert', () => {
+    let ctx;
+    let checkMerge;
+
+    beforeEach(() => {
+        ctx = createBrowserContext();
+        loadScript(path.join(WORLD, 'materials.js'), ctx);
+        loadScript(path.join(WORLD, 'automerge.js'), ctx);
+        checkMerge = ctx.INSEL_AUTOMERGE.checkMerge;
+    });
+
+    it('Neutrino + Neutrino allein → KEIN Auto-Merge zu neutrino_mu', () => {
+        const grid = makeGrid(5, 5, [
+            [2, 2, 'neutrino'],
+            [2, 3, 'neutrino'],
+        ]);
+        const result = checkMerge(grid, 2, 3, 5, 5);
+        assert.equal(result, null, 'Gen1→Gen2 nur via Recipe, nicht via Auto-Merge');
+    });
+
+    it('Neutrino_mu + Neutrino_mu allein → KEIN Auto-Merge zu neutrino_tau', () => {
+        const grid = makeGrid(5, 5, [
+            [2, 2, 'neutrino_mu'],
+            [2, 3, 'neutrino_mu'],
+        ]);
+        const result = checkMerge(grid, 2, 3, 5, 5);
+        assert.equal(result, null, 'Gen2→Gen3 nur via Recipe, nicht via Auto-Merge');
+    });
+});
+
