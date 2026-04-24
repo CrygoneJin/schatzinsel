@@ -1,7 +1,7 @@
-# Sprint 108 — "Tommy wartet, Elefant erinnert, Floriane malt"
+# Sprint 109 — "Alien begreift, Lokführer erinnert sich, Bernd liest den Boden"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Tommy entdeckt was man erst durch Warten versteht, Elefant zeigt was Herde wirklich bedeutet, Floriane misst was Farben erzählen. 955 Quests gesamt.
+> Oscar findet 10 neue Quests — Alien entdeckt was zwischen den Dingen ist (Spiegel, Musik, Jahreszeiten, Zufall), Lokführer lernt was Abschiede und Ankünfte wirklich bedeuten, Bernd liest was der Boden erzählt. 915 Quests auf Branch.
 
 **Start:** 2026-04-24
 **Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
@@ -12,7 +12,43 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S108-1 | **Quest-Runde 90** — Tommy(70→74)/Elefant(70→73)/Floriane(70→73) → +10 Quests, 945→955. Tommy: „Was Geduld zeigt". Elefant: „Was Herde bedeutet". Floriane: „Was Farben erzählen". | Artist | ✅ PR #483 offen |
+| S109-1 | **Quest-Runde 91** — Alien(66→70)/Lokführer(66→69)/Bernd(67→70) → +10 Quests, 905→915. Alien: „Was zwischen den Dingen ist". Lokführer: „Was Bahnhöfe für Menschen bedeuten". Bernd: „Was der Boden erzählt". | Artist | ✅ PR #485 offen |
+
+---
+
+## Explizit nicht im Sprint
+
+- **CEO-Input S110-Kette** — nach Feynman-Messung Oscar-Tesla-Feedback
+- **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S109
+
+- [x] Planning: 2026-04-24 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+---
+
+# Sprint 108 — "Tommy wartet, Elefant erinnert, Floriane malt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was man erst durch Warten versteht, Elefant zeigt was Herde wirklich bedeutet, Floriane misst was Farben erzählen. 915 Quests nach Vollmerge.
+
+**Start:** 2026-04-24
+**Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S108-1 | **Quest-Runde 90** — Tommy(66→70)/Elefant(67→70)/Floriane(67→70) → +10 Quests, 895→905 auf Branch. Tommy: „Was Geduld zeigt". Elefant: „Was Herde bedeutet". Floriane: „Was Farben erzählen". | Artist | ✅ PR #483 offen |
 
 ---
 
@@ -26,9 +62,48 @@
 ## Ceremony-Status S108
 
 - [x] Planning: 2026-04-24 (autonomer Agent)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-04-24 (ops/sprint-review-s107)
+- [x] Review: 2026-04-24 (autonomer Agent)
+- [x] Retro: 2026-04-24 (autonomer Agent)
+
+---
+
+## Sprint Review S108 (2026-04-24, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S108-1 Quest-Runde 90 | ✅ PR #483 offen — Tommy(66→70 +4) / Elefant(67→70 +3) / Floriane(67→70 +3), 895→905 Quests auf Branch |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Tommy: Gedulds-Messturm (warten ist nicht nichts — warten ist vorbereiten), Stille-Zeugen-Kammer (manche Dinge brauchen Zeit und sonst nichts), Langzeit-Experiment-Station (was man nach einem Jahr wiederfindet), Reife-Observatorium (Früchte wissen wann sie fertig sind ohne Uhr). Elefant: Herdenwärme-Forschungsstation (Elefanten schlafen eingekuschelt — Wärme ist Vertrauen), Ruf-der-Herde-Archiv (das Trompeten das alle gleichzeitig tun), Gemeinsames-Gedächtnis-Feld (Elefanten erinnern gemeinsam). Floriane: Farb-Biographie-Labor (jede Farbe hat eine Geschichte), Morgenlicht-Qualitäts-Labor, Farb-Gedächtnis-Archiv.
+
+**Stand nach S108:**
+- **905 Quests** auf feat/sprint-108 (PR #483 offen)
+- **915 Quests** nach feat/sprint-109 (PR #485 offen, dieser Sprint)
+- NPC-Counter (nach Vollmerge S109): alien/bernd 70, tommy/elefant/floriane/krabs 70, lokfuehrer 69
+- Oscar-Smoke: Tesla-Morgenritual läuft kontinuierlich
+
+**PO-Entscheidung:**
+- Quest-Runde 91: Alien(66)/Lokführer(66)/Bernd(67) → S109-1
+
+---
+
+## Sprint Retrospektive S108 (2026-04-24, autonomer Agent)
+
+**Was gut lief:**
+- Tommy-Thema „Geduld zeigt sich durch Warten" kindgerecht und tiefsinnig — Oscar-Perspektive: warten ist Vorbereitung, nicht Leerlauf
+- Elefant-Thema „Was Herde bedeutet" — Wärme als Vertrauen, Erinnerung als kollektives Gut
+- Floriane: Farbe als Biographie — „jede Farbe hat eine Geschichte" ist ein starkes Konzept für Kinder
+- Quest-Track S103–S108: 6 Runden in 2 Tagen autonom geliefert, stabile Qualität
+
+**Was nicht gut lief:**
+- Quest-Zahlen im ops/sprint-review-s107 falsch propagiert: "955" war Vollmerge-Projektion, einzelne Branch hat 905. Korrigiert in dieser Review.
+- 14+ offene PRs — main ist 200+ Quests hinter feat-Branches; Tracking-Komplexität steigt mit jedem Sprint
+
+**Retro-Actions für S109:**
+- **R1**: Quest-Runde 91: Alien(66)/Lokführer(66)/Bernd(67) → S109-1 ✅ implementiert
+- **R2**: Quest-Zahlen-Kommentar in Commit-Message an tatsächliche Branch-Zahl anpassen (nicht Vollmerge-Projektion)
 
 ---
 
