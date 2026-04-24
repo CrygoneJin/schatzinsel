@@ -174,14 +174,44 @@ describe('INSEL_AUTOMERGE — Baryon-Triplets', () => {
         assert.equal(result.result, 'qi');
     });
 
-    it('Yang+Yang allein → Charm (Pair-Merge intakt)', () => {
+    // AUDIT 2026-04-24 (Till-Bug „caves spawned everywhere"):
+    // Pauli-Selbst-Upgrade-Regeln (yin², yang², charm², strange², …)
+    // wurden aus Auto-Merge entfernt — sie verursachten Chain-Kaskaden,
+    // die das Grid mit cave/mountain fluteten. Weg nur noch via Recipe.
+    it('Yang+Yang allein → KEIN Auto-Merge zu Charm (Pauli-Kaskade deaktiviert)', () => {
         const grid = makeGrid(5, 5, [
             [2, 2, 'yang'],
             [2, 3, 'yang'],
         ]);
         const result = checkMerge(grid, 2, 3, 5, 5);
-        assert.ok(result);
-        assert.equal(result.result, 'charm');
+        assert.equal(result, null, 'Gen1→Gen2 nur via Recipe, nicht via Auto-Merge');
+    });
+
+    it('Yin+Yin allein → KEIN Auto-Merge zu Strange (Pauli-Kaskade deaktiviert)', () => {
+        const grid = makeGrid(5, 5, [
+            [2, 2, 'yin'],
+            [2, 3, 'yin'],
+        ]);
+        const result = checkMerge(grid, 2, 3, 5, 5);
+        assert.equal(result, null, 'Gen1→Gen2 nur via Recipe, nicht via Auto-Merge');
+    });
+
+    it('Strange+Strange → KEIN Auto-Merge zu Cave (Haupt-Bug-Vektor, fixed)', () => {
+        const grid = makeGrid(5, 5, [
+            [2, 2, 'strange'],
+            [2, 3, 'strange'],
+        ]);
+        const result = checkMerge(grid, 2, 3, 5, 5);
+        assert.equal(result, null, 'Grid voll strange darf NICHT zu Grid voll cave kollabieren');
+    });
+
+    it('Charm+Charm → KEIN Auto-Merge zu Mountain (symmetrischer Bug, fixed)', () => {
+        const grid = makeGrid(5, 5, [
+            [2, 2, 'charm'],
+            [2, 3, 'charm'],
+        ]);
+        const result = checkMerge(grid, 2, 3, 5, 5);
+        assert.equal(result, null, 'Grid voll charm darf NICHT zu Grid voll mountain kollabieren');
     });
 });
 
@@ -298,15 +328,15 @@ describe('INSEL_AUTOMERGE — Standardmodell komplett', () => {
         assert.equal(result.result, 'electron');
     });
 
-    it('Regression: Elektron × Elektron → Myon (Pauli, nicht Pion)', () => {
-        // Verhindert Kollision: neuer Pion-Merge darf nicht Myon-Entstehung brechen.
+    it('Elektron × Elektron → KEIN Auto-Merge (Pauli-Kaskade deaktiviert, 2026-04-24)', () => {
+        // Audit: e⁻×e⁻→Myon im Auto-Merge = gleicher Chain-Kollaps-Vektor
+        // wie yin²→strange²→cave. Gen-Upgrades laufen nur via Recipe.
         const grid = makeGrid(5, 5, [
             [2, 2, 'electron'],
             [2, 3, 'electron'],
         ]);
         const result = checkMerge(grid, 2, 3, 5, 5);
-        assert.ok(result);
-        assert.equal(result.result, 'muon');
+        assert.equal(result, null, 'e⁻ × e⁻ → Myon nur via Recipe (electron + star)');
     });
 
     it('Regression: Elektron + Yin → Neutrino (bleibt unverändert)', () => {
