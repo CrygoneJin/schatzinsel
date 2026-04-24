@@ -27,9 +27,23 @@
 ## Ceremony-Status S103
 
 - [x] Planning: 2026-04-23 (autonomer Agent)
-- [ ] Daily Scrum
+- [x] Daily Scrum: 2026-04-24 (autonomer Agent)
 - [ ] Review
 - [ ] Retro
+
+---
+
+## Daily Scrum S103 (2026-04-24, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- S102 Review + Retro abgeschlossen (autonomer Agent, 2026-04-23)
+- Quest-Runde 85 implementiert: Tommy(66→70)/Alien(66→69)/Lokführer(66→69), 895→905 Quests
+
+**Was kommt heute?**
+- PR feat/sprint-103 → main mergen, Oscar sieht 10 neue Quests
+
+**Blocker?**
+- S103-2 Oscar-Smoke: HITL, wartet auf Till (Paluten-Test)
 
 ---
 
