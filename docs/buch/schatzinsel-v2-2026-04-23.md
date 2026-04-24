@@ -831,7 +831,7 @@ Das ist seine Gabe. Ich versteh sie nicht. Aber ich seh sie.
 
 ### Wer fehlt
 
-Das sind nicht alle. Auf der 🏝️ gibt's noch mehr. Möwen. Fische die leuchten. Eine Krämerin die manchmal Brot bringt (die ist mit Frau Waas verwandt, glaub ich, oder sie sind **dieselbe Person** an verschiedenen Tagen — ich weiß es nicht). Wir erzählen das ein anderes Mal.
+Das sind nicht alle. Auf der 🏝️ gibt's noch mehr. Möwen. Fische die leuchten. **Eine Katze** — fast keiner sieht sie. Sie schläft in der warmen Ecke beim Bahnhof. Ein Auge halb offen. Ein Schwanz der zuckt. Sie ist da, und sie weiß mehr als wir alle. Sie weiß zum Beispiel, was **Katzengold** ist. Dazu später. Und eine Krämerin die manchmal Brot bringt (die ist mit Frau Waas verwandt, glaub ich, oder sie sind **dieselbe Person** an verschiedenen Tagen — ich weiß es nicht). Wir erzählen das ein anderes Mal.
 
 Aber das hier — diese zehn — das ist der **Kern**. Das sind die, die jeden Abend am 🔥 sitzen. Das sind die, die winken wenn du kommst. Das sind die Freunde.
 
@@ -979,6 +979,33 @@ Dann sind Gleise gekommen. Emma ist rauf und runter gefahren — tschuff tschuff
 Dann hat das Kind — klick-klack — **Höhlen** gebaut. Unter dem Berg. Dunkle Gänge. Mit leuchtenden Steinen drin, damit man sich nicht verläuft.
 
 🐭 war entzückt. Sie ist sofort rein gerannt. 🦆 hinterher. Pieps-quak-pieps-quak durch die ganzen Gänge. Manchmal kamen sie auf der anderen Seite raus und waren erstaunt. Jedes Mal. „Oh! Eine andere Seite!" — sagten sie nicht, aber ich hab's gesehen.
+
+
+### Das Gold der Katze
+
+Klick-klack. Einmal — und das ist **wahr**, ihr Kleinen, das ist wirklich passiert — hat das Kind drei Sachen zusammengelegt, die überhaupt nicht zusammengehören. **Sand vom Strand.** Dann **Sonne** — also nicht die ganze, nur ein Stück Sonnenlicht in einem Kasten, weil im Spiel kann man sowas. Und — hier müsst ihr kurz still sein, sonst prustet jemand — **💩**.
+
+Ja. Das kleine braune Zeichen.
+
+Das Kind hat das gemacht. Ich schwör, ich hab's gesehen. Sand plus Sonne plus 💩. Und was kam raus?
+
+✨ **Katzengold.** ✨
+
+Ja. So heißt das. *Katzengold.* Ein glitzerndes, goldenes Steinchen, das aussieht wie das wichtigste Ding der Welt und in Wirklichkeit nur funkelndes Gestein ist. Die Erwachsenen nennen das so, wenn sie einem Kind mit Glitzersteinen sagen wollen: das ist nicht echt.
+
+Aber das Kind hat das nicht gewusst. Das Kind hat nur ✨ gesehen — und gejuchzt.
+
+🦀 hat die Tafel rausgeholt. Hat fünfmal nachgerechnet. Ist jedes Mal auf dasselbe Ergebnis gekommen: das ist **kein** Gold. Das ist eine Täuschung.
+
+Das Kind hat 🦀 angeschaut. Ruhig. Sehr ruhig.
+
+„Aber es glitzert, 🦀."
+
+🦀 hat klein mit den Augen gemacht. Hat den Kreidestrich weggewischt. Hat nichts mehr gesagt.
+
+Und oben am Bahnhof — in der warmen Ecke — hat die **Katze** ein Auge aufgemacht. Sie hat geschnurrt. Tief. So tief wie das Brummen vom Auto des Vaters. Die Katze hat's die ganze Zeit gewusst: Katzengold ist nicht Gold. Aber Katzengold ist **das Richtige**, wenn man acht ist.
+
+Klick-klack. Ich hab ihr zugenickt. Sie hat das Auge wieder zugemacht.
 
 
 ### 🧽 als Kommentator
