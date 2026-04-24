@@ -19,19 +19,34 @@
         // Paarproduktion: Antimaterie + Quark → Lepton (β-Zerfall-Analogon)
         { a: 'antimatter', b: 'yang', result: 'electron', msg: '🔹 Antimaterie + Yang → Elektron! (Paarproduktion)' },
 
-        // === Pauli-Prinzip: A×A → nächste Generation (Multiplikation) ===
-        // Identische Fermionen können nicht am selben Ort sein.
-        // Pauli-Druck → höhere Energie → schwerer → nächste Generation.
+        // === Pauli-Prinzip: A×A → nächste Generation (NUR VIA RECIPE) ===
         //
-        // Up-type:   Yang → Charm → Berg (Top)
-        // Down-type: Yin → Strange → Höhle (Bottom)
-        // Lepton:    Elektron → Myon → Tau
-        { a: 'yang', b: 'yang', result: 'charm', msg: '💫 Yang × Yang → Charm! (Pauli-Druck: Gen1→2)' },
-        { a: 'yin', b: 'yin', result: 'strange', msg: '🌀 Yin × Yin → Strange! (Pauli-Druck: Gen1→2)' },
-        { a: 'charm', b: 'charm', result: 'mountain', msg: '🏔️ Charm × Charm → Berg! (Pauli-Druck: Gen2→3, Top-Quark)' },
-        { a: 'strange', b: 'strange', result: 'cave', msg: '🕳️ Strange × Strange → Höhle! (Pauli-Druck: Gen2→3, Bottom-Quark)' },
-        { a: 'electron', b: 'electron', result: 'muon', msg: '🔸 Elektron × Elektron → Myon! (Pauli-Druck: Gen1→2)' },
-        { a: 'muon', b: 'muon', result: 'tau', msg: '🔻 Myon × Myon → Tau! (Pauli-Druck: Gen2→3)' },
+        // AUDIT 2026-04-24 (Till-Bug „caves spawned everywhere"):
+        // Alle Selbst-Upgrade-Pair-Regeln (yin², yang², charm², strange²,
+        // electron², muon², neutrino², neutrino_mu²) wurden aus dem
+        // Auto-Merge entfernt. Begründung:
+        //
+        // Tao-Decay (passiv, 1/√42 pro Sekunde) streut yin+yang-Paare
+        // über das Grid. Über Zeit akkumuliert sich mindestens eines
+        // der beiden. Sobald Oscar einen Klick auslöst (Place oder
+        // Chain-Merge nach Decay), greift yin²→strange, unmittelbar
+        // gefolgt von strange²→cave in der Chain-Reaktion.
+        // Ergebnis: Grid voll `cave` (oder `mountain` für yang-Seite).
+        //
+        // Symmetrisch für yang → charm → mountain.
+        //
+        // HAUPTWEG (einziger Weg) ab jetzt: Craft-Recipe in recipes.js.
+        //   - charm:   yang + qi + lightning
+        //   - strange: yin + qi + lightning
+        //   - mountain: 3 stone + 2 earth
+        //   - cave:     mountain + water
+        //   - electron: lightning + metal
+        //   - muon:     electron + star
+        //   - tau:      electron + antimatter
+        //
+        // Parallelfall zu PR #487 (Baryon-Triplet raus). Gleiches Muster:
+        // Auto-Merge-Aggressivität + Chain-Kaskade = unbeabsichtigter
+        // Grid-Kollaps.
 
         // === Higgs-Boson: Top+Bottom-Fusion (Gen3-Quark-Paar, 125 GeV) ===
         // Der LHC entdeckt Higgs u.a. durch Top-Quark-Loops (gg → H).
@@ -58,11 +73,15 @@
         // === Neutrinos: Geister-Teilchen (schwache Wechselwirkung) ===
         // Elektron-Einfang: Elektron + Down-Quark → Neutrino (β⁺-Zerfall)
         { a: 'electron', b: 'yin', result: 'neutrino', msg: '👻 Elektron + Yin → Neutrino! (Geist-Teilchen!)' },
-        { a: 'neutrino', b: 'neutrino', result: 'neutrino_mu', msg: '👻 Neutrino × Neutrino → Myon-Neutrino! (Pauli-Druck)' },
-        { a: 'neutrino_mu', b: 'neutrino_mu', result: 'neutrino_tau', msg: '👻 Myon-ν × Myon-ν → Tau-Neutrino! (Pauli-Druck)' },
+        // AUDIT 2026-04-24: Neutrino×Neutrino und Neutrino_mu×Neutrino_mu
+        // waren ebenfalls Pauli-Selbst-Upgrades → Kaskadengefahr. Raus.
+        // Upgrade-Weg: Recipe (nicht existent — siehe TODO, aber Chain-Bug
+        // hat Priorität).
 
         // === Bosonen: Kraftteilchen ===
-        // Gluon-Fusion → Photon (wie am LHC: gg → γγ)
+        // Gluon-Fusion → Photon (wie am LHC: gg → γγ).
+        // AUDIT 2026-04-24: qi×qi→photon bleibt drin — Qi entsteht
+        // nur explizit aus yin+yang und akkumuliert nicht spontan.
         { a: 'qi', b: 'qi', result: 'photon', msg: '💛 Qi × Qi → Photon! (Licht aus Energie!)' },
         // W-Boson vermittelt Lepton-Neutrino-Umwandlung
         { a: 'electron', b: 'neutrino', result: 'w_boson', msg: '🔀 Elektron + Neutrino → W-Boson! (Schwache Kraft!)' },
