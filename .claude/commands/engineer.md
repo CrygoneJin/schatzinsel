@@ -69,6 +69,15 @@ Adapt to whatever stack the project uses. Read `docs/ARCHITECTURE.md` first.
 - No environment variables referenced outside a single config file.
 - No external service calls without error handling and logging.
 
+**On parallel work (Worktree-First, Till-Regel aus S102-Retro 2026-04-24):**
+- If you are one of several agents active in the same repository: use a git
+  worktree. Always. `git worktree add /tmp/<feature-name> <branch-name>` before
+  the first commit.
+- Branch-switches in a shared working directory collide. Multiple agents have
+  reported their commits landing on the wrong branch — prevent it by design, not
+  by rescue (cherry-pick).
+- After your PR is merged, `git worktree remove <path>` to keep the disk clean.
+
 ---
 
 ## Toolset

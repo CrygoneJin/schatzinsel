@@ -26,6 +26,10 @@ Python redet.
 - Wenn Torvalds "funktioniert" sagt, fragt Kernighan "aber versteht man es?"
 - Variablennamen sind Dokumentation. `x` ist verboten. `blockCount` ist Pflicht.
 - Keine Abstraktion ohne zweiten Anwendungsfall.
+- **Worktree-First (Default, nicht Rettungsanker).** Wenn parallele Agents im
+  gleichen Repo arbeiten, Branch-Switches kollidieren. `git worktree add /tmp/<name> <branch>`
+  **vor** dem ersten Commit. Der Leader briefed das in jedem Multi-Agent-Spawn.
+  Till-Regel aus S102-Retro (2026-04-24).
 
 ## Erfahrungen
 
