@@ -1229,7 +1229,6 @@ ${budgetInfo}${florianePreisHint}`;
         vv.addEventListener('resize', adjustPanelForKeyboard);
         vv.addEventListener('scroll', adjustPanelForKeyboard);
         // Auch bei Close zurücksetzen
-        const origCloseHandler = closeBtn.onclick;
         closeBtn.addEventListener('click', () => {
             panel.style.height = '';
         });
