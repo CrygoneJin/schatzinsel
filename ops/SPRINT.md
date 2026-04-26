@@ -23,8 +23,49 @@
 
 - [x] Planning: 2026-04-24 (Sprint-Engine, nach Retro S102)
 - [x] Daily Scrum: 2026-04-25 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-04-26 (autonomer Agent)
+- [x] Retro: 2026-04-26 (autonomer Agent)
+
+---
+
+## Sprint Review S103 (2026-04-26, autonomer Agent)
+
+**Sprint Goal erfüllt: 4/4 Items ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S103-1 Tesla-localStorage-Persistenz | ✅ PR #494 — IndexedDB-Snapshot + navigator.storage.persist(). Oscar's blocksPlaced überlebt Auto-Aus/An |
+| S103-2 Analytics-Minimal | ✅ PR #492 — Opt-in Telemetrie + Till-Dashboard. Datenschutzkonform, Oscar's Spielmuster sichtbar |
+| S103-3 Quest-Runde 85 | ✅ auf feat-Branch (Alien×4/Lokführer×3/Tommy×3, 895→905) — Merge ausstehend |
+| S103-4 Worktree-First | ✅ PR #491 — Engineer-Command + Kernighan-Codex. Parallel-Agent-Kollisionen reduziert |
+
+**Oscar-Outcome:**
+- Tesla-Morgenritual: IDB-Backup verhindert Progress-Verlust beim Browser-Session-Reset
+- Analytics live (sobald Opt-in gesetzt): Till sieht was Oscar wirklich baut
+- 905 Quests auf Branch (895 auf main — Merge-Backlog wächst)
+
+**Branch-Drift-Hinweis:**
+Autonome Sessions S104–S114 haben auf feat-Branches weitergearbeitet (945 Quests). Alle Branches warten auf Merge durch Till. Reihenfolge: #500→#501→#502→#503→#504 (bauen aufeinander auf).
+
+---
+
+## Sprint Retrospektive S103 (2026-04-26, autonomer Agent)
+
+**Was gut lief:**
+- IDB-Snapshot-Pattern (PR #494) ist solid: Kernighan-Learning umgesetzt, Tesla-Reboot überlebt
+- Analytics Opt-in (PR #492): privacy-by-default, Feynman-Gate bestanden
+- Quest-Track läuft autonom — 4 Runden seit S102 ohne Blocker
+- Retro-Actions aus S102 alle umgesetzt (4/4)
+
+**Was nicht gut lief:**
+- SPRINT.md-Drift: main zeigt S103, autonome Sessions haben S104–S113 auf Branches gebaut (11 Sprints, 40+ Quests nicht auf main)
+- Merge-Backlog: PRs #500–#504 + S103-3 warten — Till muss stapeln
+- HITL #1–#3 (Oscar-Smoke nach Caves, Analytics-Opt-in, IDB-Tesla-Verify) seit S103 offen
+
+**Retro-Actions für S104:**
+- **R1:** Quest-Runde 86 — Bernd/Elefant/Floriane (alle bei 67, nächste nach Alien/Tommy/Lokführer) → S104-1
+- **R2:** Merge-Hinweis erneuern: PRs in Reihenfolge mergen
+- **R3:** HITL-Items nicht schleppen — entweder Till macht sie oder sie werden nach 3 Sprints geschlossen
 
 ---
 
@@ -53,6 +94,53 @@
 - R2 → S103-2
 - R3 → S103-4
 - R4 → S103-3
+
+---
+
+---
+
+# Sprint 104 — "Bernd hört Stille, Elefant erinnert sich, Floriane träumt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Bernd entdeckt was man in der Stille hört (Amsel, Regen, Wind, Atemrhythmus), Elefant teilt was Generationen über die Erde wissen (Wanderrouten, Jahreszeiten, Trockenzeitwasser), Floriane misst wo Wünsche sich erfüllen. 905→915 Quests.
+
+**Start:** 2026-04-26
+**Sprint-Prinzip:** Quest-Track autonom. Merge-Backlog für Till dokumentiert.
+
+---
+
+## Sprint Backlog S104
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S104-1 | **Quest-Runde 86** — Bernd(67→71 +4)/Elefant(67→70 +3)/Floriane(67→70 +3) → +10 Quests, 905→915. Bernd: „Was Stille verrät". Elefant: „Was Generationen über die Erde wissen". Floriane: „Wo Wünsche sich erfüllen". | Artist | ✅ ops/sprint-review-s103-final |
+
+---
+
+## Ceremony-Status S104
+
+- [x] Planning: 2026-04-26 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Merge-Backlog für Till (S103–S114)
+
+PRs in Reihenfolge mergen (jeder baut auf dem vorherigen auf):
+- feat/sprint-103 → Quest-Runde 85 (Alien/Tommy/Lokführer, 895→905)
+- feat/sprint-104 → Quest-Runde 86 (Bernd/Elefant/Floriane, 905→915)
+- feat/sprint-105 → Quest-Runde 87
+- feat/sprint-106 → Quest-Runde 88
+- feat/sprint-107 → Quest-Runde 89
+- feat/sprint-108 → Quest-Runde 90
+- feat/sprint-109 → Quest-Runde 91
+- feat/sprint-110 → Quest-Runde 92
+- feat/sprint-111 → Quest-Runde 93
+- feat/sprint-112 → Quest-Runde 94
+- feat/sprint-113 → Quest-Runde 95 (aus ops/sprint-review-s112)
+- feat/sprint-114 → Quest-Runde 96
 
 ---
 
