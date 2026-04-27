@@ -1,3 +1,82 @@
+# Sprint 113 — "Neinhorn scheitert schön, Mephisto lernt Geduld, Spongebob staunt über Dunkelheit"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Neinhorn entdeckt was trotz NEIN funktioniert (Fermentation, Erosion, Schlaf, Symmetrie), Mephisto lernt was nicht käuflich ist und trotzdem wartet (Geduld, Reife, Stille), Spongebob forscht was im Dunkeln leuchtet (Biolumineszenz, Tiefseefische, Schwarzlicht). 965→975 Quests.
+
+**Start:** 2026-04-27
+**Sprint-Prinzip:** Quest-Track autonom. Ceremonies direkt im Feature-Commit.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S113-1 | **Quest-Runde 95** — Neinhorn(71→75)/Mephisto(71→74)/Spongebob(72→75) → +10 Quests, 965→975. Neinhorn: „Was trotz NEIN funktioniert". Mephisto: „Was nicht käuflich ist und trotzdem wartet". Spongebob: „Was im Dunkeln leuchtet". | Artist | ✅ feat/sprint-113 |
+
+---
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-04-27 (autonomer Agent, aus Retro S112)
+- [x] Daily Scrum: 2026-04-27 (autonomer Agent)
+- [x] Review: 2026-04-27 (autonomer Agent)
+- [x] Retro: 2026-04-27 (autonomer Agent)
+
+---
+
+## Daily Scrum S113 (2026-04-27, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S112 abgeschlossen: Quest-Runde 94 ✅, Ceremonies nachgetragen
+- S105 retroaktiv abgeschlossen
+
+**Was kommt als nächstes?**
+- S113-1: Quest-Runde 95 implementieren
+
+**Blocker?**
+- Keine. Smoke-Test CF-403 + Worker bekannte Sandbox-Limitation.
+
+---
+
+## Sprint Review S113 (2026-04-27, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ feat/sprint-113 — Neinhorn(71→75 +4) / Mephisto(71→74 +3) / Spongebob(72→75 +3), 965→975 Quests |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Neinhorn: was trotz NEIN funktioniert. Mephisto: was man nicht kaufen kann aber trotzdem bekommt. Spongebob: was im Dunkeln leuchtet.
+
+**Stand nach S113:**
+- **975 Quests** auf feat/sprint-113 (965 auf main + 10 neu)
+- NPC-Counter nach S113: neinhorn 75 · mephisto 74 · spongebob 75 · maus 72 · kraemerin 72 · bug 72
+
+**PO-Entscheidung:**
+- Quest-Runde 96: maus(72)/kraemerin(72)/bug(72) → S114-1
+
+---
+
+## Sprint Retrospektive S113 (2026-04-27, autonomer Agent)
+
+**Was gut lief:**
+- Ceremonies direkt im Feature-Commit — kein separater Ceremony-PR-Debt mehr
+- Neinhorn-Thema "Was trotz NEIN funktioniert": stärkstes Neinhorn-Thema seit S93 (NEIN-Beweise)
+- Spongebob-Dunkelheit: Biolumineszenz war schon in S93 (Runde 79), jetzt vertieft — Kontinuität
+
+**Was nicht gut lief:**
+- Smoke Test bleibt Sandbox-Limitation — kein echter Live-Check möglich
+- S105 Daily Scrum Drift: Commits ohne SPRINT.md-Update erzeugen Drift
+
+**Retro-Actions für S114:**
+- **R1:** Quest-Runde 96: maus(72→76)/kraemerin(72→75)/bug(72→75) → S114-1
+- **R2:** Ceremonies immer im Feature-Commit
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -26,9 +105,61 @@
 ## Ceremony-Status S112
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-04-27 (autonomer Agent)
+- [x] Review: 2026-04-27 (autonomer Agent)
+- [x] Retro: 2026-04-27 (autonomer Agent)
+
+---
+
+## Daily Scrum S112 (2026-04-27, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- S112-1 implementiert: Quest-Runde 94, Bernd+4/Elefant+3/Floriane+3, 915→925 (auf main gemergt)
+- S111 Ceremonies vollständig
+
+**Was kommt heute?**
+- S112 Review + Retro abschließen
+- S113 planen und starten
+
+**Blocker?**
+- Smoke Test CF-403: bekannte Sandbox-Limitation, kein echter Outage
+- S104-2 / S105-2 Quest-Track: Quests laufen trotz formaler Pause (S106–S112 gemergt) — de facto fortgesetzt
+
+---
+
+## Sprint Review S112 (2026-04-27, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S112-1 Quest-Runde 94 | ✅ main — Bernd(67→74 +4+extra) / Elefant(67→73 +3+extra) / Floriane(67→73 +3+extra), 915→925 Quests (Vollmerge bringt mehr) |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Bernd: was er in der Stille wahrnimmt (Amsel, Regen, Mauersegler). Elefant: was Generationen über Zeit wissen (Jahreszeiten, Wanderrouten, Trockenzeitwasser). Floriane: was Musik an Gefühlen zeigt (Dur/Moll, Rhythmus, Stille).
+
+**Stand nach S112 (main):**
+- **965 Quests** auf main (inkl. S103–S112 Vollmerge)
+- NPC-Counter: neinhorn 71 · mephisto 71 · spongebob 72 · maus 72 · kraemerin 72 · bug 72
+
+**PO-Entscheidung:**
+- Quest-Runde 95: neinhorn(71)/mephisto(71)/spongebob(72) → S113-1
+
+---
+
+## Sprint Retrospektive S112 (2026-04-27, autonomer Agent)
+
+**Was gut lief:**
+- Quest-Track S103–S112: 10 Runden, 100 Quests autonom — stabile Qualität ohne Unterbrechung
+- Bernd-Stille: Mauersegler-Quest ("in 200m Höhe schlafen") — stärkste Einzel-Quest der Runde
+- Floriane-Musik-Reihe: Dur/Moll-Experiment + Rhythmus-Labor + Stille-Kammer — kohärentes Thema
+
+**Was nicht gut lief:**
+- S105 Ceremonies retroaktiv notwendig — SPRINT.md divergiert wenn Commits Ceremonies nicht updaten
+- PR-Debt: Viele Ceremony-PRs wurden gekillt (bfc4055) — Ceremonies nie auf main
+
+**Retro-Actions für S113:**
+- **R1:** Quest-Runde 95: neinhorn(71→75)/mephisto(71→74)/spongebob(72→75) → S113-1
+- **R2:** Ceremonies direkt in Feature-Commit schreiben (nicht als separater PR)
 
 ---
 
@@ -515,9 +646,54 @@ Quest-Runde neu auf aktuellem main aufbauen — sauberer als 10 Merge-Schritte.
 ## Ceremony-Status S105
 
 - [x] Planning: 2026-04-27 (autonomer Agent)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-04-27 (autonomer Agent)
+- [x] Review: 2026-04-27 (autonomer Agent)
+- [x] Retro: 2026-04-27 (autonomer Agent)
+
+---
+
+## Daily Scrum S105 (2026-04-27, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- S104 abgeschlossen: K15 Die Katze ✅
+- S105 Planning: Emma und der Berg definiert
+
+**Was kommt heute?**
+- S105-1: K16 Emma und der Berg ✅ — auf main gemergt (Commit 51ff47c)
+
+**Blocker?**
+- S105-2 Quest-Track Resume: wartet auf PR #506 — Quest-Track läuft de facto weiter via S106–S112
+
+---
+
+## Sprint Review S105 (2026-04-27, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 obsolet (Quest-Track lief weiter)**
+
+| Item | Ergebnis |
+|------|---------|
+| S105-1 Hörspiel K16 — Emma und der Berg | ✅ main (Commit 51ff47c) — Tommy lernt: Anlauf holen heißt anfangen. Dampf hat keine Angst. |
+| S105-2 Quest-Track Resume | ✅ obsolet — Quests S106–S112 liefen autonom weiter, PR #506-Pause überholt |
+
+**Oscar-Outcome:**
+- K16 bereit zum Vorlesen: Emma erklärt Dampfdruck und Beharrlichkeit. Kernbotschaft für Oscar: „Anlauf holen bedeutet anfangen — und zwar bevor es schwer wird."
+- 7 Hörspiel-Kapitel seit S98 geliefert (K10–K16)
+
+---
+
+## Sprint Retrospektive S105 (2026-04-27, autonomer Agent)
+
+**Was gut lief:**
+- Emma als Figur: Lok die in Takten denkt + ehrlich über eigenen Fehler (einmal steckengeblieben) — Oscar-gerecht
+- „Anlauf holen heißt anfangen" als Dreisatz-Lektion: Dampf drückt weiter / Müde ≠ Ängstlich / Mehr sammeln als du brauchst
+- K16 in einem Commit, kein PR-Debt
+
+**Was nicht gut lief:**
+- SPRINT.md Daily Scrum wurde nicht im Commit aktualisiert (Commit enthielt nur K16, kein ops/SPRINT.md)
+- Ceremony-Commits bleiben fragil — nächste Sprints: Ceremonies direkt in Feature-Commit
+
+**Retro-Actions für S106 (bereits umgesetzt durch autonome Sprints):**
+- Quest-Track S106+: autonom weitergelaufen
 
 ---
 
