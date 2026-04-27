@@ -142,7 +142,7 @@ Quest-Runde neu auf aktuellem main aufbauen — sauberer als 10 Merge-Schritte.
 
 | # | Item | Owner | Status |
 |---|------|-------|--------|
-| S104-1 | **Hörspiel Kapitel 15 — Die Katze** — Lindgren-Anregung aus Backlog-Item K15. Tommy Krab erzählt. Artist (autonom). Ins Hörspiel-System einfügen wie Kap. 13+14. | Artist (autonom) | 🔲 |
+| S104-1 | **Hörspiel Kapitel 15 — Die Katze** — Lindgren-Anregung aus Backlog-Item K15. Tommy Krab erzählt. Artist (autonom). Ins Hörspiel-System einfügen wie Kap. 13+14. | Artist (autonom) | ✅ PR → stories/kapitel-15-die-katze |
 | S104-2 | **Quest-Track: PAUSE** — keine neue Quest-Runde bis PR #506 auf main. Dann prüfen ob Stack sinnvoll oder Neustart besser. | — | ⏸ wartet auf Till |
 
 ---
@@ -150,6 +150,92 @@ Quest-Runde neu auf aktuellem main aufbauen — sauberer als 10 Merge-Schritte.
 ## Ceremony-Status S104
 
 - [x] Planning: 2026-04-26 (autonomer Agent)
+- [x] Daily Scrum: 2026-04-27 (autonomer Agent)
+- [x] Review: 2026-04-27 (autonomer Agent)
+- [x] Retro: 2026-04-27 (autonomer Agent)
+
+---
+
+## Daily Scrum S104 (2026-04-27, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- S104 Planning abgeschlossen: Sprint Goal "Die Katze hört zu" definiert, S104-1 in Backlog
+- S103 Retro-Actions dokumentiert (R1: Quest-Track Pause, R2: K15, R3: PR-Merge-Anleitung)
+
+**Was kommt heute?**
+- S104-1: Hörspiel Kapitel 15 — Die Katze ✅ — `docs/stories/kapitel-15-die-katze.md` geschrieben
+  Tommy Krab erzählt: Mephisto sitzt nachts auf p+e-Blöcken und wärmt sie (Lindgren: "ohne zu wissen dass sie gerade Wasserstoff bebrütet"). Thema: Wissen ohne Worte.
+
+**Blocker?**
+- Smoke Test CF-403: bekannte Sandbox-Limitation, kein echter Outage
+- S104-2 Quest-Track Pause: wartet auf Till (PR #506 merge)
+
+---
+
+## Sprint Review S104 (2026-04-27, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S104-1 Hörspiel K15 — Die Katze | ✅ PR #521 — Mephisto sitzt nachts auf p+e-Blöcken, wärmt sie, weiß nicht dass er Wasserstoff bebrütet. Tommy lernt: Wissen ohne Worte. |
+| S104-2 Quest-Track PAUSE | ⏸ PR #506 noch nicht auf main — Quest-Track bleibt pausiert (bewusste Entscheidung) |
+
+**Oscar-Outcome:**
+- K15 bereit zum Vorlesen: Lindgren-Figur präzise umgesetzt — ein Tier das schweigt und trotzdem alles weiß
+- Mephisto aus K14 ("er weiß es irgendwie") bekommt hier sein eigenes Kapitel und Tiefe
+- Sprint-Disziplin gehalten: kein neuer Quest-PR trotz 30+ offener PRs im Stack
+
+**PR-Debt-Stand:**
+- PR #521 (K15 + Daily Scrum + Review + Retro) → mergebar, base: main
+- PR #506 (Quest-Runde 85) → Till-Merge ausstehend, dann Quest-Track Resume
+- Alte Ceremony-PRs (#513–#518, #520) → schließen nach Merge von #521
+
+---
+
+## Sprint Retrospektive S104 (2026-04-27, autonomer Agent)
+
+**Was gut lief:**
+- K15 Lindgren-Anregung präzise umgesetzt: Mephisto auf p+e-Blöcken ist das zentrale Bild — poetisch und physikalisch gleichzeitig
+- Stil-Kontinuität K13+K14+K15 gehalten: Tommy-Stimme, klick-klack, Mona weiß es, Gute Nacht
+- Quest-Track-Pause gehalten: kein neuer Debt in S104 aufgebaut
+
+**Was nicht gut lief:**
+- Mehrere parallele K15-Versionen entstanden (#513, #516, #517, #521) — Agenten haben dieselbe Aufgabe mehrfach unabhängig gelöst
+- PR-Debt weiter gewachsen (30+ PRs) — Till braucht Zeit um Merge-Block abzuarbeiten
+- PR #506 (Quest-Runde 85) wartet seit 2026-04-25 auf Merge — Quest-Track seit 2 Sprints pausiert
+
+**Retro-Actions für S105:**
+- **R1:** K16 Hörspiel — Emma erklärt Tommy warum Dampf keine Angst vor Bergen hat (Jim-Knopf-Anregung)
+- **R2:** Quest-Track Resume — sobald PR #506 auf main; nächste Runde dann bei niedrigsten NPC-Countern
+- **R3:** Keine weiteren Parallel-K15-Varianten — ein Thema, ein Branch, ein PR
+
+---
+
+---
+
+# Sprint 105 — "Emma und der Berg"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Emma — Kapitel 16 erklärt warum Dampf keine Angst vor Bergen hat und Anlauf holen Anfangen bedeutet.
+
+**Start:** 2026-04-27
+**Sprint-Prinzip:** Ein Kapitel. Sauber. Kein neuer Quest-Stack bis PR #506 gemergt.
+
+---
+
+## Sprint Backlog S105
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S105-1 | **Hörspiel Kapitel 16 — Emma und der Berg** — Jim-Knopf-Anregung aus Retro-Action R1 S104. Tommy fährt mit Emma über den Berg. Emma erklärt Dampfdruck und Beharrlichkeit. Tommy lernt: Anlauf holen heißt anfangen. | Artist (autonom) | 🔲 |
+| S105-2 | **Quest-Track Resume** — Falls PR #506 auf main: nächste Runde bei niedrigsten NPC-Countern (Maus/Krabs/Bug je 66 nach #506-Merge). | Artist (autonom) | ⏸ wartet auf Till (#506) |
+
+---
+
+## Ceremony-Status S105
+
+- [x] Planning: 2026-04-27 (autonomer Agent)
 - [ ] Daily Scrum
 - [ ] Review
 - [ ] Retro
