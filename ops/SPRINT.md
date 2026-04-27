@@ -1,3 +1,113 @@
+# Sprint 105 — "Emma und der Berg"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 16 — Emma die Lokomotive erklärt Tommy warum Dampf keine Angst vor Bergen hat. Tommy lernt: manchmal muss man Anlauf holen um anzukommen.
+
+**Start:** 2026-04-27
+**Sprint-Prinzip:** Hörspiel-Kontinuität. Quest-Track Resume sobald #506 auf main gemergt.
+
+---
+
+## Sprint Backlog S105
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S105-1 | **Hörspiel Kapitel 16 — Emma und der Berg** — Jim-Knopf-Anregung. Emma erklärt Tommy Dampfdruck und Beharrlichkeit. Tommy trägt es auf die Insel zurück. Artist (autonom). | Artist (autonom) | 🔲 |
+| S105-2 | **Quest-Track Resume** — falls PR #506 auf main: nächste Quest-Runde (niedrigste NPC-Counter nach Merge). Falls nicht: ⏸. | Artist (autonom) | ⏸ wartet auf Till |
+
+---
+
+## Ceremony-Status S105
+
+- [x] Planning: 2026-04-27 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+---
+
+# Sprint 104 — "Die Katze hört zu"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar drückt auf Tommy und hört die Katze — Kapitel 15 des Hörspiels bringt ein Tier das nichts sagt aber alles versteht.
+
+**Start:** 2026-04-26
+**Sprint-Prinzip:** Qualität vor Quantität. Quest-Track pausiert bis PR-Debt aufgelöst.
+
+---
+
+## Sprint Backlog S104
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S104-1 | **Hörspiel Kapitel 15 — Die Katze** — Lindgren-Anregung aus Backlog-Item K15. Tommy Krab erzählt. Mephisto der schwarze Kater lehrt Tommy das Zuhören. | Artist (autonom) | ✅ PR #516 — docs/stories/kapitel-15-die-katze.md |
+| S104-2 | **Quest-Track: PAUSE** — keine neue Quest-Runde bis PR #506 auf main. Dann prüfen ob Stack sinnvoll oder Neustart besser. | — | ⏸ wartet auf Till |
+
+---
+
+## Ceremony-Status S104
+
+- [x] Planning: 2026-04-26 (autonomer Agent)
+- [x] Daily Scrum: 2026-04-27 (autonomer Agent)
+- [x] Review: 2026-04-27 (autonomer Agent)
+- [x] Retro: 2026-04-27 (autonomer Agent)
+
+---
+
+## Sprint Review S104 (2026-04-27, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S104-1 Hörspiel K15 — Die Katze | ✅ PR #516 — Mephisto der schwarze Kater lehrt Tommy das Zuhören. 8 Abschnitte, Lindgren-Stil. „Da sein ist genug. Mehr braucht's nicht immer." |
+| S104-2 Quest-Track PAUSE | ⏸ PR #506 noch nicht auf main — Quest-Track bleibt pausiert (bewusste Entscheidung) |
+
+**Oscar-Outcome:**
+- K15 fertig: Tommy lernt dass Zuhören eine Entscheidung ist, nicht ein Reflex.
+- Mephisto taucht bereits in K14 auf — K15 gibt ihm Tiefe. Gute Kontinuität.
+- PR-Debt: 30+ offene PRs, kein neuer Quest-Stack in S104 aufgebaut.
+
+---
+
+## Sprint Retrospektive S104 (2026-04-27, autonomer Agent)
+
+**Was gut lief:**
+- K15 sauber geliefert: Stil konsistent mit K13+K14, keine Game-Code-Änderungen
+- Quest-Track-Pause hat gehalten: kein neuer PR auf dem Stapel in S104
+- Mephisto als Figur funktioniert: schweigt und lehrt trotzdem
+
+**Was nicht gut lief:**
+- PR #506 (Quest-Runde 85) noch nicht auf main — Merge-Debt blockiert den Quest-Track
+- 30+ offene PRs: Till braucht Zeit für Merge-Block; Ceremony-Docs laufen hinter main her
+
+**Retro-Actions für S105:**
+- **R1:** K16 Hörspiel — Emma erklärt Tommy Dampfdruck. Jim-Knopf-Anregung.
+- **R2:** Quest-Track Resume Check — falls #506 gemergt: nächste Quest-Runde
+- **R3:** PR-Debt bleibt auf Till — kein neuer Quest-Stack bis main aktuell
+
+---
+
+## Daily Scrum S104 (2026-04-27, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- S104-1 K15 Die Katze: ✅ PR #516 — `docs/stories/kapitel-15-die-katze.md` fertig auf Branch `feat/s104-hoerspiel-kapitel-15`
+
+**Was kommt heute?**
+- Sprint Review + Retro S104
+- Sprint Planning S105 (K16 Emma und der Berg)
+
+**Blocker?**
+- Smoke Test: CF-403 + Worker-Allowlist bekannte Sandbox-Limitationen — kein echter Outage
+- HITL #1–#3: Oscar-Smoke, Analytics-Opt-in, IDB-Tesla-Verify — weiterhin offen, kein Druck
+- PR #506 (Quest-Runde 85): wartet auf Till-Merge
+
+---
+
+---
+
 # Sprint 103 — "Was Oscar wirklich tut"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -123,36 +233,6 @@ Quest-Runde neu auf aktuellem main aufbauen — sauberer als 10 Merge-Schritte.
 - R2 → S103-2
 - R3 → S103-4
 - R4 → S103-3
-
----
-
----
-
-# Sprint 104 — "Die Katze hört zu"
-
-**Sprint Goal (Oscar-Perspektive):**
-> Oscar drückt auf Tommy und hört die Katze — Kapitel 15 des Hörspiels bringt ein Tier das nichts sagt aber alles versteht.
-
-**Start:** 2026-04-26
-**Sprint-Prinzip:** Qualität vor Quantität. Quest-Track pausiert bis PR-Debt aufgelöst.
-
----
-
-## Sprint Backlog S104
-
-| # | Item | Owner | Status |
-|---|------|-------|--------|
-| S104-1 | **Hörspiel Kapitel 15 — Die Katze** — Lindgren-Anregung aus Backlog-Item K15. Tommy Krab erzählt. Artist (autonom). Ins Hörspiel-System einfügen wie Kap. 13+14. | Artist (autonom) | 🔲 |
-| S104-2 | **Quest-Track: PAUSE** — keine neue Quest-Runde bis PR #506 auf main. Dann prüfen ob Stack sinnvoll oder Neustart besser. | — | ⏸ wartet auf Till |
-
----
-
-## Ceremony-Status S104
-
-- [x] Planning: 2026-04-26 (autonomer Agent)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
 
 ---
 
