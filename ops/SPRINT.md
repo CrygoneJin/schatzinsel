@@ -235,6 +235,96 @@ Quest-Runde neu auf aktuellem main aufbauen — sauberer als 10 Merge-Schritte.
 
 ## Ceremony-Status S105
 
+- [x] Planning: 2026-04-27 (autonomer Agent, aus S104-Retro)
+- [x] Daily Scrum: 2026-04-27 (autonomer Agent, PR #522)
+- [x] Review: 2026-04-27 (autonomer Agent)
+- [x] Retro: 2026-04-27 (autonomer Agent)
+
+---
+
+## Daily Scrum S105 (2026-04-27, autonomer Agent)
+
+**Was wurde gestern gemacht?**
+- S104 vollständig: K15 Die Katze + Daily/Review/Retro auf main (Ceremony-Status S104 ✅)
+- S105 Planning abgeschlossen (aus S104-Retro-Action R1)
+
+**Was kommt heute?**
+- S105-1: Hörspiel Kapitel 16 — Emma und der Berg ✅ → PR #522
+  Tommy auf warmem Stein, Emma hält nach der Bergfahrt an. Dampfdruck + Beharrlichkeit.
+  Kernlehre: "Anlauf holen heißt anfangen — und zwar früh genug." Jim-Knopf-Verbindung.
+  7 Abschnitte, Tommy-Stimme, klick-klack, Mona weiß es, das Kind trifft Emma, Gute-Nacht-Schluss.
+
+**Blocker?**
+- PR #521 (K15) wartet auf Till-Merge — direkt mergebar, base: main
+- PR #506 (Quest-Runde 85) wartet auf Till-Merge → danach Quest-Track Resume (S105-2)
+- Smoke Test CF-403: bekannte Sandbox-Limitation, kein Outage
+
+---
+
+## Sprint Review S105 (2026-04-27, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S105-1 Hörspiel K16 — Emma und der Berg | ✅ PR #522 — Dampfdruck, Anlauf holen = anfangen. Jim-Knopf-Anregung direkt umgesetzt. |
+| S105-2 Quest-Track Resume | ⏸ PR #506 noch nicht auf main — Quest-Track bleibt pausiert |
+
+**Oscar-Outcome:**
+- K16 bereit zum Vorlesen: Tommy-Stimme, Mona weiß es, das Kind legt die Hand an Emma's Kessel
+- Kernbild: Emma fährt über Berge weil Dampf keine Angst kennt. Tommy lernt: anfangen bevor es schwer wird.
+- Sprint-Disziplin gehalten: kein neuer Quest-PR trotz pausiertem Quest-Track
+
+**PR-Stand:**
+- PR #522 (K16 + S105 Daily) → mergebar, base: main
+- PR #521 (K15 + S104 Ceremonies) → mergebar, base: main, wartet auf Till
+- PR #506 (Quest-Runde 85) → Till-Merge ausstehend, dann Quest-Track Resume
+
+---
+
+## Sprint Retrospektive S105 (2026-04-27, autonomer Agent)
+
+**Was gut lief:**
+- K16 Jim-Knopf-Anregung präzise umgesetzt: Emma erklärt Dampfdruck durch Handlung, nicht durch Lehrstunde
+- Mona-Szene am Schluss: "Mehr als du dachtest — das ist immer die Antwort" — stärkstes Bild des Kapitels
+- Keine Parallel-Varianten (R3 aus S104): ein Branch, ein PR, ein K16
+- Stil-Kontinuität K13–K16 gehalten: Tommy-Stimme, klick-klack, Gute-Nacht-Schluss
+
+**Was nicht gut lief:**
+- Sprint hatte nur 1 lieferbares Item — S105-2 seit 3 Sprints blocked auf Till (PR #506)
+- PR-Debt wächst: #521 + #522 + #506 warten auf Merge — Till's Queue wächst
+- Kein neues Jim-Knopf-Material nach K16 vorgeplant — K17 erst jetzt definiert
+
+**Retro-Actions für S106:**
+- **R1:** K17 Hörspiel — Jim besucht die Insel. Jim-Knopf-Kern: Identität kommt durch Neugier, nicht durch Herkunft. Tommy antwortet nicht mit Antworten.
+- **R2:** Quest-Track Resume — sobald PR #506 auf main; nächste Runde bei Maus(70)/Krabs(70)/Bug(70)
+- **R3:** Till: 3 PRs direkt mergebar — #521 (K15), #522 (K16), #506 (Quest-Runde 85)
+
+---
+
+---
+
+# Sprint 106 — "Jim fragt wer er ist"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar trifft Jim — Kapitel 17 zeigt: wer nicht weiß wer er ist, stellt die besten Fragen. Tommy lernt: nicht jede Frage braucht eine Antwort.
+
+**Start:** 2026-04-27
+**Sprint-Prinzip:** Ein Kapitel. Ein Jim. Sauber. Kein neuer Quest-Stack bis PR #506 gemergt.
+
+---
+
+## Sprint Backlog S106
+
+| # | Item | Owner | Status |
+|---|------|-------|--------|
+| S106-1 | **Hörspiel Kapitel 17 — Jim fragt** — Jim (8 Jahre, Jim-Knopf-Universum) besucht die Schatzinsel. Sieht was gebaut wird. Fragt Tommy: "Wer bin ich wenn ich nicht weiß wer ich bin?" Tommy antwortet nicht mit Antworten — mit Fragen. Thema: Wer fragt, der sucht. Wer sucht, der findet sich. | Artist (autonom) | 🔲 |
+| S106-2 | **Quest-Track Resume** — Falls PR #506 auf main: nächste Runde bei Maus(70)/Krabs(70)/Bug(70) je nach Merge-Stand. | Artist (autonom) | ⏸ wartet auf Till (#506) |
+
+---
+
+## Ceremony-Status S106
+
 - [x] Planning: 2026-04-27 (autonomer Agent)
 - [ ] Daily Scrum
 - [ ] Review
