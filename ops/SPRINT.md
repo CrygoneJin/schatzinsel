@@ -27,8 +27,25 @@
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
 - [ ] Daily Scrum
-- [ ] Review
+- [x] Review: 2026-04-28 (autonomer Agent)
 - [ ] Retro
+
+---
+
+## Sprint Review S112 — 2026-04-28
+
+**Sprint Goal erreicht:** ✅
+
+**Was geliefert wurde:**
+- Quest-Runde 94: +10 neue Quests (PR #504, gemergt in main)
+  - Bernd: Stille-Thema → Amsel, Regen, Mauersegler, Stille (67→71, jetzt 74 inkl. späterer Sprints)
+  - Elefant: Zeit-Thema → Jahreszeiten, Wanderrouten, Trockenzeitwasser (67→70, jetzt 73)
+  - Floriane: Musik-Thema → Dur/Moll, Rhythmus, Stille (67→70, jetzt 73)
+- Gesamt-Quests auf main: 965 (inkl. S110–S112 + weitere)
+
+**Nicht geliefert:** nichts — Sprint war 1-Item, alles fertig.
+
+**Für Oscar:** 10 neue Quests in denen Bernd Vögel lauscht, Elefant von langen Reisen erzählt, und Floriane erklärt warum Moll-Musik manchmal schöner klingt als Dur.
 
 ---
 
