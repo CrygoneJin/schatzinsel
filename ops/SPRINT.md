@@ -1,9 +1,9 @@
-# Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
+# Sprint 113 — "Neinhorn trotz NEIN, Mephisto lernt Geduld, Spongebob leuchtet"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Bernd entdeckt in der Stille was er nie gesucht hat (Amsel, Regen, Mauersegler, Stille), Elefant teilt was Generationen über Zeit wissen (Jahreszeiten, Wanderrouten, Trockenzeitwasser), Floriane misst was Musik mit Gefühlen macht (Dur/Moll, Rhythmus, Stille). 915→925 Quests auf Branch.
+> Oscar findet 10 neue Quests — Neinhorn entdeckt was trotz NEIN funktioniert (Erosion, Schlaf, Symmetrie, Fäulnis), Mephisto lernt was nicht käuflich ist (Geduld, Reife, Loslassen), Spongebob forscht was im Dunkeln leuchtet (Anglerfisch, Dinoflagellaten, Tiefsee-Schwarzraucher). 965→975 Quests auf Branch.
 
-**Start:** 2026-04-25
+**Start:** 2026-04-28
 **Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
 
 ---
@@ -12,23 +12,98 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S112-1 | **Quest-Runde 94** — Bernd(67→71)/Elefant(67→70)/Floriane(67→70) → +10 Quests, 915→925. Bernd: „Was Bernd in der Stille wahrnimmt". Elefant: „Was Elefanten über Zeit wissen". Floriane: „Was Musik an Gefühlen zeigt". | Artist | ✅ feat/sprint-112 |
+| S113-1 | **Quest-Runde 95** — Neinhorn(71→75)/Mephisto(71→74)/Spongebob(72→75) → +10 Quests, 965→975. Neinhorn: „Was trotz NEIN funktioniert". Mephisto: „Was nicht käuflich ist". Spongebob: „Was im Dunkeln leuchtet". | Artist | 🔲 PR #531 offen → feat/sprint-113 |
 
 ---
 
 ## Explizit nicht im Sprint
 
-- **CEO-Input S113-Kette** — nach Feynman-Messung Oscar-Tesla-Feedback
+- **CEO-Input S114-Kette** — nach Feynman-Messung Oscar-Tesla-Feedback
 - **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-04-28 (autonomer Agent, aus Retro S112)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+---
+
+# Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik" ✅
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Bernd entdeckt in der Stille was er nie gesucht hat (Amsel, Regen, Mauersegler, Stille), Elefant teilt was Generationen über Zeit wissen (Jahreszeiten, Wanderrouten, Trockenzeitwasser), Floriane misst was Musik mit Gefühlen macht (Dur/Moll, Rhythmus, Stille). ✅ auf main (965 Quests gesamt nach Cleanup-Merge mehrerer Runden).
+
+**Start:** 2026-04-25 · **Ende:** 2026-04-28
+**Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S112-1 | **Quest-Runde 94** — Bernd(67→71)/Elefant(67→70)/Floriane(67→70) → +10 Quests, 915→925. Bernd: „Was Bernd in der Stille wahrnimmt". Elefant: „Was Elefanten über Zeit wissen". Floriane: „Was Musik an Gefühlen zeigt". | Artist | ✅ feat/sprint-112, PR #504 |
 
 ---
 
 ## Ceremony-Status S112
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-04-28 (autonomer Agent)
+- [x] Review: 2026-04-28 (autonomer Agent)
+- [x] Retro: 2026-04-28 (autonomer Agent)
+
+---
+
+## Daily Scrum S112 (2026-04-28, autonomer Agent)
+
+**Was wurde gemacht?**
+- S112-1: Quest-Runde 94 implementiert und gemergt (PR #504, commit a6561a0)
+- Bernd +4 / Elefant +3 / Floriane +3 Quests auf main
+- Mehrere ältere Quest-Runden via Cleanup-Commit #530 auf main gemergt → 965 Quests gesamt
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation, kein echter Ausfall.
+
+---
+
+## Sprint Review S112 (2026-04-28, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done ✅**
+
+| Item | Ergebnis |
+|------|----------|
+| S112-1 Quest-Runde 94 | ✅ main — Bernd(+4) / Elefant(+3) / Floriane(+3), PR #504 gemergt |
+
+**Oscar-Outcome:** 10 neue Quests. Bernd: was er in der Stille wahrnimmt (Amsel, Regen, Mauersegler, Stille). Elefant: was Generationen über Zeit wissen (Jahreszeiten, Wanderrouten, Trockenzeitwasser). Floriane: was Musik mit Gefühlen macht (Dur/Moll, Rhythmus, Stille).
+
+**Stand nach S112 (main):**
+- **965 Quests** auf main
+- NPC-Counter: neinhorn 71 · mephisto 71 · spongebob 72 · maus 72 · kraemerin 72 · bug 72
+- Nächste niedrigste: neinhorn(71)/mephisto(71) → S113-1
+
+---
+
+## Sprint Retrospektive S112 (2026-04-28, autonomer Agent)
+
+**Was gut lief:**
+- Bernd-Stille: emotionaler Kern trifft auch Oscar — „was Bernd in der Stille wahrnimmt" funktioniert als Thema
+- Elefant-Zeit: Wanderrouten über Generationen + Trockenzeitwasser — Fakten mit Würde
+- Quest-Track S103–S112: 10 Runden autonom geliefert, stabile Qualität
+
+**Was nicht gut lief:**
+- SPRINT.md-Drift: Ceremonies fehlten auf main obwohl Items fertig
+- PR-Pile-Up: 3 Ceremony-Branches gleichzeitig offen (ops/sprint-review-s112, ops/sprint-s113-ceremonies, ops/sprint-s112-ceremonies-final, ops/sprint-s112-review-main-sync)
+
+**Retro-Actions für S113:**
+- R1: Quest-Runde 95 — neinhorn(71)/mephisto(71)/spongebob(72) → S113-1 (PR #531 offen)
+- R2: Ceremony-Drift fix: SPRINT.md bei nächstem Session-Start sofort aktualisieren
 
 ---
 
