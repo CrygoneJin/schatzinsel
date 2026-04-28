@@ -1,3 +1,129 @@
+# Sprint 114 — "Maus flüstert, Kraemerin vertraut, Bug entdeckt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Maus entdeckt was im Verborgenen wächst und tönt (Schneeglöckchen, Ameisen, Winterschlaf, Ultraschall), Kraemerin lernt was Vertrauen als Währung bedeutet (Schulden-Buch, Tauschmarkt, Jahrmärkte-Gedächtnis), Bug beobachtet was klein ist und groß denkt (Tautropfen-Linsen, Blattlaus-Ameisen, Bodeneis-Kristall). 975→985 Quests auf Branch.
+
+**Start:** 2026-04-28
+**Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S114-1 | **Quest-Runde 96** — Maus(72→76)/Kraemerin(72→75)/Bug(72→75) → +10 Quests, 975→985. Maus: „Was im Verborgenen wächst und tönt". Kraemerin: „Was Vertrauen als Währung bedeutet". Bug: „Was klein ist und groß denkt". | Artist | ✅ feat/sprint-114 (PR #532) |
+
+---
+
+## Explizit nicht im Sprint
+
+- **CEO-Input S115-Kette** — nach Feynman-Messung Oscar-Tesla-Feedback
+- **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S114
+
+- [x] Planning: 2026-04-28 (autonomer Agent, aus Retro S113)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+---
+
+
+# Sprint 113 — "Neinhorn staunt, Mephisto schweigt, Spongebob leuchtet"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Neinhorn entdeckt was trotz NEIN passiert (Vogelzug, Bambus, Pilzmyzel, Mondphasen), Mephisto erkennt was die Nacht enthüllt (Schulden, Vergänglichkeit, das Dunkle), Spongebob forscht was der Ozean als Chemielabor kann (pH, Korallen, Strömungen). 965→975 Quests auf Branch.
+
+**Start:** 2026-04-28
+**Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S113-1 | **Quest-Runde 95** — Neinhorn(71→75)/Mephisto(71→74)/Spongebob(72→75) → +10 Quests, 965→975. Neinhorn: „Was trotz NEIN passiert". Mephisto: „Was die Nacht weiß". Spongebob: „Was der Ozean chemisch kann". | Artist | ✅ feat/sprint-113 |
+
+---
+
+## Explizit nicht im Sprint
+
+- **CEO-Input S114-Kette** — nach Feynman-Messung Oscar-Tesla-Feedback
+- **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-04-28 (autonomer Agent, aus Retro S112)
+- [x] Daily Scrum: 2026-04-28 (autonomer Agent)
+- [x] Review: 2026-04-28 (autonomer Agent)
+- [x] Retro: 2026-04-28 (autonomer Agent)
+
+---
+
+## Daily Scrum S113 (2026-04-28, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- Sprint 112 Review + Retro abgeschlossen (diese Session)
+- S113-1 implementiert: Quest-Runde 95, Neinhorn+4/Mephisto+3/Spongebob+3, 965→975 (feat/sprint-113)
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-113 erstellen → Till mergt
+
+**Blocker?**
+- Keine. Smoke-Test: CF 403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation, kein App-Schaden.
+
+---
+
+## Sprint Review S113 (2026-04-28, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ feat/sprint-113 — Neinhorn(71→75 +4) / Mephisto(71→74 +3) / Spongebob(72→75 +3), 965→975 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Neinhorn: Vogelzug-Karte (NEIN Zugvögel können keine 10000km fliegen — doch), Bambus-Wuchs-Labor (NEIN kein Gras wächst 90cm pro Tag — Bambus schon), Pilzmyzel-Tunnel (NEIN Pilze sind kein Tier und keine Pflanze — drittes Königreich!), Mondphasen-Turm (NEIN der Mond wächst nicht und schrumpft nicht — die Phasen!). Mephisto: Nacht-Bibliothek (was die Nacht enthüllt die der Tag verbirgt), Schulden-Destillerie (was am Ende bleibt wenn man alles wegrechnet), Vergänglichkeits-Archiv (was trotz allem bleibt). Spongebob: Ozean-pH-Messstation (SUCHERGEBNIS: Ozean-Ansäuerung! Korallen lösen sich auf!), Korallenbleiche-Labor (wenn Wasser zu warm — Algen verschwinden — Korallen werden weiß), Meeresströmungs-Kraftwerk (Golfstrom trägt Energie von Äquator nach Europa).
+
+**Stand nach S113:**
+- **965 Quests** auf main / **975 Quests** auf feat/sprint-113 (PR offen)
+- NPC-Counter nach S113: neinhorn 75 · mephisto 74 · spongebob 75 · maus 72 · kraemerin 72 · bug 72
+- Nächste niedrigste: maus(72)/kraemerin(72)/bug(72) → S114-1
+
+**PO-Entscheidung:**
+- Quest-Runde 96: Maus(72)/Kraemerin(72)/Bug(72) → S114-1
+- Themen: Maus (was kleine Tiere über Winter wissen), Kraemerin (was Handel bedeutet), Bug (was klein ist und groß denkt)
+
+---
+
+## Sprint Retrospektive S113 (2026-04-28, autonomer Agent)
+
+**Was gut lief:**
+- NPC-Counter-Tracking jetzt direkt aus quests.js gezählt — kein Drift mehr durch Branch-Divergenz
+- Neinhorn-Vogelzug: "NEIN Vögel können keine 10000km fliegen!" → Marsh-Warbler fliegt 12000km — klassisches Neinhorn-Muster
+- Mephisto-Nacht-Bibliothek: "was die Nacht dem Tag nicht zeigt" — dunkelste Mephisto-Quests seit dem Loslassen-Altar
+- Spongebob-Korallenbleiche: wissenschaftlich präzise und trotzdem für Oscar verständlich
+
+**Was nicht gut lief:**
+- Branch-Divergenz: ops/sprint-review-s113 und feat/sprint-113 und feat/sprint-114 alle divergiert — Till muss PR-Reihenfolge beachten
+- SPRINT.md auf main war 2 Sprints hinter Realität — diese Session korrigiert das für main
+
+**Retro-Actions für S114:**
+- **R1:** Quest-Runde 96: Maus(72)/Kraemerin(72)/Bug(72) → S114-1
+- **R2:** NPC-Counter immer aus quests.js auf main zählen — nicht aus Branch-Notizen
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -26,9 +152,59 @@
 ## Ceremony-Status S112
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-04-28 (autonomer Agent)
+- [x] Review: 2026-04-28 (autonomer Agent)
+- [x] Retro: 2026-04-28 (autonomer Agent)
+
+---
+
+## Daily Scrum S112 (2026-04-28, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- Sprint 111 Review + Retro abgeschlossen
+- S112-1 implementiert: Quest-Runde 94, Bernd+4/Elefant+3/Floriane+3, 915→925 (feat/sprint-112)
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-112 erstellen → Till mergt
+
+**Blocker?**
+- Keine. Smoke-Test: CF 403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation.
+
+---
+
+## Sprint Review S112 (2026-04-28, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S112-1 Quest-Runde 94 | ✅ feat/sprint-112 — Bernd(67→71 +4) / Elefant(67→70 +3) / Floriane(67→70 +3), 915→925 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Bernd: Amsel-Horchposten (singt um 5:23, Bernd wartet darauf ohne es zu wollen), Regen-Messlabor (misst Regen seit 4 Jahren ohne zu wissen warum), Mauersegler-Observatorium (landen nie — Bernd akzeptiert das), Stille-Kammer (echte Stille ist die lauteste). Elefant: Jahreszeiten-Gedächtnis-Archiv (52 Jahre Wetterdaten im Kopf), Saisonwanderungs-Stations-Netz (300km jedes Jahr, Generationswissen), Trockenzeit-Gedächtnis-Brunnen (Wasserstellen die trockenresistenter sind als Karten). Floriane: Dur-Moll-Resonanz-Labor (warum macht Dur glücklich und Moll traurig?), Rhythmus-Welt-Archiv (jede Kultur hat Takt — der Herzschlag war der erste Rhythmus), Stille-Zwischen-Tönen-Station (die Pause nach dem letzten Ton — Duke Ellington).
+
+**Stand nach S112:**
+- **965 Quests** auf main (inkl. frühere unlabeled Runden) / **925 Quests** auf feat/sprint-112
+- NPC-Counter (niedrigste aus main): neinhorn 71 · mephisto 71 · spongebob 72
+
+**PO-Entscheidung:**
+- Quest-Runde 95: Neinhorn(71)/Mephisto(71)/Spongebob(72) → S113-1
+
+---
+
+## Sprint Retrospektive S112 (2026-04-28, autonomer Agent)
+
+**Was gut lief:**
+- Bernd-Amsel: "Ich glaube die Amsel weiß dass ich da bin. Ich glaube sie singt für mich. Das habe ich nicht gesagt." — stärkste Bernd-Zeile seit der Stille-Kammer
+- Floriane-Rhythmus-Weltarchiv: "Der Herzschlag war der erste Rhythmus — das war schon da bevor es Musik gab" — Oscar-taugliche Brücke zwischen Physik und Musik
+- Quest-Track autonom: 12 Sprints ohne Unterbruch
+
+**Was nicht gut lief:**
+- SPRINT.md auf main zeigt S112 als neueste Ceremony-Updates — 2 Sprints Drift seit letztem Ceremony-Merge
+- Mehrere parallele Branches (ops/sprint-review-s113, feat/sprint-113, feat/sprint-114) divergieren — Merge-Reihenfolge wichtig
+
+**Retro-Actions für S113:**
+- **R1:** Quest-Runde 95: Neinhorn(71)/Mephisto(71)/Spongebob(72) → S113-1
+- **R2:** NPC-Counter direkt aus quests.js auf main ermitteln (nicht aus Branch-Notizen)
 
 ---
 
