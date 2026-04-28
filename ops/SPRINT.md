@@ -27,8 +27,29 @@
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
 - [ ] Daily Scrum
-- [ ] Review
+- [x] Review: 2026-04-28 (autonomer Agent)
 - [ ] Retro
+
+---
+
+## Sprint Review S112 (2026-04-28, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S112-1 Quest-Runde 94 | ✅ auf main (commit a6561a0, PR #504) — Bernd(+4) / Elefant(+3) / Floriane(+3), +10 Quests |
+
+**Oscar-Outcome:** Bernd lauscht in der Stille: Amsel, Regen, Mauersegler, das Nichts. Elefant teilt was Generationen über Zeit wissen: Jahreszeiten, Wanderrouten, Trockenzeitwasser. Floriane erklärt warum Moll manchmal schöner klingt als Dur: Dur/Moll, Rhythmus, Stille.
+
+**Stand nach S112 auf main:**
+- **965 Quests** gesamt (S110–S112 + weitere inzwischen gemergte Runden)
+- NPC-Counter main: lokfuehrer 76 · alien 76 · tommy 74 · bernd 74 · krabs/floriane/elefant 73 · spongebob/maus/kraemerin/bug 72 · neinhorn/mephisto 71
+- Niedrigste für nächste Runde: neinhorn(71) · mephisto(71)
+
+**Nicht geliefert:** nichts — Sprint war 1-Item, alles fertig.
+
+**Hinweis PR-Landscape:** PR #542 enthält S112-Review+Retro+S113+S114 komplett. PR #531 (Quest-Runde 95) + PR #541 + PR #543 sind unabhängig mergebar. Merge-Empfehlung: erst #542 (nur Docs), dann #531 → #532, dann #541, dann #543.
 
 ---
 
