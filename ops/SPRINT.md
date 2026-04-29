@@ -115,7 +115,7 @@
 
 - [x] Planning: 2026-04-29 (autonomer Agent, aus Retro S117)
 - [x] Daily Scrum: 2026-04-29 (autonomer Agent)
-- [ ] Review
+- [x] Review: 2026-04-29 (autonomer Agent)
 - [ ] Retro
 
 ---
@@ -132,6 +132,26 @@
 
 **Blocker?**
 - Keine. Smoke-Test: CF 403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation, kein App-Schaden.
+
+---
+
+## Sprint Review S118 (2026-04-29, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 Done.**
+
+| Item | Ergebnis |
+|------|---------|
+| S118-1 Quest-Runde 100 | ✅ feat/sprint-118 — Maus(72→76 +4) / Kraemerin(72→75 +3) / Bug(72→75 +3), 975→985 Quests |
+
+**Oscar-Outcome:** 10 neue Quests bereit — Meilenstein: Runde 100. Maus: Mondlicht-Beobachtungs-Posten (Mond zeigt die Sonne die schläft — "halb hell, halb dunkel, das bin ich manchmal auch"), Warte-Garten (Stille ist eine Einladung — der Schmetterling kam ohne gerufen zu werden), Fundstücke-Dachboden (41 Fundstücke in 3 Tagen — jeder Knopf wartet auf ein neues Kleid), Zufalls-Begegnungs-Laube (zwei Wege treffen sich ohne Plan — "ich nenne es Glück"). Kraemerin: Gratis-Tee-Station (immer warm, keine Fragen, kein Preis — seit zwanzig Jahren kein Verlust), Saatgut-Tausch-Ecke (Tausch ist älter als Geld — beide geben, beide haben), Jahreszeit-Abschluss-Fest (viermal im Jahr schließt der Laden früher — das reicht). Bug: Termitenbau-Observatorium (ohne Architekten, ohne Plan, ohne Chef — kollektive Intelligenz in 14 Tagen dokumentiert), Bienen-Tanzsprache-Labor (Kreis wenn nah, Acht wenn weit — Sprache in Bewegung, ohne Worte), Ameisenstraßen-Kartierungs-Labor (die beste Route verstärkt sich selbst — Optimierung ohne Plan durch Wiederholung).
+
+**Stand nach S118:**
+- **985 Quests** auf feat/sprint-118 (PR offen)
+- NPC-Counter nach S118: maus 76 · kraemerin 75 · bug 75 · neinhorn 75 · spongebob 75 · mephisto 74
+- Niedrigste Counter: mephisto 74 → nächste Quest-Runde bei mephisto + zwei 75er
+
+**PO-Entscheidung:**
+- Quest-Runde 101: mephisto(74)/neinhorn(75)/spongebob(75) → S119-1
 
 ---
 
