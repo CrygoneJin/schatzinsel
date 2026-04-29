@@ -26,9 +26,31 @@
 ## Ceremony-Status S112
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
-- [ ] Daily Scrum
-- [ ] Review
+- [x] Daily Scrum: (entfällt — S112-1 war bei Sprint-Start bereits abgeschlossen)
+- [x] Review: 2026-04-29 (autonomer Agent)
 - [ ] Retro
+
+---
+
+## Sprint Review S112 (2026-04-29, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S112-1 Quest-Runde 94 | ✅ auf main (commit a6561a0, PR #504) — Bernd(+4) / Elefant(+3) / Floriane(+3), +10 Quests |
+
+**Oscar-Outcome:**
+Bernd lauscht in der Stille was er nie gesucht hat: Amsel-Horchposten (die Amsel singt um 4:11 Uhr, jeden Morgen, auch wenn niemand zuhört), Regen-Messlabor (Regentropfen fallen mit 9 m/s — jeder anders), Mauersegler-Observatorium (schläft fliegend, landet nie bis zur Brutzeit), Stille-Kammer (Stille ist nicht leer — sie ist voll von dem was man sonst überhört).
+Elefant teilt was Generationen über Zeit wissen: Jahreszeiten-Gedächtnis-Archiv (Elefanten erinnern sich 40 Jahre an Wanderrouten), Saisonwanderungs-Stations-Netz (500 km im Regen folgen), Trockenzeit-Gedächtnis-Brunnen (wissen wo Wasser war — auch wenn sie noch nie dort waren).
+Floriane misst was Musik mit Gefühlen macht: Dur-Moll-Resonanz-Labor (Dur klingt hell, Moll traurig — aber Flamenco ist beides), Rhythmus-Welt-Archiv (Herzschlag ist das erste Metronom das jeder kennt), Stille-Zwischen-Tönen-Station (Pausen machen Musik zu Musik — ohne Stille nur Lärm).
+
+**Stand nach S112 (alle Merges):**
+- **965 Quests** auf main (Runden 88–94 gemergt)
+- NPC-Counter: lokfuehrer 76 · alien 76 · bernd 74 · tommy 74 · krabs 73 · elefant 73 · floriane 73 · spongebob 72 · maus 72 · bug 72 · kraemerin 72 · **neinhorn 71 · mephisto 71** (niedrigste)
+
+**PO-Entscheidung:**
+- Nächste Quest-Runde S113: Neinhorn(71)/Mephisto(71)/Spongebob(72) — 965→975
 
 ---
 
