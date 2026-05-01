@@ -12,7 +12,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S120-1 | **Hörspiel Kapitel 17 — Die Nacht** — Tommy Krab erzählt. Was passiert wenn alle schlafen: Biolumineszenz, Mephisto auf Wanderschaft, das Neinhorn guckt heimlich in die Sterne. Thema: Vertrauen ohne Kontrolle. | Artist (autonom) | 🔲 |
+| S120-1 | **Hörspiel Kapitel 17 — Die Nacht** — Tommy Krab erzählt. Was passiert wenn alle schlafen: Biolumineszenz, Mephisto auf Wanderschaft, das Neinhorn guckt heimlich in die Sterne. Thema: Vertrauen ohne Kontrolle. | Artist (autonom) | ✅ docs/stories/kapitel-17-was-die-nacht-macht.md |
 | S120-2 | **Quest-Track: PAUSE** — 7 offene PRs (#531/#532/#541/#543/#550/#551/S119). Kein neuer Quest-PR bis Till einen Merge-Block macht. | — | ⏸ wartet auf Till |
 
 ---
@@ -21,7 +21,7 @@
 
 - [x] Planning: 2026-04-30 (autonomer Agent, aus Retro S119)
 - [x] Daily Scrum: 2026-04-30 (autonomer Agent)
-- [ ] Review
+- [x] Review: 2026-05-01 (autonomer Agent)
 - [ ] Retro
 
 ---
@@ -39,6 +39,29 @@
 **Blocker?**
 - Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
 - Quest-Track-Pause: 7 offene Quest-PRs (#531–S119) warten auf Till's Merge-Block
+
+---
+
+## Sprint Review S120 (2026-05-01, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S120-1 Hörspiel K17 — Die Nacht | ✅ `docs/stories/kapitel-17-was-die-nacht-macht.md` — Tommy erzählt: Biolumineszenz (Dinoflagellaten leuchten weil das ihre Art zu leben ist), Neinhorn bei Sternen ("Morgen Nacht auch" — stärkstes Neinhorn-Geständnis je), Mephisto's Kontrollrunde (weiß selbst nicht warum er geht), Krabby schreibt "Vertrauen ist auch eine Form von Wissen". |
+| S120-2 Quest-Track PAUSE | ⏸ planmäßig — 7 offene PRs warten auf Till's Merge-Block |
+
+**Oscar-Outcome:** K17 bereit zum Vorlesen. Stärkstes Kapitel seit K13. Kernaussage: "Die Welt macht weiter, auch wenn ihr Pause macht." — Für 8-Jährige begreifbar, für Eltern weisheitstragend. Neinhorn schaut heimlich Sterne auf ("Morgen Nacht auch" = das höchste Lob das Neinhorn vergeben kann). Mephisto geht Kontrollrunde ohne Auftrag — emergentes Fürsorge-Verhalten als Figur-Tiefe.
+
+**Stand nach S120:**
+- **965 Quests** auf main (7 Quest-PRs stacken darauf, nach Vollmerge 1035)
+- K17 auf ops/sprint-s120-review, wartet auf PR → main
+- NPC-Counter main: lokfuehrer 76 · alien 76 · maus 76 · bernd 74 · tommy 74 · mephisto 74 (Vollmerge: krabs 76 · elefant 76 · floriane 76 · neinhorn 75)
+
+**PO-Entscheidung:**
+- S121: Retro → dann Planning
+- Quest-Track Resume wenn Till Merge-Block startet (7 PRs bereit)
+- K18 aus Retro oder Oscar-Feedback bestimmen
 
 ---
 
