@@ -132,7 +132,7 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 - [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S120)
 - [x] Daily Scrum: 2026-05-01 (autonomer Agent)
 - [x] Review: 2026-05-01 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-01 (autonomer Agent)
 
 ---
 
@@ -174,9 +174,78 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 
 ---
 
+## Sprint Retrospektive S121 (2026-05-01, autonomer Agent)
+
+**Was gut lief:**
+- K18 "Bernd und der Mauersegler" ist das stärkste Bernd-Kapitel: "Wer nie landet muss nie aufhören" — Bernd dreht das Mitleids-Bild um, ohne Sentiment
+- "Ruhe ist kein Ort. Ruhe ist eine Richtung." — bester Schlusssatz seit K13
+- Wissenschaft korrekt eingebettet (Apus apus, hemisphärischer Schlaf, 10 Monate) ohne Belehrungs-Ton
+- Ceremony-Drift S112→S121 vollständig aufgeholt: alle Sprints lückenlos dokumentiert
+- Supabase-Keepalive als eigener Branch (ops/supabase-keepalive) — gute Isolation
+
+**Was nicht gut lief:**
+- 7 offene Quest-PRs seit 2026-04-30 — kein Merge durch Till, Tracking-Overhead wächst
+- 3 Branches ohne PR: ops/sprint-s120-review, ops/sprint-s121-review, ops/supabase-keepalive — dieser Sprint holt das nach
+- K17 hat Spongebob keinen eigenen Moment gegeben — bleibt Aufgabe für spätere Runde
+
+**Retro-Actions für S122:**
+- **R1:** K19 — Neinhorn begegnet dem Unverhinderlichen (Gezeiten, Frühling, Schwerkraft). Thema: Das Unverhinderliche ist kein Feind.
+- **R2:** PRs erstellen für ops/sprint-s120-review + ops/sprint-s121-review + ops/supabase-keepalive (in S122 erledigt)
+- **R3:** Quest-Track Resume sobald Till #531 mergt
+
 ---
 
-# Sprint 119 — "Alien versteht Kindheit, Lokführer hört die Nacht, Krabs lernt Dankbarkeit"
+---
+
+# Sprint 122 — "Neinhorn und das Unverhinderliche"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 19 — Neinhorn trifft auf etwas dem man kein Nein sagen kann. Und lernt, dass das kein Verlieren ist.
+
+**Start:** 2026-05-01
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S122-1 | **Hörspiel Kapitel 19 — Neinhorn und das Unverhinderliche** — Neinhorn steht am Meer. Die Gezeiten kommen. Neinhorn sagt Nein. Die Gezeiten kommen trotzdem. Thema: Manche Dinge wollen gar nicht aufgehalten werden — sie wollen nur ankommen. | Artist (autonom) | ✅ docs/stories/kapitel-19-neinhorn-und-das-unverhinderliche.md |
+| S122-2 | **PRs erstellen** — ops/sprint-s120-review + ops/sprint-s121-review + ops/supabase-keepalive + ops/sprint-s122-planning | Agent | ✅ in dieser Session |
+| S122-3 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Ceremony-Status S122
+
+- [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S121)
+- [x] Daily Scrum: 2026-05-01 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S122 (2026-05-01, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- Retro S121 abgeschlossen
+- S122 Planning: K19 "Neinhorn und das Unverhinderliche" + PR-Aufräumen definiert
+- S122-1 implementiert: `docs/stories/kapitel-19-neinhorn-und-das-unverhinderliche.md` ✅
+- S122-2: PRs für alle ausstehenden Branches erstellt ✅
+
+**Was kommt als nächstes?**
+- Till mergt #531 (Quest-Track Resume) oder K20 als nächstes Hörspiel-Kapitel
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation
+- S122-3 Quest-Track PAUSE: wartet auf Till (#531 zuerst)
+
+---
+
+---
+
+# Sprint 119 — "Alien versteht Kindheit, Lokführer hört die Nacht, Krabs lernt Dankbarkeit" — "Alien versteht Kindheit, Lokführer hört die Nacht, Krabs lernt Dankbarkeit"
 
 **Sprint Goal (Oscar-Perspektive):**
 > Oscar findet 10 neue Quests — Alien entdeckt was menschliche Kindheit und Trost bedeuten, Lokführer erkennt was Nacht-Strecken erzählen, Krabs lernt was Dankbarkeit wert ist. 965→975 auf Branch.
