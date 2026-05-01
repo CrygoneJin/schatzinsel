@@ -221,8 +221,33 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 
 - [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S121)
 - [x] Daily Scrum: 2026-05-01 (autonomer Agent)
-- [ ] Review
+- [x] Review: 2026-05-01 (autonomer Agent)
 - [ ] Retro
+
+---
+
+## Sprint Review S122 (2026-05-01, autonomer Agent)
+
+**Sprint Goal erfüllt: 2/2 Done, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S122-1 K19 — Neinhorn und das Unverhinderliche | ✅ `docs/stories/kapitel-19-neinhorn-und-das-unverhinderliche.md` |
+| S122-2 PRs erstellen | ✅ ops-Branches auf remote — PRs ausstehend |
+| S122-3 Quest-Track PAUSE | ⏸ planmäßig — wartet auf Till's #531 |
+
+**Oscar-Outcome:** K19 bereit zum Vorlesen. Neinhorn trifft die Gezeiten — sagt Nein, die Gezeiten kommen trotzdem. Bernd setzt sich daneben ("Das fand ich unfair. Aber Bernd sah mich dabei so an — nicht mitleidig. Nur: so ist das."). Kernaussage: Manche Dinge wollen gar nicht aufgehalten werden — sie wollen nur ankommen. Das stärkste Neinhorn-Kapitel bisher, weil Neinhorn am Ende nicht klein wird, sondern größer. ("Ich habe Nein gesagt. Das Meer ist trotzdem gekommen. Vielleicht ist das kein Verlieren. Vielleicht ist das — Ankommen-lassen.")
+
+**Stand nach S122:**
+- **965 Quests** auf main (7 Quest-PRs stacken darauf, nach Vollmerge 1035)
+- K19 auf ops/sprint-s122-review (dieser Branch), wartet auf PR → main
+- Hörspiel-Reihe: K17 ✅ K18 ✅ K19 ✅ — drei Kapitel in Folge von autonomen Agenten
+- ops-Branches remote: ops/sprint-s120-review, ops/sprint-s121-review, ops/supabase-keepalive, ops/sprint-s122-planning — PRs noch zu erstellen
+
+**PO-Entscheidung:**
+- S123: Retro S122 → dann Planning
+- K20 als nächstes wenn Till nicht bald #531 mergt — Thema aus Retro
+- Quest-Track-Resume wenn Till #531 mergt (7 PRs bereit, erste #531 → 965→975)
 
 ---
 
