@@ -1,3 +1,110 @@
+# Sprint 113 — "Neinhorn staunt, Mephisto wartet, Spongebob leuchtet"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Neinhorn entdeckt was trotz NEIN funktioniert (Erosion, Schlaf, Schmetterlinge, Fäulnis), Mephisto erkennt was man nicht kaufen kann (Geduld, Reife, Loslassen), Spongebob forscht was in der Tiefsee leuchtet (Anglerfisch, Dinoflagellaten, Schwarzraucher). 965→975 Quests auf Branch.
+
+**Start:** 2026-05-01
+**Sprint-Prinzip:** Quest-Track autonom. PR #531 auf main warten. Oscar-Smoke läuft via Tesla-Morgenritual.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S113-1 | **Quest-Runde 95** — Neinhorn(71→75)/Mephisto(71→74)/Spongebob(72→75) → +10 Quests, 965→975. Neinhorn: „Was trotz NEIN passiert". Mephisto: „Was man nicht kaufen kann". Spongebob: „Was in der Tiefsee leuchtet". | Artist | ✅ feat/sprint-113, PR #531 |
+
+---
+
+## Explizit nicht im Sprint
+
+- **S114-Kette** — Maus/Kraemerin/Bug (72) nach Merge von #531
+- **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S112)
+- [x] Daily Scrum: 2026-05-01 (autonomer Agent)
+- [x] Review: 2026-05-01 (autonomer Agent)
+- [x] Retro: 2026-05-01 (autonomer Agent)
+
+---
+
+## Daily Scrum S113 (2026-05-01, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- Sprint 112 Retro abgeschlossen (diese Session)
+- S113-1 Quest-Runde 95: feat/sprint-113 bereits implementiert (Parallel-Agent 2026-04-28), PR #531 offen
+
+**Was kommt als nächstes?**
+- Till mergt PR #531 → 975 Quests auf main
+- Danach #532 (Runde 96, Maus/Kraemerin/Bug, 975→985)
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- PR-Debt: ~20 offene PRs — Till entscheidet Merge-Reihenfolge (Anleitung unten)
+
+---
+
+## Sprint Review S113 (2026-05-01, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅ (auf Branch)**
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ feat/sprint-113 — Neinhorn(71→75 +4) / Mephisto(71→74 +3) / Spongebob(72→75 +3), 965→975 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Neinhorn: Erosions-Beweis-Labor (Grand Canyon — Wasser schlägt Stein in 5 Mio. Jahren), Schlaf-Forschungs-Station (Gehirn reinigt sich selbst im Schlaf), Symmetrie-Mess-Atelier (Schmetterlingsflügel auf 0,3mm präzise gespiegelt), Fäulnis-Recycling-Kammer (Fäulnis = ältestes Recycling der Welt). Mephisto: Gedulds-Observatorium (das Einzige das Mephisto nicht verkaufen kann — er wartet selbst auf etwas), Reife-Keller (40-Jahre-Wein — Schnelligkeit gewinnt nicht immer), Loslassen-Altar (was leichter trägt wenn man es loslässt — Mephisto gesteht zum ersten Mal). Spongebob: Anglerfisch-Lockstoff-Labor (lebende Taschenlampe am Kopf, schnellstes Maul im Meer), Dinoflagellaten-Leucht-Grotte (Ozean leuchtet blau wenn man ihn bewegt), Tiefsee-Schwarzraucher-Observatorium (Leben ohne Sonne — Chemosynthese — Europa-Hinweis für Außerirdisches).
+
+**Stand nach S113:**
+- **965 Quests** auf main / **975 Quests** auf feat/sprint-113 (PR #531 offen)
+- NPC-Counter nach S113-Merge: neinhorn 75 · mephisto 74 · spongebob 75 · maus/kraemerin/bug je 72 (nächste Niedrigste)
+
+**PO-Entscheidung:**
+- Quest-Runde 96: Maus(72)/Kraemerin(72)/Bug(72) → S114-1 ✅ feat/sprint-114, PR #532 offen
+
+---
+
+## Sprint Retrospektive S113 (2026-05-01, autonomer Agent)
+
+**Was gut lief:**
+- Neinhorn-Erosion: Grand Canyon als NEIN-Widerlegung — stärkster "Mon Dieu"-Moment seit Symmetrie-Entdeckung
+- Mephisto-Loslassen: „Das war vertraulich" — Figur reift, erste offene Schwäche in 113 Sprints
+- Spongebob-Schwarzraucher: „Leben braucht keine Sonne" + Europa-Hinweis — bestes SUCHERGEBNIS-Ende seit Pistolengarnelen
+
+**Was nicht gut lief:**
+- SPRINT.md-Drift weiterhin: Ceremonies aus S113-S120 in 20+ Branches, keiner auf main
+- PR-Debt unverändert groß — Till braucht Zeit um den Block abzuarbeiten
+
+**Retro-Actions für S114:**
+- **R1:** Quest-Runde 96: Maus(72)/Kraemerin(72)/Bug(72) → S114-1 ✅ feat/sprint-114, PR #532 offen
+
+---
+
+## PR-Merge-Reihenfolge für Till (Stand 2026-05-01)
+
+Quest-PRs in Reihenfolge (jede aufbauend auf der nächste):
+
+| Priorität | PR | Runde | NPCs | Quests |
+|-----------|-----|-------|------|--------|
+| 1 | #531 | 95 | neinhorn/mephisto/spongebob | 965→975 |
+| 2 | #532 | 96 | maus/kraemerin/bug | 975→985 |
+| 3 | #541 | 97 | krabs/elefant/floriane | Rebase auf main nötig |
+| 4 | #543 | 98 | tommy/bernd | Rebase auf main nötig |
+| 5 | #550 | 99 | neinhorn/mephisto/spongebob | Rebase auf main nötig |
+| 6 | #551 | 100 🎉 | maus/kraemerin/bug | Rebase auf main nötig |
+| 7 | #555 | 101 | alien/lokfuehrer/krabs | Rebase auf main nötig |
+
+Ceremony-PRs (#542–#554, ops-Branches): **schließen** — diese Session hier ist die definitive Version.
+
+Nach Vollmerge: **965 + 70 = 1035 Quests**
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -28,7 +135,26 @@
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
 - [ ] Daily Scrum
 - [x] Review: 2026-04-30 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-01 (autonomer Agent)
+
+---
+
+## Sprint Retrospektive S112 (2026-05-01, autonomer Agent)
+
+**Was gut lief:**
+- Quest-Runde 94 vollständig ✅ — Bernd/Elefant/Floriane +10 Quests auf main
+- Bernd-Stille-Thema: Amsel 5:23 / Mauersegler schlafen im Flug / echte Stille lässt das eigene Denken hören — introspektivste Quests seit Mephisto-Reue-Reihe
+- Elefant-Generationsgedächtnis: 52 Jahre Wetterdaten + 300km in Füßen gespeichert — pädagogisch dichteste Quests des letzten Monats
+- Floriane "messbar und unerklärbar gleichzeitig" — Herzschlag war vor der Musik — stärkste Formulierung der Runde
+
+**Was nicht gut lief:**
+- 7 Branches (feat/sprint-113 bis feat/sprint-119) auf origin, alle auf 965er-Basis — kollidieren beim Merge, PR-Debt ~20 offene PRs
+- SPRINT.md-Ceremony-Drift: Retro fehlt auf main, obwohl S113–S120 bereits in anderen Branches gebaut
+- CF-403 Sandbox-Limitation weiterhin kein automatischer Smoke-Test möglich
+
+**Retro-Actions für S113:**
+- **R1:** Quest-Runde 95: Neinhorn(71)/Mephisto(71)/Spongebob(72) → S113-1 ✅ feat/sprint-113 (bereits implementiert, PR #531 offen)
+- **R2:** PR-Merge-Reihenfolge für Till: #531 zuerst (neinhorn/mephisto/spongebob, 965→975), dann #532 (maus/kraemerin/bug, 975→985, auf #531 gestackt)
 
 ---
 
