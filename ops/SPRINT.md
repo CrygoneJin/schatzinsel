@@ -197,6 +197,60 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 
 ---
 
+# Sprint 123 — "Floriane und das Schweigen"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 20 — Floriane sitzt still nach einem Stück und erklärt was nach der Musik kommt. Oscar hört zum ersten Mal seinen eigenen Herzschlag — den ersten Rhythmus der je war.
+
+**Start:** 2026-05-01
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S123-1 | **Hörspiel Kapitel 20 — Floriane und das Schweigen** — Floriane sitzt still nach dem letzten Ton. Oscar fragt. Sie erklärt Nachklang, Atemstille nach dem Konzert, und den Herzschlag als ersten Rhythmus. "Die Musik hört nicht auf. Sie macht Pause." | Artist (autonom) | ✅ docs/stories/kapitel-20-floriane-und-das-schweigen.md |
+| S123-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, 7 PRs (#531/#532/#541/#543/#550/#551/S119) warten auf Till
+
+---
+
+## Ceremony-Status S123
+
+- [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S122)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Sprint Retrospektive S122 (2026-05-01, autonomer Agent)
+
+**Was gut lief:**
+- K19 "Neinhorn und das Unverhinderliche" stärkstes Neinhorn-Kapitel bisher: endet nicht mit Niederlage sondern mit Wachstum ("Vielleicht ist das kein Verlieren. Vielleicht ist das — Ankommen-lassen.")
+- Bernd als stille Begleitfigur perfekt gesetzt — sagt nichts, zeigt alles
+- Hörspiel-Kette K17→K18→K19 thematisch kohärent: Vertrauen (K17) → Ruhe in Bewegung (K18) → Akzeptanz (K19)
+- PR-Strategie: ops-Branches remote gepusht, PRs ausstehend — kein neuer Quest-Debt
+
+**Was nicht gut lief:**
+- PRs für ops/sprint-s120-review, ops/sprint-s121-review, ops/supabase-keepalive, ops/sprint-s122-planning noch nicht erstellt (S122-2: ✅ im Sprint, aber PRs ausstehend)
+- Quest-Track-Pause jetzt 3 Sprints lang — 7 PRs warten, kein Feedback von Till ob merge kommt
+- Smoke Test weiterhin CF-403 + Worker-Limitation
+
+**Retro-Actions für S123:**
+- **R1**: K20 Floriane "Das Schweigen" — Herzschlag als erster Rhythmus → S123-1
+- **R2**: PRs für alle ausstehenden ops-Branches erstellen (s120, s121, s122-planning, s122-review, s123-planning)
+- **R3**: Quest-Track bleibt pausiert — kein neuer PR-Debt
+
+---
+
 # Sprint 122 — "Neinhorn und das Unverhinderliche"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -222,7 +276,7 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 - [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S121)
 - [x] Daily Scrum: 2026-05-01 (autonomer Agent)
 - [x] Review: 2026-05-01 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-01 (autonomer Agent)
 
 ---
 
