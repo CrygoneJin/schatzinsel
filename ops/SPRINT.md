@@ -122,7 +122,7 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S121-1 | **Hörspiel Kapitel 18 — Bernd und der Mauersegler** — Bernd erzählt. Was er abends auf dem Mauersegler-Observatorium sieht: ein Vogel der 10 Monate in der Luft schläft, nie landet. Thema: Ruhe in Bewegung. Stille ohne Stillstand. | Artist (autonom) | 🔲 |
+| S121-1 | **Hörspiel Kapitel 18 — Bernd und der Mauersegler** — Bernd erzählt. Was er abends auf dem Mauersegler-Observatorium sieht: ein Vogel der 10 Monate in der Luft schläft, nie landet. Thema: Ruhe in Bewegung. Stille ohne Stillstand. | Artist (autonom) | ✅ docs/stories/kapitel-18-bernd-und-der-mauersegler.md |
 | S121-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
 
 ---
@@ -131,7 +131,7 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 
 - [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S120)
 - [x] Daily Scrum: 2026-05-01 (autonomer Agent)
-- [ ] Review
+- [x] Review: 2026-05-01 (autonomer Agent)
 - [ ] Retro
 
 ---
@@ -149,6 +149,28 @@ Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) kö
 **Blocker?**
 - Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation
 - S121-2 Quest-Track PAUSE: wartet auf Till (#531 zuerst)
+
+---
+
+## Sprint Review S121 (2026-05-01, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S121-1 Hörspiel K18 — Bernd und der Mauersegler | ✅ `docs/stories/kapitel-18-bernd-und-der-mauersegler.md` — Bernd erzählt: Mauersegler schläft mit abwechselnden Gehirnhälften (10 Monate in der Luft), landet nur zur Brutzeit. Kernbild: "Wer nie landet muss nie anfangen" → Bernd dreht es: "Wer nie landet muss nie aufhören." Vier Kapitel-Bögen: I. Was Bernd sieht, II. Der Vogel der niemals landet, III. Was das mit Bernd macht, IV. Was Bernd jetzt weiß. Abschluss: "Ruhe ist kein Ort. Ruhe ist eine Richtung." |
+| S121-2 Quest-Track PAUSE | ⏸ planmäßig — 7 offene PRs warten auf Till's Merge-Block |
+
+**Oscar-Outcome:** K18 bereit zum Vorlesen. Bernd als Stimme: schwerfällig, präzise, überraschend zart. "Ich sitze jeden Abend auf dem Turm. Das mache ich nicht weil ich das will." — eröffnet das Kapitel mit Bernd-Logik. Wissenschaftlich korrekt (Apus apus, hemisphärischer Schlaf, 10 Monate) ohne Belehrung. Stärkstes Bernd-Kapitel bisher.
+
+**Stand nach S121:**
+- **965 Quests** auf main (7 Quest-PRs nach Vollmerge: 1035)
+- K17 (S120) + K18 (S121) bereit auf ops/sprint-s121-review — warten auf PR → main
+- NPC-Counter main: lokfuehrer 76 · alien 76 · maus 76 · bernd 74 · tommy 74 · mephisto 74
+
+**PO-Entscheidung:**
+- S121 Retro → dann Entscheidung K19 oder anderes Feature
+- Quest-Track Resume wenn Till #531 mergt
 
 ---
 
