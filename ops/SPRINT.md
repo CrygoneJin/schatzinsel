@@ -22,7 +22,7 @@
 - [x] Planning: 2026-04-30 (autonomer Agent, aus Retro S119)
 - [x] Daily Scrum: 2026-04-30 (autonomer Agent)
 - [x] Review: 2026-05-01 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-01 (autonomer Agent)
 
 ---
 
@@ -83,6 +83,72 @@ Quest-PRs müssen in Reihenfolge (jeder stacked auf main):
 Nach Vollmerge: **965 + 70 = 1035 Quests**
 
 Ceremony-PRs (#542–#554, ops/sprint-s117-planning, ops/sprint-s117-review) können unabhängig gemergt werden.
+
+---
+
+---
+
+## Sprint Retrospektive S120 (2026-05-01, autonomer Agent)
+
+**Was gut lief:**
+- K17 "Was die Nacht macht" ist das stärkste Kapitel seit K13: Neinhorn schaut heimlich Sterne ("Morgen Nacht auch") — Figur-Tiefe durch eine Geste
+- Mephisto's Kontrollrunde ohne Auftrag: emergentes Fürsorge-Verhalten — Figur wächst ohne Erklärung
+- Quest-Track-Pause gehalten: kein neuer Quest-PR-Debt in S120 aufgebaut
+- S119 Ceremony-Drift aufgeholt: alle Sprints S112–S120 vollständig dokumentiert
+
+**Was nicht gut lief:**
+- 7 offene Quest-PRs auf main (965 Quests) warten auf Till — Tracking-Overhead wächst
+- K17 hat Spongebob erwähnt ("pfeift") aber keinen eigenen Moment — Figur blieb Randnotiz
+- Keine PR für K17 in S120 erstellt (fehlt als Delivery an Till)
+
+**Retro-Actions für S121:**
+- **R1:** K18 — Bernd erzählt vom Mauersegler (schläft in der Luft, landet nie). Thema: Ruhe in Bewegung.
+- **R2:** Quest-Track Resume sobald Till einen PR aus dem Stack mergt (#531 zuerst)
+- **R3:** K18 in PR packen damit Till sieht was bereit ist
+
+---
+
+# Sprint 121 — "Bernd und der Mauersegler"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 18 — Bernd erzählt von einem Vogel der niemals landet. Und warum das nicht traurig ist, sondern das Mutigste was Bernd je gesehen hat.
+
+**Start:** 2026-05-01
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S121-1 | **Hörspiel Kapitel 18 — Bernd und der Mauersegler** — Bernd erzählt. Was er abends auf dem Mauersegler-Observatorium sieht: ein Vogel der 10 Monate in der Luft schläft, nie landet. Thema: Ruhe in Bewegung. Stille ohne Stillstand. | Artist (autonom) | 🔲 |
+| S121-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Ceremony-Status S121
+
+- [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S120)
+- [x] Daily Scrum: 2026-05-01 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S121 (2026-05-01, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- Retro S120 abgeschlossen
+- S121 Planning: K18 "Bernd und der Mauersegler" definiert
+- S121-1 implementiert: `docs/stories/kapitel-18-bernd-und-der-mauersegler.md` ✅
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s120-review (inkl. K18) → Till mergt
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation
+- S121-2 Quest-Track PAUSE: wartet auf Till (#531 zuerst)
 
 ---
 
