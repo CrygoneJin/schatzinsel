@@ -26,9 +26,62 @@
 ## Ceremony-Status S113
 
 - [x] Planning: 2026-05-01 (autonomer Agent, aus Retro S112)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+- [x] Daily Scrum: 2026-05-01 (autonomer Agent)
+- [x] Review: 2026-05-01 (autonomer Agent)
+- [x] Retro: 2026-05-01 (autonomer Agent)
+
+---
+
+## Daily Scrum S113 (2026-05-01, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S112 Retro abgeschlossen: Bernd/Elefant/Floriane-Quests stark, 965 Quests auf main
+- S113-1 implementiert: Quest-Runde 95, Neinhorn+4/Mephisto+3/Bug+3, 965→975
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-113-2026-05-01 → Till mergt → 975 Quests auf main
+- S114: maus(72)/kraemerin(72)/spongebob(72) → Quest-Runde 96
+
+**Blocker?**
+- Smoke-Test CF-403 + Worker: bekannte Sandbox-Limitation, kein echter Outage.
+- 8 weitere S113-S119-Branches auf origin: Till entscheidet.
+
+---
+
+## Sprint Review S113 (2026-05-01, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ feat/sprint-113-2026-05-01 — Neinhorn(71→75 +4) / Mephisto(71→74 +3) / Bug(72→75 +3), 965→975 Quests |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Neinhorn: Geysir-Forschungs-Station (Old Faithful alle 90 Minuten — Hydraulik, nicht Magie), Mondphasen-Beobachtungs-Turm (29 Tage 12h 44min — Mathematik, nicht Romantik), Erosions-Beobachtungs-Station (Colorado River hat 5 Mio Jahre gebraucht, Wasser gewinnt immer), Tiefsee-Druckkammer (1.100 bar im Mariana-Graben — Organismen leben WEIL des Drucks, nicht trotzdem). Mephisto: Erster-Gedanke-Depot (der ehrlichste Moment, bevor die Vernunft das Protokoll schreibt), Abschied-Stele (was nie ausgesprochen wurde — die schwersten Abschiede bleiben am längsten), Wunder-Register (täglich passiert was Wunder wäre, wenn man aufpasst). Bug: Ameisen-Staat-Observatorium (emergentes Verhalten — das Ganze weiß mehr als die Summe der Teile), Grundwasser-Such-Station (Wasserinsekten riechen Grundwasser durch den Boden — dokumentiert), Maulwurf-Tunnel-Kartierung (dreißig Meter Tunnel am Tag, kein Plan nötig wenn das Essen führt).
+
+**Stand nach S113:**
+- **975 Quests** auf feat/sprint-113-2026-05-01 (965 auf main + 10 neu)
+- NPC-Counter nach S113: neinhorn 75 · mephisto 74 · bug 75 · maus 72 · kraemerin 72 · spongebob 72
+
+**PO-Entscheidung:**
+- Quest-Runde 96: maus(72)/kraemerin(72)/spongebob(72) → S114-1, 975→985
+
+---
+
+## Sprint Retrospektive S113 (2026-05-01, autonomer Agent)
+
+**Was gut lief:**
+- Neinhorn-Thema "Was ohne Ende ist" — stärkste Neinhorn-Runde bisher: Geysir-Hydraulik ist exakt das Gegenteil von Romantik und trotzdem perfekt für ein Kind. Der Satz "Das ist keine Magie. Das ist Hydraulik." ist Kern des Spiels.
+- Mephisto lernt Geduld: Erster-Gedanke-Depot ist Figur-Vertiefung — Mephisto geht von "was nehme ich" zu "was beobachte ich ehrlich". Echte Charakterentwicklung.
+- Bug-Emergenz: Ameisenstaat "Das Ganze weiß mehr als die Summe der Teile" — Oscar-tauglicher Einstieg in Systemtheorie. Kein Lehrsatz, nur Beobachtung.
+- Branch-Strategie sauber: ein Branch, ein Datum, kein Merge-Chaos.
+
+**Was nicht gut lief:**
+- 8 weitere S113–S119-Branches auf origin — Quest-Content evtl. doppelt, Till muss bereinigen
+- Ceremony-State auf main lag hinter Branch-State (Daily/Review/Retro fehlten vor diesem Commit)
+
+**Retro-Actions für S114:**
+- **R1:** Quest-Runde 96: maus(72→76)/kraemerin(72→75)/spongebob(72→75) → S114-1, +10 Quests, 975→985
+- **R2:** Ceremonies immer im selben Commit wie Quest-Content
 
 ---
 
