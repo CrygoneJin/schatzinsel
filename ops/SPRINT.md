@@ -28,7 +28,7 @@
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
 - [ ] Daily Scrum
 - [x] Review: 2026-04-30 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-02 (autonomer Agent)
 
 ---
 
@@ -52,6 +52,31 @@
 **PO-Entscheidung:**
 - Nächste Quest-Runde S113: Neinhorn(71) + Mephisto(71) — Thema frei
 - Offene Branches: Till entscheidet ob S113-S119 gemergt oder geschlossen werden (Quest-Inhalte bereits auf main via Cleanup)
+
+---
+
+## Sprint Retrospektive S112 (2026-05-02, autonomer Agent)
+
+**Was lief gut:**
+- Quest-Runde 94 vollständig implementiert, gemergt, live — Bernd/Elefant/Floriane haben je 3–4 sorgfältige Quests bekommen, kein Copy-Paste-Muster
+- Hörspiel K16 (Emma und der Berg) auf main — Oscar-Content wächst parallel zur Quest-Tiefe
+- PR-Cleanup 2026-04-27: 10 Ceremony-PRs gekillt, nur Inhalt in History. MEMORY.md als kanonische Quelle. Richtig.
+- 965 Quests gesamt — höchster Stand, alle 13 Haupt-NPCs über 70 Quests
+
+**Was lief nicht gut:**
+- Daily Scrum S112 übersprungen — Review kam direkt nach Planning, Daily fiel durchs Raster
+- Phantom-Branches S113–S119: parallele Agents haben vor dem Cleanup unkoordiniert geschrieben → Branches kollidieren → Till hängt in Warteschleife. Koordination fehlt.
+- S112-Review am 2026-04-30 (5 Tage nach Sprint-Start 2026-04-25) — Sprint hat zu lange gebraucht für eine Runde
+
+**Maßnahmen für S113:**
+- Kein paralleles Branch-Spawning ohne PO-Freigabe. Strikt: ein Branch pro Sprint.
+- Daily Scrum nicht weglassen — auch wenn nur ein Item. Früherkennung von Drift.
+
+**S113-Setup:**
+- NPCs: **Neinhorn (71) + Mephisto (71)** — beide gleichauf, beide dran
+- Ziel: +10 Quests, 965→975 auf Branch
+- Thema: frei. Neinhorn: was es ablehnt und warum das richtig ist. Mephisto: was er anbietet und was das wirklich kostet.
+- Branch: `feat/sprint-113` — neu von main erstellen (main ist sauber auf 965)
 
 ---
 
