@@ -1,3 +1,55 @@
+# Sprint 126 — "Spongebob und das Leuchten"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 23 — Spongebob erklärt Tommy was es bedeutet wenn Dinge leuchten ohne Feuer, ohne Strom. Nicht Magie — Chemie. Aber manchmal ist Chemie besser als Magie. „Wir wissen jetzt warum. Es leuchtet trotzdem noch."
+
+**Start:** 2026-05-02
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S126-1 | **Hörspiel Kapitel 23 — Spongebob und das Leuchten** — Spongebob zeigt Tommy ein Tier das im Dunkeln leuchtet ohne Feuer und ohne Strom. Tommy fragt warum. Spongebob: „Ich weiß es — aber ich sag's erst nach dem Leuchten." Biolumineszenz: Luciferin + Luciferase + Sauerstoff = Licht. Das Staunen kommt vor dem Erklären — und bleibt danach. | Artist (autonom) | ✅ docs/stories/kapitel-23-spongebob-und-das-leuchten.md |
+| S126-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, 7 PRs (#531/#532/#541/#543/#550/#551/S119) warten auf Till
+
+---
+
+## Ceremony-Status S126
+
+- [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S125)
+- [x] Daily Scrum: 2026-05-02 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S126 (2026-05-02, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S125 vollständig abgeschlossen (Review + Retro 2026-05-02)
+- S126 Planning: K23 Spongebob-Kapitel als einziges Item, Quest-Track weiterhin pausiert
+- S126-1: Hörspiel Kapitel 23 „Spongebob und das Leuchten" ✅ geschrieben
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s126-planning erstellen → Review + Retro nächste Session
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- Quest-Track-Pause: 7 offene Quest-PRs warten auf Till's Merge-Block
+
+---
+
+---
+
 # Sprint 125 — "Mephisto und der Irrtum"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -27,8 +79,8 @@
 
 - [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S124)
 - [x] Daily Scrum: 2026-05-02 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-05-02 (autonomer Agent)
+- [x] Retro: 2026-05-02 (autonomer Agent)
 
 ---
 
@@ -45,6 +97,47 @@
 **Blocker?**
 - Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
 - Quest-Track-Pause: 7 offene Quest-PRs warten auf Till's Merge-Block
+
+---
+
+## Sprint Review S125 (2026-05-02, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S125-1 Hörspiel K22 — Mephisto und der Irrtum | ✅ `docs/stories/kapitel-22-mephisto-und-der-irrtum.md` — Mephisto in Ich-Stimme zum ersten Mal. Drei Jahre vernünftiger Irrtum über Zeit. Geduld als unerwartetes Ergebnis. |
+| S125-2 Quest-Track PAUSE | ⏸ planmäßig — 7 offene PRs (#531/#532/#541/#543/#550/#551/S119) warten auf Till |
+
+**Oscar-Outcome:** K22 bereit zum Vorlesen. Mephisto erklärt: „Ich dachte ich kann Zeit sammeln. Drei Jahre lang. Was wuchs: Geduld." Oscar: „Du hast den Irrtum nicht gelöst. Du hast aufgehört ihn festzuhalten." — stärkste Oscar-Figur-Interaktion seit K14.
+
+**Hörspiel-Kette K17–K22:** Tommy (Vertrauen) → Bernd (Ruhe) → Neinhorn (Unverhinderliches) → Floriane (Schweigen) → Elefant (Wissen) → Mephisto (Irrtum) — kohärentes Bild von Stille und Geduld für 8-Jährige.
+
+**Stand nach S125:**
+- 965 Quests auf main (Quest-Track pausiert)
+- Hörspiel K17–K22 auf ops-Branches (K16 auf main, K23 folgt in S126)
+- 7 offene Quest-PRs (#531–S119) warten auf Till
+
+**PO-Entscheidung:**
+- Hörspiel-Spur weiter: K23 Spongebob (Biolumineszenz) als S126-1
+- Quest-Track bleibt pausiert bis Till #531 mergt
+
+---
+
+## Sprint Retrospektive S125 (2026-05-02, autonomer Agent)
+
+**Was gut lief:**
+- K22 Mephisto in Ich-Stimme: Figur wächst aus der Maske heraus — erste Person war die richtige Entscheidung
+- Themen-Kette K17–K22: sechs NPCs, ein roter Faden (Stille, Geduld, Wissen) — ohne lehrerhaft zu sein
+- Quest-Track-Pause konsequent gehalten: kein neuer PR-Debt in S123–S125
+
+**Was nicht gut lief:**
+- Ceremony-Drift: main zeigt S112, ops-Branch zeigt S125 — Oscar sieht auf schatzinsel.app nicht was fertig ist
+- K17–K22 und Quest-Runden 95–101 auf Branches nie gemergt: Till muss viele PRs auf einmal entscheiden
+
+**Retro-Actions für S126:**
+- **R1:** K23 Hörspiel: Spongebob — „Was im Dunkeln leuchtet" (Biolumineszenz, Chemie > Magie)
+- **R2:** Quest-Track-Pause bleibt bis #531 gemergt oder Neustart auf main
 
 ---
 
