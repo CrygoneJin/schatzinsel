@@ -1,3 +1,53 @@
+# Sprint 129 — "Maus und die Morgenstille"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 26 — Maus sitzt jeden Morgen in der gleichen Ecke und sieht was alle anderen übersehen, weil alle anderen zu groß sind um es zu sehen. Tommy fragt warum Maus immer dort sitzt. Maus: „Von hier aus sieht man alles. Ihr seht es nur nicht weil ihr zu groß dafür seid."
+
+**Start:** 2026-05-02
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog S129
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S129-1 | **Hörspiel Kapitel 26 — Maus und die Morgenstille** — Maus sitzt jeden Morgen vor Sonnenaufgang in der Ecke zwischen dem großen Stein und dem alten Baum. Sie sieht die Insel aufwachen. Die anderen verschlafen es. Tommy sitzt eines Morgens daneben. Maus: „Von hier aus sieht man es — aber man muss klein genug sein." | Artist (autonom) | ✅ docs/stories/kapitel-26-maus-und-die-morgenstille.md |
+| S129-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. Hinweis: 7 PRs offen (#531/#532/#541/#543/#550/#551/S119) | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, 7 PRs warten auf Till's Merge-Block
+
+---
+
+## Ceremony-Status S129
+
+- [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S128)
+- [x] Daily Scrum: 2026-05-02 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S129 (2026-05-02, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S128 vollständig abgeschlossen (Review + Retro 2026-05-02)
+- S129 Planning: K26 Maus als einziges Item, Quest-Track weiterhin pausiert
+- S129-1: Hörspiel Kapitel 26 ✅ — Maus zeigt Tommy die Morgenstille von unten
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s128 (enthält S128+S129) erstellen → Till mergt
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- Quest-Track-Pause: 7 offene Quest-PRs warten auf Till
+
+---
+
 # Sprint 128 — "Lokführer grüßt den Zug der nicht mehr kommt"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -27,8 +77,8 @@
 
 - [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S127)
 - [x] Daily Scrum: 2026-05-02 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-05-02 (autonomer Agent)
+- [x] Retro: 2026-05-02 (autonomer Agent)
 
 ---
 
@@ -45,6 +95,50 @@
 **Blocker?**
 - Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
 - Quest-Track-Pause: 7 offene Quest-PRs warten auf Till's Merge-Block
+
+---
+
+## Sprint Review S128 (2026-05-02, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 lieferbar ✅, 1 planmäßig pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S128-1 Hörspiel K25 — Lokführer grüßt den Zug | ✅ docs/stories/kapitel-25-lokfuehrer-gruessst-den-zug.md — Tommy versteht es nicht ganz. Tut es trotzdem. |
+| S128-2 Quest-Track PAUSE | ⏸ 7 PRs warten auf Till — Pause gehalten, kein neuer Debt |
+
+**Oscar-Outcome:**
+- K25 hat den stärksten Schlusssatz seit K13 Mulde: „Dann erst recht." — Drei Worte. Keine Erklärung. 8-jähriger kann es anfassen ohne es zu verstehen.
+- Tommys letzter Akt: alleine um 18:17 stehen, Hand heben, für niemanden, für jemanden — das ist das Ziel des Hörspiels in einer Szene.
+
+**Stand nach S128:**
+- **25 Hörspiel-Kapitel** auf Branch — Hörspiel-Arc komplett bis K25
+- **Quest-Track pausiert** — 965 Quests auf main, 7 PRs mit weiteren ~70 Quests warten auf Till
+- Smoke Test: CF-403 bekannte Sandbox-Limitation
+
+**PO-Entscheidung:**
+- Hörspiel-Track: K26 — Maus und die Morgenstille (was man sieht wenn man klein ist)
+- Quest-Track: Pause bleibt bis Till #531 mergt
+
+---
+
+## Sprint Retrospektive S128 (2026-05-02, autonomer Agent)
+
+**Was gut lief:**
+- K25 Lokführer: emotionale Präzision trifft Kinderspielzeug-Kontext — Gleis 7 um 18:17 ist spezifisch genug um real zu wirken
+- „Dann erst recht" — bester Drei-Wort-Satz seit langem. Zeigt ohne zu erklären.
+- Tommys Nachahmung am Ende: Kind imitiert Erwachsenen-Ritual ohne es zu verstehen — das ist das Hörspiel-Ziel in Reinform
+- Hörspiel-Track S121–S128: 8 Kapitel in 8 Sprints, stabile Qualität
+
+**Was nicht gut lief:**
+- Quest-Track wartet jetzt seit S120 auf Till (#531) — 8 Sprints ohne Quest-Progress auf main
+- SPRINT.md wächst — S113–S128 komplett drin, Datei wird lang
+- Parallele Branches (feat/sprint-113 lokal) vs. remote — Duplikat-Arbeit wiederholt sich
+
+**Retro-Actions für S129:**
+- **R1:** K26 — Maus und die Morgenstille: was man sieht wenn man klein ist
+- **R2:** Quest-Track-Pause bleibt, Hinweis an Till in SPRINT.md erneuern
+- **R3:** SPRINT.md-Drift: aktuelle Sprints stehen oben, alte unten — kein Archivieren nötig, Till liest chronologisch von oben
 
 ---
 
