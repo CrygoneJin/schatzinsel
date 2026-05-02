@@ -1,3 +1,55 @@
+# Sprint 128 — "Lokführer grüßt den Zug der nicht mehr kommt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 25 — Lokführer steht jeden Abend um 18:17 Uhr auf Gleis 7 und hebt die Hand. Seit 30 Jahren hält dort kein Zug mehr. Tommy fragt warum. Lokführer: „Nicht für den Zug. Für die Person die darin saß." Der Gruß gehört ihr noch — auch wenn sie längst ausgestiegen ist.
+
+**Start:** 2026-05-02
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S128-1 | **Hörspiel Kapitel 25 — Lokführer grüßt den Zug der nicht mehr kommt** — Lokführer grüßt jeden Abend Gleis 7, obwohl seit 30 Jahren kein Zug mehr kommt. Tommy fragt warum. Lokführer erklärt: Nicht für den Zug — für die Person die darin saß. Der Gruß gehört ihr. Noch. | Artist (autonom) | ✅ docs/stories/kapitel-25-lokfuehrer-gruessst-den-zug.md |
+| S128-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, 7 PRs (#531/#532/#541/#543/#550/#551/S119) warten auf Till
+
+---
+
+## Ceremony-Status S128
+
+- [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S127)
+- [x] Daily Scrum: 2026-05-02 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S128 (2026-05-02, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S127 vollständig abgeschlossen (Review + Retro 2026-05-02)
+- S128 Planning: K25 Lokführer als einziges Item, Quest-Track weiterhin pausiert
+- S128-1: Hörspiel Kapitel 25 ✅ — Lokführer grüßt täglich Gleis 7, Tommy versteht am Ende warum Rituale für Abwesende auch für Anwesende sind
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s128 erstellen → Review + Retro nächste Session
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- Quest-Track-Pause: 7 offene Quest-PRs warten auf Till's Merge-Block
+
+---
+
+---
+
 # Sprint 127 — "Alien fragt warum Menschen Geburtstag feiern"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -27,8 +79,45 @@
 
 - [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S126)
 - [x] Daily Scrum: 2026-05-02 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-05-02 (autonomer Agent)
+- [x] Retro: 2026-05-02 (autonomer Agent)
+
+---
+
+## Sprint Review S127 (2026-05-02, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S127-1 Hörspiel K24 | ✅ docs/stories/kapitel-24-alien-fragt-warum-geburtstag.md |
+| S127-2 Quest-Track PAUSE | ⏸ planmäßig — #531 wartet auf Till |
+
+**Oscar-Outcome:** Alien beobachtet Oscars Geburtstagsfest und versteht nicht warum man einen Tag feiert an dem man kürzer wird. Tommy erklärt: Man feiert nicht die Zeit die vorbei ist — man feiert die Menschen die dabei waren. Alien hört zu. Am Ende des Kapitels organisiert Alien zum ersten Mal selbst ein kleines Fest — für Tommy, für Bernd, für die Kraemerin. Einfach weil sie dabei waren.
+
+**Stand nach S127:**
+- **965 Quests** auf main (Quest-Track pausiert seit S112 — 7 PRs warten auf Till)
+- **24 Hörspiel-Kapitel** auf Branch (K1–K24)
+- Hörspiel-Themen-Balance: K23 Naturwunder, K24 sozial/emotional ✅
+
+---
+
+## Sprint Retrospektive S127 (2026-05-02, autonomer Agent)
+
+**Was gut lief:**
+- K24-Struktur: Alien als Außenseiter-Perspektive erzeugt echte Tiefe — „Man feiert nicht die Zeit die vorbei ist" ist ein Satz den Oscar mit 30 noch kennt
+- Soziales Thema nach Naturwunder-Serie: Retro-Action R1 (K24 = sozial/emotional) wurde eingehalten
+- Alien + Tommy als Duo: funktioniert besonders gut wenn Alien fragt und Tommy antwortet
+
+**Was nicht gut lief:**
+- Quest-Track-Stau wächst: #531 seit Tagen offen, jetzt 7 PRs — keine Quests auf main seit S112
+- Keine neuen NPCs im Hörspiel seit K20+ — Maus, Bug, Kraemerin, Bernd fehlen im Hörspiel-Track
+- Ceremony-Drift: SPRINT.md auf main zeigt S112, tatsächlich S127 — Till-Merge-Block bleibt nötig
+
+**Retro-Actions für S128:**
+- **R1:** K25 = NPC der im Hörspiel noch fehlt — Lokführer ist dran
+- **R2:** Quest-Track bleibt pausiert bis Till #531 mergt
+- **R3:** Nächste Ceremony-Drift-Lösung: ops-Branches direkt auf main rebasen wenn Till nächste Merge-Session macht
 
 ---
 
