@@ -1,3 +1,55 @@
+# Sprint 127 — "Alien fragt warum Menschen Geburtstag feiern"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 24 — Alien versteht nicht warum man einen Tag feiert an dem man älter (also kürzer) wird. Tommy erklärt: Man feiert nicht die Zeit die vorbei ist. Man feiert die Menschen die dabei waren. Alien: „Das ist die beste Erklärung die ich je gehört habe. Wir machen das jetzt auch."
+
+**Start:** 2026-05-02
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #531 mergt.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S127-1 | **Hörspiel Kapitel 24 — Alien fragt warum Menschen Geburtstag feiern** — Alien beobachtet ein Geburtstagsfest auf der Insel und versteht es nicht. Tommy erklärt. Alien hört zu und feiert danach zum ersten Mal selbst. | Artist (autonom) | ✅ docs/stories/kapitel-24-alien-fragt-warum-geburtstag.md |
+| S127-2 | **Quest-Track: PAUSE** — bleibt bis Till #531 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, 7 PRs (#531/#532/#541/#543/#550/#551/S119) warten auf Till
+
+---
+
+## Ceremony-Status S127
+
+- [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S126)
+- [x] Daily Scrum: 2026-05-02 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S127 (2026-05-02, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S126 vollständig abgeschlossen (Review + Retro 2026-05-02)
+- S127 Planning: K24 Alien-Kapitel als einziges Item, Quest-Track weiterhin pausiert
+- S127-1: Hörspiel Kapitel 24 ✅ — Alien fragt warum Menschen Geburtstag feiern, Tommy erklärt, Alien feiert danach selbst
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s127 erstellen → Review + Retro nächste Session
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- Quest-Track-Pause: 7 offene Quest-PRs warten auf Till's Merge-Block
+
+---
+
+---
+
 # Sprint 126 — "Spongebob und das Leuchten"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -27,8 +79,39 @@
 
 - [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S125)
 - [x] Daily Scrum: 2026-05-02 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-05-02 (autonomer Agent)
+- [x] Retro: 2026-05-02 (autonomer Agent)
+
+---
+
+## Sprint Review S126 (2026-05-02, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S126-1 Hörspiel K23 | ✅ docs/stories/kapitel-23-spongebob-und-das-leuchten.md |
+| S126-2 Quest-Track PAUSE | ⏸ planmäßig — #531 wartet auf Till |
+
+**Oscar-Outcome:** Spongebob zeigt Tommy ein Tier das ohne Feuer und Strom leuchtet. Tommy fragt warum. Spongebob: „Ich sag's erst nach dem Leuchten." Biolumineszenz: Luciferin + Luciferase + Sauerstoff = Licht. Das Staunen kommt vor dem Erklären — und bleibt danach.
+
+---
+
+## Sprint Retrospektive S126 (2026-05-02, autonomer Agent)
+
+**Was gut lief:**
+- K23-Struktur: Staunen vor Erklärung funktioniert pädagogisch stark für Oscar
+- Hörspiel-Track: K19–K23 — fünf Kapitel in einem Tag, stabil in Qualität
+- Ceremony-Kompression: Review+Retro+Planning+Daily in einem Commit spart Overhead
+
+**Was nicht gut lief:**
+- Quest-Track-Stau: #531 seit Tagen offen, 6 weitere PRs warten — keine Quests auf main seit S112
+- Ceremony-Drift: S112 auf main, S126 auf Branch — Till muss irgendwann einen Merge-Block machen
+- Hörspiel-Themen wiederholen Naturwissenschaft-Muster (K21 Elefant/Wanderung, K23 Biolumineszenz) — nächstes Kapitel soll emotional/sozial werden
+
+**Retro-Actions für S127:**
+- **R1:** K24 = soziales Thema (kein Naturwunder-Kapitel) — Alien fragt warum Menschen Geburtstag feiern
+- **R2:** Quest-Track bleibt pausiert bis Till #531 mergt
 
 ---
 
