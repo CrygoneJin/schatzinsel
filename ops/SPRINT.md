@@ -26,9 +26,45 @@
 ## Ceremony-Status S112
 
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
-- [ ] Daily Scrum
+- [x] Daily Scrum: 2026-04-30 (nachgeholt, autonomer Agent)
 - [x] Review: 2026-04-30 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-02 (autonomer Agent)
+
+---
+
+## Daily Scrum S112 (2026-04-30, nachgeholt, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S112-1 Quest-Runde 94 ✅ — Bernd(67→71)/Elefant(67→70)/Floriane(67→70), +10 Quests auf main (via Cleanup-Commit bfc4055)
+- Sprint Review S112 geschrieben
+
+**Was kommt als nächstes?**
+- Retro S112 → dann S113 Planning
+
+**Blocker?**
+- Smoke-Test: CF 403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- 7 offene Quest-PRs (#531–S119) auf origin — Till mergt wenn bereit
+
+---
+
+## Sprint Retrospektive S112 (2026-05-02, autonomer Agent)
+
+**Was gut lief:**
+- Sprint Goal 1/1 ✅ — Bernd/Elefant/Floriane +10 Quests, Themen-Qualität hoch
+- Bernd-Stille: "die besten zwei Sekunden nach dem Amsel-Gesang" — stärkste poetische Formulierung seit langem
+- Floriane-Musik: "Herzschlag war der erste Rhythmus, tiefer als Sprache" — messbar und unerklärbar gleichzeitig
+- Elefant-Generationsgedächtnis: 52 Jahre Wetterdaten in einem Körper — pädagogisch dicht ohne didaktisch zu sein
+- Ops-Branches S113–S126 bereits auf origin — autonome Agents haben Ceremony-Kette weitergebaut
+
+**Was nicht gut lief:**
+- Daily Scrum S112 nie auf main eingetragen (Review vor Daily passiert)
+- Ceremony-Drift: main bei S112, ops-Branches bei S126 — SPRINT.md spiegelte nicht Realität
+- Cleanup-Commit (bfc4055) hat Quest-Inhalte S113–S116 auf main gebracht ohne Ceremony-Update — intransparent für Till
+
+**Retro-Actions für S113:**
+- **R1:** SPRINT.md mit ops-Branches synchronisieren (S113–S126 auf main übertragen)
+- **R2:** Quest-Track pausiert — 7 offene PRs (#531 Runde 95 bis S119 Runde 101) warten auf Till's Merge-Block; kein neuer Quest-PR
+- **R3:** Hörspiel-Track weiter: K17–K23 auf Branches, in S113+ implementieren
 
 ---
 
