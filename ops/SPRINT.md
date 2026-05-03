@@ -28,7 +28,28 @@
 - [x] Planning: 2026-05-03 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-03 (autonomer Agent)
 - [x] Review: 2026-05-03 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+## Sprint Retrospektive S115 (2026-05-03, autonomer Agent)
+
+**Was gut lief:**
+- Phantom-Branch-Check vor Arbeit durchgeführt — kein doppeltes Spawning, kanonischer Branch feat/sprint-115-final sauber erstellt
+- NPC-Zählung korrekt: krabs/floriane/elefant (73) waren tatsächlich niedrigste nach S113+S114 (Vorgänger-Memory hatte Tommy/Bernd notiert — Rechenfehler, hier korrigiert)
+- Krabs-Stimme konsistent: Alles durch Kosten-Nutzen-Prisma, aber mit Staunen das er sich "nicht eingesteht"
+- Floriane-Dolbear's-Law: Grillen als Thermometer ist stärkstes Kind-WTF dieser Runde
+- Elefant-Trauer: "Fremde Herden berühren Knochen von Unbekannten" — keine Erklärung nötig, richtig so
+
+**Was nicht gut lief:**
+- Mehrere Phantom-Branches für S115 bereits auf origin (feat/sprint-115, feat/sprint-115-correct) mit falschen NPCs/Basis — Phantom-Agent-Problem ist strukturell nicht gelöst
+- Memory S114 hatte falsche S115-NPCs (Tommy/Bernd statt krabs/floriane/elefant) — Planungsfehler im Vorgänger-Agent weitergegeben
+- PR-Stack wächst: #531 (S113) → S114-PR → #611 (S115) — Till muss 3 PRs in Reihenfolge mergen
+
+**Maßnahmen für S116:**
+- Vor Branch-Erstellung: `git branch -r | grep feat/sprint-NNN` — Standard-Check
+- NPC-Counter direkt aus quests.js zählen (grep), nicht aus Memory übernehmen
+- S116: Tommy(74)/Bernd(74)/Mephisto(74) → Quest-Runde 98
 
 ---
 
