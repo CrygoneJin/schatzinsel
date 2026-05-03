@@ -1,3 +1,101 @@
+# Sprint 114 — "Maus misst, Krämerin handelt, Bug beobachtet"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Maus entdeckt was passiert wenn man Dinge misst (Spinnenfaden, Regen, Ameisen, Mondschatten), Krämerin weiß was gute Händler wissen (Vertrauen, Tausch, Saison), Bug beobachtet was Insekten zeigen ohne zu reden (Schwänzeltanz, Floß, Navigation). 965→975 Quests auf Branch.
+
+**Start:** 2026-05-03
+**Sprint-Prinzip:** Quest-Track autonom. Ceremonies im Feature-Commit.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S114-1 | **Quest-Runde 96** — maus(72→76)/kraemerin(72→75)/bug(72→75) → +10 Quests, 965→975. Maus: „Was die Maus misst". Krämerin: „Was Händler wissen". Bug: „Was Insekten zeigen ohne Worte". | Artist | ✅ feat/sprint-114 |
+
+---
+
+## Ceremony-Status S114
+
+- [x] Planning: 2026-05-03 (autonomer Agent, aus Retro S113)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+## Daily Scrum S114 (2026-05-03, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S113 Retro auf main gelesen → S114-1 als nächstes Item identifiziert
+- PR #531 dirty-State dokumentiert (MEMORY.md merge conflict, GitHub-UI kann "Update branch" lösen)
+- S114-1 Quest-Runde 96 implementiert: maus×4 / kraemerin×3 / bug×3
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-114 erstellen → Till mergt (nach #531)
+
+**Blocker?**
+- PR #531 (S113) hat merge conflict in MEMORY.md — GitHub-UI "Update branch" löst es
+- Smoke-Test CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation
+
+---
+
+## Sprint Review S114 (2026-05-03, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S114-1 Quest-Runde 96 | ✅ feat/sprint-114 — maus(72→76 +4) / kraemerin(72→75 +3) / bug(72→75 +3), 965→975 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Maus: Spinnenfaden-Zugkraft-Labor (Spinnenseide 5× stärker als Stahl — mit dem Bauch!), Regentropfen-Einschlag-Station (Regentropfen baut Grand Canyon in Miniatur), Ameisen-Gewichts-Archiv (50× Körpergewicht — Maus wäre theoretisch Elefanten-Träger), Mondschatten-Mess-Punkt (Eratosthenes 2200 v.Chr.: Erdumfang mit Stöcken gemessen). Krämerin: Vertrauens-Kontor (der zweite Verkauf ist der schwierigste — Vertrauen braucht Zeit), Tausch-Waage-Archiv (Salz war Gehalt, Muscheln waren Geld — Einigung macht Wert), Saisonkalender-Stand (die Kirsche die heute reif ist, ist nächsten Dienstag nicht mehr dieselbe). Bug: Bienen-Schwänzeltanz-Decoder (von Frisch 25 Jahre + Nobelpreis für Tanzsprache), Feuerameisen-Floß-Labor (tausende Körper — kein Anführer — immer dieselbe Form), Monarchfalter-Navigations-Turm (4000 km, erster Flug, kein Lehrer — nur der Körper erinnert sich).
+
+**Stand nach S114:**
+- **975 Quests** auf feat/sprint-114 (965 auf main + 10 neu)
+- NPC-Counter nach S114: maus 76 · kraemerin 75 · bug 75
+- Niedrigste Counter: Tommy 74 · Bernd 74 (nach Vollmerge S112–S114)
+
+**Merge-Hinweis für Till:**
+- PR #531 (S113) zuerst mergen — hat merge conflict in MEMORY.md, GitHub-UI "Update branch" reicht
+- Dann PR für S114 (dieser Branch)
+
+**PO-Entscheidung:**
+- Quest-Runde 97: Tommy(74)/Bernd(74) → S115-1
+
+---
+
+## Sprint Retrospektive S114 (2026-05-03, autonomer Agent)
+
+**Was lief gut:**
+- Maus-Thema "Was die Maus misst" hat starken Bogen: Eratosthenes-Discovery am Ende ("gegen die Unwissenheit") ist stärkste Maus-Zeile seit langem
+- Kraemerin-Thema "Was Händler wissen" bringt Tiefe: Tausch-Waage-Archiv erklärt 8-jährigem Kind warum Salär von Salz kommt — ohne Erklär-Ton
+- Bug-Trias kohärent: alle drei zeigen kollektive Intelligenz ohne Anführer (Schwarmdenken als roter Faden)
+- Ceremonies direkt im Feature-Commit — kein separater Ceremony-Debt
+
+**Was nicht gut lief:**
+- PR #531 (S113) dirty-State nicht gefixt — Signing-Server-Fehler beim Rebase in Worktree. GitHub-UI muss ran.
+- Phantom-Branch-Altlast: origin/feat/sprint-113* Branches immer noch offen
+
+**Retro-Actions für S115:**
+- **R1:** Quest-Runde 97: Tommy(74)/Bernd(74) → S115-1
+- **R2:** Till: PR #531 via GitHub-UI "Update branch" mergen, dann PR #534 (S114) mergen
+- **R3:** Alte feat/sprint-113* Phantom-Branches schließen (Till-Aktion)
+
+---
+
+---
+
+# Sprint 113 — Ceremonies auf feat/sprint-113 (PR #531)
+
+**Status:** S113-1 ✅ implementiert. Vollständige Ceremonies auf `feat/sprint-113` (PR #531 offen).
+Quest-Runde 95: Neinhorn(71→75)/Mephisto(71→74)/Spongebob(72→75), 965→975 Quests.
+Niedrigste Counter nach S113: maus/kraemerin/bug je 72 → S114-1.
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
