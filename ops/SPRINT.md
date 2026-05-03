@@ -1,3 +1,97 @@
+# Sprint 133 — "Tommy baut allein"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 30 — Tommy legt einen Block hin. Niemand schaut zu. Kein Quest-Toast. Er legt weiter. Am Ende: eine kleine Insel. Der erste Stein trägt alles andere.
+
+**Start:** 2026-05-03
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #592 mergt.
+
+---
+
+## Sprint Backlog S133
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S133-1 | **Hörspiel Kapitel 30 — Tommy und der erste Stein** — Tommy baut allein, ohne Publikum, ohne Plan. Maus kommt am nächsten Morgen vorbei. Thema: Anfangen ohne Publikum. Der erste Stein trägt alles andere. | Artist (autonom) | ✅ docs/stories/kapitel-30-tommy-und-der-erste-stein.md |
+| S133-2 | **Quest-Track: PAUSE** — bleibt bis Till #592 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, 7 PRs (#592/#531/#532/#541/#543/#550/#551) warten auf Till
+
+---
+
+## Ceremony-Status S133
+
+- [x] Planning: 2026-05-03 (autonomer Agent, aus Retro S132)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+## Daily Scrum S133 (2026-05-03, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S132 vollständig abgeschlossen (Retro 2026-05-03)
+- S133 Planning: K30 "Tommy und der erste Stein" als einziges Item
+- S133-1: K30 geschrieben ✅
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s132-review erstellen → Till mergt (gestacked auf ops/sprint-s131-review)
+
+**Blocker?**
+- Smoke-Test: CF-403 + Worker bekannte Sandbox-Limitation, kein App-Schaden
+- Quest-Track-Pause: 7 offene Quest-PRs warten auf Till (#592 zuerst)
+
+---
+
+## Sprint Review S133 (2026-05-03, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅, 1 bewusst pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S133-1 Hörspiel K30 — Tommy und der erste Stein | ✅ docs/stories/kapitel-30-tommy-und-der-erste-stein.md |
+| S133-2 Quest-Track PAUSE | ⏸ wartet auf Till (#592 zuerst) |
+
+**Oscar-Outcome:**
+K30 bereit zum Vorlesen. Tommy ist allein. Er legt einen Block hin — kein Toast, kein Publikum. Legt einen zweiten. Dann einen dritten. „Kein Ziel ist vielleicht auch ein Ziel." Irgendwann hält er inne: vor ihm liegt eine Form, rund an den Rändern, drei Seiten zum Wasser offen. Es sieht aus wie eine kleine Insel. Der erste Stein liegt ganz unten. Er trägt alles andere. Maus kommt am nächsten Morgen: „Man sieht immer wo einer angefangen hat."
+
+Narrativ: K30 ist das erste Kapitel wo Tommy der Protagonist ist — nicht der Fragende. Er entdeckt was Bauen bedeutet wenn niemand zuschaut. Thema: **Anfangen ohne Publikum.** Spiegelt Oscars echtes Spielverhalten (baut allein im Tesla, für die Bäume kleine Inseln).
+
+Themen-Bogen nach K30:
+- K29 Krabs: Wert — was du verlierst wenn du es hergibst
+- K30 Tommy: Anfang — der erste Stein trägt alles andere
+
+**Stand:**
+- **30 Hörspiel-Kapitel** auf ops-Branches (K17–K30 auf Branch-Kette, K1–K16 auf main)
+- Quest-Track ⏸ pausiert — 7 PRs (#592 zuerst) warten auf Till
+
+---
+
+## Sprint Retrospektive S133 (2026-05-03, autonomer Agent)
+
+**Was gut lief:**
+- K30 Tommy-solo: stärkster Perspektivwechsel der Hörspiel-Kette — Tommy war bisher immer der Fragende, jetzt ist er der Bauende. „Kein Ziel ist vielleicht auch ein Ziel" trägt das Kapitel
+- Maus-Rückkehr (K26→K30): Maus ist die einzige Figur die Tommy etwas zeigt ohne es zu erklären — jetzt zeigt sie ihm auch was er selbst gemacht hat
+- Der erste Stein / „er trägt alles andere" spiegelt Oscars echte Spielweise: 8 Jahre alt, Tesla, Inseln für Bäume — kein Quest-Ziel, aber bedeutungsvolles Bauen
+- 30 Hörspiel-Kapitel komplett — eine ganze Saison
+
+**Was nicht gut lief:**
+- Quest-Track bleibt blockiert: #592 muss Till mergen, Kette kann nicht weiterlaufen
+- ops-Branch-Kette wächst auf 6 Sprints Abstand von main (S127–S133 auf Branch, K17–K30 noch nicht auf main)
+
+**Retro-Actions für S134:**
+- **R1:** K31 — nächster NPC. Neinhorn oder Elefant (hatten seit K6/K21 kein Kapitel mehr)
+- **R2:** Quest-Track bleibt pausiert bis Till #592 mergt
+
+---
+
+---
+
 # Sprint 132 — "Krabs und der Preis"
 
 **Sprint Goal (Oscar-Perspektive):**
