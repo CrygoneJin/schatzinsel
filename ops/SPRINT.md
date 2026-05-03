@@ -1,3 +1,70 @@
+# Sprint 115 — "Krabs lernt, Floriane hört Stimmen, Elefant erinnert"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Krabs entdeckt dass Dinge Bedeutung haben nicht nur Preis (Reparatur, Tauschwert, erstes Geschäft, Freundschaft als bestes Geschäft), Floriane misst was Stimmen verraten (Fingerabdruck, Lachen, erste Stimme), Elefant zeigt was Generationen ohne Worte weitergeben (Trauer, Lernen, Matriarchin-Wissen). 975 Quests auf Branch.
+
+**Start:** 2026-05-03
+**Sprint-Prinzip:** Quest-Track autonom. Phantom-Branch-Check vor Arbeit (MEMORY 2026-05-03).
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S115-1 | **Quest-Runde 97** — Krabs(73→77)/Floriane(73→76)/Elefant(73→76) → +10 Quests, 965→975. Krabs: "Was mehr wert ist als Krabben-Taler". Floriane: "Was Stimmen über Menschen erzählen". Elefant: "Was man ohne Worte weitergibt". | Artist | ✅ feat/sprint-115-s115 |
+
+---
+
+## Explizit nicht im Sprint
+
+- S116: Bernd(74)/Tommy(74)/Mephisto(74) — nach Merge S113+S114+S115
+
+---
+
+## Ceremony-Status S115
+
+- [x] Planning: 2026-05-03 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S115 (2026-05-03, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- Phantom-Branch-Check: feat/sprint-115, feat/sprint-115-correct, feat/sprint-115-s97 gefunden — alle auf falscher Basis (965 statt 985) und/oder falsche NPCs
+- Korrekte NPC-Counter aus main ermittelt: krabs/floriane/elefant je 73 (niedrigste nach S113+S114 Merge)
+- S115-1 Quest-Runde 97 implementiert: Krabs(73→77 +4) / Floriane(73→76 +3) / Elefant(73→76 +3), 975 Quests
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-115-s115 erstellen → Till mergt (nach S113 PR #531 + S114 PR #604)
+
+**Blocker?**
+- Smoke Test: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation (seit S92)
+- S113 PR #531 + S114 PR #604 offen — S115 basiert auf main (965), Till mergt in Reihenfolge
+
+---
+
+## Erledigte Sprints (S113, S114) — Phantom-Agent-Dokumentation
+
+### Sprint 113 (Phantom-Agent 2026-05-02/03)
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ PR #531 offen — Neinhorn(71→75 +4) / Mephisto(71→74 +3) / Spongebob(72→75 +3), 965→975 |
+
+### Sprint 114 (Phantom-Agent 2026-05-03)
+
+| Item | Ergebnis |
+|------|---------|
+| S114-1 Quest-Runde 96 | ✅ PR #604 offen — Maus(72→76 +4) / Kraemerin(72→75 +3) / Bug(72→75 +3), 965→975 |
+
+**Merge-Reihenfolge für Till:** #531 → #604 → S115 PR. Nach Vollmerge: 995 Quests.
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
