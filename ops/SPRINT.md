@@ -1,3 +1,179 @@
+# Sprint 115 — "Tommy leuchtet, Bernd gräbt, Mephisto wartet"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was Licht verbirgt und zeigt (Prisma, Schatten-Uhr, Leuchtkäfer, Flammen-Farben), Bernd liest was der Boden erzählt (Pilznetz, Totholz, Schichten), Mephisto sammelt was Menschen nicht loslassen wollen (Vergessen, Versprechen, Nacht-Gedanken). 965→975 Quests auf Branch.
+
+**Start:** 2026-05-03
+**Sprint-Prinzip:** Ein Branch. Ein PR. Kein paralleles Spawning.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S115-1 | **Quest-Runde 97** — Tommy(74→78)/Bernd(74→77)/Mephisto(74→77 Vollmerge-Basis) → +10 Quests, 965→975. Tommy: „Was Licht verbirgt". Bernd: „Was der Boden erzählt". Mephisto: „Was man nicht loslässt". | Artist | ✅ feat/sprint-115-s97 |
+
+---
+
+## Explizit nicht im Sprint
+
+- Phantom-Branches feat/sprint-115 und feat/sprint-115-correct: falsche NPCs, nicht mergen
+- S116-Setup: nach S115-Merge niedrigste Counter bestimmen
+
+---
+
+## Ceremony-Status S115
+
+- [x] Planning: 2026-05-03 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+## Daily Scrum S115 (2026-05-03, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S112 Retro war letzter abgeschlossener Sprint in SPRINT.md
+- S113 (PR #531) und S114 (PR #604) existieren bereits als Phantom-Branches — nicht neu erstellt
+- S115 Planning: Tommy(74)+Bernd(74)+Mephisto(74 Vollmerge) → Quest-Runde 97 implementiert
+- Branch feat/sprint-115-s97 von main erstellt (Phantom-Check vorab durchgeführt)
+
+**Blocker?**
+- PR #531 (S113) und PR #604 (S114) warten auf Till-Merge
+- Smoke Test CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation
+
+---
+
+## Sprint Review S115 (2026-05-03, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S115-1 Quest-Runde 97 | ✅ feat/sprint-115-s97 — Tommy(74→78 +4) / Bernd(74→77 +3) / Mephisto(71→74 +3 auf main-Basis), 965→975 Quests |
+
+**Oscar-Outcome:** 10 neue Quests auf Branch. Tommy: Prisma-Spektrum-Station (weißes Licht = alle Farben, Dispersion selbst entdeckt), Schatten-Kalender-Station (Schatten zeigt Norden mittags — kein Kompass nötig), Biolumineszenz-Dunkel-Labor (Leuchtkäfer sprechen in Licht-Sprache), Flammen-Farben-Spektroskop (Kupfer grün, Salz gelb — Atome sehen durch ihre Farbe). Bernd: Pilzmyzel-Netz-Karte (8,9km-Pilz in Oregon, der kleinere darunter auch), Totholz-Lebensraum-Station (toter Baum = Umzug, nicht Ende), Boden-Schichten-Profil (Eiszeit-Schicht unten — das berühre ich nicht). Mephisto: Vergessen-Archiv (Vergessen wartet, verschwindet nicht), Versprechen-Waage (schlägt beim Aussprechen aus, egal was danach kommt), Nacht-Gedanken-Kammer (drei Uhr morgens — Schlafen Sie gut, Oscar).
+
+**Stand nach S115 (Branch, vor Merge):**
+- **975 Quests** auf feat/sprint-115-s97
+- tommy 78 · bernd 77 · lokfuehrer 76 · alien 76
+- mephisto 74 (auf main-Basis) / 77 (auf Vollmerge-Basis nach #531)
+- Niedrigste auf Vollmerge-Basis: mephisto 77 · bernd 77 · tommy 78 — nächste Runde bei anderen NPCs
+
+**S116-Setup (Vollmerge-Basis nach #531+#604+#S115):**
+- lokfuehrer 76 · alien 76 (höchste, überspringen)
+- Niedrigste nach allen Merges: spongebob 75 · kraemerin 75 · neinhorn 75 · bug 75 · floriane 73 · elefant 73 · krabs 73
+- floriane(73) + elefant(73) + krabs(73) → Quest-Runde 98
+
+---
+
+## Sprint Retrospektive S115 (2026-05-03, autonomer Agent)
+
+**Was gut lief:**
+- Phantom-Branch-Check vor Branch-Erstellung — beide feat/sprint-115-Branches hatten falsche NPCs, kein Doppel-Spawning
+- Tommy-Thema „Was Licht verbirgt": Vier verschiedene Licht-Phänomene, pädagogisch dicht ohne Wiederholung
+- Bernd-Boden: „die Eiszeit-Schicht berühre ich nicht" — stärkste Bernd-Zeile seit Stille-Kammer
+- Mephisto-Versprechen-Waage: „schlägt aus sobald es ausgesprochen wird — egal was danach kommt" — Figur reift weiter
+
+**Was nicht gut lief:**
+- SPRINT.md war 3 Sprints hinter Reality (S112 war letzter Eintrag, S113/S114 fehlten komplett)
+- Phantom-Branches feat/sprint-115 und feat/sprint-115-correct haben falsche NPCs — Koordination fehlt immer noch
+
+**Maßnahmen für S116:**
+- S116-Branch erst nach Phantom-Check erstellen (git branch -r | grep sprint-116)
+- SPRINT.md sofort nach Planning updaten, nicht am Session-Ende
+
+**S116-Setup:**
+- NPCs: floriane(73) + elefant(73) + krabs(73) — alle gleichauf, alle dran
+- Ziel: +10 Quests, 965→975 auf Branch (Vollmerge-Basis: 985→995)
+- Thema: frei
+
+---
+
+---
+
+# Sprint 113 — "Neinhorn sagt was es ablehnt, Mephisto rechnet ab"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Neinhorn erklärt warum sein Nein immer richtig ist, Mephisto zeigt was Angebote wirklich kosten, Spongebob entdeckt Meereswunder.
+
+**Start:** 2026-05-03 (Phantom-Branch — bereits von früherem Agent erstellt)
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S113-1 | **Quest-Runde 95** — Neinhorn(71→75)/Mephisto(71→74)/Spongebob(72→75) → +10 Quests, 965→975. | Artist | ✅ PR #531 offen |
+
+---
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-05-03 (Phantom-Agent, Ceremonies in PR #531)
+- [x] Daily Scrum: 2026-05-03
+- [x] Review: 2026-05-03
+- [x] Retro: 2026-05-03
+
+---
+
+## Sprint Review S113 (laut MEMORY, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅ — PR #531 offen**
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ PR #531 — Neinhorn(71→75 +4) / Mephisto(71→74 +3) / Spongebob(72→75 +3) |
+
+**Merge-Hinweis:** PR #531 vor PR #604 mergen (Quest-Counter kumulieren).
+
+---
+
+---
+
+# Sprint 114 — "Maus misst, Krämerin handelt, Bug fühlt mit"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Maus entdeckt Mathematik im Alltag, Krämerin lernt was Handel bedeutet, Bug zeigt kollektive Intelligenz.
+
+**Start:** 2026-05-03 (Phantom-Branch)
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S114-1 | **Quest-Runde 96** — Maus(72→76)/Kraemerin(72→75)/Bug(72→75) → +10 Quests, 965→975. | Artist | ✅ PR #604 offen |
+
+---
+
+## Ceremony-Status S114
+
+- [x] Planning: 2026-05-03 (Phantom-Agent)
+- [x] Daily Scrum: 2026-05-03
+- [x] Review: 2026-05-03
+- [x] Retro: 2026-05-03
+
+---
+
+## Sprint Review S114 (laut MEMORY, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅ — PR #604 offen**
+
+| Item | Ergebnis |
+|------|---------|
+| S114-1 Quest-Runde 96 | ✅ PR #604 — Maus(72→76 +4) / Kraemerin(72→75 +3) / Bug(72→75 +3). Maus-Highlights: Eratosthenes mit Stöcken, Regentropfen als Grand-Canyon-Miniatur. Bug-Trias: Bienen-Tanz, Ameisen-Floß, Schmetterling-Erbgedächtnis — kollektive Intelligenz ohne Anführer. |
+
+**Merge-Reihenfolge:** #531 (S113) zuerst, dann #604 (S114), dann S115-PR.
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
