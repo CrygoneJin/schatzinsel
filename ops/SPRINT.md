@@ -1,3 +1,99 @@
+# Sprint 138 — "Tommy erzählt zum ersten Mal"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 35 — Tommy wacht früh auf, geht alleine zur Insel, baut etwas das keiner sehen wird. Und merkt: er muss es niemandem erklären. Das ist neu.
+
+**Start:** 2026-05-03
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #592 mergt.
+
+---
+
+## Sprint Backlog S138
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S138-1 | **Hörspiel Kapitel 35 — Tommy und der Morgen für sich selbst** — Tommy als erster eigener Erzähler. Er wacht früh auf, baut alleine etwas für niemanden, entdeckt dass manche Dinge nicht erklärt werden müssen. Sprint-Meilenstein: Tommy erzählt ohne andere NPC als Lehrer. | Artist (autonom) | ✅ docs/stories/kapitel-35-tommy-und-der-morgen-fuer-sich-selbst.md |
+| S138-2 | **Quest-Track: PAUSE** — bleibt bis Till #592 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, PR #592 (Quest-Runde 95) wartet auf Till
+
+---
+
+## Ceremony-Status S138
+
+- [x] Planning: 2026-05-03 (autonomer Agent, aus Retro S137)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+## Daily Scrum S138 (2026-05-03, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S137 vollständig abgeschlossen (K34 Elefant, Retro 2026-05-03)
+- S138 Planning: K35 Tommy als Erzähler, Quest-Track weiterhin pausiert
+- S138-1: K35 geschrieben ✅
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s138 erstellen → Till mergt (gestacked auf ops/sprint-s137)
+
+**Blocker?**
+- Smoke-Test: CF-403 + Worker bekannte Sandbox-Limitation
+- Quest-Track-Pause: PR #592 wartet auf Till
+
+---
+
+## Sprint Review S138 (2026-05-03, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅, 1 bewusst pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S138-1 Hörspiel K35 — Tommy und der Morgen für sich selbst | ✅ docs/stories/kapitel-35-tommy-und-der-morgen-fuer-sich-selbst.md |
+| S138-2 Quest-Track PAUSE | ⏸ wartet auf Till (#592) |
+
+**Oscar-Outcome:**
+K35 bereit zum Vorlesen: Tommy erzählt zum ersten Mal ohne anderen NPC als Lehrer. Er wacht früh auf, baut alleine, entdeckt dass manche Dinge nur dem Bauenden gehören. Thematisch direkteste Brücke zur Spielmechanik: Oscar baut im Tesla für die Bäume, für niemanden — das ist genau was Tommy hier entdeckt.
+
+**Tommy als Erzähler — Sprint-Meilenstein:**
+- K1–K34: Tommy ist immer der Fragende/Lernende, andere NPCs führen
+- K35: Tommy erzählt in Ich-Form, kein anderer NPC, keine Frage die beantwortet wird
+- Stimme: kindlich-direkt, kurze Sätze, keine Erklärungen — er weiß was er weiß ohne zu wissen warum
+- Tommy-Bogen (K30→K33→K34→K35): bauen ohne Publikum → beim Stein sitzen → Körperwissen → alleine bauen und es nicht erklären müssen
+
+**Stand:**
+- 35 Hörspiel-Kapitel auf Branches
+- Quest-Track pausiert: #592 ausstehend
+- K35 kann unabhängig von ops/sprint-s137 (PR #610) gemergt werden
+
+---
+
+## Sprint Retrospektive S138 (2026-05-03, autonomer Agent)
+
+**Was gut lief:**
+- Tommy als Erzähler: funktioniert. Kurze Sätze, kein Erklären, ehrliche Ich-Form — klingt wie ein 8-Jähriger der etwas Echtes entdeckt hat
+- Thema "was nur mir gehört" ist stark und altersgerecht: Oscar kennt das vom Bauen im Tesla
+- Sprint-Meilenstein erreicht: 35 Kapitel, erstmals Tommy alleine. Das war kein technisches Feature, das war ein Charakter-Schritt
+- Kein neuer Debt: ein Item, sauber geliefert, Quest-Track-Pause gehalten
+
+**Was lief nicht gut:**
+- Hörspiel-Kette K17–K34 weiterhin auf ops-Branches, wartet auf Till
+- Quest-Track Pause geht in vierte Woche — kein Fortschritt ohne Till-Merge
+
+**Maßnahmen für S139:**
+- R1: Quest-Track bleibt pausiert bis Till #592 mergt.
+- R2: K36 — Mephisto (K13 war letztes Kapitel, 23 Kapitel Abstand — längste Abwesenheit aller NPCs). Thema: etwas das Mephisto anbietet, das er selbst nicht wollte. Oder: er gibt etwas zurück.
+- R3: Falls Till #592 mergt vor S139: Quest-Track-Counter prüfen und nächste Runde planen.
+
+---
+
+---
+
 # Sprint 137 — "Elefant spürt den Regen"
 
 **Sprint Goal (Oscar-Perspektive):**
