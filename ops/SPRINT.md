@@ -20,7 +20,7 @@
 
 - [x] Planning: 2026-05-03 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-03 (autonomer Agent)
-- [ ] Review
+- [x] Review: 2026-05-04 (autonomer Agent)
 - [ ] Retro
 
 ---
@@ -36,6 +36,29 @@
 
 **Blocker?**
 - Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation (kein Outage, dokumentiert seit S92)
+
+---
+
+## Sprint Review S116 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S116-1 Quest-Runde 98 | ✅ PR #543 offen — Tommy(74→79 +5)/Bernd(74→79 +5), 965→975 auf Branch |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Tommy: Zufall-Entdeckungs-Labor (Röntgen/Teflon/Mikrowelle — alle Versehen die Weltgeschichte schrieben), Gedulds-Messposten (drei Stunden warten bis das Reh kommt — das zählt auch), Irrtums-Archiv (Aristoteles lag 2000 Jahre falsch, Galileo widerlegte es in einem Experiment), Wunder-Protokoll-Station (ein Wunder ist unwahrscheinlich plus du warst da — das ist Statistik), Stille-Warteposten (zehn Minuten still sein bis die Libelle landet — ich war ein Stein). Bernd: Fledermaus-Horchposten (40.000 Schwingungen/s — das ist ihr Gespräch mit der Nacht), Nachtigallen-Bühne (er singt für sein Revier und ich sitze unten und es ist trotzdem für mich), Fuchs-Pfad-Laboratorium (er hat kein System, er hat Erfahrung; ich schreibe es auf, für ihn), Mondlicht-Waldlichtung (0,27 Lux Vollmond vs. 100.000 Lux Sonne — ich habe trotzdem alles gesehen), Pilzmyzel-Nacht-Labor (was hat das Myzel übertragen? Ich schreibe: unbekannt. Und gehe schlafen.).
+
+**Stand nach S116:**
+- **1005 Quests** nach Vollmerge aller 4 PRs (#592→#604→#605→#543)
+- NPC-Counter nach Vollmerge: tommy 79 · bernd 79 · neinhorn 76 · mephisto 76 · spongebob 72 · maus 76 · kraemerin 75 · bug 75 · krabs 77 · floriane 76 · elefant 76 · alien 76 · lokfuehrer 76
+- Niedrigste Counter: **spongebob 72 · kraemerin 75 · bug 75**
+- ✨ Erstmals über 1000 Quests nach Vollmerge
+
+**PO-Entscheidung:**
+- S117: Spongebob(72)/Kraemerin(75)/Bug(75) — Spongebob ist allein der Niedrigste, braucht zwei Begleiter
+- PR #543 (feat/sprint-116) → Till mergt in Reihenfolge
+- PR #602 ist Phantom (falsche NPCs, Duplikat) → zum Schließen
 
 ---
 
