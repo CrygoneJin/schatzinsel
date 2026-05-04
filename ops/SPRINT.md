@@ -1,7 +1,111 @@
-# Sprint 119 — "Floriane hört was das Gehirn macht, Elefant zeigt was sein Körper kann, Maus hat was Menschen nicht haben"
+# Sprint 120 — "Spongebob staunt über Meeresgehirne, Tommy macht Unsichtbares sichtbar, Bug versteht Schwärme"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Floriane misst was das Gehirn mit Musik macht (Ohrwurm, Klangsymmetrie, Musiktherapie, absolutes Gehör), Elefant zeigt was sein Körper ohne Worte weiß (Boden hören, Rüssel-Wunder, Schwimmen), Maus hat Superkräfte die Menschen fehlen (Schnurrhaare als 3D-Radar, Ultraschall-Gesang, Magnetfeld-Kompass). 1025→**1035 Quests**.
+> Oscar findet 10 neue Quests — Spongebob entdeckt Meeresbewohner die denken und leuchten (Mantarochen-Spiegel, Seepferdchen-Väter, Angelfisch-Licht, Oktopus-Arme), Tommy macht unsichtbare Kräfte sichtbar (Magnetfeld-Linien, Bernoulli-Auftrieb, Osmose-Membran), Bug erforscht wie Schwärme ohne Chef denken (Pheromone, Wasserläufer, Murmuration). 1035→**1045 Quests**.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S120
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S120-1 | **Quest-Runde 102** — Spongebob(78→82 +4)/Tommy(78→81 +3)/Bug(78→81 +3) → +10 Quests, 1035→1045. Spongebob: „Was Meeresbewohner können". Tommy: „Unsichtbare Kräfte sichtbar". Bug: „Was Schwärme wissen". | Artist | ✅ feat/sprint-120-correct |
+
+---
+
+## Ceremony-Status S120
+
+- [x] Planning: 2026-05-04 (autonomer Agent, aus Retro S119)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S120 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S119 Review + Retro abgeschlossen (2026-05-04)
+- S120-1 implementiert: Quest-Runde 102, Spongebob(78→82 +4)/Tommy(78→81 +3)/Bug(78→81 +3), 1035→1045 (feat/sprint-120-correct)
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-120-correct → Till mergt in Reihenfolge (nach #592/#604/#605/#602/#618/#620/#621)
+
+**Blocker?**
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
+- Merge-Stack: #592 → #604 → #605 → #602 → #618 → #620 → #621 → neu: feat/sprint-120-correct
+
+---
+
+## Sprint Review S120 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S120-1 Quest-Runde 102 | ✅ feat/sprint-120-correct — Spongebob(78→82 +4) / Tommy(78→81 +3) / Bug(78→81 +3), 1035→1045 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Meeresgehirne, unsichtbare Kräfte, Schwarm-Intelligenz.
+
+Spongebob: Mantarochen erkennen sich im Spiegel (Selbstbewusstsein, nur wenige Tierarten können das), Seepferdchen-Väter sind schwanger (Männchen trägt und gebärt bis 2000 Junge), Angelfisch-Licht in absoluter Tiefseefinsternis (Biolumineszenz durch Bakterien im Kopf-Anhängsel), Oktopus-Arme denken selbst (350 von 500 Mio Nervenzellen in den Armen, jeder Arm entscheidet).
+
+Tommy: Magnetfeld-Visualisierung mit Eisenfeilspänen (Erde ist ein Magnet, Feldlinien sichtbar machen), Bernoulli-Flügel-Labor (Auftrieb durch Luftdruckunterschied, Papierblatt-Demo), Osmose-Membran-Kammer (Wasser wandert zu Salz hin, Pflanzen welken durch Salz, lockiger Mann erklärt es).
+
+Bug: Pheromon-Kommunikations-Netz (Ameisen sprechen in Chemikalien, Duftspuren, Alarm ohne Laut), Wasserläufer-Oberflächen-Station (Wasser hat eine Haut, 0,01g auf Dellen statt Löchern), Schwarmintelligenz-Labor (3 Regeln erzeugen Murmurations, Bienen-Abstimmung durch Tanz, Mehlkäfer-Experiment).
+
+**Stand nach S120:**
+- **1045 Quests** auf feat/sprint-120-correct
+- NPC-Counter nach S120: spongebob 82 · tommy 81 · bug 81 · floriane 80 · kraemerin 79 · lokfuehrer 79 · elefant 79 · alien 79 · maus 79 · neinhorn 78 · mephisto 78 · krabs 77 · bernd 77
+- Merge-Stack offen: #592 → #604 → #605 → #602 → #618 → #620 → #621 → S120-PR
+
+**PO-Entscheidung:**
+- S121: **neinhorn(78) + mephisto(78)** → Quest-Runde 103, +10 Quests, 1045→1055. Dritter NPC aus dem 78er-Block nach Wahl.
+
+---
+
+## Sprint Retrospektive S120 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- Spongebob-Tiefe: Mantarochen-Selbsterkennung im Spiegel ist Spongebobs stärkstes Thema seit der Tintenfisch-Tarn-Station — Selbstbewusstsein als messbares Phänomen, nicht als philosophische Frage.
+- Tommy-Bernoulli: Papierblatt-Demo ist Oscar-direkt — kein Gerät nötig, nur ein Blatt und ein Mund. Physik die man sofort selbst machen kann.
+- Bug-Schwarm: Drei-Regeln-Prinzip (meide Kollision, folge Nachbarn, bleib zusammen) + Mehlkäfer-Experiment mit echter Unsicherheit ("Ich verstehe noch nicht wie") — das ist Bug in ihrer stärksten Form.
+- Sprint-Disziplin: ein Branch, ein PR, NPC-Counter vor Commit verifiziert.
+
+**Was lief nicht gut:**
+- Merge-Stack wächst auf 8 PRs: #592 → #604 → #605 → #602 → #618 → #620 → #621 → S120-PR. Till muss in dieser Reihenfolge mergen.
+
+**Retro-Actions für S121:**
+- **R1:** Quest-Runde 103: neinhorn(78) + mephisto(78) + einen der 77er (krabs oder bernd) → +10 Quests, 1045→1055.
+- **R2:** Merge-Stack-Hinweis in jedem PR-Body vollständig aktuell halten.
+
+**S121-Setup:**
+- NPCs: **neinhorn(78) + mephisto(78) + krabs(77)** — Krabs mit +4 aufholen
+- Ziel: +10 Quests, 1045→1055 auf Branch
+- Branch: `feat/sprint-121-correct` von feat/sprint-120-correct erstellen
+
+---
+
+## Merge-Guide für Till (Stand 2026-05-04)
+
+Gestackter Branch — in dieser Reihenfolge mergen:
+
+| PR | Branch | Sprint | NPCs | Quests |
+|----|--------|--------|------|--------|
+| #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
+| #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
+| #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
+| #602 | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→1005 |
+| #618 | feat/sprint-117-correct | S117 | Tommy/Bernd/Bug +10 | 1005→1015 |
+| #620 | feat/sprint-118-correct | S118 | Kraemerin/Lokführer/Alien +10 | 1015→1025 |
+| #621 | feat/sprint-119-correct | S119 | Floriane/Elefant/Maus +10 | 1025→1035 |
+| **neu** | feat/sprint-120-correct | S120 | Spongebob/Tommy/Bug +10 | 1035→**1045** |
+
+⚠️ Reihenfolge zwingend — Quest-Counter kumulieren.
+
+---
 
 **Start:** 2026-05-04
 **Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
