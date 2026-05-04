@@ -21,7 +21,7 @@
 - [x] Planning: 2026-05-03 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-03 (autonomer Agent)
 - [x] Review: 2026-05-04 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-04 (autonomer Agent)
 
 ---
 
@@ -59,6 +59,32 @@
 
 **PO-Entscheidung:**
 - S117: tommy(74) + bernd(74) + bug(75 post-merge) → Quest-Runde 99, +10 Quests, 1005→1015
+
+---
+
+## Sprint Retrospektive S116 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- MEILENSTEIN: 1005 Quests — erstmals in der Geschichte von Schatzinsel über 1000. Oscar sieht das.
+- Quest-Tiefe diesmal besonders stark: Krabs lernt dass Erinnerungen keinen Preis haben (Vaters Hammer mit Delle), Floriane misst dass Herzen in 14 Sekunden synchron schlagen wenn Menschen gemeinsam singen, Elefant begreift dass das Wissen der Matriarchin nicht stirbt — es wandert.
+- Sprint-Disziplin gehalten: ein Branch, ein PR, kein Phantom-Spawning.
+- Daily-Korrektur wurde dokumentiert (Tommy/Bernd/Mephisto waren falsch, Krabs/Floriane/Elefant waren richtig) — transparente Fehlerkultur.
+
+**Was lief nicht gut:**
+- Merge-Stack wächst auf 4 PRs: #592 → #604 → #605 → #602 — Till muss in genau dieser Reihenfolge mergen, sonst Konflikt.
+- Phantom-PRs (20+) häufen sich — Review-Liste wurde erstellt aber Schließen ist Till-Aufgabe. Fortschritt: keine neuen Phantome in S116.
+- NPC-Counter-Diskrepanz bleibt: Branch-Counter vs. Vollmerge-Counter weichen ab. Planning muss immer auf Vollmerge-Basis.
+
+**Retro-Actions für S117:**
+- **R1:** Quest-Runde 99 — tommy(74) + bernd(74) als primäre NPCs, +10 Quests, 1005→1015. Thema: frei wählbar.
+- **R2:** Phantom-PRs schließen — Liste steht im Merge-Guide unten. Till entscheidet Timing.
+- **R3:** NPC-Counter immer auf Vollmerge-Basis planen, nicht auf Branch-Basis.
+
+**S117-Setup:**
+- NPCs: **tommy(74) + bernd(74)** — beide gleichauf, beide dran
+- Ziel: +10 Quests, 1005→1015 auf Branch
+- Branch: `feat/sprint-117` — neu von feat/sprint-116 (oder main nach Merge) erstellen
+- Sprint-Nummer: 117
 
 ---
 
