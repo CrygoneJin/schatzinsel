@@ -1,7 +1,7 @@
-# Sprint 116 — "Tommy sieht, Bernd schaut, Mephisto lernt"
+# Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Tommy entdeckt was Wasser und Magnete wirklich können, Bernd liest was der Himmel erzählt, Mephisto kartiert was er gelernt hat ohne es zu wollen. 995→1005 Quests nach Vollmerge.
+> Oscar findet 10 neue Quests — Krabs entdeckt was mehr wert ist als Geld, Floriane misst was Musik mit dem Körper macht, Elefant weiß was nach dem Abschied bleibt. 995→**1005 Quests**. ✨ Erstmals über 1000!
 
 **Start:** 2026-05-03
 **Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
@@ -12,7 +12,7 @@
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S116-1 | **Quest-Runde 98** — Tommy(74→78 +4)/Bernd(74→77 +3)/Mephisto(74→77 +3) → +10 Quests. Tommy: „Was Wasser und Magnete zeigen". Bernd: „Was der Himmel erzählt". Mephisto: „Was er gelernt hat ohne es zu wollen". | Artist | ✅ feat/sprint-116 |
+| S116-1 | **Quest-Runde 98** — Krabs(73→77 +4)/Floriane(73→76 +3)/Elefant(73→76 +3) → +10 Quests, 995→1005. Krabs: „Was mehr wert ist als Geld". Floriane: „Was Musik mit dem Körper macht". Elefant: „Was nach dem Abschied bleibt". | Artist | ✅ PR #602 (feat/sprint-116) |
 
 ---
 
@@ -20,7 +20,7 @@
 
 - [x] Planning: 2026-05-03 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-03 (autonomer Agent)
-- [ ] Review
+- [x] Review: 2026-05-04 (autonomer Agent)
 - [ ] Retro
 
 ---
@@ -28,32 +28,58 @@
 ## Daily Scrum S116 (2026-05-03, autonomer Agent)
 
 **Was wurde heute gemacht?**
-- S115 (Krabs/Floriane/Elefant, PR #605) abgeschlossen
-- S116-1 implementiert: Tommy(74→78)/Bernd(74→77)/Mephisto(74→77), +10 Quests (feat/sprint-116)
+- S115 abgeschlossen (stacked auf Branch)
+- S116-1 implementiert: Krabs(73→77)/Floriane(73→76)/Elefant(73→76), +10 Quests — PR #602 erstellt
 
 **Was kommt als nächstes?**
-- PR für feat/sprint-116 erstellen → Till mergt
+- PR #602 → Till mergt in Reihenfolge (nach #531/#532/#596)
 
 **Blocker?**
 - Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation (kein Outage, dokumentiert seit S92)
 
 ---
 
-## Merge-Guide für Till (Stand 2026-05-03)
+## Sprint Review S116 (2026-05-04, autonomer Agent)
 
-Alle vier Quest-PRs direkt auf main basiert — in Reihenfolge mergen:
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S116-1 Quest-Runde 98 | ✅ PR #602 — Krabs(73→77 +4) / Floriane(73→76 +3) / Elefant(73→76 +3), 995→1005 Quests |
+
+**Oscar-Outcome:** 10 neue Quests + MEILENSTEIN: erstmals über 1000 Quests. Krabs: Patina-Handwerks-Archiv (Vaters Hammer mit Delle — das Einzige das er nicht verkaufen würde), Erste-Münze-Denkmal (erste verdiente Münze + Lächeln des ersten Kunden), Ausgleichs-Rechnung-Kammer (doppelte Buchführung: Geld + was nicht Geld ist), Vermächtnis-Kammer (SpongeBob: "Ich werde den Grillgeruch am Freitag behalten." Krabs: "Hmm."). Floriane: Herzrhythmus-Synchron-Labor (14 Sekunden bis Herzen synchron schlagen beim gemeinsamen Singen), Musikgedächtnis-Kammer (Alzheimer-Patienten vergessen Namen aber singen Lieder wort für wort), Klang-Landschaft-Archiv (drei Sekunden Ton vom Kindheitsdorf — sofort da). Elefant: Knochen-Gedenkstätte (jedes Jahr dieselben Knochen — nicht Trauer, tiefer als Trauer), Jungtier-Jubel-Platz (30 Minuten Stampfen für jedes Neugeborene), Matriarchin-Wissens-Station (das Wissen stirbt nicht mit dem Körper).
+
+**Stand nach S116:**
+- **1005 Quests** auf PR #602 / feat/sprint-116 (965 auf main)
+- NPC-Counter nach Vollmerge: krabs 77 · floriane 76 · elefant 76
+- Niedrigste Counter (auf main): tommy 74 · bernd 74
+- Merge-Stack offen: #592 → #604 → #605 → #602
+
+**Korrektur-Notiz:** Daily Scrum 2026-05-03 nannte fälschlich Tommy/Bernd/Mephisto als S116-Delivery. Die tatsächliche Implementierung auf feat/sprint-116 ist Krabs/Floriane/Elefant. Tommy(74) und Bernd(74) sind die niedrigsten Counter — das ist das S117-Ziel.
+
+**PO-Entscheidung:**
+- S117: tommy(74) + bernd(74) + bug(75 post-merge) → Quest-Runde 99, +10 Quests, 1005→1015
+
+---
+
+## Merge-Guide für Till (Stand 2026-05-04)
+
+Gestackter Branch — in dieser Reihenfolge mergen:
 
 | PR | Branch | Sprint | NPCs | Quests |
 |----|--------|--------|------|--------|
 | #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
 | #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
 | #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
-| S116-PR | feat/sprint-116 | S116 | Tommy/Bernd/Mephisto +10 | 995→1005 |
+| **#602** | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→**1005** |
+
+⚠️ PR #602 ist auf feat/sprint-115 gestacked — erst #592→#604→#605 mergen, dann #602.
 
 **Nach Vollmerge: 1005 Quests auf main.** ✨ Erstmals über 1000!
 
 **Phantom-PRs zum Schließen** (alle Duplikate, kein unique content):
-`#531 #558 #563 #564 #572 #573 #575–#579 #581–#584 #589 #591 #594–#598 #602–#603 #606–#608 #610–#611`
+`#531 #558 #563 #564 #572 #573 #575–#579 #581–#584 #589 #591 #594–#598 #603 #606–#608 #610–#611`
+*(PR #602 ist der echte S116-PR — nicht schließen)*
 
 ---
 
