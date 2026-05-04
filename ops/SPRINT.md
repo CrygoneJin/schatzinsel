@@ -1,3 +1,64 @@
+# Sprint 117 — "Tommy beobachtet, Bernd hört hin, Bug kartiert"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was man sieht wenn man lange genug wartet, Bernd lernt was der Boden flüstert wenn es still ist, Bug kartiert was Insekten bauen wenn niemand zuschaut. 1005→**1015 Quests** auf Branch.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S117
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S117-1 | **Quest-Runde 99** — Tommy(74→78 +4)/Bernd(74→77 +3)/Bug(75→78 +3) → +10 Quests, 1005→1015. Tommy: „Was man sieht wenn man lange genug wartet". Bernd: „Was der Boden flüstert wenn es still ist". Bug: „Was Insekten bauen wenn niemand zuschaut". | Artist | ✅ PR #618 (feat/sprint-117-correct) |
+
+---
+
+## Ceremony-Status S117
+
+- [x] Planning: 2026-05-04 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Sprint Planning S117 (2026-05-04, autonomer Agent)
+
+**Basis:** S116 Retro → tommy(74) + bernd(74) gleichauf, beide dran. Bug(75 post-merge) als Dritter.
+
+**NPC-Counter (auf Vollmerge-Basis nach #592→#604→#605→#602):**
+- tommy: 74 · bernd: 74 (niedrigste, gleichauf)
+- bug: 75 (post-merge)
+- krabs: 77 · floriane: 76 · elefant: 76
+
+**Sprint Goal:** Quest-Runde 99 — +10 Quests, 1005→1015 auf Branch.
+
+**Themen:**
+- Tommy: Beobachtungsgeduldige Entdeckungen — was man sieht wenn man lange genug wartet (Gezeit, Kristallwachstum, Pilzmyzel, Zugvögel nach Richtung)
+- Bernd: Bodenerzählungen — was Erde, Moos, Baumwurzeln flüstern wenn man still genug ist
+- Bug: Insekten-Architektur — Termitenhügel, Ameisenstraßen, Blattschneider-Pilzfarmen, Hummel-Navigation
+
+**Implementierung:** PR #618 (feat/sprint-117-correct) — Tommy/Bernd/Bug +10 bereits implementiert, wartet auf Merge-Stack.
+
+**Merge-Stack für Till (Stand 2026-05-04):**
+
+| PR | Branch | Sprint | NPCs | Quests |
+|----|--------|--------|------|--------|
+| #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
+| #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
+| #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
+| #602 | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→1005 |
+| **#618** | feat/sprint-117-correct | S117 | Tommy/Bernd/Bug +10 | 1005→**1015** |
+
+⚠️ Reihenfolge wichtig — alle gestacked. Nach Vollmerge: **1015 Quests** auf main.
+
+---
+
+---
+
 # Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
 
 **Sprint Goal (Oscar-Perspektive):**
