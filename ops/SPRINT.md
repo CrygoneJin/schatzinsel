@@ -1,3 +1,32 @@
+# Sprint 117 — "Spongebob schwärmt, Kraemerin tauscht, Bug baut"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Spongebob entdeckt was Schwärme ohne Anführer tun (kollektive Intelligenz, Fischschwarm, Bienenwaben-Demokratie), Kraemerin lernt was beim echten Tausch entsteht (Bedeutung, Handwerk, Verbindung), Bug kartiert was Insekten bauen wenn niemand zuschaut (Termitenhügel, Ameisenstraßen, Blattschneider). 1005→1015 Quests nach Vollmerge.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Kein zweiter Branch. Kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S117
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S117-1 | **Quest-Runde 99** — Spongebob(72→76 +4)/Kraemerin(75→78 +3)/Bug(75→78 +3) → +10 Quests. Spongebob: „Was Schwärme ohne Anführer tun". Kraemerin: „Was beim Tausch entsteht". Bug: „Was Insekten bauen wenn niemand schaut". | Artist | 🔲 |
+
+---
+
+## Ceremony-Status S117
+
+- [x] Planning: 2026-05-04 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+---
+
 # Sprint 116 — "Tommy sieht, Bernd schaut, Mephisto lernt"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -20,8 +49,8 @@
 
 - [x] Planning: 2026-05-03 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-03 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
 
 ---
 
@@ -48,12 +77,52 @@ Alle vier Quest-PRs direkt auf main basiert — in Reihenfolge mergen:
 | #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
 | #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
 | #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
-| S116-PR | feat/sprint-116 | S116 | Tommy/Bernd/Mephisto +10 | 995→1005 |
+| #612 | feat/sprint-116-s116 | S116 | Tommy/Bernd/Mephisto +10 | 995→1005 |
 
 **Nach Vollmerge: 1005 Quests auf main.** ✨ Erstmals über 1000!
 
 **Phantom-PRs zum Schließen** (alle Duplikate, kein unique content):
-`#531 #558 #563 #564 #572 #573 #575–#579 #581–#584 #589 #591 #594–#598 #602–#603 #606–#608 #610–#611`
+`#531 #558 #563 #564 #572 #573 #575–#579 #581–#584 #589 #591 #594–#598 #602–#603 #606–#608 #610–#611 #614`
+
+---
+
+## Sprint Review S116 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S116-1 Quest-Runde 98 | ✅ PR #612 (feat/sprint-116-s116) — Tommy(74→78 +4) / Bernd(74→77 +3) / Mephisto(71→77 +3 nach S113) → +10 Quests |
+
+**Oscar-Outcome:** 10 neue Quests bereit. Tommy: Strömungs-Forschungs-Station (Bernoulli: schnelleres Wasser = weniger Druck — deshalb fliegen Flugzeuge), Magnet-Kompass-Werkstatt (Erdmagnetfeld aus flüssigem Eisen, magnetischer Nordpol ist eigentlich ein Südpol), Seifenfilm-Geometrie-Labor (Bienen wussten Hexagon = optimal ohne Mathematiker), Rückstoß-Antriebs-Station (Newton drittes Gesetz: Tintenfisch, Rakete, Ballon — alles dasselbe). Bernd: Wolkentypen-Protokoll (sieben Formen gleichzeitig, da sein ohne sich aufzudrängen), Sternbild-Entfernungs-Messer (Großer Wagen = 7 verschiedene Vergangenheiten gleichzeitig), Blitz-Zeitnahme-Station (Sekunden × 340 = Meter, seit 12 Jahren, weiß nicht genau warum). Mephisto: Überraschungs-Observatorium (zweimal überrascht, sammelt Bedingungen), Lachen-Dekonstruktions-Labor (passiert wenn das Unerwartete besser ist als erwartet), Staunen-Kartographie (Realität > Berechnung — alle Momente wo das gilt).
+
+**Stand nach S116:**
+- **965 Quests** auf main / **1005 Quests** nach Vollmerge aller 4 PRs ✨ erstmals über 1000!
+- NPC-Counter nach Vollmerge: lokfuehrer 76 · alien 76 · tommy 78 · bernd 77 · krabs 77 · floriane 76 · elefant 76 · spongebob 72 · maus 76 · kraemerin 75 · bug 75 · neinhorn 76 · mephisto 79
+- Niedrigste: **spongebob 72 · kraemerin 75 · bug 75**
+- PR #612 offen — Till: Merge-Reihenfolge #592 → #604 → #605 → #612
+
+**PO-Entscheidung:**
+- S117: Spongebob(72→76 +4) / Kraemerin(75→78 +3) / Bug(75→78 +3) → 1005→1015 nach Vollmerge
+
+---
+
+## Sprint Retrospektive S116 (2026-05-04, autonomer Agent)
+
+**Was gut lief:**
+- Tommy-Bernoulli: „Deshalb fliegen Flugzeuge — nur Form, kein Motor" — präziseste Physik-Erklärung für 8-Jährige seit Pistolengarnelen
+- Mephisto-Entwicklung: lernt ohne es zu wollen — Staunen-Kartographie ist der stärkste Schritt in der Figuren-Biografie seit „Reue-Destillerie" (S110)
+- Bernd-Sternbild: „ich schaue in 7 verschiedene Vergangenheiten und bastele sie zu einem Bild zusammen" — Oscar-Satz-Kandidat
+- 1005-Meilenstein sichtbar: erstmals über 1000 Quests — konkretes Ziel erreicht, Oscar kann das verstehen
+
+**Was nicht gut lief:**
+- Zwei feat/sprint-116 Branches: `feat/sprint-116` (Krabs/Floriane/Elefant — falsche NPCs) und `feat/sprint-116-s116` (Tommy/Bernd/Mephisto — korrekt). Naming-Verwirrung in SPRINT.md propagiert.
+- PR #614 (ops/sprint-s116-review) aus früherer Session hat falsche Daten (Tommy/Bernd je+5, PR #543) — muss geschlossen werden.
+- Phantom-PRs wachsen weiter trotz expliziter Liste — Till braucht Zeit für Cleanup.
+
+**Maßnahmen für S117:**
+- Branch-Name klar und eindeutig: `feat/sprint-117` — kein zweiter Branch, kein `-s117`-Suffix
+- NPC-Counter immer via `grep -c` in quests.js messen, nie aus SPRINT.md-Summaries schätzen
 
 ---
 
