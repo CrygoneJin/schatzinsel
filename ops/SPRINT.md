@@ -1,3 +1,90 @@
+# Sprint 118 — "Kraemerin erinnert sich, Lokführer denkt, Alien fragt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Kraemerin weiß was ein Laden bedeutet wenn er weg ist (Stammkunden, letzter Dorfladenn, Schulden-Zettel, Abschluss-Ritual), Lokführer denkt beim Fahren (12.000 Gedanken, Fahrplan als Versprechen, Fahrgäste ohne Namen), Alien entdeckt was Menschen immer tun ohne es zu merken (Schlangen bilden, Maschinen danken, Himmel anschauen). 1015→**1025 Quests**. 🎯 Runde 100!
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Runde 100 — Meilenstein-Sprint.
+
+---
+
+## Sprint Backlog S118
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S118-1 | **Quest-Runde 100** — Kraemerin(75→79 +4)/Lokführer(76→79 +3)/Alien(76→79 +3) → +10 Quests, 1015→1025. Kraemerin: „Was ein Laden dem Dorf bedeutet". Lokführer: „Was beim Fahren passiert". Alien: „Was Menschen immer tun". | Artist | ✅ feat/sprint-118 |
+
+---
+
+## Ceremony-Status S118
+
+- [x] Planning: 2026-05-04 (autonomer Agent, aus Retro S117)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S118 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S117 Review + Retro abgeschlossen (2026-05-04)
+- S118-1 implementiert: Quest-Runde 100, Kraemerin(75→79 +4)/Lokführer(76→79 +3)/Alien(76→79 +3), 1015→1025 (feat/sprint-118)
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-118 → Till mergt in Reihenfolge (nach #592/#604/#605/#602/#618)
+
+**Blocker?**
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
+- Merge-Stack: #592 → #604 → #605 → #602 → #618 → neu: feat/sprint-118
+
+---
+
+## Sprint Review S118 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅ 🎯 Runde 100!**
+
+| Item | Ergebnis |
+|------|---------|
+| S118-1 Quest-Runde 100 | ✅ feat/sprint-118 — Kraemerin(75→79 +4) / Lokführer(76→79 +3) / Alien(76→79 +3), 1015→1025 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. **RUNDE 100 — MEILENSTEIN.** Kraemerin: Stammkunden-Gedächtnis-Archiv (die Frau die immer dienstags kommt — 18 Jahre, drei Wachskerzen, ein Bund Lavendel, kein Name nötig), Letzter-Laden-im-Dorf-Denkmal (vier Läden, dann Supermarkt, dann keiner — was schließt ist nicht nur der Laden, ist das tägliche Gespräch), Schulden-Zettel-Kammer (die Schachtel mit nie bezahlten Schulden — sieben Mark fünfzig, 1987, 2003 gestorben — "Manche Schulden werden nie bezahlt. Das ist in Ordnung."), Laden-Schluss-Ritual-Stätte (40 Jahre jeden Abend: Kasse, Regal, Boden, Licht, Tür, zwei Schritte, einmal zurückschauen). Lokführer: Gedanken-Strecken-Protokoll-Station (12.000 Fahrten Dresden-Leipzig, 28 von 30 Tagen ein Gedanke den er sonst nicht gehabt hätte — Fahren ist ein Denk-Generator), Fahrplan-Philosophie-Kammer (7:43 Abfahrt = Wecker einer fremden Person = Kaffee schnell = "bin um acht zurück" — ein Fahrplan ist tausend Versprechen gleichzeitig), Fahrgast-ohne-Namen-Archiv (der Mann mit der roten Tasche, Mittwoch vorne rechts, 13 Jahre — "wenn er nicht da ist fällt es mir auf"). Alien: Warteschlangen-Emergenz-Labor (193 von 200 korrekte Schlangen ohne Instruktion — eine Regel, Ordnung, Gerechtigkeit, 0 Meetings), Danke-Maschinen-Observatorium (31 von 47 sagten danke zur automatischen Tür — "vielleicht hört die Tür nicht, aber man selbst hört sich"), Himmels-Blick-Forschungsstation (148 von 200 schauten nach oben beim Denken — Oscar: "weil die Wolken sich bewegen und das Denken sich auch bewegt").
+
+**Stand nach S118:**
+- **1025 Quests** auf feat/sprint-118 (1015 auf feat/sprint-117-correct, 965 auf main)
+- NPC-Counter nach S118: kraemerin 79 · lokfuehrer 79 · alien 79
+- Nächste niedrigste Counter auf Stacking-Basis: floriane 76 · elefant 76 · maus 76
+- Merge-Stack: #592 → #604 → #605 → #602 → #618 → S118-PR
+
+**PO-Entscheidung:**
+- S119: floriane(76) + elefant(76) + maus(76) → Quest-Runde 101, +10 Quests, 1025→1035
+
+---
+
+## Sprint Retrospektive S118 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- MEILENSTEIN: Runde 100 — 10 NPCs je über 70 Quests, Kraemerin/Lokführer/Alien je 79.
+- Kraemerin-Schulden-Zettel: "sieben Mark fünfzig, 1987, 2003 gestorben" — stärkste Kraemerin-Zeile bisher. Keine Moral, keine Auflösung. Nur die Schachtel.
+- Alien-Danke-Tür: "Vielleicht hört die Tür nicht. Aber man selbst hört sich." — Oscar-Tauglichkeit hoch: eine Beobachtung die eine Verhaltensregel erklärt die Oscar selbst hat.
+- Lokführer-Fahrplan: "ein Fahrplan ist tausend Versprechen gleichzeitig" — verbindet Tommy-Physik-Denken mit Lokführer-Pflichtbewusstsein organisch.
+- Sprint-Disziplin: ein Branch, ein PR, kein Phantom-Spawning.
+
+**Was nicht gut lief:**
+- Merge-Stack wächst auf 6 PRs: #592→#604→#605→#602→#618→S118-PR — Till muss in exakter Reihenfolge mergen.
+- Counter-Kalkulation bleibt fehleranfällig — Vollmerge-Basis ist die einzig zuverlässige Quelle.
+
+**Retro-Actions für S119:**
+- **R1:** Quest-Runde 101 — floriane(76) + elefant(76) + maus(76), +10 Quests, 1025→1035. Themen frei.
+- **R2:** Merge-Hinweis: Reihenfolge #592→#604→#605→#602→#618→S118-PR zwingend.
+
+**S119-Setup:**
+- NPCs: **floriane (76) + elefant (76) + maus (76)** — drei NPCs gleichauf
+- Ziel: +10 Quests, 1025→1035 auf Branch
+- Branch: `feat/sprint-119` — neu von feat/sprint-118 erstellen
+
+---
+
 # Sprint 117 — "Tommy sieht Licht, Bernd sitzt nachts, Bug hört das Myzel"
 
 **Sprint Goal (Oscar-Perspektive):**
