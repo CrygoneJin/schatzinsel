@@ -1,3 +1,45 @@
+# Sprint 117 — "Tommy sieht Licht, Bernd sitzt nachts, Bug hört das Myzel"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was Licht wirklich ist (Prisma, Sonnenuhr, Reflexion, Dunkel-Augen), Bernd sitzt nachts im Garten (Nacht-Blüher, Frost-Kristalle, Pilz-Netz), Bug versteht Sprache ohne Worte (Bienen-Tanz, Ameisen-Pheromone, Myzel-Signale). 1005→**1015 Quests**.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S117
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S117-1 | **Quest-Runde 99** — Tommy(74→78 +4)/Bernd(74→77 +3)/Bug(75→78 +3) → +10 Quests, 1005→1015. Tommy: „Was Licht macht". Bernd: „Was nachts passiert". Bug: „Wie Lebewesen ohne Sprache sprechen". | Artist | ✅ feat/sprint-117-correct |
+
+---
+
+## Ceremony-Status S117
+
+- [x] Planning: 2026-05-04 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S117 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S116 Review + Retro abgeschlossen (aus vorheriger Session, 2026-05-04)
+- S117-1 implementiert: Quest-Runde 99, Tommy(74→78 +4)/Bernd(74→77 +3)/Bug(75→78 +3), 1005→1015 (feat/sprint-117-correct)
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-117-correct → Till mergt in Reihenfolge (nach #592/#604/#605/#602)
+
+**Blocker?**
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
+- Merge-Stack wächst: #592 → #604 → #605 → #602 → neu: feat/sprint-117-correct
+
+---
+
 # Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
 
 **Sprint Goal (Oscar-Perspektive):**
