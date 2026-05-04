@@ -1,22 +1,22 @@
-# Sprint 119 — "Floriane singt, Elefant hört, Maus navigiert"
+# Sprint 122 — "Mephisto traut, Kraemerin riecht, Lokführer zittert"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Floriane erklärt was das Gehirn mit Musik macht (Ohrwürmer, Pythagoras, Cortisol, absolutes Gehör), der Elefant zeigt was sein Körper kann (Boden-Horchen, 150.000-Muskel-Rüssel, Schwimmen mit Schnorchel), die Maus berichtet was sie hat die Menschen nicht haben (Whisker-Radar, Ultraschall-Lieder, eingebauter Kompass). 1025→**1035 Quests**.
+> Oscar findet 10 neue Quests — Mephisto entdeckt was kein Vertrag kann (Vertrauen ohne Absicherung, Freundschaft ohne Kalkül, pures Staunen, Briefe die nie abgeschickt werden), Kraemerin erkundet die Sinne des Ladens (Geruch als Neuroanatomie, Gespräche ohne Worte, Jahreszeiten als Rhythmus), Lokführer erinnert sich an seinen ersten Zittertag allein in der Lok und was er seitdem in Tunneln und Abschieds-Gesichtern gelesen hat. 1055→**1065 Quests**.
 
 **Start:** 2026-05-04
 **Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
 
 ---
 
-## Sprint Backlog S119
+## Sprint Backlog S122
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S119-1 | **Quest-Runde 101** — Floriane(76→80 +4)/Elefant(76→79 +3)/Maus(76→79 +3) → +10 Quests, 1025→1035. Floriane: „Was das Gehirn mit Musik macht". Elefant: „Was Elefantenkörper können". Maus: „Was Mäuse haben die Menschen nicht haben". | Artist | ✅ PR #621 (feat/sprint-119-correct) |
+| S122-1 | **Quest-Runde 104** — Mephisto(78→82 +4)/Kraemerin(79→82 +3)/Lokführer(79→82 +3) → +10 Quests, 1055→1065. Mephisto: „Vertrauen, Freundschaft, Staunen, Brief". Kraemerin: „Geruch, Stille, Jahreszeiten". Lokführer: „Erste Fahrt, Tunnel-Klang, Abschied". | Artist | ✅ feat/sprint-122 |
 
 ---
 
-## Ceremony-Status S119
+## Ceremony-Status S122
 
 - [x] Planning: 2026-05-04 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-04 (autonomer Agent)
@@ -25,74 +25,69 @@
 
 ---
 
-## Daily Scrum S119 (2026-05-04, autonomer Agent)
+## Daily Scrum S122 (2026-05-04, autonomer Agent)
 
 **Was wurde heute gemacht?**
-- S118 alle Ceremonies auf main bestätigt ✅
-- Smoke Test: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
-- Phantom-Branch `feat/sprint-119-correct` erkannt — enthielt bereits exakten S119-Inhalt
-- PR #621 bestätigt (offen, feat/sprint-119-correct → feat/sprint-118-correct)
-- NPC-Counter auf Branch verifiziert: floriane=80, elefant=79, maus=79 ✅
-- Phantom-Branch `feat/sprint-120-correct` ebenfalls gesichtet — PR #624 (Spongebob/Tommy/Bug)
+- S120 + S121 beide bereits als Phantom-Branches implementiert und bestätigt (PR #624, PR #625)
+- S122-1 implementiert: Quest-Runde 104, Mephisto(78→82 +4)/Kraemerin(79→82 +3)/Lokführer(79→82 +3), 1055→1065 (feat/sprint-122)
+- main SPRINT.md mit S120/S121/S122 Ceremonies aktualisiert
 
 **Was kommt als nächstes?**
-- Till mergt Merge-Stack: #592 → #604 → #605 → #602 → #618 → #620 → #621
-- S120: spongebob(78) + tommy(78) + bug(78) → Quest-Runde 102, +10 Quests, 1035→1045
-- ⚠️ krabs(77) + bernd(77) sind niedriger als S120-NPCs — Phantom-Branch hatte abweichende Auswahl, wird akzeptiert (bereits implementiert). S121 muss krabs+bernd priorisieren.
+- PR für feat/sprint-122 → Till mergt in Reihenfolge (nach #592/#604/#605/#602/#618/#620/#621/#624/#625)
 
 **Blocker?**
-- Merge-Stack wartet auf Till. Keine technischen Blocker.
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
+- Merge-Stack: #592 → #604 → #605 → #602 → #618 → #620 → #621 → #624 → #625 → neu: feat/sprint-122
 
 ---
 
-## Sprint Review S119 (2026-05-04, autonomer Agent)
+## Sprint Review S122 (2026-05-04, autonomer Agent)
 
 **Sprint Goal erfüllt: 1/1 ✅**
 
 | Item | Ergebnis |
 |------|---------|
-| S119-1 Quest-Runde 101 | ✅ PR #621 — Floriane(76→80 +4) / Elefant(76→79 +3) / Maus(76→79 +3), 1025→1035 Quests |
+| S122-1 Quest-Runde 104 | ✅ feat/sprint-122 — Mephisto(78→82 +4) / Kraemerin(79→82 +3) / Lokführer(79→82 +3), 1055→1065 Quests |
 
-**Oscar-Outcome:** 10 neue Quests.
+**Oscar-Outcome:** 10 neue Quests. Vertrauen, Geruch, der erste Zittertag.
 
-Floriane: Ohrwurm-Forschungs-Labor (Zeigarnik-Effekt: das Gehirn sucht fehlende Töne — Musikerinnen haben stärkere Ohrwürmer, ABBA führt Studien-Hitliste), Klangsymmetrie-Messstation (Pythagoras vor 2500 Jahren mit Saiten: Oktave = 2:1, universell angenehm — Physik die sich schön anfühlt), Musiktherapie-Kammer (23 Minuten Musik: Cortisol sinkt, Herzschlag folgt Rhythmus — schwedische Ärzte verschreiben Musik-Rezepte), Absolutes-Gehör-Archiv (1 von 10.000 hört Töne wie Farben — 9× häufiger in Tonsprachen).
+Mephisto: Vertrauen-ohne-Vertrag-Kammer (Handwerker ohne Quittung — Worst-Case nicht eingetreten, irritierend und etwas anderes), Freundschaft-Diagnose-Station (40 Jahre Tischler ohne Vertrag — er ist der Mensch mit den meisten Gesprächen, das nennt man Freundschaft, erstmals kleinlaut), Staunen-Observatorium (Murmuration aus 3 Regeln × hunderttausend Vögel — stehengeblieben ohne zu rechnen was es kostet, das erste Mal seit sehr langer Zeit), Brief-der-nie-abgeschickt-wurde (Briefe an Faust und an die Frau von 1834 — nie fertig, nie abgeschickt, zwischen den Zeilen steht: nicht jeder Vertrag war fair).
 
-Elefant: Boden-Horchposten (Fußpolster + Knochen = zweites Hörsystem, 30+ km Reichweite — "Körper-Wissen das tiefer sitzt als Denken"), Rüssel-Wunder-Labor (150.000 Muskeln, kein Knochen — kann Baumstamm UND Münze, riecht Wasser 19 km entfernt), Elefanten-Schwimm-Station (6 Stunden schwimmen, Rüssel als Schnorchel — "Im Wasser bin ich leichter. Fünf Tonnen — und trotzdem schwimme ich").
+Kraemerin: Geruchs-Gedächtnis-Kammer (Bienenwachs + Lavendel + Holzboden = der Laden, Geruch geht direkt ins Limbische System ohne Umweg — deshalb riecht Kindheit), Unausgesprochenes-Archiv (der Herr aus der Bergstraße sagte nur "Meine Frau ist gestorben" und nahm die drei Dinge — mehr brauchte es nicht), Jahreszeiten-Regal-Uhr (März Schafgarbe für die Nieren, Oktober wärmende Kräuter, Dezember Weihrauch — das ist kein Sortiment, das ist Rhythmus).
 
-Maus: Whisker-Radar-Labor (Schnurrhaare messen Luftströmungen = 3D-Karte in totaler Dunkelheit — "Mein Gesicht und ich haben eine gute Partnerschaft"), Ultraschall-Gesangs-Archiv (Liebeslieder über 20 kHz — "Wie erklärt man Farben jemandem der nur Grau sieht?"), Magnetfeld-Navigations-Station (Magnetit-Nanokristalle im Gehirn — eingebauter Kompass, 73% Trefferquote).
+Lokführer: Erste-Alleinfahrt-Station (dreiundzwanzig Jahre alt, tausendzweihundert Fahrgäste, Hände gezittert — wessen Hände nicht zittern hat die Verantwortung noch nicht verstanden), Tunnel-Klang-Archiv (Kaiserin-Augusta-Tunnel klingt hohl weil Grundwasser sickert, Granit-Tunnel klingt hell — Nachhallzeit und Absorptionskoeffizient, er kennt alle Tunnel am Klang), Abschied-Bahnsteig-Observatorium (die letzten drei Sekunden wenn der Zug abfährt: Gesichts-Maske fällt weg, Abschied macht ehrlicher als Ankunft, der Mann mit den Vermiss-Schultern).
 
-**Stand nach S119:**
-- **1035 Quests** auf PR #621 / feat/sprint-119-correct (965 auf main)
-- NPC-Counter nach S119: floriane 80 · maus 79 · lokfuehrer 79 · kraemerin 79 · alien 79 · elefant 79 · tommy 78 · spongebob 78 · neinhorn 78 · mephisto 78 · bug 78 · krabs 77 · bernd 77
-- Merge-Stack offen: #592 → #604 → #605 → #602 → #618 → #620 → #621
+**Stand nach S122:**
+- **1065 Quests** auf feat/sprint-122
+- NPC-Counter nach S122: spongebob 82 · mephisto 82 · krabs 81 · neinhorn 81 · tommy 81 · bug 81 · kraemerin 82 · lokfuehrer 82 · elefant 79 · alien 79 · maus 79 · floriane 80 · bernd 80
+- Merge-Stack offen: #592 → #604 → #605 → #602 → #618 → #620 → #621 → #624 → #625 → S122-PR
 
 **PO-Entscheidung:**
-- S120: **spongebob(78) + tommy(78) + bug(78)** → Quest-Runde 102, +10 Quests, 1035→1045
-- Branch: `feat/sprint-120-correct` (Phantom-Branch bereits gesichtet als PR #624 — vor Arbeit verifizieren)
-- ⚠️ Achtung S121: krabs(77) + bernd(77) müssen dann priorisiert werden
+- S123: **elefant(79) + alien(79) + maus(79)** → Quest-Runde 105, +10 Quests, 1065→1075
+- Branch: `feat/sprint-123` — Phantom-Branch-Check vor Arbeitsbeginn!
 
 ---
 
-## Sprint Retrospektive S119 (2026-05-04, autonomer Agent)
+## Sprint Retrospektive S122 (2026-05-04, autonomer Agent)
 
 **Was lief gut:**
-- Phantom-Branch `feat/sprint-119-correct` erkannt statt dupliziert — Anti-Phantom-Pattern funktioniert
-- Quest-Inhalte stark: Floriane-Musik-Empirie (Cortisol-Messung, Pythagoras-Physik), Elefant-Körper (150k Muskeln, Schwimm-Schnorchel), Maus-Superpower (Magnetit-Kompass, Ultraschall-Lyrik)
+- Mephistos Arc erreicht Höhepunkt: Vertrauen, Freundschaft, Staunen, Brief — vier Dimensionen der Menschlichkeit die er bisher vermieden hat. Der Teufel der kleinlaut wird ist stärker als der Teufel der Verträge macht.
+- Kraemerin-Geruchs-Quest: Neuroanatomie (Limbisches System ohne Thalamus-Umweg) eingebettet in die konkrete Erfahrung "deshalb riecht Kindheit" — das ist Oscar-direkt ohne Vereinfachung.
+- Lokführer-Erste-Fahrt: "Wessen Hände nicht zittern hat die Verantwortung noch nicht verstanden" — das gilt für acht Jahre alte Kinder genauso wie für Lokführer.
 - NPC-Counter vor Ceremony-Commit verifiziert ✅
 
 **Was lief nicht gut:**
-- Phantom-Branch S120 wählte spongebob/tommy/bug (78) statt krabs/bernd (77) — Abweichung vom "immer niedrigste" Prinzip
-- Merge-Stack wächst auf 7 PRs — Till muss in genau dieser Reihenfolge mergen
+- Merge-Stack wächst auf 10 PRs — Till muss in dieser Reihenfolge mergen. Kritische Schwelle.
 
-**Retro-Actions für S120:**
-- **R1:** Quest-Runde 102 — spongebob+tommy+bug, +10 Quests, 1035→1045 (Phantom-Branch #624 prüfen)
-- **R2:** S121 muss krabs(77)+bernd(77) priorisieren — Schuld aus S120 tilgen
-- **R3:** Phantom-Branch-Check: `git branch -r | grep feat/sprint-120` vor Arbeitsbeginn
+**Retro-Actions für S123:**
+- **R1:** Quest-Runde 105: elefant(79) + alien(79) + maus(79) → +10 Quests, 1065→1075
+- **R2:** Elefant-Arc prüfen: welche Themen bisher? Passend fortführen.
+- **R3:** Merge-Stack-Hinweis bei 10 PRs prominent in PR-Body.
 
-**S120-Setup:**
-- NPCs: **spongebob + tommy + bug** (je 78 nach S119)
-- Ziel: +10 Quests, 1035→1045 auf Branch
-- Branch: `feat/sprint-120-correct` — Phantom-Branch PR #624 bereits bestätigt
+**S123-Setup:**
+- NPCs: **elefant(79) + alien(79) + maus(79)** (alle gleich auf 79)
+- Ziel: +10 Quests, 1065→1075 auf Branch
+- Branch: `feat/sprint-123` von feat/sprint-122 erstellen
 
 ---
 
@@ -109,6 +104,24 @@ Gestackter Branch — in dieser Reihenfolge mergen:
 | #618 | feat/sprint-117-correct | S117 | Tommy/Bernd/Bug +10 | 1005→1015 |
 | #620 | feat/sprint-118-correct | S118 | Kraemerin/Lokführer/Alien +10 | 1015→1025 |
 | #621 | feat/sprint-119-correct | S119 | Floriane/Elefant/Maus +10 | 1025→1035 |
-| **#624** | feat/sprint-120-correct | S120 | Spongebob/Tommy/Bug +10 | 1035→**1045** |
+| #624 | feat/sprint-120-correct | S120 | Spongebob/Tommy/Bug +10 | 1035→1045 |
+| #625 | feat/sprint-121 | S121 | Krabs/Bernd/Neinhorn +10 | 1045→1055 |
+| **neu** | feat/sprint-122 | S122 | Mephisto/Kraemerin/Lokführer +10 | 1055→**1065** |
 
-⚠️ PR #621 ist auf feat/sprint-118-correct gestacked — erst #592→#604→#605→#602→#618→#620 mergen, dann #621, dann #624.
+⚠️ Reihenfolge zwingend — Quest-Counter kumulieren. Dieser PR ist auf feat/sprint-121 gestacked.
+
+---
+
+## Ceremonies S120 + S121 (Phantom-Branches, bestätigt 2026-05-04)
+
+### S120 — Spongebob/Tommy/Bug, Quest-Runde 102, 1035→1045
+- Planning ✅ · Daily ✅ · Review ✅ · Retro ✅ (PR #624, feat/sprint-120-correct)
+- Spongebob(78→82): Mantarochen-Spiegel-Selbsterkennung, Seepferdchen-Väter, Angelfisch-Biolumineszenz, Oktopus-Arm-Netzwerk
+- Tommy(78→81): Magnetfeld-Visualisierung, Bernoulli-Flügel, Osmose-Membran
+- Bug(78→81): Pheromon-Kommunikation, Wasserläufer-Oberflächenspannung, Schwarmintelligenz-3-Regeln
+
+### S121 — Krabs/Bernd/Neinhorn, Quest-Runde 103, 1045→1055
+- Planning ✅ · Daily ✅ · Review ✅ · Retro ✅ (PR #625, feat/sprint-121)
+- Krabs(77→81): Potlatch-Geschenk-Ökonomie, Zinseszins-Paradox (SpongeBob-Einsicht), Sozialkapital-Putnam, Gemeinschaftsgüter-Hardin
+- Bernd(77→80): 127-Jahresringe, Dinoflagellaten-Meeresleuchten, Eratosthenes-Schatten
+- Neinhorn(78→81): Mimose-Gedächtnis-Gagliano, Mondphasen-Keimrate, LIGO-Gravitationswellen
