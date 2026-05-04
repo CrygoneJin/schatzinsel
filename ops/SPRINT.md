@@ -54,6 +54,7 @@
 - NPC-Counter nach Vollmerge: tommy 79 · bernd 79 · neinhorn 76 · mephisto 76 · spongebob 72 · maus 76 · kraemerin 75 · bug 75 · krabs 77 · floriane 76 · elefant 76 · alien 76 · lokfuehrer 76
 - Niedrigste Counter: **spongebob 72 · kraemerin 75 · bug 75**
 - ✨ Erstmals über 1000 Quests nach Vollmerge
+- **Hörspiel-Stand:** ops/sprint-s137 (K34 — Elefant und die Stille vor dem Regen) + ops/sprint-s138 (K35 — Tommy und der Morgen für sich selbst) auf Branches vorhanden, nicht auf main
 
 **PO-Entscheidung:**
 - S117: Spongebob(72)/Kraemerin(75)/Bug(75) — Spongebob ist allein der Niedrigste, braucht zwei Begleiter
@@ -71,7 +72,7 @@ Alle vier Quest-PRs direkt auf main basiert — in Reihenfolge mergen:
 | #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
 | #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
 | #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
-| S116-PR | feat/sprint-116 | S116 | Tommy/Bernd/Mephisto +10 | 995→1005 |
+| #543 | feat/sprint-116 | S116 | Tommy/Bernd +10 | 995→1005 |
 
 **Nach Vollmerge: 1005 Quests auf main.** ✨ Erstmals über 1000!
 
