@@ -20,8 +20,8 @@
 
 - [x] Planning: 2026-05-04 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-04 (autonomer Agent)
-- [ ] Review
-- [ ] Retro
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
 
 ---
 
@@ -37,6 +37,54 @@
 **Blocker?**
 - Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
 - Merge-Stack wächst: #592 → #604 → #605 → #602 → neu: feat/sprint-117-correct
+
+---
+
+## Sprint Review S117 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S117-1 Quest-Runde 99 | ✅ feat/sprint-117-correct — Tommy(74→78 +4) / Bernd(74→77 +3) / Bug(75→78 +3), 1005→1015 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Tommy: Lichtbrechungs-Prisma-Labor (Newton 1666 — weißes Licht = alle Farben, "VIERHUNDERT JAHRE SPÄTER! ABER ICH HABE ES SELBST GESEHEN!"), Sonnen-Uhr-Kalibrierungs-Station (15°/Stunde, ±2 Minuten Abweichung, Gnomon-Korrektur um 0,5°), Reflexions-Winkel-Messraum (Einfallswinkel = Ausfallswinkel, "LICHT UM DIE ECKE GELEITET! KEIN LOCH IN DER WAND!"), Dunkeladaptations-Kammer (Rhodopsin 20 Minuten, 10.000×, "NIE HANDY BEIM STERNEGUCKEN"). Bernd: Nachts-Blüher-Garten ("Ich war um Mitternacht im Garten. Aus Gründen die ich nicht erklären werde." — Mondblumen öffnen sich für Nacht-Insekten), Frost-Kristall-Archiv (H₂O hexagonal, Sechsecke, "um halb sieben draußen mit einem Stift"), Pilzmyzel-Netzwerk-Karte (Wood Wide Web, Eiche-Buche 8 Meter, "Ich habe sie immer für unabhängig gehalten"). Bug: Bienen-Schwänzeltanz-Labor (Winkel=Richtung, Dauer=Entfernung, 1840m — stimmt), Ameisen-Pheromon-Spur-Laboratorium (Spur unterbrochen, 80 Sek neue Route — emergentes Verhalten ohne Plan), Pilzmyzel-Signal-Netz-Station ("Ich weiß nicht was sie bedeutet. Ich weiß dass sie bedeutet." — Wellenform alle 44 Sek).
+
+**Stand nach S117:**
+- **1015 Quests** auf feat/sprint-117-correct (1005 auf feat/sprint-116, 965 auf main)
+- NPC-Counter nach S117: tommy 78 · bug 78 · bernd 77 · krabs 77
+- Nächste niedrigste Counter auf Stacking-Basis: kraemerin ~75 · floriane 76 · elefant 76 · maus 76 · lokfuehrer 76 · alien 76
+- Merge-Stack: #592 → #604 → #605 → #602 → #618
+
+**PO-Entscheidung:**
+- S118: kraemerin(~75) + lokfuehrer(76) + alien(76) → Quest-Runde 100, +10 Quests, 1015→1025
+
+---
+
+## Sprint Retrospektive S117 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- Tommy-Dunkeladaptation: "NIE HANDY BEIM STERNEGUCKEN" — bestes Tommy-Satz seit der Proton-Entdeckung. Kind-direkte Anwendung einer Physik-Erkenntnis in zwei Sekunden.
+- Bernd-Mitternacht: "Ich war um Mitternacht im Garten. Aus Gründen die ich nicht erklären werde." — Bernd bricht seinen eigenen Charakter auf. Das ist die bisher intimste Bernd-Zeile. Er kommt wieder.
+- Bug-Myzel-Signal: "Ich weiß nicht was sie bedeutet. Ich weiß dass sie bedeutet." — konzentrierteste Bug-Zeile bisher. Wissenschaft an der Grenze zum Geheimnis.
+- Dreifach-Myzel: Bernd (Wood Wide Web, Eiche-Buche) und Bug (elektrische Signale) berühren dasselbe Thema aus verschiedenen Winkeln — unbeabsichtigte Resonanz zwischen zwei NPCs.
+- PR #618 bereits offen, Merge-Anleitung vollständig.
+
+**Was nicht gut lief:**
+- Merge-Stack wächst auf 5 PRs: #592→#604→#605→#602→#618 — Till muss in genau dieser Reihenfolge mergen.
+- Phantom-Branches (sprint-117, sprint-117-s117) auf origin noch offen — Till schließt.
+- Counter-Diskrepanz: Berechnung der nächsten NPCs aus Stacking-Basis bleibt fehleranfällig — Planning immer aus Vollmerge-Stand ableiten wenn möglich.
+
+**Retro-Actions für S118:**
+- **R1:** Quest-Runde 100 — kraemerin(~75) + lokfuehrer(76) + alien(76), +10 Quests, 1015→1025. Runde 100 ist ein Meilenstein — Themen mit besonderer Tiefe.
+- **R2:** Merge-Hinweis: Reihenfolge #592→#604→#605→#602→#618 zwingend.
+- **R3:** Phantom-Branches schließen nach Till-Merge.
+
+**S118-Setup:**
+- NPCs: **kraemerin (~75) + lokfuehrer (76) + alien (76)** — Kraemerin kauft/handelt, Lokführer fährt, Alien staunt
+- Ziel: +10 Quests, 1015→1025 auf Branch
+- **Runde 100** — besonderer Meilenstein
+- Branch: `feat/sprint-118` — neu von feat/sprint-117-correct erstellen
 
 ---
 
