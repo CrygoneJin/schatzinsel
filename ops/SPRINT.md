@@ -1,3 +1,107 @@
+# Sprint 119 — "Floriane hört was das Gehirn macht, Elefant zeigt was sein Körper kann, Maus hat was Menschen nicht haben"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Floriane misst was das Gehirn mit Musik macht (Ohrwurm, Klangsymmetrie, Musiktherapie, absolutes Gehör), Elefant zeigt was sein Körper ohne Worte weiß (Boden hören, Rüssel-Wunder, Schwimmen), Maus hat Superkräfte die Menschen fehlen (Schnurrhaare als 3D-Radar, Ultraschall-Gesang, Magnetfeld-Kompass). 1025→**1035 Quests**.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S119
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S119-1 | **Quest-Runde 101** — Floriane(76→80 +4)/Elefant(76→79 +3)/Maus(76→79 +3) → +10 Quests, 1025→1035. Floriane: „Was das Gehirn mit Musik macht". Elefant: „Was Elefantenkörper können". Maus: „Was Mäuse haben die Menschen nicht haben". | Artist | ✅ feat/sprint-119-correct |
+
+---
+
+## Ceremony-Status S119
+
+- [x] Planning: 2026-05-04 (autonomer Agent, aus Retro S118)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S119 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S118 Review + Retro abgeschlossen (2026-05-04)
+- S119-1 implementiert: Quest-Runde 101, Floriane(76→80 +4)/Elefant(76→79 +3)/Maus(76→79 +3), 1025→1035 (feat/sprint-119-correct)
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-119-correct → Till mergt in Reihenfolge (nach #592/#604/#605/#602/#618/#620)
+
+**Blocker?**
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
+- Merge-Stack: #592 → #604 → #605 → #602 → #618 → #620 → neu: feat/sprint-119-correct
+
+---
+
+## Sprint Review S119 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S119-1 Quest-Runde 101 | ✅ feat/sprint-119-correct — Floriane(76→80 +4) / Elefant(76→79 +3) / Maus(76→79 +3), 1025→1035 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Floriane: Ohrwurm-Forschungs-Labor (Zeigarnik-Effekt — das Gehirn sucht die fehlenden Töne, Musiker leiden am meisten), Klangsymmetrie-Messstation (Pythagoras 2500 Jahre her — Oktave = 2:1, universell angenehm), Musiktherapie-Kammer (23 Minuten Musik: Cortisol sinkt, Herzschlag langsamer — Ärzte in Schweden verschreiben Musik-Rezepte), Absolutes-Gehör-Archiv (einer von zehntausend hört Töne wie Farben — neunmal häufiger in Tonsprachen). Elefant: Boden-Horchposten (Füße hören Vibrationen 30+ km weit — zweites Hörsystem parallel zu Ohren), Rüssel-Wunder-Labor (150.000 Muskeln, kein Knochen — kann Baumstamm UND Münze, Wasser 19 km riechen), Elefanten-Schwimm-Station (6 Stunden schwimmen, Rüssel als Schnorchel — Körper-Wissen tiefer als Denken). Maus: Whisker-Radar-Labor (Schnurrhaare messen Luftströmungen = 3D-Radar in totaler Dunkelheit), Ultraschall-Gesangs-Archiv (Liebeslieder über 20 kHz — "wie erklärt man Farben jemandem der nur Grau sieht"), Magnetfeld-Navigations-Station (Magnetit-Nanokristalle im Gehirn — eingebauter Kompass, 73% Trefferquote, Kalibrierung läuft).
+
+**Stand nach S119:**
+- **1035 Quests** auf feat/sprint-119-correct (965 auf main)
+- NPC-Counter nach S119: floriane 80 · elefant 79 · maus 79
+- Nächste niedrigste Counter auf Stacking-Basis: spongebob 78 · tommy 78 · bug 78
+- Merge-Stack: #592 → #604 → #605 → #602 → #618 → #620 → S119-PR
+
+**PO-Entscheidung:**
+- S120: spongebob(78) + tommy(78) + bug(78) → Quest-Runde 102, +10 Quests, 1035→1045
+
+---
+
+## Sprint Retrospektive S119 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- Floriane-Tiefe: Absolutes Gehör als "Töne wie Farben sehen" — stärkste Floriane-Stimme seit dem Musikgedächtnis-Kapitel. Pythagoras-Verbindung (2500 Jahre, Saiten, Physik die sich schön anfühlt) ist Oscar-tauglich.
+- Elefant-Körperwissen: Boden-Horchposten + Rüssel-Wunder + Schwimmen sind drei verschiedene Dimensionen desselben Themas — was ein Körper weiß ohne dass jemand es ihm erklärt hat. Das ist Elefant in seiner stärksten Form.
+- Maus-Ultraschall: "Wie erklärt man Farben jemandem der nur Grau sieht" — bisher beste Maus-Zeile. Sie beschreibt ihren eigenen unsichtbaren Raum und das klingt zugleich wissenschaftlich und poetisch.
+- Sprint-Disziplin gehalten: ein Branch, ein PR, kein Phantom-Spawning.
+
+**Was lief nicht gut:**
+- Merge-Stack wächst auf 7 PRs: #592 → #604 → #605 → #602 → #618 → #620 → S119-PR. Till muss in dieser Reihenfolge mergen.
+- NPC-Counter-Diskrepanz bleibt: auf main steht floriane/elefant/maus bei 73-76, auf Branch-Stack bei 79-80. Planning immer auf Stack-Basis, nicht main.
+
+**Retro-Actions für S120:**
+- **R1:** Quest-Runde 102: spongebob(78) + tommy(78) + bug(78) → +10 Quests, 1035→1045. Thema: frei wählbar.
+- **R2:** Merge-Stack-Hinweis in jedem PR-Body vollständig aktuell halten.
+
+**S120-Setup:**
+- NPCs: **spongebob(78) + tommy(78) + bug(78)** — alle drei gleichauf, alle drei dran
+- Ziel: +10 Quests, 1035→1045 auf Branch
+- Branch: `feat/sprint-120-correct` von feat/sprint-119-correct erstellen
+
+---
+
+## Merge-Guide für Till (Stand 2026-05-04)
+
+Gestackter Branch — in dieser Reihenfolge mergen:
+
+| PR | Branch | Sprint | NPCs | Quests |
+|----|--------|--------|------|--------|
+| #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
+| #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
+| #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
+| #602 | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→1005 |
+| #618 | feat/sprint-117-correct | S117 | Tommy/Bernd/Bug +10 | 1005→1015 |
+| #620 | feat/sprint-118-correct | S118 | Kraemerin/Lokführer/Alien +10 | 1015→1025 |
+| **neu** | feat/sprint-119-correct | S119 | Floriane/Elefant/Maus +10 | 1025→**1035** |
+
+⚠️ Reihenfolge zwingend — Quest-Counter kumulieren.
+
+---
+
 # Sprint 118 — "Kraemerin erinnert sich, Lokführer denkt, Alien fragt"
 
 **Sprint Goal (Oscar-Perspektive):**
