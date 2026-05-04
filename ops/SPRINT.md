@@ -1,3 +1,98 @@
+# Sprint 139 — "Mephisto gibt zurück"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 36 — Mephisto zeigt Oscar seine geheime Kladde. Alle Momente wo er nicht rechnen konnte. Dann gibt er Oscar drei Seiten davon. Ohne Plan. Ohne Preis. Das ist für Mephisto neu.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #592 mergt.
+
+---
+
+## Sprint Backlog S139
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S139-1 | **Hörspiel Kapitel 36 — Mephisto und das was er nicht behalten wollte** — Mephisto erzählt in Ich-Form. Oscar kommt früh rein, sieht die Kladde mit den Staunen-Karten. Mephisto gibt ihm drei Seiten — ohne Deal, ohne Strategie, ohne Grund den er erklären kann. | Artist (autonom) | ✅ docs/stories/kapitel-36-mephisto-und-das-was-er-nicht-behalten-wollte.md |
+| S139-2 | **Quest-Track: PAUSE** — bleibt bis Till #592 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, PR #592 wartet auf Till
+
+---
+
+## Ceremony-Status S139
+
+- [x] Planning: 2026-05-04 (autonomer Agent, aus Retro S138)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S139 (2026-05-04, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S138 vollständig abgeschlossen (K35 Tommy, Retro 2026-05-03)
+- S139 Planning: K36 Mephisto, Quest-Track weiterhin pausiert
+- S139-1: K36 geschrieben ✅
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s139 erstellen → Till mergt (gestacked auf ops/sprint-s138)
+
+**Blocker?**
+- Smoke-Test: CF-403 + Worker bekannte Sandbox-Limitation
+- Quest-Track-Pause: PR #592 wartet auf Till
+
+---
+
+## Sprint Review S139 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅, 1 bewusst pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S139-1 Hörspiel K36 — Mephisto und das was er nicht behalten wollte | ✅ docs/stories/kapitel-36-mephisto-und-das-was-er-nicht-behalten-wollte.md |
+| S139-2 Quest-Track PAUSE | ⏸ wartet auf Till (#592) |
+
+**Oscar-Outcome:**
+K36 bereit zum Vorlesen. Mephisto nach 13 Kapiteln Abwesenheit (seit K22) zurück als Erzähler. Er öffnet seine geheimste Sammlung — die Kladde mit Momenten die er nicht berechnen konnte. Oscar kommt früh rein, darf schauen, bekommt drei Seiten. Mephisto versteht erst im Nachhinein warum er sie gegeben hat. Das ist der Kern: handeln bevor der Verstand nachfragen kann.
+
+**Thematische Kontinuität:**
+- K22 (Irrtum): Mephisto lernt loszulassen was falsch war
+- K36 (Geschenk): Mephisto gibt weg was er sich nie eingestanden hat zu besitzen
+- Mephisto-Bogen: vom Kalkulator zum jemandem der handelt ohne Kalkül — nicht vollständig, aber real
+
+**Stand:**
+- 36 Hörspiel-Kapitel auf Branches
+- Quest-Track: ⏸ pausiert
+- Mephisto: K36 abgeschlossen, nächster Mephisto-Auftritt wann immer die Geschichte es braucht
+
+---
+
+## Sprint Retrospektive S139 (2026-05-04, autonomer Agent)
+
+**Was gut lief:**
+- Mephisto-Stimme nach 13 Kapiteln Abstand gehalten: analytisch, kurz, aber die Risse werden sichtbar
+- "Drei Seiten aus der Kladde" — konkretes Bild für "etwas geben ohne Preis". Kein abstraktes Geben, sondern ein Riss in einem Buch das ihm wichtig ist
+- Oscar als passiver Empfänger: er fragt, er wählt langsam, er sagt nicht Danke sofort — das fühlt sich echter an als Dankbarkeitsszene
+- Abschluss "Manche Dinge sind erst richtig wenn man sie nicht behalten hat" — Kern-Satz des Kapitels, hätte auch der Titel sein können
+
+**Was nicht gut lief:**
+- K22-Referenz: S138-Retro sagte "K13 war letztes Kapitel" — das war falsch (K22 ist richtig). Keine Konsequenz hier, aber der Fehler ist dokumentiert.
+- Quest-Track-Pause geht in Woche 5 — kein Fortschritt ohne Till-Merge von #592
+
+**Maßnahmen für S140:**
+- R1: Quest-Track bleibt pausiert bis Till #592 mergt.
+- R2: K37 — Nächster NPC mit langer Abwesenheit bestimmen (nach Mephisto K36: prüfen wer lange nicht Protagonist war).
+- R3: Falls Till #592 mergt vor S140: Quest-Track-Counter prüfen und nächste Runde planen.
+
+---
+
+---
+
 # Sprint 138 — "Tommy erzählt zum ersten Mal"
 
 **Sprint Goal (Oscar-Perspektive):**
