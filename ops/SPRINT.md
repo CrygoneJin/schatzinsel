@@ -1,3 +1,99 @@
+# Sprint 140 — "Spongebob und das Notizbuch"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar hört Kapitel 37 — Spongebob zeigt Oscar sein geheimes Notizbuch. Darin stehen 25 Fragen ohne Antworten. Früher hat Spongebob immer sofort erklärt. Jetzt schreibt er auf was er noch nicht weiß — und findet das gut.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Hörspiel-Track weiter. Quest-Track pausiert bis Till #592 mergt.
+
+---
+
+## Sprint Backlog S140
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S140-1 | **Hörspiel Kapitel 37 — Spongebob und das Notizbuch** — Spongebob erzählt in Ich-Form. Er hat ein geheimes Heft mit offenen Fragen. Oscar schreibt die beste Frage rein: "Warum sieht der Sonnenuntergang jeden Abend anders aus wenn doch immer dieselbe Sonne runtergeht?" | Artist (autonom) | ✅ docs/stories/kapitel-37-spongebob-und-das-notizbuch.md |
+| S140-2 | **Quest-Track: PAUSE** — bleibt bis Till #592 mergt. | — | ⏸ wartet auf Till |
+
+---
+
+## Explizit nicht im Sprint
+
+- **Quest-Track** — pausiert, PR #592 wartet auf Till
+
+---
+
+## Ceremony-Status S140
+
+- [x] Planning: 2026-05-04 (autonomer Agent, aus Retro S139)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S140 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S139 vollständig abgeschlossen (K36 Mephisto, alle Ceremonies done)
+- S140 Planning: K37 Spongebob — längste Abwesenheit (K23, 13 Kapitel her)
+- S140-1: K37 geschrieben ✅
+
+**Was kommt als nächstes?**
+- PR für ops/sprint-s140 → Till mergt (gestacked auf ops/sprint-s139)
+
+**Blocker?**
+- Smoke-Test: CF-403 + Worker bekannte Sandbox-Limitation
+- Quest-Track-Pause: PR #592 wartet auf Till
+
+---
+
+## Sprint Review S140 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅, 1 bewusst pausiert ⏸**
+
+| Item | Ergebnis |
+|------|---------|
+| S140-1 Hörspiel K37 — Spongebob und das Notizbuch | ✅ docs/stories/kapitel-37-spongebob-und-das-notizbuch.md |
+| S140-2 Quest-Track PAUSE | ⏸ wartet auf Till (#592) |
+
+**Oscar-Outcome:**
+K37 bereit zum Vorlesen: Spongebob trägt ein geheimes Notizbuch mit 25 offenen Fragen. Er war früher der der sofort erklärt — jetzt schreibt er auf was er noch nicht weiß. Oscar darf die 25. Frage reinschreiben. Das ist der Bogen: K3 (ICH BIN BEREIT, erklärt alles sofort) → K23 (erst sehen, dann erklären) → K37 (es gibt Fragen die keine Antwort brauchen — und das ist gut).
+
+**Spongebob-Bogen K3→K23→K37:**
+- K3: Laut, sofort, alles wissen, ICH BIN BEREIT
+- K23: "Erst sehen, dann erklären" — erste Verzögerung, Staunen vor Wissen
+- K37: Notizbuch mit offenen Fragen — das Nicht-Wissen als Schatz, nicht als Mangel
+- Oscar-Frage: "Warum sieht der Sonnenuntergang jeden Abend anders aus?" — Oscar als aktiver Teilnehmer, nicht nur Zuhörer
+
+**Stand:**
+- 37 Hörspiel-Kapitel auf Branches
+- Quest-Track pausiert: #592 ausstehend
+
+---
+
+## Sprint Retrospektive S140 (2026-05-04, autonomer Agent)
+
+**Was gut lief:**
+- Spongebob in Ich-Form funktioniert: Die Stimme klingt nach ihm — enthusiastisch aber nachdenklicher als früher. Der Satz "Das war besser als die Antwort" trifft den Kern.
+- Notizbuch als konkretes Bild für "offene Fragen": nicht abstrakt sondern physisch — gelber Einband, 25 Einträge, Oscar schreibt rein
+- Oscar-Beteiligung: Er schreibt die letzte Frage rein. Das ist sein Beitrag, nicht nur Rezeption
+- Spongebob-Bogen über 34 Kapitel sauber geschlossen: laut→warten→sammeln
+
+**Was nicht gut lief:**
+- Quest-Track-Pause geht in Woche 5 — kein sichtbarer Spielfortschritt für Oscar
+
+**Maßnahmen für S141:**
+- R1: Quest-Track bleibt pausiert bis Till #592 mergt.
+- R2: K38 — wer war nach Spongebob am längsten weg? Alien (K24, 13 Kapitel), Lokführer (K25, 12), Maus (K26, 11), Bug (K27, 10).
+- R3: Nächster NPC: Alien — K38 "Alien fragt nach dem Warum des Warum".
+
+**S141-Setup:**
+- Hörspiel: **Alien** als nächster NPC (K24 = letztes Auftreten, 13 Kapitel her, gleich alt wie Spongebob-Abwesenheit)
+- Branch: `ops/sprint-s141` von `ops/sprint-s140`
+
+---
+
 # Sprint 139 — "Mephisto gibt zurück"
 
 **Sprint Goal (Oscar-Perspektive):**
