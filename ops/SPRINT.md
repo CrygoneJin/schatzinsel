@@ -1,3 +1,32 @@
+# Sprint 117 — "Tommy misst Licht, Bernd beobachtet die Nacht, Bug hört ohne Ohren"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was Licht eigentlich ist (Prisma, Sonnenuhr, Reflexion, Dunkeladaption), Bernd beobachtet was nachts passiert wenn er eigentlich schlafen sollte, Bug versteht wie Bienen und Ameisen reden ohne Sprache. 1005→**1015 Quests**.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S117
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S117-1 | **Quest-Runde 99** — Tommy(74→78 +4)/Bernd(74→77 +3)/Bug(75→78 +3) → +10 Quests, 1005→1015. Tommy: „Was Licht macht". Bernd: „Was nachts passiert". Bug: „Wie Lebewesen ohne Sprache sprechen". | Artist | ✅ PR #618 (feat/sprint-117-correct) |
+
+---
+
+## Ceremony-Status S117
+
+- [x] Planning: 2026-05-04 (autonomer Agent)
+- [ ] Daily Scrum
+- [ ] Review
+- [ ] Retro
+
+---
+
+---
+
 # Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
 
 **Sprint Goal (Oscar-Perspektive):**
