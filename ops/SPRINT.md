@@ -1,3 +1,65 @@
+# Sprint 117 — "Tommy misst Licht, Bernd sieht die Nacht, Bug baut ohne Worte"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was Licht und Naturbauten ohne Architekten tun, Bernd beobachtet was nur nachts erscheint, Bug misst wie Insekten ohne Sprache kommunizieren und bauen. 965→**975 Quests** auf Branch (nach Vollmerge: 1005→1015).
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S117
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S117-1 | **Quest-Runde 99** — Tommy(74→78 +4)/Bernd(74→77 +3)/Bug(75→78 +3 post-merge) → +10 Quests, 1005→1015 nach Vollmerge. Tommy: Lichtbrechungs-Prisma, Sonnen-Uhr, Reflexions-Winkel, Dunkeladaptation. Bernd: Nachts-Blüher-Garten, Frost-Kristall-Archiv, Pilzmyzel-Netzwerk. Bug: Bienen-Schwänzeltanz, Ameisen-Pheromon, Pilzmyzel-Signal-Netz. | Artist | ✅ PR #618 (feat/sprint-117-correct) |
+
+---
+
+## Ceremony-Status S117
+
+- [x] Planning: 2026-05-04 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [ ] Review
+- [ ] Retro
+
+---
+
+## Daily Scrum S117 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S116 komplett (Planning/Daily/Review/Retro alle done auf main, PR #602 offen)
+- S117 Planning + S117-1 implementiert: Quest-Runde 99, tommy(74→78)/bernd(74→77)/bug(75→78 post-merge), +10 Quests — PR #618 (feat/sprint-117-correct)
+
+**Was kommt als nächstes?**
+- PR #618 → Till mergt in Reihenfolge: #592 → #604 → #605 → #602 → #618
+
+**Blocker?**
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92
+- Phantom-PRs S117: #550 (Neinhorn/Mephisto/Spongebob), #615/#616 (andere Session) → Till schließt bei Gelegenheit
+
+---
+
+## Merge-Guide für Till (Stand 2026-05-04)
+
+| PR | Branch | Sprint | NPCs | Quests |
+|----|--------|--------|------|--------|
+| #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
+| #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
+| #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
+| #602 | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→1005 |
+| **#618** | feat/sprint-117-correct | S117 | Tommy/Bernd/Bug +10 | 1005→**1015** |
+
+⚠️ PR #618 ist auf feat/sprint-116 gestackt — erst #592→#604→#605→#602 mergen, dann #618.
+
+**Nach Vollmerge: 1015 Quests auf main.**
+
+**Phantom-PRs zum Schließen** (S117-Duplikate): `#550 #615 #616`
+
+---
+
+---
+
 # Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
 
 **Sprint Goal (Oscar-Perspektive):**
