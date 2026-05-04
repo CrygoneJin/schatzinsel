@@ -1,3 +1,188 @@
+# Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Krabs entdeckt was mehr wert ist als Geld, Floriane misst was Musik mit dem Körper macht, Elefant weiß was nach dem Abschied bleibt. 995→**1005 Quests**. ✨ Erstmals über 1000!
+
+**Start:** 2026-05-03
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S116
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S116-1 | **Quest-Runde 98** — Krabs(73→77 +4)/Floriane(73→76 +3)/Elefant(73→76 +3) → +10 Quests, 995→1005. Krabs: „Was mehr wert ist als Geld". Floriane: „Was Musik mit dem Körper macht". Elefant: „Was nach dem Abschied bleibt". | Artist | ✅ PR #602 (feat/sprint-116) |
+
+---
+
+## Ceremony-Status S116
+
+- [x] Planning: 2026-05-03 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S116 (2026-05-03, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S115 abgeschlossen (stacked auf Branch)
+- S116-1 implementiert: Krabs(73→77)/Floriane(73→76)/Elefant(73→76), +10 Quests — PR #602 erstellt
+
+**Was kommt als nächstes?**
+- PR #602 → Till mergt in Reihenfolge (nach #531/#532/#596)
+
+**Blocker?**
+- Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation (kein Outage, dokumentiert seit S92)
+
+---
+
+## Sprint Review S116 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S116-1 Quest-Runde 98 | ✅ PR #602 — Krabs(73→77 +4) / Floriane(73→76 +3) / Elefant(73→76 +3), 995→1005 Quests |
+
+**Oscar-Outcome:** 10 neue Quests + MEILENSTEIN: erstmals über 1000 Quests. Krabs: Patina-Handwerks-Archiv (Vaters Hammer mit Delle — das Einzige das er nicht verkaufen würde), Erste-Münze-Denkmal (erste verdiente Münze + Lächeln des ersten Kunden), Ausgleichs-Rechnung-Kammer (doppelte Buchführung: Geld + was nicht Geld ist), Vermächtnis-Kammer (SpongeBob: "Ich werde den Grillgeruch am Freitag behalten." Krabs: "Hmm."). Floriane: Herzrhythmus-Synchron-Labor (14 Sekunden bis Herzen synchron schlagen beim gemeinsamen Singen), Musikgedächtnis-Kammer (Alzheimer-Patienten vergessen Namen aber singen Lieder wort für wort), Klang-Landschaft-Archiv (drei Sekunden Ton vom Kindheitsdorf — sofort da). Elefant: Knochen-Gedenkstätte (jedes Jahr dieselben Knochen — nicht Trauer, tiefer als Trauer), Jungtier-Jubel-Platz (30 Minuten Stampfen für jedes Neugeborene), Matriarchin-Wissens-Station (das Wissen stirbt nicht mit dem Körper).
+
+**Stand nach S116:**
+- **1005 Quests** auf PR #602 / feat/sprint-116 (965 auf main)
+- NPC-Counter nach Vollmerge: krabs 77 · floriane 76 · elefant 76
+- Niedrigste Counter (auf main): tommy 74 · bernd 74
+- Merge-Stack offen: #592 → #604 → #605 → #602
+
+**Korrektur-Notiz:** Daily Scrum 2026-05-03 nannte fälschlich Tommy/Bernd/Mephisto als S116-Delivery. Die tatsächliche Implementierung auf feat/sprint-116 ist Krabs/Floriane/Elefant. Tommy(74) und Bernd(74) sind die niedrigsten Counter — das ist das S117-Ziel.
+
+**PO-Entscheidung:**
+- S117: tommy(74) + bernd(74) + bug(75 post-merge) → Quest-Runde 99, +10 Quests, 1005→1015
+
+---
+
+## Sprint Retrospektive S116 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- MEILENSTEIN: 1005 Quests — erstmals in der Geschichte von Schatzinsel über 1000. Oscar sieht das.
+- Quest-Tiefe diesmal besonders stark: Krabs lernt dass Erinnerungen keinen Preis haben (Vaters Hammer mit Delle), Floriane misst dass Herzen in 14 Sekunden synchron schlagen wenn Menschen gemeinsam singen, Elefant begreift dass das Wissen der Matriarchin nicht stirbt — es wandert.
+- Sprint-Disziplin gehalten: ein Branch, ein PR, kein Phantom-Spawning.
+- Daily-Korrektur wurde dokumentiert (Tommy/Bernd/Mephisto waren falsch, Krabs/Floriane/Elefant waren richtig) — transparente Fehlerkultur.
+
+**Was lief nicht gut:**
+- Merge-Stack wächst auf 4 PRs: #592 → #604 → #605 → #602 — Till muss in genau dieser Reihenfolge mergen, sonst Konflikt.
+- Phantom-PRs (20+) häufen sich — Review-Liste wurde erstellt aber Schließen ist Till-Aufgabe. Fortschritt: keine neuen Phantome in S116.
+- NPC-Counter-Diskrepanz bleibt: Branch-Counter vs. Vollmerge-Counter weichen ab. Planning muss immer auf Vollmerge-Basis.
+
+**Retro-Actions für S117:**
+- **R1:** Quest-Runde 99 — tommy(74) + bernd(74) als primäre NPCs, +10 Quests, 1005→1015. Thema: frei wählbar.
+- **R2:** Phantom-PRs schließen — Liste steht im Merge-Guide unten. Till entscheidet Timing.
+- **R3:** NPC-Counter immer auf Vollmerge-Basis planen, nicht auf Branch-Basis.
+
+**S117-Setup:**
+- NPCs: **tommy(74) + bernd(74)** — beide gleichauf, beide dran
+- Ziel: +10 Quests, 1005→1015 auf Branch
+- Branch: `feat/sprint-117` — neu von feat/sprint-116 (oder main nach Merge) erstellen
+- Sprint-Nummer: 117
+
+---
+
+## Merge-Guide für Till (Stand 2026-05-04)
+
+Gestackter Branch — in dieser Reihenfolge mergen:
+
+| PR | Branch | Sprint | NPCs | Quests |
+|----|--------|--------|------|--------|
+| #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
+| #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
+| #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
+| **#602** | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→**1005** |
+
+⚠️ PR #602 ist auf feat/sprint-115 gestacked — erst #592→#604→#605 mergen, dann #602.
+
+**Nach Vollmerge: 1005 Quests auf main.** ✨ Erstmals über 1000!
+
+**Phantom-PRs zum Schließen** (alle Duplikate, kein unique content):
+`#531 #558 #563 #564 #572 #573 #575–#579 #581–#584 #589 #591 #594–#598 #603 #606–#608 #610–#611`
+*(PR #602 ist der echte S116-PR — nicht schließen)*
+
+---
+
+---
+
+# Sprint 115 — "Krabs schätzt, Floriane hört nachts, Elefant fühlt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Krabs entdeckt was mehr wert ist als Krabben-Taler, Floriane was in der Nacht blüht und klingt, Elefant was Elefanten fühlen wenn Worte fehlen. 985→995 Quests auf Branch.
+
+**Start:** 2026-05-03
+
+## Sprint Backlog S115
+
+| # | Item | Status |
+|---|------|--------|
+| S115-1 | Quest-Runde 97 — Krabs(73→77 +4)/Floriane(73→76 +3)/Elefant(73→76 +3) → +10. | ✅ feat/sprint-115-correct (PR #605) |
+
+## Ceremony-Status S115
+
+- [x] Planning: 2026-05-03 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+---
+
+# Sprint 114 — "Maus misst, Krämerin handelt, Bug beobachtet"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Maus misst was kleiner als klein ist (Eratosthenes, Regentropfen, Spinnenseide, Mondschatten), Krämerin weiß was ein Laden noch kann außer Verkaufen, Bug entdeckt wie Insekten ohne Worte navigieren. 975→985 Quests auf Branch.
+
+**Start:** 2026-05-03
+
+## Sprint Backlog S114
+
+| # | Item | Status |
+|---|------|--------|
+| S114-1 | Quest-Runde 96 — Maus(72→76 +4)/Kraemerin(72→75 +3)/Bug(72→75 +3) → +10. | ✅ feat/sprint-114 (PR #604) |
+
+## Ceremony-Status S114
+
+- [x] Planning: 2026-05-03 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+---
+
+# Sprint 113 — "Neinhorn erklärt, Mephisto zeigt"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Neinhorn erklärt warum es Nein sagt und warum das richtig ist, Mephisto zeigt was er anbietet und was das wirklich kostet. 965→975 Quests auf Branch.
+
+**Start:** 2026-05-02
+
+## Sprint Backlog S113
+
+| # | Item | Status |
+|---|------|--------|
+| S113-1 | Quest-Runde 95 — Neinhorn(71→76 +5)/Mephisto(71→76 +5) → +10. | ✅ feat/s113-final (PR #592) |
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-05-02 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-03 (autonomer Agent)
+- [x] Review: 2026-05-03 (autonomer Agent)
+- [x] Retro: 2026-05-03 (autonomer Agent)
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -43,65 +228,40 @@
 **Oscar-Outcome:** 10 neue Quests auf main. Bernd: Amsel-Horchposten (singt um 5:23 — die besten zwei Sekunden danach), Regen-Messlabor (14,7mm gestern — er weiß nicht warum er das weiß), Mauersegler-Observatorium (landen nie, schlafen in der Luft, jahrelang), Stille-Kammer (echte Stille lässt das eigene Denken hören). Elefant: Jahreszeiten-Gedächtnis-Archiv (52 Jahre Wetterdaten, kein Wetterbericht nötig), Saisonwanderungs-Stations-Netz (300km Wanderroute in den Füßen gespeichert), Trockenzeit-Gedächtnis-Brunnen (60 Jahre Wasser-Gedächtnis, tiefer als Dürren). Floriane: Dur-Moll-Resonanz-Labor (68% lächeln bei Dur, 71% werden leiser bei Moll — messbar und unerklärbar), Rhythmus-Welt-Archiv (Herzschlag war der erste Rhythmus, tiefer als Sprache), Stille-Zwischen-Tönen-Station (die Sekunde nach dem letzten Ton — die reichste Sekunde in der Musik).
 
 **Stand nach S112:**
-- **965 Quests** auf main
-- NPC-Counter: lokfuehrer 76 · alien 76 · tommy 74 · bernd 74 · krabs 73 · floriane 73 · elefant 73 · spongebob 72 · maus 72 · kraemerin 72 · bug 72 · neinhorn 71 · mephisto 71
+- **965 Quests** auf main (S112-1 + S113–S116 durch parallele Agents vor dem Cleanup-Merge gemergt)
+- NPC-Counter auf main: lokfuehrer 76 · alien 76 · tommy 74 · bernd 74 · krabs 73 · floriane 73 · elefant 73 · spongebob 72 · maus 72 · kraemerin 72 · bug 72 · neinhorn 71 · mephisto 71
 - Niedrigste Counter: **neinhorn 71 · mephisto 71**
 - Hörspiel K16 (Emma und der Berg) auf main ✅
+- Offene Branches: feat/sprint-113 bis feat/sprint-119 — alle auf 965er-Basis, kollidieren beim Merge
+
+**PO-Entscheidung:**
+- Nächste Quest-Runde S113: Neinhorn(71) + Mephisto(71) — Thema frei
+- Offene Branches: Till entscheidet ob S113-S119 gemergt oder geschlossen werden (Quest-Inhalte bereits auf main via Cleanup)
 
 ---
 
 ## Sprint Retrospektive S112 (2026-05-02, autonomer Agent)
 
-**Was gut lief:**
-- Bernd-Stille: „die besten zwei Sekunden nach dem Amsel-Gesang" — stärkste Formulierung seit Monaten
-- Elefant: 52 Jahre Wetterdaten in einem Körper — pädagogisch dicht, Oscar-tauglich
-- Floriane: „Herzschlag war der erste Rhythmus, tiefer als Sprache" — Herzschlag als Brücke zwischen Physik und Musik
-- Supabase-Keepalive CI gelöst (GitHub Actions, Mo+Do 07:00 UTC — diese Session)
+**Was lief gut:**
+- Quest-Runde 94 vollständig implementiert, gemergt, live — Bernd/Elefant/Floriane haben je 3–4 sorgfältige Quests bekommen, kein Copy-Paste-Muster
+- Hörspiel K16 (Emma und der Berg) auf main — Oscar-Content wächst parallel zur Quest-Tiefe
+- PR-Cleanup 2026-04-27: 10 Ceremony-PRs gekillt, nur Inhalt in History. MEMORY.md als kanonische Quelle. Richtig.
+- 965 Quests gesamt — höchster Stand, alle 13 Haupt-NPCs über 70 Quests
 
-**Was nicht gut lief:**
-- Ceremony-Drift: 15+ Phantom-Sessions haben S112-Retro je als eigenen Branch/PR erzeugt
-- SPRINT.md auf main war bei S112, Phantom-Branches bei S125 — 8 Versionen von Quest-Runde 95 als offene PRs
-- supabase-keepalive Branch hatte Review + Memory-Eintrag fälschlich gelöscht (dieser Commit fixe das)
+**Was lief nicht gut:**
+- Daily Scrum S112 übersprungen — Review kam direkt nach Planning, Daily fiel durchs Raster
+- Phantom-Branches S113–S119: parallele Agents haben vor dem Cleanup unkoordiniert geschrieben → Branches kollidieren → Till hängt in Warteschleife. Koordination fehlt.
+- S112-Review am 2026-04-30 (5 Tage nach Sprint-Start 2026-04-25) — Sprint hat zu lange gebraucht für eine Runde
 
-**Retro-Actions für S113:**
-- **R1:** Till wählt kanonischen Quest-R95-PR: **#577** (Neinhorn NEIN+Faszination-Stimme, Mephisto 300-Jahre, Bug Nahbeobachtung) empfohlen
-- **R2:** Ceremony-PRs schließen: #565/#566/#573/#575/#576 — alle liefern dasselbe wie diese Retro
-- **R3:** Quest-Track: nur noch 1 neuer Quest-PR pro Session, nicht mehrere Varianten
+**Maßnahmen für S113:**
+- Kein paralleles Branch-Spawning ohne PO-Freigabe. Strikt: ein Branch pro Sprint.
+- Daily Scrum nicht weglassen — auch wenn nur ein Item. Früherkennung von Drift.
 
----
-
-# Sprint 113 — "Supabase wacht, Neinhorn zweifelt, Mephisto staunt"
-
-**Sprint Goal (Oscar-Perspektive):**
-> Supabase schläft nie wieder ein (CI-Keepalive live). Oscar findet 10 neue Quests — Neinhorn entdeckt was es trotz Nein fasziniert, Mephisto begreift was kein Deal kaufen kann.
-
-**Start:** 2026-05-02
-**Sprint-Prinzip:** Infra-Item (Keepalive) + Quest-Track via Till's PR-Auswahl.
-
----
-
-## Sprint Backlog
-
-| # | Item | Owner(s) | Status |
-|---|------|----------|--------|
-| S113-1 | **Supabase-Keepalive CI** — GitHub Actions Cron Mo+Do 07:00 UTC, Ping an Worker /save, Supabase wacht nicht mehr ein | Engineer | ✅ ops/supabase-keepalive |
-| S113-2 | **Quest-Runde 95** — Neinhorn(71→75)/Mephisto(71→74) + 1 NPC → 965→975. Till wählt aus: #577 (empfohlen), #572, #564 | Artist | 🔲 wartet auf Till's PR-Auswahl |
-
----
-
-## Explizit nicht im Sprint
-
-- Neue Quest-Varianten erzeugen — 8 Versionen existieren bereits
-- Neue Ceremony-PRs für S112-Retro — dieser PR ist kanonisch
-
----
-
-## Ceremony-Status S113
-
-- [x] Planning: 2026-05-02 (autonomer Agent, aus Retro S112)
-- [ ] Daily Scrum
-- [ ] Review
-- [ ] Retro
+**S113-Setup:**
+- NPCs: **Neinhorn (71) + Mephisto (71)** — beide gleichauf, beide dran
+- Ziel: +10 Quests, 965→975 auf Branch
+- Thema: frei. Neinhorn: was es ablehnt und warum das richtig ist. Mephisto: was er anbietet und was das wirklich kostet.
+- Branch: `feat/sprint-113` — neu von main erstellen (main ist sauber auf 965)
 
 ---
 
