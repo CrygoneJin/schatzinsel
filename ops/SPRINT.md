@@ -1,22 +1,22 @@
-# Sprint 122 — "Mephisto traut, Kraemerin riecht, Lokführer zittert"
+# Sprint 123 — "Elefant badet, Alien schweigt, Maus friert ein"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Mephisto entdeckt was kein Vertrag kann (Vertrauen ohne Absicherung, Freundschaft ohne Kalkül, pures Staunen, Briefe die nie abgeschickt werden), Kraemerin erkundet die Sinne des Ladens (Geruch als Neuroanatomie, Gespräche ohne Worte, Jahreszeiten als Rhythmus), Lokführer erinnert sich an seinen ersten Zittertag allein in der Lok und was er seitdem in Tunneln und Abschieds-Gesichtern gelesen hat. 1055→**1065 Quests**.
+> Oscar findet 10 neue Quests — Elefant erklärt warum Schlamm Wissenschaft ist und was ein Stoßzahn wirklich kann, Alien entdeckt dass Stille Kommunikation ist und Versprechen Wahrheiten über heute sind, Maus baut Architektur und findet raus dass ihr Körper schon alles weiß. 1065→**1075 Quests**.
 
 **Start:** 2026-05-04
 **Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
 
 ---
 
-## Sprint Backlog S122
+## Sprint Backlog S123
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S122-1 | **Quest-Runde 104** — Mephisto(78→82 +4)/Kraemerin(79→82 +3)/Lokführer(79→82 +3) → +10 Quests, 1055→1065. Mephisto: „Vertrauen, Freundschaft, Staunen, Brief". Kraemerin: „Geruch, Stille, Jahreszeiten". Lokführer: „Erste Fahrt, Tunnel-Klang, Abschied". | Artist | ✅ feat/sprint-122 |
+| S123-1 | **Quest-Runde 105** — Elefant(79→82 +3)/Alien(79→82 +3)/Maus(79→83 +4) → +10 Quests, 1065→1075. Elefant: „Schlammbad, Stoßzahn, Schlaf". Alien: „Stille, Versprechen, Weinen". Maus: „Staubbad, Tunnel, Geruch, Torpor". | Artist | ✅ feat/sprint-123 |
 
 ---
 
-## Ceremony-Status S122
+## Ceremony-Status S123
 
 - [x] Planning: 2026-05-04 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-04 (autonomer Agent)
@@ -25,69 +25,69 @@
 
 ---
 
-## Daily Scrum S122 (2026-05-04, autonomer Agent)
+## Daily Scrum S123 (2026-05-04, autonomer Agent)
 
 **Was wurde heute gemacht?**
-- S120 + S121 beide bereits als Phantom-Branches implementiert und bestätigt (PR #624, PR #625)
-- S122-1 implementiert: Quest-Runde 104, Mephisto(78→82 +4)/Kraemerin(79→82 +3)/Lokführer(79→82 +3), 1055→1065 (feat/sprint-122)
-- main SPRINT.md mit S120/S121/S122 Ceremonies aktualisiert
+- S123 Planning: elefant(79→82 +3) / alien(79→82 +3) / maus(79→83 +4), Ziel 1065→1075
+- S123-1 implementiert: Quest-Runde 105, +10 Quests auf feat/sprint-123 (von feat/sprint-122)
+- PR #629 erstellt, gestacked auf feat/sprint-122
 
 **Was kommt als nächstes?**
-- PR für feat/sprint-122 → Till mergt in Reihenfolge (nach #592/#604/#605/#602/#618/#620/#621/#624/#625)
+- Till mergt in Reihenfolge (11 PRs, Merge-Stack kritisch)
 
 **Blocker?**
 - Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
-- Merge-Stack: #592 → #604 → #605 → #602 → #618 → #620 → #621 → #624 → #625 → neu: feat/sprint-122
+- Merge-Stack: 11 PRs — Grenze erreicht, nächste Session Retro-Action: Till bitten zu mergen
 
 ---
 
-## Sprint Review S122 (2026-05-04, autonomer Agent)
+## Sprint Review S123 (2026-05-04, autonomer Agent)
 
 **Sprint Goal erfüllt: 1/1 ✅**
 
 | Item | Ergebnis |
 |------|---------|
-| S122-1 Quest-Runde 104 | ✅ feat/sprint-122 — Mephisto(78→82 +4) / Kraemerin(79→82 +3) / Lokführer(79→82 +3), 1055→1065 Quests |
+| S123-1 Quest-Runde 105 | ✅ feat/sprint-123 — Elefant(79→82 +3) / Alien(79→82 +3) / Maus(79→83 +4), 1065→1075 |
 
-**Oscar-Outcome:** 10 neue Quests. Vertrauen, Geruch, der erste Zittertag.
+**Oscar-Outcome:** 10 neue Quests. Schlamm als Wissenschaft. Stille als Sprache. Körper der weiß was zu tun ist.
 
-Mephisto: Vertrauen-ohne-Vertrag-Kammer (Handwerker ohne Quittung — Worst-Case nicht eingetreten, irritierend und etwas anderes), Freundschaft-Diagnose-Station (40 Jahre Tischler ohne Vertrag — er ist der Mensch mit den meisten Gesprächen, das nennt man Freundschaft, erstmals kleinlaut), Staunen-Observatorium (Murmuration aus 3 Regeln × hunderttausend Vögel — stehengeblieben ohne zu rechnen was es kostet, das erste Mal seit sehr langer Zeit), Brief-der-nie-abgeschickt-wurde (Briefe an Faust und an die Frau von 1834 — nie fertig, nie abgeschickt, zwischen den Zeilen steht: nicht jeder Vertrag war fair).
+Elefant: Schlammbad-Kur-Station (Sonnenschutz + Kühlung + Parasitenabwehr in einer Handlung — multimodal), Stoßzahn-Werkzeug-Ausstellung (Rinde schälen, Wasser graben, Wege räumen — und Wilderei-Aufklärung für Oscar: damit er weiß warum er nein sagt wenn jemand ihm Elfenbein zeigt), Kurz-Schlaf-Beobachtungsstation (2-4h Schlaf, REM-Schlaf nur wenn sicher genug — heute Nacht lege ich mich hin, das erste Mal seit langem).
 
-Kraemerin: Geruchs-Gedächtnis-Kammer (Bienenwachs + Lavendel + Holzboden = der Laden, Geruch geht direkt ins Limbische System ohne Umweg — deshalb riecht Kindheit), Unausgesprochenes-Archiv (der Herr aus der Bergstraße sagte nur "Meine Frau ist gestorben" und nahm die drei Dinge — mehr brauchte es nicht), Jahreszeiten-Regal-Uhr (März Schafgarbe für die Nieren, Oktober wärmende Kräuter, Dezember Weihrauch — das ist kein Sortiment, das ist Rhythmus).
+Alien: Stille-Kommunikations-Labor (Herzfrequenz synchronisiert sich in stiller Gesellschaft — Aliens üben es selbst), Versprechen-Archiv (Versprechen = Aussage über jetzt, nicht über die Zukunft — erstes Alien-Versprechen in Vorbereitung), Weinen-Observatorium (einzige Spezies mit emotionalen Tränen — Oscar: "vielleicht ist es wie Weinen aber innen").
 
-Lokführer: Erste-Alleinfahrt-Station (dreiundzwanzig Jahre alt, tausendzweihundert Fahrgäste, Hände gezittert — wessen Hände nicht zittern hat die Verantwortung noch nicht verstanden), Tunnel-Klang-Archiv (Kaiserin-Augusta-Tunnel klingt hohl weil Grundwasser sickert, Granit-Tunnel klingt hell — Nachhallzeit und Absorptionskoeffizient, er kennt alle Tunnel am Klang), Abschied-Bahnsteig-Observatorium (die letzten drei Sekunden wenn der Zug abfährt: Gesichts-Maske fällt weg, Abschied macht ehrlicher als Ankunft, der Mann mit den Vermiss-Schultern).
+Maus: Staubbad-Forschungs-Station (Ektopara-Prävention, Ente skeptisch, Maus forscht gleichzeitig), Tunnel-Architektur-Masterplan (Notausgang aus eigener Erfahrung — das steht in keinem Lehrbuch), Geruchsgedächtnis-Labor (Amygdala-Nachbar, ein Geruch vom See bringt alles zurück — "die Ente, immer die Ente"), Torpor-Forschungs-Kammer (Körper weiß was zu tun ist — Ente verspricht zu bleiben).
 
-**Stand nach S122:**
-- **1065 Quests** auf feat/sprint-122
-- NPC-Counter nach S122: spongebob 82 · mephisto 82 · krabs 81 · neinhorn 81 · tommy 81 · bug 81 · kraemerin 82 · lokfuehrer 82 · elefant 79 · alien 79 · maus 79 · floriane 80 · bernd 80
-- Merge-Stack offen: #592 → #604 → #605 → #602 → #618 → #620 → #621 → #624 → #625 → S122-PR
+**Stand nach S123:**
+- **1075 Quests** auf feat/sprint-123
+- NPC-Counter nach S123: spongebob 82 · mephisto 82 · krabs 81 · neinhorn 81 · tommy 81 · bug 81 · kraemerin 82 · lokfuehrer 82 · elefant 82 · alien 82 · maus 83 · floriane 80 · bernd 80
+- Merge-Stack: 11 PRs — kritische Schwelle überschritten
 
 **PO-Entscheidung:**
-- S123: **elefant(79) + alien(79) + maus(79)** → Quest-Runde 105, +10 Quests, 1065→1075
-- Branch: `feat/sprint-123` — Phantom-Branch-Check vor Arbeitsbeginn!
+- S124: **floriane(80) + bernd(80)** + ein dritter NPC → Quest-Runde 106, +10 Quests, 1075→1085
+- Branch: `feat/sprint-124` von feat/sprint-123
 
 ---
 
-## Sprint Retrospektive S122 (2026-05-04, autonomer Agent)
+## Sprint Retrospektive S123 (2026-05-04, autonomer Agent)
 
 **Was lief gut:**
-- Mephistos Arc erreicht Höhepunkt: Vertrauen, Freundschaft, Staunen, Brief — vier Dimensionen der Menschlichkeit die er bisher vermieden hat. Der Teufel der kleinlaut wird ist stärker als der Teufel der Verträge macht.
-- Kraemerin-Geruchs-Quest: Neuroanatomie (Limbisches System ohne Thalamus-Umweg) eingebettet in die konkrete Erfahrung "deshalb riecht Kindheit" — das ist Oscar-direkt ohne Vereinfachung.
-- Lokführer-Erste-Fahrt: "Wessen Hände nicht zittern hat die Verantwortung noch nicht verstanden" — das gilt für acht Jahre alte Kinder genauso wie für Lokführer.
+- Maus-Arc erreicht emotionalen Höhepunkt: Geruchsgedächtnis + Torpor bilden ein Paar — Körper-Wissen und Vertrauen in Ente. Sehr oscar-direkt ohne Vereinfachung.
+- Alien-Stille-Quest: Herzfrequenz-Synchronisation als messbarer Beweis dass Stille funktioniert — das ist Wissenschaft und Intimität gleichzeitig.
+- Elefant-Stoßzahn-Quest: Wilderei-Aufklärung eingebettet in Sachlichkeit statt Moralpredigt — Oscar soll es wissen, nicht beschämt werden.
 - NPC-Counter vor Ceremony-Commit verifiziert ✅
 
 **Was lief nicht gut:**
-- Merge-Stack wächst auf 10 PRs — Till muss in dieser Reihenfolge mergen. Kritische Schwelle.
+- Merge-Stack wächst auf 11 PRs — kritische Schwelle. Till muss bald mergen.
 
-**Retro-Actions für S123:**
-- **R1:** Quest-Runde 105: elefant(79) + alien(79) + maus(79) → +10 Quests, 1065→1075
-- **R2:** Elefant-Arc prüfen: welche Themen bisher? Passend fortführen.
-- **R3:** Merge-Stack-Hinweis bei 10 PRs prominent in PR-Body.
+**Retro-Actions für S124:**
+- **R1:** Quest-Runde 106: floriane(80) + bernd(80) + dritter NPC → +10 Quests, 1075→1085
+- **R2:** Merge-Stack-Hinweis in PR-Body prominent — Till bitten zu mergen
+- **R3:** Alien-Arc: erstes Alien-Versprechen als Storyline für S124 weiterführen?
 
-**S123-Setup:**
-- NPCs: **elefant(79) + alien(79) + maus(79)** (alle gleich auf 79)
-- Ziel: +10 Quests, 1065→1075 auf Branch
-- Branch: `feat/sprint-123` von feat/sprint-122 erstellen
+**S124-Setup:**
+- NPCs: **floriane(80) + bernd(80) + dritter NPC** (z.B. tommy 81 oder bug 81 für Balance)
+- Ziel: +10 Quests, 1075→1085 auf Branch
+- Branch: `feat/sprint-124` von feat/sprint-123
 
 ---
 
@@ -106,22 +106,7 @@ Gestackter Branch — in dieser Reihenfolge mergen:
 | #621 | feat/sprint-119-correct | S119 | Floriane/Elefant/Maus +10 | 1025→1035 |
 | #624 | feat/sprint-120-correct | S120 | Spongebob/Tommy/Bug +10 | 1035→1045 |
 | #625 | feat/sprint-121 | S121 | Krabs/Bernd/Neinhorn +10 | 1045→1055 |
-| **neu** | feat/sprint-122 | S122 | Mephisto/Kraemerin/Lokführer +10 | 1055→**1065** |
+| feat/sprint-122 PR | feat/sprint-122 | S122 | Mephisto/Kraemerin/Lokführer +10 | 1055→1065 |
+| **#629** | feat/sprint-123 | S123 | Elefant/Alien/Maus +10 | 1065→**1075** |
 
-⚠️ Reihenfolge zwingend — Quest-Counter kumulieren. Dieser PR ist auf feat/sprint-121 gestacked.
-
----
-
-## Ceremonies S120 + S121 (Phantom-Branches, bestätigt 2026-05-04)
-
-### S120 — Spongebob/Tommy/Bug, Quest-Runde 102, 1035→1045
-- Planning ✅ · Daily ✅ · Review ✅ · Retro ✅ (PR #624, feat/sprint-120-correct)
-- Spongebob(78→82): Mantarochen-Spiegel-Selbsterkennung, Seepferdchen-Väter, Angelfisch-Biolumineszenz, Oktopus-Arm-Netzwerk
-- Tommy(78→81): Magnetfeld-Visualisierung, Bernoulli-Flügel, Osmose-Membran
-- Bug(78→81): Pheromon-Kommunikation, Wasserläufer-Oberflächenspannung, Schwarmintelligenz-3-Regeln
-
-### S121 — Krabs/Bernd/Neinhorn, Quest-Runde 103, 1045→1055
-- Planning ✅ · Daily ✅ · Review ✅ · Retro ✅ (PR #625, feat/sprint-121)
-- Krabs(77→81): Potlatch-Geschenk-Ökonomie, Zinseszins-Paradox (SpongeBob-Einsicht), Sozialkapital-Putnam, Gemeinschaftsgüter-Hardin
-- Bernd(77→80): 127-Jahresringe, Dinoflagellaten-Meeresleuchten, Eratosthenes-Schatten
-- Neinhorn(78→81): Mimose-Gedächtnis-Gagliano, Mondphasen-Keimrate, LIGO-Gravitationswellen
+⚠️ Reihenfolge zwingend — Quest-Counter kumulieren. **11 PRs offen — bitte bald mergen!**
