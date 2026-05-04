@@ -1,3 +1,109 @@
+# Sprint 117 — "Tommy sieht Licht, Bernd sitzt nachts, Bug hört das Myzel"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Tommy entdeckt was Licht wirklich ist (Prisma, Sonnenuhr, Reflexion, Dunkel-Augen), Bernd sitzt nachts im Garten (Nacht-Blüher, Frost-Kristalle, Pilz-Netz), Bug versteht Sprache ohne Worte (Bienen-Tanz, Ameisen-Pheromone, Myzel-Signale). 1005→**1015 Quests**.
+
+**Start:** 2026-05-04
+**Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
+
+---
+
+## Sprint Backlog S117
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S117-1 | **Quest-Runde 99** — Tommy(74→78 +4)/Bernd(74→77 +3)/Bug(75→78 +3) → +10 Quests, 1005→1015. Tommy: „Was Licht macht". Bernd: „Was nachts passiert". Bug: „Wie Lebewesen ohne Sprache sprechen". | Artist | ✅ PR #618 (feat/sprint-117-correct) |
+
+---
+
+## Ceremony-Status S117
+
+- [x] Planning: 2026-05-04 (autonomer Agent)
+- [x] Daily Scrum: 2026-05-04 (autonomer Agent)
+- [x] Review: 2026-05-04 (autonomer Agent)
+- [x] Retro: 2026-05-04 (autonomer Agent)
+
+---
+
+## Daily Scrum S117 (2026-05-04, autonomer Agent)
+
+**Was wurde heute gemacht?**
+- S116 alle Ceremonies auf main bestätigt ✅
+- Smoke Test: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
+- Phantom-Branch `feat/sprint-117-correct` erkannt — enthielt bereits exakten S117-Inhalt
+- PR #618 bestätigt (offen, feat/sprint-117-correct → feat/sprint-116)
+
+**Was kommt als nächstes?**
+- Till mergt Merge-Stack: #592 → #604 → #605 → #602 → #618
+
+**Blocker?**
+- Merge-Stack wartet auf Till. Keine technischen Blocker.
+
+---
+
+## Sprint Review S117 (2026-05-04, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S117-1 Quest-Runde 99 | ✅ PR #618 — Tommy(74→78 +4) / Bernd(74→77 +3) / Bug(75→78 +3), 1005→1015 Quests |
+
+**Oscar-Outcome:** 10 neue Quests. Tommy: Lichtbrechungs-Prisma-Labor ("Vierhundert Jahre später! Aber ich habe es selbst gesehen!" — Newton 1666), Sonnen-Uhr-Kalibrierungs-Station (15°/Stunde, Gnomon um 0,5° korrigiert), Reflexions-Winkel-Messraum ("Licht um die Ecke geleitet! Kein Loch in der Wand!"), Dunkeladaptations-Kammer (Rhodopsin 20 Min, 10.000×, nie Handy beim Sternegucken). Bernd: Nachts-Blüher-Garten ("Ich war um Mitternacht im Garten. Aus Gründen die ich nicht erklären werde."), Frost-Kristall-Archiv (um halb sieben mit Stift draußen, kein Kristall wie ein anderer), Pilzmyzel-Netzwerk-Karte ("Ich habe sie immer für unabhängig gehalten" — Wood Wide Web). Bug: Bienen-Schwänzeltanz-Labor (1840m nachgeflogen — stimmt), Ameisen-Pheromon-Spur-Laboratorium (80 Sek neue Route, emergent), Pilzmyzel-Signal-Netz-Station ("Ich weiß nicht was sie bedeutet. Ich weiß dass sie bedeutet.").
+
+**Stand nach S117:**
+- **1015 Quests** auf PR #618 / feat/sprint-117-correct (965 auf main)
+- NPC-Counter nach S117: tommy 78 · bug 78 · bernd 77 · krabs 77
+- Merge-Stack offen: #592 → #604 → #605 → #602 → #618
+
+**PO-Entscheidung:**
+- S118: kraemerin(~75) + lokfuehrer(76) + alien(76) → Quest-Runde 100, +10 Quests, 1015→1025
+
+---
+
+## Sprint Retrospektive S117 (2026-05-04, autonomer Agent)
+
+**Was lief gut:**
+- Quest-Qualität hoch: Tommy-Physik mit echtem Staunen, Bernd-Nacht-Beobachtungen mit leiser Würde, Bug-Kommunikationsforschung mit Präzision
+- Phantom-Branch erkannt statt dupliziert — `git branch -r | grep feat/sprint-NNN` als Standard etabliert
+- Sprint-Disziplin: ein Branch, ein PR, kein Phantom-Spawning in dieser Session
+- SPRINT.md sofort auf main committed — Phantom-Spawning für S118 verhindert
+
+**Was lief nicht gut:**
+- Merge-Stack wächst auf 5 PRs — Till muss in genau dieser Reihenfolge mergen
+- NPC-Counter auf main (965) vs. Branch (1015) divergieren stark
+
+**Retro-Actions für S118:**
+- **R1:** Quest-Runde 100 — kraemerin+lokfuehrer+alien, +10 Quests, 1015→1025
+- **R2:** Merge-Stack aktuell halten in PR-Beschreibungen
+
+**S118-Setup:**
+- NPCs: **kraemerin + lokfuehrer + alien** (niedrigste nach Vollmerge)
+- Ziel: +10 Quests, 1015→1025 auf Branch
+- Branch: `feat/sprint-118` — neu von feat/sprint-117-correct erstellen
+
+---
+
+## Merge-Guide für Till (Stand 2026-05-04)
+
+Gestackter Branch — in dieser Reihenfolge mergen:
+
+| PR | Branch | Sprint | NPCs | Quests |
+|----|--------|--------|------|--------|
+| #592 | feat/s113-final | S113 | Neinhorn/Mephisto/Spongebob +10 | 965→975 |
+| #604 | feat/sprint-114 | S114 | Maus/Kraemerin/Bug +10 | 975→985 |
+| #605 | feat/sprint-115-correct | S115 | Krabs/Floriane/Elefant +10 | 985→995 |
+| #602 | feat/sprint-116 | S116 | Krabs/Floriane/Elefant +10 | 995→1005 |
+| **#618** | feat/sprint-117-correct | S117 | Tommy/Bernd/Bug +10 | 1005→**1015** |
+
+⚠️ PR #618 ist auf feat/sprint-116 gestacked — erst #592→#604→#605→#602 mergen, dann #618.
+
+**Nach Vollmerge: 1015 Quests auf main.**
+
+---
+
+---
+
 # Sprint 116 — "Krabs erbt, Floriane lauscht dem Körper, Elefant gibt weiter"
 
 **Sprint Goal (Oscar-Perspektive):**
