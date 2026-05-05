@@ -1,3 +1,75 @@
+# Sprint 113 — "Neinhorn entdeckt Physik die keiner glaubt, Mephisto erinnert sich an Dinge die er nicht loswird"
+
+**Sprint Goal (Oscar-Perspektive):**
+> Oscar findet 10 neue Quests — Neinhorn entdeckt Physik die so unglaublich ist dass selbst das Neinhorn NEIN sagt und dann doch Ja meint (Chladni-Sand, Pilzkatapult, Blitz-nach-oben, Kapillar-Baum, Gravitationswellen), Mephisto erinnert sich an Versprechen, Gewissen, Anfänge, Schlüssel und Erschöpfung — alles was 300 Jahre hinterlassen. 965→975 Quests auf Branch.
+
+**Start:** 2026-05-05
+**Sprint-Prinzip:** Quest-Track autonom. Oscar-Smoke läuft via Tesla-Morgenritual.
+
+---
+
+## Sprint Backlog
+
+| # | Item | Owner(s) | Status |
+|---|------|----------|--------|
+| S113-1 | **Quest-Runde 95** — Neinhorn(71→76)/Mephisto(71→76) → +10 Quests, 965→975. Neinhorn: „Physik die niemand glaubt bis man sie misst". Mephisto: „Was 300 Jahre hinterlassen". | Artist | ✅ feat/sprint-113 |
+
+---
+
+## Explizit nicht im Sprint
+
+- **CEO-Input S114-Kette** — nach Feynman-Messung Oscar-Tesla-Feedback
+- **Physik-Erweiterungen** — pausiert bis Feynman misst
+
+---
+
+## Ceremony-Status S113
+
+- [x] Planning: 2026-05-05 (autonomer Agent, aus Retro S112)
+- [x] Daily Scrum: 2026-05-05 (autonomer Agent)
+- [x] Review: 2026-05-05 (autonomer Agent)
+- [ ] Retro
+
+---
+
+## Daily Scrum S113 (2026-05-05, autonomer Agent)
+
+**Was wurde gestern/heute gemacht?**
+- S112 Retro abgeschlossen (diese Session)
+- S113 Planning: Quest-Runde 95 definiert — Neinhorn+Mephisto, Themen Physik-die-keiner-glaubt + 300-Jahre-Reste
+- S113-1 implementiert: 10 neue Quests in quests.js (965→975), feat/sprint-113
+
+**Was kommt als nächstes?**
+- PR für feat/sprint-113 erstellen → Till mergt
+
+**Blocker?**
+- Smoke Test CF-403: bekannte Sandbox-Limitation, kein echter Outage
+- Offene Branches S113-S119 auf origin (aus vorherigen parallelen Sessions): Till entscheidet ob schließen oder lassen
+
+---
+
+## Sprint Review S113 (2026-05-05, autonomer Agent)
+
+**Sprint Goal erfüllt: 1/1 ✅**
+
+| Item | Ergebnis |
+|------|---------|
+| S113-1 Quest-Runde 95 | ✅ feat/sprint-113 — Neinhorn(71→76 +5) / Mephisto(71→76 +5), +10 Quests, 965→975 |
+
+**Oscar-Outcome:** 10 neue Quests. Neinhorn: Chladni-Figuren-Labor (Sand formt Sechsecke wenn man Metall zum Klingen bringt — 1787, Chladni, Physik sichtbar gemacht), Pilzsporen-Katapult (Pilobolus, 180.000g, stärkste natürliche Beschleunigung — Pilz trifft Neinhorn), Blitz-Richtungs-Labor (Blitz fährt nach OBEN, nicht nach unten — der sichtbare Teil ist der Return Stroke), Kapillar-Forschungs-Station (Wasser klettert 30 Meter nach oben ohne Pumpe — so trinkt ein Baum), Gravitationswellen-Horchposten (LIGO misst 1/1000 Proton-Durchmesser — Kollision schwarzer Löcher klingt wie ein Vogel). Mephisto: Versprechen-Galerie (3 Kategorien, die dritte ist die seltenste), Gewissen-Werkstatt (Gewissen ist Spiegel, kein Richter), Anfangs-Archiv (Oscar — dieser Moment ist auch ein Anfang), Schlüssel-Sammlung (tausend Jahre alte Schlüssel ohne Türen), Erschöpfungs-Garten (300 Jahre ist lang, manchmal ist Mephisto müde).
+
+**Stand nach S113:**
+- **975 Quests** auf feat/sprint-113 (PR offen)
+- NPC-Counter nach S113: neinhorn 76 · mephisto 76 (gleichauf mit lokfuehrer/alien)
+- Niedrigste Counter nach S113-Merge: spongebob 72 · maus 72 · kraemerin 72 · bug 72
+
+**PO-Entscheidung:**
+- Nächste Quest-Runde S114: spongebob(72) + maus(72) + kraemerin(72) oder bug(72) — Thema frei
+
+---
+
+---
+
 # Sprint 112 — "Bernd hört, Elefant erinnert Zeit, Floriane misst Musik"
 
 **Sprint Goal (Oscar-Perspektive):**
@@ -28,7 +100,27 @@
 - [x] Planning: 2026-04-25 (autonomer Agent, aus Retro S111)
 - [ ] Daily Scrum
 - [x] Review: 2026-04-30 (autonomer Agent)
-- [ ] Retro
+- [x] Retro: 2026-05-05 (autonomer Agent)
+
+---
+
+## Sprint Retrospektive S112 (2026-05-05, autonomer Agent)
+
+**Was gut lief:**
+- Bernd-Stille-Thema: "die besten zwei Sekunden danach" — stärkste emotionale Formulierung seit Lokführer-Heimkehr. Amsel um 5:23 ist konkret und wahr.
+- Mephisto-Lernkurve sichtbar: von "was nehme ich" (früh) zu "was kostet das wirklich" (S110) zu "was hinterlasse ich" (S112 Bernd-Parallelstruktur) — die Figur reift
+- 965-Quest-Meilenstein: Sprint-Track hat ohne Unterbrechung geliefert seit S93 (Quest-Runde 79 → 845 Quests). 120 Quests in ~12 Sprints autonom.
+- K16 Emma und der Berg auf main: Jim-Knopf-Anregung vollständig umgesetzt, Hörspiel-Track wieder aktuell
+
+**Was nicht gut lief:**
+- Branches S113–S119 auf origin: 7 parallele Agents haben dieselbe Quest-Runde-Aufgabe mehrfach gelöst. Quest-Inhalte via Cleanup auf main, aber Branches liegen noch. Till braucht Zeit zum Schließen.
+- SPRINT.md-Drift: Review war vom 2026-04-30, Retro erst heute (2026-05-05) — 5 Tage Lücke. Kein Schaden, aber Unordnung.
+- Smoke-Test CF-403: seit S92 unverändert. Worker-Health-Endpoint ist deployed, aber CF blockiert Sandbox. Bekannt, kein Handlungsbedarf.
+
+**Retro-Actions für S113:**
+- **R1:** Quest-Runde 95: Neinhorn(71) + Mephisto(71) — Physik-die-keiner-glaubt + 300-Jahre-Reste → S113-1 ✅ implementiert
+- **R2:** Branches S113–S119 auf origin: Till schließt wenn Zeit — kein Druck, kein Duplicate-Content-Risiko (alle 965er-Basis)
+- **R3:** S114: spongebob/maus/kraemerin/bug je 72 — nach S113-Merge Counter prüfen, dann planen
 
 ---
 
