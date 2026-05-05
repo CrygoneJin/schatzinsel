@@ -1,22 +1,22 @@
-# Sprint 124 — "Floriane hört ins Unsichtbare, Bernd steht früh auf, Tommy macht Strom"
+# Sprint 125 — "Krabs versteht Yunus, Neinhorn sieht das Magnetfeld, Bug friert durch"
 
 **Sprint Goal (Oscar-Perspektive):**
-> Oscar findet 10 neue Quests — Floriane entdeckt Töne die der Körper fühlt obwohl das Ohr sie nicht hört, legt zum ersten Mal die Noten weg, und erkennt Oscars Stimme als einzigartig; Bernd beobachtet Zugvögel bis alle weg sind, steht jeden Morgen um 5:30 auf wegen Tau, und findet einen Fels der sieben Zeitalter trägt; Tommy lässt Wasser klettern, Kreisel stehen, Magnete Strom machen und zeigt das ganze Wetter in einem Glastank. 1075→**1085 Quests**.
+> Oscar findet 10 neue Quests — Krabs entdeckt dass Vertrauen besser sichert als Gold (Yunus-Mikro-Kredit), dass Adam Smith zwei Bücher geschrieben hat und das zweite wichtiger ist, dass Gaben-Kreislauf die unsichtbare Wirtschaft unter der Wirtschaft ist, und dass mehr Geld ab einem Punkt nicht mehr glücklicher macht; Neinhorn muss dreimal NEIN sagen und dreimal zurücknehmen (Magnetosehen, Quanten-Photosynthese, Elektrischer Aal); Bug beobachtet Glühwürmchen die er ansprechen kann, erinnert sich an sein Leben als Raupe, und lernt von einem Frosch wie man richtig einfriert um wieder aufzuwachen. 1085→**1095 Quests**.
 
 **Start:** 2026-05-05
 **Sprint-Prinzip:** Quest-Track autonom. Ein Branch pro Sprint — kein Phantom-Spawning.
 
 ---
 
-## Sprint Backlog S124
+## Sprint Backlog S125
 
 | # | Item | Owner(s) | Status |
 |---|------|----------|--------|
-| S124-1 | **Quest-Runde 106** — Floriane(80→83 +3)/Bernd(80→83 +3)/Tommy(81→85 +4) → +10 Quests, 1075→1085. Floriane: „Infraschall, Stimmabdruck, Improvisation". Bernd: „Vogelzug, Tau, Gestein". Tommy: „Kapillar, Kreisel, Induktion, Konvektion". | Artist | ✅ feat/sprint-124 |
+| S125-1 | **Quest-Runde 107** — Krabs(81→85 +4)/Neinhorn(81→84 +3)/Bug(81→84 +3) → +10 Quests, 1085→1095. Krabs: „Mikro-Kredit, Unsichtbare Hand, Reziprozität, Genüge-Paradox". Neinhorn: „Magnetosehen, Quanten-Photosynthese, Elektrischer Aal". Bug: „Biolumineszenz, Metamorphose, Holzfrosch". | Artist | ✅ feat/sprint-125 |
 
 ---
 
-## Ceremony-Status S124
+## Ceremony-Status S125
 
 - [x] Planning: 2026-05-05 (autonomer Agent)
 - [x] Daily Scrum: 2026-05-05 (autonomer Agent)
@@ -25,70 +25,70 @@
 
 ---
 
-## Daily Scrum S124 (2026-05-05, autonomer Agent)
+## Daily Scrum S125 (2026-05-05, autonomer Agent)
 
 **Was wurde heute gemacht?**
-- S124 Planning: floriane(80→83 +3) / bernd(80→83 +3) / tommy(81→85 +4), Ziel 1075→1085
-- S124-1 implementiert: Quest-Runde 106, +10 Quests auf feat/sprint-124 (von feat/sprint-123)
+- S125 Planning: krabs(81→85 +4) / neinhorn(81→84 +3) / bug(81→84 +3), Ziel 1085→1095
+- S125-1 implementiert: Quest-Runde 107, +10 Quests auf feat/sprint-125 (von feat/sprint-124)
 
 **Was kommt als nächstes?**
-- PR erstellen, gestacked auf feat/sprint-123
-- Till mergt in Reihenfolge (12 PRs offen — Merge-Stack kritisch)
+- PR erstellen, gestacked auf feat/sprint-124
+- Till mergt in Reihenfolge (13 PRs offen — Merge-Stack kritisch, bitte bald mergen)
 
 **Blocker?**
 - Smoke Tests: CF-403 + Worker "Host not in allowlist" — bekannte Sandbox-Limitation seit S92, kein Outage
-- Merge-Stack: 12 PRs — Till bitten zu mergen
+- Merge-Stack: 13 PRs — Till dringend bitten zu mergen
 
 ---
 
-## Sprint Review S124 (2026-05-05, autonomer Agent)
+## Sprint Review S125 (2026-05-05, autonomer Agent)
 
 **Sprint Goal erfüllt: 1/1 ✅**
 
 | Item | Ergebnis |
 |------|---------|
-| S124-1 Quest-Runde 106 | ✅ feat/sprint-124 — Floriane(80→83 +3) / Bernd(80→83 +3) / Tommy(81→85 +4), 1075→1085 |
+| S125-1 Quest-Runde 107 | ✅ feat/sprint-125 — Krabs(81→85 +4) / Neinhorn(81→84 +3) / Bug(81→84 +3), 1085→1095 |
 
-**Oscar-Outcome:** 10 neue Quests. Töne die man fühlt aber nicht hört. Ein Fels der sieben Zeitalter trägt. Strom aus einem schwingenden Magneten.
+**Oscar-Outcome:** 10 neue Quests. Krabs lernt Yunus. Neinhorn sieht was Vögel sehen. Bug friert durch und wacht wieder auf.
 
-Floriane: Infraschall-Körper-Labor (18,98 Hz macht Gänsehaut ohne dass man hört warum — Elefanten kommunizieren so über Kilometer, manche Gebäude fühlen sich unheimlich an aus demselben Grund), Stimmabdruck-Archiv (Formanten als Fingerabdruck der Stimme — Floriane hat Oscars Stimme analysiert und ein Muster gefunden das sie noch nie gemessen hat), Erste-Improvisation-Kammer (nach 30 Jahren Wissenschaft legt Floriane die Noten weg — zwölf Minuten, zitternde Hände danach, das Erste-Mal-Gefühl).
+Krabs: Mikro-Kredit-Kammer (Grameen Bank 97% Rückzahlungsrate — die Ärmsten sind die zuverlässigsten Schuldner, Charakter ist Sicherheit, ARR — das hätte ich nie gedacht), Unsichtbare-Hand-Problem-Kammer (Adam Smith hat zuerst "Theory of Moral Sentiments" geschrieben — der Markt ohne Moral ist ein Monster, SpongeBob hatte recht ohne Smith gelesen zu haben), Reziprozität-Registratur (Marcel Mauss Kula-Ring — Gaben-Kreislauf als Wirtschaft unter der Wirtschaft, ARR — jetzt führe ich einen nicht-käuflichen Gaben-Kalender), Genüge-Paradox-Labor (Easterlin-Paradox: 30 Länder, mehr Geld macht ab einem Punkt nicht mehr glücklicher — ARR — ich habe mein ganzes Leben über den Punkt hinaus weitergesammelt).
 
-Bernd: Vogelzug-Observatorium (drei Navigationssysteme parallel: Magnetfeld sehen, Sterne prägen, Infraschall als Landkarte — Bernd wartet bis alle weg sind, zwei Stunden draußen, nicht geplant), Morgentau-Messstation (Tau ist kein Regen, er entsteht wo es am kältesten ist — Bernd steht seitdem jeden Morgen um 5:30 auf, "das möchte ich nicht wieder verpassen"), Gesteins-Zeit-Karte (sieben Schichten = sieben Zeitalter, eines davon war Meeresgrund — "sehr geduldige Buchführung, das kommt von jemandem der selbst gerne Buchführung macht").
+Neinhorn: Magnetosehe-Forschungs-Kammer (Cryptochrom-Proteine — Rotkehlchen sehen das Magnetfeld als Farbüberlagerung im Sichtfeld, NEIN das ist zu viel! *Mon Dieu. Sie sehen etwas das ich nicht sehe.*), Quanten-Photosynthese-Labor (Fleming Lab 2007 — Quantenüberlagerung erklärt die fehlenden 25-35% Effizienz, NEIN Blätter sind keine Quantencomputer! *Mon Dieu. Jedes Blatt. Jedes.*), Elektrischer-Aal-Kraftwerk-Kammer (Zitteraal 600V aus 6000 Elektrozyten — Volta hat entdeckt was der Aal schon kannte, NEIN aber das heißt— *Mon Dieu. Ich setze mich jetzt.*).
 
-Tommy: Kapillar-Kraft-Labor (Wasser klettert ohne Pumpe in dünnen Röhren — dasselbe Prinzip das Bäume hundert Meter hoch treibt), Kreisel-Gyroscop-Station (angular Momentum erklärt Fahrrad, Erde, Nordstern — Tommy balanciert 23 Sekunden auf dem Bleistift, der lockige Mann klatscht), Induktions-Strom-Generator (Faraday 1831: Magnet + Spule = Strom — Tommy macht sein eigenes Lämpchen leuchten ohne Steckdose), Konvektions-Zirkulations-Tank (warme Luft steigt, kalte sinkt, Tintentropfen zeigt den Kreis — "das ist das Wetter in meinem Tank").
+Bug: Biolumineszenz-Beobachtungs-Kammer (Glühwürmchen 95% Lichtausbeute — Bug leuchtet zurück im gleichen Rhythmus, Antwort kommt zweimal, "ich weiß nicht was ich gesagt habe"), Metamorphose-Kammer (Autolyse in der Puppe — Selbstverdauung, Imaginalscheiben, Gedächtnis überlebt die Auflösung, "ich bin das zweite Tier"), Holzfrosch-Kälte-Labor (Rana sylvatica friert durch, Herz hört auf, Glucose als Cryoprotektant, im Frühjahr springt er weg — "ich weiß nicht wie man das macht").
 
-**Stand nach S124:**
-- **1085 Quests** auf feat/sprint-124
-- NPC-Counter nach S124: spongebob 82 · mephisto 82 · krabs 81 · neinhorn 81 · tommy 85 · bug 81 · kraemerin 82 · lokfuehrer 82 · elefant 82 · alien 82 · maus 83 · floriane 83 · bernd 83
-- Merge-Stack offen: 12 PRs — kritisch, Till bitten
+**Stand nach S125:**
+- **1095 Quests** auf feat/sprint-125
+- NPC-Counter nach S125: spongebob 82 · mephisto 82 · krabs 85 · neinhorn 84 · tommy 85 · bug 84 · kraemerin 82 · lokfuehrer 82 · elefant 82 · alien 82 · maus 83 · floriane 83 · bernd 83
+- Merge-Stack offen: 13 PRs — **dringend**, Till bitten
 
 **PO-Entscheidung:**
-- S125: **krabs(81) + neinhorn(81) + bug(81)** → Quest-Runde 107, +10 Quests, 1085→1095
-- Branch: `feat/sprint-125` von feat/sprint-124
+- S126: **spongebob(82) + mephisto(82) + kraemerin(82)** oder **lokfuehrer(82) + elefant(82) + alien(82)** → Quest-Runde 108, +10 Quests, 1095→1105
+- Branch: `feat/sprint-126` von feat/sprint-125
 
 ---
 
-## Sprint Retrospektive S124 (2026-05-05, autonomer Agent)
+## Sprint Retrospektive S125 (2026-05-05, autonomer Agent)
 
 **Was lief gut:**
-- Florianes Improvisation-Quest: 30 Jahre Wissenschaft und dann zum ersten Mal ohne Noten — das ist Florianes eigener "Erste-Fahrt-Moment" analog zu Lokführers Erst-Allein-Fahrt. Symmetrie die nicht geplant war aber passt.
-- Tommy-Induktion: "ICH BIN FARADAY!" — das ist der Kern was Schatzinsel sein will. Acht Jahre alt, Magnet und Spule, Lämpchen leuchtet ohne Steckdose.
-- Bernd-Gestein: "sehr geduldige Buchführung, das kommt von jemandem der selbst gerne Buchführung macht" — Bernd findet sich im Stein. Sanft und präzise.
+- Krabs-Genüge-Paradox: "Ich habe mein ganzes Leben über den Punkt hinaus weitergesammelt" — das ist Krabs' aufrichtigster Satz. Kein ARR-Schrei. Nur: Hmm. Ich schaue trotzdem nach. Das ist sein schwerster Erkenntnismoment seit dem Grillgeruch.
+- Neinhorn-Elektrischer Aal: "Volta hat nicht die Batterie erfunden. Er hat entdeckt was der Aal schon kannte." — NEIN kippt in Ehrfurcht, nicht in Kapitulation. Das ist die Neinhorn-Stärke.
+- Bug-Biolumineszenz: "Ich habe zurückgeleuchtet. Es hat zweimal geantwortet. Dann war es weg. Ich weiß nicht was ich gesagt habe." — das ist der stärkste Bug-Schlusssatz seit dem Myzel-Signal.
 - NPC-Counter vor Ceremony-Commit verifiziert ✅
 
 **Was lief nicht gut:**
-- Merge-Stack wächst auf 12 PRs — Grenze deutlich überschritten. Till muss bald mergen.
-- Tommy auf 85 ist jetzt deutlich vor allen anderen (81-83) — balancieren in S125/S126.
+- Merge-Stack wächst auf 13 PRs — Grenze deutlich überschritten. Till muss bald mergen.
+- krabs jetzt auf 85, gleichauf mit tommy — beide vorne. Balancieren in S126/S127.
 
-**Retro-Actions für S125:**
-- **R1:** Quest-Runde 107: krabs(81) + neinhorn(81) + bug(81) → +10 Quests, 1085→1095
-- **R2:** Merge-Stack prominent in PR-Body: 12 PRs, Reihenfolge zwingend
-- **R3:** Tommy-Balance im Auge behalten — spätestens S127 andere NPCs mehr Quests
+**Retro-Actions für S126:**
+- **R1:** Quest-Runde 108: spongebob(82) + mephisto(82) + kraemerin(82) ODER lokfuehrer(82) + elefant(82) + alien(82) → +10 Quests, 1095→1105
+- **R2:** Merge-Stack prominent in PR-Body: 13 PRs, Reihenfolge zwingend
+- **R3:** Krabs+Tommy Balance: ab S127 andere NPCs mehr Quests
 
-**S125-Setup:**
-- NPCs: **krabs(81) + neinhorn(81) + bug(81)** (alle drei gleich auf 81)
-- Ziel: +10 Quests, 1085→1095 auf Branch
-- Branch: `feat/sprint-125` von feat/sprint-124
+**S126-Setup:**
+- NPCs: **spongebob(82) + mephisto(82) + kraemerin(82)** (erste Gruppe der 82er)
+- Ziel: +10 Quests, 1095→1105 auf Branch
+- Branch: `feat/sprint-126` von feat/sprint-125
 
 ---
 
@@ -109,6 +109,7 @@ Gestackter Branch — in dieser Reihenfolge mergen:
 | #625 | feat/sprint-121 | S121 | Krabs/Bernd/Neinhorn +10 | 1045→1055 |
 | feat/sprint-122 PR | feat/sprint-122 | S122 | Mephisto/Kraemerin/Lokführer +10 | 1055→1065 |
 | #629 | feat/sprint-123 | S123 | Elefant/Alien/Maus +10 | 1065→1075 |
-| **neu** | feat/sprint-124 | S124 | Floriane/Bernd/Tommy +10 | 1075→**1085** |
+| feat/sprint-124 PR | feat/sprint-124 | S124 | Floriane/Bernd/Tommy +10 | 1075→1085 |
+| **neu** | feat/sprint-125 | S125 | Krabs/Neinhorn/Bug +10 | 1085→**1095** |
 
-⚠️ Reihenfolge zwingend — Quest-Counter kumulieren. **12 PRs offen — bitte bald mergen!**
+⚠️ Reihenfolge zwingend — Quest-Counter kumulieren. **13 PRs offen — bitte dringend mergen!**
